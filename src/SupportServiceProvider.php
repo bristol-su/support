@@ -3,6 +3,7 @@
 namespace BristolSU\Support;
 
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\Activity\ActivityServiceProvider;
 use BristolSU\Support\Authentication\AuthenticationServiceProvider;
 use BristolSU\Support\Completion\CompletionServiceProvider;
 use BristolSU\Support\Control\ControlClientServiceProvider;
@@ -27,6 +28,7 @@ class SupportServiceProvider extends ServiceProvider
 {
 
     protected $providers = [
+        ActivityServiceProvider::class,
         CompletionServiceProvider::class,
         ControlClientServiceProvider::class,
         ControlServiceProvider::class,

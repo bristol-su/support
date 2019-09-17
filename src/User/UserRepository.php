@@ -3,7 +3,6 @@
 namespace BristolSU\Support\User;
 
 use BristolSU\Support\User\Contracts\UserRepository as UserRepositoryContract;
-use BristolSU\Support\User\User;
 
 class UserRepository implements UserRepositoryContract
 {
