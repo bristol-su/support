@@ -1,0 +1,42 @@
+<?php
+
+namespace BristolSU\Support\Filters;
+
+use BristolSU\Support\Filters\ConfigFilterRepository;
+use BristolSU\Support\Filters\Contracts\FilterFactory as FilterFactoryContract;
+use BristolSU\Support\Filters\Contracts\FilterInstance as FilterInstanceContract;
+use BristolSU\Support\Filters\Contracts\FilterInstanceRepository as FilterInstanceRepositoryContract;
+use BristolSU\Support\Filters\Contracts\FilterRepository as FilterRepositoryContract;
+use BristolSU\Support\Filters\Contracts\FilterTester as FilterTesterContract;
+use BristolSU\Support\Filters\FilterInstance;
+use BristolSU\Support\Filters\FilterInstanceRepository;
+use BristolSU\Support\Filters\FilterTester;
+use Illuminate\Support\ServiceProvider;
+
+class FilterServiceProvider extends ServiceProvider
+{
+    /**
+     * Register services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->bind(FilterRepositoryContract::class, ConfigFilterRepository::class);
+        $this->app->bind(FilterFactoryContract::class, \BristolSU\Support\Filters\FilterFactory::class);
+        $this->app->bind(FilterTesterContract::class, FilterTester::class);
+
+        $this->app->bind(FilterInstanceContract::class, FilterInstance::class);
+        $this->app->bind(FilterInstanceRepositoryContract::class, FilterInstanceRepository::class);
+    }
+
+    /**
+     * Bootstrap services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        //
+    }
+}

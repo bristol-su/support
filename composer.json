@@ -1,0 +1,43 @@
+{
+    "name": "bristol-su/support",
+    "description": "",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toby Twigger",
+            "email": "toby.twigger@bristol.ac.uk"
+        }
+    ],
+  "type": "library",
+  "require": {
+        "php": "^7.2",
+        "laravel/framework": "^6.0",
+        "nao-pon/flysystem-google-drive": "^1.1",
+        "twigger/unioncloud": "^1.0.1",
+        "laravel/passport": "^7.4"
+    },
+    "require-dev": {
+        "orchestra/testbench": "^4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "BristolSU\\Support\\": "src/"
+        },
+        "classmap": [
+            "database/seeds/",
+            "database/factories/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BristolSU\\Support\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BristolSU\\Support\\SupportServiceProvider"
+            ]
+        }
+    }
+}
