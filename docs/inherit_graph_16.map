@@ -1,0 +1,10 @@
+<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1ActivityInstance_1_1Exceptions_1_1NotInActivityInstanceException.html" title="BristolSU\\Support\\Activity\lInstance\\Exceptions\\NotInActivity\lInstanceException" alt="" coords="146,5,367,61"/>
+<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresAdmin.html" title="BristolSU\\Support\\Authorization\l\\Exception\\ActivityRequiresAdmin" alt="" coords="146,86,367,127"/>
+<area shape="rect" id="node4" href="$classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresParticipant.html" title="BristolSU\\Support\\Authorization\l\\Exception\\ActivityRequiresParticipant" alt="" coords="133,151,380,193"/>
+<area shape="rect" id="node8" href="$classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ModuleInactive.html" title="BristolSU\\Support\\Authorization\l\\Exception\\ModuleInactive" alt="" coords="153,217,360,258"/>
+<area shape="rect" id="node9" href="$classBristolSU_1_1Support_1_1ModuleInstance_1_1Connection_1_1NoConnectionAvailable.html" title="BristolSU\\Support\\Module\lInstance\\Connection\\NoConnection\lAvailable" alt="" coords="142,283,371,339"/>
+<area shape="rect" id="node5" href="$classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresGroup.html" title="BristolSU\\Support\\Authorization\l\\Exception\\ActivityRequiresGroup" alt="" coords="428,86,647,127"/>
+<area shape="rect" id="node6" href="$classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresRole.html" title="BristolSU\\Support\\Authorization\l\\Exception\\ActivityRequiresRole" alt="" coords="432,151,643,193"/>
+<area shape="rect" id="node7" href="$classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresUser.html" title="BristolSU\\Support\\Authorization\l\\Exception\\ActivityRequiresUser" alt="" coords="431,217,643,258"/>
+</map>
