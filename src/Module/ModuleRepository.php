@@ -2,15 +2,9 @@
 
 namespace BristolSU\Support\Module;
 
-use BristolSU\Support\Completion\ConfigCompletionEventRepository;
-use BristolSU\Support\Completion\Contracts\CompletionEventRepository;
-use BristolSU\Support\Module\Contracts\Module as ModuleContract;
 use BristolSU\Support\Module\Contracts\ModuleFactory as ModuleFactoryContract;
 use BristolSU\Support\Module\Contracts\ModuleManager as ModuleManagerContract;
 use BristolSU\Support\Module\Contracts\ModuleRepository as ModuleRepositoryContract;
-use BristolSU\Support\Permissions\Contracts\PermissionRepository;
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Filesystem\Filesystem;
 
 class ModuleRepository implements ModuleRepositoryContract
 {

@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Logic;
 
-use BristolSU\Support\Filters\ConfigFilterRepository;
+use BristolSU\Support\Filters\FilterRepository;
 use BristolSU\Support\Filters\Contracts\FilterFactory as FilterFactoryContract;
 use BristolSU\Support\Filters\Contracts\FilterInstance as FilterInstanceContract;
 use BristolSU\Support\Filters\Contracts\FilterRepository as FilterRepositoryContract;

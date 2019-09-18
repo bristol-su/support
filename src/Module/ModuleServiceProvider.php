@@ -2,6 +2,9 @@
 
 namespace BristolSU\Support\Module\ServiceProvider;
 
+use BristolSU\Support\Completion\Contracts\CompletionEventManager;
+use BristolSU\Support\Module\Contracts\ModuleManager;
+use BristolSU\Support\Permissions\Facade\Permission;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -26,18 +29,54 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     protected $defer = false;
 
+    protected $permissions = [];
+    
+    protected $completionEvents = [];
+    
     public function boot()
     {
+        $this->registerModule();
+        $this->registerPermissions();
+        $this->registerCompletionEvents();
         $this->registerTranslations();
         $this->registerConfig();
-//        $this->registerViews();
-//        $this->registerFactories();
-//        $this->loadMigrationsFrom(__DIR__ . '/../Database/migrations');
-//        $this->mapWebRoutes();
-//        $this->mapApiRoutes();
-
+        $this->registerViews();
+        $this->registerFactories();
+        $this->loadMigrations();
+        $this->mapWebRoutes();
+        $this->mapApiRoutes();
     }
 
+    public function registerModule()
+    {
+        $this->app->make(ModuleManager::class)->register($this->alias());
+    }
+
+    public function registerPermissions()
+    {
+        foreach($this->permissions as $ability => $permission) {
+            if(!array_key_exists('name', $permission) || !array_key_exists('description', $permission)) {
+                throw new \Exception('Name and description of permission required.');
+            }
+            if(!array_key_exists('admin', $permission)) {
+                $permission['admin'] = false;
+            }
+            Permission::register($ability, $permission['name'], $permission['description'], $this->alias(), $permission['admin']);
+        }
+    }
+
+    public function registerCompletionEvents()
+    {
+//        dd("here");
+        $manager = $this->app->make(CompletionEventManager::class);
+        foreach($this->completionEvents as $class => $meta) {
+            if(!array_key_exists('name', $meta) || !array_key_exists('description', $meta)) {
+                throw new \Exception('Name and description of event required.');
+            }
+            $manager->registerEvent($this->alias(), $meta['name'], $class, $meta['description']);
+        }
+    }
+    
     public function registerTranslations()
     {
         $this->loadTranslationsFrom($this->baseDirectory() . '/../resources/lang', $this->alias());
@@ -52,51 +91,46 @@ abstract class ModuleServiceProvider extends ServiceProvider
         );
     }
 
-//    public function registerViews()
-//    {
-//        $viewPath = resource_path('views/modules/fileupload');
-//
-//        $sourcePath = __DIR__ . '/../Resources/views';
-//
-//        $this->publishes([
-//            $sourcePath => $viewPath
-//        ], 'views');
-//
-//        $this->loadViewsFrom(array_merge(array_map(function ($path) {
-//            return $path . '/modules/fileupload';
-//        }, Config::get('view.paths')), [$sourcePath]), 'fileupload');
-//    }
-//
-//    public function registerFactories()
-//    {
-//        if (!app()->environment('production')) {
-//            app(Factory::class)->load(__DIR__ . '/../Database/factories');
-//        }
-//    }
-//
-//    public function mapWebRoutes()
-//    {
-//        Route::prefix('{activity_slug}/{module_instance_slug}')
-//            ->middleware(['web', 'module'])
-//            ->namespace($this->namespace)
-//            ->group(__DIR__ . '/../Routes/web.php');
-//    }
-//
-//    public function mapApiRoutes()
-//    {
-//        Route::prefix('{activity_slug}/{module_instance_slug}')
-//            ->middleware(['api', 'module'])
-//            ->namespace($this->namespace)
-//            ->group(__DIR__ . '/../Routes/api.php');
-//    }
+    public function registerViews()
+    {
+        $this->publishes([
+            $this->baseDirectory() . '/../resources/views' => resource_path('views/vendor/' . $this->alias()),
+        ], 'views');
+
+        $this->loadViewsFrom($this->baseDirectory() . '/../resources/views', $this->alias());
+    }
+
+    public function registerFactories()
+    {
+        if (!app()->environment('production')) {
+            $this->app->make(Factory::class)->load($this->baseDirectory() . '/../database/factories');
+        }
+    }
+
+    public function loadMigrations()
+    {
+        $this->loadMigrationsFrom($this->baseDirectory() . '/../database/migrations');
+    }
+
+
+    public function mapWebRoutes()
+    {
+        Route::prefix('{activity_slug}/{module_instance_slug}')
+            ->middleware(['web', 'module'])
+            ->group($this->baseDirectory() . '/../routes/web.php');
+    }
+
+    public function mapApiRoutes()
+    {
+        Route::prefix('{activity_slug}/{module_instance_slug}')
+            ->middleware(['api', 'module'])
+            ->group($this->baseDirectory() . '/../routes/api.php');
+    }
 
     /**
      * @return string
      */
-    public function baseDirectory() {
-        // TODO Change to composer
-        return '';
-    }
+    abstract public function baseDirectory();
 
     /**
      * @return string

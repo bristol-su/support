@@ -15,7 +15,8 @@
         "nao-pon/flysystem-google-drive": "^1.1",
         "twigger/unioncloud": "^1.0.1",
         "laravel/passport": "^7.4",
-        "orchestra/testbench": "^4.0"
+        "orchestra/testbench": "^4.0",
+        "brianium/paratest": "^3.0"
     },
     "autoload": {
         "psr-4": {

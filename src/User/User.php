@@ -5,7 +5,6 @@ namespace BristolSU\Support\User;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Laravel\Passport\HasApiTokens;
 
@@ -31,32 +30,19 @@ class User extends Authenticatable implements MustVerifyEmail
         'password', 'remember_token',
     ];
 
-//    /**
-//     * @return CommitteeRole
-//     */
-//    public function getCurrentRole()
+    // TODO Implement below mailing
+//    public function sendPasswordResetNotification($token)
 //    {
-//        return Auth::guard('role')->user();
+//        Mail::to($this->email)->send(new ResetPasswordMail($token));
 //    }
 //
-//    // TODO isAdmin method calls should be replaced with a call to check the permission of act-as-admin. Make sure to use can() or hasPermissionTo() in the right places.
-//    public function isAdmin()
+//    /**
+//     * Send the email verification notification.
+//     *
+//     * @return void
+//     */
+//    public function sendEmailVerificationNotification()
 //    {
-//        return $this->hasPermissionTo('act-as-admin') || $this->hasPermissionTo('act-as-super-admin');
+//        Mail::to($this->email)->send(new VerifyEmailMail($this));
 //    }
-
-    public function sendPasswordResetNotification($token)
-    {
-        Mail::to($this->email)->send(new ResetPasswordMail($token));
-    }
-
-    /**
-     * Send the email verification notification.
-     *
-     * @return void
-     */
-    public function sendEmailVerificationNotification()
-    {
-        Mail::to($this->email)->send(new VerifyEmailMail($this));
-    }
 }

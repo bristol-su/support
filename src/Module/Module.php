@@ -2,53 +2,99 @@
 
 namespace BristolSU\Support\Module;
 
-use BristolSU\Support\Completion\Contracts\CompletionEventRepository;
 use BristolSU\Support\Module\Contracts\Module as ModuleContract;
-use BristolSU\Support\Permissions\Contracts\PermissionRepository;
-use Illuminate\Config\Repository as ConfigRepository;
-use Illuminate\Contracts\Support\Arrayable;
 
 class Module implements ModuleContract
 {
 
-    private $alias;
+    protected $alias;
+    protected $name;
+    protected $description;
+    protected $permissions;
+    protected $completionEvents;
+    protected $settings;
 
-    public $completion;
-    /**
-     * @var ConfigRepository
-     */
-    private $config;
-    /**
-     * @var PermissionRepository
-     */
-    private $permissionRepository;
-
-    public function __construct($alias, ConfigRepository $config, CompletionEventRepository $completion, PermissionRepository $permissionRepository)
+    public function __toString()
     {
-        $this->alias = $alias;
-        $this->config = $config;
-        $this->completion = $completion;
-        $this->permissionRepository = $permissionRepository;
+        return $this->toJson();
     }
 
-    public function alias()
+    public function toJson($options = 0)
     {
-        return $this->alias;
+        return json_encode($this->toArray(), $options);
     }
 
     public function toArray()
     {
-        // TODO Refactor config out
-
-        return array_merge(
-            $this->config->get($this->alias, []),
-            [
-                'alias' => $this->alias,
-                'completion' => $this->completion->allForModule($this->alias),
-                'permissions' => $this->permissionRepository->forModule($this->alias)
-            ]
-        );
-
+        return [
+            'alias' => $this->getAlias(),
+            'name' => $this->getName(),
+            'description' => $this->getDescription(),
+            'permissions' => $this->getPermissions(),
+            'settings' => $this->getSettings(),
+            'completionEvents' => $this->getCompletionEvents()
+        ];
     }
+
+    public function getAlias(): string
+    {
+        return $this->alias;
+    }
+
+    public function setAlias(string $alias): void
+    {
+        $this->alias = $alias;
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+
+    public function getPermissions(): array
+    {
+        return $this->permissions;
+    }
+
+    public function setPermissions(array $permissions): void
+    {
+        $this->permissions = $permissions;
+    }
+
+    public function getSettings(): array
+    {
+        return $this->settings;
+    }
+
+    public function setSettings(array $settings): void
+    {
+        $this->settings = $settings;
+    }
+
+    public function getCompletionEvents(): array
+    {
+        return $this->completionEvents;
+    }
+
+    public function setCompletionEvents(array $completionEvents): void
+    {
+        $this->completionEvents = $completionEvents;
+    }
+
 
 }

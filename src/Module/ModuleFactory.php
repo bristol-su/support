@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Module;
 
+use BristolSU\Support\Contracts\Module\ModuleBuilder as ModuleBuilderContract;
 use BristolSU\Support\Module\Contracts\Module;
 use BristolSU\Support\Module\Contracts\ModuleFactory as ModuleFactoryAlias;
 use Illuminate\Contracts\Container\Container;
@@ -10,17 +11,24 @@ class ModuleFactory implements ModuleFactoryAlias
 {
 
     /**
-     * @var Container
+     * @var ModuleBuilderContract
      */
-    private $app;
+    private $moduleBuilder;
 
-    public function __construct(Container $app)
+    public function __construct(ModuleBuilderContract $moduleBuilder)
     {
-        $this->app = $app;
+        $this->moduleBuilder = $moduleBuilder;
     }
     
     public function fromAlias(string $alias): Module
     {
-        return $this->app->make(Module::class, ['alias' => $alias]);
+        $this->moduleBuilder->create($alias);
+        $this->moduleBuilder->setAlias();
+        $this->moduleBuilder->setName();
+        $this->moduleBuilder->setDescription();
+        $this->moduleBuilder->setCompletionEvents();
+        $this->moduleBuilder->setPermissions();
+        $this->moduleBuilder->setSettings();
+        return $this->moduleBuilder->getModule();
     }
 }

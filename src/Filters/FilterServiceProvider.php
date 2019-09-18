@@ -2,10 +2,11 @@
 
 namespace BristolSU\Support\Filters;
 
-use BristolSU\Support\Filters\ConfigFilterRepository;
+use BristolSU\Support\Filters\FilterRepository;
 use BristolSU\Support\Filters\Contracts\FilterFactory as FilterFactoryContract;
 use BristolSU\Support\Filters\Contracts\FilterInstance as FilterInstanceContract;
 use BristolSU\Support\Filters\Contracts\FilterInstanceRepository as FilterInstanceRepositoryContract;
+use BristolSU\Support\Filters\Contracts\FilterManager as FilterManagerContract;
 use BristolSU\Support\Filters\Contracts\FilterRepository as FilterRepositoryContract;
 use BristolSU\Support\Filters\Contracts\FilterTester as FilterTesterContract;
 use BristolSU\Support\Filters\FilterInstance;
@@ -22,12 +23,13 @@ class FilterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind(FilterRepositoryContract::class, ConfigFilterRepository::class);
+        $this->app->bind(FilterRepositoryContract::class, FilterRepository::class);
         $this->app->bind(FilterFactoryContract::class, \BristolSU\Support\Filters\FilterFactory::class);
         $this->app->bind(FilterTesterContract::class, FilterTester::class);
 
         $this->app->bind(FilterInstanceContract::class, FilterInstance::class);
         $this->app->bind(FilterInstanceRepositoryContract::class, FilterInstanceRepository::class);
+        $this->app->singleton(FilterManagerContract::class, FilterManager::class);
     }
 
     /**

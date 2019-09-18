@@ -23,12 +23,6 @@ class TestCase extends BaseTestCase
 
     public function getEnvironmentSetUp($app)
     {
-        $app['config']->set('database.default', 'testing');
-        $app['config']->set('database.connections.testing', [
-            'driver' => 'sqlite',
-            'database' => ':memory:',
-            'prefix' => '',
-        ]);
         $app['config']->set('auth.guards.role', [
                 'driver' => 'session',
                 'provider' => 'roles'
