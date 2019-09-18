@@ -1,6 +1,6 @@
 <?php
 
-namespace BristolSU\Support\Module\ServiceProvider;
+namespace BristolSU\Support\Module;
 
 use BristolSU\Support\Completion\Contracts\CompletionEventManager;
 use BristolSU\Support\Module\Contracts\ModuleManager;
@@ -29,22 +29,33 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     protected $defer = false;
 
-    protected $permissions = [];
+    protected $permissions = [
+    ];
     
     protected $completionEvents = [];
     
+    protected $commands = [];
+
+    public function register()
+    {
+        
+    }
+    
     public function boot()
     {
+        $this->registerTranslations();
+        $this->registerConfig();
         $this->registerModule();
         $this->registerPermissions();
         $this->registerCompletionEvents();
-        $this->registerTranslations();
-        $this->registerConfig();
         $this->registerViews();
         $this->registerFactories();
         $this->loadMigrations();
-        $this->mapWebRoutes();
+        $this->mapParticipantRoutes();
+        $this->mapAdminRoutes();
         $this->mapApiRoutes();
+        $this->registerCommands();
+        $this->registerAssets();
     }
 
     public function registerModule()
@@ -61,7 +72,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
             if(!array_key_exists('admin', $permission)) {
                 $permission['admin'] = false;
             }
-            Permission::register($ability, $permission['name'], $permission['description'], $this->alias(), $permission['admin']);
+            Permission::register($this->alias() . '.' . $ability, $permission['name'], $permission['description'], $this->alias(), $permission['admin']);
         }
     }
 
@@ -79,52 +90,71 @@ abstract class ModuleServiceProvider extends ServiceProvider
     
     public function registerTranslations()
     {
-        $this->loadTranslationsFrom($this->baseDirectory() . '/../resources/lang', $this->alias());
+        $this->loadTranslationsFrom($this->baseDirectory() . '/resources/lang', $this->alias());
     }
 
     protected function registerConfig()
     {
-        $this->publishes([$this->baseDirectory() . '/../config/config.php' => config_path($this->alias() . '.php'),
+        $this->publishes([$this->baseDirectory() . '/config/config.php' => config_path($this->alias() . '.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            $this->baseDirectory() . '/../config/config.php', $this->alias()
+            $this->baseDirectory() . '/config/config.php', $this->alias()
         );
     }
 
     public function registerViews()
     {
         $this->publishes([
-            $this->baseDirectory() . '/../resources/views' => resource_path('views/vendor/' . $this->alias()),
+            $this->baseDirectory() . '/resources/views' => resource_path('views/vendor/' . $this->alias()),
         ], 'views');
 
-        $this->loadViewsFrom($this->baseDirectory() . '/../resources/views', $this->alias());
+        $this->loadViewsFrom($this->baseDirectory() . '/resources/views', $this->alias());
     }
 
     public function registerFactories()
     {
         if (!app()->environment('production')) {
-            $this->app->make(Factory::class)->load($this->baseDirectory() . '/../database/factories');
+            $this->app->make(Factory::class)->load($this->baseDirectory() . '/database/factories');
         }
     }
 
     public function loadMigrations()
     {
-        $this->loadMigrationsFrom($this->baseDirectory() . '/../database/migrations');
+        $this->loadMigrationsFrom($this->baseDirectory() . '/database/migrations');
     }
 
 
-    public function mapWebRoutes()
+    public function mapParticipantRoutes()
     {
-        Route::prefix('{activity_slug}/{module_instance_slug}')
+        Route::prefix('/p/{activity_slug}/{module_instance_slug}')
             ->middleware(['web', 'module'])
-            ->group($this->baseDirectory() . '/../routes/web.php');
+            ->group($this->baseDirectory() . '/routes/participant.php');
+    }
+
+    public function mapAdminRoutes()
+    {
+        Route::prefix('/a/{activity_slug}/{module_instance_slug}')
+            ->middleware(['web', 'module'])
+            ->group($this->baseDirectory() . '/routes/admin.php');
     }
 
     public function mapApiRoutes()
     {
-        Route::prefix('{activity_slug}/{module_instance_slug}')
+        Route::prefix('/api/' . $this->alias() . '/a/{activity_slug}/{module_instance_slug}')
             ->middleware(['api', 'module'])
-            ->group($this->baseDirectory() . '/../routes/api.php');
+            ->group($this->baseDirectory() . '/routes/api.php');
+    }
+
+    public function registerCommands()
+    {
+        if($this->app->runningInConsole()) {
+            $this->commands($this->commands);
+        }
+    }
+
+    public function registerAssets()
+    {
+        $this->publishes([$this->baseDirectory() . '/public/modules/' . $this->alias() => public_path('modules/' . $this->alias())]);
     }
 
     /**

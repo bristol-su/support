@@ -7,10 +7,14 @@ use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\SupportServiceProvider;
+use Illuminate\Contracts\Http\Kernel as HttpKernel;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Str;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Prophecy\Argument;
+use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
 class TestCase extends BaseTestCase
 {
@@ -23,6 +27,12 @@ class TestCase extends BaseTestCase
 
     public function getEnvironmentSetUp($app)
     {
+        $app['config']->set('database.default', 'testing');
+        $app['config']->set('database.connections.testing', [
+            'driver' => 'sqlite',
+            'database' => ':memory:',
+            'prefix' => '',
+        ]);
         $app['config']->set('auth.guards.role', [
                 'driver' => 'session',
                 'provider' => 'roles'
@@ -106,5 +116,17 @@ class TestCase extends BaseTestCase
             $this->instance(Client::class, $this->controlClient->reveal());
         }
     }
+
+    public function call($method, $uri, $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
+    {
+        $prefix = '/phpunit-mock-testing' . (!Str::startsWith($uri, '/')?'/':'');
+        return parent::call($method, $prefix . $uri, $parameters, $cookies, $files, $server, $content);
+    }
+
+    public function json($method, $uri, $data = [], $headers = []) {
+        $prefix = '/phpunit-mock-testing/api' . (!Str::startsWith($uri, '/')?'/':'');
+        return parent::json($method, $prefix . $uri, $data, $headers);
+    }
+    
 
 }

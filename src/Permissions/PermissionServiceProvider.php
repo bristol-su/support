@@ -11,6 +11,11 @@ use BristolSU\Support\Permissions\Contracts\PermissionStore as PermissionStoreCo
 use BristolSU\Support\Permissions\Contracts\PermissionTester as PermissionTesterContract;
 use BristolSU\Support\Permissions\Facade\Permission as PermissionFacade;
 use BristolSU\Support\Permissions\Facade\PermissionTester as PermissionTesterFacade;
+use BristolSU\Support\Permissions\Testers\CheckPermissionExists;
+use BristolSU\Support\Permissions\Testers\ModuleInstanceAdminPermissions;
+use BristolSU\Support\Permissions\Testers\ModuleInstanceUserPermissions;
+use BristolSU\Support\Permissions\Testers\SystemLogicPermission;
+use BristolSU\Support\Permissions\Testers\SystemUserPermission;
 use BristolSU\Support\User\User;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
@@ -28,9 +33,11 @@ class PermissionServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        foreach(config('support.permissions.testers') as $tester) {
-            PermissionTesterFacade::register($this->app->make($tester));
-        }
+        PermissionTesterFacade::register($this->app->make(SystemUserPermission::class));
+        PermissionTesterFacade::register($this->app->make(SystemLogicPermission::class));
+        PermissionTesterFacade::register($this->app->make(ModuleInstanceUserPermissions::class));
+        PermissionTesterFacade::register($this->app->make(ModuleInstanceAdminPermissions::class));
+        PermissionTesterFacade::register($this->app->make(CheckPermissionExists::class));
 
         PermissionFacade::registerSitePermission(
             'settings',

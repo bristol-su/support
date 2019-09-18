@@ -11,6 +11,8 @@ use BristolSU\Support\Filters\Contracts\FilterRepository as FilterRepositoryCont
 use BristolSU\Support\Filters\Contracts\FilterTester as FilterTesterContract;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Filters\FilterInstanceRepository;
+use BristolSU\Support\Filters\Filters\GroupTagged;
+use BristolSU\Support\Filters\Filters\UserEmailIs;
 use BristolSU\Support\Filters\FilterTester;
 use Illuminate\Support\ServiceProvider;
 
@@ -39,6 +41,7 @@ class FilterServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->app->make(FilterManagerContract::class)->register('group_tagged', GroupTagged::class);
+        $this->app->make(FilterManagerContract::class)->register('user_email_is', UserEmailIs::class);
     }
 }
