@@ -6,6 +6,7 @@ use BristolSU\Support\Control\Contracts\Client\Client;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Logic\Contracts\LogicTester;
+use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
 use BristolSU\Support\SupportServiceProvider;
 use Illuminate\Contracts\Http\Kernel as HttpKernel;
 use Illuminate\Database\Eloquent\Model;
@@ -49,7 +50,7 @@ class TestCase extends BaseTestCase
             'driver' => 'group-provider',
             'model' => Group::class
         ]);
-
+        
     }
     
     protected function getPackageProviders($app)
@@ -116,17 +117,5 @@ class TestCase extends BaseTestCase
             $this->instance(Client::class, $this->controlClient->reveal());
         }
     }
-
-    public function call($method, $uri, $parameters = [], $cookies = [], $files = [], $server = [], $content = null)
-    {
-        $prefix = '/phpunit-mock-testing' . (!Str::startsWith($uri, '/')?'/':'');
-        return parent::call($method, $prefix . $uri, $parameters, $cookies, $files, $server, $content);
-    }
-
-    public function json($method, $uri, $data = [], $headers = []) {
-        $prefix = '/phpunit-mock-testing/api' . (!Str::startsWith($uri, '/')?'/':'');
-        return parent::json($method, $prefix . $uri, $data, $headers);
-    }
-    
 
 }

@@ -17,7 +17,7 @@ class ModuleFrameworkServiceProvider extends ServiceProvider
         $this->app->bind(ModuleContract::class, Module::class);
         $this->app->bind(ModuleBuilderContract::class, ModuleBuilder::class);
         $this->app->bind(ModuleFactoryContract::class, ModuleFactory::class);
-        $this->app->bind(ModuleManagerContract::class, ModuleManager::class);
+        $this->app->singleton(ModuleManagerContract::class, ModuleManager::class);
         $this->app->bind(ModuleRepositoryContract::class, ModuleRepository::class);
     }
 }
