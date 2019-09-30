@@ -19,6 +19,9 @@
         "brianium/paratest": "^3.0"
     },
     "autoload": {
+        "files": [
+          "src/helpers/helpers.php"
+        ],
         "psr-4": {
             "BristolSU\\Support\\": "src/"
         },
