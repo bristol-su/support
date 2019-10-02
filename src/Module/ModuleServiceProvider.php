@@ -140,7 +140,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     public function mapApiRoutes()
     {
-        Route::prefix('/api/' . $this->alias() . '/a/{activity_slug}/{module_instance_slug}')
+        Route::prefix('/api/' . $this->alias() . '/{activity_slug}/{module_instance_slug}')
             ->middleware(['api', 'module'])
             ->group($this->baseDirectory() . '/routes/api.php');
     }

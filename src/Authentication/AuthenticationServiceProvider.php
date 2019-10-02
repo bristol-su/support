@@ -20,14 +20,12 @@ class AuthenticationServiceProvider extends ServiceProvider
 
     public function register()
     {
-
-
-
         $this->app->bind(Authentication::class, LaravelAuthentication::class);
     }
 
     public function boot()
     {
+        
         Auth::provider('role-provider', function(Container $app, array $config) {
             return new RoleProvider($app->make(RoleRepository::class));
         });

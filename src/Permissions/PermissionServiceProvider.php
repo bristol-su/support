@@ -4,6 +4,7 @@
 namespace BristolSU\Support\Permissions;
 
 
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Permissions\Contracts\Models\Permission as PermissionContract;
 use BristolSU\Support\Permissions\Models\Permission;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository as PermissionRepositoryContract;
@@ -47,6 +48,11 @@ class PermissionServiceProvider extends ServiceProvider
 
         Gate::before(function(User $user, $ability) {
             return PermissionTesterFacade::evaluate($ability);
+        });
+        
+        $this->app['auth']->resolveUsersUsing(function() {
+            $authentication = $this->app->make(Authentication::class);
+            return $authentication->getUser();
         });
 
     }

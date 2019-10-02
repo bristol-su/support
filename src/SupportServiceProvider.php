@@ -15,6 +15,7 @@ use BristolSU\Support\Filters\Filters\GroupTagged;
 use BristolSU\Support\Filters\Filters\UserEmailIs;
 use BristolSU\Support\Filters\FilterServiceProvider;
 use BristolSU\Support\GoogleDrive\GoogleDriveServiceProvider;
+use BristolSU\Support\Http\HttpServiceProvider;
 use BristolSU\Support\Logic\LogicServiceProvider;
 use BristolSU\Support\Module\Contracts\ModuleRepository;
 use BristolSU\Support\Module\ModuleFrameworkServiceProvider;
@@ -52,6 +53,7 @@ class SupportServiceProvider extends ServiceProvider
         ModuleFrameworkServiceProvider::class,
         ModuleInstanceServiceProvider::class,
         UserServiceProvider::class,
+        HttpServiceProvider::class
     ];
 
     public function register()

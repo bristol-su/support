@@ -17,9 +17,8 @@
         @includeFirst(['partials.header', 'bristolsu::partials.header'])
         @yield('content')
         @includeFirst(['partials.footer', 'bristolsu::partials.footer'])
+        @stack('scripts')
     @endcomponentfirst
 
-    @stack('scripts')
-
+    @include('bristolsu::partials.javascript')
 @endcomponentfirst
-
