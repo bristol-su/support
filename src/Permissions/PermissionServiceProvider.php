@@ -29,7 +29,7 @@ class PermissionServiceProvider extends ServiceProvider
         $this->app->bind(PermissionContract::class, Permission::class);
         $this->app->bind(PermissionRepositoryContract::class, PermissionRepository::class);
         $this->app->singleton(PermissionStoreContract::class, PermissionStore::class);
-        $this->app->bind(PermissionTesterContract::class, PermissionTester::class);
+        $this->app->singleton(PermissionTesterContract::class, PermissionTester::class);
     }
 
     public function boot()
@@ -47,6 +47,8 @@ class PermissionServiceProvider extends ServiceProvider
         );
 
         Gate::before(function(User $user, $ability) {
+            $tester = app()->make(\BristolSU\Support\Permissions\Contracts\PermissionTester::class);
+            return $tester->evaluate($ability);
             return PermissionTesterFacade::evaluate($ability);
         });
         

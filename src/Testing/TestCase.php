@@ -2,28 +2,43 @@
 
 namespace BristolSU\Support\Testing;
 
+use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Control\Contracts\Client\Client;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Logic\Contracts\LogicTester;
-use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
+use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\Permissions\Contracts\PermissionTester;
 use BristolSU\Support\SupportServiceProvider;
 use Illuminate\Contracts\Http\Kernel as HttpKernel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
+use Laracasts\Utilities\JavaScript\JavaScriptServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
-class TestCase extends BaseTestCase
+abstract class TestCase extends BaseTestCase
 {
 
+    protected $moduleInstance;
+    
+    protected $activity;
+
+    abstract public function alias(): string;
+    
     public function setUp(): void {
         parent::setUp();
         $this->loadMigrationsFrom(realpath(__DIR__ . '/../database/migrations'));
         $this->withFactories(__DIR__ . '/../../database/factories');
+        
+        // Create example module instance and activity
+        $this->activity = factory(Activity::class)->create(['slug' => 'act']);
+        $this->moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'mod', 'activity_id' => $this->activity->id, 'alias' => $this->alias()]);
+
     }
 
     public function getEnvironmentSetUp($app)
@@ -50,6 +65,8 @@ class TestCase extends BaseTestCase
             'driver' => 'group-provider',
             'model' => Group::class
         ]);
+
+        $app['config']->set('app.key', 'base64:UTyp33UhGolgzCK5CJmT+hNHcA+dJyp3+oINtX+VoPI=');
         
     }
     
@@ -57,6 +74,7 @@ class TestCase extends BaseTestCase
     {
         return [
             SupportServiceProvider::class,
+            JavaScriptServiceProvider::class
         ];
     }
     /**
@@ -118,4 +136,36 @@ class TestCase extends BaseTestCase
         }
     }
 
+    public function assertRequiresAuthorization($method, $route, $ability = null)
+    {
+        $response = $this->call($method, $route);
+        $response->assertStatus(403);
+        
+        $permissionTester = $this->prophesize(PermissionTester::class);
+        $permissionTester->evaluate($ability)->shouldBeCalled()->willReturn(true);
+        \BristolSU\Support\Permissions\Facade\PermissionTester::swap($permissionTester->reveal());
+        
+        $response = $this->call($method, $route);
+        dd($response);
+        $this->assertContains($response->status(), [
+            200,201
+        ]);
+
+    }
+
+    public function adminUrl($path = '')
+    {
+        return '/a/' . $this->activity->slug . '/'. $this->moduleInstance->slug . $path;
+    }
+
+    public function userUrl($path = '')
+    {
+        return '/p/' . $this->activity->slug . '/'. $this->moduleInstance->slug . $path;
+    }
+
+    public function apiUrl($path = '')
+    {
+        return '/api/' . $this->moduleInstance->alias . '/' . $this->activity->slug . '/'. $this->moduleInstance->slug . $path;
+    }
+    
 }
