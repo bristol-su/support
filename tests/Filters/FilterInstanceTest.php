@@ -6,7 +6,7 @@ namespace BristolSU\Support\Tests\Filters;
 
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class FilterInstanceTest extends TestCase
 {

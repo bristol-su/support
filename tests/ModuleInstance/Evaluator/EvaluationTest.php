@@ -5,7 +5,7 @@ namespace BristolSU\Support\Tests\ModuleInstance\Evaluator;
 
 
 use BristolSU\Support\ModuleInstance\Evaluator\Evaluation;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class EvaluationTest extends TestCase
 {

@@ -6,7 +6,7 @@ namespace BristolSU\Support\Tests\ModuleInstance\Settings;
 
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSettings;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class ModuleInstanceSettingsTest extends TestCase
 {

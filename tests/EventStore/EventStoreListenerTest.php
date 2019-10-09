@@ -13,7 +13,7 @@ use Illuminate\Events\CallQueuedListener;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Queue;
 use Prophecy\Argument;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class EventStoreListenerTest extends TestCase
 {

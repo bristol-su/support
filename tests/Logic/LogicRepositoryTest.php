@@ -6,7 +6,7 @@ use App\Packages\ControlDB\Models\GroupTag;
 use BristolSU\Support\Logic\Filters\GroupTagged;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Logic\LogicRepository;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class LogicRepositoryTest extends TestCase
 {

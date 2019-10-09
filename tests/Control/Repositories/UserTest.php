@@ -7,7 +7,7 @@ namespace BristolSU\Support\Tests\Control\Repositories;
 use BristolSU\Support\Control\Contracts\Client\Client;
 use BristolSU\Support\Control\Repositories\User;
 use Prophecy\Argument;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class UserTest extends TestCase
 {

@@ -9,7 +9,7 @@ use BristolSU\Support\Activity\Repository as ActivityRepository;
 use BristolSU\Support\Logic\Logic;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class RepositoryTest extends TestCase
 {

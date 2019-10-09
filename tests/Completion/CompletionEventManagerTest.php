@@ -3,7 +3,7 @@
 namespace BristolSU\Support\Tests\Completion;
 
 use BristolSU\Support\Completion\CompletionEventManager;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class CompletionEventManagerTest extends TestCase
 {

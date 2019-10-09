@@ -5,7 +5,7 @@ namespace BristolSU\Support\Tests\DataPlatform\Models;
 
 
 use BristolSU\Support\DataPlatform\Models\Model;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class ModelTest extends TestCase
 {

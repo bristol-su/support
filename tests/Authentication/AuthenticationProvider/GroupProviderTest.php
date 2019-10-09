@@ -8,7 +8,7 @@ use BristolSU\Support\Authentication\AuthenticationProvider\GroupProvider;
 use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepositoryContract;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\User\User;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class GroupProviderTest extends TestCase
 {

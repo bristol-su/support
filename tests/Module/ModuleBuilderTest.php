@@ -6,7 +6,7 @@ use BristolSU\Support\Completion\Contracts\CompletionEventRepository;
 use BristolSU\Support\Module\Contracts\Module;
 use BristolSU\Support\Module\ModuleBuilder;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 use Illuminate\Contracts\Config\Repository;
 
 class ModuleBuilderTest extends TestCase

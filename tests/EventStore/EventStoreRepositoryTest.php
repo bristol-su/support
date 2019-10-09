@@ -8,7 +8,7 @@ use BristolSU\Support\EventStore\EventStore;
 use BristolSU\Support\EventStore\EventStoreRepository;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\User\User;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class EventStoreRepositoryTest extends TestCase
 {

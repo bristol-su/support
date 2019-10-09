@@ -13,7 +13,7 @@ use BristolSU\Support\Filters\Contracts\FilterRepository;
 use BristolSU\Support\Filters\Contracts\Filters\Filter;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Filters\FilterTester;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class FilterTesterTest extends TestCase
 {

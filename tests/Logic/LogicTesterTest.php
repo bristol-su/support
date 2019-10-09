@@ -12,7 +12,7 @@ use BristolSU\Support\Logic\Filters\GroupTagged;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Logic\LogicTester;
 use Prophecy\Argument;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class LogicTesterTest extends TestCase
 {

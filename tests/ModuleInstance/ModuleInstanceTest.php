@@ -10,7 +10,7 @@ use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSettings;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
 use Illuminate\Support\Facades\DB;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class ModuleInstanceTest extends TestCase
 {

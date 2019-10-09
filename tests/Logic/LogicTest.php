@@ -7,7 +7,7 @@ namespace BristolSU\Support\Tests\Logic;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
 use Illuminate\Support\Collection;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class LogicTest extends TestCase
 {

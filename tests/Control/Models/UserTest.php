@@ -5,7 +5,7 @@ namespace BristolSU\Support\Tests\Control\Models;
 
 
 use BristolSU\Support\Control\Models\User;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class UserTest extends TestCase
 {

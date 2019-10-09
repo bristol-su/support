@@ -9,7 +9,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Stream;
 use Prophecy\Argument;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class TokenTest extends TestCase
 {

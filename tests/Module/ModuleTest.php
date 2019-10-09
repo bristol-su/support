@@ -8,7 +8,7 @@ use BristolSU\Support\Completion\Contracts\CompletionEventRepository;
 use BristolSU\Support\Module\Module;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use Illuminate\Config\Repository;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class ModuleTest extends TestCase
 {

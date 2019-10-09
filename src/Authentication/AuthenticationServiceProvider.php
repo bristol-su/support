@@ -34,9 +34,6 @@ class AuthenticationServiceProvider extends ServiceProvider
             return new GroupProvider($app->make(GroupRepository::class));
         });
         
-        Gate::before(function($ability, User $user, PermissionTester $permissionTester) {
-            return $permissionTester->evaluate($ability);
-        });
     }
 
 }

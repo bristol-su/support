@@ -8,7 +8,7 @@ use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Permissions\Models\ModelPermission;
 use BristolSU\Support\User\User;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class ModelPermissionTest extends TestCase
 {

@@ -8,7 +8,7 @@ use BristolSU\Support\Logic\AudienceFactory;
 use BristolSU\Support\User\Contracts\UserRepository;
 use BristolSU\Support\User\User;
 use Illuminate\Support\Collection;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class AudienceFactoryTest extends TestCase
 {

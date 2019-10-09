@@ -7,7 +7,7 @@ use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSettings;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 use BristolSU\Support\ModuleInstance\ModuleInstanceRepository;
 
 class ModuleInstanceRepositoryTest extends TestCase

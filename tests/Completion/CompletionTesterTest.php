@@ -12,7 +12,7 @@ use BristolSU\Support\EventStore\Contracts\EventStoreRepository;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\User\User;
 use Prophecy\Argument;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class CompletionTesterTest extends TestCase
 {

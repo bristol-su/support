@@ -3,6 +3,7 @@
 namespace BristolSU\Support\Testing;
 
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Control\Contracts\Client\Client;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
@@ -10,6 +11,7 @@ use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Contracts\PermissionTester;
 use BristolSU\Support\SupportServiceProvider;
+use BristolSU\Support\User\User;
 use Illuminate\Contracts\Http\Kernel as HttpKernel;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
@@ -29,15 +31,36 @@ abstract class TestCase extends BaseTestCase
     protected $activity;
 
     abstract public function alias(): string;
-    
+
+    protected function getPackageProviders($app)
+    {
+        return [
+            SupportServiceProvider::class,
+            JavaScriptServiceProvider::class
+        ];
+    }
+
+    /**
+     * @var \Prophecy\Prophecy\ObjectProphecy
+     */
+    protected $controlClient = null;
+    public function stubControl()
+    {
+        $control = $this->prophesize(Client::class);
+        $this->instance(Client::class, $control->reveal());
+    }
+
     public function setUp(): void {
         parent::setUp();
         $this->loadMigrationsFrom(realpath(__DIR__ . '/../database/migrations'));
         $this->withFactories(__DIR__ . '/../../database/factories');
-        
+
         // Create example module instance and activity
-        $this->activity = factory(Activity::class)->create(['slug' => 'act']);
-        $this->moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'mod', 'activity_id' => $this->activity->id, 'alias' => $this->alias()]);
+        // TODO remove support from here
+        if($this->alias() !== 'support') {
+            $this->activity = factory(Activity::class)->create(['slug' => 'act']);
+            $this->moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'mod', 'activity_id' => $this->activity->id, 'alias' => $this->alias()]);
+        }
 
     }
 
@@ -50,8 +73,8 @@ abstract class TestCase extends BaseTestCase
             'prefix' => '',
         ]);
         $app['config']->set('auth.guards.role', [
-                'driver' => 'session',
-                'provider' => 'roles'
+            'driver' => 'session',
+            'provider' => 'roles'
         ]);
         $app['config']->set('auth.guards.group', [
             'driver' => 'session',
@@ -67,25 +90,7 @@ abstract class TestCase extends BaseTestCase
         ]);
 
         $app['config']->set('app.key', 'base64:UTyp33UhGolgzCK5CJmT+hNHcA+dJyp3+oINtX+VoPI=');
-        
-    }
-    
-    protected function getPackageProviders($app)
-    {
-        return [
-            SupportServiceProvider::class,
-            JavaScriptServiceProvider::class
-        ];
-    }
-    /**
-     * @var \Prophecy\Prophecy\ObjectProphecy
-     */
-    protected $controlClient = null;
 
-    public function stubControl()
-    {
-        $control = $this->prophesize(Client::class);
-        $this->instance(Client::class, $control->reveal());
     }
 
     public function beRole($role)
@@ -141,12 +146,12 @@ abstract class TestCase extends BaseTestCase
         $response = $this->call($method, $route);
         $response->assertStatus(403);
         
+        $this->be(factory(User::class)->create());
         $permissionTester = $this->prophesize(PermissionTester::class);
         $permissionTester->evaluate($ability)->shouldBeCalled()->willReturn(true);
-        \BristolSU\Support\Permissions\Facade\PermissionTester::swap($permissionTester->reveal());
-        
+        $this->instance(PermissionTester::class, $permissionTester->reveal());
+
         $response = $this->call($method, $route);
-        dd($response);
         $this->assertContains($response->status(), [
             200,201
         ]);
@@ -166,6 +171,17 @@ abstract class TestCase extends BaseTestCase
     public function apiUrl($path = '')
     {
         return '/api/' . $this->moduleInstance->alias . '/' . $this->activity->slug . '/'. $this->moduleInstance->slug . $path;
+    }
+
+    public function bypassAuthorization()
+    {
+        $auth = app()->make(Authentication::class);
+        if($auth->getUser() === null) {
+            $auth->setUser(factory(User::class)->create());
+        }
+        $permissionTester = $this->prophesize(PermissionTester::class);
+        $permissionTester->evaluate(Argument::any())->willReturn(true);
+        $this->instance(PermissionTester::class, $permissionTester->reveal());
     }
     
 }

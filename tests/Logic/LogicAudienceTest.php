@@ -7,7 +7,7 @@ use BristolSU\Support\Logic\Contracts\AudienceFactory;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Logic\LogicAudience;
 use Illuminate\Support\Collection;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class LogicAudienceTest extends TestCase
 {

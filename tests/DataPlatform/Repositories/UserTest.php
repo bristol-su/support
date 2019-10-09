@@ -5,7 +5,7 @@ namespace BristolSU\Support\Tests\DataPlatform\Repositories;
 
 
 use BristolSU\Support\DataPlatform\Repositories\User;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 use Twigger\UnionCloud\API\Exception\Resource\ResourceNotFoundException;
 use Twigger\UnionCloud\API\Request\UserRequest;
 use Twigger\UnionCloud\API\ResourceCollection;

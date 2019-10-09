@@ -11,7 +11,7 @@ use BristolSU\Support\Module\Module;
 use BristolSU\Support\Module\ModuleRepository;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Filesystem\Filesystem;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class ModuleRepositoryTest extends TestCase
 {

@@ -5,7 +5,7 @@ namespace BristolSU\Support\Tests\Filters;
 
 
 use BristolSU\Support\Filters\FilterInstanceRepository;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class FilterInstanceRepositoryTest extends TestCase
 {

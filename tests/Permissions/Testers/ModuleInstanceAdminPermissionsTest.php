@@ -11,7 +11,7 @@ use BristolSU\Support\Permissions\Contracts\Testers\Tester;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceAdminPermissions;
 use Illuminate\Contracts\Container\Container;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class ModuleInstanceAdminPermissionsTest extends TestCase
 {

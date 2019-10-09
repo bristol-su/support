@@ -3,7 +3,7 @@
 namespace BristolSU\Support\Tests\Filters;
 
 use BristolSU\Support\Filters\FilterManager;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class FilterManagerTest extends TestCase
 {

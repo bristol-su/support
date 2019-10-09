@@ -10,7 +10,7 @@ use BristolSU\Support\Permissions\Contracts\Testers\Tester;
 use BristolSU\Support\Permissions\Models\ModelPermission;
 use BristolSU\Support\Permissions\Testers\SystemLogicPermission;
 use BristolSU\Support\User\User;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class SystemLogicPermissionTest extends TestCase
 {

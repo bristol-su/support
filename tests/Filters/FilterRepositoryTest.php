@@ -8,7 +8,7 @@ use BristolSU\Support\Filters\Contracts\FilterManager;
 use BristolSU\Support\Filters\FilterRepository;
 use BristolSU\Support\Filters\Contracts\FilterFactory;
 use BristolSU\Support\Filters\Contracts\Filters\Filter;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class FilterRepositoryTest extends TestCase
 {

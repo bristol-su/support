@@ -6,7 +6,7 @@ namespace BristolSU\Support\Tests\Control\Repositories;
 
 use BristolSU\Support\Control\Repositories\Role;
 use Illuminate\Support\Collection;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class RoleTest extends TestCase
 {

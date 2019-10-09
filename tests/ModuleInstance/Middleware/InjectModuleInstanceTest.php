@@ -7,7 +7,7 @@ use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
 use Prophecy\Argument;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class InjectModuleInstanceTest extends TestCase
 {

@@ -3,7 +3,7 @@
 namespace BristolSU\Support\Tests\Module;
 
 use BristolSU\Support\Module\ModuleManager;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class ModuleManagerTest extends TestCase
 {

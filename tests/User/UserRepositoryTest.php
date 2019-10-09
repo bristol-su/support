@@ -7,7 +7,7 @@ use BristolSU\Support\User\User;
 use Carbon\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class UserRepositoryTest extends TestCase
 {

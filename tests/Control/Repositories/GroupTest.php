@@ -9,7 +9,7 @@ use BristolSU\Support\Control\Client\Token;
 use BristolSU\Support\Control\Contracts\Client\Client;
 use BristolSU\Support\Control\Contracts\Models\GroupTag;
 use BristolSU\Support\Control\Repositories\Group;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class GroupTest extends TestCase
 {

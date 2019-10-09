@@ -8,7 +8,7 @@ use BristolSU\Support\Permissions\Contracts\PermissionStore;
 use BristolSU\Support\Permissions\Facade\Permission as PermissionFacade;
 use BristolSU\Support\Permissions\Models\Permission;
 use BristolSU\Support\Permissions\PermissionRepository;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class PermissionRepositoryTest extends TestCase
 {

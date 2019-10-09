@@ -5,7 +5,7 @@ namespace BristolSU\Support\Tests\Logic\Specification;
 use BristolSU\Support\Filters\Contracts\FilterInstance;
 use BristolSU\Support\Filters\Contracts\FilterTester;
 use BristolSU\Support\Logic\Specification\FilterFalseSpecification;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class FilterFalseSpecificationTest extends TestCase
 {

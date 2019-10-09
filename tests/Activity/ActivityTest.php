@@ -8,7 +8,7 @@ use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Carbon\Carbon;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class ActivityTest extends TestCase
 {

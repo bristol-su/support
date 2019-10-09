@@ -6,7 +6,7 @@ namespace BristolSU\Support\Tests\Permissions;
 
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
 use BristolSU\Support\Permissions\PermissionStore;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class PermissionStoreTest extends TestCase
 {

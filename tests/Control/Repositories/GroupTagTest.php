@@ -6,7 +6,7 @@ namespace BristolSU\Support\Tests\Control\Repositories;
 
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Repositories\GroupTag;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class GroupTagTest extends TestCase
 {

@@ -7,7 +7,7 @@ use BristolSU\Support\Filters\Contracts\FilterRepository;
 use BristolSU\Support\Filters\Contracts\Filters\Filter;
 use BristolSU\Support\Logic\Specification\InFilterAudienceSpecification;
 use Prophecy\Argument;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class InFilterAudienceSpecificationTest extends TestCase
 {

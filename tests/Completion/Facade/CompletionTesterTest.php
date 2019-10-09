@@ -8,7 +8,7 @@ use BristolSU\Support\Completion\Contracts\CompletionTester;
 use BristolSU\Support\Completion\Facade\CompletionTester as CompletionTesterFacade;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Prophecy\Argument;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class CompletionTesterTest extends TestCase
 {

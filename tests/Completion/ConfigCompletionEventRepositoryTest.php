@@ -6,7 +6,7 @@ namespace BristolSU\Support\Tests\Completion;
 
 use BristolSU\Support\Completion\CompletionEventRepository;
 use BristolSU\Support\Completion\Contracts\CompletionEventManager;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class ConfigCompletionEventRepositoryTest extends TestCase
 {

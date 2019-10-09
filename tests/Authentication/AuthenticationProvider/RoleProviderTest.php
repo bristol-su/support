@@ -8,7 +8,7 @@ use BristolSU\Support\Authentication\AuthenticationProvider\RoleProvider;
 use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepositoryContract;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\User\User;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class RoleProviderTest extends TestCase
 {

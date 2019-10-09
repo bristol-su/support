@@ -6,7 +6,7 @@ namespace BristolSU\Support\Tests\Logic\Specification;
 
 use BristolSU\Support\Logic\Contracts\Specification as SpecificationContract;
 use BristolSU\Support\Logic\Specification\OrSpecification;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class OrSpecificationTest extends TestCase
 {

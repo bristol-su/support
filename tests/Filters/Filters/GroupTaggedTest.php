@@ -11,7 +11,7 @@ use BristolSU\Support\Control\Contracts\Models\GroupTag as GroupTagModelContract
 use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\Support\Control\Contracts\Repositories\GroupTag as GroupTagRepositoryContract;
 use BristolSU\Support\Filters\Filters\GroupTagged;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class GroupTaggedTest extends TestCase
 {

@@ -8,7 +8,7 @@ use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use BristolSU\Support\Permissions\Contracts\Testers\Tester;
 use BristolSU\Support\Permissions\Models\Permission;
 use BristolSU\Support\Permissions\Testers\CheckPermissionExists;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class CheckPermissionExistsTest extends TestCase
 {

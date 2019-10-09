@@ -10,7 +10,7 @@ use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\User\User;
 use Illuminate\Support\Facades\Auth;
 use Prophecy\Argument;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class LaravelAuthenticationTest extends TestCase
 {

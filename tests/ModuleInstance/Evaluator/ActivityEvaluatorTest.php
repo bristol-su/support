@@ -11,7 +11,7 @@ use BristolSU\Support\ModuleInstance\Evaluator\ActivityEvaluator;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Support\Collection;
 use Prophecy\Argument;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class ActivityEvaluatorTest extends TestCase
 {

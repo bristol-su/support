@@ -9,7 +9,7 @@ use BristolSU\Support\Control\Contracts\Repositories\GroupTag as GroupTagReposit
 use BristolSU\Support\Filters\Filters\UserEmailIs;
 use BristolSU\Support\User\Contracts\UserRepository;
 use BristolSU\Support\User\User;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class UserEmailIsTest extends TestCase
 {
