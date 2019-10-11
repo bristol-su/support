@@ -1,16 +1,16 @@
 <?php
 
-namespace BristolSU\Support\Tests\Completion;
+namespace BristolSU\Support\Tests\Action;
 
-use BristolSU\Support\Completion\CompletionEventManager;
+use BristolSU\Support\Action\ActionManager;
 use BristolSU\Support\Tests\TestCase;
 
-class CompletionEventManagerTest extends TestCase
+class ActionManagerTest extends TestCase
 {
 
     /** @test */
     public function registerEvent_registers_an_event(){
-        $manager = new CompletionEventManager;
+        $manager = new ActionManager;
 
         $manager->registerEvent('alias1', 'name1', 'Class1', 'Description1');
         $manager->registerEvent('alias2', 'name2', 'Class2', 'Description2');
@@ -31,7 +31,7 @@ class CompletionEventManagerTest extends TestCase
     
     /** @test */
     public function allForModule_returns_only_events_for_a_module(){
-        $manager = new CompletionEventManager;
+        $manager = new ActionManager;
 
         $manager->registerEvent('alias1', 'name1', 'Class1', 'Description1');
         $manager->registerEvent('alias2', 'name2', 'Class2', 'Description2');

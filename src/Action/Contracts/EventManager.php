@@ -1,10 +1,10 @@
 <?php
 
 
-namespace BristolSU\Support\Completion\Contracts;
+namespace BristolSU\Support\Action\Contracts;
 
 
-interface CompletionEventManager
+interface EventManager
 {
 
     public function registerEvent($alias, $name, $class, $description);

@@ -5,14 +5,12 @@ namespace BristolSU\Support;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Activity\ActivityServiceProvider;
 use BristolSU\Support\Authentication\AuthenticationServiceProvider;
-use BristolSU\Support\Completion\CompletionServiceProvider;
+use BristolSU\Support\Action\ActionServiceProvider;
+use BristolSU\Support\Completion\Contracts\CompletionTester;
 use BristolSU\Support\Control\ControlClientServiceProvider;
 use BristolSU\Support\Control\ControlServiceProvider;
 use BristolSU\Support\DataPlatform\UnionCloudServiceProvider;
 use BristolSU\Support\EventStore\EventStoreServiceProvider;
-use BristolSU\Support\Filters\Contracts\FilterManager;
-use BristolSU\Support\Filters\Filters\GroupTagged;
-use BristolSU\Support\Filters\Filters\UserEmailIs;
 use BristolSU\Support\Filters\FilterServiceProvider;
 use BristolSU\Support\GoogleDrive\GoogleDriveServiceProvider;
 use BristolSU\Support\Http\HttpServiceProvider;
@@ -22,15 +20,8 @@ use BristolSU\Support\Module\ModuleFrameworkServiceProvider;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSettings;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\ModuleInstance\ModuleInstanceServiceProvider;
-use BristolSU\Support\Permissions\Facade\Permission;
-use BristolSU\Support\Permissions\Facade\PermissionTester;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
 use BristolSU\Support\Permissions\PermissionServiceProvider;
-use BristolSU\Support\Permissions\Testers\CheckPermissionExists;
-use BristolSU\Support\Permissions\Testers\ModuleInstanceAdminPermissions;
-use BristolSU\Support\Permissions\Testers\ModuleInstanceUserPermissions;
-use BristolSU\Support\Permissions\Testers\SystemLogicPermission;
-use BristolSU\Support\Permissions\Testers\SystemUserPermission;
 use BristolSU\Support\User\UserServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -39,8 +30,8 @@ class SupportServiceProvider extends ServiceProvider
 {
 
     protected $providers = [
+        ActionServiceProvider::class,
         ActivityServiceProvider::class,
-        CompletionServiceProvider::class,
         ControlClientServiceProvider::class,
         ControlServiceProvider::class,
         UnionCloudServiceProvider::class,
@@ -64,7 +55,7 @@ class SupportServiceProvider extends ServiceProvider
         $this->registerViews();
     }
     
-
+    // TODO Tidy up. This class should ONLY register other providers
     public function registerProviders()
     {
         foreach ($this->providers as $provider) {
@@ -94,6 +85,7 @@ class SupportServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        $this->app->bind(CompletionTester::class, \BristolSU\Support\Completion\CompletionTester::class);
         Route::bind('module_instance_setting', function ($id) {
             return ModuleInstanceSettings::findOrFail($id);
         });

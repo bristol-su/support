@@ -2,8 +2,9 @@
 
 namespace BristolSU\Support\Module;
 
-use BristolSU\Support\Completion\Contracts\CompletionEventRepository;
-use BristolSU\Support\Contracts\Module\ModuleBuilder as ModuleBuilderContract;
+use BristolSU\Support\Action\Contracts\EventRepository;
+use BristolSU\Support\Action\Contracts\TriggerableEvent;
+use BristolSU\Support\Module\Contracts\ModuleBuilder as ModuleBuilderContract;
 use \BristolSU\Support\Module\Contracts\Module as ModuleContract;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use Exception;
@@ -17,10 +18,6 @@ class ModuleBuilder implements ModuleBuilderContract
      */
     private $module;
     /**
-     * @var CompletionEventRepository
-     */
-    private $completionEventRepository;
-    /**
      * @var PermissionRepository
      */
     private $permissionRepository;
@@ -32,27 +29,25 @@ class ModuleBuilder implements ModuleBuilderContract
     private $alias;
 
     // TODO Refactor out dependence on config
+    /**
+     * @var EventRepository
+     */
+    private $eventRepository;
+
     public function __construct(ModuleContract $module,
-                                CompletionEventRepository $completionEventRepository,
                                 PermissionRepository $permissionRepository,
-                                Repository $config)
+                                Repository $config,
+                                EventRepository $eventRepository)
     {
         $this->module = $module;
-        $this->completionEventRepository = $completionEventRepository;
         $this->permissionRepository = $permissionRepository;
         $this->config = $config;
+        $this->eventRepository = $eventRepository;
     }
 
     public function create(string $alias)
     {
         $this->alias = $alias;
-    }
-
-    public function setCompletionEvents()
-    {
-        $this->module->setCompletionEvents(
-            $this->completionEventRepository->allForModule($this->getAlias())
-        );
     }
 
     private function getAlias(): string
@@ -93,6 +88,17 @@ class ModuleBuilder implements ModuleBuilderContract
     {
         $this->module->setSettings(
             $this->config->get($this->getAlias() . '.settings')
+        );
+    }
+
+    public function setTriggers()
+    {
+        $this->module->setTriggers(
+            array_filter($this->eventRepository
+                ->allForModule($this->getAlias()),
+                function($event) {
+                    return in_array(TriggerableEvent::class, class_implements($event['event']));
+                })
         );
     }
 

@@ -2,9 +2,10 @@
 
 namespace BristolSU\Support\Module;
 
-use BristolSU\Support\Completion\Contracts\CompletionEventManager;
+use BristolSU\Support\Action\Contracts\EventManager;
 use BristolSU\Support\Module\Contracts\ModuleManager;
 use BristolSU\Support\Permissions\Facade\Permission;
+use Exception;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -32,7 +33,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     protected $permissions = [
     ];
     
-    protected $completionEvents = [];
+    protected $events = [];
     
     protected $commands = [];
 
@@ -40,14 +41,17 @@ abstract class ModuleServiceProvider extends ServiceProvider
     {
         
     }
-    
+
+    /**
+     * @throws Exception
+     */
     public function boot()
     {
         $this->registerTranslations();
         $this->registerConfig();
         $this->registerModule();
         $this->registerPermissions();
-        $this->registerCompletionEvents();
+        $this->registerEvents();
         $this->registerViews();
         $this->registerFactories();
         $this->loadMigrations();
@@ -76,11 +80,13 @@ abstract class ModuleServiceProvider extends ServiceProvider
         }
     }
 
-    public function registerCompletionEvents()
+    /**
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function registerEvents()
     {
-//        dd("here");
-        $manager = $this->app->make(CompletionEventManager::class);
-        foreach($this->completionEvents as $class => $meta) {
+        $manager = $this->app->make(EventManager::class);
+        foreach($this->events as $class => $meta) {
             if(!array_key_exists('name', $meta) || !array_key_exists('description', $meta)) {
                 throw new \Exception('Name and description of event required.');
             }

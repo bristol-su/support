@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Tests\Module;
 
-use BristolSU\Support\Completion\Contracts\CompletionEventRepository;
+use BristolSU\Support\Completion\Contracts\EventRepository;
 use BristolSU\Support\Module\Contracts\Module;
 use BristolSU\Support\Module\ModuleBuilder;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository;
@@ -37,7 +37,7 @@ class ModuleBuilderTest extends TestCase
     {
         parent::setUp();
         $this->module = $this->prophesize(Module::class);
-        $this->completionEventRepository = $this->prophesize(CompletionEventRepository::class);
+        $this->completionEventRepository = $this->prophesize(EventRepository::class);
         $this->permissionRepository = $this->prophesize(PermissionRepository::class);
         $this->config = $this->prophesize(Repository::class);
         $this->builder = new ModuleBuilder(

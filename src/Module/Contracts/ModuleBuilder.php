@@ -1,13 +1,9 @@
 <?php
 
-namespace BristolSU\Support\Contracts\Module;
-
-use BristolSU\Support\Module\Contracts\Module;
+namespace BristolSU\Support\Module\Contracts;
 
 interface ModuleBuilder
 {
-    public function setCompletionEvents();
-
     public function create(string $alias);
     
     public function setAlias();
@@ -20,5 +16,7 @@ interface ModuleBuilder
 
     public function setSettings();
 
+    public function setTriggers();
+    
     public function getModule(): Module;
 }

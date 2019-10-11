@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\ModuleInstance;
 
+use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance as ModuleInstanceContract;
@@ -22,7 +23,6 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         'active',
         'visible',
         'mandatory',
-        'complete',
         'module_instance_settings_id',
         'module_instance_permissions_id'
     ];
@@ -45,11 +45,6 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     public function id()
     {
         return $this->id;
-    }
-
-    public function complete()
-    {
-        return $this->complete;
     }
 
     public function activity()
@@ -80,6 +75,11 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     public function mandatoryLogic()
     {
         return $this->belongsTo(Logic::class, 'mandatory');
+    }
+
+    public function actions()
+    {
+        return $this->hasMany(ActionInstance::class);
     }
 
 }

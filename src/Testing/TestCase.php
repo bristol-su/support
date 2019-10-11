@@ -30,6 +30,8 @@ abstract class TestCase extends BaseTestCase
     
     protected $activity;
 
+    protected $user; 
+    
     abstract public function alias(): string;
 
     protected function getPackageProviders($app)
@@ -58,8 +60,12 @@ abstract class TestCase extends BaseTestCase
         // Create example module instance and activity
         // TODO remove support from here
         if($this->alias() !== 'support') {
-            $this->activity = factory(Activity::class)->create(['slug' => 'act']);
-            $this->moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'mod', 'activity_id' => $this->activity->id, 'alias' => $this->alias()]);
+            $activity = factory(Activity::class)->create(['slug' => 'act']);
+            $moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'mod', 'activity_id' => $activity->id, 'alias' => $this->alias()]);
+            $this->activity = $activity;
+            $this->moduleInstance = $moduleInstance;
+            $this->app->instance(Activity::class, $activity);
+            $this->app->instance(ModuleInstance::class, $moduleInstance);
         }
 
     }
@@ -141,35 +147,45 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
-    public function assertRequiresAuthorization($method, $route, $ability = null)
+    public function assertRequiresAuthorization($method, $route, $ability = null, $parameters=[])
     {
-        $response = $this->call($method, $route);
-        $response->assertStatus(403);
+        $response = $this->call($method, $route, $parameters);
+        $response->assertStatus(403, 'User allowed past authorization without permission. Is there an \'authorize\' statement?');
         
         $this->be(factory(User::class)->create());
         $permissionTester = $this->prophesize(PermissionTester::class);
-        $permissionTester->evaluate($ability)->shouldBeCalled()->willReturn(true);
+        $permissionTester->evaluate($this->alias() . '.' . $ability)->shouldBeCalled()->willReturn(true);
         $this->instance(PermissionTester::class, $permissionTester->reveal());
 
-        $response = $this->call($method, $route);
-        $this->assertContains($response->status(), [
-            200,201
-        ]);
+        $response = $this->call($method, $route, $parameters);
+        $this->assertTrue(
+            $response->isSuccessful(), 
+            sprintf('User not allowed past authorization with permission. Status code %s', $response->getStatusCode())
+        );
 
     }
 
     public function adminUrl($path = '')
     {
+        if(!Str::startsWith($path, '/')) {
+            $path = '/' . $path;
+        }
         return '/a/' . $this->activity->slug . '/'. $this->moduleInstance->slug . $path;
     }
 
     public function userUrl($path = '')
     {
+        if(!Str::startsWith($path, '/')) {
+            $path = '/' . $path;
+        }
         return '/p/' . $this->activity->slug . '/'. $this->moduleInstance->slug . $path;
     }
 
     public function apiUrl($path = '')
     {
+        if(!Str::startsWith($path, '/')) {
+            $path = '/' . $path;
+        }
         return '/api/' . $this->moduleInstance->alias . '/' . $this->activity->slug . '/'. $this->moduleInstance->slug . $path;
     }
 
@@ -177,7 +193,9 @@ abstract class TestCase extends BaseTestCase
     {
         $auth = app()->make(Authentication::class);
         if($auth->getUser() === null) {
-            $auth->setUser(factory(User::class)->create());
+            $user = factory(User::class)->create();
+            $auth->setUser($user);
+            $this->user = $user;
         }
         $permissionTester = $this->prophesize(PermissionTester::class);
         $permissionTester->evaluate(Argument::any())->willReturn(true);

@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Module;
 
-use BristolSU\Support\Contracts\Module\ModuleBuilder as ModuleBuilderContract;
+use BristolSU\Support\Module\Contracts\ModuleBuilder as ModuleBuilderContract;
 use BristolSU\Support\Module\Contracts\Module as ModuleContract;
 use BristolSU\Support\Module\Contracts\ModuleFactory as ModuleFactoryContract;
 use BristolSU\Support\Module\Contracts\ModuleManager as ModuleManagerContract;

@@ -23,10 +23,6 @@ interface Module extends Arrayable, Jsonable
 
     public function getPermissions(): array;
 
-    public function setCompletionEvents(array $completionEvents): void;
-
-    public function getCompletionEvents(): array;
-
     public function setSettings(array $settings): void;
 
     public function getSettings(): array;

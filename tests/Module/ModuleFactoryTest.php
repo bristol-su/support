@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Tests\Module;
 
-use BristolSU\Support\Contracts\Module\ModuleBuilder;
+use BristolSU\Support\Module\Contracts\ModuleBuilder;
 use BristolSU\Support\Module\ModuleFactory;
 use BristolSU\Support\Tests\TestCase;
 

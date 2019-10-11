@@ -11,8 +11,8 @@ class Module implements ModuleContract
     protected $name;
     protected $description;
     protected $permissions;
-    protected $completionEvents;
     protected $settings;
+    protected $triggers;
 
     public function __toString()
     {
@@ -32,7 +32,7 @@ class Module implements ModuleContract
             'description' => $this->getDescription(),
             'permissions' => $this->getPermissions(),
             'settings' => $this->getSettings(),
-            'completionEvents' => $this->getCompletionEvents()
+            'triggers' => $this->getTriggers()
         ];
     }
 
@@ -86,15 +86,14 @@ class Module implements ModuleContract
         $this->settings = $settings;
     }
 
-    public function getCompletionEvents(): array
+    public function getTriggers(): array
     {
-        return $this->completionEvents;
+        return $this->triggers;
     }
 
-    public function setCompletionEvents(array $completionEvents): void
+    public function setTriggers(array $triggers): void
     {
-        $this->completionEvents = $completionEvents;
+        $this->triggers = $triggers;
     }
-
 
 }

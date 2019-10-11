@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Module;
 
-use BristolSU\Support\Contracts\Module\ModuleBuilder as ModuleBuilderContract;
+use BristolSU\Support\Module\Contracts\ModuleBuilder as ModuleBuilderContract;
 use BristolSU\Support\Module\Contracts\Module;
 use BristolSU\Support\Module\Contracts\ModuleFactory as ModuleFactoryAlias;
 use Illuminate\Contracts\Container\Container;
@@ -26,9 +26,9 @@ class ModuleFactory implements ModuleFactoryAlias
         $this->moduleBuilder->setAlias();
         $this->moduleBuilder->setName();
         $this->moduleBuilder->setDescription();
-        $this->moduleBuilder->setCompletionEvents();
         $this->moduleBuilder->setPermissions();
         $this->moduleBuilder->setSettings();
+        $this->moduleBuilder->setTriggers();
         return $this->moduleBuilder->getModule();
     }
 }

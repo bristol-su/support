@@ -4,7 +4,7 @@
 namespace BristolSU\Support\Tests\Module;
 
 
-use BristolSU\Support\Completion\Contracts\CompletionEventRepository;
+use BristolSU\Support\Completion\Contracts\EventRepository;
 use BristolSU\Support\Module\Module;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use Illuminate\Config\Repository;

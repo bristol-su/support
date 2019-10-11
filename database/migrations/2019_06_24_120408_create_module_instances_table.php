@@ -25,7 +25,6 @@ class CreateModuleInstancesTable extends Migration
             $table->unsignedInteger('active');
             $table->unsignedInteger('visible');
             $table->unsignedInteger('mandatory')->nullable();
-            $table->string('complete')->nullable();
             $table->timestamps();
         });
     }

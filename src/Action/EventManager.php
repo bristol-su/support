@@ -1,10 +1,10 @@
 <?php
 
-namespace BristolSU\Support\Completion;
+namespace BristolSU\Support\Action;
 
-use BristolSU\Support\Completion\Contracts\CompletionEventManager as CompletionEventManagerContract;
+use BristolSU\Support\Action\Contracts\EventManager as EventManagerContract;
 
-class CompletionEventManager implements CompletionEventManagerContract
+class EventManager implements EventManagerContract
 {
 
     protected $events = [];
@@ -16,8 +16,8 @@ class CompletionEventManager implements CompletionEventManagerContract
         }
         $this->events[$alias][] = [
             'name' => $name,
+            'description' => $description,
             'event' => $class,
-            'description' => $description
         ];
     }
 
