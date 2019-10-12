@@ -8,5 +8,7 @@ interface ActionManager
     public function registerAction($class, $name, $description);
 
     public function all();
+
+    public function fromClass($class);
     
 }

@@ -9,7 +9,7 @@ class Log implements Action
 
     private $text = 'This will be written to the log';
 
-    public function __construct(array $data)
+    public function __construct(array $data = [])
     {
         $this->text = $data['text'];
     }

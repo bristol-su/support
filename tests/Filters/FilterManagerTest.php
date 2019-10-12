@@ -32,5 +32,14 @@ class FilterManagerTest extends TestCase
 
     }
     
+    /** @test */
+    public function  getClassFromAlias_throws_an_exception_if_the_alias_is_not_found(){
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Filter alias [NotARealAlias] not found');
+        $manager = new FilterManager;
+        
+        $manager->getClassFromAlias('NotARealAlias');
+    }
+    
     
 }

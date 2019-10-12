@@ -22,7 +22,7 @@ class ActionBuilder implements ActionBuilderContract
 
     public function build(ActionInstance $actionInstance, array $data = []): Action
     {
-        return $this->app-> make($actionInstance->action, [
+        return $this->app->make($actionInstance->action, [
             'data' => $this->mapFields($actionInstance->actionInstanceFields, $data)
         ]);
     }

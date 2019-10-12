@@ -35,7 +35,6 @@ $factory->define(ModuleInstance::class, function (Faker $faker) {
         'mandatory' => function () {
             return factory(Logic::class)->create()->id;
         },
-        'complete' => $faker->word,
         'module_instance_settings_id' => function() {
             return factory(ModuleInstanceSettings::class)->create()->id;
         },

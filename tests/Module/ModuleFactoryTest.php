@@ -19,7 +19,7 @@ class ModuleFactoryTest extends TestCase
         $builder->setAlias()->shouldBeCalled();
         $builder->setName()->shouldBeCalled();
         $builder->setDescription()->shouldBeCalled();
-        $builder->setCompletionEvents()->shouldBeCalled();
+        $builder->setTriggers()->shouldBeCalled();
         $builder->setPermissions()->shouldBeCalled();
         $builder->setSettings()->shouldBeCalled();
         $builder->getModule()->shouldBeCalled()->willReturn($module);

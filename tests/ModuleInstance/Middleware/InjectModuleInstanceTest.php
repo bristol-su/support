@@ -25,7 +25,7 @@ class InjectModuleInstanceTest extends TestCase
 
         $middleware = new InjectModuleInstance($app->reveal());
         $middleware->handle($request->reveal(), function($request) {
-
+            
         });
 
     }

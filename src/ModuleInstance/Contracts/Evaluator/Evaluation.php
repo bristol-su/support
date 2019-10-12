@@ -13,14 +13,10 @@ interface Evaluation extends Arrayable
 
     public function setActive(bool $active);
 
-    public function setComplete(bool $complete);
-
     public function visible(): bool;
 
     public function mandatory(): bool;
 
     public function active(): bool;
-
-    public function complete(): bool;
 
 }

@@ -2,7 +2,8 @@
 
 namespace BristolSU\Support\Tests\Module;
 
-use BristolSU\Support\Completion\Contracts\EventRepository;
+use BristolSU\Support\Action\Contracts\Events\EventRepository;
+use BristolSU\Support\Action\Contracts\TriggerableEvent;
 use BristolSU\Support\Module\Contracts\Module;
 use BristolSU\Support\Module\ModuleBuilder;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository;
@@ -19,10 +20,6 @@ class ModuleBuilderTest extends TestCase
     /**
      * @var \Prophecy\Prophecy\ObjectProphecy
      */
-    private $completionEventRepository;
-    /**
-     * @var \Prophecy\Prophecy\ObjectProphecy
-     */
     private $permissionRepository;
     /**
      * @var \Prophecy\Prophecy\ObjectProphecy
@@ -32,19 +29,23 @@ class ModuleBuilderTest extends TestCase
      * @var ModuleBuilder
      */
     private $builder;
+    /**
+     * @var \Prophecy\Prophecy\ObjectProphecy
+     */
+    private $eventRepository;
 
     public function setUp(): void
     {
         parent::setUp();
         $this->module = $this->prophesize(Module::class);
-        $this->completionEventRepository = $this->prophesize(EventRepository::class);
+        $this->eventRepository = $this->prophesize(EventRepository::class);
         $this->permissionRepository = $this->prophesize(PermissionRepository::class);
         $this->config = $this->prophesize(Repository::class);
         $this->builder = new ModuleBuilder(
             $this->module->reveal(),
-            $this->completionEventRepository->reveal(),
             $this->permissionRepository->reveal(),
-            $this->config->reveal()
+            $this->config->reveal(),
+            $this->eventRepository->reveal()
         );
     }
 
@@ -88,20 +89,42 @@ class ModuleBuilderTest extends TestCase
     }
 
     /** @test */
-    public function setCompletionEvents_sets_the_completionEvents_in_the_module(){
+    public function setTriggers_sets_the_triggers_for_the_module(){
         $this->builder->create('alias1');
-        $this->completionEventRepository->allForModule('alias1')->shouldBeCalled()->willReturn(['completionEvents1']);
-        $this->module->setCompletionEvents(['completionEvents1'])->shouldBeCalled();
-        $this->builder->setCompletionEvents();
+        $this->eventRepository->allForModule('alias1')->shouldBeCalled()->willReturn([['event' => Trigger::class]]);
+        $this->module->setTriggers([['event' => Trigger::class]])->shouldBeCalled();
+        $this->builder->setTriggers();
     }   
+    
+    /** @test */
+    public function setTriggers_only_sets_events_implementing_triggerable_event(){
+        $this->builder->create('alias1');
+        $this->eventRepository->allForModule('alias1')->shouldBeCalled()->willReturn([['event' => Trigger::class], ['event' => self::class]]);
+        $this->module->setTriggers([['event' => Trigger::class]])->shouldBeCalled();
+        $this->builder->setTriggers();
+    }
     
     /** @test */
     public function getModule_returns_the_built_module(){
         $module = new \BristolSU\Support\Module\Module();
         $module->setAlias('alias1');
         
-        $builder = new ModuleBuilder($module, $this->completionEventRepository->reveal(), $this->permissionRepository->reveal(), $this->config->reveal());
+        $builder = new ModuleBuilder($module, $this->permissionRepository->reveal(), $this->config->reveal(), $this->eventRepository->reveal());
         $this->assertEquals('alias1', $builder->getModule()->getAlias());
     }
     
+}
+
+class Trigger implements TriggerableEvent
+{
+
+    public function getFields(): array
+    {
+        return [];
+    }
+
+    public static function getFieldMetaData(): array
+    {
+        return [];
+    }
 }

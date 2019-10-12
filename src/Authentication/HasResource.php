@@ -9,66 +9,41 @@ use Illuminate\Database\Eloquent\Builder;
 trait HasResource
 {
     
-
     public static function bootHasResource()
     {
         static::saving(function($model) {
             if($model->resourceId === null || $model->resourceType === null) {
-                $authentication = app()->make(Authentication::class);
-                $moduleInstance = app()->make(ModuleInstance::class);
-
-                $resourceType = $moduleInstance->activity->activity_for;
-                $resourceId = null;
-                if ($resourceType === 'user') {
-                    $user = $authentication->getUser();
-                    if(!$user) {
-                        throw new \Exception('You must be logged in as a user', 403);
-                    }
-                    $resourceId = $user->id;
-                } elseif ($resourceType === 'group') {
-                    $group = $authentication->getGroup();
-                    if(!$group) {
-                        throw new \Exception('You must be logged in as a group', 403);
-                    }
-                    $resourceId = $group->id;
-                }
-                
-                $model->resource_id = $resourceId;
-                $model->resource_type = $resourceType;
+                $model->resource_id = static::resourceId();
+                $model->resource_type = static::resourceType();
             }
             return $model;
         });
     }
 
-    public function scopeForResource(Builder $query)
+    public static function resourceType()
     {
-        [$resourceType, $resourceId] = $this->getResourceInformation();
-
-        $query->where('resource_type', $resourceType);
-        $query->where('resource_id', $resourceId);
+        return app()->make(ModuleInstance::class)->activity->activity_for;
     }
     
-    private function getResourceInformation()
+    public static function resourceId()
     {
         $authentication = app()->make(Authentication::class);
-        $moduleInstance = app()->make(ModuleInstance::class);
-        
-        $resourceType = $moduleInstance->activity->activity_for;
-        $resourceId = null;
+        $resourceType = static::resourceType();
         if ($resourceType === 'user') {
-            $user = $authentication->getUser();
-            if(!$user) {
-                throw new \Exception('You must be logged in as a user', 403);
-            }
-            $resourceId = $user->id;
+            $model = $authentication->getUser();
         } elseif ($resourceType === 'group') {
-            $group = $authentication->getGroup();
-            if(!$group) {
-                throw new \Exception('You must be logged in as a group', 403);
-            }
-            $resourceId = $group->id;
+            $model = $authentication->getGroup();
         }
-        return [$resourceType, $resourceId];
+        if(!$model) {
+            throw new \Exception(sprintf('You must be logged in as a %s', $resourceType), 403);
+        }
+        return $model->id;
     }
-
+    
+    public function scopeForResource(Builder $query)
+    {
+        $query->where('resource_type', static::resourceType())
+            ->where('resource_id', static::resourceId());
+    }
+    
 }

@@ -8,6 +8,7 @@ use BristolSU\Support\Authentication\LaravelAuthentication;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\User\User;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Prophecy\Argument;
 use BristolSU\Support\Tests\TestCase;
@@ -60,6 +61,18 @@ class LaravelAuthenticationTest extends TestCase
     }
 
     /** @test */
+    public function get_group_returns_a_group_if_given_in_headers()
+    {
+        $this->mockControl('get', 'groups/1', ['id' => 1], true);
+        $request = $this->prophesize(Request::class);
+        $request->hasHeader('Group-Id')->shouldBeCalled()->willReturn(true);
+        $request->header('Group-Id')->shouldBeCalled()->willReturn(1);
+        $this->authentication = resolve(LaravelAuthentication::class, ['request' => $request->reveal()]);
+        $this->assertInstanceOf(Group::class, $this->authentication->getGroup());
+        $this->assertEquals(1, $this->authentication->getGroup()->id);
+    }
+    
+    /** @test */
     public function get_role_gets_role_if_logged_in()
     {
         $role = new Role(['id' => 2]);
@@ -75,6 +88,18 @@ class LaravelAuthenticationTest extends TestCase
         $this->assertNull($this->authentication->getRole());
     }
 
+    /** @test */
+    public function get_role_returns_a_role_if_given_in_headers()
+    {
+        $this->mockControl('get', 'position_student_groups/1', ['id' => 1], true);
+        $request = $this->prophesize(Request::class);
+        $request->hasHeader('Role-Id')->shouldBeCalled()->willReturn(true);
+        $request->header('Role-Id')->shouldBeCalled()->willReturn(1);
+        $this->authentication = resolve(LaravelAuthentication::class, ['request' => $request->reveal()]);
+        $this->assertInstanceOf(Role::class, $this->authentication->getRole());
+        $this->assertEquals(1, $this->authentication->getRole()->id);
+    }
+    
     /** @test */
     public function get_user_returns_a_user_if_logged_into_a_user()
     {

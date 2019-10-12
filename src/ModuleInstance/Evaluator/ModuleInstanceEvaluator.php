@@ -4,8 +4,6 @@
 namespace BristolSU\Support\ModuleInstance\Evaluator;
 
 
-use BristolSU\Support\Activity\Activity;
-use BristolSU\Support\Completion\Facade\CompletionTester;
 use BristolSU\Support\Logic\Facade\LogicTester;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation as EvaluationContract;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
@@ -29,7 +27,6 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
         $this->evaluation->setVisible(true);
         $this->evaluation->setMandatory(false);
         $this->evaluation->setActive(true);
-        $this->evaluation->setComplete(false);
 
         return $this->evaluation;
     }
@@ -39,7 +36,6 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
         $this->evaluation->setVisible(LogicTester::evaluate($moduleInstance->visibleLogic));
         $this->evaluation->setMandatory(LogicTester::evaluate($moduleInstance->mandatoryLogic));
         $this->evaluation->setActive(LogicTester::evaluate($moduleInstance->activeLogic));
-        $this->evaluation->setComplete(CompletionTester::evaluate($moduleInstance));
 
         return $this->evaluation;
     }

@@ -10,7 +10,7 @@ use BristolSU\Support\User\User;
 use Illuminate\Support\Collection;
 use BristolSU\Support\Tests\TestCase;
 
-class AudienceFactoryTest extends TestCase
+class  AudienceFactoryTest extends TestCase
 {
 
     /** @test */

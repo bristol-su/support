@@ -85,4 +85,21 @@ class ActivityTest extends TestCase
         $this->assertEquals($activity->admin_logic, $activity->adminLogic->id);
     }
 
+    /** @test */
+    public function it_creates_a_slug_when_being_created()
+    {
+        $activity = factory(Activity::class)->make(['name' => 'A Sluggable Name']);
+        $activity->slug = null;
+        $activity->save();
+        $this->assertEquals($activity->slug, 'a-sluggable-name');
+    }
+
+    /** @test */
+    public function it_does_not_create_a_slug_if_the_slug_is_given()
+    {
+        $activity = factory(Activity::class)->make(['name' => 'A Sluggable Name']);
+        $activity->slug = 'a-sluggable-name-two';
+        $activity->save();
+        $this->assertEquals($activity->slug, 'a-sluggable-name-two');
+    }
 }

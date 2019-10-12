@@ -2,10 +2,11 @@
 
 namespace BristolSU\Support\Action;
 
+use BristolSU\Support\Action\Contracts\RegisteredAction as RegisteredActionContract;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
-class RegisteredAction implements Arrayable, Jsonable
+class RegisteredAction implements Arrayable, Jsonable, RegisteredActionContract
 {
 
     private $name;

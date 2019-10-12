@@ -7,6 +7,7 @@ use BristolSU\Support\Module\Contracts\Module as ModuleContract;
 use BristolSU\Support\Module\Contracts\ModuleFactory as ModuleFactoryContract;
 use BristolSU\Support\Module\Contracts\ModuleManager as ModuleManagerContract;
 use BristolSU\Support\Module\Contracts\ModuleRepository as ModuleRepositoryContract;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class ModuleFrameworkServiceProvider extends ServiceProvider
@@ -19,5 +20,13 @@ class ModuleFrameworkServiceProvider extends ServiceProvider
         $this->app->bind(ModuleFactoryContract::class, ModuleFactory::class);
         $this->app->singleton(ModuleManagerContract::class, ModuleManager::class);
         $this->app->bind(ModuleRepositoryContract::class, ModuleRepository::class);
+    }
+
+    public function boot()
+    {
+        Route::bind('module', function ($alias) {
+            return $this->app->make(ModuleRepositoryContract::class)->findByAlias($alias);
+        });
+        
     }
 }

@@ -2,9 +2,7 @@
 
 namespace BristolSU\Support\Module;
 
-use BristolSU\Support\Completion\Contracts\EventRepository;
 use BristolSU\Support\Module\Contracts\ModuleManager as ModuleManagerContract;
-use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 
 class ModuleManager implements ModuleManagerContract
 {

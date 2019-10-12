@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Action;
 
+use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Database\Eloquent\Model;
 
 class ActionInstance extends Model
@@ -27,6 +28,11 @@ class ActionInstance extends Model
     public function getActionFieldsAttribute()
     {
         return $this->action::getFieldMetaData();
+    }
+
+    public function moduleInstance()
+    {
+        return $this->belongsTo(ModuleInstance::class);
     }
     
 }

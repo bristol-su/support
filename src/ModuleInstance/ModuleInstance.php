@@ -77,7 +77,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         return $this->belongsTo(Logic::class, 'mandatory');
     }
 
-    public function actions()
+    public function actionInstances()
     {
         return $this->hasMany(ActionInstance::class);
     }

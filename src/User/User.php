@@ -30,19 +30,4 @@ class User extends Authenticatable implements MustVerifyEmail
         'password', 'remember_token',
     ];
 
-    // TODO Implement below mailing
-//    public function sendPasswordResetNotification($token)
-//    {
-//        Mail::to($this->email)->send(new ResetPasswordMail($token));
-//    }
-//
-//    /**
-//     * Send the email verification notification.
-//     *
-//     * @return void
-//     */
-//    public function sendEmailVerificationNotification()
-//    {
-//        Mail::to($this->email)->send(new VerifyEmailMail($this));
-//    }
 }

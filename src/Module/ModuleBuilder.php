@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Module;
 
-use BristolSU\Support\Action\Contracts\EventRepository;
+use BristolSU\Support\Action\Contracts\Events\EventRepository;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
 use BristolSU\Support\Module\Contracts\ModuleBuilder as ModuleBuilderContract;
 use \BristolSU\Support\Module\Contracts\Module as ModuleContract;
@@ -28,7 +28,6 @@ class ModuleBuilder implements ModuleBuilderContract
 
     private $alias;
 
-    // TODO Refactor out dependence on config
     /**
      * @var EventRepository
      */

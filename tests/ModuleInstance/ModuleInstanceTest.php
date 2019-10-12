@@ -4,6 +4,8 @@
 namespace BristolSU\Support\Tests\Module\ModuleInstance;
 
 
+use BristolSU\Module\Tests\UploadFile\Integration\Http\Controllers\ParticipantPageControllerTest;
+use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
@@ -96,13 +98,6 @@ class ModuleInstanceTest extends TestCase
     }
 
     /** @test */
-    public function complete_returns_the_completion_event()
-    {
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $this->assertEquals($moduleInstance->complete, $moduleInstance->complete());
-    }
-
-    /** @test */
     public function it_creates_a_slug_when_being_created()
     {
         $moduleInstance = factory(ModuleInstance::class)->make(['name' => 'A Sluggable Name']);
@@ -118,6 +113,18 @@ class ModuleInstanceTest extends TestCase
         $moduleInstance->slug = 'a-sluggable-name-two';
         $moduleInstance->save();
         $this->assertEquals($moduleInstance->slug, 'a-sluggable-name-two');
+    }
+    
+    /** @test */
+    public function it_has_actions_associated_with_it(){
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $actions = factory(ActionInstance::class, 5)->create(['module_instance_id' => $moduleInstance->id]);
+        
+        $moduleInstanceActions = $moduleInstance->actionInstances;
+        
+        foreach($actions as $action) {
+            $this->assertModelEquals($action, $moduleInstanceActions->shift());
+        }
     }
 
 }

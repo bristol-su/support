@@ -28,10 +28,8 @@ class ActionRepository implements ActionRepositoryContract
 
     public function fromClass($class)
     {
-        $actions = $this->manager->all();
-        if(!isset($actions[$class])) {
-            throw new \Exception();
-        }
-        return RegisteredAction::fromArray($actions[$class]);
+        return RegisteredAction::fromArray(
+            $this->manager->fromClass($class)
+        );
     }
 }

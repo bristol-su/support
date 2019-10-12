@@ -11,23 +11,7 @@ use BristolSU\Support\Tests\TestCase;
 
 class UserRepositoryTest extends TestCase
 {
-
-
-    public function getWhereEmail($email)
-    {
-        return User::where('email', $email)->get();
-    }
-
-    public function create(array $attributes)
-    {
-        return User::create($attributes);
-    }
-
-    public function all()
-    {
-        return User::all();
-    }
-
+    
     /** @test */
     public function getWhereIdentity_gets_a_user_by_email()
     {

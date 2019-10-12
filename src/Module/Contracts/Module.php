@@ -26,4 +26,8 @@ interface Module extends Arrayable, Jsonable
     public function setSettings(array $settings): void;
 
     public function getSettings(): array;
+
+    public function setTriggers(array $triggers): void;
+
+    public function getTriggers(): array;
 }

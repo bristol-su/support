@@ -11,6 +11,8 @@ use BristolSU\Support\ModuleInstance\Evaluator\ActivityEvaluator;
 use BristolSU\Support\ModuleInstance\Evaluator\Evaluation;
 use BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\Middleware\InjectModuleInstance;
+use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSettings;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class ModuleInstanceServiceProvider extends ServiceProvider
@@ -27,6 +29,20 @@ class ModuleInstanceServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app['router']->pushMiddlewareToGroup('module', InjectModuleInstance::class);
+
+        Route::bind('module_instance_setting', function ($id) {
+            return ModuleInstanceSettings::findOrFail($id);
+        });
+
+        Route::bind('module_instance_slug', function ($slug, $route) {
+            $activity = $route->parameter('activity_slug');
+            return ModuleInstance::where('slug', $slug)
+                ->whereHas('activity', function ($query) use ($activity) {
+                    $query->where('slug', $activity->slug);
+                })
+                ->firstOrFail();
+        });
+                
     }
 
 }

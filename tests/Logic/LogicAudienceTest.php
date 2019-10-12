@@ -3,15 +3,18 @@
 namespace BristolSU\Support\Tests\Logic;
 
 use BristolSU\Support\Filters\Contracts\FilterRepository;
+use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Contracts\AudienceFactory;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Logic\LogicAudience;
+use BristolSU\Support\User\User;
 use Illuminate\Support\Collection;
 use BristolSU\Support\Tests\TestCase;
+use Prophecy\Argument;
 
 class LogicAudienceTest extends TestCase
 {
-
+    
     /** @test */
     public function audience_retrieves_the_possible_audience_from_the_audience_factory(){
         $audience = $this->prophesize(AudienceFactory::class);
@@ -24,6 +27,6 @@ class LogicAudienceTest extends TestCase
         $logicAudience->audience($logic);
     }
 
-    // TODO More BristolSU\Support\Tests
+    // TODO More tests around audience here!
 
 }

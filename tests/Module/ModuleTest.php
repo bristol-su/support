@@ -53,12 +53,12 @@ class ModuleTest extends TestCase
     }
 
     /** @test */
-    public function completionEvents_have_setters_and_getters(){
+    public function triggers_have_setters_and_getters(){
         $module = new Module;
-        $module->setCompletionEvents([
-            'completionEvent1'
+        $module->setTriggers([
+            'trigger1', 'trigger2'
         ]);
-        $this->assertEquals(['completionEvent1'], $module->getCompletionEvents());
+        $this->assertEquals(['trigger1', 'trigger2'], $module->getTriggers());
     }
 
     /** @test */
@@ -69,7 +69,7 @@ class ModuleTest extends TestCase
         $module->setDescription('description1');
         $module->setPermissions(['permission1']);
         $module->setSettings(['setting1']);
-        $module->setCompletionEvents(['completionEvent1']);
+        $module->setTriggers(['trigger1']);
         
         $this->assertEquals([
             'alias' => 'alias1',
@@ -77,7 +77,7 @@ class ModuleTest extends TestCase
             'description' => 'description1',
             'permissions' => ['permission1'],
             'settings' => ['setting1'],
-            'completionEvents' => ['completionEvent1'],
+            'triggers' => ['trigger1'],
         ], $module->toArray());
     }
 
@@ -89,7 +89,7 @@ class ModuleTest extends TestCase
         $module->setDescription('description1');
         $module->setPermissions(['permission1']);
         $module->setSettings(['setting1']);
-        $module->setCompletionEvents(['completionEvent1']);
+        $module->setTriggers(['trigger1']);
 
         $this->assertEquals(json_encode([
             'alias' => 'alias1',
@@ -97,7 +97,7 @@ class ModuleTest extends TestCase
             'description' => 'description1',
             'permissions' => ['permission1'],
             'settings' => ['setting1'],
-            'completionEvents' => ['completionEvent1'],
+            'triggers' => ['trigger1'],
         ]), $module->toJson());
     }
 
@@ -109,7 +109,7 @@ class ModuleTest extends TestCase
         $module->setDescription('description1');
         $module->setPermissions(['permission1']);
         $module->setSettings(['setting1']);
-        $module->setCompletionEvents(['completionEvent1']);
+        $module->setTriggers(['trigger1']);
 
         $this->assertEquals(json_encode([
             'alias' => 'alias1',
@@ -117,7 +117,7 @@ class ModuleTest extends TestCase
             'description' => 'description1',
             'permissions' => ['permission1'],
             'settings' => ['setting1'],
-            'completionEvents' => ['completionEvent1'],
+            'triggers' => ['trigger1'],
         ]), (string)$module);
     }
 }

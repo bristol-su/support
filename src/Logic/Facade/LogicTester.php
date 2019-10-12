@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\Facade;
  * Class LogicTester
  * @package BristolSU\Support\Logic\Facade
  *
- * @method static LogicTesterContract evaluate(Logic $logic)
+ * @method static bool evaluate(Logic $logic)
  *
  * @see LogicTesterContract
  */

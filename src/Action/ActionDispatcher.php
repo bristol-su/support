@@ -15,7 +15,7 @@ class ActionDispatcher
      */
     private $builder;
 
-    public function __construct(ActionRepositoryContract $repository, ActionBuilderContract $builder)
+    public function __construct(ActionBuilderContract $builder)
     {
         $this->builder = $builder;
     }

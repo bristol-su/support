@@ -22,5 +22,13 @@ class ActionManager implements ActionManagerContract
     {
         return $this->actions;
     }
+
+    public function fromClass($class)
+    {
+        if(!array_key_exists($class, $this->actions)) {
+            throw new \Exception(sprintf('Action [%s] not found', $class));
+        }
+        return $this->actions[$class];
+    }
     
 }

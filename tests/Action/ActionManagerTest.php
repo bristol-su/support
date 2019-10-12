@@ -9,38 +9,58 @@ class ActionManagerTest extends TestCase
 {
 
     /** @test */
-    public function registerEvent_registers_an_event(){
-        $manager = new ActionManager;
-
-        $manager->registerEvent('alias1', 'name1', 'Class1', 'Description1');
-        $manager->registerEvent('alias2', 'name2', 'Class2', 'Description2');
+    public function an_action_can_be_registered(){
+        $manager = new ActionManager();
+        $manager->registerAction('ClassName\One', 'Some Name', 'Description');
         
         $this->assertEquals([
-            'alias1' => [[
-                'name' => 'name1',
-                'event' => 'Class1',
-                'description' => 'Description1'
-            ]],
-            'alias2' => [[
-                'name' => 'name2',
-                'event' => 'Class2',
-                'description' => 'Description2'
-            ]]
+            'ClassName\One' => [
+                'name' => 'Some Name',
+                'class' => 'ClassName\One',
+                'description' => 'Description'
+            ]
         ], $manager->all());
     }
     
     /** @test */
-    public function allForModule_returns_only_events_for_a_module(){
-        $manager = new ActionManager;
+    public function multiple_actions_can_be_registered(){
+        $manager = new ActionManager();
+        $manager->registerAction('ClassName\One', 'Some Name', 'Description');
+        $manager->registerAction('ClassName\Two', 'Some Name2', 'Description2');
 
-        $manager->registerEvent('alias1', 'name1', 'Class1', 'Description1');
-        $manager->registerEvent('alias2', 'name2', 'Class2', 'Description2');
+        $this->assertEquals([
+            'ClassName\One' => [
+                'name' => 'Some Name',
+                'class' => 'ClassName\One',
+                'description' => 'Description'
+            ],
+            'ClassName\Two' => [
+                'name' => 'Some Name2',
+                'class' => 'ClassName\Two',
+                'description' => 'Description2'
+            ]
+        ], $manager->all());
+    }
+    
+    /** @test */
+    public function a_single_action_may_be_retrieved_by_class_name(){
+        $manager = new ActionManager();
+        $manager->registerAction('ClassName\One', 'Some Name', 'Description');
 
-        $this->assertEquals([[
-                'name' => 'name1',
-                'event' => 'Class1',
-                'description' => 'Description1'
-        ]], $manager->allForModule('alias1'));
+        $this->assertEquals([
+            'name' => 'Some Name',
+            'class' => 'ClassName\One',
+            'description' => 'Description'
+        ], $manager->fromClass('ClassName\One'));
+    }
+    
+    /** @test */
+    public function an_exception_is_thrown_if_the_class_name_is_not_registered(){
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Action [ClassName\One] not found');
+        $manager = new ActionManager();
+
+        $manager->fromClass('ClassName\One');
     }
     
 }

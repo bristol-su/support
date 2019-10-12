@@ -6,6 +6,7 @@ namespace BristolSU\Support\Permissions;
 
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Permissions\Contracts\Models\Permission as PermissionContract;
+use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
 use BristolSU\Support\Permissions\Models\Permission;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository as PermissionRepositoryContract;
 use BristolSU\Support\Permissions\Contracts\PermissionStore as PermissionStoreContract;
@@ -19,6 +20,7 @@ use BristolSU\Support\Permissions\Testers\SystemLogicPermission;
 use BristolSU\Support\Permissions\Testers\SystemUserPermission;
 use BristolSU\Support\User\User;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 class PermissionServiceProvider extends ServiceProvider
@@ -57,5 +59,9 @@ class PermissionServiceProvider extends ServiceProvider
             return $authentication->getUser();
         });
 
+        Route::bind('module_instance_permission', function ($id) {
+            return ModuleInstancePermissions::findOrFail($id);
+        });
+        
     }
 }
