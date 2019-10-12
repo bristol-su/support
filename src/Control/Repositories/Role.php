@@ -28,7 +28,7 @@ class Role implements RoleContract
 
     public function allFromStudentControlID($id): Collection
     {
-        $roles = $this->client->request('get', 'students/' . $id . '/position_student_groups');
+        $roles = $this->client->request('get', 'students/' . $id . 'position_student_groups');
         $modelRoles = new Collection;
         foreach($roles as $role) {
             $modelRoles->push(new \BristolSU\Support\Control\Models\Role($role));
