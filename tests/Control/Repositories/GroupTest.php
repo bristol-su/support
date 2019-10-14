@@ -64,5 +64,19 @@ class GroupTest extends TestCase
         $this->assertEquals(1, $groupModels[0]->id);
         $this->assertEquals(2, $groupModels[1]->id);
     }
+    
+    /** @test */
+    public function allFromStudentControlID_returns_all_groups_with_a_student_control_id(){
+        $groups = [
+            ['id' => 1, 'name' => 'A Group Name', 'unioncloud_id' => 777, 'email' => ''],
+            ['id' => 2, 'name' => 'A Group Name 2', 'unioncloud_id' => 8889, 'email' => 'tt@bb.com'],
+        ];
+
+        $this->mockControl('get', 'students/' . 5 . '/groups', $groups);
+
+        $groupModels = (new Group($this->controlClient->reveal()))->allFromStudentControlID(5);
+        $this->assertEquals(1, $groupModels[0]->id);
+        $this->assertEquals(2, $groupModels[1]->id);
+    }
 
 }

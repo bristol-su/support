@@ -4,11 +4,15 @@
 namespace BristolSU\Support\Tests\ModuleInstance\Evaluator;
 
 
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Completion\Contracts\CompletionTester;
+use BristolSU\Support\Control\Models\Group;
+use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Logic\Facade\LogicTester;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation;
 use BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\User\User;
 use Prophecy\Argument;
 use BristolSU\Support\Tests\TestCase;
 
@@ -20,7 +24,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $moduleInstance = factory(ModuleInstance::class)->create();
         $evaluation = $this->prophesize(Evaluation::class);
 
-        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal());
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal(), $this->prophesize(Authentication::class)->reveal());
         $this->assertInstanceOf(Evaluation::class, $moduleInstanceEvaluator->evaluateAdministrator($moduleInstance));
     }
 
@@ -30,7 +34,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $moduleInstance = factory(ModuleInstance::class)->create();
         $evaluation = $this->prophesize(Evaluation::class);
 
-        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal());
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal(), $this->prophesize(Authentication::class)->reveal());
         $this->assertInstanceOf(Evaluation::class, $moduleInstanceEvaluator->evaluateParticipant($moduleInstance));
     }
 
@@ -43,7 +47,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $evaluation->setMandatory(false)->shouldBeCalled();
         $evaluation->setActive(true)->shouldBeCalled();
 
-        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal());
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal(), $this->prophesize(Authentication::class)->reveal());
         $moduleInstanceEvaluator->evaluateAdministrator($moduleInstance);
     }
 
@@ -57,7 +61,27 @@ class ModuleInstanceEvaluatorTest extends TestCase
 
         $this->createLogicTester([$moduleInstance->visibleLogic, $moduleInstance->mandatoryLogic], $moduleInstance->activeLogic);
         
-        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal());
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal(), $this->prophesize(Authentication::class)->reveal());
+        $moduleInstanceEvaluator->evaluateParticipant($moduleInstance);
+    }
+
+    /** @test */
+    public function participant_passes_the_user_group_and_role_to_the_tester(){
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $evaluation = $this->prophesize(Evaluation::class);
+
+        $user = factory(User::class)->create();
+        $group = new Group(['id' => 1]);
+        $role = new Role(['id' => 2]);
+
+        $authentication = $this->prophesize(Authentication::class);
+        $authentication->getUser()->shouldBeCalled()->willReturn($user);
+        $authentication->getGroup()->shouldBeCalled()->willReturn($group);
+        $authentication->getRole()->shouldBeCalled()->willReturn($role);
+
+        $this->createLogicTester([$moduleInstance->visibleLogic, $moduleInstance->mandatoryLogic], $moduleInstance->activeLogic, $user, $group, $role);
+
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal(), $authentication->reveal());
         $moduleInstanceEvaluator->evaluateParticipant($moduleInstance);
     }
 }

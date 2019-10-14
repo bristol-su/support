@@ -56,4 +56,16 @@ class ModelPermission extends Model
         }
         return $query->where($constraints);
     }
+
+    public function scopeRole(Builder $query, $groupId = null, $ability = null)
+    {
+        $constraints = ['model' => 'role'];
+        if($groupId !== null) {
+            $constraints['model_id'] = $groupId;
+        }
+        if($ability !== null) {
+            $constraints['ability'] = $ability;
+        }
+        return $query->where($constraints);
+    }
 }

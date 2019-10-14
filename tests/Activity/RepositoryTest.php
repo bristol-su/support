@@ -6,10 +6,17 @@ namespace BristolSU\Support\Tests\Activity;
 
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Activity\Repository as ActivityRepository;
+use BristolSU\Support\Control\Models\Group;
+use BristolSU\Support\Control\Models\Role;
+use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
+use BristolSU\Support\User\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
 use BristolSU\Support\Tests\TestCase;
+use Prophecy\Argument;
 
 class RepositoryTest extends TestCase
 {
@@ -125,4 +132,133 @@ class RepositoryTest extends TestCase
         $this->assertDatabaseHas('activities', $attributes);
     }
 
+    /** @test */
+    public function getForAdministrator_passes_a_user_to_the_logic_tester(){
+        $activity = factory(Activity::class)->create();
+        $user = factory(User::class)->create();
+        $logicTester = $this->prophesize(LogicTester::class);
+        $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
+            return $arg->id === $activity->adminLogic->id;
+        }), Argument::that(function($arg) use ($user) {
+            return $user instanceof User && $user->id === $arg->id;
+        }),  null, null)->shouldBeCalled()->willReturn(true);
+
+        $this->instance(LogicTester::class, $logicTester->reveal());
+        
+        (new ActivityRepository)->getForAdministrator($user);
+    }
+
+    /** @test */
+    public function getForAdministrator_passes_a_group_to_the_logic_tester(){
+        $activity = factory(Activity::class)->create();
+        $group = new Group(['id' => 1]);
+        $logicTester = $this->prophesize(LogicTester::class);
+        $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
+            return $arg->id === $activity->adminLogic->id;
+        }), null, $group, null)->shouldBeCalled()->willReturn(true);
+
+        $this->instance(LogicTester::class, $logicTester->reveal());
+
+        (new ActivityRepository)->getForAdministrator(null, $group);
+    }
+
+    /** @test */
+    public function getForAdministrator_passes_a_role_to_the_logic_tester(){
+        $activity = factory(Activity::class)->create();
+        $role = new Role(['id' => 1]);
+        $logicTester = $this->prophesize(LogicTester::class);
+        $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
+            return $arg->id === $activity->adminLogic->id;
+        }), null, null, $role)->shouldBeCalled()->willReturn(true);
+
+        $this->instance(LogicTester::class, $logicTester->reveal());
+
+        (new ActivityRepository)->getForAdministrator(null, null, $role);
+    }
+
+    /** @test */
+    public function getForAdministrator_passes_null_to_the_logic_tester_if_no_user_group_and_role_given(){
+        $activity = factory(Activity::class)->create();
+        $logicTester = $this->prophesize(LogicTester::class);
+        $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
+            return $arg->id === $activity->adminLogic->id;
+        }), null,  null, null)->shouldBeCalled()->willReturn(true);
+
+        $this->instance(LogicTester::class, $logicTester->reveal());
+
+        (new ActivityRepository)->getForAdministrator();
+    }
+
+
+    /** @test */
+    public function getForParticipant_passes_a_user_to_the_logic_tester(){
+        $activity = factory(Activity::class)->create();
+        $user = factory(User::class)->create();
+        $logicTester = $this->prophesize(LogicTester::class);
+        $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
+            return $arg->id === $activity->forLogic->id;
+        }), Argument::that(function($arg) use ($user) {
+            return $user instanceof User && $user->id === $arg->id;
+        }),  null, null)->shouldBeCalled()->willReturn(true);
+
+        $this->instance(LogicTester::class, $logicTester->reveal());
+
+        (new ActivityRepository)->getForParticipant($user);
+    }
+
+    /** @test */
+    public function getForParticipant_passes_a_group_to_the_logic_tester(){
+        $activity = factory(Activity::class)->create();
+        $group = new Group(['id' => 1]);
+        $logicTester = $this->prophesize(LogicTester::class);
+        $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
+            return $arg->id === $activity->forLogic->id;
+        }), null, $group, null)->shouldBeCalled()->willReturn(true);
+
+        $this->instance(LogicTester::class, $logicTester->reveal());
+
+        (new ActivityRepository)->getForParticipant(null, $group);
+    }
+
+    /** @test */
+    public function getForParticipant_passes_a_role_to_the_logic_tester(){
+        $activity = factory(Activity::class)->create();
+        $role = new Role(['id' => 1]);
+        $logicTester = $this->prophesize(LogicTester::class);
+        $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
+            return $arg->id === $activity->forLogic->id;
+        }), null, null, $role)->shouldBeCalled()->willReturn(true);
+
+        $this->instance(LogicTester::class, $logicTester->reveal());
+
+        (new ActivityRepository)->getForParticipant(null, null, $role);
+    }
+
+    /** @test */
+    public function getForParticipant_passes_null_to_the_logic_tester_if_no_user_group_and_role_given(){
+        $activity = factory(Activity::class)->create();
+        $logicTester = $this->prophesize(LogicTester::class);
+        $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
+            return $arg->id === $activity->forLogic->id;
+        }), null,  null, null)->shouldBeCalled()->willReturn(true);
+
+        $this->instance(LogicTester::class, $logicTester->reveal());
+
+        (new ActivityRepository)->getForParticipant();
+    }
+    
+    /** @test */
+    public function getById_returns_an_activity_by_id(){
+        $activity = factory(Activity::class)->create();
+        $repository = new ActivityRepository();
+        
+        $this->assertModelEquals($activity, $repository->getById($activity->id));
+    }
+    
+    /** @test */
+    public function getById_throws_an_exception_if_no_model_found(){
+        $this->expectException(ModelNotFoundException::class);
+        $repository = new ActivityRepository();
+        $repository->getById(100);
+    }
 }

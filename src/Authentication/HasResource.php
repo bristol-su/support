@@ -12,7 +12,7 @@ trait HasResource
     public static function bootHasResource()
     {
         static::saving(function($model) {
-            if($model->resourceId === null || $model->resourceType === null) {
+            if($model->resource_id === null || $model->resource_type === null) {
                 $model->resource_id = static::resourceId();
                 $model->resource_type = static::resourceType();
             }
@@ -33,7 +33,9 @@ trait HasResource
             $model = $authentication->getUser();
         } elseif ($resourceType === 'group') {
             $model = $authentication->getGroup();
-        }
+        } elseif ($resourceType === 'role') {
+            $model = $authentication->getRole();
+            }
         if(!$model) {
             throw new \Exception(sprintf('You must be logged in as a %s', $resourceType), 403);
         }

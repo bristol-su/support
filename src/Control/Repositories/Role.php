@@ -22,13 +22,13 @@ class Role implements RoleContract
     }
     public function getById($id)
     {
-        $role = $this->client->request('get', 'position_student_groups/' . $id);
+        $role = $this->client->request('get', 'roles/' . $id);
         return new \BristolSU\Support\Control\Models\Role($role);
     }
 
     public function allFromStudentControlID($id): Collection
     {
-        $roles = $this->client->request('get', 'students/' . $id . 'position_student_groups');
+        $roles = $this->client->request('get', 'students/' . $id . '/roles');
         $modelRoles = new Collection;
         foreach($roles as $role) {
             $modelRoles->push(new \BristolSU\Support\Control\Models\Role($role));
@@ -38,7 +38,7 @@ class Role implements RoleContract
 
     public function all(): Collection
     {
-        $roles = $this->client->request('get', 'position_student_groups');
+        $roles = $this->client->request('get', 'roles');
         $modelRoles = new Collection;
         foreach($roles as $role) {
             $modelRoles->push(new \BristolSU\Support\Control\Models\Role($role));

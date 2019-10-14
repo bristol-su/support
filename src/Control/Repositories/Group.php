@@ -6,6 +6,7 @@ namespace BristolSU\Support\Control\Repositories;
 
 use BristolSU\Support\Control\Contracts\Client\Client as ControlClient;
 use BristolSU\Support\Control\Contracts\Repositories\Group as GroupContract;
+use Illuminate\Support\Collection;
 
 class Group implements GroupContract
 {
@@ -56,5 +57,15 @@ class Group implements GroupContract
             $groups[] = new \BristolSU\Support\Control\Models\Group($group);
         }
         return $groups;
+    }
+
+    public function allFromStudentControlID($id): Collection
+    {
+        $groups = $this->client->request('get', 'students/' . $id . '/groups');
+        $modelGroups = new Collection;
+        foreach($groups as $group) {
+            $modelGroups->push(new \BristolSU\Support\Control\Models\Group($group));
+        }
+        return $modelGroups;
     }
 }

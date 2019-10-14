@@ -101,7 +101,7 @@ abstract class TestCase extends BaseTestCase
 
     public function beRole($role)
     {
-        $this->mockControl('get', 'position_student_groups/' . $role->id, $role->toArray(), true);
+        $this->mockControl('get', 'roles/' . $role->id, $role->toArray(), true);
         $this->app['auth']->guard('role')->loginUsingId($role->id);
         return $this;
     }
@@ -118,22 +118,34 @@ abstract class TestCase extends BaseTestCase
         $this->assertTrue($expected->is($actual), 'Models are not equal');
     }
 
-    public function createLogicTester($true=[], $false=[]   )
+    public function createLogicTester($true=[], $false=[], $user=null, $group=null, $role=null)
     {
         $logicTester = $this->prophesize(LogicTester::class);
         foreach(Arr::wrap($true) as $logic) {
             $logicTester->evaluate(Argument::that(function($arg) use ($logic) {
                 return $arg->id === $logic->id;
+            }), Argument::that(function($arg) use ($user) {
+                return $user === null || $user->id === $arg->id;
+            }),  Argument::that(function($arg) use ($group) {
+                return $group === null || $group->id === $arg->id;
+            }),  Argument::that(function($arg) use ($role) {
+                return $role === null || $role->id === $arg->id;
             }))->willReturn(true);
         }
 
         foreach(Arr::wrap($false) as $logic) {
             $logicTester->evaluate(Argument::that(function($arg) use ($logic) {
                 return $arg->id === $logic->id;
+            }), Argument::that(function($arg) use ($user) {
+                return $user === null || $user->id === $arg->id;
+            }),  Argument::that(function($arg) use ($group) {
+                return $group === null || $group->id === $arg->id;
+            }),  Argument::that(function($arg) use ($role) {
+                return $role === null || $role->id === $arg->id;
             }))->willReturn(false);
         }
 
-        $logicTester->evaluate(Argument::any())->willReturn(false);
+        $logicTester->evaluate(Argument::any(), Argument::any(), Argument::any(), Argument::any())->willReturn(false);
         $this->instance(LogicTester::class, $logicTester->reveal());
     }
 

@@ -43,6 +43,13 @@ $factory->state(ModelPermission::class, 'group', function() {
     ];
 });
 
+$factory->state(ModelPermission::class, 'role', function() {
+    return [
+        'model' => 'role',
+        'model_id' => 1,
+    ];
+});
+
 $factory->state(ModelPermission::class, 'logic', function() {
     return [
         'model' => 'logic',

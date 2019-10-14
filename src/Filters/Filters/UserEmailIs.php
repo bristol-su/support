@@ -18,9 +18,8 @@ class UserEmailIs extends UserFilter
      */
     private $userRepository;
 
-    public function __construct(Authentication $authentication, UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository)
     {
-        parent::__construct($authentication);
         $this->userRepository = $userRepository;
     }
 
@@ -61,7 +60,7 @@ class UserEmailIs extends UserFilter
 
     public function alias()
     {
-        return 'user_email';
+        return 'user_email_is';
     }
 
     public function audience($settings)

@@ -4,36 +4,36 @@
 namespace BristolSU\Support\Filters\Contracts\Filters;
 
 use BristolSU\Support\Authentication\Contracts\Authentication;
+use BristolSU\Support\Control\Contracts\Models\Group;
 
 abstract class GroupFilter extends Filter
 {
 
+    private $group;
 
-    /**
-     * @var Authentication
-     */
-    private $authentication;
-
-    public function __construct(Authentication $authentication)
+    public function setModel($model)
     {
-        $this->authentication = $authentication;
+        if(!($model instanceof Group)) {
+            throw new \Exception(
+                sprintf('Cannot pass a class of type [%s] to a group filter', get_class($model))
+            );
+        }
+        $this->group = $model;
     }
-
+    
     public function hasModel(): bool
     {
-        return $this->authentication->getGroup() !== null;
+        return $this->group !== null;
     }
 
     public function model()
     {
-        return $this->authentication->getGroup();
+        return $this->group;
     }
 
     public function for()
     {
         return 'group';
     }
-
-
 
 }

@@ -17,7 +17,7 @@ class RoleTest extends TestCase
             'id' => 1
         ];
 
-        $this->mockControl('get', 'position_student_groups/' . $role['id'], $role);
+        $this->mockControl('get', 'roles/' . $role['id'], $role);
 
         $roleModel = (new Role($this->controlClient->reveal()))->getById($role['id']);
         foreach($role as $attribute => $value) {
@@ -33,7 +33,7 @@ class RoleTest extends TestCase
             ['id' => 3]
         ];
 
-        $this->mockControl('get', 'students/1/position_student_groups', $roles);
+        $this->mockControl('get', 'students/1/roles', $roles);
 
         $roleModel = (new Role($this->controlClient->reveal()))->allFromStudentControlID(1);
         foreach($roles as $role) {
@@ -46,7 +46,7 @@ class RoleTest extends TestCase
 
     /** @test */
     public function all_from_student_control_id_returns_an_empty_collection_if_no_roles_belong_to_a_student(){
-        $this->mockControl('get', 'students/1/position_student_groups', []);
+        $this->mockControl('get', 'students/1/roles', []);
 
         $roleModel = (new Role($this->controlClient->reveal()))->allFromStudentControlID(1);
 
@@ -64,7 +64,7 @@ class RoleTest extends TestCase
             ['id' => 3]
         ];
 
-        $this->mockControl('get', 'position_student_groups', $roles);
+        $this->mockControl('get', 'roles', $roles);
 
         $roleModels = (new Role($this->controlClient->reveal()))->all();
         $this->assertEquals(1, $roleModels[0]->id);

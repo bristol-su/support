@@ -18,7 +18,7 @@ class CreateActivitiesTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('slug');
-            $table->enum('activity_for', ['group', 'user']);
+            $table->enum('activity_for', ['group', 'user', 'role']);
             $table->unsignedInteger('for_logic');
             $table->unsignedInteger('admin_logic');
             $table->datetime('start_date')->nullable();

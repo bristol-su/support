@@ -5,6 +5,7 @@ namespace BristolSU\Support\Tests\Permissions\Models;
 
 
 use BristolSU\Support\Control\Models\Group;
+use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Permissions\Models\ModelPermission;
 use BristolSU\Support\User\User;
@@ -73,6 +74,38 @@ class ModelPermissionTest extends TestCase
             $this->assertFalse($permissions->contains($permission));
         }
         foreach($groupPermissions as $permission) {
+            $this->assertTrue($permissions->contains($permission));
+        }
+    }
+
+    /** @test */
+    public function role_can_select_by_role_id_and_ability(){
+        $role1 = new Role(['id' => 1]);
+        $role2 = new Role(['id' => 2]);
+        $role4 = new Role(['id' => 3]);
+        $rolePermission1 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission1', 'model_id' => $role1->id]);
+        $rolePermission2 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission2', 'model_id' => $role2->id]);
+        $rolePermission3 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission3', 'model_id' => $role1->id]);
+        $rolePermission4 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission1', 'model_id' => $role4->id]);
+
+        $permission = ModelPermission::role($role1->id, 'permission1')->get();
+
+        $this->assertCount(1, $permission);
+        $this->assertEquals($rolePermission1->id, $permission->first()->id);
+    }
+
+
+    /** @test */
+    public function role_returns_all_role_permissions(){
+        $userPermissions = factory(ModelPermission::class, 5)->state('user')->create();
+        $rolePermissions = factory(ModelPermission::class, 5)->state('role')->create();
+
+        $permissions = ModelPermission::role()->get();
+
+        foreach($userPermissions as $permission) {
+            $this->assertFalse($permissions->contains($permission));
+        }
+        foreach($rolePermissions as $permission) {
             $this->assertTrue($permissions->contains($permission));
         }
     }

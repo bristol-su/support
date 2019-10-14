@@ -21,9 +21,8 @@ class GroupTagged extends GroupFilter
      */
     private $groupRepository;
 
-    public function __construct(Authentication $authentication, GroupTagRepositoryContract $groupTagRepository, GroupRepository $groupRepository)
+    public function __construct(GroupTagRepositoryContract $groupTagRepository, GroupRepository $groupRepository)
     {
-        parent::__construct($authentication);
         $this->groupTagRepository = $groupTagRepository;
         $this->groupRepository = $groupRepository;
     }

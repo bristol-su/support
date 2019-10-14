@@ -4,6 +4,7 @@
 namespace BristolSU\Support\ModuleInstance\Evaluator;
 
 
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Facade\LogicTester;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation as EvaluationContract;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
@@ -16,10 +17,15 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
      * @var EvaluationContract
      */
     private $evaluation;
+    /**
+     * @var Authentication
+     */
+    private $authentication;
 
-    public function __construct(EvaluationContract $evaluation)
+    public function __construct(EvaluationContract $evaluation, Authentication $authentication)
     {
         $this->evaluation = $evaluation;
+        $this->authentication = $authentication;
     }
 
     public function evaluateAdministrator(ModuleInstance $moduleInstance)
@@ -33,9 +39,9 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
 
     public function evaluateParticipant(ModuleInstance $moduleInstance)
     {
-        $this->evaluation->setVisible(LogicTester::evaluate($moduleInstance->visibleLogic));
-        $this->evaluation->setMandatory(LogicTester::evaluate($moduleInstance->mandatoryLogic));
-        $this->evaluation->setActive(LogicTester::evaluate($moduleInstance->activeLogic));
+        $this->evaluation->setVisible(LogicTester::evaluate($moduleInstance->visibleLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole()));
+        $this->evaluation->setMandatory(LogicTester::evaluate($moduleInstance->mandatoryLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole()));
+        $this->evaluation->setActive(LogicTester::evaluate($moduleInstance->activeLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole()));
 
         return $this->evaluation;
     }

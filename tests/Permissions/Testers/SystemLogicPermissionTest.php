@@ -4,6 +4,9 @@
 namespace BristolSU\Support\Tests\Permissions\Testers;
 
 
+use BristolSU\Support\Authentication\Contracts\Authentication;
+use BristolSU\Support\Control\Models\Group;
+use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Permissions\Contracts\Testers\Tester;
@@ -18,7 +21,7 @@ class SystemLogicPermissionTest extends TestCase
     /** @test */
     public function can_calls_successor_if_no_logic_permission_found(){
         $logicTester = $this->prophesize(LogicTester::class);
-        $tester = new SystemLogicPermission($logicTester->reveal());
+        $tester = new SystemLogicPermission($logicTester->reveal(), $this->prophesize(Authentication::class)->reveal());
 
         $fakeTester = $this->prophesize(Tester::class);
         $fakeTester->can('notfound')->shouldBeCalled();
@@ -34,7 +37,7 @@ class SystemLogicPermissionTest extends TestCase
 
         $permission = factory(ModelPermission::class)->state('logic')->create(['model_id' => $falseLogic->id, 'ability' => 'nottrue']);
 
-        $tester = new SystemLogicPermission($this->app->make(LogicTester::class));
+        $tester = new SystemLogicPermission($this->app->make(LogicTester::class), $this->prophesize(Authentication::class)->reveal());
         $fakeTester = $this->prophesize(Tester::class);
         $fakeTester->can('nottrue')->shouldBeCalled();
         $tester->setNext($fakeTester->reveal());
@@ -51,8 +54,29 @@ class SystemLogicPermissionTest extends TestCase
         $permissionFalse = factory(ModelPermission::class)->state('logic')->create(['model_id' => $falseLogic->id, 'ability' => 'inlogicgroup']);
         $permissionTrue = factory(ModelPermission::class)->state('logic')->create(['model_id' => $trueLogic->id, 'ability' => 'inlogicgroup', 'result' => true]);
 
-        $tester = new SystemLogicPermission($this->app->make(LogicTester::class));
+        $tester = new SystemLogicPermission($this->app->make(LogicTester::class), $this->prophesize(Authentication::class)->reveal());
 
+        $this->assertTrue(
+            $tester->can('inlogicgroup')
+        );
+    }
+
+    /** @test */
+    public function can_passes_the_user_group_and_role_to_the_logic_tester(){
+        $trueLogic = factory(Logic::class)->create();
+        $user = factory(User::class)->create();
+        $group = new Group(['id' => 1]);
+        $role = new Role(['id' => 2]);
+        $this->createLogicTester([$trueLogic], [], $user, $group, $role);
+
+        $permissionTrue = factory(ModelPermission::class)->state('logic')->create(['model_id' => $trueLogic->id, 'ability' => 'inlogicgroup', 'result' => true]);
+
+        $authentication = $this->prophesize(Authentication::class);
+        $authentication->getUser()->shouldBeCalled()->willReturn($user);
+        $authentication->getGroup()->shouldBeCalled()->willReturn($group);
+        $authentication->getRole()->shouldBeCalled()->willReturn($role);
+
+        $tester = new SystemLogicPermission($this->app->make(LogicTester::class), $authentication->reveal());
         $this->assertTrue(
             $tester->can('inlogicgroup')
         );

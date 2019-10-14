@@ -19,7 +19,6 @@ class GroupTaggedTest extends TestCase
     /** @test */
     public function it_returns_a_list_of_possible_tags(){
         $groupTagRepository = $this->prophesize(GroupTagRepositoryContract::class);
-        $authentication = $this->prophesize(Authentication::class);
 
         $groupTag1 = $this->prophesize(GroupTagModelContract::class);
         $groupTag1->name()->shouldBeCalled()->willReturn('Name1');
@@ -34,7 +33,7 @@ class GroupTaggedTest extends TestCase
             $groupTag2->reveal()
         ]);
 
-        $groupTagFilter = new GroupTagged($authentication->reveal(), $groupTagRepository->reveal(), $this->prophesize(GroupRepository::class)->reveal());
+        $groupTagFilter = new GroupTagged($groupTagRepository->reveal(), $this->prophesize(GroupRepository::class)->reveal());
 
         $this->assertEquals([
             'tag' => [
@@ -47,10 +46,8 @@ class GroupTaggedTest extends TestCase
     /** @test */
     public function it_evaluates_to_true_if_group_tagged(){
         $groupTagRepository = $this->prophesize(GroupTagRepositoryContract::class);
-        $authentication = $this->prophesize(Authentication::class);
 
         $group = $this->prophesize(Group::class);
-        $authentication->getGroup()->shouldBeCalled()->willReturn($group->reveal());
 
         $groupTag1 = $this->prophesize(GroupTagModelContract::class);
         $groupTag1->fullReference()->shouldBeCalled()->willReturn('reference.ref1');
@@ -63,18 +60,16 @@ class GroupTaggedTest extends TestCase
             $groupTag2->reveal()
         ]);
 
-        $groupTagFilter = new GroupTagged($authentication->reveal(), $groupTagRepository->reveal(), $this->prophesize(GroupRepository::class)->reveal());
-
+        $groupTagFilter = new GroupTagged($groupTagRepository->reveal(), $this->prophesize(GroupRepository::class)->reveal());
+        $groupTagFilter->setModel($group->reveal());
         $this->assertTrue($groupTagFilter->evaluate(['tag' => 'reference.ref2']));
     }
 
     /** @test */
     public function it_evaluates_to_false_if_group_not_tagged(){
         $groupTagRepository = $this->prophesize(GroupTagRepositoryContract::class);
-        $authentication = $this->prophesize(Authentication::class);
 
         $group = $this->prophesize(Group::class);
-        $authentication->getGroup()->shouldBeCalled()->willReturn($group->reveal());
 
         $groupTag1 = $this->prophesize(GroupTagModelContract::class);
         $groupTag1->fullReference()->shouldBeCalled()->willReturn('reference.ref1');
@@ -87,28 +82,10 @@ class GroupTaggedTest extends TestCase
             $groupTag2->reveal()
         ]);
 
-        $groupTagFilter = new GroupTagged($authentication->reveal(), $groupTagRepository->reveal(), $this->prophesize(GroupRepository::class)->reveal());
+        $groupTagFilter = new GroupTagged($groupTagRepository->reveal(), $this->prophesize(GroupRepository::class)->reveal());
+        $groupTagFilter->setModel($group->reveal());
 
         $this->assertFalse($groupTagFilter->evaluate(['tag' => 'reference.ref3']));
-    }
-
-    /** @test */
-    public function has_model_returns_true_if_get_group_not_null(){
-        $auth = $this->prophesize(Authentication::class);
-        $auth->getGroup()->shouldBeCalled()->willReturn(new \BristolSU\Support\Control\Models\Group);
-
-        $groupTaggedFilter = new GroupTagged($auth->reveal(), $this->prophesize(GroupTagRepositoryContract::class)->reveal(), $this->prophesize(GroupRepository::class)->reveal());
-        $this->assertTrue($groupTaggedFilter->hasModel());
-    }
-
-
-    /** @test */
-    public function has_model_returns_false_if_get_group_null(){
-        $auth = $this->prophesize(Authentication::class);
-        $auth->getGroup()->shouldBeCalled()->willReturn(null);
-
-        $groupTaggedFilter = new GroupTagged($auth->reveal(), $this->prophesize(GroupTagRepositoryContract::class)->reveal(), $this->prophesize(GroupRepository::class)->reveal());
-        $this->assertFalse($groupTaggedFilter->hasModel());
     }
 
     /** @test */
@@ -124,7 +101,6 @@ class GroupTaggedTest extends TestCase
         );
 
         $filter = new GroupTagged(
-            $this->prophesize(Authentication::class)->reveal(),
             $groupTagRepo->reveal(),
             $groupRepo->reveal()
         );

@@ -4,6 +4,7 @@
 namespace BristolSU\Support\Permissions\Testers;
 
 
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
@@ -21,11 +22,16 @@ class ModuleInstanceAdminPermissions extends Tester
      * @var LogicTester
      */
     private $logicTester;
+    /**
+     * @var Authentication
+     */
+    private $authentication;
 
-    public function __construct(Container $app, LogicTester $logicTester)
+    public function __construct(Container $app, LogicTester $logicTester, Authentication $authentication)
     {
         $this->app = $app;
         $this->logicTester = $logicTester;
+        $this->authentication = $authentication;
     }
 
     public function can(string $ability): ?bool
@@ -44,6 +50,6 @@ class ModuleInstanceAdminPermissions extends Tester
             return parent::next($ability);
         }
 
-        return $this->logicTester->evaluate($logic);
+        return $this->logicTester->evaluate($logic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole());
     }
 }

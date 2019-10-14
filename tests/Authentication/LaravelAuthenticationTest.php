@@ -28,21 +28,6 @@ class LaravelAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function get_group_gets_a_group_from_a_role()
-    {
-        $role = new Role([
-            'id' => 1,
-            'group' => new Group([
-                'id' => 2
-            ])
-        ]);
-        $this->beRole($role);
-        $group = $this->authentication->getGroup();
-        $this->assertInstanceOf(Group::class, $group);
-        $this->assertEquals(2, $group->id);
-    }
-
-    /** @test */
     public function get_group_gets_a_group_from_a_group()
     {
         $group = new Group([
@@ -61,12 +46,12 @@ class LaravelAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function get_group_returns_a_group_if_given_in_headers()
+    public function get_group_returns_a_group_if_given_in_url()
     {
         $this->mockControl('get', 'groups/1', ['id' => 1], true);
         $request = $this->prophesize(Request::class);
-        $request->hasHeader('Group-Id')->shouldBeCalled()->willReturn(true);
-        $request->header('Group-Id')->shouldBeCalled()->willReturn(1);
+        $request->has('group_id')->shouldBeCalled()->willReturn(true);
+        $request->query('group_id')->shouldBeCalled()->willReturn(1);
         $this->authentication = resolve(LaravelAuthentication::class, ['request' => $request->reveal()]);
         $this->assertInstanceOf(Group::class, $this->authentication->getGroup());
         $this->assertEquals(1, $this->authentication->getGroup()->id);
@@ -91,10 +76,10 @@ class LaravelAuthenticationTest extends TestCase
     /** @test */
     public function get_role_returns_a_role_if_given_in_headers()
     {
-        $this->mockControl('get', 'position_student_groups/1', ['id' => 1], true);
+        $this->mockControl('get', 'roles/1', ['id' => 1], true);
         $request = $this->prophesize(Request::class);
-        $request->hasHeader('Role-Id')->shouldBeCalled()->willReturn(true);
-        $request->header('Role-Id')->shouldBeCalled()->willReturn(1);
+        $request->has('role_id')->shouldBeCalled()->willReturn(true);
+        $request->query('role_id')->shouldBeCalled()->willReturn(1);
         $this->authentication = resolve(LaravelAuthentication::class, ['request' => $request->reveal()]);
         $this->assertInstanceOf(Role::class, $this->authentication->getRole());
         $this->assertEquals(1, $this->authentication->getRole()->id);

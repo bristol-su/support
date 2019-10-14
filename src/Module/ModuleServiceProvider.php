@@ -133,21 +133,21 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function mapParticipantRoutes()
     {
         Route::prefix('/p/{activity_slug}/{module_instance_slug}')
-            ->middleware(['web', 'module'])
+            ->middleware(['web', 'module', 'activity'])
             ->group($this->baseDirectory() . '/routes/participant.php');
     }
 
     public function mapAdminRoutes()
     {
         Route::prefix('/a/{activity_slug}/{module_instance_slug}')
-            ->middleware(['web', 'module'])
+            ->middleware(['web', 'module', 'activity'])
             ->group($this->baseDirectory() . '/routes/admin.php');
     }
 
     public function mapApiRoutes()
     {
         Route::prefix('/api/' . $this->alias() . '/{activity_slug}/{module_instance_slug}')
-            ->middleware(['api', 'module'])
+            ->middleware(['api', 'module', 'activity'])
             ->group($this->baseDirectory() . '/routes/api.php');
     }
 

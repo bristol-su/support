@@ -45,17 +45,14 @@ class LaravelAuthentication implements AuthenticationContract
 
     public function getGroup()
     {
-        if($this->auth->guard('role')->check()) {
-            return $this->auth->guard('role')->user()->group;
-        }
 
         if($this->auth->guard('group')->check()) {
             return $this->auth->guard('group')->user();
         }
 
-        if($this->request !== null && $this->request->hasHeader('Group-Id')) {
+        if($this->request !== null && $this->request->has('group_id')) {
             try {
-                return $this->groupRepository->getById($this->request->header('Group-Id'));
+                return $this->groupRepository->getById($this->request->query('group_id'));
             } catch (\Exception $e) {}
         }
 
@@ -68,9 +65,9 @@ class LaravelAuthentication implements AuthenticationContract
             return $this->auth->guard('role')->user();
         }
         // TODO Refactor out. Also check credentials!
-        if($this->request !== null && $this->request->hasHeader('Role-Id')) {
+        if($this->request !== null && $this->request->has('role_id')) {
             try {
-                return $this->roleRepository->getById($this->request->header('Role-Id'));
+                return $this->roleRepository->getById($this->request->query('role_id'));
             } catch (\Exception $e) {}
         }
 
