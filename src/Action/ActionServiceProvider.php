@@ -17,6 +17,10 @@ use BristolSU\Support\Action\Facade\ActionManager as ActionManagerFacade;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class ActionServiceProvider
+ * @package BristolSU\Support\Action
+ */
 class ActionServiceProvider extends ServiceProvider
 {
 

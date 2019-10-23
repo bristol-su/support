@@ -12,13 +12,26 @@ use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Filters\Contracts\FilterTester as FilterTesterContract;
-use BristolSU\Support\User\User;
+use \BristolSU\Support\Control\Contracts\Models\User;
 
+/**
+ * Class FilterTester
+ * @package BristolSU\Support\Filters
+ */
 class FilterTester implements FilterTesterContract
 {
 
+    /**
+     * @var
+     */
     private $user;
+    /**
+     * @var
+     */
     private $group;
+    /**
+     * @var
+     */
     private $role;
     
     /**
@@ -26,26 +39,47 @@ class FilterTester implements FilterTesterContract
      */
     private $repository;
 
+    /**
+     * FilterTester constructor.
+     * @param FilterRepository $repository
+     */
     public function __construct(FilterRepository $repository)
     {
         $this->repository = $repository;
     }
 
+    /**
+     * @param User $user
+     */
     public function setUser(User $user)
     {
         $this->user = $user;
     }
 
+    /**
+     * @param Group $group
+     */
     public function setGroup(Group $group)
     {
         $this->group = $group;
     }
 
+    /**
+     * @param Role $role
+     */
     public function setRole(Role $role)
     {
         $this->role = $role;
     }
-    
+
+    /**
+     * @param FilterInstance $filterInstance
+     * @param null $userModel
+     * @param null $groupModel
+     * @param null $roleModel
+     * @return bool
+     * @throws \Exception
+     */
     public function evaluate(FilterInstance $filterInstance, $userModel = null, $groupModel = null, $roleModel = null): bool
     {
         $this->setModels($userModel, $groupModel, $roleModel);
@@ -58,7 +92,12 @@ class FilterTester implements FilterTesterContract
         }
         return $filter->evaluate($filterInstance->settings());
     }
-    
+
+    /**
+     * @param User|null $user
+     * @param Group|null $group
+     * @param Role|null $role
+     */
     private function setModels(?User $user, ?Group $group, ?Role $role) {
         if($user !== null) {
             $this->setUser($user);
@@ -70,7 +109,12 @@ class FilterTester implements FilterTesterContract
             $this->setRole($role);
         }
     }
-    
+
+    /**
+     * @param $filter
+     * @return mixed
+     * @throws \Exception
+     */
     private function overrideModels($filter) {
         if($filter instanceof UserFilter && $this->user !== null) {
             $filter->setModel($this->user);

@@ -25,6 +25,10 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class PermissionServiceProvider
+ * @package BristolSU\Support\Permissions
+ */
 class PermissionServiceProvider extends ServiceProvider
 {
 
@@ -53,14 +57,8 @@ class PermissionServiceProvider extends ServiceProvider
         );
 
         Gate::before(function(User $user, $ability) {
-            $tester = app()->make(\BristolSU\Support\Permissions\Contracts\PermissionTester::class);
+            $tester = app()->make(PermissionTesterContract::class);
             return $tester->evaluate($ability);
-            return PermissionTesterFacade::evaluate($ability);
-        });
-        
-        $this->app['auth']->resolveUsersUsing(function() {
-            $authentication = $this->app->make(Authentication::class);
-            return $authentication->getUser();
         });
 
         Route::bind('module_instance_permission', function ($id) {

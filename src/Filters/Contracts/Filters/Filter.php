@@ -6,6 +6,10 @@ namespace BristolSU\Support\Filters\Contracts\Filters;
 
 use Illuminate\Contracts\Support\Arrayable;
 
+/**
+ * Class Filter
+ * @package BristolSU\Support\Filters\Contracts\Filters
+ */
 abstract class Filter implements Arrayable
 {
 
@@ -16,8 +20,15 @@ abstract class Filter implements Arrayable
      */
     abstract public function options(): array;
 
+    /**
+     * @return bool
+     */
     abstract public function hasModel(): bool;
-    
+
+    /**
+     * @param $model
+     * @return mixed
+     */
     abstract public function setModel($model);
     /**
      * Test if the filter passes
@@ -29,16 +40,32 @@ abstract class Filter implements Arrayable
      */
     abstract public function evaluate($settings): bool;
 
+    /**
+     * @return mixed
+     */
     abstract public function name();
 
+    /**
+     * @return mixed
+     */
     abstract public function description();
 
     abstract public function for();
 
+    /**
+     * @return mixed
+     */
     abstract public function alias();
 
+    /**
+     * @param $settings
+     * @return mixed
+     */
     abstract public function audience($settings);
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         return [

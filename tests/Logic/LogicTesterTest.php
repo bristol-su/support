@@ -9,7 +9,7 @@ use BristolSU\Support\Filters\Contracts\FilterTester;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Logic\LogicTester;
-use BristolSU\Support\User\User;
+use BristolSU\Support\Control\Models\User;
 use Prophecy\Argument;
 use BristolSU\Support\Tests\TestCase;
 
@@ -214,11 +214,9 @@ class LogicTesterTest extends TestCase
     /** @test */
     public function it_sets_a_user_when_given(){
         $logic = factory(Logic::class)->create();
-        $user = factory(User::class)->create();
+        $user = new User(['id' => 1]);
         $filterTester = $this->prophesize(FilterTester::class);
-        $filterTester->setUser(Argument::that(function($arg) use ($user) {
-            return $user->id === $arg->id;
-        }))->shouldBeCalled();
+        $filterTester->setUser($user)->shouldBeCalled();
 
         $logicTester = new LogicTester($filterTester->reveal());
         $logicTester->evaluate($logic, $user);
@@ -227,11 +225,8 @@ class LogicTesterTest extends TestCase
     /** @test */
     public function it_does_not_set_a_user_when_not_given(){
         $logic = factory(Logic::class)->create();
-        $user = factory(User::class)->create();
         $filterTester = $this->prophesize(FilterTester::class);
-        $filterTester->setUser(Argument::that(function($arg) use ($user) {
-            return $user->id === $arg->id;
-        }))->shouldNotBeCalled();
+        $filterTester->setUser(Argument::any())->shouldNotBeCalled();
         
         $logicTester = new LogicTester($filterTester->reveal());
         $logicTester->evaluate($logic);

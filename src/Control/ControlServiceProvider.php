@@ -34,6 +34,10 @@ use GuzzleHttp\ClientInterface;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class ControlServiceProvider
+ * @package BristolSU\Support\Control
+ */
 class ControlServiceProvider extends ServiceProvider
 {
     /**

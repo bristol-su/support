@@ -10,6 +10,10 @@ use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use Exception;
 use Illuminate\Contracts\Config\Repository;
 
+/**
+ * Class ModuleBuilder
+ * @package BristolSU\Support\Module
+ */
 class ModuleBuilder implements ModuleBuilderContract
 {
 
@@ -26,6 +30,9 @@ class ModuleBuilder implements ModuleBuilderContract
      */
     private $config;
 
+    /**
+     * @var
+     */
     private $alias;
 
     /**
@@ -33,6 +40,13 @@ class ModuleBuilder implements ModuleBuilderContract
      */
     private $eventRepository;
 
+    /**
+     * ModuleBuilder constructor.
+     * @param ModuleContract $module
+     * @param PermissionRepository $permissionRepository
+     * @param Repository $config
+     * @param EventRepository $eventRepository
+     */
     public function __construct(ModuleContract $module,
                                 PermissionRepository $permissionRepository,
                                 Repository $config,
@@ -44,11 +58,18 @@ class ModuleBuilder implements ModuleBuilderContract
         $this->eventRepository = $eventRepository;
     }
 
+    /**
+     * @param string $alias
+     */
     public function create(string $alias)
     {
         $this->alias = $alias;
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     */
     private function getAlias(): string
     {
         if ($this->alias === null) {
@@ -101,6 +122,9 @@ class ModuleBuilder implements ModuleBuilderContract
         );
     }
 
+    /**
+     * @return ModuleContract
+     */
     public function getModule(): ModuleContract
     {
         return $this->module;

@@ -9,6 +9,10 @@ use Illuminate\Support\ServiceProvider;
 use BristolSU\Support\Activity\Contracts\Repository as ActivityRepositoryContract;
 use BristolSU\Support\Activity\Repository as ActivityRepository;
 
+/**
+ * Class ActivityServiceProvider
+ * @package BristolSU\Support\Activity
+ */
 class ActivityServiceProvider extends ServiceProvider
 {
 

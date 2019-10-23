@@ -11,9 +11,16 @@ use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSettings;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+/**
+ * Class ModuleInstance
+ * @package BristolSU\Support\ModuleInstance
+ */
 class ModuleInstance extends Model implements ModuleInstanceContract
 {
 
+    /**
+     * @var array
+     */
     protected $fillable = [
         'alias',
         'activity_id',
@@ -27,6 +34,10 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         'module_instance_permissions_id'
     ];
 
+    /**
+     * ModuleInstance constructor.
+     * @param array $attributes
+     */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
@@ -37,46 +48,73 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         });
     }
 
+    /**
+     * @return mixed
+     */
     public function alias()
     {
         return $this->alias;
     }
 
+    /**
+     * @return mixed
+     */
     public function id()
     {
         return $this->id;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function activity()
     {
         return $this->belongsTo(Activity::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function moduleInstanceSettings()
     {
         return $this->belongsTo(ModuleInstanceSettings::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function moduleInstancePermissions()
     {
         return $this->belongsTo(ModuleInstancePermissions::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function activeLogic()
     {
         return $this->belongsTo(Logic::class, 'active');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function visibleLogic()
     {
         return $this->belongsTo(Logic::class, 'visible');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function mandatoryLogic()
     {
         return $this->belongsTo(Logic::class, 'mandatory');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function actionInstances()
     {
         return $this->hasMany(ActionInstance::class);

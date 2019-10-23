@@ -9,7 +9,7 @@ use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
-use BristolSU\Support\User\User;
+use BristolSU\Support\Control\Models\User;
 use Illuminate\Database\Eloquent\Builder;
 
 class HasResourceTest extends TestCase
@@ -35,7 +35,7 @@ class HasResourceTest extends TestCase
         $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity]);
         $this->instance(ModuleInstance::class, $moduleInstance);
         
-        $user = factory(User::class)->create();
+        $user = new User(['id' => 1]);
         $authentication = $this->prophesize(Authentication::class);
         $authentication->getUser()->shouldBeCalled()->willReturn($user);
         $this->instance(Authentication::class, $authentication->reveal());
@@ -102,7 +102,7 @@ class HasResourceTest extends TestCase
         $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity]);
         $this->instance(ModuleInstance::class, $moduleInstance);
 
-        $user = factory(User::class)->create();
+        $user = new User(['id' => 1]);
         $authentication = $this->prophesize(Authentication::class);
         $authentication->getUser()->shouldBeCalled()->willReturn($user);
         $this->instance(Authentication::class, $authentication->reveal());

@@ -8,6 +8,10 @@ use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Action\Contracts\ActionBuilder as ActionBuilderContract;
 use Illuminate\Contracts\Foundation\Application;
 
+/**
+ * Class ActionBuilder
+ * @package BristolSU\Support\Action
+ */
 class ActionBuilder implements ActionBuilderContract
 {
     /**
@@ -15,11 +19,21 @@ class ActionBuilder implements ActionBuilderContract
      */
     private $app;
 
+    /**
+     * ActionBuilder constructor.
+     * @param Application $app
+     */
     public function __construct(Application $app)
     {
         $this->app = $app;
     }
 
+    /**
+     * @param ActionInstance $actionInstance
+     * @param array $data
+     * @return Action
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function build(ActionInstance $actionInstance, array $data = []): Action
     {
         return $this->app->make($actionInstance->action, [
@@ -27,6 +41,11 @@ class ActionBuilder implements ActionBuilderContract
         ]);
     }
 
+    /**
+     * @param $fields
+     * @param array $data
+     * @return array
+     */
     private function mapFields($fields, array $data)
     {
         $actionFields = [];

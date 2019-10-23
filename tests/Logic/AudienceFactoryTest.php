@@ -5,8 +5,7 @@ namespace BristolSU\Support\Tests\Logic;
 use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\Support\Logic\AudienceFactory;
-use BristolSU\Support\User\Contracts\UserRepository;
-use BristolSU\Support\User\User;
+use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
 use Illuminate\Support\Collection;
 use BristolSU\Support\Tests\TestCase;
 

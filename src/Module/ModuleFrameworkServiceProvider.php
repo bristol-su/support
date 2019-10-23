@@ -10,6 +10,10 @@ use BristolSU\Support\Module\Contracts\ModuleRepository as ModuleRepositoryContr
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class ModuleFrameworkServiceProvider
+ * @package BristolSU\Support\Module
+ */
 class ModuleFrameworkServiceProvider extends ServiceProvider
 {
 

@@ -6,9 +6,9 @@ namespace BristolSU\Support\Tests\Permissions\Models;
 
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
+use BristolSU\Support\Control\Models\User;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Permissions\Models\ModelPermission;
-use BristolSU\Support\User\User;
 use BristolSU\Support\Tests\TestCase;
 
 class ModelPermissionTest extends TestCase
@@ -32,9 +32,9 @@ class ModelPermissionTest extends TestCase
 
     /** @test */
     public function user_can_select_by_user_id_and_ability(){
-        $user1 = factory(User::class)->create();
-        $user2 = factory(User::class)->create();
-        $user4 = factory(User::class)->create();
+        $user1 = new User(['id' => 1]);
+        $user2 = new User(['id' => 2]);
+        $user4 = new User(['id' => 3]);
         $userPermission1 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission1', 'model_id' => $user1->id]);
         $userPermission2 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission2', 'model_id' => $user2->id]);
         $userPermission3 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission3', 'model_id' => $user1->id]);

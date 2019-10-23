@@ -7,7 +7,6 @@ use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Contracts\AudienceFactory;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Logic\LogicAudience;
-use BristolSU\Support\User\User;
 use Illuminate\Support\Collection;
 use BristolSU\Support\Tests\TestCase;
 use Prophecy\Argument;

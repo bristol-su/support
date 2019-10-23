@@ -7,6 +7,7 @@ namespace BristolSU\Support\Tests\Permissions\Testers;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
+use BristolSU\Support\Control\Models\User;
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
@@ -14,7 +15,6 @@ use BristolSU\Support\Permissions\Contracts\Testers\Tester;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceAdminPermissions;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceUserPermissions;
-use BristolSU\Support\User\User;
 use Illuminate\Contracts\Container\Container;
 use BristolSU\Support\Tests\TestCase;
 
@@ -104,7 +104,7 @@ class ModuleInstanceUserPermissionsTest extends TestCase
         $app = $this->prophesize(Container::class);
         $app->make(ModuleInstance::class)->shouldBeCalled()->willReturn($moduleInstance);
 
-        $user = factory(User::class)->create();
+        $user = new User(['id' => 1]);
         $group = new Group(['id' => 1]);
         $role = new Role(['id' => 2]);
         $authentication = $this->prophesize(Authentication::class);

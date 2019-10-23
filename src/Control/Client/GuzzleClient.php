@@ -11,6 +11,10 @@ use GuzzleHttp\ClientInterface;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Facades\Cache;
 
+/**
+ * Class GuzzleClient
+ * @package BristolSU\Support\Control\Client
+ */
 class GuzzleClient implements ControlClientContract
 {
     /**
@@ -18,18 +22,33 @@ class GuzzleClient implements ControlClientContract
      */
     private $client;
 
+    /**
+     * @var array
+     */
     private $defaultOptions = [];
     /**
      * @var Token
      */
     private $token;
 
+    /**
+     * GuzzleClient constructor.
+     * @param ClientInterface $client
+     * @param Token $token
+     */
     public function __construct(ClientInterface $client, Token $token)
     {
         $this->client = $client;
         $this->token = $token;
     }
 
+    /**
+     * @param $method
+     * @param $uri
+     * @param array $options
+     * @return mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function request($method, $uri, array $options = [])
     {
         $response = $this->client->request($method, $uri, array_merge(

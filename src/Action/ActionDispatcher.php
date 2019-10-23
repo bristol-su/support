@@ -7,6 +7,10 @@ use BristolSU\Support\Action\Contracts\ActionRepository as ActionRepositoryContr
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 
+/**
+ * Class ActionDispatcher
+ * @package BristolSU\Support\Action
+ */
 class ActionDispatcher 
 {
 
@@ -15,11 +19,18 @@ class ActionDispatcher
      */
     private $builder;
 
+    /**
+     * ActionDispatcher constructor.
+     * @param ActionBuilderContract $builder
+     */
     public function __construct(ActionBuilderContract $builder)
     {
         $this->builder = $builder;
     }
 
+    /**
+     * @param TriggerableEvent $event
+     */
     public function handle(TriggerableEvent $event)
     {
         // TODO replace with repository

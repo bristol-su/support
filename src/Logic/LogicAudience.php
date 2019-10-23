@@ -10,6 +10,10 @@ use BristolSU\Support\Logic\Specification\InFilterAudienceSpecification;
 use BristolSU\Support\Logic\Specification\NotInFilterAudienceSpecification;
 use BristolSU\Support\Logic\Specification\OrSpecification;
 
+/**
+ * Class LogicAudience
+ * @package BristolSU\Support\Logic
+ */
 class LogicAudience implements LogicAudienceContract
 {
 
@@ -33,6 +37,10 @@ class LogicAudience implements LogicAudienceContract
         $this->audienceFactory = $audienceFactory;
     }
 
+    /**
+     * @param Logic $logic
+     * @return mixed
+     */
     public function audience(Logic $logic)
     {
 
@@ -41,6 +49,11 @@ class LogicAudience implements LogicAudienceContract
         });
     }
 
+    /**
+     * @param $item
+     * @param $logic
+     * @return bool
+     */
     public function isInAudience($item, $logic)
     {
         $allTrue = [];

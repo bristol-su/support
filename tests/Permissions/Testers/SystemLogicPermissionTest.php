@@ -7,12 +7,12 @@ namespace BristolSU\Support\Tests\Permissions\Testers;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
+use BristolSU\Support\Control\Models\User;
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Permissions\Contracts\Testers\Tester;
 use BristolSU\Support\Permissions\Models\ModelPermission;
 use BristolSU\Support\Permissions\Testers\SystemLogicPermission;
-use BristolSU\Support\User\User;
 use BristolSU\Support\Tests\TestCase;
 
 class SystemLogicPermissionTest extends TestCase
@@ -64,7 +64,7 @@ class SystemLogicPermissionTest extends TestCase
     /** @test */
     public function can_passes_the_user_group_and_role_to_the_logic_tester(){
         $trueLogic = factory(Logic::class)->create();
-        $user = factory(User::class)->create();
+        $user = new User(['id' => 1]);
         $group = new Group(['id' => 1]);
         $role = new Role(['id' => 2]);
         $this->createLogicTester([$trueLogic], [], $user, $group, $role);

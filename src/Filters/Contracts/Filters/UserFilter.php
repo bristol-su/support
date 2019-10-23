@@ -3,15 +3,24 @@
 
 namespace BristolSU\Support\Filters\Contracts\Filters;
 
-use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\Support\Control\Contracts\Models\Group;
-use BristolSU\Support\User\User;
+use \BristolSU\Support\Control\Contracts\Models\User;
 
+/**
+ * Class UserFilter
+ * @package BristolSU\Support\Filters\Contracts\Filters
+ */
 abstract class UserFilter extends Filter
 {
 
+    /**
+     * @var
+     */
     private $user;
-    
+
+    /**
+     * @param $model
+     * @throws \Exception
+     */
     public function setModel($model)
     {
         if(!($model instanceof User)) {
@@ -21,12 +30,18 @@ abstract class UserFilter extends Filter
         }
         $this->user = $model;
     }
-    
+
+    /**
+     * @return bool
+     */
     public function hasModel(): bool
     {
         return $this->user !== null;
     }
 
+    /**
+     * @return mixed
+     */
     public function model()
     {
         return $this->user;

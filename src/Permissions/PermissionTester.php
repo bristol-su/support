@@ -8,6 +8,10 @@ use BristolSU\Support\Permissions\Contracts\PermissionRepository as PermissionRe
 use BristolSU\Support\Permissions\Contracts\PermissionTester as PermissionTesterContract;
 use BristolSU\Support\Permissions\Contracts\Testers\Tester;
 
+/**
+ * Class PermissionTester
+ * @package BristolSU\Support\Permissions
+ */
 class PermissionTester implements PermissionTesterContract
 {
 
@@ -16,6 +20,11 @@ class PermissionTester implements PermissionTesterContract
      */
     private $testers = [];
 
+    /**
+     * @param string $ability
+     * @return bool
+     * @throws \Exception
+     */
     public function evaluate(string $ability): bool
     {
         $tester = $this->getChain();
@@ -23,6 +32,10 @@ class PermissionTester implements PermissionTesterContract
         return ($result?:false);
     }
 
+    /**
+     * @return Tester
+     * @throws \Exception
+     */
     public function getChain()
     {
         if(count($this->testers) === 0) {
@@ -35,6 +48,9 @@ class PermissionTester implements PermissionTesterContract
         return $testers[0];
     }
 
+    /**
+     * @param Tester $tester
+     */
     public function register(Tester $tester)
     {
         $this->testers[] = $tester;

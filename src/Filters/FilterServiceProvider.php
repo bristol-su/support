@@ -17,6 +17,10 @@ use BristolSU\Support\Filters\Filters\UserEmailIs;
 use BristolSU\Support\Filters\FilterTester;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class FilterServiceProvider
+ * @package BristolSU\Support\Filters
+ */
 class FilterServiceProvider extends ServiceProvider
 {
     /**
@@ -39,6 +43,7 @@ class FilterServiceProvider extends ServiceProvider
      * Bootstrap services.
      *
      * @return void
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function boot()
     {

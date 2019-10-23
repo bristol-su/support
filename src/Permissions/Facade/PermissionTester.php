@@ -18,6 +18,9 @@ use Illuminate\Support\Facades\Facade;
 class PermissionTester extends Facade
 {
 
+    /**
+     * @return string
+     */
     protected static function getFacadeAccessor()
     {
         return PermissionTesterContract::class;

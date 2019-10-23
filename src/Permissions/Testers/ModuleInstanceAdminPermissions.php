@@ -11,6 +11,10 @@ use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Contracts\Testers\Tester;
 use Illuminate\Contracts\Container\Container;
 
+/**
+ * Class ModuleInstanceAdminPermissions
+ * @package BristolSU\Support\Permissions\Testers
+ */
 class ModuleInstanceAdminPermissions extends Tester
 {
 
@@ -27,6 +31,12 @@ class ModuleInstanceAdminPermissions extends Tester
      */
     private $authentication;
 
+    /**
+     * ModuleInstanceAdminPermissions constructor.
+     * @param Container $app
+     * @param LogicTester $logicTester
+     * @param Authentication $authentication
+     */
     public function __construct(Container $app, LogicTester $logicTester, Authentication $authentication)
     {
         $this->app = $app;
@@ -34,6 +44,11 @@ class ModuleInstanceAdminPermissions extends Tester
         $this->authentication = $authentication;
     }
 
+    /**
+     * @param string $ability
+     * @return bool|null
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public function can(string $ability): ?bool
     {
         $moduleInstance = $this->app->make(ModuleInstance::class);

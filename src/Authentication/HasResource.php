@@ -6,6 +6,10 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Database\Eloquent\Builder;
 
+/**
+ * Trait HasResource
+ * @package BristolSU\Support\Authentication
+ */
 trait HasResource
 {
     
@@ -20,11 +24,19 @@ trait HasResource
         });
     }
 
+    /**
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public static function resourceType()
     {
         return app()->make(ModuleInstance::class)->activity->activity_for;
     }
-    
+
+    /**
+     * @return mixed
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     public static function resourceId()
     {
         $authentication = app()->make(Authentication::class);
@@ -41,7 +53,11 @@ trait HasResource
         }
         return $model->id;
     }
-    
+
+    /**
+     * @param Builder $query
+     * @throws \Exception
+     */
     public function scopeForResource(Builder $query)
     {
         $query->where('resource_type', static::resourceType())

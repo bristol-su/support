@@ -8,6 +8,10 @@ use BristolSU\Support\Activity\Activity;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
 
+/**
+ * Class InjectActivityInstance
+ * @package BristolSU\Support\Activity\Middleware
+ */
 class InjectActivityInstance
 {
 
@@ -16,11 +20,20 @@ class InjectActivityInstance
      */
     private $app;
 
+    /**
+     * InjectActivityInstance constructor.
+     * @param Container $app
+     */
     public function __construct(Container $app)
     {
         $this->app = $app;
     }
 
+    /**
+     * @param Request $request
+     * @param \Closure $next
+     * @return mixed
+     */
     public function handle(Request $request, \Closure $next)
     {
         $activity = $request->route('activity_slug');

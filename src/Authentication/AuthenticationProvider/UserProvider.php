@@ -8,38 +8,38 @@
 
 namespace BristolSU\Support\Authentication\AuthenticationProvider;
 
-use BristolSU\Support\Control\Contracts\Repositories\Role as RoleContract;
+use BristolSU\Support\Control\Contracts\Repositories\User as UserRepositoryContract;
 use Illuminate\Contracts\Auth\Authenticatable;
-use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Contracts\Auth\UserProvider as BaseUserProvider;
 
 /**
- * Class RoleProvider
+ * Class UserProvider
  * @package BristolSU\Support\Authentication\AuthenticationProvider
  */
-class RoleProvider implements UserProvider
+class UserProvider implements BaseUserProvider
 {
 
     /**
-     * @var RoleContract
+     * @var UserRepositoryContract
      */
-    private $role;
+    private $users;
 
     /**
-     * RoleProvider constructor.
-     * @param RoleContract $role
+     * UserProvider constructor.
+     * @param UserRepositoryContract $users
      */
-    public function __construct(RoleContract $role)
+    public function __construct(UserRepositoryContract $users)
     {
-        $this->role = $role;
+        $this->users = $users;
     }
 
     /**
      * @param mixed $identifier
-     * @return Authenticatable|mixed|null
+     * @return \BristolSU\Support\Control\Contracts\Models\User|Authenticatable|null
      */
     public function retrieveById($identifier)
     {
-        return $this->role->getById($identifier);
+        return $this->users->getById($identifier);
 
     }
 
@@ -64,18 +64,18 @@ class RoleProvider implements UserProvider
 
     /**
      * @param array $credentials
-     * @return Authenticatable|mixed|null
+     * @return \BristolSU\Support\Control\Contracts\Models\User|Authenticatable|null
      */
     public function retrieveByCredentials(array $credentials)
     {
-        if (isset($credentials['role_id'])) {
-            return $this->retrieveById($credentials['role_id']);
+        if (isset($credentials['user_id'])) {
+            return $this->retrieveById($credentials['user_id']);
         }
         return null;
     }
 
     /**
-     * Ensure the user owns the committee role
+     * Ensure the user owns the committee user
      *
      * @param Authenticatable $user
      * @param array $credentials
@@ -83,14 +83,11 @@ class RoleProvider implements UserProvider
      */
     public function validateCredentials(Authenticatable $user, array $credentials)
     {
-        if (isset($credentials['student_control_id']) && isset($credentials['role_id'])) {
+        if (isset($credentials['user_id'])) {
             try {
-                $role = $this->retrieveById($credentials['role_id']);
-            } catch (\Exception $e) {
-                return false;
-            }
-            if ($role->student_id === (int) $credentials['student_control_id']) {
+                $user = $this->retrieveById($credentials['user_id']);
                 return true;
+            } catch (\Exception $e) {
             }
         }
         return false;

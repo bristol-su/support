@@ -8,9 +8,9 @@ use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Activity\Repository as ActivityRepository;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
+use BristolSU\Support\Control\Models\User;
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
-use BristolSU\Support\User\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Arr;
@@ -135,7 +135,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function getForAdministrator_passes_a_user_to_the_logic_tester(){
         $activity = factory(Activity::class)->create();
-        $user = factory(User::class)->create();
+        $user = new User(['id' => 1]);
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
             return $arg->id === $activity->adminLogic->id;
@@ -193,7 +193,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function getForParticipant_passes_a_user_to_the_logic_tester(){
         $activity = factory(Activity::class)->create();
-        $user = factory(User::class)->create();
+        $user = new User(['id' => 2]);
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
             return $arg->id === $activity->forLogic->id;

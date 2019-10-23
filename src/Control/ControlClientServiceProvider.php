@@ -30,6 +30,10 @@ use GuzzleHttp\ClientInterface;
 use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class ControlClientServiceProvider
+ * @package BristolSU\Support\Control
+ */
 class ControlClientServiceProvider extends ServiceProvider implements DeferrableProvider
 {
     /**
@@ -53,6 +57,9 @@ class ControlClientServiceProvider extends ServiceProvider implements Deferrable
         //
     }
 
+    /**
+     * @return array
+     */
     public function provides()
     {
         return [

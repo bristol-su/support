@@ -10,6 +10,10 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use Closure;
 use Illuminate\Http\Request;
 
+/**
+ * Class CheckLoggedIntoActivityFor
+ * @package BristolSU\Support\Activity\Middleware
+ */
 class CheckLoggedIntoActivityFor
 {
     /**
@@ -17,6 +21,10 @@ class CheckLoggedIntoActivityFor
      */
     private $authentication;
 
+    /**
+     * CheckLoggedIntoActivityFor constructor.
+     * @param Authentication $authentication
+     */
     public function __construct(Authentication $authentication)
     {
         $this->authentication = $authentication;

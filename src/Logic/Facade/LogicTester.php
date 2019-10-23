@@ -8,7 +8,7 @@ use BristolSU\Support\Control\Contracts\Models\Group;
 use BristolSU\Support\Control\Contracts\Models\Role;
 use BristolSU\Support\Logic\Contracts\LogicTester as LogicTesterContract;
 use BristolSU\Support\Logic\Logic;
-use BristolSU\Support\User\User;
+use BristolSU\Support\Control\Contracts\Models\User;
 use Illuminate\Support\Facades\Facade;
 
 /**
@@ -22,6 +22,9 @@ use Illuminate\Support\Facades\Facade;
 class LogicTester extends Facade
 {
 
+    /**
+     * @return string
+     */
     protected static function getFacadeAccessor()
     {
         return LogicTesterContract::class;

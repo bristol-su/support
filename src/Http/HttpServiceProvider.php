@@ -8,6 +8,10 @@ use Illuminate\Support\ServiceProvider;
 use BristolSU\Support\Activity\Contracts\Repository as ActivityRepositoryContract;
 use BristolSU\Support\Activity\Repository as ActivityRepository;
 
+/**
+ * Class HttpServiceProvider
+ * @package BristolSU\Support\Http
+ */
 class HttpServiceProvider extends ServiceProvider
 {
 

@@ -1,6 +1,12 @@
 <?php
 
 if(!function_exists('settings')) {
+    /**
+     * @param null $key
+     * @param null $default
+     * @return |null
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     function settings($key = null, $default = null)
     {
         $settings = app()->make(\BristolSU\Support\ModuleInstance\ModuleInstance::class)->moduleInstanceSettings->settings;

@@ -4,11 +4,22 @@ namespace BristolSU\Support\Action\Actions;
 
 use BristolSU\Support\Action\Contracts\Action;
 
+/**
+ * Class Log
+ * @package BristolSU\Support\Action\Actions
+ */
 class Log implements Action
 {
 
+    /**
+     * @var mixed|string
+     */
     private $text = 'This will be written to the log';
 
+    /**
+     * Log constructor.
+     * @param array $data
+     */
     public function __construct(array $data = [])
     {
         $this->text = $data['text'];
@@ -19,6 +30,9 @@ class Log implements Action
         \Illuminate\Support\Facades\Log::info($this->text);
     }
 
+    /**
+     * @return array
+     */
     public function getFields(): array
     {
         return [
@@ -26,6 +40,9 @@ class Log implements Action
         ];
     }
 
+    /**
+     * @return array
+     */
     public static function getFieldMetaData(): array
     {
         return [

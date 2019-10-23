@@ -6,6 +6,10 @@ namespace BristolSU\Support\Permissions\Contracts;
 
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
 
+/**
+ * Interface PermissionStore
+ * @package BristolSU\Support\Permissions\Contracts
+ */
 interface PermissionStore
 {
     /**
@@ -48,8 +52,15 @@ interface PermissionStore
      */
     public function registerPermission(Permission $permission): void;
 
+    /**
+     * @param string $ability
+     * @return Permission
+     */
     public function get(string $ability): Permission;
 
+    /**
+     * @return array
+     */
     public function all(): array;
 
 }

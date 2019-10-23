@@ -6,6 +6,10 @@ use BristolSU\Support\Module\Contracts\ModuleFactory as ModuleFactoryContract;
 use BristolSU\Support\Module\Contracts\ModuleManager as ModuleManagerContract;
 use BristolSU\Support\Module\Contracts\ModuleRepository as ModuleRepositoryContract;
 
+/**
+ * Class ModuleRepository
+ * @package BristolSU\Support\Module
+ */
 class ModuleRepository implements ModuleRepositoryContract
 {
 
@@ -18,12 +22,20 @@ class ModuleRepository implements ModuleRepositoryContract
      */
     private $factory;
 
+    /**
+     * ModuleRepository constructor.
+     * @param ModuleManagerContract $manager
+     * @param ModuleFactoryContract $factory
+     */
     public function __construct(ModuleManagerContract $manager, ModuleFactoryContract $factory)
     {
         $this->manager = $manager;
         $this->factory = $factory;
     }
 
+    /**
+     * @return array
+     */
     public function all()
     {
         $modules = [];
@@ -33,6 +45,10 @@ class ModuleRepository implements ModuleRepositoryContract
         return $modules;
     }
 
+    /**
+     * @param $alias
+     * @return Contracts\Module|null
+     */
     public function findByAlias($alias)
     {
         if($this->manager->exists($alias)) {

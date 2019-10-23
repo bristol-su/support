@@ -11,7 +11,7 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Tests\TestCase;
-use BristolSU\Support\User\User;
+use BristolSU\Support\Control\Models\User;
 use Illuminate\Http\Request;
 
 class CheckLoggedIntoActivityForTest extends TestCase
@@ -73,7 +73,7 @@ class CheckLoggedIntoActivityForTest extends TestCase
             'activity_for' => 'user'
         ]);
         $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->willReturn(factory(User::class)->create());
+        $authentication->getUser()->willReturn(new User(['id' => 1]));
         $authentication->getGroup()->willReturn(new Group(['id' => 1]));
         $authentication->getRole()->willReturn(new Role(['id' => 1]));
         

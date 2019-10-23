@@ -28,13 +28,25 @@ use Illuminate\Support\ServiceProvider;
 abstract class ModuleServiceProvider extends ServiceProvider
 {
 
+    /**
+     * @var bool
+     */
     protected $defer = false;
 
+    /**
+     * @var array
+     */
     protected $permissions = [
     ];
-    
+
+    /**
+     * @var array
+     */
     protected $events = [];
-    
+
+    /**
+     * @var array
+     */
     protected $commands = [];
 
     public function register()

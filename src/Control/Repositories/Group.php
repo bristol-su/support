@@ -8,6 +8,10 @@ use BristolSU\Support\Control\Contracts\Client\Client as ControlClient;
 use BristolSU\Support\Control\Contracts\Repositories\Group as GroupContract;
 use Illuminate\Support\Collection;
 
+/**
+ * Class Group
+ * @package BristolSU\Support\Control\Repositories
+ */
 class Group implements GroupContract
 {
 
@@ -16,11 +20,19 @@ class Group implements GroupContract
      */
     private $client;
 
+    /**
+     * Group constructor.
+     * @param ControlClient $client
+     */
     public function __construct(ControlClient $client)
     {
         $this->client = $client;
     }
 
+    /**
+     * @param $id
+     * @return \BristolSU\Support\Control\Models\Group|mixed
+     */
     public function getById($id)
     {
         $response = $this->client->request(
@@ -31,6 +43,10 @@ class Group implements GroupContract
         return new \BristolSU\Support\Control\Models\Group($response);
     }
 
+    /**
+     * @param \BristolSU\Support\Control\Contracts\Models\GroupTag $tag
+     * @return array|mixed
+     */
     public function allWithTag(\BristolSU\Support\Control\Contracts\Models\GroupTag $tag)
     {
         $response = $this->client->request(
@@ -45,6 +61,9 @@ class Group implements GroupContract
         return $groups;
     }
 
+    /**
+     * @return array
+     */
     public function all()
     {
         $response = $this->client->request(
@@ -59,6 +78,10 @@ class Group implements GroupContract
         return $groups;
     }
 
+    /**
+     * @param $id
+     * @return Collection
+     */
     public function allFromStudentControlID($id): Collection
     {
         $groups = $this->client->request('get', 'students/' . $id . '/groups');

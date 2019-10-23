@@ -14,7 +14,7 @@ use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Filters\FilterTester;
 use BristolSU\Support\Tests\TestCase;
-use BristolSU\Support\User\User;
+use BristolSU\Support\Control\Models\User;
 use Prophecy\Argument;
 
 class FilterTesterTest extends TestCase
@@ -116,10 +116,8 @@ class FilterTesterTest extends TestCase
     /** @test */
     public function it_sets_the_user_if_the_filter_is_a_user_filter(){
         $filter = $this->prophesize(UserFilter::class);
-        $user = factory(User::class)->create();
-        $filter->setModel(Argument::that(function($arg) use ($user) {
-            return $user->id === $arg->id;
-        }))->shouldBeCalled();
+        $user = new User(['id' => 1]);
+        $filter->setModel($user)->shouldBeCalled();
         $filter->hasModel()->willReturn(true);
         $filter->evaluate(Argument::any())->willReturn(true);
         $repository = $this->prophesize(FilterRepository::class);
@@ -136,10 +134,7 @@ class FilterTesterTest extends TestCase
     /** @test */
     public function it_does_not_set_the_user_if_the_filter_is_a_user_filter_but_no_user_given(){
         $filter = $this->prophesize(UserFilter::class);
-        $user = factory(User::class)->create();
-        $filter->setModel(Argument::that(function($arg) use ($user) {
-            return $user->id === $arg->id;
-        }))->shouldNotBeCalled();
+        $filter->setModel(Argument::any())->shouldNotBeCalled();
         $filter->hasModel()->willReturn(true);
         $filter->evaluate(Argument::any())->willReturn(true);
         $repository = $this->prophesize(FilterRepository::class);
@@ -225,10 +220,8 @@ class FilterTesterTest extends TestCase
     /** @test */
     public function it_sets_the_user_if_passed_to_evaluate(){
         $filter = $this->prophesize(UserFilter::class);
-        $user = factory(User::class)->create();
-        $filter->setModel(Argument::that(function($arg) use ($user) {
-            return $user->id === $arg->id;
-        }))->shouldBeCalled();
+        $user = new User(['id' => 1]);
+        $filter->setModel($user)->shouldBeCalled();
         $filter->hasModel()->willReturn(true);
         $filter->evaluate(Argument::any())->willReturn(true);
         $repository = $this->prophesize(FilterRepository::class);
@@ -243,11 +236,9 @@ class FilterTesterTest extends TestCase
     /** @test */
     public function it_replaces_a_user_set_via_setUser(){
         $filter = $this->prophesize(UserFilter::class);
-        $user1 = factory(User::class)->create();
-        $user2 = factory(User::class)->create();
-        $filter->setModel(Argument::that(function($arg) use ($user2) {
-            return $user2->id === $arg->id;
-        }))->shouldBeCalled();
+        $user1 = new User(['id' => 1]);
+        $user2 = new User(['id' => 2]);
+        $filter->setModel($user2)->shouldBeCalled();
         $filter->hasModel()->willReturn(true);
         $filter->evaluate(Argument::any())->willReturn(true);
         $repository = $this->prophesize(FilterRepository::class);

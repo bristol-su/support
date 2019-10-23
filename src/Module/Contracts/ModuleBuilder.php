@@ -2,8 +2,16 @@
 
 namespace BristolSU\Support\Module\Contracts;
 
+/**
+ * Interface ModuleBuilder
+ * @package BristolSU\Support\Module\Contracts
+ */
 interface ModuleBuilder
 {
+    /**
+     * @param string $alias
+     * @return mixed
+     */
     public function create(string $alias);
     
     public function setAlias();
@@ -17,6 +25,9 @@ interface ModuleBuilder
     public function setSettings();
 
     public function setTriggers();
-    
+
+    /**
+     * @return Module
+     */
     public function getModule(): Module;
 }

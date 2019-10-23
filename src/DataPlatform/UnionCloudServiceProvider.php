@@ -8,6 +8,10 @@ use BristolSU\Support\DataPlatform\Contracts\Repositories\User as UserRepository
 use BristolSU\Support\DataPlatform\Repositories\User as UserRepository;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class UnionCloudServiceProvider
+ * @package BristolSU\Support\DataPlatform
+ */
 class UnionCloudServiceProvider extends ServiceProvider
 {
 

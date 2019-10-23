@@ -17,9 +17,16 @@ use BristolSU\Support\Permissions\PermissionServiceProvider;
 use BristolSU\Support\User\UserServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class SupportServiceProvider
+ * @package BristolSU\Support
+ */
 class SupportServiceProvider extends ServiceProvider
 {
 
+    /**
+     * @var array
+     */
     protected $providers = [
         ActionServiceProvider::class,
         ActivityServiceProvider::class,

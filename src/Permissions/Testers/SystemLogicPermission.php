@@ -10,6 +10,10 @@ use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Permissions\Contracts\Testers\Tester;
 use BristolSU\Support\Permissions\Models\ModelPermission;
 
+/**
+ * Class SystemLogicPermission
+ * @package BristolSU\Support\Permissions\Testers
+ */
 class SystemLogicPermission extends Tester
 {
 
@@ -22,12 +26,21 @@ class SystemLogicPermission extends Tester
      */
     private $authentication;
 
+    /**
+     * SystemLogicPermission constructor.
+     * @param LogicTester $logicTester
+     * @param Authentication $authentication
+     */
     public function __construct(LogicTester $logicTester, Authentication $authentication)
     {
         $this->logicTester = $logicTester;
         $this->authentication = $authentication;
     }
 
+    /**
+     * @param string $ability
+     * @return bool|null
+     */
     public function can(string $ability): ?bool
     {
         $permissions = ModelPermission::logic()->orderBy('created_at', 'ASC')->get();

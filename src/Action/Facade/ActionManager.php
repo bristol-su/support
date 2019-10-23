@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Facade;
 class ActionManager extends Facade
 {
 
+    /**
+     * @return string
+     */
     protected static function getFacadeAccessor()
     {
         return ActionManagerContract::class;

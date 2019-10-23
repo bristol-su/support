@@ -19,6 +19,10 @@ use BristolSU\Support\Logic\LogicRepository;
 use BristolSU\Support\Logic\LogicTester;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class LogicServiceProvider
+ * @package BristolSU\Support\Logic
+ */
 class LogicServiceProvider extends ServiceProvider
 {
     /**

@@ -10,8 +10,12 @@ use BristolSU\Support\Logic\Specification\AndSpecification;
 use BristolSU\Support\Logic\Specification\OrSpecification;
 use BristolSU\Support\Logic\Specification\FilterFalseSpecification;
 use BristolSU\Support\Logic\Specification\FilterTrueSpecification;
-use BristolSU\Support\User\User;
+use BristolSU\Support\Control\Contracts\Models\User;
 
+/**
+ * Class LogicTester
+ * @package BristolSU\Support\Logic
+ */
 class LogicTester implements LogicTesterContract
 {
 
@@ -20,12 +24,23 @@ class LogicTester implements LogicTesterContract
      */
     private $filterTester;
 
+    /**
+     * LogicTester constructor.
+     * @param FilterTester $filterTester
+     */
     public function __construct(FilterTester $filterTester)
     {
         $this->filterTester = $filterTester;
     }
 
-    public function evaluate(Logic $logic, $userModel = null, $groupModel = null,  $roleModel = null)
+    /**
+     * @param Logic $logic
+     * @param null $userModel
+     * @param null $groupModel
+     * @param null $roleModel
+     * @return bool
+     */
+    public function evaluate(Logic $logic, $userModel = null, $groupModel = null, $roleModel = null)
     {
         $this->overrideFilterTester($userModel, $groupModel, $roleModel);
         $allTrue = [];
@@ -58,6 +73,11 @@ class LogicTester implements LogicTesterContract
         ))->isSatisfied();
     }
 
+    /**
+     * @param User|null $user
+     * @param Group|null $group
+     * @param Role|null $role
+     */
     private function overrideFilterTester(?User $user, ?Group $group, ?Role $role)
     {
         if($user !== null) {

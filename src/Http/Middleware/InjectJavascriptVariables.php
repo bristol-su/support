@@ -6,6 +6,10 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use Illuminate\Http\Request;
 use Laracasts\Utilities\JavaScript\JavaScriptFacade;
 
+/**
+ * Class InjectJavascriptVariables
+ * @package BristolSU\Support\Http\Middleware
+ */
 class InjectJavascriptVariables
 {
 
@@ -14,11 +18,20 @@ class InjectJavascriptVariables
      */
     private $authentication;
 
+    /**
+     * InjectJavascriptVariables constructor.
+     * @param Authentication $authentication
+     */
     public function __construct(Authentication $authentication)
     {
         $this->authentication = $authentication;
     }
 
+    /**
+     * @param Request $request
+     * @param \Closure $next
+     * @return mixed
+     */
     public function handle(Request $request, \Closure $next)
     {
         

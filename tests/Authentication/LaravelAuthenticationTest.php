@@ -7,7 +7,7 @@ namespace BristolSU\Support\Tests\Authentication;
 use BristolSU\Support\Authentication\LaravelAuthentication;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
-use BristolSU\Support\User\User;
+use BristolSU\Support\Control\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Prophecy\Argument;
@@ -21,7 +21,7 @@ class LaravelAuthenticationTest extends TestCase
      */
     private $authentication;
 
-    public function setUp() : void
+    public function setUp(): void
     {
         parent::setUp();
         $this->authentication = resolve(LaravelAuthentication::class);
@@ -56,7 +56,7 @@ class LaravelAuthenticationTest extends TestCase
         $this->assertInstanceOf(Group::class, $this->authentication->getGroup());
         $this->assertEquals(1, $this->authentication->getGroup()->id);
     }
-    
+
     /** @test */
     public function get_role_gets_role_if_logged_in()
     {
@@ -74,7 +74,7 @@ class LaravelAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function get_role_returns_a_role_if_given_in_headers()
+    public function get_role_returns_a_role_if_given_in_query()
     {
         $this->mockControl('get', 'roles/1', ['id' => 1], true);
         $request = $this->prophesize(Request::class);
@@ -84,29 +84,13 @@ class LaravelAuthenticationTest extends TestCase
         $this->assertInstanceOf(Role::class, $this->authentication->getRole());
         $this->assertEquals(1, $this->authentication->getRole()->id);
     }
-    
+
     /** @test */
     public function get_user_returns_a_user_if_logged_into_a_user()
     {
-        $user = factory(User::class)->create();
-        $this->be($user);
-        $this->assertModelEquals($user, $this->authentication->getUser());
-    }
-
-    /** @test */
-    public function get_user_returns_a_user_if_logged_into_a_user_through_api(){
-        $user = factory(User::class)->create();
-        $this->be($user, 'api');
-        $this->assertModelEquals($user, $this->authentication->getUser());
-    }
-
-    /** @test */
-    public function get_user_prioritises_a_web_user_if_logged_in(){
-        $user = factory(User::class)->create();
-        $this->be($user, 'web');
-        $userApi = factory(User::class)->create();
-        $this->be($userApi, 'api');
-        $this->assertModelEquals($user, $this->authentication->getUser());
+        $user = new User(['id' => 1]);
+        $this->beUser($user);
+        $this->assertEquals($user->id, $this->authentication->getUser()->id());
     }
 
     /** @test */
@@ -116,21 +100,36 @@ class LaravelAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function set_user_sets_the_user(){
-        $user = factory(User::class)->create();
-        $this->authentication->setUser($user);
-        $this->assertModelEquals($user, Auth::guard('web')->user());
+    public function get_user_returns_a_user_if_given_in_query()
+    {
+        $this->mockControl('get', 'students/1', ['id' => 1], true);
+        $request = $this->prophesize(Request::class);
+        $request->has('user_id')->shouldBeCalled()->willReturn(true);
+        $request->query('user_id')->shouldBeCalled()->willReturn(1);
+        $this->authentication = resolve(LaravelAuthentication::class, ['request' => $request->reveal()]);
+        $this->assertInstanceOf(User::class, $this->authentication->getUser());
+        $this->assertEquals(1, $this->authentication->getUser()->id);
     }
 
     /** @test */
-    public function set_group_sets_the_group(){
+    public function set_user_sets_the_user()
+    {
+        $user = new User(['id' => 1]);
+        $this->authentication->setUser($user);
+        $this->assertEquals($user, Auth::guard('user')->user());
+    }
+
+    /** @test */
+    public function set_group_sets_the_group()
+    {
         $group = new Group(['id' => 1]);
         $this->authentication->setGroup($group);
         $this->assertEquals(1, Auth::guard('group')->user()->id);
     }
 
     /** @test */
-    public function set_role_sets_the_role(){
+    public function set_role_sets_the_role()
+    {
         $role = new Role(['id' => 1]);
         $this->authentication->setRole($role);
         $this->assertEquals(1, Auth::guard('role')->user()->id);

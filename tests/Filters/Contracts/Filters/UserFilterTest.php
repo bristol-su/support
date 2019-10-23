@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Tests\Filters\Contracts\Filters;
 
-use BristolSU\Support\User\User;
+use BristolSU\Support\Control\Models\User;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Tests\TestCase;
 
@@ -12,7 +12,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function getModel_returns_the_set_model(){
         $filter = new DummyUserFilter();
-        $user = factory(User::class)->create();
+        $user = new User(['id' => 1]);
         $filter->setModel($user);
         $this->assertEquals($user->id, $filter->model()->id);
     }
@@ -28,7 +28,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function hasModel_returns_true_if_the_user_is_set(){
         $filter = new DummyUserFilter();
-        $user = factory(User::class)->create();
+        $user = new User(['id' => 1]);
         $filter->setModel($user);
 
         $this->assertTrue($filter->hasModel());

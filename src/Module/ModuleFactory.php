@@ -7,6 +7,10 @@ use BristolSU\Support\Module\Contracts\Module;
 use BristolSU\Support\Module\Contracts\ModuleFactory as ModuleFactoryAlias;
 use Illuminate\Contracts\Container\Container;
 
+/**
+ * Class ModuleFactory
+ * @package BristolSU\Support\Module
+ */
 class ModuleFactory implements ModuleFactoryAlias
 {
 
@@ -15,11 +19,19 @@ class ModuleFactory implements ModuleFactoryAlias
      */
     private $moduleBuilder;
 
+    /**
+     * ModuleFactory constructor.
+     * @param ModuleBuilderContract $moduleBuilder
+     */
     public function __construct(ModuleBuilderContract $moduleBuilder)
     {
         $this->moduleBuilder = $moduleBuilder;
     }
-    
+
+    /**
+     * @param string $alias
+     * @return Module
+     */
     public function fromAlias(string $alias): Module
     {
         $this->moduleBuilder->create($alias);

@@ -15,6 +15,10 @@ use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSettings;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class ModuleInstanceServiceProvider
+ * @package BristolSU\Support\ModuleInstance
+ */
 class ModuleInstanceServiceProvider extends ServiceProvider
 {
 

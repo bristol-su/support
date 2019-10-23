@@ -12,7 +12,7 @@ use BristolSU\Support\Logic\Facade\LogicTester;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation;
 use BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
-use BristolSU\Support\User\User;
+use BristolSU\Support\Control\Models\User;
 use Prophecy\Argument;
 use BristolSU\Support\Tests\TestCase;
 
@@ -70,7 +70,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $moduleInstance = factory(ModuleInstance::class)->create();
         $evaluation = $this->prophesize(Evaluation::class);
 
-        $user = factory(User::class)->create();
+        $user = new User(['id' => 1]);
         $group = new Group(['id' => 1]);
         $role = new Role(['id' => 2]);
 

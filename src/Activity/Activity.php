@@ -9,8 +9,15 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
+/**
+ * Class Activity
+ * @package BristolSU\Support\Activity
+ */
 class Activity extends Model
 {
+    /**
+     * @var array
+     */
     protected $fillable = [
         'name',
         'description',
@@ -21,11 +28,18 @@ class Activity extends Model
         'end_date'
     ];
 
+    /**
+     * @var array
+     */
     protected $casts = [
         'start_date' => 'datetime',
         'end_date' => 'datetime'
     ];
 
+    /**
+     * Activity constructor.
+     * @param array $attributes
+     */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
@@ -36,21 +50,34 @@ class Activity extends Model
         });
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function moduleInstances()
     {
         return $this->hasMany(ModuleInstance::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function forLogic()
     {
         return $this->belongsTo(Logic::class, 'for_logic');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function adminLogic()
     {
         return $this->belongsTo(Logic::class, 'admin_logic');
     }
 
+    /**
+     * @param Builder $query
+     * @return Builder
+     */
     public function scopeActive(Builder $query) {
         return $query
             ->where(['start_date' => null, 'end_date'=>null])

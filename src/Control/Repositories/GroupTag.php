@@ -10,6 +10,10 @@ use BristolSU\Support\Control\Models\GroupTag as GroupTagModel;
 use BristolSU\Support\Control\Contracts\Repositories\GroupTag as GroupTagContract;
 use Illuminate\Support\Collection;
 
+/**
+ * Class GroupTag
+ * @package BristolSU\Support\Control\Repositories
+ */
 class GroupTag implements GroupTagContract
 {
 
@@ -18,11 +22,18 @@ class GroupTag implements GroupTagContract
      */
     private $client;
 
+    /**
+     * GroupTag constructor.
+     * @param ControlClient $client
+     */
     public function __construct(ControlClient $client)
     {
         $this->client = $client;
     }
 
+    /**
+     * @return array
+     */
     public function all()
     {
         $groupTagModels = [];
@@ -33,6 +44,10 @@ class GroupTag implements GroupTagContract
         return $groupTagModels;
     }
 
+    /**
+     * @param GroupContract $group
+     * @return array|mixed
+     */
     public function allThroughGroup(GroupContract $group)
     {
         $groupTagModels = [];
@@ -43,6 +58,10 @@ class GroupTag implements GroupTagContract
         return $groupTagModels;
     }
 
+    /**
+     * @param $reference
+     * @return mixed
+     */
     public function getTagByFullReference($reference)
     {
 

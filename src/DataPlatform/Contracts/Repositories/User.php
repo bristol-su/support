@@ -6,6 +6,10 @@ namespace BristolSU\Support\DataPlatform\Contracts\Repositories;
 
 use BristolSU\Support\DataPlatform\Contracts\Models\User as UserModelContract;
 
+/**
+ * Interface User
+ * @package BristolSU\Support\DataPlatform\Contracts\Repositories
+ */
 interface User
 {
 
@@ -21,7 +25,21 @@ interface User
      */
     public function getByIdentity($identity) : UserModelContract;
 
+    /**
+     * @param $email
+     * @return UserModelContract
+     */
     public function getByEmail($email) : UserModelContract;
 
+    /**
+     * @param $studentId
+     * @return UserModelContract
+     */
     public function getByStudentID($studentId) : UserModelContract;
+
+    /**
+     * @param $id
+     * @return UserModelContract
+     */
+    public function getById($id): UserModelContract;
 }

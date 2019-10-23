@@ -8,6 +8,10 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Mail;
 use Laravel\Passport\HasApiTokens;
 
+/**
+ * Class User
+ * @package BristolSU\Support\User
+ */
 class User extends Authenticatable implements MustVerifyEmail
 {
     use Notifiable, HasApiTokens;

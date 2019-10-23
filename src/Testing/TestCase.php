@@ -12,28 +12,44 @@ use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Contracts\PermissionTester;
 use BristolSU\Support\SupportServiceProvider;
 use BristolSU\Support\User\User;
-use Illuminate\Contracts\Http\Kernel as HttpKernel;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Str;
 use Laracasts\Utilities\JavaScript\JavaScriptServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Prophecy\Argument;
-use Symfony\Component\HttpFoundation\Request as SymfonyRequest;
 
+/**
+ * Class TestCase
+ * @package BristolSU\Support\Testing
+ */
 abstract class TestCase extends BaseTestCase
 {
 
+    /**
+     * @var
+     */
     protected $moduleInstance;
-    
+
+    /**
+     * @var
+     */
     protected $activity;
 
-    protected $user; 
-    
+    /**
+     * @var
+     */
+    protected $user;
+
+    /**
+     * @return string
+     */
     abstract public function alias(): string;
 
+    /**
+     * @param \Illuminate\Foundation\Application $app
+     * @return array
+     */
     protected function getPackageProviders($app)
     {
         return [
@@ -70,6 +86,9 @@ abstract class TestCase extends BaseTestCase
 
     }
 
+    /**
+     * @param \Illuminate\Foundation\Application $app
+     */
     public function getEnvironmentSetUp($app)
     {
         $app['config']->set('database.default', 'testing');
@@ -86,6 +105,14 @@ abstract class TestCase extends BaseTestCase
             'driver' => 'session',
             'provider' => 'groups'
         ]);
+        $app['config']->set('auth.guards.user', [
+            'driver' => 'session',
+            'provider' => 'users'
+        ]);
+        $app['config']->set('auth.providers.users', [
+            'driver' => 'user-provider',
+            'model' => User::class
+        ]);
         $app['config']->set('auth.providers.roles', [
             'driver' => 'role-provider',
             'model' => Role::class
@@ -99,6 +126,10 @@ abstract class TestCase extends BaseTestCase
 
     }
 
+    /**
+     * @param $role
+     * @return $this
+     */
     public function beRole($role)
     {
         $this->mockControl('get', 'roles/' . $role->id, $role->toArray(), true);
@@ -106,6 +137,10 @@ abstract class TestCase extends BaseTestCase
         return $this;
     }
 
+    /**
+     * @param $group
+     * @return $this
+     */
     public function beGroup($group)
     {
         $this->mockControl('get', 'groups/' . $group->id, $group->toArray(), true);
@@ -113,11 +148,33 @@ abstract class TestCase extends BaseTestCase
         return $this;
     }
 
+    /**
+     * @param $user
+     * @return $this
+     */
+    public function beUser($user)
+    {
+        $this->mockControl('get', 'students/' . $user->id, $user->toArray(), true);
+        $this->app['auth']->guard('user')->loginUsingId($user->id);
+        return $this;
+    }
+
+    /**
+     * @param Model $expected
+     * @param Model $actual
+     */
     public function assertModelEquals(Model $expected, Model $actual)
     {
         $this->assertTrue($expected->is($actual), 'Models are not equal');
     }
 
+    /**
+     * @param array $true
+     * @param array $false
+     * @param null $user
+     * @param null $group
+     * @param null $role
+     */
     public function createLogicTester($true=[], $false=[], $user=null, $group=null, $role=null)
     {
         $logicTester = $this->prophesize(LogicTester::class);
@@ -149,6 +206,12 @@ abstract class TestCase extends BaseTestCase
         $this->instance(LogicTester::class, $logicTester->reveal());
     }
 
+    /**
+     * @param $method
+     * @param $uri
+     * @param $response
+     * @param bool $inject
+     */
     public function mockControl($method, $uri, $response, $inject = false) {
         if($this->controlClient === null) {
             $this->controlClient = $this->prophesize(Client::class);
@@ -159,6 +222,12 @@ abstract class TestCase extends BaseTestCase
         }
     }
 
+    /**
+     * @param $method
+     * @param $route
+     * @param null $ability
+     * @param array $parameters
+     */
     public function assertRequiresAuthorization($method, $route, $ability = null, $parameters=[])
     {
         $response = $this->call($method, $route, $parameters);
@@ -177,6 +246,10 @@ abstract class TestCase extends BaseTestCase
 
     }
 
+    /**
+     * @param string $path
+     * @return string
+     */
     public function adminUrl($path = '')
     {
         if(!Str::startsWith($path, '/')) {
@@ -185,6 +258,10 @@ abstract class TestCase extends BaseTestCase
         return '/a/' . $this->activity->slug . '/'. $this->moduleInstance->slug . $path;
     }
 
+    /**
+     * @param string $path
+     * @return string
+     */
     public function userUrl($path = '')
     {
         if(!Str::startsWith($path, '/')) {
@@ -193,6 +270,10 @@ abstract class TestCase extends BaseTestCase
         return '/p/' . $this->activity->slug . '/'. $this->moduleInstance->slug . $path;
     }
 
+    /**
+     * @param string $path
+     * @return string
+     */
     public function apiUrl($path = '')
     {
         if(!Str::startsWith($path, '/')) {

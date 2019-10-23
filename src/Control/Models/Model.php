@@ -5,15 +5,31 @@ namespace BristolSU\Support\Control\Models;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
+/**
+ * Class Model
+ * @package BristolSU\Support\Control\Models
+ */
 class Model implements Arrayable, Jsonable
 {
+    /**
+     * @var array
+     */
     protected $attributes;
 
+    /**
+     * Model constructor.
+     * @param array $attributes
+     */
     public function __construct($attributes = [])
     {
         $this->attributes = $attributes;
     }
 
+    /**
+     * @param $name
+     * @return mixed|null
+     * @throws \Exception
+     */
     public function __get($name)
     {
         if(!is_array($this->attributes)) {
@@ -26,16 +42,26 @@ class Model implements Arrayable, Jsonable
         return null;
     }
 
+    /**
+     * @return array
+     */
     public function toArray()
     {
         return $this->attributes;
     }
 
+    /**
+     * @param int $options
+     * @return false|string
+     */
     public function toJson($options = 0)
     {
         return json_encode($this->toArray(), $options);
     }
 
+    /**
+     * @return false|string
+     */
     public function __toString()
     {
         return $this->toJson();

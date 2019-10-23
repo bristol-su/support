@@ -5,11 +5,21 @@ namespace BristolSU\Support\Permissions\Models;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class ModelPermission
+ * @package BristolSU\Support\Permissions\Models
+ */
 class ModelPermission extends Model
 {
 
+    /**
+     * @var string
+     */
     protected $table = 'model_permissions';
 
+    /**
+     * @var array
+     */
     protected $fillable = [
         'ability',
         'model',
@@ -17,10 +27,19 @@ class ModelPermission extends Model
         'result'
     ];
 
+    /**
+     * @var array
+     */
     protected $casts = [
         'result' => 'boolean'
     ];
 
+    /**
+     * @param Builder $query
+     * @param null $userId
+     * @param null $ability
+     * @return Builder
+     */
     public function scopeUser(Builder $query, $userId = null, $ability = null)
     {
         $constraints = ['model' => 'user'];
@@ -33,6 +52,12 @@ class ModelPermission extends Model
         return $query->where($constraints);
     }
 
+    /**
+     * @param Builder $query
+     * @param null $logicId
+     * @param null $ability
+     * @return Builder
+     */
     public function scopeLogic(Builder $query, $logicId = null, $ability = null)
     {
         $constraints = ['model' => 'logic'];
@@ -45,6 +70,12 @@ class ModelPermission extends Model
         return $query->where($constraints);
     }
 
+    /**
+     * @param Builder $query
+     * @param null $groupId
+     * @param null $ability
+     * @return Builder
+     */
     public function scopeGroup(Builder $query, $groupId = null, $ability = null)
     {
         $constraints = ['model' => 'group'];
@@ -57,6 +88,12 @@ class ModelPermission extends Model
         return $query->where($constraints);
     }
 
+    /**
+     * @param Builder $query
+     * @param null $groupId
+     * @param null $ability
+     * @return Builder
+     */
     public function scopeRole(Builder $query, $groupId = null, $ability = null)
     {
         $constraints = ['model' => 'role'];

@@ -4,6 +4,10 @@
 namespace BristolSU\Support\DataPlatform\Contracts\Models;
 
 
+/**
+ * Interface User
+ * @package BristolSU\Support\DataPlatform\Contracts\Models
+ */
 interface User
 {
 
