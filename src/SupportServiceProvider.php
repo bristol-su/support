@@ -15,6 +15,7 @@ use BristolSU\Support\Module\ModuleFrameworkServiceProvider;
 use BristolSU\Support\ModuleInstance\ModuleInstanceServiceProvider;
 use BristolSU\Support\Permissions\PermissionServiceProvider;
 use BristolSU\Support\User\UserServiceProvider;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -49,6 +50,7 @@ class SupportServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerMigrations();
         $this->registerViews();
+        $this->registerRoutes();
     }
     
     public function registerProviders()
@@ -60,7 +62,7 @@ class SupportServiceProvider extends ServiceProvider
 
     public function registerConfig()
     {
-        $this->publishes([__DIR__ . '/../config/config.php' => config_path('support')], 'config');
+        $this->publishes([__DIR__ . '/../config/config.php' => config_path('support.php')], 'config');
         $this->mergeConfigFrom(__DIR__ . '/../config/config.php', 'support');
     }
 
@@ -76,6 +78,13 @@ class SupportServiceProvider extends ServiceProvider
         ], 'views');
 
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'bristolsu');
+    }
+
+    public function registerRoutes()
+    {
+        Route::middleware(['web', 'module', 'activity'])
+            ->namespace('\BristolSU\Support\Http\Controllers')
+            ->group(__DIR__ . '/../routes/web.php');
     }
 
 }

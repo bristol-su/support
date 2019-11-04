@@ -25,7 +25,8 @@ class Activity extends Model
         'for_logic',
         'admin_logic',
         'start_date',
-        'end_date'
+        'end_date',
+        'slug'
     ];
 
     /**

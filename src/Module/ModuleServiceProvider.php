@@ -7,6 +7,7 @@ use BristolSU\Support\Module\Contracts\ModuleManager;
 use BristolSU\Support\Permissions\Facade\Permission;
 use Exception;
 use Illuminate\Database\Eloquent\Factory;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -67,11 +68,18 @@ abstract class ModuleServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerFactories();
         $this->loadMigrations();
-        $this->mapParticipantRoutes();
-        $this->mapAdminRoutes();
-        $this->mapApiRoutes();
         $this->registerCommands();
         $this->registerAssets();
+        $this->registerRoutes();
+    }
+
+    public function registerRoutes()
+    {
+        
+        $this->mapParticipantRoutes();
+        $this->mapAdminRoutes();
+        $this->mapParticipantApiRoutes();
+        $this->mapAdminApiRoutes();
     }
 
     public function registerModule()
@@ -144,23 +152,30 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     public function mapParticipantRoutes()
     {
-        Route::prefix('/p/{activity_slug}/{module_instance_slug}')
-            ->middleware(['web', 'module', 'activity'])
-            ->group($this->baseDirectory() . '/routes/participant.php');
+        Route::prefix('/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
+            ->middleware(['web', 'module', 'activity', 'participant'])
+            ->group($this->baseDirectory() . '/routes/participant/web.php');
     }
 
     public function mapAdminRoutes()
     {
-        Route::prefix('/a/{activity_slug}/{module_instance_slug}')
-            ->middleware(['web', 'module', 'activity'])
-            ->group($this->baseDirectory() . '/routes/admin.php');
+        Route::prefix('/a/{activity_slug}/{module_instance_slug}/' . $this->alias())
+            ->middleware(['web', 'module', 'activity', 'administrator'])
+            ->group($this->baseDirectory() . '/routes/admin/web.php');
     }
 
-    public function mapApiRoutes()
+    public function mapParticipantApiRoutes()
     {
-        Route::prefix('/api/' . $this->alias() . '/{activity_slug}/{module_instance_slug}')
-            ->middleware(['api', 'module', 'activity'])
-            ->group($this->baseDirectory() . '/routes/api.php');
+        Route::prefix('/api/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
+            ->middleware(['api', 'module', 'activity', 'participant'])
+            ->group($this->baseDirectory() . '/routes/participant/api.php');
+    }
+
+    public function mapAdminApiRoutes()
+    {
+        Route::prefix('/api/a/{activity_slug}/{module_instance_slug}/' . $this->alias())
+            ->middleware(['api', 'module', 'activity', 'administrator'])
+            ->group($this->baseDirectory() . '/routes/admin/api.php');
     }
 
     public function registerCommands()

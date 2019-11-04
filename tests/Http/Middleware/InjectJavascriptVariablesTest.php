@@ -29,6 +29,8 @@ class InjectJavascriptVariablesTest extends TestCase
             public $slug = 'activityslug';
         });
         
+        $request->is(Argument::any())->willReturn(true);
+        
         $javascript = $this->prophesize(Transformer::class);
         $javascript->put(Argument::that(function($arg) {
             return array_key_exists('ALIAS', $arg) && $arg['ALIAS'] === 'testalias';
@@ -50,6 +52,7 @@ class InjectJavascriptVariablesTest extends TestCase
         $request->route('activity_slug')->shouldBeCalled()->willReturn(new class {
             public $slug = 'activityslug';
         });
+        $request->is(Argument::any())->willReturn(true);
 
         $javascript = $this->prophesize(Transformer::class);
         $javascript->put(Argument::that(function($arg) {
@@ -72,6 +75,7 @@ class InjectJavascriptVariablesTest extends TestCase
         $request->route('activity_slug')->shouldBeCalled()->willReturn(new class {
             public $slug = 'activityslug';
         });
+        $request->is(Argument::any())->willReturn(true);
 
         $javascript = $this->prophesize(Transformer::class);
         $javascript->put(Argument::that(function($arg) {
@@ -98,6 +102,7 @@ class InjectJavascriptVariablesTest extends TestCase
         $request->route('activity_slug')->shouldBeCalled()->willReturn(new class {
             public $slug = 'activityslug';
         });
+        $request->is(Argument::any())->willReturn(true);
 
         $javascript = $this->prophesize(Transformer::class);
         $javascript->put(Argument::that(function($arg) {
@@ -123,6 +128,8 @@ class InjectJavascriptVariablesTest extends TestCase
         $request->route('activity_slug')->shouldBeCalled()->willReturn(new class {
             public $slug = 'activityslug';
         });
+        $request->is(Argument::any())->willReturn(true);
+
 
         $javascript = $this->prophesize(Transformer::class);
         $javascript->put(Argument::that(function($arg) {
@@ -148,6 +155,8 @@ class InjectJavascriptVariablesTest extends TestCase
         $request->route('activity_slug')->shouldBeCalled()->willReturn(new class {
             public $slug = 'activityslug';
         });
+        $request->is(Argument::any())->willReturn(true);
+
 
         $javascript = $this->prophesize(Transformer::class);
         $javascript->put(Argument::that(function($arg) {
@@ -159,6 +168,50 @@ class InjectJavascriptVariablesTest extends TestCase
         $injector->handle($request->reveal(), function($request) {});
     }
 
-    
+    /** @test */
+    public function it_sets_a_or_p_to_a_if_administrator(){
+        $authentication = $this->prophesize(Authentication::class);
+        $request = $this->prophesize(Request::class);
+        $request->route('module_instance_slug')->shouldBeCalled()->willReturn(new class {
+            public $alias = 'testalias';
+            public $slug = 'testslug';
+        });
+        $request->route('activity_slug')->shouldBeCalled()->willReturn(new class {
+            public $slug = 'activityslug';
+        });
+        $request->is('a/*')->shouldBeCalled()->willReturn(true);
+
+        $javascript = $this->prophesize(Transformer::class);
+        $javascript->put(Argument::that(function($arg) {
+            return array_key_exists('A_OR_P', $arg) && $arg['A_OR_P'] === 'a';
+        }))->shouldBeCalled();
+        $this->instance('JavaScript', $javascript->reveal());
+
+        $injector = new InjectJavascriptVariables($authentication->reveal());
+        $injector->handle($request->reveal(), function($request) {});
+    }
+
+    /** @test */
+    public function it_sets_a_or_p_to_p_if_not_administrator(){
+        $authentication = $this->prophesize(Authentication::class);
+        $request = $this->prophesize(Request::class);
+        $request->route('module_instance_slug')->shouldBeCalled()->willReturn(new class {
+            public $alias = 'testalias';
+            public $slug = 'testslug';
+        });
+        $request->route('activity_slug')->shouldBeCalled()->willReturn(new class {
+            public $slug = 'activityslug';
+        });
+        $request->is('a/*')->shouldBeCalled()->willReturn(false);
+
+        $javascript = $this->prophesize(Transformer::class);
+        $javascript->put(Argument::that(function($arg) {
+            return array_key_exists('A_OR_P', $arg) && $arg['A_OR_P'] === 'p';
+        }))->shouldBeCalled();
+        $this->instance('JavaScript', $javascript->reveal());
+
+        $injector = new InjectJavascriptVariables($authentication->reveal());
+        $injector->handle($request->reveal(), function($request) {});
+    }
     
 }

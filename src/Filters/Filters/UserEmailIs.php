@@ -51,7 +51,6 @@ class UserEmailIs extends UserFilter
     /**
      * Test if the filter passes
      *
-     * @param Object $model Group, Role or User
      * @param string $settings Key of the chosen option
      *
      * @return bool

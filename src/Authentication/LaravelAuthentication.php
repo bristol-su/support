@@ -68,16 +68,16 @@ class LaravelAuthentication implements AuthenticationContract
      */
     public function getGroup()
     {
-
-        if($this->auth->guard('group')->check()) {
-            return $this->auth->guard('group')->user();
-        }
-
         if($this->request !== null && $this->request->has('group_id')) {
             try {
                 return $this->groupRepository->getById($this->request->query('group_id'));
             } catch (\Exception $e) {}
         }
+
+        if($this->auth->guard('group')->check()) {
+            return $this->auth->guard('group')->user();
+        }
+
 
         return null;
     }
@@ -87,14 +87,15 @@ class LaravelAuthentication implements AuthenticationContract
      */
     public function getRole()
     {
-        if($this->auth->guard('role')->check()) {
-            return $this->auth->guard('role')->user();
-        }
         // TODO Refactor out. Also check credentials!
         if($this->request !== null && $this->request->has('role_id')) {
             try {
                 return $this->roleRepository->getById($this->request->query('role_id'));
             } catch (\Exception $e) {}
+        }
+        
+        if($this->auth->guard('role')->check()) {
+            return $this->auth->guard('role')->user();
         }
 
         return null;
@@ -105,16 +106,16 @@ class LaravelAuthentication implements AuthenticationContract
      */
     public function getUser()
     {
-        if($this->auth->guard('user')->check()) {
-            return $this->auth->guard('user')->user();
-        }
-
         if($this->request !== null && $this->request->has('user_id')) {
             try {
                 return $this->userRepository->getById($this->request->query('user_id'));
             } catch (\Exception $e) {}
         }
         
+        if($this->auth->guard('user')->check()) {
+            return $this->auth->guard('user')->user();
+        }
+
         return null;
     }
 

@@ -15,16 +15,7 @@ class UserTest extends TestCase
 {
 
     /** @test */
-    public function find_or_create_by_data_id_tries_to_get_user_by_data_provider_id()
-    {
-        $this->mockControl('post', 'students/search', [['uc_uid'=>2845746]]);
-
-        $userRepository = new User($this->controlClient->reveal());
-        $userRepository->findOrCreateByDataId(2845746);
-    }
-
-    /** @test */
-    public function find_or_create_by_data_id_returns_a_user_if_given(){
+    public function find_or_create_by_data_id_returns_a_user_if_found(){
         $this->mockControl('post', 'students/search', [['uc_uid'=>2845746]]);
 
         $userRepository = new User($this->controlClient->reveal());

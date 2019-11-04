@@ -14,7 +14,7 @@ use Illuminate\Http\Request;
  * Class CheckLoggedIntoActivityFor
  * @package BristolSU\Support\Activity\Middleware
  */
-class CheckLoggedIntoActivityFor
+class CheckLoggedIntoActivityForType
 {
     /**
      * @var Authentication

@@ -109,5 +109,6 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="committee-portal" />
     <orderEntry type="module" module-name="upload-file" />
+    <orderEntry type="module" module-name="playground" />
   </component>
 </module>

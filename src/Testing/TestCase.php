@@ -3,15 +3,15 @@
 namespace BristolSU\Support\Testing;
 
 use BristolSU\Support\Activity\Activity;
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Control\Contracts\Client\Client;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
+use BristolSU\Support\Control\Models\User;
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Contracts\PermissionTester;
 use BristolSU\Support\SupportServiceProvider;
-use BristolSU\Support\User\User;
+use BristolSU\Support\User\User as DatabaseUser;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
@@ -39,7 +39,22 @@ abstract class TestCase extends BaseTestCase
     /**
      * @var
      */
+    protected $databaseUser;
+
+    /**
+     * @var
+     */
     protected $user;
+
+    /**
+     * @var
+     */
+    protected $group;
+
+    /**
+     * @var
+     */
+    protected $role;
 
     /**
      * @return string
@@ -76,12 +91,14 @@ abstract class TestCase extends BaseTestCase
         // Create example module instance and activity
         // TODO remove support from here
         if($this->alias() !== 'support') {
-            $activity = factory(Activity::class)->create(['slug' => 'act']);
-            $moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'mod', 'activity_id' => $activity->id, 'alias' => $this->alias()]);
-            $this->activity = $activity;
-            $this->moduleInstance = $moduleInstance;
-            $this->app->instance(Activity::class, $activity);
-            $this->app->instance(ModuleInstance::class, $moduleInstance);
+            $this->activity = factory(Activity::class)->create(['slug' => 'act']);
+            $this->moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'mod', 'activity_id' => $this->activity->id, 'alias' => $this->alias()]);
+            $this->databaseUser = factory(DatabaseUser::class)->create();
+            $this->user = new User(['id' => $this->databaseUser->control_id]);
+            $this->group = new Group(['id' => 3]);
+            $this->role = new Role(['id' => 5]);
+            $this->app->instance(Activity::class, $this->activity);
+            $this->app->instance(ModuleInstance::class, $this->moduleInstance);
         }
 
     }
@@ -109,13 +126,13 @@ abstract class TestCase extends BaseTestCase
             'driver' => 'session',
             'provider' => 'users'
         ]);
-        $app['config']->set('auth.providers.users', [
-            'driver' => 'user-provider',
-            'model' => User::class
-        ]);
         $app['config']->set('auth.providers.roles', [
             'driver' => 'role-provider',
             'model' => Role::class
+        ]);
+        $app['config']->set('auth.providers.users', [
+            'driver' => 'user-provider',
+            'model' => \BristolSU\Support\Control\Models\User::class
         ]);
         $app['config']->set('auth.providers.groups', [
             'driver' => 'group-provider',
@@ -216,7 +233,7 @@ abstract class TestCase extends BaseTestCase
         if($this->controlClient === null) {
             $this->controlClient = $this->prophesize(Client::class);
         }
-        $this->controlClient->request($method, $uri, Argument::any())->shouldBeCalled()->willReturn($response);
+        $this->controlClient->request($method, $uri, Argument::any())->willReturn($response);
         if($inject) {
             $this->instance(Client::class, $this->controlClient->reveal());
         }
@@ -230,17 +247,21 @@ abstract class TestCase extends BaseTestCase
      */
     public function assertRequiresAuthorization($method, $route, $ability = null, $parameters=[])
     {
+        $this->beUser($this->user);
+        $this->beGroup($this->group);
+        $this->beRole($this->role);
+        $this->be($this->databaseUser, 'web');
+        $this->be($this->databaseUser, 'api');
         $response = $this->call($method, $route, $parameters);
         $response->assertStatus(403, 'User allowed past authorization without permission. Is there an \'authorize\' statement?');
-        
-        $this->be(factory(User::class)->create());
+
         $permissionTester = $this->prophesize(PermissionTester::class);
         $permissionTester->evaluate($this->alias() . '.' . $ability)->shouldBeCalled()->willReturn(true);
         $this->instance(PermissionTester::class, $permissionTester->reveal());
 
         $response = $this->call($method, $route, $parameters);
         $this->assertTrue(
-            $response->isSuccessful(), 
+            $response->isSuccessful(),
             sprintf('User not allowed past authorization with permission. Status code %s', $response->getStatusCode())
         );
 
@@ -284,15 +305,14 @@ abstract class TestCase extends BaseTestCase
 
     public function bypassAuthorization()
     {
-        $auth = app()->make(Authentication::class);
-        if($auth->getUser() === null) {
-            $user = factory(User::class)->create();
-            $auth->setUser($user);
-            $this->user = $user;
-        }
+        $this->beUser($this->user);
+        $this->beGroup($this->group);
+        $this->beRole($this->role);
+        $this->be($this->databaseUser, 'web');
+        $this->be($this->databaseUser, 'api');
         $permissionTester = $this->prophesize(PermissionTester::class);
         $permissionTester->evaluate(Argument::any())->willReturn(true);
         $this->instance(PermissionTester::class, $permissionTester->reveal());
     }
-    
+
 }

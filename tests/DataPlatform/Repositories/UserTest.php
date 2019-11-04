@@ -106,5 +106,30 @@ class UserTest extends TestCase
         $this->assertInstanceOf(\BristolSU\Support\DataPlatform\Models\User::class, $user);
         $this->assertEquals(1234567, $user->id());
     }
+    
+    /** @test */
+    public function it_gets_a_user_by_id(){
+        $uid = 12345;
+        $unioncloud = $this->prophesize(UnionCloud::class);
+        $userRequest = $this->prophesize(UserRequest::class);
 
+        $userResponse = $this->prophesize(UserResponse::class);
+        $resourceCollection = $this->prophesize(ResourceCollection::class);
+        $unioncloudUser = $this->prophesize(\Twigger\UnionCloud\API\Resource\User::class);
+
+        $unioncloudUser->getOriginalAttributes()->shouldBeCalled()->willReturn(['uid' => $uid]);
+        $resourceCollection->first()->shouldBeCalled()->willReturn($unioncloudUser->reveal());
+        $userResponse->get()->shouldBeCalled()->willReturn($resourceCollection->reveal());
+
+        $userRequest->getByUID($uid)->shouldBeCalled()->willReturn($userResponse->reveal());
+
+        $unioncloud->users()->shouldBeCalled()->willReturn($userRequest->reveal());
+
+        $repository = new User($unioncloud->reveal());
+        $user = $repository->getById($uid);
+
+        $this->assertInstanceOf(\BristolSU\Support\DataPlatform\Models\User::class, $user);
+        $this->assertEquals($uid, $user->id());
+    }
+    
 }

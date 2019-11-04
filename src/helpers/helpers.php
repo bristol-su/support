@@ -4,7 +4,7 @@ if(!function_exists('settings')) {
     /**
      * @param null $key
      * @param null $default
-     * @return |null
+     * @return |null |null |null
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     function settings($key = null, $default = null)
