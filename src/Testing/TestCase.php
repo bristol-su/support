@@ -13,11 +13,13 @@ use BristolSU\Support\Permissions\Contracts\PermissionTester;
 use BristolSU\Support\SupportServiceProvider;
 use BristolSU\Support\User\User as DatabaseUser;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Foundation\Application;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Laracasts\Utilities\JavaScript\JavaScriptServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use Prophecy\Argument;
+use Prophecy\Prophecy\ObjectProphecy;
 
 /**
  * Class TestCase
@@ -55,42 +57,26 @@ abstract class TestCase extends BaseTestCase
      * @var
      */
     protected $role;
-
     /**
-     * @return string
-     */
-    abstract public function alias(): string;
-
-    /**
-     * @param \Illuminate\Foundation\Application $app
-     * @return array
-     */
-    protected function getPackageProviders($app)
-    {
-        return [
-            SupportServiceProvider::class,
-            JavaScriptServiceProvider::class
-        ];
-    }
-
-    /**
-     * @var \Prophecy\Prophecy\ObjectProphecy
+     * @var ObjectProphecy
      */
     protected $controlClient = null;
+
     public function stubControl()
     {
         $control = $this->prophesize(Client::class);
         $this->instance(Client::class, $control->reveal());
     }
 
-    public function setUp(): void {
+    public function setUp(): void
+    {
         parent::setUp();
         $this->loadMigrationsFrom(realpath(__DIR__ . '/../database/migrations'));
         $this->withFactories(__DIR__ . '/../../database/factories');
 
         // Create example module instance and activity
         // TODO remove support from here
-        if($this->alias() !== 'support') {
+        if ($this->alias() !== 'support') {
             $this->activity = factory(Activity::class)->create(['slug' => 'act']);
             $this->moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'mod', 'activity_id' => $this->activity->id, 'alias' => $this->alias()]);
             $this->databaseUser = factory(DatabaseUser::class)->create();
@@ -104,7 +90,12 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * @param \Illuminate\Foundation\Application $app
+     * @return string
+     */
+    abstract public function alias(): string;
+
+    /**
+     * @param Application $app
      */
     public function getEnvironmentSetUp($app)
     {
@@ -132,7 +123,7 @@ abstract class TestCase extends BaseTestCase
         ]);
         $app['config']->set('auth.providers.users', [
             'driver' => 'user-provider',
-            'model' => \BristolSU\Support\Control\Models\User::class
+            'model' => User::class
         ]);
         $app['config']->set('auth.providers.groups', [
             'driver' => 'group-provider',
@@ -141,39 +132,6 @@ abstract class TestCase extends BaseTestCase
 
         $app['config']->set('app.key', 'base64:UTyp33UhGolgzCK5CJmT+hNHcA+dJyp3+oINtX+VoPI=');
 
-    }
-
-    /**
-     * @param $role
-     * @return $this
-     */
-    public function beRole($role)
-    {
-        $this->mockControl('get', 'roles/' . $role->id, $role->toArray(), true);
-        $this->app['auth']->guard('role')->loginUsingId($role->id);
-        return $this;
-    }
-
-    /**
-     * @param $group
-     * @return $this
-     */
-    public function beGroup($group)
-    {
-        $this->mockControl('get', 'groups/' . $group->id, $group->toArray(), true);
-        $this->app['auth']->guard('group')->loginUsingId($group->id);
-        return $this;
-    }
-
-    /**
-     * @param $user
-     * @return $this
-     */
-    public function beUser($user)
-    {
-        $this->mockControl('get', 'students/' . $user->id, $user->toArray(), true);
-        $this->app['auth']->guard('user')->loginUsingId($user->id);
-        return $this;
     }
 
     /**
@@ -192,29 +150,29 @@ abstract class TestCase extends BaseTestCase
      * @param null $group
      * @param null $role
      */
-    public function createLogicTester($true=[], $false=[], $user=null, $group=null, $role=null)
+    public function createLogicTester($true = [], $false = [], $user = null, $group = null, $role = null)
     {
         $logicTester = $this->prophesize(LogicTester::class);
-        foreach(Arr::wrap($true) as $logic) {
-            $logicTester->evaluate(Argument::that(function($arg) use ($logic) {
+        foreach (Arr::wrap($true) as $logic) {
+            $logicTester->evaluate(Argument::that(function ($arg) use ($logic) {
                 return $arg->id === $logic->id;
-            }), Argument::that(function($arg) use ($user) {
+            }), Argument::that(function ($arg) use ($user) {
                 return $user === null || $user->id === $arg->id;
-            }),  Argument::that(function($arg) use ($group) {
+            }), Argument::that(function ($arg) use ($group) {
                 return $group === null || $group->id === $arg->id;
-            }),  Argument::that(function($arg) use ($role) {
+            }), Argument::that(function ($arg) use ($role) {
                 return $role === null || $role->id === $arg->id;
             }))->willReturn(true);
         }
 
-        foreach(Arr::wrap($false) as $logic) {
-            $logicTester->evaluate(Argument::that(function($arg) use ($logic) {
+        foreach (Arr::wrap($false) as $logic) {
+            $logicTester->evaluate(Argument::that(function ($arg) use ($logic) {
                 return $arg->id === $logic->id;
-            }), Argument::that(function($arg) use ($user) {
+            }), Argument::that(function ($arg) use ($user) {
                 return $user === null || $user->id === $arg->id;
-            }),  Argument::that(function($arg) use ($group) {
+            }), Argument::that(function ($arg) use ($group) {
                 return $group === null || $group->id === $arg->id;
-            }),  Argument::that(function($arg) use ($role) {
+            }), Argument::that(function ($arg) use ($role) {
                 return $role === null || $role->id === $arg->id;
             }))->willReturn(false);
         }
@@ -225,27 +183,11 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * @param $method
-     * @param $uri
-     * @param $response
-     * @param bool $inject
-     */
-    public function mockControl($method, $uri, $response, $inject = false) {
-        if($this->controlClient === null) {
-            $this->controlClient = $this->prophesize(Client::class);
-        }
-        $this->controlClient->request($method, $uri, Argument::any())->willReturn($response);
-        if($inject) {
-            $this->instance(Client::class, $this->controlClient->reveal());
-        }
-    }
-
-    /**
-     * @param $method
      * @param $route
      * @param null $ability
      * @param array $parameters
      */
-    public function assertRequiresAuthorization($method, $route, $ability = null, $parameters=[])
+    public function assertRequiresAuthorization($method, $route, $ability = null, $parameters = [])
     {
         $this->beUser($this->user);
         $this->beGroup($this->group);
@@ -268,15 +210,65 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
+     * @param $user
+     * @return $this
+     */
+    public function beUser($user)
+    {
+        $this->mockControl('get', 'students/' . $user->id, $user->toArray(), true);
+        $this->app['auth']->guard('user')->loginUsingId($user->id);
+        return $this;
+    }
+
+    /**
+     * @param $method
+     * @param $uri
+     * @param $response
+     * @param bool $inject
+     */
+    public function mockControl($method, $uri, $response, $inject = false)
+    {
+        if ($this->controlClient === null) {
+            $this->controlClient = $this->prophesize(Client::class);
+        }
+        $this->controlClient->request($method, $uri, Argument::any())->willReturn($response);
+        if ($inject) {
+            $this->instance(Client::class, $this->controlClient->reveal());
+        }
+    }
+
+    /**
+     * @param $group
+     * @return $this
+     */
+    public function beGroup($group)
+    {
+        $this->mockControl('get', 'groups/' . $group->id, $group->toArray(), true);
+        $this->app['auth']->guard('group')->loginUsingId($group->id);
+        return $this;
+    }
+
+    /**
+     * @param $role
+     * @return $this
+     */
+    public function beRole($role)
+    {
+        $this->mockControl('get', 'roles/' . $role->id, $role->toArray(), true);
+        $this->app['auth']->guard('role')->loginUsingId($role->id);
+        return $this;
+    }
+
+    /**
      * @param string $path
      * @return string
      */
     public function adminUrl($path = '')
     {
-        if(!Str::startsWith($path, '/')) {
+        if (!Str::startsWith($path, '/')) {
             $path = '/' . $path;
         }
-        return '/a/' . $this->activity->slug . '/'. $this->moduleInstance->slug . $path;
+        return '/a/' . $this->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->alias() . $path;
     }
 
     /**
@@ -285,22 +277,22 @@ abstract class TestCase extends BaseTestCase
      */
     public function userUrl($path = '')
     {
-        if(!Str::startsWith($path, '/')) {
+        if (!Str::startsWith($path, '/')) {
             $path = '/' . $path;
         }
-        return '/p/' . $this->activity->slug . '/'. $this->moduleInstance->slug . $path;
+        return '/p/' . $this->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->alias() . $path;
     }
 
     /**
      * @param string $path
      * @return string
      */
-    public function apiUrl($path = '')
+    public function apiUrl($path = '', $admin = false)
     {
-        if(!Str::startsWith($path, '/')) {
+        if (!Str::startsWith($path, '/')) {
             $path = '/' . $path;
         }
-        return '/api/' . $this->moduleInstance->alias . '/' . $this->activity->slug . '/'. $this->moduleInstance->slug . $path;
+        return '/api/' . ($admin?'a':'p') . '/' . $this->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->moduleInstance->alias . $path;
     }
 
     public function bypassAuthorization()
@@ -313,6 +305,18 @@ abstract class TestCase extends BaseTestCase
         $permissionTester = $this->prophesize(PermissionTester::class);
         $permissionTester->evaluate(Argument::any())->willReturn(true);
         $this->instance(PermissionTester::class, $permissionTester->reveal());
+    }
+
+    /**
+     * @param Application $app
+     * @return array
+     */
+    protected function getPackageProviders($app)
+    {
+        return [
+            SupportServiceProvider::class,
+            JavaScriptServiceProvider::class
+        ];
     }
 
 }
