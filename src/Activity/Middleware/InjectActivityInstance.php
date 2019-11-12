@@ -5,6 +5,7 @@ namespace BristolSU\Support\Activity\Middleware;
 
 
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
 

@@ -17,4 +17,5 @@ interface FilterInstanceRepository
      */
     public function create($attributes = []);
 
+    public function all();
 }

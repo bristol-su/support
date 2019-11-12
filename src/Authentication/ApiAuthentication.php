@@ -1,0 +1,122 @@
+<?php
+
+namespace BristolSU\Support\Authentication;
+
+use BristolSU\Support\Authentication\Contracts\Authentication;
+use BristolSU\Support\Authentication\Contracts\UserAuthentication;
+use BristolSU\Support\Control\Contracts\Models\Group;
+use BristolSU\Support\Control\Contracts\Models\Role;
+use BristolSU\Support\Control\Contracts\Models\User;
+use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
+use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
+use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
+use Exception;
+use Illuminate\Http\Request;
+
+class ApiAuthentication implements Authentication
+{
+
+    /**
+     * @var Request
+     */
+    private $request;
+    /**
+     * @var RoleRepository
+     */
+    private $roleRepository;
+    /**
+     * @var GroupRepository
+     */
+    private $groupRepository;
+    /**
+     * @var UserRepository
+     */
+    private $userRepository;
+    /**
+     * @var UserAuthentication
+     */
+    private $userAuthentication;
+
+    public function __construct(Request $request,
+                                RoleRepository $roleRepository,
+                                GroupRepository $groupRepository,
+                                UserRepository $userRepository,
+                                UserAuthentication $userAuthentication)
+    {
+        $this->request = $request;
+        $this->roleRepository = $roleRepository;
+        $this->groupRepository = $groupRepository;
+        $this->userRepository = $userRepository;
+        $this->userAuthentication = $userAuthentication;
+    }
+
+    public function getGroup()
+    {
+        if ($this->request !== null && $this->request->has('role_id')) {
+            try {
+                return $this->groupRepository->getById($this->getRole()->group_id);
+            } catch (Exception $e) {
+            }
+        }
+
+        if ($this->request !== null && $this->request->has('group_id')) {
+            try {
+                return $this->groupRepository->getById($this->request->query('group_id'));
+            } catch (Exception $e) {
+            }
+        }
+    }
+
+    public function getRole()
+    {
+        if ($this->request !== null && $this->request->has('role_id')) {
+            try {
+                return $this->roleRepository->getById($this->request->query('role_id'));
+            } catch (Exception $e) {
+            }
+        }
+    }
+
+    public function getUser()
+    {
+        if ($this->request !== null && $this->request->has('user_id')) {
+            try {
+                return $this->userRepository->getById($this->request->query('user_id'));
+            } catch (Exception $e) {
+            }
+        }
+
+        if($this->userAuthentication->getUser() !== null) {
+            return $this->userRepository->getById($this->userAuthentication->getUser()->control_id);
+        }
+    }
+
+    /**
+     * @param Group $group
+     * @return mixed
+     */
+    public function setGroup(Group $group)
+    {
+        $this->request->query->set('group_id', $group->id);
+    }
+
+    /**
+     * @param Role $role
+     * @return mixed
+     */
+    public function setRole(Role $role)
+    {
+        $this->request->query->set('role_id', $role->id);
+        return $this->request;
+    }
+
+    /**
+     * @param User $user
+     * @return mixed
+     */
+    public function setUser(User $user)
+    {
+        $this->request->query->set('user_id', $user->id);
+
+    }
+}

@@ -42,7 +42,11 @@ class GroupTagged extends GroupFilter
      */
     public function evaluate($settings): bool
     {
-        $tags = $this->groupTagRepository->allThroughGroup($this->model());
+        try {
+            $tags = $this->groupTagRepository->allThroughGroup($this->model());
+        } catch (\Exception $e) {
+            return false;
+        }
         foreach($tags as $tag) {
             if($tag->fullReference() === $settings['tag']) {
                 return true;

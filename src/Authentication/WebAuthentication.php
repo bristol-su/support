@@ -5,6 +5,7 @@ namespace BristolSU\Support\Authentication;
 
 
 use BristolSU\Support\Authentication\Contracts\Authentication as AuthenticationContract;
+use BristolSU\Support\Authentication\Contracts\UserAuthentication;
 use BristolSU\Support\Control\Contracts\Models\Group;
 use BristolSU\Support\Control\Contracts\Models\Role;
 use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
@@ -18,21 +19,13 @@ use Illuminate\Http\Request;
  * Class LaravelAuthentication
  * @package BristolSU\Support\Authentication
  */
-class LaravelAuthentication implements AuthenticationContract
+class WebAuthentication implements AuthenticationContract
 {
 
     /**
      * @var AuthFactory
      */
     private $auth;
-    /**
-     * @var Request
-     */
-    private $request;
-    /**
-     * @var RoleRepository
-     */
-    private $roleRepository;
     /**
      * @var GroupRepository
      */
@@ -41,26 +34,21 @@ class LaravelAuthentication implements AuthenticationContract
      * @var UserRepository
      */
     private $userRepository;
+    /**
+     * @var UserAuthentication
+     */
+    private $userAuthentication;
 
     /**
      * LaravelAuthentication constructor.
      * @param AuthFactory $auth
-     * @param Request $request
-     * @param RoleRepository $roleRepository
-     * @param GroupRepository $groupRepository
-     * @param UserRepository $userRepository
      */
-    public function __construct(AuthFactory $auth,
-                                Request $request,
-                                RoleRepository $roleRepository,
-                                GroupRepository $groupRepository,
-                                UserRepository $userRepository)
+    public function __construct(AuthFactory $auth, GroupRepository $groupRepository, UserRepository $userRepository, UserAuthentication $userAuthentication)
     {
         $this->auth = $auth;
-        $this->request = $request;
-        $this->roleRepository = $roleRepository;
         $this->groupRepository = $groupRepository;
         $this->userRepository = $userRepository;
+        $this->userAuthentication = $userAuthentication;
     }
 
     /**
@@ -68,16 +56,15 @@ class LaravelAuthentication implements AuthenticationContract
      */
     public function getGroup()
     {
-        if($this->request !== null && $this->request->has('group_id')) {
-            try {
-                return $this->groupRepository->getById($this->request->query('group_id'));
-            } catch (\Exception $e) {}
+        if ($this->auth->guard('role')->check()) {
+            return $this->groupRepository->getById(
+                $this->auth->guard('role')->user()->group_id
+            );
         }
 
-        if($this->auth->guard('group')->check()) {
+        if ($this->auth->guard('group')->check()) {
             return $this->auth->guard('group')->user();
         }
-
 
         return null;
     }
@@ -87,14 +74,7 @@ class LaravelAuthentication implements AuthenticationContract
      */
     public function getRole()
     {
-        // TODO Refactor out. Also check credentials!
-        if($this->request !== null && $this->request->has('role_id')) {
-            try {
-                return $this->roleRepository->getById($this->request->query('role_id'));
-            } catch (\Exception $e) {}
-        }
-        
-        if($this->auth->guard('role')->check()) {
+        if ($this->auth->guard('role')->check()) {
             return $this->auth->guard('role')->user();
         }
 
@@ -106,16 +86,13 @@ class LaravelAuthentication implements AuthenticationContract
      */
     public function getUser()
     {
-        if($this->request !== null && $this->request->has('user_id')) {
-            try {
-                return $this->userRepository->getById($this->request->query('user_id'));
-            } catch (\Exception $e) {}
-        }
-        
-        if($this->auth->guard('user')->check()) {
+        if ($this->auth->guard('user')->check()) {
             return $this->auth->guard('user')->user();
         }
 
+        if ($this->userAuthentication->getUser() !== null) {
+            return $this->userRepository->getById($this->userAuthentication->getUser()->control_id);
+        }
         return null;
     }
 
@@ -142,5 +119,4 @@ class LaravelAuthentication implements AuthenticationContract
     {
         $this->auth->guard('user')->login($user);
     }
-    
 }

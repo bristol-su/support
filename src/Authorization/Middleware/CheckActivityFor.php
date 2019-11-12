@@ -1,12 +1,11 @@
 <?php
 
-namespace BristolSU\Support\Activity\Middleware;
+namespace BristolSU\Support\Authorization\Middleware;
 
-use BristolSU\Support\Activity\Activity;
-use BristolSU\Support\Activity\Exception\ActivityRequiresGroup;
-use BristolSU\Support\Activity\Exception\ActivityRequiresRole;
-use BristolSU\Support\Activity\Exception\ActivityRequiresUser;
 use BristolSU\Support\Authentication\Contracts\Authentication;
+use BristolSU\Support\Authorization\Exception\ActivityRequiresGroup;
+use BristolSU\Support\Authorization\Exception\ActivityRequiresRole;
+use BristolSU\Support\Authorization\Exception\ActivityRequiresUser;
 use BristolSU\Support\Logic\Facade\LogicTester;
 use Closure;
 use Illuminate\Http\Request;
@@ -48,13 +47,13 @@ class CheckActivityFor
                 'Activity requires a user to be logged in,', 403, null, $activity
             );
         }
-        if($activity->activity_for === 'group' && !LogicTester::evaluate($logic, null, $this->authentication->getGroup())) {
-            throw new ActivityRequiresGroup(                
+        if ($activity->activity_for === 'group' && !LogicTester::evaluate($logic, $this->authentication->getUser(), $this->authentication->getGroup())) {
+            throw new ActivityRequiresGroup(
                 'Activity requires a group to be logged in,', 403, null, $activity
             );
         }
-        if ($activity->activity_for === 'role' && !LogicTester::evaluate($logic, null, null, $this->authentication->getRole())) {
-            throw new ActivityRequiresRole(                
+        if ($activity->activity_for === 'role' && !LogicTester::evaluate($logic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole())) {
+            throw new ActivityRequiresRole(
                 'Activity requires a role to be logged in,', 403, null, $activity
             );
         }

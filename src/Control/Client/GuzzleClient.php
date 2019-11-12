@@ -41,11 +41,10 @@ class GuzzleClient implements ControlClientContract
      * @param ClientInterface $client
      * @param Token $token
      */
-    public function __construct(ClientInterface $client, Token $token, Repository $cache)
+    public function __construct(ClientInterface $client, Token $token)
     {
         $this->client = $client;
         $this->token = $token;
-        $this->cache = $cache;
     }
 
     /**
@@ -57,9 +56,6 @@ class GuzzleClient implements ControlClientContract
      */
     public function request($method, $uri, array $options = [])
     {
-        if ($method === 'get' && $this->cache->has(self::class . $uri . json_encode($options))) {
-            return $this->cache->get(self::class . $uri . json_encode($options));
-        }
         $response = $this->client->request($method, $uri, array_merge(
             [
                 'base_uri' => config('control.base_uri') . '/api/',
@@ -69,10 +65,6 @@ class GuzzleClient implements ControlClientContract
                 ],
             ], $options
         ));
-        $content = json_decode($response->getBody()->getContents(), true);
-        if ($method === 'get') {
-            $this->cache->put(self::class . $uri . json_encode($options), $content, 30);
-        }
-        return $content;
+        return json_decode($response->getBody()->getContents(), true);
     }
 }

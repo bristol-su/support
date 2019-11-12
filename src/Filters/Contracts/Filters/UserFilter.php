@@ -4,6 +4,7 @@
 namespace BristolSU\Support\Filters\Contracts\Filters;
 
 use \BristolSU\Support\Control\Contracts\Models\User;
+use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
 
 /**
  * Class UserFilter
@@ -53,6 +54,17 @@ abstract class UserFilter extends Filter
         return 'user';
     }
 
-
+    public function audience($settings)
+    {
+        $audience = [];
+        $users = app()->make(UserRepository::class)->all();
+        foreach($users as $user) {
+            $this->setModel($user);
+            if($this->evaluate($settings)) {
+                $audience[] = $user;
+            }
+        }
+        return $audience;
+    }
 
 }

@@ -6,6 +6,8 @@ namespace BristolSU\Support\Control\Repositories;
 
 use BristolSU\Support\Control\Contracts\Client\Client as ControlClient;
 use BristolSU\Support\Control\Contracts\Models\User as UserModelContract;
+use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
+use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\Support\Control\Contracts\Repositories\User as UserContract;
 use BristolSU\Support\Control\Models\User as UserModel;
 use GuzzleHttp\Exception\ClientException;

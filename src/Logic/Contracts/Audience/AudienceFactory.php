@@ -1,6 +1,6 @@
 <?php
 
-namespace BristolSU\Support\Logic\Contracts;
+namespace BristolSU\Support\Logic\Contracts\Audience;
 
 /**
  * Interface AudienceFactory

@@ -42,6 +42,11 @@ class Model implements Arrayable, Jsonable
         return null;
     }
 
+    public function __set($key, $value)
+    {
+        $this->attributes[$key] = $value;
+    }
+
     /**
      * @return array
      */

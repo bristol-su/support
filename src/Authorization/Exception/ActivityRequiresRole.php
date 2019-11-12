@@ -1,23 +1,22 @@
 <?php
 
-namespace BristolSU\Support\Activity\Exception;
+namespace BristolSU\Support\Authorization\Exception;
 
-use Throwable;
+use Exception;
 
 /**
- * Class ActivityRequiresGroup
+ * Class ActivityRequiresRole
  * @package BristolSU\Support\Activity\Exception
  */
-class ActivityRequiresGroup extends \Exception
+class ActivityRequiresRole extends Exception
 {
-
     /**
      * @var
      */
     private $activity;
 
     /**
-     * ActivityRequiresGroup constructor.
+     * ActivityRequiresRole constructor.
      * @param string $message
      * @param int $code
      * @param Throwable|null $previous
@@ -36,5 +35,4 @@ class ActivityRequiresGroup extends \Exception
     {
         return $this->activity;
     }
-
 }

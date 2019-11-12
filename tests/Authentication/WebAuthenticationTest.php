@@ -4,7 +4,7 @@
 namespace BristolSU\Support\Tests\Authentication;
 
 
-use BristolSU\Support\Authentication\LaravelAuthentication;
+use BristolSU\Support\Authentication\WebAuthentication;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Control\Models\User;
@@ -13,18 +13,18 @@ use Illuminate\Support\Facades\Auth;
 use Prophecy\Argument;
 use BristolSU\Support\Tests\TestCase;
 
-class LaravelAuthenticationTest extends TestCase
+class WebAuthenticationTest extends TestCase
 {
 
     /**
-     * @var LaravelAuthentication
+     * @var WebAuthentication
      */
     private $authentication;
 
     public function setUp(): void
     {
         parent::setUp();
-        $this->authentication = resolve(LaravelAuthentication::class);
+        $this->authentication = resolve(WebAuthentication::class);
     }
 
     /** @test */
@@ -45,17 +45,6 @@ class LaravelAuthenticationTest extends TestCase
         $this->assertNull($this->authentication->getGroup());
     }
 
-    /** @test */
-    public function get_group_returns_a_group_if_given_in_url()
-    {
-        $this->mockControl('get', 'groups/1', ['id' => 1], true);
-        $request = $this->prophesize(Request::class);
-        $request->has('group_id')->shouldBeCalled()->willReturn(true);
-        $request->query('group_id')->shouldBeCalled()->willReturn(1);
-        $this->authentication = resolve(LaravelAuthentication::class, ['request' => $request->reveal()]);
-        $this->assertInstanceOf(Group::class, $this->authentication->getGroup());
-        $this->assertEquals(1, $this->authentication->getGroup()->id);
-    }
 
     /** @test */
     public function get_role_gets_role_if_logged_in()
@@ -73,17 +62,6 @@ class LaravelAuthenticationTest extends TestCase
         $this->assertNull($this->authentication->getRole());
     }
 
-    /** @test */
-    public function get_role_returns_a_role_if_given_in_query()
-    {
-        $this->mockControl('get', 'roles/1', ['id' => 1], true);
-        $request = $this->prophesize(Request::class);
-        $request->has('role_id')->shouldBeCalled()->willReturn(true);
-        $request->query('role_id')->shouldBeCalled()->willReturn(1);
-        $this->authentication = resolve(LaravelAuthentication::class, ['request' => $request->reveal()]);
-        $this->assertInstanceOf(Role::class, $this->authentication->getRole());
-        $this->assertEquals(1, $this->authentication->getRole()->id);
-    }
 
     /** @test */
     public function get_user_returns_a_user_if_logged_into_a_user()
@@ -99,17 +77,6 @@ class LaravelAuthenticationTest extends TestCase
         $this->assertNull($this->authentication->getUser());
     }
 
-    /** @test */
-    public function get_user_returns_a_user_if_given_in_query()
-    {
-        $this->mockControl('get', 'students/1', ['id' => 1], true);
-        $request = $this->prophesize(Request::class);
-        $request->has('user_id')->shouldBeCalled()->willReturn(true);
-        $request->query('user_id')->shouldBeCalled()->willReturn(1);
-        $this->authentication = resolve(LaravelAuthentication::class, ['request' => $request->reveal()]);
-        $this->assertInstanceOf(User::class, $this->authentication->getUser());
-        $this->assertEquals(1, $this->authentication->getUser()->id);
-    }
 
     /** @test */
     public function set_user_sets_the_user()

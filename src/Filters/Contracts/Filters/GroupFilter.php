@@ -4,6 +4,7 @@
 namespace BristolSU\Support\Filters\Contracts\Filters;
 
 use BristolSU\Support\Control\Contracts\Models\Group;
+use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
 
 /**
  * Class GroupFilter
@@ -51,6 +52,19 @@ abstract class GroupFilter extends Filter
     public function for()
     {
         return 'group';
+    }
+    
+    public function audience($settings)
+    {
+        $audience = [];
+        $groups = app()->make(GroupRepository::class)->all();
+        foreach($groups as $group) {
+            $this->setModel($group);
+            if($this->evaluate($settings)) {
+                $audience[] = $group;
+            }
+        }
+        return $audience;
     }
 
 }

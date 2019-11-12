@@ -20,4 +20,9 @@ class FilterInstanceRepository implements FilterInstanceRepositoryContract
     {
         return FilterInstance::create($attributes);
     }
+    
+    public function all()
+    {
+        return FilterInstance::all();
+    }
 }

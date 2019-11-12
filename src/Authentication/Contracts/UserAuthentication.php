@@ -16,7 +16,7 @@ interface UserAuthentication
     /**
      * @return User
      */
-    public function getUser(): User;
+    public function getUser(): ?User;
 
     /**
      * @param User $user

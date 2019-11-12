@@ -1,6 +1,6 @@
 <?php
 
-namespace BristolSU\Support\Logic;
+namespace BristolSU\Support\Logic\Audience;
 
 use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;

@@ -11,7 +11,7 @@ use Illuminate\Contracts\Auth\Factory as AuthFactory;
  * Class UserAuthentication
  * @package BristolSU\Support\Authentication
  */
-class UserAuthentication implements UserAuthenticationContract
+class UserWebAuthentication implements UserAuthenticationContract
 {
 
     /**
@@ -35,9 +35,6 @@ class UserAuthentication implements UserAuthenticationContract
     {
         if($this->auth->guard('web')->check()) {
             return $this->auth->guard('web')->user();
-        }
-        if($this->auth->guard('api')->check()) {
-            return $this->auth->guard('api')->user();
         }
     }
 

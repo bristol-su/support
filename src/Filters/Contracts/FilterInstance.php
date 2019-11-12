@@ -15,4 +15,6 @@ interface FilterInstance
     public function alias();
 
     public function settings();
+
+    public function for();
 }

@@ -17,7 +17,6 @@ class Logic extends Model
     protected $fillable = [
         'name',
         'description',
-        'for',
     ];
 
     /**

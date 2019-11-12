@@ -35,4 +35,5 @@ interface Authentication
      * @return mixed
      */
     public function setUser(User $user);
+
 }

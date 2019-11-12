@@ -1,12 +1,11 @@
 <?php
 
-namespace BristolSU\Support\Activity\Middleware;
+namespace BristolSU\Support\Authorization\Middleware;
 
-use BristolSU\Support\Activity\Activity;
-use BristolSU\Support\Activity\Exception\ActivityRequiresGroup;
-use BristolSU\Support\Activity\Exception\ActivityRequiresRole;
-use BristolSU\Support\Activity\Exception\ActivityRequiresUser;
 use BristolSU\Support\Authentication\Contracts\Authentication;
+use BristolSU\Support\Authorization\Exception\ActivityRequiresGroup;
+use BristolSU\Support\Authorization\Exception\ActivityRequiresRole;
+use BristolSU\Support\Authorization\Exception\ActivityRequiresUser;
 use Closure;
 use Illuminate\Http\Request;
 

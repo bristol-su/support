@@ -4,7 +4,6 @@
 namespace BristolSU\Support\Permissions;
 
 
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Permissions\Contracts\Models\Permission as PermissionContract;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
 use BristolSU\Support\Permissions\Models\Permission;

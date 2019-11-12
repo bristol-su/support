@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/../../portal/.idea/committee-portal.iml" filepath="$PROJECT_DIR$/../../portal/.idea/committee-portal.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../playground/.idea/playground.iml" filepath="$PROJECT_DIR$/../playground/.idea/playground.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/support.iml" filepath="$PROJECT_DIR$/.idea/support.iml" />
       <module fileurl="file://$PROJECT_DIR$/../../modules/upload-file/.idea/upload-file.iml" filepath="$PROJECT_DIR$/../../modules/upload-file/.idea/upload-file.iml" />
     </modules>

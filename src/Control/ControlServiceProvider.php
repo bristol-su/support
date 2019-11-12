@@ -2,9 +2,7 @@
 
 namespace BristolSU\Support\Control;
 
-use BristolSU\Support\Control\Client\GuzzleClient;
 use BristolSU\Support\Control\Client\Token;
-use BristolSU\Support\Control\Contracts\Client\Client as ClientContract;
 use BristolSU\Support\Control\Contracts\Client\Token as TokenContract;
 use BristolSU\Support\Control\Contracts\Models\Group as GroupModelContract;
 use BristolSU\Support\Control\Contracts\Models\GroupTag as GroupTagModelContract;
@@ -31,7 +29,6 @@ use BristolSU\Support\Control\Repositories\User as UserRepository;
 use BristolSU\Support\Control\Repositories\Position as PositionRepository;
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
-use Illuminate\Contracts\Support\DeferrableProvider;
 use Illuminate\Support\ServiceProvider;
 
 /**

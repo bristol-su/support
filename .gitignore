@@ -3,3 +3,5 @@
 coverage
 docs
 build
+report.*
+.phpunit.result.cache

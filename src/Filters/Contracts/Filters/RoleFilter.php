@@ -4,6 +4,7 @@
 namespace BristolSU\Support\Filters\Contracts\Filters;
 
 use BristolSU\Support\Control\Contracts\Models\Role;
+use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
 
 /**
  * Class RoleFilter
@@ -53,5 +54,17 @@ abstract class RoleFilter extends Filter
         return 'role';
     }
 
-
+    public function audience($settings)
+    {
+        $audience = [];
+        $roles = app()->make(RoleRepository::class)->all();
+        foreach($roles as $role) {
+            $this->setModel($role);
+            if($this->evaluate($settings)) {
+                $audience[] = $role;
+            }
+        }
+        return $audience;
+    }
+    
 }

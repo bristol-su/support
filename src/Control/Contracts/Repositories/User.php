@@ -30,6 +30,7 @@ interface User
     /**
      * @param $dataPlatformId
      * @return UserModelContract
-     */
+     */ 
     public function findByDataId($dataPlatformId) : UserModelContract;
+
 }

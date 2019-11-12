@@ -1,6 +1,6 @@
 <?php
 
-namespace BristolSU\Support\Activity\Exception;
+namespace BristolSU\Support\Authorization\Exception;
 
 use Exception;
 

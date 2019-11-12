@@ -1,16 +1,16 @@
 <?php
 
-namespace BristolSU\Support\Logic\Specification;
+namespace BristolSU\Support\Logic\Audience\Specification;
 
 use BristolSU\Support\Filters\Contracts\FilterInstance;
 use BristolSU\Support\Filters\Contracts\FilterRepository;
 use BristolSU\Support\Logic\Contracts\Specification;
 
 /**
- * Class InFilterAudienceSpecification
+ * Class NotInFilterAudienceSpecification
  * @package BristolSU\Support\Logic\Specification
  */
-class InFilterAudienceSpecification implements Specification
+class NotInFilterAudienceSpecification implements Specification
 {
 
     /**
@@ -27,7 +27,7 @@ class InFilterAudienceSpecification implements Specification
     private $filterRepository;
 
     /**
-     * InFilterAudienceSpecification constructor.
+     * NotInFilterAudienceSpecification constructor.
      * @param $item
      * @param FilterInstance $filter
      * @param FilterRepository $filterRepository
@@ -45,12 +45,9 @@ class InFilterAudienceSpecification implements Specification
     public function isSatisfied(): bool
     {
         $filter = $this->filterRepository->getByAlias($this->filter->alias());
-        foreach($filter->audience($this->filter->settings()) as $audience) {
-            if($audience->id === $this->item->id) {
-                return true;
-            }
-        }
-
-        return false;
+        return !in_array(
+            $this->item,
+            $filter->audience($this->filter->settings())
+        );
     }
 }
