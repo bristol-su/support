@@ -8,9 +8,9 @@ use BristolSU\Support\Filters\Contracts\FilterInstanceRepository as FilterInstan
 use BristolSU\Support\Filters\Contracts\FilterManager as FilterManagerContract;
 use BristolSU\Support\Filters\Contracts\FilterRepository as FilterRepositoryContract;
 use BristolSU\Support\Filters\Contracts\FilterTester as FilterTesterContract;
-use BristolSU\Support\Filters\Filters\GroupTagged;
-use BristolSU\Support\Filters\Filters\RoleHasPosition;
-use BristolSU\Support\Filters\Filters\UserEmailIs;
+use BristolSU\Support\Filters\Filters\Group\GroupTagged;
+use BristolSU\Support\Filters\Filters\Role\RoleHasPosition;
+use BristolSU\Support\Filters\Filters\User\UserEmailIs;
 use BristolSU\Support\Filters\Commands\CacheFilters;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Container\BindingResolutionException;

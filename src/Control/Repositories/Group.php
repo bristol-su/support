@@ -5,6 +5,9 @@ namespace BristolSU\Support\Control\Repositories;
 
 
 use BristolSU\Support\Control\Contracts\Client\Client as ControlClient;
+use BristolSU\Support\Control\Contracts\Models\Group as GroupModel;
+use BristolSU\Support\Control\Contracts\Models\Tags\GroupTag as GroupTagModel;
+use BristolSU\Support\Control\Contracts\Models\User as UserModel;
 use BristolSU\Support\Control\Contracts\Repositories\Group as GroupContract;
 use Illuminate\Support\Collection;
 
@@ -30,10 +33,12 @@ class Group implements GroupContract
     }
 
     /**
+     * Get a group by ID
+     *
      * @param $id
-     * @return \BristolSU\Support\Control\Models\Group|mixed
+     * @return GroupModel
      */
-    public function getById($id)
+    public function getById(int $id): GroupModel
     {
         $response = $this->client->request(
             'get',
@@ -44,27 +49,31 @@ class Group implements GroupContract
     }
 
     /**
-     * @param \BristolSU\Support\Control\Contracts\Models\GroupTag $tag
-     * @return array|mixed
+     * Get all groups with a specific tag
+     *
+     * @param GroupTagModel $groupTag
+     * @return Collection
      */
-    public function allWithTag(\BristolSU\Support\Control\Contracts\Models\GroupTag $tag)
+    public function allThroughTag(GroupTagModel $groupTag): Collection
     {
         $response = $this->client->request(
             'get',
-            'group_tags/' . $tag->id() . '/groups'
+            'group_tags/' . $groupTag->id() . '/groups'
         );
 
         $groups = [];
         foreach($response as $group) {
             $groups[] = new \BristolSU\Support\Control\Models\Group($group);
         }
-        return $groups;
+        return collect($groups);
     }
-
+    
     /**
-     * @return array
+     * Get all groups
+     *
+     * @return Collection
      */
-    public function all()
+    public function all(): Collection
     {
         $response = $this->client->request(
             'get',
@@ -75,16 +84,18 @@ class Group implements GroupContract
         foreach($response as $group) {
             $groups[] = new \BristolSU\Support\Control\Models\Group($group);
         }
-        return $groups;
+        return collect($groups);
     }
 
     /**
+     * Get all groups the given user is a member of
+     *
      * @param $id
      * @return Collection
      */
-    public function allFromStudentControlID($id): Collection
+    public function allThroughUser(UserModel $user): Collection
     {
-        $groups = $this->client->request('get', 'students/' . $id . '/groups');
+        $groups = $this->client->request('get', 'students/' . $user->id() . '/groups');
         $modelGroups = new Collection;
         foreach($groups as $group) {
             $modelGroups->push(new \BristolSU\Support\Control\Models\Group($group));

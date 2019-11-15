@@ -41,7 +41,7 @@ class AudienceMember implements Arrayable, Jsonable
     public function groups()
     {
         if($this->groups == null) {
-            $this->groups = collect(app(GroupRepository::class)->allFromStudentControlID($this->user->id));
+            $this->groups = collect(app(GroupRepository::class)->allThroughUser($this->user));
         }
         return $this->groups;
     }
@@ -49,7 +49,7 @@ class AudienceMember implements Arrayable, Jsonable
     public function roles()
     {
         if($this->roles == null) {
-            $this->roles = collect(app(RoleRepository::class)->allFromStudentControlID($this->user->id));
+            $this->roles = collect(app(RoleRepository::class)->allThroughUser($this->user));
         }
         return $this->roles;
     }

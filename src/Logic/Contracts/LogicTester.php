@@ -2,9 +2,6 @@
 
 namespace BristolSU\Support\Logic\Contracts;
 
-use BristolSU\Support\Control\Contracts\Models\Group;
-use BristolSU\Support\Control\Contracts\Models\Role;
-use BristolSU\Support\Control\Contracts\Models\User;
 use BristolSU\Support\Logic\Logic;
 
 /**

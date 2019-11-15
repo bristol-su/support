@@ -4,7 +4,6 @@
 namespace BristolSU\Support\Filters\Contracts\Filters;
 
 use BristolSU\Support\Control\Contracts\Models\Group;
-use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
 
 /**
  * Class GroupFilter

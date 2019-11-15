@@ -2,15 +2,12 @@
 
 namespace BristolSU\Support\Logic;
 
-use BristolSU\Support\Control\Contracts\Models\Group;
-use BristolSU\Support\Control\Contracts\Models\Role;
 use BristolSU\Support\Filters\Contracts\FilterTester;
 use BristolSU\Support\Logic\Contracts\LogicTester as LogicTesterContract;
 use BristolSU\Support\Logic\Specification\AndSpecification;
 use BristolSU\Support\Logic\Specification\OrSpecification;
 use BristolSU\Support\Logic\Specification\FilterFalseSpecification;
 use BristolSU\Support\Logic\Specification\FilterTrueSpecification;
-use BristolSU\Support\Control\Contracts\Models\User;
 
 /**
  * Class LogicTester

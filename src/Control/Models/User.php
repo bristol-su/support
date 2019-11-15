@@ -5,6 +5,8 @@ namespace BristolSU\Support\Control\Models;
 
 
 use BristolSU\Support\Control\Contracts\Models\User as UserContract;
+use BristolSU\Support\Control\Contracts\Repositories\Tags\UserTag;
+use Illuminate\Support\Collection;
 
 /**
  * Class User
@@ -73,5 +75,34 @@ class User extends Model implements UserContract
     {
         //
     }
-    
+
+    /**
+     * Tags the user is tagged with
+     *
+     * @return Collection
+     */
+    public function tags(): Collection
+    {
+        return app(UserTag::class)->allThroughUser($this);
+    }
+
+    /**
+     * Roles the user owns
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function roles(): \Illuminate\Support\Collection
+    {
+        return app(\BristolSU\Support\Control\Contracts\Repositories\Role::class)->allThroughUser($this);
+    }
+
+    /**
+     * Groups the user is a member of
+     *
+     * @return \Illuminate\Support\Collection
+     */
+    public function groups(): \Illuminate\Support\Collection
+    {
+        return app(\BristolSU\Support\Control\Contracts\Repositories\Group::class)->allThroughUser($this);
+    }
 }

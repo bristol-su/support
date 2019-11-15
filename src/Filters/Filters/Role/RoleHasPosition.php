@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BristolSU\Support\Filters\Filters;
+namespace BristolSU\Support\Filters\Filters\Role;
 
 
 use BristolSU\Support\Authentication\Contracts\Authentication;

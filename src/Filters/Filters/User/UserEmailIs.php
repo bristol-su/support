@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BristolSU\Support\Filters\Filters;
+namespace BristolSU\Support\Filters\Filters\User;
 
 
 use BristolSU\Support\DataPlatform\Contracts\Repositories\User as DataUserRepository;
