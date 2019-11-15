@@ -15,11 +15,6 @@ use \BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
 class UserEmailIs extends UserFilter
 {
 
-
-    /**
-     * @var UserRepository
-     */
-    private $userRepository;
     /**
      * @var DataUserRepository
      */
@@ -30,9 +25,8 @@ class UserEmailIs extends UserFilter
      * @param UserRepository $userRepository
      * @param DataUserRepository $dataUserRepository
      */
-    public function __construct(UserRepository $userRepository, DataUserRepository $dataUserRepository)
+    public function __construct(DataUserRepository $dataUserRepository)
     {
-        $this->userRepository = $userRepository;
         $this->dataUserRepository = $dataUserRepository;
     }
 
@@ -86,15 +80,5 @@ class UserEmailIs extends UserFilter
     public function alias()
     {
         return 'user_email_is';
-    }
-
-    /**
-     * @param $settings
-     * @return \Illuminate\Support\Collection|mixed
-     */
-    public function audience($settings)
-    {
-        $user = $this->dataUserRepository->getByEmail($settings['email']);
-        return collect([$this->userRepository->findByDataId($user->id())]);
     }
 }

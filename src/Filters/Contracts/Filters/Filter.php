@@ -50,18 +50,10 @@ abstract class Filter implements Arrayable
      */
     abstract public function description();
 
-    abstract public function for();
-
     /**
      * @return mixed
      */
     abstract public function alias();
-
-    /**
-     * @param $settings
-     * @return mixed
-     */
-    abstract public function audience($settings);
 
     /**
      * @return array
@@ -72,7 +64,6 @@ abstract class Filter implements Arrayable
             'alias' => $this->alias(),
             'name' => $this->name(),
             'description' => $this->description(),
-            'for' => $this->for(),
             'options' => $this->options()
         ];
     }

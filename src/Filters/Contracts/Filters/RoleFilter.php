@@ -49,22 +49,9 @@ abstract class RoleFilter extends Filter
         return $this->role;
     }
 
-    public function for()
+    public function role()
     {
-        return 'role';
+        return $this->model();
     }
 
-    public function audience($settings)
-    {
-        $audience = [];
-        $roles = app()->make(RoleRepository::class)->all();
-        foreach($roles as $role) {
-            $this->setModel($role);
-            if($this->evaluate($settings)) {
-                $audience[] = $role;
-            }
-        }
-        return $audience;
-    }
-    
 }

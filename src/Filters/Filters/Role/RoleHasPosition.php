@@ -20,20 +20,15 @@ class RoleHasPosition extends RoleFilter
      * @var RoleRepository
      */
     private $positionRepository;
-    /**
-     * @var Role
-     */
-    private $roleRepository;
 
     /**
      * RoleHasPosition constructor.
      * @param Position $positionRepository
      * @param RoleRepository $roleRepository
      */
-    public function __construct(Position $positionRepository, Role $roleRepository)
+    public function __construct(Position $positionRepository)
     {
         $this->positionRepository = $positionRepository;
-        $this->roleRepository = $roleRepository;
     }
 
     /**
@@ -84,17 +79,5 @@ class RoleHasPosition extends RoleFilter
     {
         return 'role_has_position';
     }
-
-    /**
-     * @param $settings
-     * @return \Illuminate\Support\Collection|mixed
-     */
-    public function audience($settings)
-    {
-        return $this->roleRepository->all()->filter(function($role) use ($settings) {
-            return $role->position_id === (int)$settings['position'];
-        });
-    }
-
 
 }

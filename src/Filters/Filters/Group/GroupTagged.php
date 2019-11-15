@@ -20,20 +20,15 @@ class GroupTagged extends GroupFilter
      * @var GroupTagRepositoryContract
      */
     private $groupTagRepository;
-    /**
-     * @var GroupRepository
-     */
-    private $groupRepository;
 
     /**
      * GroupTagged constructor.
      * @param GroupTagRepositoryContract $groupTagRepository
      * @param GroupRepository $groupRepository
      */
-    public function __construct(GroupTagRepositoryContract $groupTagRepository, GroupRepository $groupRepository)
+    public function __construct(GroupTagRepositoryContract $groupTagRepository)
     {
         $this->groupTagRepository = $groupTagRepository;
-        $this->groupRepository = $groupRepository;
     }
 
     /**
@@ -91,16 +86,4 @@ class GroupTagged extends GroupFilter
     {
         return 'group_tagged';
     }
-
-    /**
-     * @param $settings
-     * @return mixed
-     */
-    public function audience($settings)
-    {
-        $groupTag = $this->groupTagRepository->getTagByFullReference($settings['tag']);
-        return $this->groupRepository->allWithTag($groupTag);
-    }
-
-
 }

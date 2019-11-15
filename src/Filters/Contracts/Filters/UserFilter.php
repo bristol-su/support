@@ -48,23 +48,9 @@ abstract class UserFilter extends Filter
         return $this->user;
     }
 
-    // TODO Refactor this out, since filters now extend the relevant implementation
-    public function for()
+    public function user()
     {
-        return 'user';
-    }
-
-    public function audience($settings)
-    {
-        $audience = [];
-        $users = app()->make(UserRepository::class)->all();
-        foreach($users as $user) {
-            $this->setModel($user);
-            if($this->evaluate($settings)) {
-                $audience[] = $user;
-            }
-        }
-        return $audience;
+        return $this->model();
     }
 
 }

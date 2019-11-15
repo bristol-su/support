@@ -32,7 +32,6 @@ class FilterTester implements FilterTesterContract
 
     public function evaluate(FilterInstance $filterInstance, $model): bool
     {
-//        Log::info('Testing FI ' . $filterInstance->id . ' with model ' . $model->id . ' (' . get_class($model) . ')');
         $filter = $this->repository->getByAlias($filterInstance->alias());
         $filter->setModel($model);
         return $filter->evaluate($filterInstance->settings());

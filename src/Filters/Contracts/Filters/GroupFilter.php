@@ -49,22 +49,9 @@ abstract class GroupFilter extends Filter
         return $this->group;
     }
 
-    public function for()
+    public function group()
     {
-        return 'group';
-    }
-    
-    public function audience($settings)
-    {
-        $audience = [];
-        $groups = app()->make(GroupRepository::class)->all();
-        foreach($groups as $group) {
-            $this->setModel($group);
-            if($this->evaluate($settings)) {
-                $audience[] = $group;
-            }
-        }
-        return $audience;
+        return $this->model();
     }
 
 }
