@@ -54,7 +54,7 @@ class UserTagCategory implements UserTagCategoryContract
      * @param UserTagModel $user
      * @return UserTagCategoryModelContract
      */
-    public function getThroughTag(UserTagModel $userTag): UserTagCategoryModelContract
+    public function allThroughTag(UserTagModel $userTag): UserTagCategoryModelContract
     {
         $response = $this->client->request('get', 'user_tags/' . $userTag->id() . '/user_tag_category');
         return new \BristolSU\Support\Control\Models\Tags\UserTagCategory($response);    

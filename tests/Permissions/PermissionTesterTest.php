@@ -142,7 +142,7 @@ class DummyTester extends Tester
         return $this;
     }
 
-    public function can(string $ability): ?bool
+    public function can(string $ability, ?User $user, ?Group $group, ?Role $role): ?bool
     {
         if($this->return === null) {
             return parent::next($ability);

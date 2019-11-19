@@ -27,7 +27,7 @@ interface UserTagCategory
      * @param UserTagModel $user
      * @return UserTagCategoryModel
      */
-    public function getThroughTag(UserTagModel $user): UserTagCategoryModel;
+    public function allThroughTag(UserTagModel $user): UserTagCategoryModel;
 
     /**
      * Get a tag category by the reference

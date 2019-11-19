@@ -3,7 +3,6 @@
 namespace BristolSU\Support\Authentication;
 
 use BristolSU\Support\Authentication\Contracts\UserAuthentication as UserAuthenticationContract;
-use BristolSU\Support\Control\Contracts\Models\User as UserContractz;
 use BristolSU\Support\User\User;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 
@@ -31,11 +30,12 @@ class UserWebAuthentication implements UserAuthenticationContract
     /**
      * @return User
      */
-    public function getUser(): User
+    public function getUser(): ?User
     {
         if($this->auth->guard('web')->check()) {
             return $this->auth->guard('web')->user();
         }
+        return null;
     }
 
     /**

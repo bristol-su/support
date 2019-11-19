@@ -27,7 +27,7 @@ interface PositionTagCategory
      * @param PositionTagModel $position
      * @return PositionTagCategoryModel
      */
-    public function getThroughTag(PositionTagModel $position): PositionTagCategoryModel;
+    public function allThroughTag(PositionTagModel $position): PositionTagCategoryModel;
 
     /**
      * Get a tag category by the reference

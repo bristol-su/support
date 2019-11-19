@@ -24,4 +24,6 @@ interface PermissionRepository
      * @return array
      */
     public function forModule(string $alias): array;
+
+    public function all(): array;
 }

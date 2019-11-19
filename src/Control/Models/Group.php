@@ -107,7 +107,7 @@ class Group extends Model implements GroupContract
      */
     public function members(): Collection
     {
-        app(UserRepository::class)->getThroughGroup($this);
+        app(UserRepository::class)->allThroughGroup($this);
     }
 
     /**

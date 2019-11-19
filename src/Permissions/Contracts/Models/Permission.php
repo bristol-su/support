@@ -5,12 +5,13 @@ namespace BristolSU\Support\Permissions\Contracts\Models;
 
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
 
 /**
  * Interface Permission
  * @package BristolSU\Support\Permissions\Contracts\Models
  */
-interface Permission extends Arrayable
+interface Permission extends Arrayable, Jsonable
 {
 
     /**

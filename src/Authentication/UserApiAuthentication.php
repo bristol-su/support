@@ -30,6 +30,7 @@ class UserApiAuthentication implements UserAuthentication
         if($this->auth->guard('api')->check()) {
             return $this->auth->guard('api')->user();
         }
+        return null;
     }
 
     /**
@@ -39,6 +40,5 @@ class UserApiAuthentication implements UserAuthentication
     public function setUser(User $user)
     {
         $this->auth->guard('api')->login($user);
-
     }
 }

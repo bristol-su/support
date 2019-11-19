@@ -56,10 +56,8 @@ class WebAuthentication implements AuthenticationContract
      */
     public function getGroup()
     {
-        if ($this->auth->guard('role')->check()) {
-            return $this->groupRepository->getById(
-                $this->auth->guard('role')->user()->group_id
-            );
+        if (($role = $this->getRole()) !== null) {
+            return $role->group();
         }
 
         if ($this->auth->guard('group')->check()) {
@@ -90,9 +88,6 @@ class WebAuthentication implements AuthenticationContract
             return $this->auth->guard('user')->user();
         }
 
-        if ($this->userAuthentication->getUser() !== null) {
-            return $this->userRepository->getById($this->userAuthentication->getUser()->control_id);
-        }
         return null;
     }
 
@@ -118,5 +113,12 @@ class WebAuthentication implements AuthenticationContract
     public function setUser(User $user)
     {
         $this->auth->guard('user')->login($user);
+    }
+    
+    public function reset(): void
+    {
+        $this->auth->guard('user')->logout();
+        $this->auth->guard('group')->logout();
+        $this->auth->guard('role')->logout();
     }
 }

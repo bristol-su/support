@@ -32,22 +32,16 @@ class ApiAuthentication implements Authentication
      * @var UserRepository
      */
     private $userRepository;
-    /**
-     * @var UserAuthentication
-     */
-    private $userAuthentication;
 
     public function __construct(Request $request,
                                 RoleRepository $roleRepository,
                                 GroupRepository $groupRepository,
-                                UserRepository $userRepository,
-                                UserAuthentication $userAuthentication)
+                                UserRepository $userRepository)
     {
         $this->request = $request;
         $this->roleRepository = $roleRepository;
         $this->groupRepository = $groupRepository;
         $this->userRepository = $userRepository;
-        $this->userAuthentication = $userAuthentication;
     }
 
     public function getGroup()
@@ -65,6 +59,7 @@ class ApiAuthentication implements Authentication
             } catch (Exception $e) {
             }
         }
+        return null;
     }
 
     public function getRole()
@@ -75,6 +70,7 @@ class ApiAuthentication implements Authentication
             } catch (Exception $e) {
             }
         }
+        return null;
     }
 
     public function getUser()
@@ -85,10 +81,7 @@ class ApiAuthentication implements Authentication
             } catch (Exception $e) {
             }
         }
-
-        if($this->userAuthentication->getUser() !== null) {
-            return $this->userRepository->getById($this->userAuthentication->getUser()->control_id);
-        }
+        return null;
     }
 
     /**
@@ -97,7 +90,7 @@ class ApiAuthentication implements Authentication
      */
     public function setGroup(Group $group)
     {
-        $this->request->query->set('group_id', $group->id);
+        $this->request->query->set('group_id', $group->id());
     }
 
     /**
@@ -106,7 +99,7 @@ class ApiAuthentication implements Authentication
      */
     public function setRole(Role $role)
     {
-        $this->request->query->set('role_id', $role->id);
+        $this->request->query->set('role_id', $role->id());
         return $this->request;
     }
 
@@ -116,7 +109,13 @@ class ApiAuthentication implements Authentication
      */
     public function setUser(User $user)
     {
-        $this->request->query->set('user_id', $user->id);
-
+        $this->request->query->set('user_id', $user->id());
+    }
+    
+    public function reset(): void
+    {
+        $this->request->query->set('user_id', null);
+        $this->request->query->set('group_id', null);
+        $this->request->query->set('role_id', null);
     }
 }

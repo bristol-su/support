@@ -53,7 +53,7 @@ interface User
      * @param RoleModel $role
      * @return Collection
      */
-    public function getThroughRole(RoleModel $role): Collection;
+    public function allThroughRole(RoleModel $role): Collection;
 
     /**
      * Get all users of a group
@@ -61,5 +61,5 @@ interface User
      * @param GroupModel $group
      * @return Collection
      */
-    public function getThroughGroup(GroupModel $group): Collection;
+    public function allThroughGroup(GroupModel $group): Collection;
 }

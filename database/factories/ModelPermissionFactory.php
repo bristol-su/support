@@ -23,7 +23,8 @@ $factory->define(ModelPermission::class, function (Faker $faker) {
         'model_id' => function() {
             return factory(User::class)->create()->id;
         },
-        'result' => $faker->boolean
+        'result' => $faker->boolean,
+        'module_instance_id' => null
     ];
 });
 
@@ -56,6 +57,14 @@ $factory->state(ModelPermission::class, 'logic', function() {
         'model_id' => function() {
             return factory(Logic::class)->create()->id;
         },
+    ];
+});
+
+$factory->state(ModelPermission::class, 'module', function() {
+    return [
+        'module_instance_id' => function() {
+            return factory(\BristolSU\Support\ModuleInstance\ModuleInstance::class)->create()->id;
+        }
     ];
 });
 

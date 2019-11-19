@@ -12,10 +12,19 @@ use \BristolSU\Support\Control\Contracts\Models\User;
  */
 interface Authentication
 {
+    /**
+     * @return Group|null
+     */
     public function getGroup();
 
+    /**
+     * @return Role|null
+     */
     public function getRole();
 
+    /**
+     * @return User|null
+     */
     public function getUser();
 
     /**
@@ -36,4 +45,8 @@ interface Authentication
      */
     public function setUser(User $user);
 
+    /**
+     * Reset any authentication persistence, to bring the authentication back to an initial clean state.
+     */
+    public function reset(): void;
 }

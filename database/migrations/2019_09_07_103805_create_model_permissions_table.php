@@ -18,6 +18,7 @@ class CreateModelPermissionsTable extends Migration
             $table->string('ability');
             $table->string('model');
             $table->unsignedInteger('model_id');
+            $table->unsignedBigInteger('module_instance_id')->nullable()->default(null);
             $table->boolean('result');
             $table->timestamps();
         });

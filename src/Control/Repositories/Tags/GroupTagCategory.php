@@ -54,7 +54,7 @@ class GroupTagCategory implements GroupTagCategoryContract
      * @param GroupTagModel $group
      * @return GroupTagCategoryModelContract
      */
-    public function getThroughTag(GroupTagModel $groupTag): GroupTagCategoryModelContract
+    public function allThroughTag(GroupTagModel $groupTag): GroupTagCategoryModelContract
     {
         $response = $this->client->request('get', 'group_tags/' . $groupTag->id() . '/group_tag_category');
         return new \BristolSU\Support\Control\Models\Tags\GroupTagCategory($response);    

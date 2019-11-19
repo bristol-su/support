@@ -54,7 +54,7 @@ class PositionTagCategory implements PositionTagCategoryContract
      * @param PositionTagModel $position
      * @return PositionTagCategoryModelContract
      */
-    public function getThroughTag(PositionTagModel $positionTag): PositionTagCategoryModelContract
+    public function allThroughTag(PositionTagModel $positionTag): PositionTagCategoryModelContract
     {
         $response = $this->client->request('get', 'position_tags/' . $positionTag->id() . '/position_tag_category');
         return new \BristolSU\Support\Control\Models\Tags\PositionTagCategory($response);    

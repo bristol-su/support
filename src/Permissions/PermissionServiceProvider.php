@@ -5,13 +5,13 @@ namespace BristolSU\Support\Permissions;
 
 
 use BristolSU\Support\Permissions\Contracts\Models\Permission as PermissionContract;
-use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
-use BristolSU\Support\Permissions\Models\Permission;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository as PermissionRepositoryContract;
 use BristolSU\Support\Permissions\Contracts\PermissionStore as PermissionStoreContract;
 use BristolSU\Support\Permissions\Contracts\PermissionTester as PermissionTesterContract;
 use BristolSU\Support\Permissions\Facade\Permission as PermissionFacade;
 use BristolSU\Support\Permissions\Facade\PermissionTester as PermissionTesterFacade;
+use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
+use BristolSU\Support\Permissions\Models\Permission;
 use BristolSU\Support\Permissions\Testers\CheckPermissionExists;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceAdminPermissions;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceUserPermissions;
@@ -55,14 +55,25 @@ class PermissionServiceProvider extends ServiceProvider
             'Can access the settings page'
         );
 
-        Gate::before(function(User $user, $ability) {
-            $tester = app()->make(PermissionTesterContract::class);
-            return $tester->evaluate($ability);
+        Gate::before(function (User $user, $ability) {
+            return app()->make(PermissionTesterContract::class)->evaluate($ability);
         });
 
         Route::bind('module_instance_permission', function ($id) {
             return ModuleInstancePermissions::findOrFail($id);
         });
-        
+
+        Route::bind('site_permission', function ($ability) {
+            $permission = app(PermissionRepositoryContract::class)->get($ability);
+            if($permission->getType() !== 'global') {
+                throw new \HttpException('Permission not a site permission', 404);
+            }
+            return $permission;
+        });
+
+        Route::bind('permission', function ($ability) {
+            return app(PermissionRepositoryContract::class)->get($ability);
+        });
+
     }
 }

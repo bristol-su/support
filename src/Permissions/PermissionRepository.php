@@ -48,4 +48,14 @@ class PermissionRepository implements PermissionRepositoryContract
             return $permission->getModuleAlias() === $alias;
         })->values()->toArray();
     }
+
+    /**
+     * Get all permissions registered 
+     * 
+     * @return array
+     */
+    public function all(): array
+    {
+        return $this->permissionStore->all();
+    }
 }

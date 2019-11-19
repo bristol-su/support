@@ -178,4 +178,14 @@ class Permission implements PermissionContract
             'module_type' => $this->getModuleType()
         ];
     }
+
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
+    }
+
+    public function __toString()
+    {
+        return $this->toJson();
+    }
 }

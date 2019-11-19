@@ -27,7 +27,7 @@ interface GroupTagCategory
      * @param GroupTagModel $group
      * @return GroupTagCategoryModel
      */
-    public function getThroughTag(GroupTagModel $group): GroupTagCategoryModel;
+    public function allThroughTag(GroupTagModel $group): GroupTagCategoryModel;
 
     /**
      * Get a tag category by the reference

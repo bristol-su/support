@@ -94,7 +94,7 @@ class User implements UserContract
      * @param RoleModel $role
      * @return Collection
      */
-    public function getThroughRole(RoleModel $role): Collection
+    public function allThroughRole(RoleModel $role): Collection
     {
         $users = $this->client->request('get', 'roles/' . $role->id() . '/students');
         $userModels = collect();
@@ -110,7 +110,7 @@ class User implements UserContract
      * @param GroupModel $group
      * @return Collection
      */
-    public function getThroughGroup(GroupModel $group): Collection
+    public function allThroughGroup(GroupModel $group): Collection
     {
         $users = $this->client->request('get', 'groups/' . $group->id() . '/students');
         $userModels = collect();

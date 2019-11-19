@@ -54,7 +54,7 @@ class RoleTagCategory implements RoleTagCategoryContract
      * @param RoleTagModel $role
      * @return RoleTagCategoryModelContract
      */
-    public function getThroughTag(RoleTagModel $roleTag): RoleTagCategoryModelContract
+    public function allThroughTag(RoleTagModel $roleTag): RoleTagCategoryModelContract
     {
         $response = $this->client->request('get', 'role_tags/' . $roleTag->id() . '/role_tag_category');
         return new \BristolSU\Support\Control\Models\Tags\RoleTagCategory($response);    

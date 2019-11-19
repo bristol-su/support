@@ -5,6 +5,9 @@ namespace BristolSU\Support\Permissions\Testers;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Permissions\Contracts\Testers\Tester;
 use BristolSU\Support\Permissions\Models\ModelPermission;
+use BristolSU\Support\Control\Contracts\Models\Group;
+use BristolSU\Support\Control\Contracts\Models\Role;
+use BristolSU\Support\Control\Contracts\Models\User;
 
 /**
  * Class SystemGroupPermission
@@ -30,7 +33,7 @@ class SystemGroupPermission extends Tester
      * @param string $ability
      * @return bool|null
      */
-    public function can(string $ability): ?bool
+    public function can(string $ability, ?User $user, ?Group $group, ?Role $role): ?bool
     {
         $group = $this->authentication->getGroup();
         if($group === null) {

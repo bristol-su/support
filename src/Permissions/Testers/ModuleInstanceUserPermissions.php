@@ -10,6 +10,9 @@ use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Contracts\Testers\Tester;
 use Illuminate\Contracts\Container\Container;
+use BristolSU\Support\Control\Contracts\Models\Group;
+use BristolSU\Support\Control\Contracts\Models\Role;
+use BristolSU\Support\Control\Contracts\Models\User;
 
 /**
  * Class ModuleInstanceUserPermissions
@@ -49,7 +52,7 @@ class ModuleInstanceUserPermissions extends Tester
      * @return bool|null
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function can(string $ability): ?bool
+    public function can(string $ability, ?User $user, ?Group $group, ?Role $role): ?bool
     {
         $moduleInstance = $this->app->make(ModuleInstance::class);
         if($moduleInstance->exists === false){

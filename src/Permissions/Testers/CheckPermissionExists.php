@@ -4,6 +4,9 @@
 namespace BristolSU\Support\Permissions\Testers;
 
 
+use BristolSU\Support\Control\Contracts\Models\Group;
+use BristolSU\Support\Control\Contracts\Models\Role;
+use BristolSU\Support\Control\Contracts\Models\User;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use BristolSU\Support\Permissions\Contracts\Testers\Tester;
 
@@ -32,7 +35,7 @@ class CheckPermissionExists extends Tester
      * @param string $ability
      * @return bool|null
      */
-    public function can(string $ability): ?bool
+    public function can(string $ability, ?User $user, ?Group $group, ?Role $role): ?bool
     {
         try {
             $this->permissionRepository->get($ability);

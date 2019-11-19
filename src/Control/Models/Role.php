@@ -90,7 +90,7 @@ class Role extends Model implements RoleContract
      */
     public function positionName(): string
     {
-        return $this->position_name;
+        return $this->position()->name();
     }
 
     /**
@@ -120,7 +120,7 @@ class Role extends Model implements RoleContract
      */
     public function users(): Collection
     {
-        return app(\BristolSU\Support\Control\Contracts\Repositories\User::class)->getThroughRole($this);
+        return app(\BristolSU\Support\Control\Contracts\Repositories\User::class)->allThroughRole($this);
     }
 
     /**

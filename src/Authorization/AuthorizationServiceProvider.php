@@ -6,6 +6,7 @@ use BristolSU\Support\Authorization\Middleware\CheckActivityFor;
 use BristolSU\Support\Authorization\Middleware\CheckAdminActivityFor;
 use BristolSU\Support\Authorization\Middleware\CheckLoggedIntoActivityForType;
 use BristolSU\Support\Authorization\Middleware\CheckModuleInstanceActive;
+use BristolSU\Support\Authorization\Middleware\LogoutOfExtras;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -17,6 +18,7 @@ class AuthorizationServiceProvider extends ServiceProvider
 
     public function register()
     {
+        $this->app->register(PassportServiceProvider::class);
     }
 
     public function boot()
@@ -25,6 +27,7 @@ class AuthorizationServiceProvider extends ServiceProvider
         $this->app['router']->pushMiddlewareToGroup('participant', CheckActivityFor::class);
         $this->app['router']->pushMiddlewareToGroup('module', CheckModuleInstanceActive::class);
         $this->app['router']->pushMiddlewareToGroup('administrator', CheckAdminActivityFor::class);
+        $this->app['router']->pushMiddlewareToGroup('nonmodule', LogoutOfExtras::class);
     }
     
 }

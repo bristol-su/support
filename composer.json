@@ -1,47 +1,50 @@
 {
-    "name": "bristol-su/support",
-    "description": "",
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Toby Twigger",
-            "email": "toby.twigger@bristol.ac.uk"
-        }
-    ],
+  "name": "bristol-su/support",
+  "description": "",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Toby Twigger",
+      "email": "toby.twigger@bristol.ac.uk"
+    }
+  ],
   "type": "library",
   "require": {
-        "php": "^7.2",
-        "laravel/framework": "^6.0",
-        "nao-pon/flysystem-google-drive": "^1.1",
-        "twigger/unioncloud": "^1.0.1",
-        "laravel/passport": "^7.4",
-        "orchestra/testbench": "^4.0",
-        "brianium/paratest": "^3.0",
-        "laracasts/utilities": "^3.0",
+    "php": "^7.2",
+    "laravel/framework": "^6.0",
+    "nao-pon/flysystem-google-drive": "^1.1",
+    "twigger/unioncloud": "^1.0.1",
+    "laravel/passport": "^7.4",
+    "orchestra/testbench": "^4.0",
+    "brianium/paratest": "^3.0",
+    "laracasts/utilities": "^3.0",
     "ext-json": "*"
   },
-    "autoload": {
-        "files": [
-          "src/helpers/helpers.php"
-        ],
-        "psr-4": {
-            "BristolSU\\Support\\": "src/"
-        },
-        "classmap": [
-            "database/seeds/",
-            "database/factories/"
-        ]
+  "autoload": {
+    "files": [
+      "src/helpers/helpers.php"
+    ],
+    "psr-4": {
+      "BristolSU\\Support\\": "src/"
     },
-    "autoload-dev": {
-        "psr-4": {
-            "BristolSU\\Support\\Tests\\": "tests/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "BristolSU\\Support\\SupportServiceProvider"
-            ]
-        }
+    "classmap": [
+      "database/seeds/",
+      "database/factories/"
+    ]
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "BristolSU\\Support\\Tests\\": "tests/"
     }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "BristolSU\\Support\\SupportServiceProvider"
+      ],
+      "dont-discover": [
+        "laravel/passport"
+      ]
+    }
+  }
 }

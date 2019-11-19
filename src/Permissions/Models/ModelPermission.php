@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Permissions\Models;
 
+use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -24,7 +25,8 @@ class ModelPermission extends Model
         'ability',
         'model',
         'model_id',
-        'result'
+        'result',
+        'module_instance_id'
     ];
 
     /**
@@ -34,6 +36,11 @@ class ModelPermission extends Model
         'result' => 'boolean'
     ];
 
+    public function moduleInstance()
+    {
+        return $this->belongsTo(ModuleInstance::class);
+    }
+    
     /**
      * @param Builder $query
      * @param null $userId

@@ -27,7 +27,7 @@ interface RoleTagCategory
      * @param RoleTagModel $role
      * @return RoleTagCategoryModel
      */
-    public function getThroughTag(RoleTagModel $role): RoleTagCategoryModel;
+    public function allThroughTag(RoleTagModel $role): RoleTagCategoryModel;
 
     /**
      * Get a tag category by the reference
