@@ -1,123 +1,106 @@
 <?php
 
-
 namespace BristolSU\Support\Tests\Permissions\Testers;
 
-
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Control\Models\User;
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
-use BristolSU\Support\Permissions\Contracts\Testers\Tester;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
-use BristolSU\Support\Permissions\Testers\ModuleInstanceAdminPermissions;
+use BristolSU\Support\Permissions\Models\Permission;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceUserPermissions;
-use Illuminate\Contracts\Container\Container;
 use BristolSU\Support\Tests\TestCase;
 
 class ModuleInstanceUserPermissionsTest extends TestCase
 {
-
     /** @test */
-    public function can_calls_successor_if_module_instance_does_not_exist()
+    public function can_returns_null_if_no_module_instance_is_in_the_container()
     {
-        $app = $this->prophesize(Container::class);
-        $app->make(ModuleInstance::class)->shouldBeCalled()->willReturn(new ModuleInstance);
+        $logicTester = $this->prophesize(LogicTester::class);
+        $tester = new ModuleInstanceUserPermissions($logicTester->reveal());
 
-        $tester = new ModuleInstanceUserPermissions($app->reveal(), resolve(LogicTester::class), $this->prophesize(Authentication::class)->reveal());
-
-        $fakeTester = $this->prophesize(Tester::class);
-        $fakeTester->can('xyz')->shouldBeCalled();
-        $tester->setNext($fakeTester->reveal());
-
-        $tester->can('xyz');
-
+        $this->assertNull($tester->can(new Permission('ability'), null, null, null));
     }
+
     /** @test */
-    public function can_calls_successor_if_ability_not_in_module_instance_participant_permissions(){
+    public function can_returns_null_if_permission_not_in_the_participant_permission_for_the_module_instance()
+    {
+        $logicTester = $this->prophesize(LogicTester::class);
+        $tester = new ModuleInstanceUserPermissions($logicTester->reveal());
+
+        $ModInstPermissions = factory(ModuleInstancePermissions::class)->create(['participant_permissions' => [
+            'permission1' => factory(Logic::class)->create()->id
+        ]]);
+        $moduleInstance = factory(ModuleInstance::class)->create(['module_instance_permissions_id' => $ModInstPermissions->id]);
+        $this->app->instance(ModuleInstance::class, $moduleInstance);
+
+        $this->assertNull(
+            $tester->can(new Permission('permission2'), null, null, null)
+        );
+    }
+
+    /** @test */
+    public function can_returns_null_if_the_logic_for_the_permission_could_not_be_found()
+    {
+        $logicTester = $this->prophesize(LogicTester::class);
+        $tester = new ModuleInstanceUserPermissions($logicTester->reveal());
+
+        $ModInstPermissions = factory(ModuleInstancePermissions::class)->create(['participant_permissions' => [
+            'permission1' => 100
+        ]]);
+        $moduleInstance = factory(ModuleInstance::class)->create(['module_instance_permissions_id' => $ModInstPermissions->id]);
+        $this->app->instance(ModuleInstance::class, $moduleInstance);
+
+        $this->assertDatabaseMissing('logics', ['id' => 100]);
+
+        $this->assertNull(
+            $tester->can(new Permission('permission1'), null, null, null)
+        );
+    }
+
+    /** @test */
+    public function can_returns_true_if_the_logic_is_true()
+    {
+        $user = new User(['id' => 1]);
+        $group = new Group(['id' => 2]);
+        $role = new Role(['id' => 3]);
+
         $logic = factory(Logic::class)->create();
-        $miPermissions = factory(ModuleInstancePermissions::class)->create([
-            'participant_permissions' => ['permission1' => $logic->id]
-        ]);
-        $moduleInstance = factory(ModuleInstance::class)->create(['module_instance_permissions_id' => $miPermissions->id]);
+        $logicTester = $this->createLogicTester([$logic], [], $user, $group, $role);
+        $tester = new ModuleInstanceUserPermissions($logicTester->reveal());
 
-        $app = $this->prophesize(Container::class);
-        $app->make(ModuleInstance::class)->shouldBeCalled()->willReturn($moduleInstance);
+        $ModInstPermissions = factory(ModuleInstancePermissions::class)->create(['participant_permissions' => [
+            'permission1' => $logic->id
+        ]]);
+        $moduleInstance = factory(ModuleInstance::class)->create(['module_instance_permissions_id' => $ModInstPermissions->id]);
+        $this->app->instance(ModuleInstance::class, $moduleInstance);
 
-        $fakeTester = $this->prophesize(Tester::class);
-        $fakeTester->can('notpermission1')->shouldBeCalled();
-
-        $tester = new ModuleInstanceUserPermissions($app->reveal(), resolve(LogicTester::class), $this->prophesize(Authentication::class)->reveal());
-        $tester->setNext($fakeTester->reveal());
-
-        $tester->can('notpermission1');
+        $this->assertTrue(
+            $tester->can(new Permission('permission1'), $user, $group, $role)
+        );
     }
 
     /** @test */
-    public function can_returns_false_if_the_logic_is_not_found_by_id(){
-        $miPermissions = factory(ModuleInstancePermissions::class)->create([
-            'participant_permissions' => ['permission1' => 100]
-        ]);
-        $moduleInstance = factory(ModuleInstance::class)->create(['module_instance_permissions_id' => $miPermissions->id]);
+    public function can_returns_false_if_the_logic_is_false()
+    {
+        $user = new User(['id' => 1]);
+        $group = new Group(['id' => 2]);
+        $role = new Role(['id' => 3]);
 
-        $app = $this->prophesize(Container::class);
-        $app->make(ModuleInstance::class)->shouldBeCalled()->willReturn($moduleInstance);
+        $logic = factory(Logic::class)->create();
+        $logicTester = $this->createLogicTester([], [$logic], $user, $group, $role);
+        $tester = new ModuleInstanceUserPermissions($logicTester->reveal());
 
-        $tester = new ModuleInstanceUserPermissions($app->reveal(), resolve(LogicTester::class), $this->prophesize(Authentication::class)->reveal());
+        $ModInstPermissions = factory(ModuleInstancePermissions::class)->create(['participant_permissions' => [
+            'permission1' => $logic->id
+        ]]);
+        $moduleInstance = factory(ModuleInstance::class)->create(['module_instance_permissions_id' => $ModInstPermissions->id]);
+        $this->app->instance(ModuleInstance::class, $moduleInstance);
 
         $this->assertFalse(
-            $tester->can('permission1')
-        );
-    }
-
-    /** @test */
-    public function can_returns_the_logic_evaluation_if_logic_in_module_instance(){
-        $logic = factory(Logic::class)->create();
-        $miPermissions = factory(ModuleInstancePermissions::class)->create([
-            'participant_permissions' => ['permission1' => $logic->id]
-        ]);
-        $moduleInstance = factory(ModuleInstance::class)->create(['module_instance_permissions_id' => $miPermissions->id]);
-
-        $app = $this->prophesize(Container::class);
-        $app->make(ModuleInstance::class)->shouldBeCalled()->willReturn($moduleInstance);
-
-        $this->createLogicTester([$logic]);
-
-        $tester = new ModuleInstanceUserPermissions($app->reveal(), resolve(LogicTester::class), $this->prophesize(Authentication::class)->reveal());
-
-        $this->assertTrue(
-            $tester->can('permission1')
-        );
-    }
-
-    /** @test */
-    public function can_passes_the_authentication_attributes_to_the_logic_tester(){
-        $logic = factory(Logic::class)->create();
-        $miPermissions = factory(ModuleInstancePermissions::class)->create([
-            'participant_permissions' => ['permission1' => $logic->id]
-        ]);
-        $moduleInstance = factory(ModuleInstance::class)->create(['module_instance_permissions_id' => $miPermissions->id]);
-
-        $app = $this->prophesize(Container::class);
-        $app->make(ModuleInstance::class)->shouldBeCalled()->willReturn($moduleInstance);
-
-        $user = new User(['id' => 1]);
-        $group = new Group(['id' => 1]);
-        $role = new Role(['id' => 2]);
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn($user);
-        $authentication->getGroup()->shouldBeCalled()->willReturn($group);
-        $authentication->getRole()->shouldBeCalled()->willReturn($role);
-
-        $this->createLogicTester([$logic], [], $user, $group, $role);
-
-        $tester = new ModuleInstanceUserPermissions($app->reveal(), resolve(LogicTester::class), $authentication->reveal());
-
-        $this->assertTrue(
-            $tester->can('permission1')
+            $tester->can(new Permission('permission1'), $user, $group, $role)
         );
     }
 

@@ -19,13 +19,11 @@ class LogicRepositoryTest extends TestCase
         $logic = $logicRepository->create([
             'name' => 'LogicName',
             'description' => 'LogicDescription',
-            'for' => 'group',
         ]);
 
         $this->assertDatabaseHas('logics', [
             'name' => 'LogicName',
             'description' => 'LogicDescription',
-            'for' => 'group',
         ]);
     }
 

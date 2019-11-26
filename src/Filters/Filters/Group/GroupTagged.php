@@ -38,7 +38,7 @@ class GroupTagged extends GroupFilter
     public function evaluate($settings): bool
     {
         try {
-            $tags = $this->groupTagRepository->allThroughGroup($this->model());
+            $tags = $this->groupTagRepository->allThroughGroup($this->group());
         } catch (\Exception $e) {
             return false;
         }

@@ -9,7 +9,7 @@ use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
-use BristolSU\Support\Permissions\Contracts\Testers\Tester;
+use BristolSU\Support\Permissions\Contracts\Tester;
 use Illuminate\Contracts\Container\Container;
 use BristolSU\Support\Control\Contracts\Models\Group;
 use BristolSU\Support\Control\Contracts\Models\Role;
@@ -21,11 +21,6 @@ use BristolSU\Support\Control\Contracts\Models\User;
  */
 class ModuleInstanceUserPermissions extends Tester
 {
-
-    /**
-     * @var Container
-     */
-    private $app;
     /**
      * @var LogicTester
      */
@@ -33,12 +28,10 @@ class ModuleInstanceUserPermissions extends Tester
 
     /**
      * ModuleInstanceUserPermissions constructor.
-     * @param Container $app
      * @param LogicTester $logicTester
      */
-    public function __construct(Container $app, LogicTester $logicTester)
+    public function __construct(LogicTester $logicTester)
     {
-        $this->app = $app;
         $this->logicTester = $logicTester;
     }
 
@@ -53,7 +46,7 @@ class ModuleInstanceUserPermissions extends Tester
      */
     public function can(Permission $permission, ?User $user, ?Group $group, ?Role $role): ?bool
     {
-        $moduleInstance = $this->app->make(ModuleInstance::class);
+        $moduleInstance = app(ModuleInstance::class);
         if($moduleInstance->exists === false){
             return null;
         }

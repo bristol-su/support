@@ -12,7 +12,7 @@ use BristolSU\Support\Control\Contracts\Models\User;
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository as PermissionRepositoryContract;
 use BristolSU\Support\Permissions\Contracts\PermissionTester as PermissionTesterContract;
-use BristolSU\Support\Permissions\Contracts\Testers\Tester;
+use BristolSU\Support\Permissions\Contracts\Tester;
 use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
 
 /**
@@ -45,6 +45,7 @@ class PermissionTester implements PermissionTesterContract
         if($user === null && ($dbUser = app(UserAuthentication::class)->getUser()) !== null) {
             $user = app(UserRepository::class)->getById($dbUser->control_id);
         };
+        
         $result = $tester->handle($this->getPermission($ability), $user, app(Authentication::class)->getGroup(), app(Authentication::class)->getRole());
         return ($result??false);
     }
@@ -79,8 +80,8 @@ class PermissionTester implements PermissionTesterContract
         $this->testers[] = $tester;
     }
 
-    public function getPermission(string $ability): Permission
+    private function getPermission(string $ability): Permission
     {
-        return app(\BristolSU\Support\Permissions\Contracts\PermissionRepository::class)->get($ability);
+        return app(PermissionRepositoryContract::class)->get($ability);
     }
 }

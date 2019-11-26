@@ -1,13 +1,10 @@
 <?php
 
-
 namespace BristolSU\Support\Tests\Permissions\Testers;
 
-
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Control\Models\User;
-use BristolSU\Support\Permissions\Contracts\Testers\Tester;
 use BristolSU\Support\Permissions\Models\ModelPermission;
+use BristolSU\Support\Permissions\Models\Permission;
 use BristolSU\Support\Permissions\Testers\SystemUserPermission;
 use BristolSU\Support\Tests\TestCase;
 
@@ -15,43 +12,66 @@ class SystemUserPermissionTest extends TestCase
 {
 
     /** @test */
-    public function can_calls_successor_if_user_not_logged_in(){
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn(null);
-
-        $tester = new SystemUserPermission($authentication->reveal());
-
-        $fakeTester = $this->prophesize(Tester::class);
-        $fakeTester->can('notloggedin')->shouldBeCalled();
-        $tester->setNext($fakeTester->reveal());
-
-        $tester->can('notloggedin');
+    public function can_returns_null_if_no_user_given(){
+        $tester = new SystemUserPermission();
+        
+        $this->assertNull(
+            $tester->can(new Permission('ability'), null, null, null)
+        );
     }
-
+    
     /** @test */
-    public function can_calls_successor_if_no_permission_found(){
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn(new User(['id' => 1]));
-        $tester = new SystemUserPermission($authentication->reveal());
-
-        $fakeTester = $this->prophesize(Tester::class);
-        $fakeTester->can('notfound')->shouldBeCalled();
-        $tester->setNext($fakeTester->reveal());
-
-        $tester->can('notfound');
-    }
-
-    /** @test */
-    public function can_returns_the_result_of_the_permission_if_found(){
+    public function can_returns_null_if_the_permission_is_not_global(){
+        $tester = new SystemUserPermission();
         $user = new User(['id' => 1]);
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn($user);
-        $tester = new SystemUserPermission($authentication->reveal());
+        
+        $this->assertNull(
+            $tester->can(new Permission('ability', '', '', 'module'), $user, null, null)
+        );
+    }
+    
+    /** @test */
+    public function can_returns_true_if_there_is_a_system_override_in_the_database_with_a_true_result(){
+        $tester = new SystemUserPermission();
+        $user = new User(['id' => 1]);
 
-        $permission = factory(ModelPermission::class)->state('user')->create(['model_id' => $user->id, 'result' => true]);
-
-        $tester->can($permission->ability);
+        ModelPermission::create([
+            'ability' => 'ability1',
+            'model' => 'user',
+            'model_id' => 1,
+            'result' => true
+        ]);
+        
+        $this->assertTrue(
+            $tester->can(new Permission('ability1'), $user, null, null)
+        );
     }
 
+    /** @test */
+    public function can_returns_false_if_there_is_a_system_override_in_the_database_with_a_false_result(){
+        $tester = new SystemUserPermission();
+        $user = new User(['id' => 1]);
 
+        ModelPermission::create([
+            'ability' => 'ability1',
+            'model' => 'user',
+            'model_id' => 1,
+            'result' => false
+        ]);
+
+        $this->assertFalse(
+            $tester->can(new Permission('ability1'), $user, null, null)
+        );
+    }
+
+    /** @test */
+    public function can_returns_null_if_there_is_no_system_override_in_the_database(){
+        $tester = new SystemUserPermission();
+        $user = new User(['id' => 1]);
+
+        $this->assertNull(
+            $tester->can(new Permission('ability1'), $user, null, null)
+        );
+    }
+    
 }

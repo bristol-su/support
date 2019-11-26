@@ -10,14 +10,21 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class CacheFilter implements ShouldQueue
 {
     use Queueable;
-
-
-    /**
-     * @var FilterInstance
-     */
+    
     private $filterInstance;
+    
     private $model;
 
+    public function filterInstance()
+    {
+        return $this->filterInstance;
+    }
+
+    public function model()
+    {
+        return $this->model;
+    }
+    
     public function __construct(FilterInstance $filterInstance, $model)
     {
         $this->filterInstance = $filterInstance;
@@ -26,6 +33,6 @@ class CacheFilter implements ShouldQueue
 
     public function handle(FilterTester $filterTester)
     {
-        $filterTester->evaluate($this->filterInstance, $this->model);
+        $filterTester->evaluate($this->filterInstance(), $this->model());
     }
 }

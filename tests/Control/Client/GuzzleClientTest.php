@@ -60,27 +60,6 @@ class GuzzleClientTest extends TestCase
         $this->assertEquals(['some' => 'body'], $guzzleClient->request('post', '/a'));
     }
     
-    /** @test */
-    public function it_returns_a_cached_result_for_a_get_request(){
-        $client = $this->prophesize(ClientInterface::class);
-        $cache = $this->prophesize(Repository::class);
-        
-        $cache->has('BristolSU\Support\Control\Client\GuzzleClient/a[]')->shouldBeCalled()->willReturn(true);
-        $cache->get('BristolSU\Support\Control\Client\GuzzleClient/a[]')->shouldBeCalled()->willReturn(['a' => 'test']);
-        $guzzleClient = new GuzzleClient($client->reveal(), $this->token->reveal(), $cache->reveal());
-        $this->assertEquals(['a' => 'test'], $guzzleClient->request('get', '/a'));
-    }
-
-    /** @test */
-    public function it_saves_a_get_request_in_the_cache(){
-        $client = $this->prophesize(ClientInterface::class);
-        $cache = $this->prophesize(Repository::class);
-        $client->request('get', '/a', Argument::any())->shouldBeCalled()->willReturn(new Response(200, [], json_encode(['some' => 'body'])));
-        
-        $cache->has('BristolSU\Support\Control\Client\GuzzleClient/a[]')->shouldBeCalled()->willReturn(false);
-        $cache->put('BristolSU\Support\Control\Client\GuzzleClient/a[]', ['some' => 'body'], 30)->shouldBeCalled();
-        $guzzleClient = new GuzzleClient($client->reveal(), $this->token->reveal(), $cache->reveal());
-        $this->assertEquals(['some' => 'body'], $guzzleClient->request('get', '/a'));
-    }
+    
 
 }

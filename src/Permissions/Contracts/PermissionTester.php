@@ -7,7 +7,6 @@ namespace BristolSU\Support\Permissions\Contracts;
 use BristolSU\Support\Control\Contracts\Models\Group;
 use BristolSU\Support\Control\Contracts\Models\Role;
 use BristolSU\Support\Control\Contracts\Models\User;
-use BristolSU\Support\Permissions\Contracts\Testers\Tester;
 
 /**
  * Interface PermissionTester

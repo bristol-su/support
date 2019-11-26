@@ -9,11 +9,12 @@ use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
-use BristolSU\Support\Permissions\Contracts\Testers\Tester;
+use BristolSU\Support\Permissions\Contracts\Tester;
 use Illuminate\Contracts\Container\Container;
 use BristolSU\Support\Control\Contracts\Models\Group;
 use BristolSU\Support\Control\Contracts\Models\Role;
 use BristolSU\Support\Control\Contracts\Models\User;
+use Illuminate\Contracts\Foundation\Application;
 
 /**
  * Class ModuleInstanceAdminPermissions
@@ -23,39 +24,29 @@ class ModuleInstanceAdminPermissions extends Tester
 {
 
     /**
-     * @var Container
-     */
-    private $app;
-    /**
      * @var LogicTester
      */
     private $logicTester;
-    /**
-     * @var Authentication
-     */
-    private $authentication;
 
     /**
      * ModuleInstanceAdminPermissions constructor.
-     * @param Container $app
      * @param LogicTester $logicTester
-     * @param Authentication $authentication
      */
-    public function __construct(Container $app, LogicTester $logicTester, Authentication $authentication)
+    public function __construct(LogicTester $logicTester)
     {
-        $this->app = $app;
         $this->logicTester = $logicTester;
-        $this->authentication = $authentication;
     }
 
     /**
-     * @param string $ability
+     * @param Permission $permission
+     * @param User|null $user
+     * @param Group|null $group
+     * @param Role|null $role
      * @return bool|null
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function can(Permission $permission, ?User $user, ?Group $group, ?Role $role): ?bool
     {
-        $moduleInstance = $this->app->make(ModuleInstance::class);
+        $moduleInstance = app(ModuleInstance::class);
         if($moduleInstance->exists === false){
             return null;
         }

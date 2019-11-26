@@ -14,22 +14,14 @@ class UserFilterTest extends TestCase
         $filter = new DummyUserFilter();
         $user = new User(['id' => 1]);
         $filter->setModel($user);
-        $this->assertEquals($user->id, $filter->model()->id);
-    }
-
-    /** @test */
-    public function for_returns_user()
-    {
-        $filter = new DummyUserFilter();
-
-        $this->assertEquals('user', $filter->for());
+        $this->assertEquals($user, $filter->model());
     }
 
     /** @test */
     public function hasModel_returns_true_if_the_user_is_set(){
         $filter = new DummyUserFilter();
-        $user = new User(['id' => 1]);
-        $filter->setModel($user);
+        $dummyUser = new User(['id' => 1]);
+        $filter->setModel($dummyUser);
 
         $this->assertTrue($filter->hasModel());
     }
@@ -49,7 +41,16 @@ class UserFilterTest extends TestCase
         $filter = new DummyUserFilter();
         $filter->setModel($fakeUser);
     }
-    
+
+    /** @test */
+    public function user_returns_the_user(){
+        $filter = new DummyUserFilter();
+        $user = new User(['id' => 1]);
+        $filter->setModel($user);
+        $this->assertEquals($user, $filter->user());
+    }
+
+
 }
 
 class DummyUserFilter extends UserFilter

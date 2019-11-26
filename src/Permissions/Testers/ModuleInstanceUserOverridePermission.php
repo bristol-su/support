@@ -4,7 +4,7 @@ namespace BristolSU\Support\Permissions\Testers;
 
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
-use BristolSU\Support\Permissions\Contracts\Testers\Tester;
+use BristolSU\Support\Permissions\Contracts\Tester;
 use BristolSU\Support\Permissions\Models\ModelPermission;
 use BristolSU\Support\Control\Contracts\Models\Group;
 use BristolSU\Support\Control\Contracts\Models\Role;
@@ -17,17 +17,7 @@ use Illuminate\Contracts\Foundation\Application;
  */
 class ModuleInstanceUserOverridePermission extends Tester
 {
-
-    /**
-     * @var Application
-     */
-    private $app;
-
-    public function __construct(Application $app)
-    {
-        $this->app = $app;
-    }
-
+    
     /**
      * Do the given models have the ability?
      *
@@ -42,8 +32,8 @@ class ModuleInstanceUserOverridePermission extends Tester
      */
     public function can(Permission $permission, ?User $user, ?Group $group, ?Role $role): ?bool
     {
-        $moduleInstance = $this->app->make(ModuleInstance::class);
-        if($user === null || $moduleInstance->exists === false) {
+        $moduleInstance = app(ModuleInstance::class);
+        if($user === null || $moduleInstance->exists === false || $permission->getType() !== 'module') {
             return null;
         }
 

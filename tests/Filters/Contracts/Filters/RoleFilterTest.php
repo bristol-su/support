@@ -2,7 +2,6 @@
 
 namespace BristolSU\Support\Tests\Filters\Contracts\Filters;
 
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use BristolSU\Support\Tests\TestCase;
@@ -13,16 +12,9 @@ class RoleFilterTest extends TestCase
     /** @test */
     public function getModel_returns_the_set_model(){
         $filter = new DummyRoleFilter();
-        $filter->setModel(new Role(['id' => 1]));
-        $this->assertEquals(1, $filter->model()->id);
-    }
-
-    /** @test */
-    public function for_returns_role()
-    {
-        $filter = new DummyRoleFilter();
-
-        $this->assertEquals('role', $filter->for());
+        $role = new Role(['id' => 1]);
+        $filter->setModel($role);
+        $this->assertEquals($role, $filter->model());
     }
 
     /** @test */
@@ -49,7 +41,16 @@ class RoleFilterTest extends TestCase
         $filter = new DummyRoleFilter();
         $filter->setModel($fakeRole);
     }
-    
+
+    /** @test */
+    public function role_returns_the_role(){
+        $filter = new DummyRoleFilter();
+        $role = new Role(['id' => 1]);
+        $filter->setModel($role);
+        $this->assertEquals($role, $filter->role());
+    }
+
+
 }
 
 class DummyRoleFilter extends RoleFilter

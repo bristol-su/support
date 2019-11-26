@@ -5,7 +5,7 @@ namespace BristolSU\Support\Logic\Audience;
 use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
-use BristolSU\Support\Logic\Contracts\AudienceFactory as AudienceFactoryContract;
+use BristolSU\Support\Logic\Contracts\Audience\AudienceFactory as AudienceFactoryContract;
 
 /**
  * Class AudienceFactory

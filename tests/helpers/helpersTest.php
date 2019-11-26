@@ -48,4 +48,20 @@ class helpersTest extends TestCase
             ], settings());
     }
     
+    /** @test */
+    public function alias_returns_the_alias_of_a_module(){
+        $moduleInstance = factory(ModuleInstance::class)->create(['alias' => 'alias1']);
+        $this->app->instance(ModuleInstance::class, $moduleInstance);
+        
+        $this->assertEquals('alias1', alias());
+    }
+    
+    /** @test */
+    public function alias_throws_an_exception_if_no_module_bound_to_container(){
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Alias cannot be returned outside a module environment');
+        
+        alias();
+    }
+    
 }

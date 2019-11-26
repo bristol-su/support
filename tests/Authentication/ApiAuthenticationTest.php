@@ -39,11 +39,17 @@ class ApiAuthenticationTest extends TestCase
     {
         $this->mockControl('get', 'groups/1', ['id' => 1], true);
         $request = $this->prophesize(Request::class);
+        $request->has('role_id')->shouldBeCalled()->willReturn(false);
         $request->has('group_id')->shouldBeCalled()->willReturn(true);
         $request->query('group_id')->shouldBeCalled()->willReturn(1);
         $this->authentication = resolve(ApiAuthentication::class, ['request' => $request->reveal()]);
         $this->assertInstanceOf(Group::class, $this->authentication->getGroup());
         $this->assertEquals(1, $this->authentication->getGroup()->id);
+    }
+
+    /** @test */
+    public function get_group_returns_a_group_given_by_a_role_if_role_given(){
+
     }
 
     /** @test */

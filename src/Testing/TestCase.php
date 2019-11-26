@@ -179,6 +179,7 @@ abstract class TestCase extends BaseTestCase
 
         $logicTester->evaluate(Argument::any(), Argument::any(), Argument::any(), Argument::any())->willReturn(false);
         $this->instance(LogicTester::class, $logicTester->reveal());
+        return $logicTester;
     }
 
     /**

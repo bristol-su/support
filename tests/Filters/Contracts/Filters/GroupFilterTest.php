@@ -13,18 +13,11 @@ class GroupFilterTest extends TestCase
     /** @test */
     public function getModel_returns_the_set_model(){
         $filter = new DummyGroupFilter();
-        $filter->setModel(new Group(['id' => 1]));
-        $this->assertEquals(1, $filter->model()->id);
+        $group = new Group(['id' => 1]);
+        $filter->setModel($group);
+        $this->assertEquals($group, $filter->model());
     }
 
-    /** @test */
-    public function for_returns_group()
-    {
-        $filter = new DummyGroupFilter();
-
-        $this->assertEquals('group', $filter->for());
-    }
-    
     /** @test */
     public function hasModel_returns_true_if_the_group_is_set(){
         $filter = new DummyGroupFilter();
@@ -48,6 +41,14 @@ class GroupFilterTest extends TestCase
         $this->expectExceptionMessage('Cannot pass a class of type [' . get_class($fakeGroup) . '] to a group filter');
         $filter = new DummyGroupFilter();
         $filter->setModel($fakeGroup);
+    }
+    
+    /** @test */
+    public function group_returns_the_group(){
+        $filter = new DummyGroupFilter();
+        $group = new Group(['id' => 1]);
+        $filter->setModel($group);
+        $this->assertEquals($group, $filter->group());
     }
     
 }

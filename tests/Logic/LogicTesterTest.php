@@ -5,6 +5,10 @@ namespace BristolSU\Support\Tests\Logic;
 use BristolSU\Support\Control\Contracts\Models\Group as GroupContract;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
+use BristolSU\Support\Filters\Contracts\FilterRepository;
+use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
+use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
+use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Filters\Contracts\FilterTester;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
@@ -19,30 +23,63 @@ class LogicTesterTest extends TestCase
      * @var \Prophecy\Prophecy\ObjectProphecy
      */
     private $filterTester;
+    /**
+     * @var User
+     */
+    private $fakeUser;
+    /**
+     * @var Group
+     */
+    private $fakeGroup;
+    /**
+     * @var Role
+     */
+    private $fakeRole;
+    /**
+     * @var \Prophecy\Prophecy\ObjectProphecy
+     */
+    private $filterRepository;
 
     public function setUp(): void
     {
         parent::setUp();
         $this->filterTester = $this->prophesize(FilterTester::class);
+        $this->filterRepository = $this->prophesize(FilterRepository::class);
         $this->instance(FilterTester::class, $this->filterTester->reveal());
+        $this->instance(FilterRepository::class, $this->filterRepository->reveal());
+        $this->fakeUser = new User(['id' => 1]);
+        $this->fakeGroup = new Group(['id' => 2]);
+        $this->fakeRole = new Role(['id' => 3]);
     }
 
-    public function createFilter($logicId, $type, $evaluated)
+    public function createFilter($logicId, $type, $evaluated, $filterType = 'user')
     {
         $filter = factory(FilterInstance::class)->create([
             'logic_id' => $logicId,
             'logic_type' => $type,
         ]);
 
+        $this->filterRepository->getByAlias($filter->alias)->willReturn(([
+            'user' => $this->prophesize(UserFilter::class),
+            'group' => $this->prophesize(GroupFilter::class),
+            'role' => $this->prophesize(RoleFilter::class)
+        ][$filterType])->reveal());
+        
+        $modelKey = 'fake' . ucfirst($filterType);
         $this->filterTester->evaluate(Argument::that(function($arg) use ($filter) {
             return $arg->id === $filter->id;
-        }))->willReturn($evaluated);
+        }), $this->{$modelKey})->willReturn($evaluated);
         return $filter;
     }
 
+    public function evaluateLogic($logic)
+    {
+        return \BristolSU\Support\Logic\Facade\LogicTester::evaluate($logic, $this->fakeUser, $this->fakeGroup, $this->fakeRole);
+    }
+   
     /** @test */
-    public function it_returns_true_when_all_fields_match_what_they_should_do(){
-
+    public function it_returns_true_when_all_fields_match_what_they_should_do()
+    {
         $logic = factory(Logic::class)->create();
         $this->createFilter($logic->id, 'all_true', true);
         $this->createFilter($logic->id, 'all_true', true);
@@ -56,7 +93,7 @@ class LogicTesterTest extends TestCase
         $this->createFilter($logic->id, 'any_false', true);
 
         $this->assertTrue(
-            \BristolSU\Support\Logic\Facade\LogicTester::evaluate($logic)
+            $this->evaluateLogic($logic)
         );
     }
 
@@ -72,7 +109,7 @@ class LogicTesterTest extends TestCase
         $this->createFilter($logic->id, 'any_false', true);
 
         $this->assertTrue(
-            \BristolSU\Support\Logic\Facade\LogicTester::evaluate($logic)
+            $this->evaluateLogic($logic)
         );
     }
 
@@ -88,7 +125,7 @@ class LogicTesterTest extends TestCase
         $this->createFilter($logic->id, 'any_false', true);
 
         $this->assertTrue(
-            \BristolSU\Support\Logic\Facade\LogicTester::evaluate($logic)
+            $this->evaluateLogic($logic)
         );
     }
 
@@ -105,7 +142,7 @@ class LogicTesterTest extends TestCase
         $this->createFilter($logic->id, 'any_false', true);
 
         $this->assertTrue(
-            \BristolSU\Support\Logic\Facade\LogicTester::evaluate($logic)
+            $this->evaluateLogic($logic)
         );
     }
 
@@ -122,7 +159,7 @@ class LogicTesterTest extends TestCase
         $this->createFilter($logic->id, 'any_true', false);
 
         $this->assertTrue(
-            \BristolSU\Support\Logic\Facade\LogicTester::evaluate($logic)
+            $this->evaluateLogic($logic)
         );
     }
 
@@ -141,7 +178,7 @@ class LogicTesterTest extends TestCase
         $this->createFilter($logic->id, 'any_false', true);
 
         $this->assertFalse(
-            \BristolSU\Support\Logic\Facade\LogicTester::evaluate($logic)
+            $this->evaluateLogic($logic)
         );
     }
 
@@ -160,7 +197,7 @@ class LogicTesterTest extends TestCase
         $this->createFilter($logic->id, 'any_false', true);
 
         $this->assertFalse(
-            \BristolSU\Support\Logic\Facade\LogicTester::evaluate($logic)
+            $this->evaluateLogic($logic)
         );
     }
 
@@ -179,7 +216,7 @@ class LogicTesterTest extends TestCase
         $this->createFilter($logic->id, 'any_false', true);
 
         $this->assertFalse(
-            \BristolSU\Support\Logic\Facade\LogicTester::evaluate($logic)
+            $this->evaluateLogic($logic)
         );
     }
 
@@ -198,7 +235,7 @@ class LogicTesterTest extends TestCase
         $this->createFilter($logic->id, 'any_false', true);
 
         $this->assertFalse(
-            \BristolSU\Support\Logic\Facade\LogicTester::evaluate($logic)
+            $this->evaluateLogic($logic)
         );
     }
 
@@ -207,72 +244,7 @@ class LogicTesterTest extends TestCase
         $logic = factory(Logic::class)->create();
 
         $this->assertTrue(
-            \BristolSU\Support\Logic\Facade\LogicTester::evaluate($logic)
+            $this->evaluateLogic($logic)
         );
-    }
-    
-    /** @test */
-    public function it_sets_a_user_when_given(){
-        $logic = factory(Logic::class)->create();
-        $user = new User(['id' => 1]);
-        $filterTester = $this->prophesize(FilterTester::class);
-        $filterTester->setUser($user)->shouldBeCalled();
-
-        $logicTester = new LogicTester($filterTester->reveal());
-        $logicTester->evaluate($logic, $user);
-    }
-
-    /** @test */
-    public function it_does_not_set_a_user_when_not_given(){
-        $logic = factory(Logic::class)->create();
-        $filterTester = $this->prophesize(FilterTester::class);
-        $filterTester->setUser(Argument::any())->shouldNotBeCalled();
-        
-        $logicTester = new LogicTester($filterTester->reveal());
-        $logicTester->evaluate($logic);
-    }
-
-    /** @test */
-    public function it_sets_a_group_when_given(){
-        $logic = factory(Logic::class)->create();
-        $group = new Group(['id' => 1]);
-        $filterTester = $this->prophesize(FilterTester::class);
-        $filterTester->setGroup($group)->shouldBeCalled();
-
-        $logicTester = new LogicTester($filterTester->reveal());
-        $logicTester->evaluate($logic, null, $group);
-    }
-
-    /** @test */
-    public function it_does_not_set_a_group_when_not_given(){
-        $logic = factory(Logic::class)->create();
-        $group = new Group(['id' => 1]);
-        $filterTester = $this->prophesize(FilterTester::class);
-        $filterTester->setGroup($group)->shouldNotBeCalled();
-
-        $logicTester = new LogicTester($filterTester->reveal());
-        $logicTester->evaluate($logic);
-    }
-
-    /** @test */
-    public function it_sets_a_role_when_given(){
-        $logic = factory(Logic::class)->create();
-        $role = new Role(['id' => 1]);
-        $filterTester = $this->prophesize(FilterTester::class);
-        $filterTester->setRole($role)->shouldBeCalled();
-
-        $logicTester = new LogicTester($filterTester->reveal());
-        $logicTester->evaluate($logic, null, null, $role);
-    }
-
-    /** @test */
-    public function it_does_not_set_a_role_when_not_given(){
-        $logic = factory(Logic::class)->create();
-        $role = new Role(['id' => 1]);
-        $filterTester = $this->prophesize(FilterTester::class);
-        $filterTester->setRole($role)->shouldNotBeCalled();
-
-        $logicTester = new LogicTester($filterTester->reveal());
-        $logicTester->evaluate($logic);
     }
 }

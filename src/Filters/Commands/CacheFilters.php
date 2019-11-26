@@ -6,7 +6,6 @@ use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Filters\Contracts\FilterInstanceRepository;
-use BristolSU\Support\Filters\Contracts\FilterRepository;
 use BristolSU\Support\Filters\Jobs\CacheFilter;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
@@ -30,7 +29,7 @@ class CacheFilters extends Command
      */
     protected $description = 'Caches all filter results for increased speed in page load';
 
-    public function handle(FilterRepository $filterRepository,
+    public function handle(FilterInstanceRepository $filterInstanceRepository,
                            UserRepository $userRepository,
                            GroupRepository $groupRepository,
                            RoleRepository $roleRepository)
@@ -41,7 +40,7 @@ class CacheFilters extends Command
         $groups = collect($groupRepository->all());
         $roles = collect($roleRepository->all());
 
-        $filterInstances = app(FilterInstanceRepository::class)->all();
+        $filterInstances = $filterInstanceRepository->all();
 
         $filterInstanceProgress = $this->output->createProgressBar(count($filterInstances));
         $filterInstanceProgress->start();
@@ -55,18 +54,14 @@ class CacheFilters extends Command
             }
                 $filterInstanceProgress->advance();
         }
+
     }
 
     private function cacheFilter($filterInstance, Collection $models)
     {
-        print "\n";
-        $modelProgress = $this->output->createProgressBar(count($models));
-        $modelProgress->start();
         foreach($models as $model) {
             dispatch(new CacheFilter($filterInstance, $model));
-            $modelProgress->advance();
         }
-        $this->output->write("\033[1A");
     }
 
 }

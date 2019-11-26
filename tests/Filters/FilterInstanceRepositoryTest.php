@@ -26,4 +26,9 @@ class FilterInstanceRepositoryTest extends TestCase
         ]);
     }
 
+    public function all_returns_all_filter_instances()
+    {
+        
+    }
+
 }

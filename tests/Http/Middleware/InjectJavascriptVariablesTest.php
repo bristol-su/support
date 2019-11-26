@@ -11,11 +11,6 @@ use Prophecy\Argument;
 
 class InjectJavascriptVariablesTest extends TestCase
 {
-
-
-//'user' => $this->authentication->getUser(),
-//'group' => $this->authentication->getGroup(),
-//'role' => $this->authentication->getRole()
     
     /** @test */
     public function it_sets_the_module_alias_from_the_request(){

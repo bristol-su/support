@@ -5,7 +5,7 @@ namespace BristolSU\Support\Permissions\Facade;
 
 
 use BristolSU\Support\Permissions\Contracts\PermissionTester as PermissionTesterContract;
-use BristolSU\Support\Permissions\Contracts\Testers\Tester;
+use BristolSU\Support\Permissions\Contracts\Tester;
 use Illuminate\Support\Facades\Facade;
 
 /**

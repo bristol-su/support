@@ -4,7 +4,7 @@ namespace BristolSU\Support\Permissions\Testers;
 
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
-use BristolSU\Support\Permissions\Contracts\Testers\Tester;
+use BristolSU\Support\Permissions\Contracts\Tester;
 use BristolSU\Support\Permissions\Models\ModelPermission;
 use BristolSU\Support\Control\Contracts\Models\Group;
 use BristolSU\Support\Control\Contracts\Models\Role;

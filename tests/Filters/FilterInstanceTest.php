@@ -4,6 +4,10 @@
 namespace BristolSU\Support\Tests\Filters;
 
 
+use BristolSU\Support\Filters\Contracts\FilterRepository as FilterRepositoryContract;
+use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
+use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
+use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Tests\TestCase;
@@ -37,6 +41,36 @@ class FilterInstanceTest extends TestCase
     public function settings_returns_the_filter_instance_settings(){
         $filterInstance = factory(FilterInstance::class)->create(['settings' => ['setting1' => 'A Value']]);
         $this->assertEquals(['setting1' => 'A Value'], $filterInstance->settings());
+    }
+    
+    /** @test */
+    public function for_returns_user_if_the_filter_is_a_user_filter(){
+        $filterRepository = $this->prophesize(FilterRepositoryContract::class);
+        $filterRepository->getByAlias('alias1')->shouldBeCalled()->willReturn(
+            $this->prophesize(UserFilter::class)->reveal()
+        );
+        $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
+        $this->assertEquals('user', factory(FilterInstance::class)->create(['alias' => 'alias1'])->for());
+    }
+
+    /** @test */
+    public function for_returns_group_if_the_filter_is_a_group_filter(){
+        $filterRepository = $this->prophesize(FilterRepositoryContract::class);
+        $filterRepository->getByAlias('alias1')->shouldBeCalled()->willReturn(
+            $this->prophesize(GroupFilter::class)->reveal()
+        );
+        $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
+        $this->assertEquals('group', factory(FilterInstance::class)->create(['alias' => 'alias1'])->for());
+    }
+
+    /** @test */
+    public function for_returns_role_if_the_filter_is_a_role_filter(){
+        $filterRepository = $this->prophesize(FilterRepositoryContract::class);
+        $filterRepository->getByAlias('alias1')->shouldBeCalled()->willReturn(
+            $this->prophesize(RoleFilter::class)->reveal()
+        );
+        $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
+        $this->assertEquals('role', factory(FilterInstance::class)->create(['alias' => 'alias1'])->for());
     }
 
 }

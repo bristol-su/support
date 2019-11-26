@@ -2,12 +2,11 @@
 
 namespace BristolSU\Support\Http\Controllers;
 
-use BristolSU\Module\UploadFile\Http\Controllers\Controller;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Http\Request;
 
-class ModuleInstanceRedirectController extends Controller
+class ModuleInstanceRedirectController
 {
     public function index(Request $request, Activity $activity, ModuleInstance $moduleInstance)
     {
