@@ -67,7 +67,9 @@ use BristolSU\Support\Control\Repositories\Tags\PositionTagCategory as PositionT
 
 use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route;
 
 /**
  * Class ControlServiceProvider
@@ -126,7 +128,7 @@ class ControlServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        
     }
 
 }

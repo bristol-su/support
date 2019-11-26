@@ -53,12 +53,6 @@ class PermissionServiceProvider extends ServiceProvider
         PermissionTesterFacade::register($this->app->make(ModuleInstanceUserPermissions::class));
         PermissionTesterFacade::register($this->app->make(ModuleInstanceAdminPermissions::class));
 
-        PermissionFacade::registerSitePermission(
-            'settings',
-            'Access Settings',
-            'Can access the settings page'
-        );
-
         Gate::before(function (User $user, $ability) {
             return app()->make(PermissionTesterContract::class)->evaluate($ability);
         });

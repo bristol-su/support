@@ -91,7 +91,11 @@ class AudienceMember implements Arrayable, Jsonable
             'user' => $this->user->toArray(),
             'can_be_user' => $this->canBeUser,
             'groups' => $this->groups,
-            'roles' => $this->roles
+            'roles' => $this->roles->map(function(Role $role) {
+                $role->group = $role->group();
+                $role->position = $role->position();
+                return $role;
+            })
         ];
     }
 

@@ -5,6 +5,7 @@ namespace BristolSU\Support\Permissions;
 
 
 use BristolSU\Support\Authentication\Contracts\Authentication;
+use BristolSU\Support\Authentication\Contracts\UserAuthentication;
 use BristolSU\Support\Control\Contracts\Models\Group;
 use BristolSU\Support\Control\Contracts\Models\Role;
 use BristolSU\Support\Control\Contracts\Models\User;
@@ -12,6 +13,7 @@ use BristolSU\Support\Permissions\Contracts\Models\Permission;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository as PermissionRepositoryContract;
 use BristolSU\Support\Permissions\Contracts\PermissionTester as PermissionTesterContract;
 use BristolSU\Support\Permissions\Contracts\Testers\Tester;
+use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
 
 /**
  * Class PermissionTester
@@ -26,6 +28,8 @@ class PermissionTester implements PermissionTesterContract
     private $testers = [];
 
     /**
+     * Evaluate a permission
+     * 
      * @param string $ability
      * @return bool
      * @throws \Exception
@@ -33,7 +37,15 @@ class PermissionTester implements PermissionTesterContract
     public function evaluate(string $ability): bool
     {
         $tester = $this->getChain();
-        $result = $tester->handle($this->getPermission($ability), app(Authentication::class)->getUser(), app(Authentication::class)->getGroup(), app(Authentication::class)->getRole());
+        /**
+         * We always need to pass a user in. This is always possible, since you will always be logged into a database user.
+         * By default, we take from authentication. If this is null, we take from the database user
+         */
+        $user = app(Authentication::class)->getUser();
+        if($user === null && ($dbUser = app(UserAuthentication::class)->getUser()) !== null) {
+            $user = app(UserRepository::class)->getById($dbUser->control_id);
+        };
+        $result = $tester->handle($this->getPermission($ability), $user, app(Authentication::class)->getGroup(), app(Authentication::class)->getRole());
         return ($result??false);
     }
     
