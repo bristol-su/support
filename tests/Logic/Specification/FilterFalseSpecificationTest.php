@@ -24,8 +24,9 @@ class FilterFalseSpecificationTest extends TestCase
 
         $filterTester = $this->prophesize(FilterTester::class);
         $filterTester->evaluate($filter->reveal(), $user)->shouldBeCalled()->willReturn(false);
+        $this->app->instance(FilterTester::class, $filterTester->reveal());
         
-        $specification = new FilterFalseSpecification($filter->reveal(), $filterTester->reveal(), $user, $group, $role);
+        $specification = new FilterFalseSpecification($filter->reveal(), $user, $group, $role);
         
         $this->assertTrue(
             $specification->isSatisfied()
@@ -43,8 +44,9 @@ class FilterFalseSpecificationTest extends TestCase
 
         $filterTester = $this->prophesize(FilterTester::class);
         $filterTester->evaluate($filter->reveal(), $user)->shouldBeCalled()->willReturn(true);
+        $this->app->instance(FilterTester::class, $filterTester->reveal());
 
-        $specification = new FilterFalseSpecification($filter->reveal(), $filterTester->reveal(), $user, $group, $role);
+        $specification = new FilterFalseSpecification($filter->reveal(), $user, $group, $role);
 
         $this->assertFalse(
             $specification->isSatisfied()
@@ -62,8 +64,9 @@ class FilterFalseSpecificationTest extends TestCase
 
         $filterTester = $this->prophesize(FilterTester::class);
         $filterTester->evaluate($filter->reveal(), $group)->shouldBeCalled()->willReturn(false);
+        $this->app->instance(FilterTester::class, $filterTester->reveal());
 
-        $specification = new FilterFalseSpecification($filter->reveal(), $filterTester->reveal(), $user, $group, $role);
+        $specification = new FilterFalseSpecification($filter->reveal(), $user, $group, $role);
 
         $this->assertTrue(
             $specification->isSatisfied()
@@ -81,8 +84,9 @@ class FilterFalseSpecificationTest extends TestCase
 
         $filterTester = $this->prophesize(FilterTester::class);
         $filterTester->evaluate($filter->reveal(), $group)->shouldBeCalled()->willReturn(true);
+        $this->app->instance(FilterTester::class, $filterTester->reveal());
 
-        $specification = new FilterFalseSpecification($filter->reveal(), $filterTester->reveal(), $user, $group, $role);
+        $specification = new FilterFalseSpecification($filter->reveal(), $user, $group, $role);
 
         $this->assertFalse(
             $specification->isSatisfied()
@@ -100,8 +104,9 @@ class FilterFalseSpecificationTest extends TestCase
 
         $filterTester = $this->prophesize(FilterTester::class);
         $filterTester->evaluate($filter->reveal(), $role)->shouldBeCalled()->willReturn(false);
+        $this->app->instance(FilterTester::class, $filterTester->reveal());
 
-        $specification = new FilterFalseSpecification($filter->reveal(), $filterTester->reveal(), $user, $group, $role);
+        $specification = new FilterFalseSpecification($filter->reveal(), $user, $group, $role);
 
         $this->assertTrue(
             $specification->isSatisfied()
@@ -119,8 +124,9 @@ class FilterFalseSpecificationTest extends TestCase
 
         $filterTester = $this->prophesize(FilterTester::class);
         $filterTester->evaluate($filter->reveal(), $role)->shouldBeCalled()->willReturn(true);
+        $this->app->instance(FilterTester::class, $filterTester->reveal());
 
-        $specification = new FilterFalseSpecification($filter->reveal(), $filterTester->reveal(), $user, $group, $role);
+        $specification = new FilterFalseSpecification($filter->reveal(), $user, $group, $role);
 
         $this->assertFalse(
             $specification->isSatisfied()

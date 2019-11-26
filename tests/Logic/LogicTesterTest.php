@@ -74,7 +74,7 @@ class LogicTesterTest extends TestCase
 
     public function evaluateLogic($logic)
     {
-        return \BristolSU\Support\Logic\Facade\LogicTester::evaluate($logic, $this->fakeUser, $this->fakeGroup, $this->fakeRole);
+        return (new LogicTester)->evaluate($logic, $this->fakeUser, $this->fakeGroup, $this->fakeRole);
     }
    
     /** @test */

@@ -17,20 +17,6 @@ class LogicTester implements LogicTesterContract
 {
 
     /**
-     * @var FilterTester
-     */
-    private $filterTester;
-
-    /**
-     * LogicTester constructor.
-     * @param FilterTester $filterTester
-     */
-    public function __construct(FilterTester $filterTester)
-    {
-        $this->filterTester = $filterTester;
-    }
-
-    /**
      * @param Logic $logic
      * @param null $userModel
      * @param null $groupModel
@@ -45,19 +31,19 @@ class LogicTester implements LogicTesterContract
         $anyFalse = [];
 
         foreach ($logic->allTrueFilters as $filter) {
-            $allTrue[] = new FilterTrueSpecification($filter, $this->filterTester, $userModel, $groupModel, $roleModel);
+            $allTrue[] = new FilterTrueSpecification($filter, $userModel, $groupModel, $roleModel);
         }
 
         foreach ($logic->anyTrueFilters as $filter) {
-            $anyTrue[] = new FilterTrueSpecification($filter, $this->filterTester, $userModel, $groupModel, $roleModel);
+            $anyTrue[] = new FilterTrueSpecification($filter, $userModel, $groupModel, $roleModel);
         }
 
         foreach ($logic->allFalseFilters as $filter) {
-            $allFalse[] = new FilterFalseSpecification($filter, $this->filterTester, $userModel, $groupModel, $roleModel);
+            $allFalse[] = new FilterFalseSpecification($filter, $userModel, $groupModel, $roleModel);
         }
 
         foreach ($logic->anyFalseFilters as $filter) {
-            $anyFalse[] = new FilterFalseSpecification($filter, $this->filterTester, $userModel, $groupModel, $roleModel);
+            $anyFalse[] = new FilterFalseSpecification($filter, $userModel, $groupModel, $roleModel);
         }
 
 

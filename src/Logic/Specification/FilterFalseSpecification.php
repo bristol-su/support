@@ -22,10 +22,6 @@ class FilterFalseSpecification implements Specification
      */
     private $filter;
     /**
-     * @var FilterTester
-     */
-    private $filterTester;
-    /**
      * @var User|null
      */
     private $user;
@@ -43,10 +39,9 @@ class FilterFalseSpecification implements Specification
      * @param FilterInstance $filter
      * @param FilterTester $filterTester
      */
-    public function __construct(FilterInstance $filter, FilterTester $filterTester, ?User $user, ?Group $group, ?Role $role)
+    public function __construct(FilterInstance $filter, ?User $user, ?Group $group, ?Role $role)
     {
         $this->filter = $filter;
-        $this->filterTester = $filterTester;
         $this->user = $user;
         $this->group = $group;
         $this->role = $role;
@@ -60,13 +55,13 @@ class FilterFalseSpecification implements Specification
         switch ($this->filter->for()) {
             case 'user':
                 return ($this->user === null?false:
-                    $this->filterTester->evaluate($this->filter, $this->user) === false);
+                    app(FilterTester::class)->evaluate($this->filter, $this->user) === false);
             case 'group':
                 return ($this->group === null?false:
-                    $this->filterTester->evaluate($this->filter, $this->group) === false);
+                    app(FilterTester::class)->evaluate($this->filter, $this->group) === false);
             case 'role':
                 return ($this->role === null?false:
-                    $this->filterTester->evaluate($this->filter, $this->role) === false);
+                    app(FilterTester::class)->evaluate($this->filter, $this->role) === false);
         }
     }
 
