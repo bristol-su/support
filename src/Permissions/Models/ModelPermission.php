@@ -9,6 +9,11 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class ModelPermission
  * @package BristolSU\Support\Permissions\Models
+ *
+ * @method static Builder user(?int $userId = null, ?string $ability = null, ?int $moduleInstanceId = null)
+ * @method static Builder group(?int $groupId = null, ?string $ability = null, ?int $moduleInstanceId = null)
+ * @method static Builder role(?int $roleId = null, ?string $ability = null, ?int $moduleInstanceId = null)
+ * @method static Builder logic(?int $logicId = null, ?string $ability = null, ?int $moduleInstanceId = null)
  */
 class ModelPermission extends Model
 {
@@ -40,14 +45,15 @@ class ModelPermission extends Model
     {
         return $this->belongsTo(ModuleInstance::class);
     }
-    
+
     /**
      * @param Builder $query
-     * @param null $userId
-     * @param null $ability
+     * @param int|null $userId
+     * @param string|null $ability
+     * @param int|null $moduleInstanceId
      * @return Builder
      */
-    public function scopeUser(Builder $query, $userId = null, $ability = null)
+    public function scopeUser(Builder $query, ?int $userId = null, ?string $ability = null, ?int $moduleInstanceId = null)
     {
         $constraints = ['model' => 'user'];
         if($userId !== null) {
@@ -55,6 +61,9 @@ class ModelPermission extends Model
         }
         if($ability !== null) {
             $constraints['ability'] = $ability;
+        }
+        if($moduleInstanceId !== null) {
+            $constraints['module_instance_id'] = $moduleInstanceId;
         }
         return $query->where($constraints);
     }
@@ -65,7 +74,7 @@ class ModelPermission extends Model
      * @param null $ability
      * @return Builder
      */
-    public function scopeLogic(Builder $query, $logicId = null, $ability = null)
+    public function scopeLogic(Builder $query, ?int $logicId = null, ?string $ability = null, ?int $moduleInstanceId = null)
     {
         $constraints = ['model' => 'logic'];
         if($logicId !== null) {
@@ -74,6 +83,9 @@ class ModelPermission extends Model
         if($ability !== null) {
             $constraints['ability'] = $ability;
         }
+        if($moduleInstanceId !== null) {
+            $constraints['module_instance_id'] = $moduleInstanceId;
+        }
         return $query->where($constraints);
     }
 
@@ -83,7 +95,7 @@ class ModelPermission extends Model
      * @param null $ability
      * @return Builder
      */
-    public function scopeGroup(Builder $query, $groupId = null, $ability = null)
+    public function scopeGroup(Builder $query, ?int $groupId = null, ?string $ability = null, ?int $moduleInstanceId = null)
     {
         $constraints = ['model' => 'group'];
         if($groupId !== null) {
@@ -92,6 +104,9 @@ class ModelPermission extends Model
         if($ability !== null) {
             $constraints['ability'] = $ability;
         }
+        if($moduleInstanceId !== null) {
+            $constraints['module_instance_id'] = $moduleInstanceId;
+        }
         return $query->where($constraints);
     }
 
@@ -101,7 +116,7 @@ class ModelPermission extends Model
      * @param null $ability
      * @return Builder
      */
-    public function scopeRole(Builder $query, $groupId = null, $ability = null)
+    public function scopeRole(Builder $query, ?int $groupId = null, ?string $ability = null, ?int $moduleInstanceId = null)
     {
         $constraints = ['model' => 'role'];
         if($groupId !== null) {
@@ -109,6 +124,9 @@ class ModelPermission extends Model
         }
         if($ability !== null) {
             $constraints['ability'] = $ability;
+        }
+        if($moduleInstanceId !== null) {
+            $constraints['module_instance_id'] = $moduleInstanceId;
         }
         return $query->where($constraints);
     }

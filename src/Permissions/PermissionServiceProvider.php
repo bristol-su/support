@@ -12,12 +12,12 @@ use BristolSU\Support\Permissions\Facade\Permission as PermissionFacade;
 use BristolSU\Support\Permissions\Facade\PermissionTester as PermissionTesterFacade;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
 use BristolSU\Support\Permissions\Models\Permission;
-use BristolSU\Support\Permissions\Testers\CheckPermissionExists;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceAdminPermissions;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceUserPermissions;
-use BristolSU\Support\Permissions\Testers\SystemGroupPermission;
-use BristolSU\Support\Permissions\Testers\SystemLogicPermission;
-use BristolSU\Support\Permissions\Testers\SystemRolePermission;
+use BristolSU\Support\Permissions\Testers\ModuleInstanceGroupOverridePermission;
+use BristolSU\Support\Permissions\Testers\ModuleInstanceLogicOverridePermission;
+use BristolSU\Support\Permissions\Testers\ModuleInstanceRoleOverridePermission;
+use BristolSU\Support\Permissions\Testers\ModuleInstanceUserOverridePermission;
 use BristolSU\Support\Permissions\Testers\SystemUserPermission;
 use BristolSU\Support\User\User;
 use Illuminate\Support\Facades\Gate;
@@ -41,13 +41,17 @@ class PermissionServiceProvider extends ServiceProvider
 
     public function boot()
     {
+        // Check system permissions
         PermissionTesterFacade::register($this->app->make(SystemUserPermission::class));
-        PermissionTesterFacade::register($this->app->make(SystemGroupPermission::class));
-        PermissionTesterFacade::register($this->app->make(SystemRolePermission::class));
-        PermissionTesterFacade::register($this->app->make(SystemLogicPermission::class));
+        
+        // Check module instance override permissions
+        PermissionTesterFacade::register($this->app->make(ModuleInstanceUserOverridePermission::class));
+        PermissionTesterFacade::register($this->app->make(ModuleInstanceGroupOverridePermission::class));
+        PermissionTesterFacade::register($this->app->make(ModuleInstanceRoleOverridePermission::class));
+        
+        // Check default module instance permissions
         PermissionTesterFacade::register($this->app->make(ModuleInstanceUserPermissions::class));
         PermissionTesterFacade::register($this->app->make(ModuleInstanceAdminPermissions::class));
-        PermissionTesterFacade::register($this->app->make(CheckPermissionExists::class));
 
         PermissionFacade::registerSitePermission(
             'settings',

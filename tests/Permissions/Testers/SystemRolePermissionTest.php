@@ -8,7 +8,7 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Permissions\Contracts\Testers\Tester;
 use BristolSU\Support\Permissions\Models\ModelPermission;
-use BristolSU\Support\Permissions\Testers\SystemRolePermission;
+use BristolSU\Support\Permissions\Testers\ModuleInstanceRoleOverridePermission;
 use BristolSU\Support\Tests\TestCase;
 
 class SystemRolePermissionTest extends TestCase
@@ -19,7 +19,7 @@ class SystemRolePermissionTest extends TestCase
         $authentication = $this->prophesize(Authentication::class);
         $authentication->getRole()->shouldBeCalled()->willReturn(null);
 
-        $tester = new SystemRolePermission($authentication->reveal());
+        $tester = new ModuleInstanceRoleOverridePermission($authentication->reveal());
 
         $fakeTester = $this->prophesize(Tester::class);
         $fakeTester->can('notloggedin')->shouldBeCalled();
@@ -33,7 +33,7 @@ class SystemRolePermissionTest extends TestCase
         $authentication = $this->prophesize(Authentication::class);
         $role = new Role(['id' => 1]);
         $authentication->getRole()->shouldBeCalled()->willReturn($role);
-        $tester = new SystemRolePermission($authentication->reveal());
+        $tester = new ModuleInstanceRoleOverridePermission($authentication->reveal());
 
         $fakeTester = $this->prophesize(Tester::class);
         $fakeTester->can('notfound')->shouldBeCalled();
@@ -47,7 +47,7 @@ class SystemRolePermissionTest extends TestCase
         $role = new Role(['id' => 1]);
         $authentication = $this->prophesize(Authentication::class);
         $authentication->getRole()->shouldBeCalled()->willReturn($role);
-        $tester = new SystemRolePermission($authentication->reveal());
+        $tester = new ModuleInstanceRoleOverridePermission($authentication->reveal());
 
         $permission = factory(ModelPermission::class)->state('role')->create(['model_id' => $role->id, 'result' => true]);
 

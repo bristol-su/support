@@ -8,6 +8,7 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Control\Contracts\Models\Group;
 use BristolSU\Support\Control\Contracts\Models\Role;
 use BristolSU\Support\Control\Contracts\Models\User;
+use BristolSU\Support\Permissions\Contracts\Models\Permission;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository as PermissionRepositoryContract;
 use BristolSU\Support\Permissions\Contracts\PermissionTester as PermissionTesterContract;
 use BristolSU\Support\Permissions\Contracts\Testers\Tester;
@@ -32,14 +33,14 @@ class PermissionTester implements PermissionTesterContract
     public function evaluate(string $ability): bool
     {
         $tester = $this->getChain();
-        $result = $tester->can($ability, app(Authentication::class)->getUser(), app(Authentication::class)->getGroup(), app(Authentication::class)->getRole());
+        $result = $tester->handle($this->getPermission($ability), app(Authentication::class)->getUser(), app(Authentication::class)->getGroup(), app(Authentication::class)->getRole());
         return ($result??false);
     }
     
     public function evaluateFor(string $ability, ?User $user = null, ?Group $group = null, ?Role $role = null): bool
     {
         $tester = $this->getChain();
-        return $tester->can($ability, $user, $group, $role);
+        return ($tester->handle($this->getPermission($ability), $user, $group, $role)??false);
     }
 
     /**
@@ -64,5 +65,10 @@ class PermissionTester implements PermissionTesterContract
     public function register(Tester $tester)
     {
         $this->testers[] = $tester;
+    }
+
+    public function getPermission(string $ability): Permission
+    {
+        return app(\BristolSU\Support\Permissions\Contracts\PermissionRepository::class)->get($ability);
     }
 }

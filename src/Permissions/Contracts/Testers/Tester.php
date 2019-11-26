@@ -7,6 +7,7 @@ namespace BristolSU\Support\Permissions\Contracts\Testers;
 use BristolSU\Support\Control\Contracts\Models\Group;
 use BristolSU\Support\Control\Contracts\Models\Role;
 use BristolSU\Support\Control\Contracts\Models\User;
+use BristolSU\Support\Permissions\Contracts\Models\Permission;
 
 /**
  * Class Tester
@@ -19,18 +20,7 @@ abstract class Tester
      * @var Tester
      */
     private $successor = null;
-    /**
-     * @var Role|null
-     */
-    private $role;
-    /**
-     * @var User|null
-     */
-    private $user;
-    /**
-     * @var Group|null
-     */
-    private $group;
+    
 
     /**
      * @param Tester|null $tester
@@ -40,21 +30,23 @@ abstract class Tester
         $this->successor = $tester;
     }
 
-    /**
-     * @param string $ability
-     * @return bool|null
-     */
-    public function next(string $ability, ?User $user, ?Group $group, ?Role $role)
+    public function handle(Permission $permission, ?User $user, ?Group $group, ?Role $role)
     {
-        if($this->successor === null) {
-            return null;
+        $result = $this->can($permission, $user, $group, $role);
+        if($result === null || $this->successor === null) {
+            return $this->successor->handle($permission, $user, $group, $role);
         }
-        return $this->successor->can($ability, $user, $group, $role);
+        return $result;
     }
 
     /**
-     * @param string $ability
+     * Do the given models have the ability?
+     * 
+     * @param Permission $permission
+     * @param User|null $user
+     * @param Group|null $group
+     * @param Role|null $role
      * @return bool|null
      */
-    abstract public function can(string $ability, ?User $user, ?Group $group, ?Role $role): ?bool;
+    abstract public function can(Permission $permission, ?User $user, ?Group $group, ?Role $role): ?bool;
 }
