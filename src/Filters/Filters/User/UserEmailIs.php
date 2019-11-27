@@ -52,7 +52,7 @@ class UserEmailIs extends UserFilter
     public function evaluate($settings): bool
     {
         try {
-            $user = $this->dataUserRepository->getById($this->model()->uc_uid);
+            $user = $this->dataUserRepository->getById($this->user()->dataPlatformId());
         } catch (\Exception $e) {
             return false;
         }        return $user->email === $settings['email'];

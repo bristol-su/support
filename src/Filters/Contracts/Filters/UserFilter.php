@@ -48,6 +48,9 @@ abstract class UserFilter extends Filter
         return $this->user;
     }
 
+    /**
+     * @return User
+     */
     public function user()
     {
         return $this->model();
