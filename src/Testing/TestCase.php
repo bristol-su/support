@@ -61,6 +61,10 @@ abstract class TestCase extends BaseTestCase
      * @var ObjectProphecy
      */
     protected $controlClient = null;
+    /**
+     * @var ObjectProphecy
+     */
+    protected $logicTester = null;
 
     public function stubControl()
     {
@@ -152,34 +156,34 @@ abstract class TestCase extends BaseTestCase
      */
     public function createLogicTester($true = [], $false = [], $user = null, $group = null, $role = null)
     {
-        $logicTester = $this->prophesize(LogicTester::class);
+        $this->logicTester = ($this->logicTester??$this->prophesize(LogicTester::class));
         foreach (Arr::wrap($true) as $logic) {
-            $logicTester->evaluate(Argument::that(function ($arg) use ($logic) {
+            $this->logicTester->evaluate(Argument::that(function ($arg) use ($logic) {
                 return $arg->id === $logic->id;
             }), Argument::that(function ($arg) use ($user) {
-                return $user === null || $user->id === $arg->id;
+                return $user === null && $arg === null || $arg instanceof User && $user instanceof User && $user->id === $arg->id;
             }), Argument::that(function ($arg) use ($group) {
-                return $group === null || $group->id === $arg->id;
+                return $group === null && $arg === null || $arg instanceof Group && $group instanceof Group && $group->id === $arg->id;
             }), Argument::that(function ($arg) use ($role) {
-                return $role === null || $role->id === $arg->id;
+                return $role === null && $arg === null || $arg instanceof Role && $role instanceof Role && $role->id === $arg->id;
             }))->willReturn(true);
         }
 
         foreach (Arr::wrap($false) as $logic) {
-            $logicTester->evaluate(Argument::that(function ($arg) use ($logic) {
+            $this->logicTester->evaluate(Argument::that(function ($arg) use ($logic) {
                 return $arg->id === $logic->id;
             }), Argument::that(function ($arg) use ($user) {
-                return $user === null || $user->id === $arg->id;
+                return $user === null && $arg === null || $arg instanceof User && $user instanceof User && $user->id === $arg->id;
             }), Argument::that(function ($arg) use ($group) {
-                return $group === null || $group->id === $arg->id;
+                return $group === null && $arg === null || $arg instanceof Group && $group instanceof Group && $group->id === $arg->id;
             }), Argument::that(function ($arg) use ($role) {
-                return $role === null || $role->id === $arg->id;
+                return $role === null && $arg === null || $arg instanceof Role && $role instanceof Role && $role->id === $arg->id;
             }))->willReturn(false);
         }
 
-        $logicTester->evaluate(Argument::any(), Argument::any(), Argument::any(), Argument::any())->willReturn(false);
-        $this->instance(LogicTester::class, $logicTester->reveal());
-        return $logicTester;
+        $this->logicTester->evaluate(Argument::any(), Argument::any(), Argument::any(), Argument::any())->willReturn(false);
+        $this->instance(LogicTester::class, $this->logicTester->reveal());
+        return $this->logicTester;
     }
 
     /**

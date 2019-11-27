@@ -5,6 +5,7 @@ namespace BristolSU\Support\Logic\Audience;
 use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
+use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory as AudienceMemberFactoryContract;
 use BristolSU\Support\Logic\Contracts\Audience\LogicAudience as LogicAudienceContract;
 use BristolSU\Support\Logic\Logic;
 
@@ -19,27 +20,18 @@ class LogicAudience implements LogicAudienceContract
      */
     private $userRepository;
     /**
-     * @var GroupRepository
+     * @var AudienceMemberFactoryContract
      */
-    private $groupRepository;
-    /**
-     * @var RoleRepository
-     */
-    private $roleRepository;
+    private $audienceMemberFactory;
 
     /**
      * LogicAudience constructor.
      * @param UserRepository $userRepository
-     * @param GroupRepository $groupRepository
-     * @param RoleRepository $roleRepository
      */
-    public function __construct(UserRepository $userRepository,
-                                GroupRepository $groupRepository,
-                                RoleRepository $roleRepository)
+    public function __construct(UserRepository $userRepository, AudienceMemberFactoryContract $audienceMemberFactory)
     {
         $this->userRepository = $userRepository;
-        $this->groupRepository = $groupRepository;
-        $this->roleRepository = $roleRepository;
+        $this->audienceMemberFactory = $audienceMemberFactory;
     }
 
     /**
@@ -58,10 +50,10 @@ class LogicAudience implements LogicAudienceContract
         return $audienceMembers;
     }
 
-    public function possibleAudience()
+    private function possibleAudience()
     {
         foreach ($this->userRepository->all() as $user) {
-            yield new AudienceMember($user);
+            yield $this->audienceMemberFactory->fromUser($user);
         }
     }
 

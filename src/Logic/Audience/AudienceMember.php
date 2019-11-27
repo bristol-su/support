@@ -59,24 +59,29 @@ class AudienceMember implements Arrayable, Jsonable
         return $this->user;
     }
 
+    public function canBeUser()
+    {
+        return ($this->canBeUser??true);
+    }
+    
     public function filterForLogic(Logic $logic)
     {
         $this->canBeUser = LogicTester::evaluate($logic, $this->user);
-
+        
         $this->groups = $this->groups()->filter(function(Group $group) use ($logic) {
             return LogicTester::evaluate($logic, $this->user, $group);
         })->values();
 
         $this->roles = $this->roles()->filter(function(Role $role) use ($logic) {
             try {
-                return LogicTester::evaluate($logic, $this->user, app(GroupRepository::class)->getById($role->group_id), $role);
+                return LogicTester::evaluate($logic, $this->user, $role->group(), $role);
             } catch (\Exception $e) { return false; }
         })->values();
     }
     
     public function hasAudience()
     {
-        return $this->canBeUser || count($this->groups) > 0 || count($this->roles) > 0;
+        return $this->canBeUser() || count($this->groups) > 0 || count($this->roles) > 0;
     }
 
 
@@ -89,7 +94,7 @@ class AudienceMember implements Arrayable, Jsonable
     {
         return [
             'user' => $this->user->toArray(),
-            'can_be_user' => $this->canBeUser,
+            'can_be_user' => $this->canBeUser(),
             'groups' => $this->groups,
             'roles' => $this->roles->map(function(Role $role) {
                 $role->group = $role->group();

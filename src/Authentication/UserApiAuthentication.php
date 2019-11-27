@@ -39,6 +39,6 @@ class UserApiAuthentication implements UserAuthentication
      */
     public function setUser(User $user)
     {
-        $this->auth->guard('api')->login($user);
+        throw new \Exception('Cannot set an API user');
     }
 }

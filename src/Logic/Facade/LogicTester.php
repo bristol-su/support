@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Facade;
  * Class LogicTester
  * @package BristolSU\Support\Logic\Facade
  *
- * @method static bool evaluate(Logic $logic, ?User $user = null, ?Group $group = null, ?Role $role = nul)
+ * @method static bool evaluate(Logic $logic, ?User $user = null, ?Group $group = null, ?Role $role = null)
  *
  * @see LogicTesterContract
  */

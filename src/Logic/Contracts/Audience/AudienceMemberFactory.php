@@ -2,12 +2,14 @@
 
 namespace BristolSU\Support\Logic\Contracts\Audience;
 
+use BristolSU\Support\Control\Contracts\Models\User;
+
 /**
  * Interface AudienceFactory
  * @package BristolSU\Support\Logic\Contracts
  */
-interface AudienceFactory
+interface AudienceMemberFactory
 {
-    public function for($for);
+    public function fromUser(User $user);
 
 }

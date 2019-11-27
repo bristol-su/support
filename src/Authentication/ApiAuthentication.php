@@ -46,13 +46,10 @@ class ApiAuthentication implements Authentication
 
     public function getGroup()
     {
-        if ($this->request !== null && $this->request->has('role_id')) {
-            try {
-                return $this->groupRepository->getById($this->getRole()->group_id);
-            } catch (Exception $e) {
-            }
+        if(($role = $this->getRole()) !== null) {
+            return $role->group();
         }
-
+        
         if ($this->request !== null && $this->request->has('group_id')) {
             try {
                 return $this->groupRepository->getById($this->request->query('group_id'));
@@ -62,6 +59,9 @@ class ApiAuthentication implements Authentication
         return null;
     }
 
+    /**
+     * @return Role|null
+     */
     public function getRole()
     {
         if ($this->request !== null && $this->request->has('role_id')) {

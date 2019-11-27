@@ -18,9 +18,4 @@ class UserApiAuthenticationTest extends TestCase
         $this->assertModelEquals($user, $auth->getUser());
     }
 
-    /** @test */
-    public function setUser_sets_a_user_in_the_api_guard(){
-        
-    }
-    
 }
