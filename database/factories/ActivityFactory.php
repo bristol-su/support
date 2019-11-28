@@ -26,6 +26,7 @@ $factory->define(Activity::class, function (Faker $faker) {
         'admin_logic' => function() {
             return factory(Logic::class)->create()->id;
         },
+        'type' => 'open',
         'start_date' => $faker->dateTimeInInterval('-1 year', '-5 days'),
         'end_date' => $faker->dateTimeInInterval('+5 days', '+1 year'),
     ];

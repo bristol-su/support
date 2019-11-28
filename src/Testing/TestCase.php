@@ -3,6 +3,7 @@
 namespace BristolSU\Support\Testing;
 
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Control\Contracts\Client\Client;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
@@ -121,6 +122,10 @@ abstract class TestCase extends BaseTestCase
             'driver' => 'session',
             'provider' => 'users'
         ]);
+        $app['config']->set('auth.guards.activity-instances', [
+            'driver' => 'session',
+            'provider' => 'activity-instance'
+        ]);
         $app['config']->set('auth.providers.roles', [
             'driver' => 'role-provider',
             'model' => Role::class
@@ -132,6 +137,10 @@ abstract class TestCase extends BaseTestCase
         $app['config']->set('auth.providers.groups', [
             'driver' => 'group-provider',
             'model' => Group::class
+        ]);
+        $app['config']->set('auth.providers.groups', [
+            'driver' => 'activity-instance-provider',
+            'model' => ActivityInstance::class
         ]);
 
         $app['config']->set('app.key', 'base64:UTyp33UhGolgzCK5CJmT+hNHcA+dJyp3+oINtX+VoPI=');

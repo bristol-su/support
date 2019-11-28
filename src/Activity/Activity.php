@@ -26,7 +26,8 @@ class Activity extends Model
         'admin_logic',
         'start_date',
         'end_date',
-        'slug'
+        'slug',
+        'type'
     ];
 
     /**
@@ -88,4 +89,7 @@ class Activity extends Model
             ]);
     }
 
+    public function isCompletable() {
+        return $this->type === 'completable' || $this->type === 'multi-completable';
+    }
 }
