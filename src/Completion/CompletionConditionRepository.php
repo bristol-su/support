@@ -40,7 +40,7 @@ class CompletionConditionRepository implements CompletionConditionRepositoryCont
      * @param string $alias
      * @return CompletionCondition
      */
-    public function getByAlias($moduleAlias, $alias)
+    public function getByAlias($moduleAlias, $alias): CompletionCondition
     {
         $class = $this->manager->getClassFromAlias($moduleAlias, $alias);
         return $this->completionConditionFactory->createCompletionConditionFromClassName($class);
