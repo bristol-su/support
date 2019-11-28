@@ -5,6 +5,7 @@ namespace BristolSU\Support\ModuleInstance\Contracts\Evaluator;
 
 
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\ActivityInstance\ActivityInstance;
 
 /**
  * Interface ActivityEvaluator
@@ -17,12 +18,12 @@ interface ActivityEvaluator
      * @param Activity $activity
      * @return mixed
      */
-    public function evaluateAdministrator(Activity $activity);
+    public function evaluateAdministrator(ActivityInstance $activityInstance);
 
     /**
      * @param Activity $activity
      * @return mixed
      */
-    public function evaluateParticipant(Activity $activity);
+    public function evaluateParticipant(ActivityInstance $activityInstance);
 
 }

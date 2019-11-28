@@ -121,6 +121,7 @@ class RepositoryTest extends TestCase
             'name' => 'activity name',
             'description' => 'This is some activity here',
             'activity_for' => 'user',
+            'type' => 'open',
             'for_logic' => factory(Logic::class)->create()->id,
             'admin_logic' => factory(Logic::class)->create()->id,
             'start_date' => Carbon::now()->subDay()->toDateTimeString(),

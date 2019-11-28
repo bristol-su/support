@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Authentication;
 
+use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Database\Eloquent\Builder;
@@ -16,52 +17,35 @@ trait HasResource
     public static function bootHasResource()
     {
         static::saving(function($model) {
-            if($model->resource_id === null || $model->resource_type === null) {
-                $model->resource_id = static::resourceId();
-                $model->resource_type = static::resourceType();
+            if($model->activity_instance_id === null) {
+                $model->activity_instance_id = static::activityInstanceId();
+            }
+            if($model->module_instance_id === null) {
+                $model->module_instance_id = static::moduleInstanceId();
             }
             return $model;
         });
     }
 
-    /**
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public static function resourceType()
-    {
-        return app()->make(ModuleInstance::class)->activity->activity_for;
-    }
+   public static function moduleInstanceId() {
+        return app(ModuleInstance::class)->id;
+   }
 
-    /**
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public static function resourceId()
+    public static function activityInstanceId()
     {
-        $authentication = app()->make(Authentication::class);
-        $resourceType = static::resourceType();
-        if ($resourceType === 'user') {
-            $model = $authentication->getUser();
-        } elseif ($resourceType === 'group') {
-            $model = $authentication->getGroup();
-        } elseif ($resourceType === 'role') {
-            $model = $authentication->getRole();
-            }
-        if(!$model) {
-            throw new \Exception(sprintf('You must be logged in as a %s', $resourceType), 403);
-        }
-        return $model->id;
+        return app(ActivityInstanceResolver::class)
+            ->getActivityInstance()
+            ->id;
     }
 
     /**
      * @param Builder $query
      * @throws \Exception
      */
-    public function scopeForResource(Builder $query)
+    public function scopeForResource(Builder $query, $activityInstanceId = null, $moduleInstanceId = null)
     {
-        $query->where('resource_type', static::resourceType())
-            ->where('resource_id', static::resourceId());
+        $query->where('activity_instance_id', ($activityInstanceId??static::activityInstanceId()))
+            ->where('module_instance_id', ($moduleInstanceId??static::moduleInstanceId()));
     }
     
 }
