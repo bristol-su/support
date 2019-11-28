@@ -9,6 +9,7 @@ use BristolSU\Support\ActivityInstance\Exceptions\NotInActivityInstanceException
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CheckLoggedIntoActivityInstance
 {
@@ -42,7 +43,6 @@ class CheckLoggedIntoActivityInstance
                 $activityInstance = $this->repository->create($activity->id,$resourceType,$resourceId,$activity->name,
                     'Default activity instance for activity ' . $activity->name . ' (#' . $activity->id . ')');
             }
-            
             $this->activityInstanceResolver->setActivityInstance($activityInstance);
         }
         return $next($request);

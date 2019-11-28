@@ -66,6 +66,8 @@ abstract class TestCase extends BaseTestCase
      * @var ObjectProphecy
      */
     protected $logicTester = null;
+    
+    protected $activityInstance;
 
     public function stubControl()
     {
@@ -84,11 +86,13 @@ abstract class TestCase extends BaseTestCase
         if ($this->alias() !== 'support') {
             $this->activity = factory(Activity::class)->create(['slug' => 'act']);
             $this->moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'mod', 'activity_id' => $this->activity->id, 'alias' => $this->alias()]);
+            $this->activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $this->activity->id, 'resource_id' => $this->databaseUser->control_id, 'resource_type' => 'user']);
             $this->databaseUser = factory(DatabaseUser::class)->create();
             $this->user = new User(['id' => $this->databaseUser->control_id]);
             $this->group = new Group(['id' => 3]);
             $this->role = new Role(['id' => 5]);
             $this->app->instance(Activity::class, $this->activity);
+            $this->app->instance(ActivityInstance::class, $this->activityInstance);
             $this->app->instance(ModuleInstance::class, $this->moduleInstance);
         }
 
@@ -122,9 +126,9 @@ abstract class TestCase extends BaseTestCase
             'driver' => 'session',
             'provider' => 'users'
         ]);
-        $app['config']->set('auth.guards.activity-instances', [
+        $app['config']->set('auth.guards.activity-instance', [
             'driver' => 'session',
-            'provider' => 'activity-instance'
+            'provider' => 'activity-instances'
         ]);
         $app['config']->set('auth.providers.roles', [
             'driver' => 'role-provider',
@@ -138,7 +142,7 @@ abstract class TestCase extends BaseTestCase
             'driver' => 'group-provider',
             'model' => Group::class
         ]);
-        $app['config']->set('auth.providers.groups', [
+        $app['config']->set('auth.providers.activity-instances', [
             'driver' => 'activity-instance-provider',
             'model' => ActivityInstance::class
         ]);

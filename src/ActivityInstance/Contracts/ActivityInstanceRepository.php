@@ -10,4 +10,6 @@ interface ActivityInstanceRepository
     public function firstFor(int $activityId, string $resourceType, int $resourceId): ActivityInstance;
 
     public function create(int $activityId, string $resourceType, int $resourceId, string $name, ?string $description): ActivityInstance;
+
+    public function getById($id): ActivityInstance;
 }

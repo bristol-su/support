@@ -36,7 +36,7 @@ class LaravelAuthActivityInstanceResolver implements ActivityInstanceResolver
      */
     public function getActivityInstance(): ActivityInstance
     {
-        if ($this->auth->check('activity-instance')) {
+        if ($this->auth->guard('activity-instance')->check()) {
             return $this->auth->guard('activity-instance')->user();
         }
         throw new NotInActivityInstanceException('No activity instance found', 404);

@@ -26,4 +26,9 @@ class ActivityInstanceRepository implements ActivityInstanceRepositoryContract
             'description' => $description
         ]);
     }
+
+    public function getById($id): ActivityInstance
+    {
+        return ActivityInstance::findOrFail($id);
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 namespace BristolSU\Support\ActivityInstance\AuthenticationProvider;
 
+use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 
@@ -10,14 +11,24 @@ use Illuminate\Contracts\Auth\UserProvider;
  */
 class ActivityInstanceProvider implements UserProvider
 {
-// TODO
+
+    /**
+     * @var ActivityInstanceRepository
+     */
+    private $repository;
+
+    public function __construct(ActivityInstanceRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * @param mixed $identifier
      * @return \BristolSU\Support\Control\Contracts\Models\User|Authenticatable|null
      */
     public function retrieveById($identifier)
     {
-        return $this->users->getById($identifier);
+        return $this->repository->getById($identifier);
 
     }
 
@@ -46,8 +57,8 @@ class ActivityInstanceProvider implements UserProvider
      */
     public function retrieveByCredentials(array $credentials)
     {
-        if (isset($credentials['user_id'])) {
-            return $this->retrieveById($credentials['user_id']);
+        if (isset($credentials['activity_instance_id'])) {
+            return $this->retrieveById($credentials['activity_instance_id']);
         }
         return null;
     }
@@ -61,9 +72,9 @@ class ActivityInstanceProvider implements UserProvider
      */
     public function validateCredentials(Authenticatable $user, array $credentials)
     {
-        if (isset($credentials['user_id'])) {
+        if (isset($credentials['activity_instance_id'])) {
             try {
-                $user = $this->retrieveById($credentials['user_id']);
+                $this->retrieveById($credentials['activity_instance_id']);
                 return true;
             } catch (\Exception $e) {
             }

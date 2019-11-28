@@ -34,7 +34,7 @@ trait HasResource
     public static function activityInstanceId()
     {
         return app(ActivityInstanceResolver::class)
-            ->getActivitiyInstance()
+            ->getActivityInstance()
             ->id;
     }
 

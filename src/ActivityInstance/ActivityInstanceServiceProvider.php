@@ -3,6 +3,7 @@
 namespace BristolSU\Support\ActivityInstance;
 
 use BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider;
+use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository as ActivityInstanceRepositoryContract;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use BristolSU\Support\ActivityInstance\Middleware\CheckActivityInstanceForActivity;
 use BristolSU\Support\ActivityInstance\Middleware\CheckLoggedIntoActivityInstance;
@@ -18,6 +19,7 @@ class ActivityInstanceServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->bind(ActivityInstanceResolver::class, LaravelAuthActivityInstanceResolver::class);
+        $this->app->bind(ActivityInstanceRepositoryContract::class, ActivityInstanceRepository::class);
     }
 
     public function boot()
@@ -28,7 +30,7 @@ class ActivityInstanceServiceProvider extends ServiceProvider
         $this->app['router']->pushMiddlewareToGroup('activity', InjectActivityInstance::class);
 
         Auth::provider('activity-instance-provider', function(Container $app, array $config) {
-            return new ActivityInstanceProvider();
+            return new ActivityInstanceProvider(app(ActivityInstanceRepositoryContract::class));
         });
     }
 
