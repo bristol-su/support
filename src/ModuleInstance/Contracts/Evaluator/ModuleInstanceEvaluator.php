@@ -5,6 +5,8 @@ namespace BristolSU\Support\ModuleInstance\Contracts\Evaluator;
 
 
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\ActivityInstance\ActivityInstance;
+use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation as EvaluationContract;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
 
 /**
@@ -18,11 +20,11 @@ interface ModuleInstanceEvaluator
      * @param ModuleInstance $moduleInstance
      * @return mixed
      */
-    public function evaluateParticipant(ModuleInstance $moduleInstance);
+    public function evaluateParticipant(ActivityInstance $activityInstance, ModuleInstance $moduleInstance): EvaluationContract;
 
     /**
      * @param ModuleInstance $moduleInstance
      * @return mixed
      */
-    public function evaluateAdministrator(ModuleInstance $moduleInstance);
+    public function evaluateAdministrator(ActivityInstance $activityInstance, ModuleInstance $moduleInstance): EvaluationContract;
 }

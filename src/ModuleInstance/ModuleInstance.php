@@ -4,6 +4,7 @@ namespace BristolSU\Support\ModuleInstance;
 
 use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\Completion\CompletionConditionInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance as ModuleInstanceContract;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
@@ -31,7 +32,8 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         'visible',
         'mandatory',
         'module_instance_settings_id',
-        'module_instance_permissions_id'
+        'module_instance_permissions_id',
+        'completion_instance_id'
     ];
 
     /**
@@ -86,6 +88,11 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     public function moduleInstancePermissions()
     {
         return $this->belongsTo(ModuleInstancePermissions::class);
+    }
+
+    public function completionConditionInstance()
+    {
+        return $this->belongsTo(CompletionConditionInstance::class);
     }
 
     /**

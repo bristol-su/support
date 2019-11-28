@@ -5,6 +5,7 @@ namespace BristolSU\Support\ModuleInstance\Evaluator;
 
 
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ActivityEvaluator as ActivityEvaluatorContract;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator as ModuleInstanceEvaluatorContract;
 
@@ -33,10 +34,10 @@ class ActivityEvaluator implements ActivityEvaluatorContract
      * @param Activity $activity
      * @return array|mixed
      */
-    public function evaluateAdministrator(Activity $activity){
+    public function evaluateAdministrator(ActivityInstance $activityInstance){
         $evaluated = [];
-        foreach($activity->moduleInstances as $moduleInstance) {
-            $evaluated[$moduleInstance->id] = clone $this->moduleInstanceEvaluator->evaluateAdministrator($moduleInstance);
+        foreach($activityInstance->activity->moduleInstances as $moduleInstance) {
+            $evaluated[$moduleInstance->id] = clone $this->moduleInstanceEvaluator->evaluateAdministrator($activityInstance, $moduleInstance);
         }
         return $evaluated;
     }
@@ -45,10 +46,10 @@ class ActivityEvaluator implements ActivityEvaluatorContract
      * @param Activity $activity
      * @return array|mixed
      */
-    public function evaluateParticipant(Activity $activity) {
+    public function evaluateParticipant(ActivityInstance $activityInstance) {
         $evaluated = [];
-        foreach($activity->moduleInstances as $moduleInstance) {
-            $evaluated[$moduleInstance->id] = clone $this->moduleInstanceEvaluator->evaluateParticipant($moduleInstance);
+        foreach($activityInstance->activity->moduleInstances as $moduleInstance) {
+            $evaluated[$moduleInstance->id] = clone $this->moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance);
         }
         return $evaluated;
     }

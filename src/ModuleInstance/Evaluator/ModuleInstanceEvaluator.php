@@ -4,7 +4,9 @@
 namespace BristolSU\Support\ModuleInstance\Evaluator;
 
 
+use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Authentication\Contracts\Authentication;
+use BristolSU\Support\Completion\Contracts\CompletionConditionTester;
 use BristolSU\Support\Logic\Facade\LogicTester;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation as EvaluationContract;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
@@ -41,11 +43,12 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
      * @param ModuleInstance $moduleInstance
      * @return EvaluationContract|mixed
      */
-    public function evaluateAdministrator(ModuleInstance $moduleInstance)
+    public function evaluateAdministrator(ActivityInstance $activityInstance, ModuleInstance $moduleInstance): EvaluationContract
     {
         $this->evaluation->setVisible(true);
         $this->evaluation->setMandatory(false);
         $this->evaluation->setActive(true);
+        $this->evaluation->setComplete(false);
 
         return $this->evaluation;
     }
@@ -54,12 +57,20 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
      * @param ModuleInstance $moduleInstance
      * @return EvaluationContract|mixed
      */
-    public function evaluateParticipant(ModuleInstance $moduleInstance)
+    public function evaluateParticipant(ActivityInstance $activityInstance, ModuleInstance $moduleInstance): EvaluationContract
     {
         $this->evaluation->setVisible(LogicTester::evaluate($moduleInstance->visibleLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole()));
-        $this->evaluation->setMandatory(LogicTester::evaluate($moduleInstance->mandatoryLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole()));
+        $this->evaluation->setMandatory(
+            ($activityInstance->activity->isCompletable()?
+                LogicTester::evaluate($moduleInstance->mandatoryLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole()):
+                false)
+        );
         $this->evaluation->setActive(LogicTester::evaluate($moduleInstance->activeLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole()));
-
+        $this->evaluation->setComplete(
+            ($activityInstance->activity->isCompletable()?
+                app(CompletionConditionTester::class)->evaluate($activityInstance, $moduleInstance->completionConditionInstance):
+                false)
+        );
         return $this->evaluation;
     }
 }

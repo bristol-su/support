@@ -42,10 +42,10 @@ trait HasResource
      * @param Builder $query
      * @throws \Exception
      */
-    public function scopeForResource(Builder $query)
+    public function scopeForResource(Builder $query, $activityInstanceId = null, $moduleInstanceId = null)
     {
-        $query->where('activity_instance_id', static::activityInstanceId())
-            ->where('module_instance_id', static::moduleInstanceId());
+        $query->where('activity_instance_id', ($activityInstanceId??static::activityInstanceId()))
+            ->where('module_instance_id', ($moduleInstanceId??static::moduleInstanceId()));
     }
     
 }

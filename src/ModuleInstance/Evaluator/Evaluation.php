@@ -28,6 +28,11 @@ class Evaluation implements EvaluationContract
     private $mandatory = false;
 
     /**
+     * @var bool
+     */
+    private $complete = false;
+    
+    /**
      * @return bool
      */
     public function active(): bool
@@ -41,6 +46,14 @@ class Evaluation implements EvaluationContract
     public function mandatory(): bool
     {
         return $this->mandatory;
+    }
+
+    /**
+     * @return bool
+     */
+    public function complete(): bool
+    {
+        return $this->complete;
     }
 
     /**
@@ -71,6 +84,15 @@ class Evaluation implements EvaluationContract
     }
 
     /**
+     * @param bool $complete
+     * @return mixed|void
+     */
+    public function setComplete(bool $complete)
+    {
+        $this->complete = $complete;
+    }
+
+    /**
      * @return bool
      */
     public function visible(): bool
@@ -87,6 +109,7 @@ class Evaluation implements EvaluationContract
             'active' => $this->active(),
             'visible' => $this->visible(),
             'mandatory' => $this->mandatory(),
+            'complete' => $this->complete()
         ];
     }
 
