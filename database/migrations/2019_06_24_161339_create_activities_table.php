@@ -18,7 +18,7 @@ class CreateActivitiesTable extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('slug');
-            $table->enum('type', ['open', 'completable', 'multi-completable']);
+            $table->enum('type', ['open', 'completable', 'multi-completable'])->default('open');
             $table->enum('activity_for', ['group', 'user', 'role']);
             $table->unsignedInteger('for_logic');
             $table->unsignedInteger('admin_logic');
