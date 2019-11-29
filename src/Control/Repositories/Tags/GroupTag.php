@@ -43,7 +43,7 @@ class GroupTag implements GroupTagContract
     {
         $groupTagModels = [];
         $groupTags = $this->client->request('get', 'group_tags');
-        foreach($groupTags as $groupTag) {
+        foreach ($groupTags as $groupTag) {
             $groupTagModels[] = new \BristolSU\Support\Control\Models\GroupTag($groupTag);
         }
         return collect($groupTagModels);
@@ -58,8 +58,8 @@ class GroupTag implements GroupTagContract
     public function allThroughGroup(GroupContract $group): Collection
     {
         $groupTagModels = [];
-        $groupTags = $this->client->request('get', 'groups/' . $group->id . '/group_tags');
-        foreach($groupTags as $groupTag) {
+        $groupTags = $this->client->request('get', 'groups/'.$group->id.'/group_tags');
+        foreach ($groupTags as $groupTag) {
             $groupTagModels[] = new GroupTagModel($groupTag);
         }
         return collect($groupTagModels);
@@ -73,8 +73,8 @@ class GroupTag implements GroupTagContract
      */
     public function getTagByFullReference(string $reference): GroupTagModelContract
     {
-        foreach($this->all() as $tag) {
-            if($tag->fullReference() === $reference) {
+        foreach ($this->all() as $tag) {
+            if ($tag->fullReference() === $reference) {
                 return $tag;
             }
         }
@@ -88,7 +88,7 @@ class GroupTag implements GroupTagContract
      */
     public function getById(int $id): GroupTagModelContract
     {
-        $response = $this->client->request('get', 'group_tags/' . $id);
+        $response = $this->client->request('get', 'group_tags/'.$id);
         return new \BristolSU\Support\Control\Models\Tags\GroupTag($response);
     }
 
@@ -101,8 +101,8 @@ class GroupTag implements GroupTagContract
     public function allThroughGroupTagCategory(GroupTagCategoryContract $groupTagCategory): Collection
     {
         $groupTagModels = [];
-        $groupTags = $this->client->request('get', 'group_tag_category/' . $groupTagCategory->id() . '/group_tags');
-        foreach($groupTags as $groupTag) {
+        $groupTags = $this->client->request('get', 'group_tag_category/'.$groupTagCategory->id().'/group_tags');
+        foreach ($groupTags as $groupTag) {
             $groupTagModels[] = new GroupTagModel($groupTag);
         }
         return collect($groupTagModels);

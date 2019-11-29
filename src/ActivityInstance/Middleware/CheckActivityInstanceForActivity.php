@@ -30,7 +30,7 @@ class CheckActivityInstanceForActivity
     public function handle(Request $request, \Closure $next)
     {
         $activityInstance = $this->activityInstanceResolver->getActivityInstance();
-        if($activityInstance->activity_id !== $request->route('activity_slug')->id) {
+        if ($activityInstance->activity_id !== $request->route('activity_slug')->id) {
             throw new NotInActivityInstanceException('Not logged into the correct activity instance for the activity');
         }
         return $next($request);

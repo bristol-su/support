@@ -34,9 +34,9 @@ class ActivityInstanceEvaluator implements ActivityEvaluatorContract
      * @param Activity $activity
      * @return array|mixed
      */
-    public function evaluateAdministrator(ActivityInstance $activityInstance){
+    public function evaluateAdministrator(ActivityInstance $activityInstance) {
         $evaluated = [];
-        foreach($activityInstance->activity->moduleInstances as $moduleInstance) {
+        foreach ($activityInstance->activity->moduleInstances as $moduleInstance) {
             $evaluated[$moduleInstance->id] = clone $this->moduleInstanceEvaluator->evaluateAdministrator($activityInstance, $moduleInstance);
         }
         return $evaluated;
@@ -48,7 +48,7 @@ class ActivityInstanceEvaluator implements ActivityEvaluatorContract
      */
     public function evaluateParticipant(ActivityInstance $activityInstance) {
         $evaluated = [];
-        foreach($activityInstance->activity->moduleInstances as $moduleInstance) {
+        foreach ($activityInstance->activity->moduleInstances as $moduleInstance) {
             $evaluated[$moduleInstance->id] = clone $this->moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance);
         }
         return $evaluated;

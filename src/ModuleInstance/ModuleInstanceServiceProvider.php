@@ -34,14 +34,14 @@ class ModuleInstanceServiceProvider extends ServiceProvider
     {
         $this->app['router']->pushMiddlewareToGroup('module', InjectModuleInstance::class);
 
-        Route::bind('module_instance_setting', function ($id) {
+        Route::bind('module_instance_setting', function($id) {
             return ModuleInstanceSettings::findOrFail($id);
         });
 
-        Route::bind('module_instance_slug', function ($slug, $route) {
+        Route::bind('module_instance_slug', function($slug, $route) {
             $activity = $route->parameter('activity_slug');
             return ModuleInstance::where('slug', $slug)
-                ->whereHas('activity', function ($query) use ($activity) {
+                ->whereHas('activity', function($query) use ($activity) {
                     $query->where('slug', $activity->slug);
                 })
                 ->firstOrFail();

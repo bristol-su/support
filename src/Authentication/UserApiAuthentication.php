@@ -27,7 +27,7 @@ class UserApiAuthentication implements UserAuthentication
      */
     public function getUser(): ?User
     {
-        if($this->auth->guard('api')->check()) {
+        if ($this->auth->guard('api')->check()) {
             return $this->auth->guard('api')->user();
         }
         return null;

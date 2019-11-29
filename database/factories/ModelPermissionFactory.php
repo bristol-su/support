@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(ModelPermission::class, function (Faker $faker) {
+$factory->define(ModelPermission::class, function(Faker $faker) {
     return [
         'ability' => $faker->word,
         'model' => 'user',

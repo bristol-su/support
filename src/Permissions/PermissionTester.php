@@ -42,7 +42,7 @@ class PermissionTester implements PermissionTesterContract
          * By default, we take from authentication. If this is null, we take from the database user
          */
         $user = app(Authentication::class)->getUser();
-        if($user === null && ($dbUser = app(UserAuthentication::class)->getUser()) !== null) {
+        if ($user === null && ($dbUser = app(UserAuthentication::class)->getUser()) !== null) {
             $user = app(UserRepository::class)->getById($dbUser->control_id);
         };
         
@@ -62,7 +62,7 @@ class PermissionTester implements PermissionTesterContract
      */
     public function getChain()
     {
-        if(count($this->testers) === 0) {
+        if (count($this->testers) === 0) {
             throw new \Exception('No testers registered');
         }
         $testers = $this->testers;

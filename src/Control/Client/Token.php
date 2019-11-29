@@ -33,11 +33,11 @@ class Token implements TokenContract
      */
     public function token($refresh = false)
     {
-        if (Cache::has(GuzzleClient::class . '@token') && !$refresh) {
-            return Cache::get(GuzzleClient::class . '@token');
+        if (Cache::has(GuzzleClient::class.'@token') && !$refresh) {
+            return Cache::get(GuzzleClient::class.'@token');
         }
 
-        $response = $this->client->post(config('control.base_uri') . '/oauth/token', [
+        $response = $this->client->post(config('control.base_uri').'/oauth/token', [
             'form_params' => [
                 'grant_type' => 'password',
                 'client_id' => config('control.client_id'),
@@ -49,7 +49,7 @@ class Token implements TokenContract
         ]);
 
         $token = json_decode($response->getBody()->getContents(), true);
-        Cache::put(GuzzleClient::class . '@token', $token['access_token'], ((int)$token['expires_in']) / 60);
+        Cache::put(GuzzleClient::class.'@token', $token['access_token'], ((int) $token['expires_in']) / 60);
 
         return $token['access_token'];
     }

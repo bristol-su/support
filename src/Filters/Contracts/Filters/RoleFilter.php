@@ -25,7 +25,7 @@ abstract class RoleFilter extends Filter
      */
     public function setModel($model)
     {
-        if(!($model instanceof Role)) {
+        if (!($model instanceof Role)) {
             throw new \Exception(
                 sprintf('Cannot pass a class of type [%s] to a role filter', get_class($model))
             );

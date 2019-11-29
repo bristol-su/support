@@ -43,7 +43,7 @@ class UserTag extends Model implements UserTagContract
      */
     public function fullReference(): string
     {
-        return $this->attributes['category']['reference'] . '.' . $this->attributes['reference'];
+        return $this->attributes['category']['reference'].'.'.$this->attributes['reference'];
     }
 
     /**

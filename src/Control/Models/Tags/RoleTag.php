@@ -43,7 +43,7 @@ class RoleTag extends Model implements RoleTagContract
      */
     public function fullReference(): string
     {
-        return $this->attributes['category']['reference'] . '.' . $this->attributes['reference'];
+        return $this->attributes['category']['reference'].'.'.$this->attributes['reference'];
     }
 
     /**

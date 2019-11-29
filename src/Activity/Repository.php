@@ -22,7 +22,7 @@ class Repository implements ActivityRepositoryContract
      */
     public function getForAdministrator(?User $user = null, ?Group $group = null, ?Role $role = null)
     {
-        return $this->active()->filter(function ($activity) use ($user, $group, $role) {
+        return $this->active()->filter(function($activity) use ($user, $group, $role) {
             $logicTester = app()->make(LogicTester::class);
             return $logicTester->evaluate($activity->adminLogic, $user, $group, $role);
         })->values();
@@ -51,7 +51,7 @@ class Repository implements ActivityRepositoryContract
      */
     public function getForParticipant(?User $user = null, ?Group $group = null, ?Role $role = null)
     {
-        return $this->active()->filter(function ($activity) use ($user, $group, $role) {
+        return $this->active()->filter(function($activity) use ($user, $group, $role) {
             $logicTester = app()->make(LogicTester::class);
             return $logicTester->evaluate($activity->forLogic, $user, $group, $role);
         })->values();

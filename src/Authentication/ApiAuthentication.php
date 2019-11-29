@@ -46,7 +46,7 @@ class ApiAuthentication implements Authentication
 
     public function getGroup()
     {
-        if(($role = $this->getRole()) !== null) {
+        if (($role = $this->getRole()) !== null) {
             return $role->group();
         }
         

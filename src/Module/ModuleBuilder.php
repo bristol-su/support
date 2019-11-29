@@ -101,21 +101,21 @@ class ModuleBuilder implements ModuleBuilderContract
     public function setName()
     {
         $this->module->setName(
-            $this->config->get($this->getAlias() . '.name')
+            $this->config->get($this->getAlias().'.name')
         );
     }
 
     public function setDescription()
     {
         $this->module->setDescription(
-            $this->config->get($this->getAlias() . '.description')
+            $this->config->get($this->getAlias().'.description')
         );
     }
 
     public function setSettings()
     {
         $this->module->setSettings(
-            $this->config->get($this->getAlias() . '.settings')
+            $this->config->get($this->getAlias().'.settings')
         );
     }
 

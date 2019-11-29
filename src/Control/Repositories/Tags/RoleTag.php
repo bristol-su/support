@@ -43,7 +43,7 @@ class RoleTag implements RoleTagContract
     {
         $roleTagModels = [];
         $roleTags = $this->client->request('get', 'role_tags');
-        foreach($roleTags as $roleTag) {
+        foreach ($roleTags as $roleTag) {
             $roleTagModels[] = new \BristolSU\Support\Control\Models\RoleTag($roleTag);
         }
         return collect($roleTagModels);
@@ -58,8 +58,8 @@ class RoleTag implements RoleTagContract
     public function allThroughRole(RoleContract $role): Collection
     {
         $roleTagModels = [];
-        $roleTags = $this->client->request('get', 'roles/' . $role->id . '/role_tags');
-        foreach($roleTags as $roleTag) {
+        $roleTags = $this->client->request('get', 'roles/'.$role->id.'/role_tags');
+        foreach ($roleTags as $roleTag) {
             $roleTagModels[] = new RoleTagModel($roleTag);
         }
         return collect($roleTagModels);
@@ -73,8 +73,8 @@ class RoleTag implements RoleTagContract
      */
     public function getTagByFullReference(string $reference): RoleTagModelContract
     {
-        foreach($this->all() as $tag) {
-            if($tag->fullReference() === $reference) {
+        foreach ($this->all() as $tag) {
+            if ($tag->fullReference() === $reference) {
                 return $tag;
             }
         }
@@ -88,7 +88,7 @@ class RoleTag implements RoleTagContract
      */
     public function getById(int $id): RoleTagModelContract
     {
-        $response = $this->client->request('get', 'role_tags/' . $id);
+        $response = $this->client->request('get', 'role_tags/'.$id);
         return new \BristolSU\Support\Control\Models\Tags\RoleTag($response);
     }
 
@@ -101,8 +101,8 @@ class RoleTag implements RoleTagContract
     public function allThroughRoleTagCategory(RoleTagCategoryContract $roleTagCategory): Collection
     {
         $roleTagModels = [];
-        $roleTags = $this->client->request('get', 'role_tag_category/' . $roleTagCategory->id() . '/role_tags');
-        foreach($roleTags as $roleTag) {
+        $roleTags = $this->client->request('get', 'role_tag_category/'.$roleTagCategory->id().'/role_tags');
+        foreach ($roleTags as $roleTag) {
             $roleTagModels[] = new RoleTagModel($roleTag);
         }
         return collect($roleTagModels);

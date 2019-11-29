@@ -24,7 +24,7 @@ abstract class UserFilter extends Filter
      */
     public function setModel($model)
     {
-        if(!($model instanceof User)) {
+        if (!($model instanceof User)) {
             throw new \Exception(
                 sprintf('Cannot pass a class of type [%s] to a user filter', get_class($model))
             );

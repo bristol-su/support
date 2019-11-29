@@ -47,17 +47,17 @@ class ModuleInstanceUserPermissions extends Tester
     public function can(Permission $permission, ?User $user, ?Group $group, ?Role $role): ?bool
     {
         $moduleInstance = app(ModuleInstance::class);
-        if($moduleInstance->exists === false){
+        if ($moduleInstance->exists === false) {
             return null;
         }
         
         $participantPermissions = $moduleInstance->moduleInstancePermissions->participant_permissions;
-        if(!array_key_exists($permission->getAbility(), $participantPermissions)) {
+        if (!array_key_exists($permission->getAbility(), $participantPermissions)) {
             return null;
         }
         
         $logic = Logic::find($participantPermissions[$permission->getAbility()]);
-        if($logic === null) {
+        if ($logic === null) {
             return null;
         }
 

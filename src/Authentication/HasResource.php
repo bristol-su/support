@@ -17,19 +17,19 @@ trait HasResource
     public static function bootHasResource()
     {
         static::saving(function($model) {
-            if($model->activity_instance_id === null) {
+            if ($model->activity_instance_id === null) {
                 $model->activity_instance_id = static::activityInstanceId();
             }
-            if($model->module_instance_id === null) {
+            if ($model->module_instance_id === null) {
                 $model->module_instance_id = static::moduleInstanceId();
             }
             return $model;
         });
     }
 
-   public static function moduleInstanceId() {
+    public static function moduleInstanceId() {
         return app(ModuleInstance::class)->id;
-   }
+    }
 
     public static function activityInstanceId()
     {

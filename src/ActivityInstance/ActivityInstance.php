@@ -21,9 +21,9 @@ class ActivityInstance extends Model implements Authenticatable
             ->where('resource_id', $this->resource_id)
             ->orderBy('created_at')
             ->get();
-        for($i=0;$i<=$activityInstances->count();$i++) {
-            if($this->is($activityInstances->offsetGet($i))) {
-                return $i+1;
+        for ($i = 0; $i <= $activityInstances->count(); $i++) {
+            if ($this->is($activityInstances->offsetGet($i))) {
+                return $i + 1;
             }
         }
     }

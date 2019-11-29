@@ -47,17 +47,17 @@ class ModuleInstanceAdminPermissions extends Tester
     public function can(Permission $permission, ?User $user, ?Group $group, ?Role $role): ?bool
     {
         $moduleInstance = app(ModuleInstance::class);
-        if($moduleInstance->exists === false){
+        if ($moduleInstance->exists === false) {
             return null;
         }
 
         $adminPermissions = $moduleInstance->moduleInstancePermissions->admin_permissions;
-        if(!array_key_exists($permission->getAbility(), $adminPermissions)) {
+        if (!array_key_exists($permission->getAbility(), $adminPermissions)) {
             return null;
         }
 
         $logic = Logic::find($adminPermissions[$permission->getAbility()]);
-        if($logic === null) {
+        if ($logic === null) {
             return null;
         }
 

@@ -13,7 +13,7 @@ class CreateModuleInstanceSettingsTable extends Migration
      */
     public function up()
     {
-        Schema::create('module_instance_settings', function (Blueprint $table) {
+        Schema::create('module_instance_settings', function(Blueprint $table) {
             $table->increments('id');
             $table->json('settings');
             $table->timestamps();

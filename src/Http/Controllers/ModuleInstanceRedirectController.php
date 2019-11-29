@@ -11,6 +11,6 @@ class ModuleInstanceRedirectController
     public function index(Request $request, Activity $activity, ModuleInstance $moduleInstance)
     {
         return redirect()
-            ->to($request->path() . '/' . $moduleInstance->alias());
+            ->to($request->path().'/'.$moduleInstance->alias());
     }
 }

@@ -42,7 +42,7 @@ class RoleTagCategory implements RoleTagCategoryContract
     {
         $roleTagCategories = [];
         $response = $this->client->request('get', 'role_tag_category');
-        foreach($response as $roleTagCategory) {
+        foreach ($response as $roleTagCategory) {
             $roleTagCategories[] = new RoleTagCategoryModel($roleTagCategory);
         }
         return collect($roleTagCategories);
@@ -56,7 +56,7 @@ class RoleTagCategory implements RoleTagCategoryContract
      */
     public function allThroughTag(RoleTagModel $roleTag): RoleTagCategoryModelContract
     {
-        $response = $this->client->request('get', 'role_tags/' . $roleTag->id() . '/role_tag_category');
+        $response = $this->client->request('get', 'role_tags/'.$roleTag->id().'/role_tag_category');
         return new \BristolSU\Support\Control\Models\Tags\RoleTagCategory($response);    
     }
 
@@ -79,7 +79,7 @@ class RoleTagCategory implements RoleTagCategoryContract
      */
     public function getById(int $id): RoleTagCategoryModelContract
     {
-        $response = $this->client->request('get', 'role_tag_category/' . $id);
+        $response = $this->client->request('get', 'role_tag_category/'.$id);
         return new \BristolSU\Support\Control\Models\Tags\RoleTagCategory($response);
     }
 }

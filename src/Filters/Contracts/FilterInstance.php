@@ -16,5 +16,5 @@ interface FilterInstance
 
     public function settings();
 
-    public function for();
+    public function for ();
 }

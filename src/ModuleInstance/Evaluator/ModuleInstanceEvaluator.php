@@ -61,15 +61,13 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
     {
         $this->evaluation->setVisible(LogicTester::evaluate($moduleInstance->visibleLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole()));
         $this->evaluation->setMandatory(
-            ($activityInstance->activity->isCompletable()?
-                LogicTester::evaluate($moduleInstance->mandatoryLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole()):
-                false)
+            ($activityInstance->activity->isCompletable() ?
+                LogicTester::evaluate($moduleInstance->mandatoryLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole()) : false)
         );
         $this->evaluation->setActive(LogicTester::evaluate($moduleInstance->activeLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole()));
         $this->evaluation->setComplete(
-            ($activityInstance->activity->isCompletable()?
-                app(CompletionConditionTester::class)->evaluate($activityInstance, $moduleInstance->completionConditionInstance):
-                false)
+            ($activityInstance->activity->isCompletable() ?
+                app(CompletionConditionTester::class)->evaluate($activityInstance, $moduleInstance->completionConditionInstance) : false)
         );
         return $this->evaluation;
     }

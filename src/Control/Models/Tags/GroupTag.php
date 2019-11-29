@@ -43,7 +43,7 @@ class GroupTag extends Model implements GroupTagContract
      */
     public function fullReference(): string
     {
-        return $this->attributes['category']['reference'] . '.' . $this->attributes['reference'];
+        return $this->attributes['category']['reference'].'.'.$this->attributes['reference'];
     }
 
     /**

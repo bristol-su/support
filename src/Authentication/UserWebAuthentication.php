@@ -32,7 +32,7 @@ class UserWebAuthentication implements UserAuthenticationContract
      */
     public function getUser(): ?User
     {
-        if($this->auth->guard('web')->check()) {
+        if ($this->auth->guard('web')->check()) {
             return $this->auth->guard('web')->user();
         }
         return null;

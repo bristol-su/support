@@ -32,10 +32,10 @@ class Model implements Arrayable, Jsonable
      */
     public function __get($name)
     {
-        if(!is_array($this->attributes)) {
+        if (!is_array($this->attributes)) {
             throw new \Exception('Attributes not found for the given model');
         }
-        if(isset($this->attributes[$name])) {
+        if (isset($this->attributes[$name])) {
             return $this->attributes[$name];
         }
 

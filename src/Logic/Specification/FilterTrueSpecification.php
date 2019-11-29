@@ -54,13 +54,13 @@ class FilterTrueSpecification implements Specification
     {
         switch ($this->filter->for()) {
             case 'user':
-                return ($this->user === null?false:
+                return ($this->user === null ?false:
                     app(FilterTester::class)->evaluate($this->filter, $this->user) === true);
             case 'group':
-                return ($this->group === null?false:
+                return ($this->group === null ?false:
                     app(FilterTester::class)->evaluate($this->filter, $this->group) === true);
             case 'role':
-                return ($this->role === null?false:
+                return ($this->role === null ?false:
                     app(FilterTester::class)->evaluate($this->filter, $this->role) === true);
             default:
                 return false;

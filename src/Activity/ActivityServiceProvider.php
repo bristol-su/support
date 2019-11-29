@@ -25,7 +25,7 @@ class ActivityServiceProvider extends ServiceProvider
     {
         $this->app['router']->pushMiddlewareToGroup('activity', InjectActivityInstance::class);
 
-        Route::bind('activity_slug', function ($slug) {
+        Route::bind('activity_slug', function($slug) {
             return Activity::where(['slug' => $slug])->firstOrFail();
         });
         

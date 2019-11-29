@@ -43,7 +43,7 @@ class LogicAudience implements LogicAudienceContract
         $audienceMembers = [];
         foreach ($this->possibleAudience() as $audienceMember) {
             $audienceMember->filterForLogic($logic);
-            if($audienceMember->hasAudience()) {
+            if ($audienceMember->hasAudience()) {
                 $audienceMembers[] = $audienceMember;
             }
         }

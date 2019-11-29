@@ -43,7 +43,7 @@ class ApiActivityInstanceResolver implements ActivityInstanceResolver
      */
     public function getActivityInstance(): ActivityInstance
     {
-        if($this->request->has('activity_instance_id')) {
+        if ($this->request->has('activity_instance_id')) {
             return $this->activityInstanceRepository->getById(
                 $this->request->input('activity_instance_id')
             );

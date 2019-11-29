@@ -28,7 +28,7 @@ class ModuleFrameworkServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        Route::bind('module', function ($alias) {
+        Route::bind('module', function($alias) {
             return $this->app->make(ModuleRepositoryContract::class)->findByAlias($alias);
         });
         

@@ -43,7 +43,7 @@ class PositionTag implements PositionTagContract
     {
         $positionTagModels = [];
         $positionTags = $this->client->request('get', 'position_tags');
-        foreach($positionTags as $positionTag) {
+        foreach ($positionTags as $positionTag) {
             $positionTagModels[] = new \BristolSU\Support\Control\Models\PositionTag($positionTag);
         }
         return collect($positionTagModels);
@@ -58,8 +58,8 @@ class PositionTag implements PositionTagContract
     public function allThroughPosition(PositionContract $position): Collection
     {
         $positionTagModels = [];
-        $positionTags = $this->client->request('get', 'positions/' . $position->id . '/position_tags');
-        foreach($positionTags as $positionTag) {
+        $positionTags = $this->client->request('get', 'positions/'.$position->id.'/position_tags');
+        foreach ($positionTags as $positionTag) {
             $positionTagModels[] = new PositionTagModel($positionTag);
         }
         return collect($positionTagModels);
@@ -73,8 +73,8 @@ class PositionTag implements PositionTagContract
      */
     public function getTagByFullReference(string $reference): PositionTagModelContract
     {
-        foreach($this->all() as $tag) {
-            if($tag->fullReference() === $reference) {
+        foreach ($this->all() as $tag) {
+            if ($tag->fullReference() === $reference) {
                 return $tag;
             }
         }
@@ -88,7 +88,7 @@ class PositionTag implements PositionTagContract
      */
     public function getById(int $id): PositionTagModelContract
     {
-        $response = $this->client->request('get', 'position_tags/' . $id);
+        $response = $this->client->request('get', 'position_tags/'.$id);
         return new \BristolSU\Support\Control\Models\Tags\PositionTag($response);
     }
 
@@ -101,8 +101,8 @@ class PositionTag implements PositionTagContract
     public function allThroughPositionTagCategory(PositionTagCategoryContract $positionTagCategory): Collection
     {
         $positionTagModels = [];
-        $positionTags = $this->client->request('get', 'position_tag_category/' . $positionTagCategory->id() . '/position_tags');
-        foreach($positionTags as $positionTag) {
+        $positionTags = $this->client->request('get', 'position_tag_category/'.$positionTagCategory->id().'/position_tags');
+        foreach ($positionTags as $positionTag) {
             $positionTagModels[] = new PositionTagModel($positionTag);
         }
         return collect($positionTagModels);

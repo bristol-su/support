@@ -43,7 +43,7 @@ class UserTag implements UserTagContract
     {
         $userTagModels = [];
         $userTags = $this->client->request('get', 'user_tags');
-        foreach($userTags as $userTag) {
+        foreach ($userTags as $userTag) {
             $userTagModels[] = new \BristolSU\Support\Control\Models\UserTag($userTag);
         }
         return collect($userTagModels);
@@ -58,8 +58,8 @@ class UserTag implements UserTagContract
     public function allThroughUser(UserContract $user): Collection
     {
         $userTagModels = [];
-        $userTags = $this->client->request('get', 'users/' . $user->id . '/user_tags');
-        foreach($userTags as $userTag) {
+        $userTags = $this->client->request('get', 'users/'.$user->id.'/user_tags');
+        foreach ($userTags as $userTag) {
             $userTagModels[] = new UserTagModel($userTag);
         }
         return collect($userTagModels);
@@ -73,8 +73,8 @@ class UserTag implements UserTagContract
      */
     public function getTagByFullReference(string $reference): UserTagModelContract
     {
-        foreach($this->all() as $tag) {
-            if($tag->fullReference() === $reference) {
+        foreach ($this->all() as $tag) {
+            if ($tag->fullReference() === $reference) {
                 return $tag;
             }
         }
@@ -88,7 +88,7 @@ class UserTag implements UserTagContract
      */
     public function getById(int $id): UserTagModelContract
     {
-        $response = $this->client->request('get', 'user_tags/' . $id);
+        $response = $this->client->request('get', 'user_tags/'.$id);
         return new \BristolSU\Support\Control\Models\Tags\UserTag($response);
     }
 
@@ -101,8 +101,8 @@ class UserTag implements UserTagContract
     public function allThroughUserTagCategory(UserTagCategoryContract $userTagCategory): Collection
     {
         $userTagModels = [];
-        $userTags = $this->client->request('get', 'user_tag_category/' . $userTagCategory->id() . '/user_tags');
-        foreach($userTags as $userTag) {
+        $userTags = $this->client->request('get', 'user_tag_category/'.$userTagCategory->id().'/user_tags');
+        foreach ($userTags as $userTag) {
             $userTagModels[] = new UserTagModel($userTag);
         }
         return collect($userTagModels);

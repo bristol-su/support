@@ -13,7 +13,7 @@ class CreateCompletionConditionInstancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('completion_condition_instances', function (Blueprint $table) {
+        Schema::create('completion_condition_instances', function(Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->string('alias');

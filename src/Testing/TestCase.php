@@ -79,8 +79,8 @@ abstract class TestCase extends BaseTestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->loadMigrationsFrom(realpath(__DIR__ . '/../database/migrations'));
-        $this->withFactories(__DIR__ . '/../../database/factories');
+        $this->loadMigrationsFrom(realpath(__DIR__.'/../database/migrations'));
+        $this->withFactories(__DIR__.'/../../database/factories');
 
         // Create example module instance and activity
         // TODO remove support from here
@@ -175,25 +175,25 @@ abstract class TestCase extends BaseTestCase
     {
         $this->logicTester = ($this->logicTester??$this->prophesize(LogicTester::class));
         foreach (Arr::wrap($true) as $logic) {
-            $this->logicTester->evaluate(Argument::that(function ($arg) use ($logic) {
+            $this->logicTester->evaluate(Argument::that(function($arg) use ($logic) {
                 return $arg->id === $logic->id;
-            }), Argument::that(function ($arg) use ($user) {
+            }), Argument::that(function($arg) use ($user) {
                 return $user === null && $arg === null || $arg instanceof User && $user instanceof User && $user->id === $arg->id;
-            }), Argument::that(function ($arg) use ($group) {
+            }), Argument::that(function($arg) use ($group) {
                 return $group === null && $arg === null || $arg instanceof Group && $group instanceof Group && $group->id === $arg->id;
-            }), Argument::that(function ($arg) use ($role) {
+            }), Argument::that(function($arg) use ($role) {
                 return $role === null && $arg === null || $arg instanceof Role && $role instanceof Role && $role->id === $arg->id;
             }))->willReturn(true);
         }
 
         foreach (Arr::wrap($false) as $logic) {
-            $this->logicTester->evaluate(Argument::that(function ($arg) use ($logic) {
+            $this->logicTester->evaluate(Argument::that(function($arg) use ($logic) {
                 return $arg->id === $logic->id;
-            }), Argument::that(function ($arg) use ($user) {
+            }), Argument::that(function($arg) use ($user) {
                 return $user === null && $arg === null || $arg instanceof User && $user instanceof User && $user->id === $arg->id;
-            }), Argument::that(function ($arg) use ($group) {
+            }), Argument::that(function($arg) use ($group) {
                 return $group === null && $arg === null || $arg instanceof Group && $group instanceof Group && $group->id === $arg->id;
-            }), Argument::that(function ($arg) use ($role) {
+            }), Argument::that(function($arg) use ($role) {
                 return $role === null && $arg === null || $arg instanceof Role && $role instanceof Role && $role->id === $arg->id;
             }))->willReturn(false);
         }
@@ -220,7 +220,7 @@ abstract class TestCase extends BaseTestCase
         $response->assertStatus(403, 'User allowed past authorization without permission. Is there an \'authorize\' statement?');
 
         $permissionTester = $this->prophesize(PermissionTester::class);
-        $permissionTester->evaluate($this->alias() . '.' . $ability)->shouldBeCalled()->willReturn(true);
+        $permissionTester->evaluate($this->alias().'.'.$ability)->shouldBeCalled()->willReturn(true);
         $this->instance(PermissionTester::class, $permissionTester->reveal());
 
         $response = $this->call($method, $route, $parameters);
@@ -237,7 +237,7 @@ abstract class TestCase extends BaseTestCase
      */
     public function beUser($user)
     {
-        $this->mockControl('get', 'students/' . $user->id, $user->toArray(), true);
+        $this->mockControl('get', 'students/'.$user->id, $user->toArray(), true);
         $this->app['auth']->guard('user')->loginUsingId($user->id);
         return $this;
     }
@@ -265,7 +265,7 @@ abstract class TestCase extends BaseTestCase
      */
     public function beGroup($group)
     {
-        $this->mockControl('get', 'groups/' . $group->id, $group->toArray(), true);
+        $this->mockControl('get', 'groups/'.$group->id, $group->toArray(), true);
         $this->app['auth']->guard('group')->loginUsingId($group->id);
         return $this;
     }
@@ -276,7 +276,7 @@ abstract class TestCase extends BaseTestCase
      */
     public function beRole($role)
     {
-        $this->mockControl('get', 'roles/' . $role->id, $role->toArray(), true);
+        $this->mockControl('get', 'roles/'.$role->id, $role->toArray(), true);
         $this->app['auth']->guard('role')->loginUsingId($role->id);
         return $this;
     }
@@ -288,9 +288,9 @@ abstract class TestCase extends BaseTestCase
     public function adminUrl($path = '')
     {
         if (!Str::startsWith($path, '/')) {
-            $path = '/' . $path;
+            $path = '/'.$path;
         }
-        return '/a/' . $this->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->alias() . $path;
+        return '/a/'.$this->activity->slug.'/'.$this->moduleInstance->slug.'/'.$this->alias().$path;
     }
 
     /**
@@ -300,9 +300,9 @@ abstract class TestCase extends BaseTestCase
     public function userUrl($path = '')
     {
         if (!Str::startsWith($path, '/')) {
-            $path = '/' . $path;
+            $path = '/'.$path;
         }
-        return '/p/' . $this->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->alias() . $path;
+        return '/p/'.$this->activity->slug.'/'.$this->moduleInstance->slug.'/'.$this->alias().$path;
     }
 
     /**
@@ -312,9 +312,9 @@ abstract class TestCase extends BaseTestCase
     public function apiUrl($path = '', $admin = false)
     {
         if (!Str::startsWith($path, '/')) {
-            $path = '/' . $path;
+            $path = '/'.$path;
         }
-        return '/api/' . ($admin?'a':'p') . '/' . $this->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->moduleInstance->alias . $path;
+        return '/api/'.($admin ? 'a' : 'p').'/'.$this->activity->slug.'/'.$this->moduleInstance->slug.'/'.$this->moduleInstance->alias.$path;
     }
 
     public function bypassAuthorization()

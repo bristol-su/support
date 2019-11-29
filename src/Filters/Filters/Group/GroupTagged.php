@@ -42,8 +42,8 @@ class GroupTagged extends GroupFilter
         } catch (\Exception $e) {
             return false;
         }
-        foreach($tags as $tag) {
-            if($tag->fullReference() === $settings['tag']) {
+        foreach ($tags as $tag) {
+            if ($tag->fullReference() === $settings['tag']) {
                 return true;
             }
         }
@@ -57,7 +57,7 @@ class GroupTagged extends GroupFilter
     {
         $tags = $this->groupTagRepository->all();
         $options = ['tag' => []];
-        foreach($tags as $tag) {
+        foreach ($tags as $tag) {
             $options['tag'][$tag->fullReference()] = $tag->name();
         }
         return $options;

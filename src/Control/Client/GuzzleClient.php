@@ -58,10 +58,10 @@ class GuzzleClient implements ControlClientContract
     {
         $response = $this->client->request($method, $uri, array_merge(
             [
-                'base_uri' => config('control.base_uri') . '/api/',
+                'base_uri' => config('control.base_uri').'/api/',
                 'headers' => [
                     'Accept' => 'application/json',
-                    'Authorization' => 'Bearer ' . $this->token->token()
+                    'Authorization' => 'Bearer '.$this->token->token()
                 ],
             ], $options
         ));

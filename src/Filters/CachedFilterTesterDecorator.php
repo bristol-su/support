@@ -26,16 +26,16 @@ class CachedFilterTesterDecorator implements FilterTesterContract
     
     public function evaluate(FilterInstanceContract $filterInstance, $model): bool
     {
-        return $this->cache->remember($this->getKey($filterInstance, $model), 7200, function () use ($filterInstance, $model) {
+        return $this->cache->remember($this->getKey($filterInstance, $model), 7200, function() use ($filterInstance, $model) {
             return $this->filterInstanceTester->evaluate($filterInstance, $model);
         });
     }
 
     private function getKey(FilterInstanceContract $filterInstance, $model)
     {
-        return CachedFilterTesterDecorator::class . 
-            'FilterInstance:' . $filterInstance->id . ';' .
-            'Model:' . get_class($model) . '::' . $model->id;
+        return CachedFilterTesterDecorator::class. 
+            'FilterInstance:'.$filterInstance->id.';'.
+            'Model:'.get_class($model).'::'.$model->id;
     }
 
 }

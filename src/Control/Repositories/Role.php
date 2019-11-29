@@ -42,7 +42,7 @@ class Role implements RoleContract
      */
     public function getById($id): RoleModel
     {
-        $role = $this->client->request('get', 'roles/' . $id);
+        $role = $this->client->request('get', 'roles/'.$id);
         return new \BristolSU\Support\Control\Models\Role($role);
     }
 
@@ -54,7 +54,7 @@ class Role implements RoleContract
      */
     public function allThroughUser(UserModel $user): Collection
     {
-        $roles = $this->client->request('get', 'students/' . $user->id() . '/roles');
+        $roles = $this->client->request('get', 'students/'.$user->id().'/roles');
         $modelRoles = new Collection;
         foreach ($roles as $role) {
             $modelRoles->push(new \BristolSU\Support\Control\Models\Role($role));
@@ -85,7 +85,7 @@ class Role implements RoleContract
      */
     public function allThroughGroup(GroupModel $group): Collection
     {
-        $roles = $this->client->request('get', 'groups/' . $group->id() . '/roles');
+        $roles = $this->client->request('get', 'groups/'.$group->id().'/roles');
         $modelRoles = new Collection;
         foreach ($roles as $role) {
             $modelRoles->push(new \BristolSU\Support\Control\Models\Role($role));
@@ -101,7 +101,7 @@ class Role implements RoleContract
      */
     public function allThroughPosition(PositionModel $position): Collection
     {
-        $roles = $this->client->request('get', 'positions/' . $position->id() . '/roles');
+        $roles = $this->client->request('get', 'positions/'.$position->id().'/roles');
         $modelRoles = new Collection;
         foreach ($roles as $role) {
             $modelRoles->push(new \BristolSU\Support\Control\Models\Role($role));

@@ -42,7 +42,7 @@ class Group implements GroupContract
     {
         $response = $this->client->request(
             'get',
-            'groups/' . $id
+            'groups/'.$id
         );
 
         return new \BristolSU\Support\Control\Models\Group($response);
@@ -58,11 +58,11 @@ class Group implements GroupContract
     {
         $response = $this->client->request(
             'get',
-            'group_tags/' . $groupTag->id() . '/groups'
+            'group_tags/'.$groupTag->id().'/groups'
         );
 
         $groups = [];
-        foreach($response as $group) {
+        foreach ($response as $group) {
             $groups[] = new \BristolSU\Support\Control\Models\Group($group);
         }
         return collect($groups);
@@ -81,7 +81,7 @@ class Group implements GroupContract
         );
 
         $groups = [];
-        foreach($response as $group) {
+        foreach ($response as $group) {
             $groups[] = new \BristolSU\Support\Control\Models\Group($group);
         }
         return collect($groups);
@@ -95,9 +95,9 @@ class Group implements GroupContract
      */
     public function allThroughUser(UserModel $user): Collection
     {
-        $groups = $this->client->request('get', 'students/' . $user->id() . '/groups');
+        $groups = $this->client->request('get', 'students/'.$user->id().'/groups');
         $modelGroups = new Collection;
-        foreach($groups as $group) {
+        foreach ($groups as $group) {
             $modelGroups->push(new \BristolSU\Support\Control\Models\Group($group));
         }
         return $modelGroups;

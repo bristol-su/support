@@ -31,12 +31,12 @@ class ModuleInstanceGroupOverridePermission extends Tester
     public function can(Permission $permission, ?User $user, ?Group $group, ?Role $role): ?bool
     {
         $moduleInstance = app(ModuleInstance::class);
-        if($group === null || $moduleInstance->exists === false) {
+        if ($group === null || $moduleInstance->exists === false) {
             return null;
         }
 
         $override = ModelPermission::group($group->id(), $permission->getAbility(), $moduleInstance->id())->first();
 
-        return ($override === null?null:$override->result);
+        return ($override === null ?null:$override->result);
     }
 }

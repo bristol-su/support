@@ -31,7 +31,7 @@ class   CachedClientDecorator implements Client
      */
     public function request($method, $uri, array $options = [])
     {
-        if($this->isCacheable($method)) {
+        if ($this->isCacheable($method)) {
             return $this->cache->remember($this->getKey($method, $uri, $options), 7200, function() use ($method, $uri, $options){
                 return $this->forwardCall($method, $uri, $options);
             });
@@ -41,7 +41,7 @@ class   CachedClientDecorator implements Client
 
     private function getKey($method, $uri, $options)
     {
-        return self::class . $method . $uri . json_encode($options);
+        return self::class.$method.$uri.json_encode($options);
     }
 
     private function isCacheable($method)

@@ -41,7 +41,7 @@ class User implements UserContract
      */
     public function getById(int $id): UserModelContract
     {
-        $user = $this->client->request('get', 'students/' . $id);
+        $user = $this->client->request('get', 'students/'.$id);
         return new UserModel($user);
     }
 
@@ -54,7 +54,7 @@ class User implements UserContract
     {
         $users = $this->client->request('get', 'students');
         $userModels = collect();
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $userModels->push(new UserModel($user));
         }
         return $userModels;
@@ -96,9 +96,9 @@ class User implements UserContract
      */
     public function allThroughRole(RoleModel $role): Collection
     {
-        $users = $this->client->request('get', 'roles/' . $role->id() . '/students');
+        $users = $this->client->request('get', 'roles/'.$role->id().'/students');
         $userModels = collect();
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $userModels->push(new UserModel($user));
         }
         return $userModels;
@@ -112,10 +112,10 @@ class User implements UserContract
      */
     public function allThroughGroup(GroupModel $group): Collection
     {
-        $users = $this->client->request('get', 'groups/' . $group->id() . '/students');
+        $users = $this->client->request('get', 'groups/'.$group->id().'/students');
         $userModels = collect();
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $userModels->push(new UserModel($user));
         }
-        return $userModels;    }
+        return $userModels; }
 }

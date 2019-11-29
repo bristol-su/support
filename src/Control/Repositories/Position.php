@@ -40,7 +40,7 @@ class Position implements PositionContract
     {
         $positions = $this->client->request('get', 'positions');
         $modelPositions = new Collection;
-        foreach($positions as $position) {
+        foreach ($positions as $position) {
             $modelPositions->push(new \BristolSU\Support\Control\Models\Position($position));
         }
         return $modelPositions;
@@ -54,7 +54,7 @@ class Position implements PositionContract
      */
     public function getById(int $id): PositionModel
     {
-        $response = $this->client->request('get', 'positions/' . $id);
+        $response = $this->client->request('get', 'positions/'.$id);
         return new \BristolSU\Support\Control\Models\Position($response);
     }
 }

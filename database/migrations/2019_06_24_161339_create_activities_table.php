@@ -13,7 +13,7 @@ class CreateActivitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('activities', function (Blueprint $table) {
+        Schema::create('activities', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->text('description');

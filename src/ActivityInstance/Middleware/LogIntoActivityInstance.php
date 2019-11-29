@@ -33,7 +33,7 @@ class LogIntoActivityInstance
      */
     public function handle(Request $request, \Closure $next)
     {
-        if($request->has('aiid')) {
+        if ($request->has('aiid')) {
             $activityInstance = $this->activityInstanceRepository->getById($request->input('aiid'));
             $this->activityInstanceResolver->setActivityInstance($activityInstance);
         }

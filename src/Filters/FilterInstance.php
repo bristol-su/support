@@ -50,7 +50,7 @@ class FilterInstance extends Model implements FilterInstanceContract
         return $this->settings;
     }
 
-    public function for()
+    public function for ()
     {
         $filter = app(FilterRepositoryContract::class)->getByAlias($this->alias());
         if ($filter instanceof UserFilter) {

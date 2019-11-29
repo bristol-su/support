@@ -25,7 +25,7 @@ class PassportServiceProvider extends ServiceProvider
 
     protected function deleteCookieOnLogout()
     {
-        Event::listen(Logout::class, function ($event) {
+        Event::listen(Logout::class, function($event) {
             if (Request::hasCookie(Passport::cookie()) && $event->user instanceof User) {
                 Cookie::queue(Cookie::forget(Passport::cookie()));
             }

@@ -27,7 +27,7 @@ class AuthenticationResourceIdGenerator implements ResourceIdGenerator
         } elseif ($resourceType === 'role') {
             $model = $this->authentication->getRole();
         }
-        if($model === null) {
+        if ($model === null) {
             throw new \Exception('Not logged into correct model');
         }
         return $model->id();

@@ -18,7 +18,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(ActionInstanceField::class, function (Faker $faker) {
+$factory->define(ActionInstanceField::class, function(Faker $faker) {
     return [
         'event_field' => $faker->word,
         'action_field' => $faker->text,

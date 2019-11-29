@@ -30,12 +30,12 @@ class SystemUserPermission extends Tester
      */
     public function can(Permission $permission, ?User $user, ?Group $group, ?Role $role): ?bool
     {
-        if($user === null || $permission->getType() !== 'global') {
+        if ($user === null || $permission->getType() !== 'global') {
             return null;
         }
         
         $override = ModelPermission::user($user->id(), $permission->getAbility())->first();
         
-        return ($override === null?null:$override->result);
+        return ($override === null ?null:$override->result);
     }
 }

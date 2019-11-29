@@ -26,7 +26,7 @@ class EventFired extends CompletionCondition
     {
         $options = ['event_type' => []];
         $events = $this->eventRepository->allForModule($this->moduleAlias());
-        foreach($events as $event) {
+        foreach ($events as $event) {
             $options['event_type'][$event['event']] = $event['name'];
         }
         return $options;

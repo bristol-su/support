@@ -54,7 +54,7 @@ class FilterRepository implements FilterRepositoryContract
         $classes = $this->manager->getAll();
 
         $filters = [];
-        foreach($classes as $class) {
+        foreach ($classes as $class) {
             $filters[] = $this->filterFactory->createFilterFromClassName($class);
         }
         return $filters;

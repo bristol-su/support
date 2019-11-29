@@ -13,7 +13,7 @@ class CreateLogicsTable extends Migration
      */
     public function up()
     {
-        Schema::create('logics', function (Blueprint $table) {
+        Schema::create('logics', function(Blueprint $table) {
             $table->increments('id');
             $table->string('name');
             $table->text('description');

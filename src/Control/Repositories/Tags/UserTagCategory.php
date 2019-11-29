@@ -42,7 +42,7 @@ class UserTagCategory implements UserTagCategoryContract
     {
         $userTagCategories = [];
         $response = $this->client->request('get', 'user_tag_category');
-        foreach($response as $userTagCategory) {
+        foreach ($response as $userTagCategory) {
             $userTagCategories[] = new UserTagCategoryModel($userTagCategory);
         }
         return collect($userTagCategories);
@@ -56,7 +56,7 @@ class UserTagCategory implements UserTagCategoryContract
      */
     public function allThroughTag(UserTagModel $userTag): UserTagCategoryModelContract
     {
-        $response = $this->client->request('get', 'user_tags/' . $userTag->id() . '/user_tag_category');
+        $response = $this->client->request('get', 'user_tags/'.$userTag->id().'/user_tag_category');
         return new \BristolSU\Support\Control\Models\Tags\UserTagCategory($response);    
     }
 
@@ -79,7 +79,7 @@ class UserTagCategory implements UserTagCategoryContract
      */
     public function getById(int $id): UserTagCategoryModelContract
     {
-        $response = $this->client->request('get', 'user_tag_category/' . $id);
+        $response = $this->client->request('get', 'user_tag_category/'.$id);
         return new \BristolSU\Support\Control\Models\Tags\UserTagCategory($response);
     }
 }

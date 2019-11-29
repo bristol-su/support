@@ -42,7 +42,7 @@ class PositionTagCategory implements PositionTagCategoryContract
     {
         $positionTagCategories = [];
         $response = $this->client->request('get', 'position_tag_category');
-        foreach($response as $positionTagCategory) {
+        foreach ($response as $positionTagCategory) {
             $positionTagCategories[] = new PositionTagCategoryModel($positionTagCategory);
         }
         return collect($positionTagCategories);
@@ -56,7 +56,7 @@ class PositionTagCategory implements PositionTagCategoryContract
      */
     public function allThroughTag(PositionTagModel $positionTag): PositionTagCategoryModelContract
     {
-        $response = $this->client->request('get', 'position_tags/' . $positionTag->id() . '/position_tag_category');
+        $response = $this->client->request('get', 'position_tags/'.$positionTag->id().'/position_tag_category');
         return new \BristolSU\Support\Control\Models\Tags\PositionTagCategory($response);    
     }
 
@@ -79,7 +79,7 @@ class PositionTagCategory implements PositionTagCategoryContract
      */
     public function getById(int $id): PositionTagCategoryModelContract
     {
-        $response = $this->client->request('get', 'position_tag_category/' . $id);
+        $response = $this->client->request('get', 'position_tag_category/'.$id);
         return new \BristolSU\Support\Control\Models\Tags\PositionTagCategory($response);
     }
 }

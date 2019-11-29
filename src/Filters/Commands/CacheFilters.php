@@ -30,9 +30,9 @@ class CacheFilters extends Command
     protected $description = 'Caches all filter results for increased speed in page load';
 
     public function handle(FilterInstanceRepository $filterInstanceRepository,
-                           UserRepository $userRepository,
-                           GroupRepository $groupRepository,
-                           RoleRepository $roleRepository)
+                            UserRepository $userRepository,
+                            GroupRepository $groupRepository,
+                            RoleRepository $roleRepository)
     {
         $this->info('Caching filters');
 
@@ -59,7 +59,7 @@ class CacheFilters extends Command
 
     private function cacheFilter($filterInstance, Collection $models)
     {
-        foreach($models as $model) {
+        foreach ($models as $model) {
             dispatch(new CacheFilter($filterInstance, $model));
         }
     }

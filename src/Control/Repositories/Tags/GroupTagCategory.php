@@ -42,7 +42,7 @@ class GroupTagCategory implements GroupTagCategoryContract
     {
         $groupTagCategories = [];
         $response = $this->client->request('get', 'group_tag_category');
-        foreach($response as $groupTagCategory) {
+        foreach ($response as $groupTagCategory) {
             $groupTagCategories[] = new GroupTagCategoryModel($groupTagCategory);
         }
         return collect($groupTagCategories);
@@ -56,7 +56,7 @@ class GroupTagCategory implements GroupTagCategoryContract
      */
     public function allThroughTag(GroupTagModel $groupTag): GroupTagCategoryModelContract
     {
-        $response = $this->client->request('get', 'group_tags/' . $groupTag->id() . '/group_tag_category');
+        $response = $this->client->request('get', 'group_tags/'.$groupTag->id().'/group_tag_category');
         return new \BristolSU\Support\Control\Models\Tags\GroupTagCategory($response);    
     }
 
@@ -79,7 +79,7 @@ class GroupTagCategory implements GroupTagCategoryContract
      */
     public function getById(int $id): GroupTagCategoryModelContract
     {
-        $response = $this->client->request('get', 'group_tag_category/' . $id);
+        $response = $this->client->request('get', 'group_tag_category/'.$id);
         return new \BristolSU\Support\Control\Models\Tags\GroupTagCategory($response);
     }
 }

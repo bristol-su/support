@@ -21,7 +21,7 @@ class ModuleManager implements ModuleManagerContract
      */
     public function register($alias)
     {
-        if(!$this->exists($alias)) {
+        if (!$this->exists($alias)) {
             $this->aliases[] = $alias;
         }
     }
