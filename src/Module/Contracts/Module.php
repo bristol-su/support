@@ -25,12 +25,23 @@ interface Module extends Arrayable, Jsonable
      * @param string $name
      */
     public function setName(string $name): void;
-
+    
     /**
      * @return string
      */
     public function getName(): string;
 
+
+    /**
+     * @param string $completionConditions
+     */
+    public function setCompletionConditions(array $completionConditions): void;
+
+    /**
+     * @return string
+     */
+    public function getCompletionConditions(): array;
+    
     /**
      * @param string $description
      */

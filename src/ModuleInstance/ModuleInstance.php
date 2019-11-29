@@ -33,7 +33,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         'mandatory',
         'module_instance_settings_id',
         'module_instance_permissions_id',
-        'completion_instance_id'
+        'completion_condition_instance_id'
     ];
 
     /**

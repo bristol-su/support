@@ -4,9 +4,6 @@
 namespace BristolSU\Support\Completion;
 
 
-use BristolSU\Support\Completion\Contracts\Completion\GroupCompletionCondition;
-use BristolSU\Support\Completion\Contracts\Completion\RoleCompletionCondition;
-use BristolSU\Support\Completion\Contracts\Completion\UserCompletionCondition;
 use BristolSU\Support\Completion\Contracts\CompletionConditionInstance as CompletionConditionInstanceContract;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Database\Eloquent\Model;
@@ -22,7 +19,7 @@ class CompletionConditionInstance extends Model implements CompletionConditionIn
      * @var array
      */
     protected $fillable = [
-        'alias', 'name', 'settings'
+        'alias', 'name', 'settings', 'description'
     ];
 
     /**

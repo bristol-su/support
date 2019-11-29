@@ -30,6 +30,12 @@ interface Evaluation extends Arrayable
     public function setActive(bool $active);
 
     /**
+     * @param bool $complete
+     * @return mixed
+     */
+    public function setComplete(bool $complete);
+
+    /**
      * @return bool
      */
     public function visible(): bool;
@@ -44,4 +50,8 @@ interface Evaluation extends Arrayable
      */
     public function active(): bool;
 
+    /**
+     * @return bool
+     */
+    public function complete(): bool;
 }

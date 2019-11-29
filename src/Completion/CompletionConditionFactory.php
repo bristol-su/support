@@ -4,6 +4,7 @@
 namespace BristolSU\Support\Completion;
 
 
+use BristolSU\Support\Completion\Contracts\CompletionCondition;
 use BristolSU\Support\Completion\Contracts\CompletionConditionFactory as CompletionConditionFactoryContract;
 use Illuminate\Contracts\Container\Container;
 
@@ -32,8 +33,8 @@ class CompletionConditionFactory implements CompletionConditionFactoryContract
      * @return mixed
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function createCompletionConditionFromClassName($className)
+    public function createCompletionConditionFromClassName($className, $moduleAlias): CompletionCondition
     {
-        return $this->container->make($className);
+        return $this->container->make($className, ['moduleAlias' => $moduleAlias]);
     }
 }

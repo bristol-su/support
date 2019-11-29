@@ -6,14 +6,14 @@ namespace BristolSU\Support\ModuleInstance\Evaluator;
 
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
-use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ActivityEvaluator as ActivityEvaluatorContract;
+use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ActivityInstanceEvaluator as ActivityEvaluatorContract;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator as ModuleInstanceEvaluatorContract;
 
 /**
  * Class ActivityEvaluator
  * @package BristolSU\Support\ModuleInstance\Evaluator
  */
-class ActivityEvaluator implements ActivityEvaluatorContract
+class ActivityInstanceEvaluator implements ActivityEvaluatorContract
 {
 
     /**

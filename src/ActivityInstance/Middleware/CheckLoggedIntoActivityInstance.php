@@ -29,39 +29,24 @@ class CheckLoggedIntoActivityInstance
         $this->repository = $repository;
     }
 
+    /**
+     * Check we're logged into an activity instance
+     * 
+     * @param Request $request
+     * @param \Closure $next
+     * @return mixed
+     * @throws NotInActivityInstanceException
+     */
     public function handle(Request $request, \Closure $next)
     {
         try {
             $this->activityInstanceResolver->getActivityInstance();
-        } catch (NotInActivityInstanceException $exception) {
-            $activity = $request->route('activity_slug');
-            $resourceType = $activity->activity_for;
-            $resourceId = $this->resourceId($resourceType);
-            try {
-                $activityInstance = $this->repository->firstFor($activity->id, $resourceType, $resourceId);
-            } catch (ModelNotFoundException $e) {
-                $activityInstance = $this->repository->create($activity->id,$resourceType,$resourceId,$activity->name,
-                    'Default activity instance for activity ' . $activity->name . ' (#' . $activity->id . ')');
-            }
-            $this->activityInstanceResolver->setActivityInstance($activityInstance);
+        } catch (\Exception $exception) {
+            // We're not currently in an activity instance, so we should throw an exception
+            // The exception handler should gracefully handle this exception
+            throw new NotInActivityInstanceException;
         }
         return $next($request);
-    }
-
-    private function resourceId($resourceType)
-    {
-        $authentication = app()->make(Authentication::class);
-        if ($resourceType === 'user') {
-            $model = $authentication->getUser();
-        } elseif ($resourceType === 'group') {
-            $model = $authentication->getGroup();
-        } elseif ($resourceType === 'role') {
-            $model = $authentication->getRole();
-        }
-        if(!$model) {
-            throw new \Exception(sprintf('You must be logged in as a %s', $resourceType), 403);
-        }
-        return $model->id;
     }
 
 }

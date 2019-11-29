@@ -13,14 +13,26 @@ use Illuminate\Support\ServiceProvider;
 class CompletionConditionServiceProvider extends ServiceProvider
 {
 
+    protected $completionConditions = [
+//        'portalsystem_event_fired' => EventFired::class
+    ];
+    
     public function register()
     {
         $this->app->bind(CompletionConditionFactoryContract::class, CompletionConditionFactory::class);
         $this->app->bind(CompletionConditionInstanceContract::class, CompletionConditionInstance::class);
         $this->app->bind(CompletionConditionInstanceRepositoryContract::class, CompletionConditionInstanceRepository::class);
-        $this->app->bind(CompletionConditionManagerContract::class, CompletionConditionManager::class);
+        $this->app->singleton(CompletionConditionManagerContract::class, CompletionConditionManager::class);
         $this->app->bind(CompletionConditionRepositoryContract::class, CompletionConditionRepository::class);
         $this->app->bind(CompletionConditionTesterContract::class, CompletionConditionTester::class);
     }
+
+    public function boot()
+    {
+        foreach($this->completionConditions as $alias => $class) {
+            app(CompletionConditionManagerContract::class)->registerGlobalCondition($alias, $class);
+        }
+    }
+
 
 }

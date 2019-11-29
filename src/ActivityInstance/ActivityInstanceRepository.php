@@ -3,6 +3,7 @@
 namespace BristolSU\Support\ActivityInstance;
 
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository as ActivityInstanceRepositoryContract;
+use Illuminate\Support\Collection;
 
 class ActivityInstanceRepository implements ActivityInstanceRepositoryContract
 {
@@ -30,5 +31,14 @@ class ActivityInstanceRepository implements ActivityInstanceRepositoryContract
     public function getById($id): ActivityInstance
     {
         return ActivityInstance::findOrFail($id);
+    }
+
+    public function allFor(int $activityId, string $resourceType, int $resourceId): Collection
+    {
+        return ActivityInstance::where([
+            'activity_id' => $activityId,
+            'resource_type' => $resourceType,
+            'resource_id' => $resourceId
+        ])->get();
     }
 }

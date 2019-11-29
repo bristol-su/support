@@ -19,10 +19,17 @@ class CheckActivityInstanceForActivity
         $this->activityInstanceResolver = $activityInstanceResolver;
     }
 
+    /**
+     * Check the logged in activity instance is for the relevant activity
+     * 
+     * @param Request $request
+     * @param \Closure $next
+     * @return mixed
+     * @throws NotInActivityInstanceException
+     */
     public function handle(Request $request, \Closure $next)
     {
         $activityInstance = $this->activityInstanceResolver->getActivityInstance();
-        
         if($activityInstance->activity_id !== $request->route('activity_slug')->id) {
             throw new NotInActivityInstanceException('Not logged into the correct activity instance for the activity');
         }

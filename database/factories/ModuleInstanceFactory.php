@@ -40,6 +40,7 @@ $factory->define(ModuleInstance::class, function (Faker $faker) {
         },
         'module_instance_permissions_id' => function() {
             return factory(ModuleInstancePermissions::class)->create()->id;
-        }
+        },
+        'completion_condition_instance_id' => null
     ];
 });

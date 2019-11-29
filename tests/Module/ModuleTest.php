@@ -62,6 +62,15 @@ class ModuleTest extends TestCase
     }
 
     /** @test */
+    public function completion_conditions_have_setters_and_getters(){
+        $module = new Module;
+        $module->setCompletionConditions([
+            'cc1', 'cc2'
+        ]);
+        $this->assertEquals(['cc1', 'cc2'], $module->getCompletionConditions());
+    }
+
+    /** @test */
     public function toArray_returns_an_array_of_parameters(){
         $module = new Module;
         $module->setAlias('alias1');
@@ -70,6 +79,7 @@ class ModuleTest extends TestCase
         $module->setPermissions(['permission1']);
         $module->setSettings(['setting1']);
         $module->setTriggers(['trigger1']);
+        $module->setCompletionConditions(['cc1']);
         
         $this->assertEquals([
             'alias' => 'alias1',
@@ -78,6 +88,7 @@ class ModuleTest extends TestCase
             'permissions' => ['permission1'],
             'settings' => ['setting1'],
             'triggers' => ['trigger1'],
+            'completionConditions' => ['cc1']
         ], $module->toArray());
     }
 
@@ -90,6 +101,7 @@ class ModuleTest extends TestCase
         $module->setPermissions(['permission1']);
         $module->setSettings(['setting1']);
         $module->setTriggers(['trigger1']);
+        $module->setCompletionConditions(['cc1']);
 
         $this->assertEquals(json_encode([
             'alias' => 'alias1',
@@ -98,6 +110,7 @@ class ModuleTest extends TestCase
             'permissions' => ['permission1'],
             'settings' => ['setting1'],
             'triggers' => ['trigger1'],
+            'completionConditions' => ['cc1']
         ]), $module->toJson());
     }
 
@@ -110,6 +123,7 @@ class ModuleTest extends TestCase
         $module->setPermissions(['permission1']);
         $module->setSettings(['setting1']);
         $module->setTriggers(['trigger1']);
+        $module->setCompletionConditions(['cc1']);
 
         $this->assertEquals(json_encode([
             'alias' => 'alias1',
@@ -118,6 +132,7 @@ class ModuleTest extends TestCase
             'permissions' => ['permission1'],
             'settings' => ['setting1'],
             'triggers' => ['trigger1'],
+            'completionConditions' => ['cc1']
         ]), (string)$module);
     }
 }

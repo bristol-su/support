@@ -22,6 +22,7 @@ class ModuleFactoryTest extends TestCase
         $builder->setTriggers()->shouldBeCalled();
         $builder->setPermissions()->shouldBeCalled();
         $builder->setSettings()->shouldBeCalled();
+        $builder->setCompletionConditions()->shouldBeCalled();
         $builder->getModule()->shouldBeCalled()->willReturn($module);
     
         $factory = new ModuleFactory($builder->reveal());

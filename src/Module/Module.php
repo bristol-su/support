@@ -37,6 +37,11 @@ class Module implements ModuleContract
     protected $triggers;
 
     /**
+     * @var array
+     */
+    protected $completionConditions;
+    
+    /**
      * @return false|string
      */
     public function __toString()
@@ -64,7 +69,8 @@ class Module implements ModuleContract
             'description' => $this->getDescription(),
             'permissions' => $this->getPermissions(),
             'settings' => $this->getSettings(),
-            'triggers' => $this->getTriggers()
+            'triggers' => $this->getTriggers(),
+            'completionConditions' => $this->getCompletionConditions()
         ];
     }
 
@@ -164,4 +170,19 @@ class Module implements ModuleContract
         $this->triggers = $triggers;
     }
 
+    /**
+     * @param string $completionConditions
+     */
+    public function setCompletionConditions(array $completionConditions): void
+    {
+        $this->completionConditions = $completionConditions;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCompletionConditions(): array
+    {
+        return $this->completionConditions;
+    }
 }

@@ -16,6 +16,13 @@ class CompletionConditionManager implements CompletionConditionManagerContract
      */
     protected $conditions = [];
 
+    protected $global = [];
+
+    public function registerGlobalCondition($alias, $class)
+    {
+        $this->global[$alias] = $class;
+    }
+    
     /**
      * @param $alias
      * @param $class
@@ -34,7 +41,7 @@ class CompletionConditionManager implements CompletionConditionManagerContract
     public function getForModule($moduleAlias)
     {
         return (isset($this->conditions[$moduleAlias])?
-            $this->conditions[$moduleAlias]:[]);
+            array_merge($this->conditions[$moduleAlias], $this->global):[]);
     }
 
     /**
@@ -44,6 +51,9 @@ class CompletionConditionManager implements CompletionConditionManagerContract
      */
     public function getClassFromAlias($moduleAlias, $alias)
     {
+        if(isset($this->global[$alias])) {
+            return $this->global[$alias];
+        }
         if(!isset($this->conditions[$moduleAlias]) || !isset($this->conditions[$moduleAlias][$alias])) {
             throw new \Exception(sprintf('Completion Condition alias [%s] not found for module [%s]', $alias, $moduleAlias));
         }

@@ -2,6 +2,8 @@
 
 namespace BristolSU\Support\Tests\Http\Middleware;
 
+use BristolSU\Support\ActivityInstance\ActivityInstance;
+use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Http\Middleware\InjectJavascriptVariables;
 use BristolSU\Support\Tests\TestCase;
@@ -15,6 +17,8 @@ class InjectJavascriptVariablesTest extends TestCase
     /** @test */
     public function it_sets_the_module_alias_from_the_request(){
         $authentication = $this->prophesize(Authentication::class);
+        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
+        $activityInstanceResolver->getActivityInstance()->willReturn(factory(ActivityInstance::class)->create());
         $request = $this->prophesize(Request::class);
         $request->route('module_instance_slug')->shouldBeCalled()->willReturn(new class {
             public $alias = 'testalias';
@@ -32,13 +36,15 @@ class InjectJavascriptVariablesTest extends TestCase
         }))->shouldBeCalled();
         $this->instance('JavaScript', $javascript->reveal());
         
-        $injector = new InjectJavascriptVariables($authentication->reveal());
+        $injector = new InjectJavascriptVariables($authentication->reveal(), $activityInstanceResolver->reveal());
         $injector->handle($request->reveal(), function($request) {});
     }
 
     /** @test */
     public function it_sets_the_activity_slug_from_the_request(){
         $authentication = $this->prophesize(Authentication::class);
+        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
+        $activityInstanceResolver->getActivityInstance()->willReturn(factory(ActivityInstance::class)->create());
         $request = $this->prophesize(Request::class);
         $request->route('module_instance_slug')->shouldBeCalled()->willReturn(new class {
             public $alias = 'testalias';
@@ -55,13 +61,15 @@ class InjectJavascriptVariablesTest extends TestCase
         }))->shouldBeCalled();
         $this->instance('JavaScript', $javascript->reveal());
 
-        $injector = new InjectJavascriptVariables($authentication->reveal());
+        $injector = new InjectJavascriptVariables($authentication->reveal(), $activityInstanceResolver->reveal());
         $injector->handle($request->reveal(), function($request) {});
     }
 
     /** @test */
     public function it_sets_the_module_instance_slug_from_the_request(){
         $authentication = $this->prophesize(Authentication::class);
+        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
+        $activityInstanceResolver->getActivityInstance()->willReturn(factory(ActivityInstance::class)->create());
         $request = $this->prophesize(Request::class);
         $request->route('module_instance_slug')->shouldBeCalled()->willReturn(new class {
             public $alias = 'testalias';
@@ -78,13 +86,15 @@ class InjectJavascriptVariablesTest extends TestCase
         }))->shouldBeCalled();
         $this->instance('JavaScript', $javascript->reveal());
 
-        $injector = new InjectJavascriptVariables($authentication->reveal());
+        $injector = new InjectJavascriptVariables($authentication->reveal(), $activityInstanceResolver->reveal());
         $injector->handle($request->reveal(), function($request) {});
     }
 
 
     /** @test */
     public function it_sets_the_user_from_authentication(){
+        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
+        $activityInstanceResolver->getActivityInstance()->willReturn(factory(ActivityInstance::class)->create());
         $authentication = $this->prophesize(Authentication::class);
         $authentication->getUser()->shouldBeCalled()->willReturn('user1');
         $authentication->getGroup()->shouldBeCalled()->willReturn('group1');
@@ -105,12 +115,14 @@ class InjectJavascriptVariablesTest extends TestCase
         }))->shouldBeCalled();
         $this->instance('JavaScript', $javascript->reveal());
 
-        $injector = new InjectJavascriptVariables($authentication->reveal());
+        $injector = new InjectJavascriptVariables($authentication->reveal(), $activityInstanceResolver->reveal());
         $injector->handle($request->reveal(), function($request) {});
     }
 
     /** @test */
     public function it_sets_the_group_from_authentication(){
+        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
+        $activityInstanceResolver->getActivityInstance()->willReturn(factory(ActivityInstance::class)->create());
         $authentication = $this->prophesize(Authentication::class);
         $authentication->getUser()->shouldBeCalled()->willReturn('user1');
         $authentication->getGroup()->shouldBeCalled()->willReturn('group1');
@@ -132,12 +144,14 @@ class InjectJavascriptVariablesTest extends TestCase
         }))->shouldBeCalled();
         $this->instance('JavaScript', $javascript->reveal());
 
-        $injector = new InjectJavascriptVariables($authentication->reveal());
+        $injector = new InjectJavascriptVariables($authentication->reveal(), $activityInstanceResolver->reveal());
         $injector->handle($request->reveal(), function($request) {});
     }
 
     /** @test */
     public function it_sets_the_role_from_authentication(){
+        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
+        $activityInstanceResolver->getActivityInstance()->willReturn(factory(ActivityInstance::class)->create());
         $authentication = $this->prophesize(Authentication::class);
         $authentication->getUser()->shouldBeCalled()->willReturn('user1');
         $authentication->getGroup()->shouldBeCalled()->willReturn('group1');
@@ -159,12 +173,14 @@ class InjectJavascriptVariablesTest extends TestCase
         }))->shouldBeCalled();
         $this->instance('JavaScript', $javascript->reveal());
 
-        $injector = new InjectJavascriptVariables($authentication->reveal());
+        $injector = new InjectJavascriptVariables($authentication->reveal(), $activityInstanceResolver->reveal());
         $injector->handle($request->reveal(), function($request) {});
     }
 
     /** @test */
     public function it_sets_a_or_p_to_a_if_administrator(){
+        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
+        $activityInstanceResolver->getActivityInstance()->willReturn(factory(ActivityInstance::class)->create());
         $authentication = $this->prophesize(Authentication::class);
         $request = $this->prophesize(Request::class);
         $request->route('module_instance_slug')->shouldBeCalled()->willReturn(new class {
@@ -182,12 +198,14 @@ class InjectJavascriptVariablesTest extends TestCase
         }))->shouldBeCalled();
         $this->instance('JavaScript', $javascript->reveal());
 
-        $injector = new InjectJavascriptVariables($authentication->reveal());
+        $injector = new InjectJavascriptVariables($authentication->reveal(), $activityInstanceResolver->reveal());
         $injector->handle($request->reveal(), function($request) {});
     }
 
     /** @test */
     public function it_sets_a_or_p_to_p_if_not_administrator(){
+        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
+        $activityInstanceResolver->getActivityInstance()->willReturn(factory(ActivityInstance::class)->create());
         $authentication = $this->prophesize(Authentication::class);
         $request = $this->prophesize(Request::class);
         $request->route('module_instance_slug')->shouldBeCalled()->willReturn(new class {
@@ -205,7 +223,7 @@ class InjectJavascriptVariablesTest extends TestCase
         }))->shouldBeCalled();
         $this->instance('JavaScript', $javascript->reveal());
 
-        $injector = new InjectJavascriptVariables($authentication->reveal());
+        $injector = new InjectJavascriptVariables($authentication->reveal(), $activityInstanceResolver->reveal());
         $injector->handle($request->reveal(), function($request) {});
     }
     

@@ -11,7 +11,7 @@ class ActivityInstance extends Model implements Authenticatable
 {
     protected $guarded = [];
 
-    protected $appends = ['run'];
+    protected $appends = ['run_number'];
     
     public function getRunNumberAttribute()
     {

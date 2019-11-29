@@ -41,6 +41,7 @@ class ModuleFactory implements ModuleFactoryAlias
         $this->moduleBuilder->setPermissions();
         $this->moduleBuilder->setSettings();
         $this->moduleBuilder->setTriggers();
+        $this->moduleBuilder->setCompletionConditions();
         return $this->moduleBuilder->getModule();
     }
 }

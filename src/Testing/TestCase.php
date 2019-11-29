@@ -4,6 +4,7 @@ namespace BristolSU\Support\Testing;
 
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
+use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use BristolSU\Support\Control\Contracts\Client\Client;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
@@ -86,13 +87,16 @@ abstract class TestCase extends BaseTestCase
         if ($this->alias() !== 'support') {
             $this->activity = factory(Activity::class)->create(['slug' => 'act']);
             $this->moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'mod', 'activity_id' => $this->activity->id, 'alias' => $this->alias()]);
-            $this->activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $this->activity->id, 'resource_id' => $this->databaseUser->control_id, 'resource_type' => 'user']);
             $this->databaseUser = factory(DatabaseUser::class)->create();
+            $this->activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $this->activity->id, 'resource_id' => $this->databaseUser->control_id, 'resource_type' => 'user']);
             $this->user = new User(['id' => $this->databaseUser->control_id]);
             $this->group = new Group(['id' => 3]);
             $this->role = new Role(['id' => 5]);
             $this->app->instance(Activity::class, $this->activity);
             $this->app->instance(ActivityInstance::class, $this->activityInstance);
+            $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
+            $activityInstanceResolver->getActivityInstance()->willReturn($this->activityInstance);
+            $this->app->instance(ActivityInstanceResolver::class, $activityInstanceResolver->reveal());
             $this->app->instance(ModuleInstance::class, $this->moduleInstance);
         }
 

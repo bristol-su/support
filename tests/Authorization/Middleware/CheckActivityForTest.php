@@ -23,9 +23,13 @@ class CheckActivityForTest extends TestCase
         $this->expectException(ActivityRequiresUser::class);
         $authentication = $this->prophesize(Authentication::class);
         $user = new User(['id' => 1]);
+        $group = new Group(['id' => 5]);
+        $role = new Role(['id' => 10]);
+        $authentication->getUser()->willReturn($user);
+        $authentication->getGroup()->willReturn($group);
+        $authentication->getRole()->willReturn($role);
         $logic = factory(Logic::class)->create();
         $this->createLogicTester([], [$logic], $user, null, null);
-        $authentication->getUser()->willReturn($user);
         $request = $this->prophesize(Request::class);
         $request->route('activity_slug')->willReturn(
             factory(Activity::class)->create(['activity_for' => 'user', 'for_logic' => $logic->id])
@@ -40,12 +44,14 @@ class CheckActivityForTest extends TestCase
     {
         $this->expectException(ActivityRequiresGroup::class);
         $authentication = $this->prophesize(Authentication::class);
-        $user = new User(['id' => 2]);
-        $group = new Group(['id' => 1]);
+        $user = new User(['id' => 1]);
+        $group = new Group(['id' => 5]);
+        $role = new Role(['id' => 10]);
+        $authentication->getUser()->willReturn($user);
+        $authentication->getGroup()->willReturn($group);
+        $authentication->getRole()->willReturn($role);
         $logic = factory(Logic::class)->create();
         $this->createLogicTester([], [$logic], $user, $group, null);
-        $authentication->getGroup()->willReturn($group);
-        $authentication->getUser()->willReturn($user);
         $request = $this->prophesize(Request::class);
         $request->route('activity_slug')->willReturn(
             factory(Activity::class)->create(['activity_for' => 'group', 'for_logic' => $logic->id])
@@ -85,7 +91,13 @@ class CheckActivityForTest extends TestCase
             'activity_for' => 'user'
         ]);
         $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->willReturn(new User(['id' => 1]));
+        $user = new User(['id' => 1]);
+        $group = new Group(['id' => 5]);
+        $role = new Role(['id' => 10]);
+        $authentication->getUser()->willReturn($user);
+        $authentication->getGroup()->willReturn($group);
+        $authentication->getRole()->willReturn($role);
+        $this->createLogicTester([$activity->forLogic], [], $user, $group, $role);
         $request = $this->prophesize(Request::class);
         $request->route('activity_slug')->willReturn($activity);
         $request->route('test_callback_is_called')->shouldBeCalled()->willReturn(true);

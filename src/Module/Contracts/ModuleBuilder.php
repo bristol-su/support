@@ -26,6 +26,8 @@ interface ModuleBuilder
 
     public function setTriggers();
 
+    public function setCompletionConditions();
+    
     /**
      * @return Module
      */

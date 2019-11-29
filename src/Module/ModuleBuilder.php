@@ -4,6 +4,8 @@ namespace BristolSU\Support\Module;
 
 use BristolSU\Support\Action\Contracts\Events\EventRepository;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
+use BristolSU\Support\Completion\Contracts\CompletionCondition;
+use BristolSU\Support\Completion\Contracts\CompletionConditionRepository;
 use BristolSU\Support\Module\Contracts\ModuleBuilder as ModuleBuilderContract;
 use \BristolSU\Support\Module\Contracts\Module as ModuleContract;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository;
@@ -39,6 +41,10 @@ class ModuleBuilder implements ModuleBuilderContract
      * @var EventRepository
      */
     private $eventRepository;
+    /**
+     * @var CompletionConditionRepository
+     */
+    private $completionConditionRepository;
 
     /**
      * ModuleBuilder constructor.
@@ -50,12 +56,14 @@ class ModuleBuilder implements ModuleBuilderContract
     public function __construct(ModuleContract $module,
                                 PermissionRepository $permissionRepository,
                                 Repository $config,
-                                EventRepository $eventRepository)
+                                EventRepository $eventRepository,
+                                CompletionConditionRepository $completionConditionRepository)
     {
         $this->module = $module;
         $this->permissionRepository = $permissionRepository;
         $this->config = $config;
         $this->eventRepository = $eventRepository;
+        $this->completionConditionRepository = $completionConditionRepository;
     }
 
     /**
@@ -130,4 +138,17 @@ class ModuleBuilder implements ModuleBuilderContract
         return $this->module;
     }
 
+    public function setCompletionConditions()
+    {
+        $this->module->setCompletionConditions(
+            collect($this->completionConditionRepository->getAllForModule($this->getAlias()))->map(function(CompletionCondition $condition) {
+                return [
+                    'name' => $condition->name(),
+                    'description' => $condition->description(),
+                    'options' => $condition->options(),
+                    'alias' => $condition->alias()
+                ];
+            })->toArray()
+        );
+    }
 }

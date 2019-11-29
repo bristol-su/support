@@ -11,7 +11,7 @@ use BristolSU\Support\ActivityInstance\ActivityInstance;
  * Interface ActivityEvaluator
  * @package BristolSU\Support\ModuleInstance\Contracts\Evaluator
  */
-interface ActivityEvaluator
+interface ActivityInstanceEvaluator
 {
 
     /**

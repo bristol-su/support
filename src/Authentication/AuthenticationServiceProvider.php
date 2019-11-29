@@ -6,6 +6,7 @@ use BristolSU\Support\Authentication\AuthenticationProvider\GroupProvider;
 use BristolSU\Support\Authentication\AuthenticationProvider\RoleProvider;
 use BristolSU\Support\Authentication\AuthenticationProvider\UserProvider;
 use BristolSU\Support\Authentication\Contracts\Authentication;
+use BristolSU\Support\Authentication\Contracts\ResourceIdGenerator;
 use BristolSU\Support\Authentication\Contracts\UserAuthentication;
 use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
@@ -25,6 +26,7 @@ class AuthenticationServiceProvider extends ServiceProvider
     public function register()
     {
         $this->app->call([$this, 'registerAuthentication']);
+        $this->app->bind(ResourceIdGenerator::class, AuthenticationResourceIdGenerator::class);
     }
 
     public function boot(Request $request)

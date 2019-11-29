@@ -43,7 +43,7 @@ class CompletionConditionRepository implements CompletionConditionRepositoryCont
     public function getByAlias($moduleAlias, $alias): CompletionCondition
     {
         $class = $this->manager->getClassFromAlias($moduleAlias, $alias);
-        return $this->completionConditionFactory->createCompletionConditionFromClassName($class);
+        return $this->completionConditionFactory->createCompletionConditionFromClassName($class, $moduleAlias);
     }
 
     /**
@@ -55,7 +55,7 @@ class CompletionConditionRepository implements CompletionConditionRepositoryCont
 
         $completionConditions = [];
         foreach($classes as $class) {
-            $completionConditions[] = $this->completionConditionFactory->createCompletionConditionFromClassName($class);
+            $completionConditions[] = $this->completionConditionFactory->createCompletionConditionFromClassName($class, $moduleAlias);
         }
         return $completionConditions;
     }

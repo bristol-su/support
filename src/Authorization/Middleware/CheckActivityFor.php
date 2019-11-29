@@ -40,14 +40,16 @@ class CheckActivityFor
      */
     public function handle(Request $request, Closure $next)
     {
+        // TODO Is this working? Is it right to pass all the things to the logic? I think so!
+        // Change to 'not authenricated for module' exception?
         $activity = $request->route('activity_slug');
         $logic = $activity->forLogic;
-        if ($activity->activity_for === 'user' && !LogicTester::evaluate($logic, $this->authentication->getUser())) {
+        if ($activity->activity_for === 'user' && !LogicTester::evaluate($logic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole())) {
             throw new ActivityRequiresUser(
                 'Activity requires a user to be logged in,', 403, null, $activity
             );
         }
-        if ($activity->activity_for === 'group' && !LogicTester::evaluate($logic, $this->authentication->getUser(), $this->authentication->getGroup())) {
+        if ($activity->activity_for === 'group' && !LogicTester::evaluate($logic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole())) {
             throw new ActivityRequiresGroup(
                 'Activity requires a group to be logged in,', 403, null, $activity
             );
