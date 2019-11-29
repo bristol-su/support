@@ -15,7 +15,17 @@ class ActivityInstance extends Model implements Authenticatable
     
     public function getRunNumberAttribute()
     {
-        return 1;
+        $activityInstances = static::newQuery()
+            ->where('activity_id', $this->activity_id)
+            ->where('resource_type', $this->resource_type)
+            ->where('resource_id', $this->resource_id)
+            ->orderBy('created_at')
+            ->get();
+        for($i=0;$i<=$activityInstances->count();$i++) {
+            if($this->is($activityInstances->offsetGet($i))) {
+                return $i+1;
+            }
+        }
     }
 
     public function activity()

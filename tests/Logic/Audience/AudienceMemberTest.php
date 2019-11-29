@@ -3,8 +3,10 @@
 namespace BristolSU\Support\Tests\Logic\Audience;
 
 use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
+use BristolSU\Support\Control\Contracts\Repositories\Position as PositionRepository;
 use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\Support\Control\Models\Group;
+use BristolSU\Support\Control\Models\Position;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Control\Models\User;
 use BristolSU\Support\Logic\Audience\AudienceMember;
@@ -288,5 +290,72 @@ class AudienceMemberTest extends TestCase
         $this->assertEquals(collect(), $audienceMember->groups());
         $this->assertEquals(collect(), $audienceMember->roles());
         $this->assertFalse($audienceMember->hasAudience());
+    }
+    
+    /** @test */
+    public function toArray_toJson_and___toString_returns_attributes(){
+        $logic = factory(Logic::class)->create();
+        $user = new User(['id' => 1]);
+        $group1 = new Group(['id' => 2]);
+        $group2 = new Group(['id' => 3]);
+        $group3 = new Group(['id' => 4]);
+        $group4 = new Group(['id' => 5]);
+        $role1 = new Role(['id' => 4, 'group_id' => 4, 'position_id' => 1]);
+        $role2 = new Role(['id' => 5, 'group_id' => 5, 'position_id' => 2]);
+        $position1 = new Position(['id' => 1]);
+        $position2 = new Position(['id' => 2]);
+        $groups = collect([$group1, $group2]);
+        $roles = collect([$role1, $role2]);
+
+        $groupRepository = $this->prophesize(GroupRepository::class);
+        $positionRepository = $this->prophesize(PositionRepository::class);
+        $roleRepository = $this->prophesize(RoleRepository::class);
+        $roleRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn($roles);
+        $groupRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn($groups);
+        $groupRepository->getById(4)->shouldBeCalled()->willReturn($group3);
+        $groupRepository->getById(5)->shouldBeCalled()->willReturn($group4);
+        $positionRepository->getById(1)->shouldBeCalled()->willReturn($position1);
+        $positionRepository->getById(2)->shouldBeCalled()->willReturn($position2);
+        $this->app->instance(GroupRepository::class, $groupRepository->reveal());
+        $this->app->instance(RoleRepository::class, $roleRepository->reveal());
+        $this->app->instance(PositionRepository::class, $positionRepository->reveal());
+
+        $audienceMember = new AudienceMember($user);
+
+        $mergedRole1 = $role1;
+        $mergedRole1->group = $group3;
+        $mergedRole1->position = $position1;
+        $mergedRole2 = $role2;
+        $mergedRole2->group = $group4;
+        $mergedRole2->position = $position2;
+        
+        $this->assertEquals([
+            'user' => $user,
+            'can_be_user' => true,
+            'groups' => $groups,
+            'roles' => collect([$mergedRole1, $mergedRole2])
+        ], $audienceMember->toArray());
+
+        $this->assertEquals(json_encode([
+            'user' => $user,
+            'can_be_user' => true,
+            'groups' => $groups,
+            'roles' => collect([$mergedRole1, $mergedRole2])
+        ]), $audienceMember->toJson());
+
+        $this->assertEquals(json_encode([
+            'user' => $user,
+            'can_be_user' => true,
+            'groups' => $groups,
+            'roles' => collect([$mergedRole1, $mergedRole2])
+        ]), (string) $audienceMember);
+        
+    }
+    
+    /** @test */
+    public function canBeUser_defaults_to_true(){
+        $user = new User(['id' => 1]);
+        $audienceMember = new AudienceMember($user);
+        $this->assertTrue($audienceMember->canBeUser());
     }
 }

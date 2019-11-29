@@ -73,9 +73,7 @@ class AudienceMember implements Arrayable, Jsonable
         })->values();
 
         $this->roles = $this->roles()->filter(function(Role $role) use ($logic) {
-            try {
-                return LogicTester::evaluate($logic, $this->user, $role->group(), $role);
-            } catch (\Exception $e) { return false; }
+            return LogicTester::evaluate($logic, $this->user, $role->group(), $role);
         })->values();
     }
     
@@ -93,10 +91,10 @@ class AudienceMember implements Arrayable, Jsonable
     public function toArray()
     {
         return [
-            'user' => $this->user->toArray(),
+            'user' => $this->user(),
             'can_be_user' => $this->canBeUser(),
-            'groups' => $this->groups,
-            'roles' => $this->roles->map(function(Role $role) {
+            'groups' => $this->groups(),
+            'roles' => $this->roles()->map(function(Role $role) {
                 $role->group = $role->group();
                 $role->position = $role->position();
                 return $role;

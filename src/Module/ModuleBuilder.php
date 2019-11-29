@@ -78,7 +78,7 @@ class ModuleBuilder implements ModuleBuilderContract
      * @return string
      * @throws Exception
      */
-    private function getAlias(): string
+    protected function getAlias(): string
     {
         if ($this->alias === null) {
             throw new Exception('Set an alias before using the builder');

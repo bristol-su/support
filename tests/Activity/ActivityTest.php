@@ -102,4 +102,22 @@ class ActivityTest extends TestCase
         $activity->save();
         $this->assertEquals($activity->slug, 'a-sluggable-name-two');
     }
+    
+    /** @test */
+    public function isCompletable_returns_true_if_the_activity_is_a_multicompletable_activity(){
+        $activity = factory(Activity::class)->create(['type' => 'multi-completable']);
+        $this->assertTrue($activity->isCompletable());
+    }
+
+    /** @test */
+    public function isCompletable_returns_true_if_the_activity_is_a_completable_activity(){
+        $activity = factory(Activity::class)->create(['type' => 'completable']);
+        $this->assertTrue($activity->isCompletable());
+    }
+
+    /** @test */
+    public function isCompletable_returns_false_if_the_activity_is_an_open_activity(){
+        $activity = factory(Activity::class)->create(['type' => 'open']);
+        $this->assertFalse($activity->isCompletable());
+    }
 }

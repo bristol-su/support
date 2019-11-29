@@ -2,15 +2,14 @@
 
 namespace BristolSU\Support\Tests\Authentication;
 
-use BristolSU\Support\Activity\Activity;
-use BristolSU\Support\Authentication\Contracts\Authentication;
+use BristolSU\Support\ActivityInstance\ActivityInstance;
+use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use BristolSU\Support\Authentication\HasResource;
-use BristolSU\Support\Control\Models\Group;
-use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
-use BristolSU\Support\Control\Models\User;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Schema\Blueprint;
 
 class HasResourceTest extends TestCase
 {
@@ -18,109 +17,92 @@ class HasResourceTest extends TestCase
     
     /** @test */
     public function activity_instance_id_returns_the_activity_instance_id(){
+        $activityInstance = factory(ActivityInstance::class)->create();
         
+        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
+        $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willReturn(($activityInstance));
+        $this->app->instance(ActivityInstanceResolver::class, $activityInstanceResolver->reveal());
+        
+        $this->assertEquals($activityInstance->id, static::activityInstanceId());
     }
     
     /** @test */
     public function module_instance_id_returns_the_module_instance_id(){
+        $moduleInstance = factory(ModuleInstance::class)->create();
+
+        $this->app->instance(ModuleInstance::class, $moduleInstance);
+
+        $this->assertEquals($moduleInstance->id, static::moduleInstanceId());
+    }
+    
+    /** @test */
+    public function forResource_scope_applies_correct_queries(){
+        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
+        $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willReturn(($activityInstance));
+        $this->app->instance(ActivityInstanceResolver::class, $activityInstanceResolver->reveal());
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $this->app->instance(ModuleInstance::class, $moduleInstance);
+        
+        $builder = $this->prophesize(Builder::class);
+        $builder->where('activity_instance_id', $activityInstance->id)->shouldBeCalled()->willReturn($builder->reveal());
+        $builder->where('module_instance_id', $moduleInstance->id)->shouldBeCalled();
+        
+        $this->scopeForResource($builder->reveal());
+    }
+    
+    /** @test */
+    public function forResource_can_have_the_ids_overwritten(){
+        $builder = $this->prophesize(Builder::class);
+        $builder->where('activity_instance_id', 100)->shouldBeCalled()->willReturn($builder->reveal());
+        $builder->where('module_instance_id', 101)->shouldBeCalled();
+
+        $this->scopeForResource($builder->reveal(), 100, 101);
+    }
+    
+    /** @test */
+    public function activity_and_module_instance_id_are_set_on_save(){
+        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
+        $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willReturn(($activityInstance));
+        $this->app->instance(ActivityInstanceResolver::class, $activityInstanceResolver->reveal());
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $this->app->instance(ModuleInstance::class, $moduleInstance);
+        
+        $this->getConnection()->getSchemaBuilder()->create('testtable_hasresource', function(Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('activity_instance_id');
+            $table->unsignedInteger('module_instance_id');
+        });
+        
+        $model = FakeModel::create();
+        $this->assertEquals($activityInstance->id, $model->activity_instance_id);
+        $this->assertEquals($moduleInstance->id, $model->module_instance_id);
         
     }
     
-//    /** @test */
-//    public function scopeForResource_applies_query_conditions_to_only_find_relevant_models(){
-//        $activity = factory(Activity::class)->create([
-//            'activity_for' => 'user'
-//        ]);
-//        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity]);
-//        $this->instance(ModuleInstance::class, $moduleInstance);
-//
-//        $user = new User(['id' => 1]);
-//        $authentication = $this->prophesize(Authentication::class);
-//        $authentication->getUser()->shouldBeCalled()->willReturn($user);
-//        $this->instance(Authentication::class, $authentication->reveal());
-//
-//        $query = $this->prophesize(Builder::class);
-//        $query->where('resource_type', 'user')->shouldBeCalled()->willReturn($query->reveal());
-//        $query->where('resource_id', $user->id)->shouldBeCalled()->willReturn($query->reveal());
-//        
-//        $this->scopeForResource($query->reveal());
-//        
-//    }
-//
-//    /** @test */
-//    public function scopeForResource_applies_query_conditions_to_only_find_relevant_group_models(){
-//        $activity = factory(Activity::class)->create([
-//            'activity_for' => 'group'
-//        ]);
-//        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity]);
-//        $this->instance(ModuleInstance::class, $moduleInstance);
-//
-//        $group = new Group(['id' => 2]);
-//        $authentication = $this->prophesize(Authentication::class);
-//        $authentication->getGroup()->shouldBeCalled()->willReturn($group);
-//        $this->instance(Authentication::class, $authentication->reveal());
-//
-//        $query = $this->prophesize(Builder::class);
-//        $query->where('resource_type', 'group')->shouldBeCalled()->willReturn($query->reveal());
-//        $query->where('resource_id', 2)->shouldBeCalled()->willReturn($query->reveal());
-//
-//        $this->scopeForResource($query->reveal());
-//
-//    }
-//
-//
-//    /** @test */
-//    public function resource_id_returns_the_current_role_id_if_activity_type_is_role(){
-//        $activity = factory(Activity::class)->create([
-//            'activity_for' => 'role'
-//        ]);
-//        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity]);
-//        $this->instance(ModuleInstance::class, $moduleInstance);
-//
-//        $role = new Role(['id' => 2]);
-//        $authentication = $this->prophesize(Authentication::class);
-//        $authentication->getRole()->shouldBeCalled()->willReturn($role);
-//        $this->instance(Authentication::class, $authentication->reveal());
-//
-//        $this->assertEquals($role->id, static::resourceId());
-//    }
-//
-//    /** @test */
-//    public function resource_id_throws_an_exception_if_the_activity_type_is_role_but_a_role_is_not_logged_in(){
-//        $this->expectException(\Exception::class);
-//        $this->expectExceptionMessage('You must be logged in as a role');
-//        $this->expectExceptionCode(403);
-//
-//        $activity = factory(Activity::class)->create([
-//            'activity_for' => 'role'
-//        ]);
-//        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity]);
-//        $this->instance(ModuleInstance::class, $moduleInstance);
-//
-//        $this->instance(Authentication::class, $this->prophesize(Authentication::class)->reveal());
-//
-//        static::resourceId();
-//    }
-//
-//    /** @test */
-//    public function scopeForResource_applies_query_conditions_to_only_find_relevant_role_models(){
-//        $activity = factory(Activity::class)->create([
-//            'activity_for' => 'role'
-//        ]);
-//        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity]);
-//        $this->instance(ModuleInstance::class, $moduleInstance);
-//
-//        $role = new Role(['id' => 2]);
-//        $authentication = $this->prophesize(Authentication::class);
-//        $authentication->getRole()->shouldBeCalled()->willReturn($role);
-//        $this->instance(Authentication::class, $authentication->reveal());
-//
-//        $query = $this->prophesize(Builder::class);
-//        $query->where('resource_type', 'role')->shouldBeCalled()->willReturn($query->reveal());
-//        $query->where('resource_id', 2)->shouldBeCalled()->willReturn($query->reveal());
-//
-//        $this->scopeForResource($query->reveal());
-//
-//    }
+    /** @test */
+    public function activity_and_module_instance_id_are_not_set_if_given_already(){
+        $this->getConnection()->getSchemaBuilder()->create('testtable_hasresource', function(Blueprint $table) {
+            $table->increments('id');
+            $table->unsignedInteger('activity_instance_id');
+            $table->unsignedInteger('module_instance_id');
+        });
 
+        $model = FakeModel::create([
+            'activity_instance_id' => 500,
+            'module_instance_id' => 505
+        ]);
+        $this->assertEquals(500, $model->activity_instance_id);
+        $this->assertEquals(505, $model->module_instance_id);
+    }
+    
+}
+
+class FakeModel extends Model {
+    use HasResource;
+    
+    protected $table = 'testtable_hasresource';
+    public $timestamps = false;
+    protected $guarded = [];
 }

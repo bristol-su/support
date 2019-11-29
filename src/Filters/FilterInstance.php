@@ -62,6 +62,7 @@ class FilterInstance extends Model implements FilterInstanceContract
         if ($filter instanceof RoleFilter) {
             return 'role';
         }
+        throw new \Exception('Filter must extend Filter contract');
     }
     
     /**

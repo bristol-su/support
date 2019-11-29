@@ -5,6 +5,7 @@ namespace BristolSU\Support\Tests\Filters;
 
 
 use BristolSU\Support\Filters\Contracts\FilterRepository as FilterRepositoryContract;
+use BristolSU\Support\Filters\Contracts\Filters\Filter;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
@@ -72,5 +73,76 @@ class FilterInstanceTest extends TestCase
         $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
         $this->assertEquals('role', factory(FilterInstance::class)->create(['alias' => 'alias1'])->for());
     }
+    
+    /** @test */
+    public function for_throws_an_exception_if_filter_not_correct_type(){
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Filter must extend Filter contract');
+        $filterRepository = $this->prophesize(FilterRepositoryContract::class);
+        $filterRepository->getByAlias('alias1')->shouldBeCalled()->willReturn(new DummyFilter());
+        $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
+        $filterInstance = factory(FilterInstance::class)->create(['alias' => 'alias1']);
+        $filterInstance->for();
+    }
 
+}
+
+
+class DummyFilter extends Filter {
+
+    /**
+     * @inheritDoc
+     */
+    public function options(): array
+    {
+        // TODO: Implement options() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function hasModel(): bool
+    {
+        // TODO: Implement hasModel() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setModel($model)
+    {
+        // TODO: Implement setModel() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function evaluate($settings): bool
+    {
+        // TODO: Implement evaluate() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function name()
+    {
+        // TODO: Implement name() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function description()
+    {
+        // TODO: Implement description() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function alias()
+    {
+        // TODO: Implement alias() method.
+    }
 }

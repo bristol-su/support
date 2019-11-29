@@ -4,7 +4,9 @@
 namespace BristolSU\Support\Tests\Authentication;
 
 
+use BristolSU\Support\Authentication\ApiAuthentication;
 use BristolSU\Support\Authentication\WebAuthentication;
+use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Control\Models\User;
@@ -36,6 +38,19 @@ class WebAuthenticationTest extends TestCase
         $this->beGroup($group);
 
         $this->assertEquals(2, $this->authentication->getGroup()->id);
+    }
+
+    /** @test */
+    public function get_group_returns_a_group_given_by_a_role_if_role_given(){
+        $role = new Role(['id' => 1, 'group_id' => 2]);
+        $group = new Group(['id' => 2]);
+        $this->beRole($role);
+
+        $groupRepository =  $this->prophesize(GroupRepository::class);
+        $groupRepository->getById(2)->shouldBeCalled()->willReturn($group);
+        $this->app->instance(GroupRepository::class, $groupRepository->reveal());
+        $authGroup = $this->authentication->getGroup();
+        $this->assertEquals($group, $authGroup);
     }
 
     /** @test */

@@ -4,6 +4,7 @@
 namespace BristolSU\Support\Tests\Filters;
 
 
+use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Filters\FilterInstanceRepository;
 use BristolSU\Support\Tests\TestCase;
 
@@ -26,9 +27,19 @@ class FilterInstanceRepositoryTest extends TestCase
         ]);
     }
 
+    /** @test **/
     public function all_returns_all_filter_instances()
     {
-        
+        $filterInstance1 = factory(FilterInstance::class)->create();
+        $filterInstance2 = factory(FilterInstance::class)->create();
+        $filterInstance3 = factory(FilterInstance::class)->create();
+        $repository = new FilterInstanceRepository;
+        $filterInstances = $repository->all();
+
+        $this->assertModelEquals($filterInstance1, $filterInstances[0]);
+        $this->assertModelEquals($filterInstance2, $filterInstances[1]);
+        $this->assertModelEquals($filterInstance3, $filterInstances[2]);
+
     }
 
 }

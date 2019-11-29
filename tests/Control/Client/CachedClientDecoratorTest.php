@@ -8,7 +8,7 @@ use BristolSU\Support\Tests\TestCase;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Prophecy\Argument;
 
-class CachedClientDecoratorClass extends TestCase
+class CachedClientDecoratorTest extends TestCase
 {
 
     /** @test */

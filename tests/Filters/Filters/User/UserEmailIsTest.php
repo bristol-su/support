@@ -41,6 +41,16 @@ class UserEmailIsTest extends TestCase
         $this->assertFalse($filter->evaluate(['email' => 'tt15951@notexample.com']));
     }
 
+    /** @test */
+    public function evaluate_returns_false_if_dataRepository_throws_exception(){
+        $user = new User(['id' => 10, 'uc_uid' => 1]);
+        $dataUserRepository = $this->prophesize(DataUserRepository::class);
+        $dataUserRepository->getById(1)->shouldBeCalled()->willThrow(new \Exception());
+        $filter = new UserEmailIs($dataUserRepository->reveal());
+        $filter->setModel($user);
+        $this->assertFalse($filter->evaluate(['email' => 'tt15951@notexample.com']));
+    }
+
 
 
 

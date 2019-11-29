@@ -7,6 +7,7 @@ use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Control\Models\User;
 use BristolSU\Support\Filters\Contracts\FilterInstance;
 use BristolSU\Support\Filters\Contracts\FilterTester;
+use BristolSU\Support\Logic\Specification\FilterFalseSpecification;
 use BristolSU\Support\Logic\Specification\FilterTrueSpecification;
 use BristolSU\Support\Tests\TestCase;
 
@@ -133,4 +134,20 @@ class FilterTrueSpecificationTest extends TestCase
         );
     }
 
+    /** @test */
+    public function isSatisfied_returns_false_if_wrong_filter_type_given(){
+        $user = new User(['id' => 1]);
+        $group = new Group(['id' => 2]);
+        $role = new Role(['id' => 3]);
+
+        $filter = $this->prophesize(FilterInstance::class);
+        $filter->for()->shouldBeCalled()->willReturn('notatype');
+
+        $specification = new FilterTrueSpecification($filter->reveal(), $user, $group, $role);
+
+        $this->assertFalse(
+            $specification->isSatisfied()
+        );
+    }
+    
 }

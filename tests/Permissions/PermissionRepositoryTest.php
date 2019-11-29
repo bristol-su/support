@@ -51,11 +51,11 @@ class PermissionRepositoryTest extends TestCase
 
     /** @test */
     public function forModule_returns_all_permissions_for_the_given_module_alias(){
-        $permission1 = new \BristolSU\Support\Permissions\Models\Permission('a1', 'n1', 'd1', 'module', 'al1');
-        $permission2 = new \BristolSU\Support\Permissions\Models\Permission('a2', 'n2', 'd2', 'module', 'al1');
-        $permission3 = new \BristolSU\Support\Permissions\Models\Permission('a3', 'n3', 'd3', 'module', 'al2');
-        $permission4 = new \BristolSU\Support\Permissions\Models\Permission('a4', 'n4', 'd4', 'module', 'al1');
-        $permission5 = new \BristolSU\Support\Permissions\Models\Permission('a5', 'n5', 'd5', 'module', 'al3');
+        $permission1 = new Permission('a1', 'n1', 'd1', 'module', 'al1');
+        $permission2 = new Permission('a2', 'n2', 'd2', 'module', 'al1');
+        $permission3 = new Permission('a3', 'n3', 'd3', 'module', 'al2');
+        $permission4 = new Permission('a4', 'n4', 'd4', 'module', 'al1');
+        $permission5 = new Permission('a5', 'n5', 'd5', 'module', 'al3');
 
         $permissionStore = $this->prophesize(PermissionStore::class);
         $permissionStore->all()->shouldBeCalled()->willReturn([
@@ -71,4 +71,28 @@ class PermissionRepositoryTest extends TestCase
         $this->assertEquals($permission4->toArray(), $modulePermissions[2]);
     }
 
+    /** @test */
+    public function all_returns_all_permissions(){
+        $permission1 = new Permission('a1', 'n1', 'd1', 'module', 'al1');
+        $permission2 = new Permission('a2', 'n2', 'd2', 'module', 'al1');
+        $permission3 = new Permission('a3', 'n3', 'd3', 'module', 'al2');
+        $permission4 = new Permission('a4', 'n4', 'd4', 'module', 'al1');
+        $permission5 = new Permission('a5', 'n5', 'd5', 'module', 'al3');
+
+        $permissionStore = $this->prophesize(PermissionStore::class);
+        $permissionStore->all()->shouldBeCalled()->willReturn([
+            $permission1, $permission2, $permission3, $permission4, $permission5
+        ]);
+
+        $repository = new PermissionRepository($permissionStore->reveal());
+        $modulePermissions = $repository->all();
+
+        $this->assertCount(5, $modulePermissions);
+        $this->assertEquals($permission1, $modulePermissions[0]);
+        $this->assertEquals($permission2, $modulePermissions[1]);
+        $this->assertEquals($permission3, $modulePermissions[2]);
+        $this->assertEquals($permission4, $modulePermissions[3]);
+        $this->assertEquals($permission5, $modulePermissions[4]);
+    }
+    
 }

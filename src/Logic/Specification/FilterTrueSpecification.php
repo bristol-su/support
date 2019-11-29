@@ -62,6 +62,8 @@ class FilterTrueSpecification implements Specification
             case 'role':
                 return ($this->role === null?false:
                     app(FilterTester::class)->evaluate($this->filter, $this->role) === true);
+            default:
+                return false;
         }
     }
 
