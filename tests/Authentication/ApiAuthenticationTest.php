@@ -5,6 +5,9 @@ namespace BristolSU\Support\Tests\Authentication;
 
 
 use BristolSU\Support\Authentication\ApiAuthentication;
+use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
+use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
+use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Control\Models\User;
@@ -12,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Prophecy\Argument;
 use BristolSU\Support\Tests\TestCase;
+use Symfony\Component\HttpFoundation\ParameterBag;
 
 class ApiAuthenticationTest extends TestCase
 {
@@ -131,4 +135,72 @@ class ApiAuthenticationTest extends TestCase
         $this->assertInstanceOf(Role::class, $this->authentication->getRole());
         $this->assertEquals(1, $this->authentication->getRole()->id);
     }
+    
+    /** @test */
+    public function getGroup_returns_null_if_exception_thrown_in_repository(){
+        $request = $this->prophesize(Request::class);
+        $request->has('role_id')->shouldBeCalled()->willReturn(false);
+        $request->has('group_id')->shouldBeCalled()->willReturn(true);
+        $request->query('group_id')->shouldBeCalled()->willReturn(1);
+
+        $groupRepository = $this->prophesize(GroupRepository::class);
+        $userRepository = $this->prophesize(UserRepository::class);
+        $roleRepository = $this->prophesize(RoleRepository::class);
+        $groupRepository->getById(1)->shouldBeCalled()->willThrow(new \Exception());
+        
+        $this->authentication = new ApiAuthentication($request->reveal(), $roleRepository->reveal(), $groupRepository->reveal(), $userRepository->reveal());
+
+        $this->assertNull($this->authentication->getGroup());
+    }
+
+    /** @test */
+    public function getRole_returns_null_if_exception_thrown_in_repository(){
+        $request = $this->prophesize(Request::class);
+        $request->has('role_id')->shouldBeCalled()->willReturn(true);
+        $request->query('role_id')->shouldBeCalled()->willReturn(1);
+
+        $groupRepository = $this->prophesize(GroupRepository::class);
+        $userRepository = $this->prophesize(UserRepository::class);
+        $roleRepository = $this->prophesize(RoleRepository::class);
+        $roleRepository->getById(1)->shouldBeCalled()->willThrow(new \Exception());
+
+        $this->authentication = new ApiAuthentication($request->reveal(), $roleRepository->reveal(), $groupRepository->reveal(), $userRepository->reveal());
+
+        $this->assertNull($this->authentication->getRole());
+    }
+
+    /** @test */
+    public function getUser_returns_null_if_exception_thrown_in_repository(){
+        $request = $this->prophesize(Request::class);
+        $request->has('user_id')->shouldBeCalled()->willReturn(true);
+        $request->query('user_id')->shouldBeCalled()->willReturn(1);
+
+        $groupRepository = $this->prophesize(GroupRepository::class);
+        $userRepository = $this->prophesize(UserRepository::class);
+        $roleRepository = $this->prophesize(RoleRepository::class);
+        $userRepository->getById(1)->shouldBeCalled()->willThrow(new \Exception());
+
+        $this->authentication = new ApiAuthentication($request->reveal(), $roleRepository->reveal(), $groupRepository->reveal(), $userRepository->reveal());
+
+        $this->assertNull($this->authentication->getUser());
+    }
+    
+    /** @test */
+    public function reset_resets_the_query(){
+        $request = $this->prophesize(Request::class);
+        $query = $this->prophesize(ParameterBag::class);
+        $query->set('user_id', null)->shouldBeCalled();
+        $query->set('group_id', null)->shouldBeCalled();
+        $query->set('role_id', null)->shouldBeCalled();
+        $request->query = $query;
+        
+        $groupRepository = $this->prophesize(GroupRepository::class);
+        $userRepository = $this->prophesize(UserRepository::class);
+        $roleRepository = $this->prophesize(RoleRepository::class);
+        
+        $this->authentication = new ApiAuthentication($request->reveal(), $roleRepository->reveal(), $groupRepository->reveal(), $userRepository->reveal());
+
+        $this->authentication->reset();
+    }
+    
 }

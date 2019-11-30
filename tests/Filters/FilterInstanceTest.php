@@ -84,6 +84,16 @@ class FilterInstanceTest extends TestCase
         $filterInstance = factory(FilterInstance::class)->create(['alias' => 'alias1']);
         $filterInstance->for();
     }
+    
+    /** @test */
+    public function for_can_be_called_through_a_magic_method(){
+        $filterRepository = $this->prophesize(FilterRepositoryContract::class);
+        $filterRepository->getByAlias('alias1')->shouldBeCalled()->willReturn(
+            $this->prophesize(RoleFilter::class)->reveal()
+        );
+        $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
+        $this->assertEquals('role', factory(FilterInstance::class)->create(['alias' => 'alias1'])->for);
+    }
 
 }
 

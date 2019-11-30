@@ -43,5 +43,18 @@ class CachedClientDecoratorTest extends TestCase
         $this->assertEquals(['some' => 'response'], $response);
     }
     
+    /** @test */
+    public function it_returns_a_new_result_if_the_request_is_not_cacheable(){
+        $realClient = $this->prophesize(Client::class);
+        $cache = $this->prophesize(Cache::class);
+
+        $cache->remember(Argument::type('string'), Argument::type('integer'), Argument::any())->shouldNotBeCalled();
+
+        $realClient->request('post', '/a', ['some' => 'options'])->shouldBeCalled()->willReturn(['some' => 'response']);
+        
+        $client = new CachedClientDecorator($realClient->reveal(), $cache->reveal());
+        $response = $client->request('post', '/a', ['some' => 'options']);
+        $this->assertEquals(['some' => 'response'], $response);
+    }
     
 }

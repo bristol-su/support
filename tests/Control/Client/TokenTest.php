@@ -4,10 +4,13 @@
 namespace BristolSU\Support\Tests\Control\Client;
 
 
+use BristolSU\Support\Control\Client\GuzzleClient;
 use BristolSU\Support\Control\Client\Token;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Response;
 use GuzzleHttp\Psr7\Stream;
+use Illuminate\Contracts\Cache\Repository;
+use Illuminate\Support\Facades\Cache;
 use Prophecy\Argument;
 use BristolSU\Support\Tests\TestCase;
 
@@ -35,5 +38,16 @@ class TokenTest extends TestCase
         $this->assertEquals('SecretToken', $accessToken);
     }
 
+    /** @test */
+    public function it_returns_a_cached_token_if_one_available(){
+        $key = GuzzleClient::class . '@token';
+        $cache = $this->prophesize(Repository::class);
+        $cache->has($key)->shouldBeCalled()->willReturn(true);
+        $cache->get($key)->shouldBeCalled()->willReturn('somesecretkey');
+        $this->app->instance('cache', $cache->reveal());
+        $client = $this->prophesize(Client::class);
+        $token = new Token($client->reveal());
+        $this->assertEquals('somesecretkey', $token->token());
+    }
 
 }

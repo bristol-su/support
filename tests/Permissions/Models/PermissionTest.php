@@ -92,7 +92,7 @@ class PermissionTest extends TestCase
     }
 
     /** @test */
-    public function toArray_returns_all_attributes_as_an_array(){
+    public function toArray_toJson_and___toString_return_all_attributes(){
         $ability = 'ability';
         $name = 'name';
         $description = 'description';
@@ -110,6 +110,24 @@ class PermissionTest extends TestCase
             'alias' => $alias,
             'module_type' => $moduleType
         ], $permission->toArray());
+
+        $this->assertEquals(json_encode([
+            'ability' => $ability,
+            'name' => $name,
+            'description' => $description,
+            'type' => $type,
+            'alias' => $alias,
+            'module_type' => $moduleType
+        ]), $permission->toJson());
+
+        $this->assertEquals(json_encode([
+            'ability' => $ability,
+            'name' => $name,
+            'description' => $description,
+            'type' => $type,
+            'alias' => $alias,
+            'module_type' => $moduleType
+        ]), (string) $permission);
     }
 
 }

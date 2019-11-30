@@ -8,6 +8,7 @@ use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Control\Models\User;
 use BristolSU\Support\Logic\Logic;
+use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Models\ModelPermission;
 use BristolSU\Support\Tests\TestCase;
 
@@ -208,5 +209,12 @@ class ModelPermissionTest extends TestCase
         $this->assertModelEquals($rolePermission1, $permission->first());
     }
 
-
+    /** @test */
+    public function moduleInstance_returns_the_module_instance(){
+        $role1 = new Role(['id' => 1]);
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $permission = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission1', 'model_id' => $role1->id, 'module_instance_id' => $moduleInstance->id]);
+        
+        $this->assertModelEquals($moduleInstance, $permission->moduleInstance);
+    }
 }

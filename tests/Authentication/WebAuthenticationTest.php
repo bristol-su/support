@@ -5,11 +5,16 @@ namespace BristolSU\Support\Tests\Authentication;
 
 
 use BristolSU\Support\Authentication\ApiAuthentication;
+use BristolSU\Support\Authentication\Contracts\UserAuthentication;
 use BristolSU\Support\Authentication\WebAuthentication;
 use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
+use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
 use BristolSU\Support\Control\Models\User;
+use Illuminate\Contracts\Auth\Factory;
+use Illuminate\Contracts\Auth\Guard;
+use Illuminate\Contracts\Auth\StatefulGuard;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Prophecy\Argument;
@@ -115,6 +120,23 @@ class WebAuthenticationTest extends TestCase
         $role = new Role(['id' => 1]);
         $this->authentication->setRole($role);
         $this->assertEquals(1, Auth::guard('role')->user()->id);
+    }
+    
+    /** @test */
+    public function reset_logs_out_of_all_guards(){
+        $guard = $this->prophesize(StatefulGuard::class);
+        $guard->logout()->shouldBeCalledTimes(3);
+        $authFactory = $this->prophesize(Factory::class);
+        $authFactory->guard('user')->shouldBeCalled()->willReturn($guard->reveal());
+        $authFactory->guard('group')->shouldBeCalled()->willReturn($guard->reveal());
+        $authFactory->guard('role')->shouldBeCalled()->willReturn($guard->reveal());
+        
+        $authentication = new WebAuthentication($authFactory->reveal(), 
+        $this->prophesize(GroupRepository::class)->reveal(),
+        $this->prophesize(UserRepository::class)->reveal(),
+        $this->prophesize(UserAuthentication::class)->reveal());
+        
+        $authentication->reset();
     }
 
 }
