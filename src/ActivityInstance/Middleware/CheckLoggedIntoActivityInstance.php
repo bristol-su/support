@@ -18,15 +18,10 @@ class CheckLoggedIntoActivityInstance
      * @var ActivityInstanceResolver
      */
     private $activityInstanceResolver;
-    /**
-     * @var ActivityInstanceRepository
-     */
-    private $repository;
 
-    public function __construct(ActivityInstanceResolver $activityInstanceResolver, ActivityInstanceRepository $repository)
+    public function __construct(ActivityInstanceResolver $activityInstanceResolver)
     {
         $this->activityInstanceResolver = $activityInstanceResolver;
-        $this->repository = $repository;
     }
 
     /**

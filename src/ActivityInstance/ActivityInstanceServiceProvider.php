@@ -31,7 +31,6 @@ class ActivityInstanceServiceProvider extends ServiceProvider
         $this->app['router']->pushMiddlewareToGroup('activity', LogIntoActivityInstance::class);
         $this->app['router']->pushMiddlewareToGroup('activity', CheckLoggedIntoActivityInstance::class);
         $this->app['router']->pushMiddlewareToGroup('activity', CheckActivityInstanceForActivity::class);
-        $this->app['router']->pushMiddlewareToGroup('activity', InjectActivityInstance::class);
         $this->app['router']->pushMiddlewareToGroup('nonmodule', ClearActivityInstance::class);
 
         Auth::provider('activity-instance-provider', function(Container $app, array $config) {

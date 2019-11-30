@@ -4,6 +4,7 @@ namespace BristolSU\Support\ActivityInstance\AuthenticationProvider;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class UserProvider
@@ -58,7 +59,10 @@ class ActivityInstanceProvider implements UserProvider
     public function retrieveByCredentials(array $credentials)
     {
         if (isset($credentials['activity_instance_id'])) {
-            return $this->retrieveById($credentials['activity_instance_id']);
+            try {
+                return $this->retrieveById($credentials['activity_instance_id']);
+            } catch (ModelNotFoundException $e) {
+            }
         }
         return null;
     }
