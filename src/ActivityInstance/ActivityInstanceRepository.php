@@ -41,4 +41,9 @@ class ActivityInstanceRepository implements ActivityInstanceRepositoryContract
             'resource_id' => $resourceId
         ])->get();
     }
+
+    public function allForActivity(int $activityId): Collection
+    {
+        return ActivityInstance::where('activity_id', $activityId)->get();
+    }
 }

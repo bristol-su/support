@@ -77,4 +77,19 @@ class ActivityInstanceRepositoryTest extends TestCase
         $this->assertModelEquals($activityInstance2, $instances->offsetGet(1));
         $this->assertModelEquals($activityInstance3, $instances->offsetGet(2));
     }
+    
+    /** @test */
+    public function allForActivity_returns_all_activity_instances_belonging_to_an_activity(){
+        $activityInstanceFake1 = factory(ActivityInstance::class)->create(['activity_id' => 1]);
+        $activityInstanceFake2 = factory(ActivityInstance::class)->create(['activity_id' => 1]);
+        $activityInstanceFake3 = factory(ActivityInstance::class)->create(['activity_id' => 1]);
+        $activityInstance1 = factory(ActivityInstance::class)->create(['activity_id' => 2]);
+        $activityInstance2 = factory(ActivityInstance::class)->create(['activity_id' => 2]);
+        $activityInstance3 = factory(ActivityInstance::class)->create(['activity_id' => 2]);
+
+        $instances = $this->repository->allForActivity(2);
+        $this->assertModelEquals($activityInstance1, $instances->offsetGet(0));
+        $this->assertModelEquals($activityInstance2, $instances->offsetGet(1));
+        $this->assertModelEquals($activityInstance3, $instances->offsetGet(2));
+    }
 }

@@ -15,4 +15,7 @@ interface ActivityInstanceRepository
     public function getById($id): ActivityInstance;
 
     public function allFor(int $activityId, string $resourceType, int $resourceId): Collection;
+
+    public function allForActivity(int $activityId): Collection;
+    
 }
