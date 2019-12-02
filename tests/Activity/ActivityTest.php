@@ -5,6 +5,7 @@ namespace BristolSU\Support\Tests\Activity;
 
 
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Carbon\Carbon;
@@ -119,5 +120,17 @@ class ActivityTest extends TestCase
     public function isCompletable_returns_false_if_the_activity_is_an_open_activity(){
         $activity = factory(Activity::class)->create(['type' => 'open']);
         $this->assertFalse($activity->isCompletable());
+    }
+    
+    /** @test */
+    public function it_has_many_activity_instances(){
+        $activity = factory(Activity::class)->create();
+        $activityInstance1 = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activityInstance2 = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+
+        $activityInstances = $activity->activityInstances;
+
+        $this->assertModelEquals($activityInstance1, $activityInstances->offsetGet(0));
+        $this->assertModelEquals($activityInstance2, $activityInstances->offsetGet(1));
     }
 }

@@ -80,5 +80,32 @@ class EvaluationTest extends TestCase
         ], $evaluation->toArray());
     }
 
+    /** @test */
+    public function all_properties_are_returned_as_a_string(){
+        $evaluation = new Evaluation;
+        $evaluation->setActive(true);
+        $evaluation->setVisible(true);
+        $evaluation->setMandatory(true);
+        $evaluation->setComplete(true);
+        $this->assertEquals(json_encode([
+            'active' => true, 'visible' => true, 'mandatory' => true, 'complete' => true
+        ]), $evaluation->toJson());
+        $this->assertEquals(json_encode([
+            'active' => true, 'visible' => true, 'mandatory' => true, 'complete' => true
+        ]), (string) $evaluation);
+
+
+        $evaluation->setActive(false);
+        $evaluation->setVisible(false);
+        $evaluation->setMandatory(false);
+        $evaluation->setComplete(false);
+        $this->assertEquals(json_encode([
+            'active' => false, 'visible' => false, 'mandatory' => false, 'complete' => false
+        ]), $evaluation->toJson());
+        $this->assertEquals(json_encode([
+            'active' => false, 'visible' => false, 'mandatory' => false, 'complete' => false
+        ]), (string) $evaluation);
+    }
+
 
 }

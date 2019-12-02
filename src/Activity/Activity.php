@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Activity;
 
+use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Carbon\Carbon;
@@ -91,5 +92,10 @@ class Activity extends Model
 
     public function isCompletable() {
         return $this->type === 'completable' || $this->type === 'multi-completable';
+    }
+
+    public function activityInstances()
+    {
+        return $this->hasMany(ActivityInstance::class);
     }
 }

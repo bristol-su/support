@@ -3,12 +3,13 @@
 namespace BristolSU\Support\ModuleInstance\Contracts\Evaluator;
 
 use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
 
 /**
  * Interface Evaluation
  * @package BristolSU\Support\ModuleInstance\Contracts\Evaluator
  */
-interface Evaluation extends Arrayable
+interface Evaluation extends Arrayable, Jsonable
 {
 
     /**
