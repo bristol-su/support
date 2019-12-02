@@ -176,5 +176,41 @@ class LogicTest extends TestCase
             $this->assertModelEquals($filter, $allFilters->shift());
         }
     }
+    
+    /** @test */
+    public function getLowestResourceAttribute_returns_role_if_there_is_a_role_filter(){
+        $this->markTestIncomplete();
+    }
+
+    /** @test */
+    public function getLowestResourceAttribute_returns_group_if_there_is_a_group_filter_and_no_role_filter(){
+        $this->markTestIncomplete();
+    }
+
+    /** @test */
+    public function getLowestResourceAttribute_returns_role_if_there_is_a_role_filter_and_a_group_filter(){
+        $this->markTestIncomplete();
+    }
+
+    /** @test */
+    public function getLowestResourceAttribute_returns_user_if_there_is_only_a_user_filter(){
+        $this->markTestIncomplete();
+    }
+
+    /** @test */
+    public function getLowestResourceAttribute_returns_group_if_there_is_a_user_filter_and_a_group_filter(){
+        $this->markTestIncomplete();
+    }
+    
+    /** @test */
+    public function getLowestResourceAttribute_returns_role_if_there_is_a_user_filter_and_a_role_filter(){
+        $this->markTestIncomplete();
+    }
+
+    /** @test */
+    public function getLowestResourceAttribute_returns_none_if_there_is_are_no_filters(){
+        $this->markTestIncomplete();
+    }
+    
 
 }

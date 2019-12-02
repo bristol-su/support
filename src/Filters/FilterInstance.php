@@ -34,6 +34,10 @@ class FilterInstance extends Model implements FilterInstanceContract
         'settings' => 'array'
     ];
 
+    protected $appends = [
+        'for'
+    ];
+    
     /**
      * @return mixed
      */

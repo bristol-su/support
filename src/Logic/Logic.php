@@ -4,6 +4,7 @@ namespace BristolSU\Support\Logic;
 
 use BristolSU\Support\Filters\FilterInstance;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 /**
  * Class Logic
@@ -19,6 +20,10 @@ class Logic extends Model
         'description',
     ];
 
+    protected $appends = [
+        'lowest_resource'
+    ];
+    
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -58,5 +63,19 @@ class Logic extends Model
     public function anyFalseFilters()
     {
         return $this->hasMany(FilterInstance::class)->where('filter_instances.logic_type', '=', 'any_false');
+    }
+
+    public function getLowestResourceAttribute()
+    {
+        /** @var Collection $filters */
+        $filters = $this->filters;
+        if($filters->contains('for', 'role')) {
+            return 'role';
+        } else if($filters->contains('for', 'group')) {
+            return 'group';
+        } else if($filters->contains('for', 'user')) {
+            return 'user';
+        }
+        return 'none';
     }
 }

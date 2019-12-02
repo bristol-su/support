@@ -2,8 +2,7 @@
 
 namespace BristolSU\Support\Logic\Audience;
 
-use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
+
 use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory as AudienceMemberFactoryContract;
 use BristolSU\Support\Logic\Contracts\Audience\LogicAudience as LogicAudienceContract;
@@ -13,7 +12,7 @@ use BristolSU\Support\Logic\Logic;
  * Class LogicAudience
  * @package BristolSU\Support\Logic
  */
-class LogicAudience implements LogicAudienceContract
+class LogicAudience extends LogicAudienceContract
 {
     /**
      * @var UserRepository

@@ -155,4 +155,19 @@ class LogicAudienceTest extends TestCase
         $this->assertEquals([], $logicAudience->audience($logic));
     }
     
+    /** @test */
+    public function userAudience_gets_all_users_from_the_audience(){
+        $this->markTestIncomplete();
+    }
+
+    /** @test */
+    public function groupAudience_gets_all_groups_from_the_audience(){
+        $this->markTestIncomplete();
+    }
+
+    /** @test */
+    public function roleAudience_gets_all_roles_from_the_audience(){
+        $this->markTestIncomplete();
+    }
+    
 }
