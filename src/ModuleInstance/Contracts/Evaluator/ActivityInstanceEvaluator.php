@@ -26,4 +26,6 @@ interface ActivityInstanceEvaluator
      */
     public function evaluateParticipant(ActivityInstance $activityInstance);
 
+    public function evaluateResource(ActivityInstance $activityInstance);
+
 }

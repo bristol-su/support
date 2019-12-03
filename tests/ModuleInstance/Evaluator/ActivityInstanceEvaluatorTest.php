@@ -6,6 +6,9 @@ namespace BristolSU\Support\Tests\ModuleInstance\Evaluator;
 
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
+use BristolSU\Support\Control\Models\Group;
+use BristolSU\Support\Control\Models\Role;
+use BristolSU\Support\Control\Models\User;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\Evaluator\ActivityInstanceEvaluator;
@@ -25,6 +28,10 @@ class ActivityInstanceEvaluatorTest extends TestCase
         $activity->moduleInstances()->saveMany($moduleInstances);
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
 
+        $user = new User(['id' => 1]);
+        $group = new Group(['id' => 2]);
+        $role = new Role(['id' => 3]);
+        
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
         $evaluation = $this->prophesize(Evaluation::class);
         foreach ($moduleInstances as $moduleInstance) {
@@ -32,12 +39,11 @@ class ActivityInstanceEvaluatorTest extends TestCase
                 return $activityInstance->is($givenActInst);
             }), Argument::that(function ($givenModuleInstance) use ($moduleInstance) {
                 return $givenModuleInstance->id == $moduleInstance->id;
-            })
-            )->shouldBeCalled()->willReturn($evaluation);
+            }), $user, $group, $role)->shouldBeCalled()->willReturn($evaluation);
         }
 
         $activityEvaluator = new ActivityInstanceEvaluator($moduleInstanceEvaluator->reveal());
-        $evaluations = $activityEvaluator->evaluateParticipant($activityInstance);
+        $evaluations = $activityEvaluator->evaluateParticipant($activityInstance, $user, $group, $role);
 
         $this->assertCount($moduleInstances->count(), $evaluations);
         foreach ($evaluations as $id => $evaluation) {
@@ -54,7 +60,9 @@ class ActivityInstanceEvaluatorTest extends TestCase
         $activity = factory(Activity::class)->create();
         $activity->moduleInstances()->saveMany($moduleInstances);
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-
+        $user = new User(['id' => 1]);
+        $group = new Group(['id' => 2]);
+        $role = new Role(['id' => 3]);
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
         $evaluation = $this->prophesize(Evaluation::class);
         foreach ($moduleInstances as $moduleInstance) {
@@ -62,11 +70,11 @@ class ActivityInstanceEvaluatorTest extends TestCase
                 return $activityInstance->is($givenActInst);
             }), Argument::that(function ($givenModuleInstance) use ($moduleInstance) {
                 return $givenModuleInstance->id == $moduleInstance->id;
-            }))->shouldBeCalled()->willReturn($evaluation);
+            }), $user, $group, $role)->shouldBeCalled()->willReturn($evaluation);
         }
 
         $activityEvaluator = new ActivityInstanceEvaluator($moduleInstanceEvaluator->reveal());
-        $evaluations = $activityEvaluator->evaluateAdministrator($activityInstance);
+        $evaluations = $activityEvaluator->evaluateAdministrator($activityInstance, $user, $group, $role);
 
         $this->assertCount($moduleInstances->count(), $evaluations);
         foreach ($evaluations as $id => $evaluation) {

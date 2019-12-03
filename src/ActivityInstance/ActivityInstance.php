@@ -45,6 +45,11 @@ class ActivityInstance extends Model implements Authenticatable
         throw new \Exception('Resource type is not valid');
     }
 
+    public function participant()
+    {
+        return $this->participant;
+    }
+    
     public function moduleInstances()
     {
         return $this->hasManyThrough(ModuleInstance::class, Activity::class, 'id', 'activity_id', 'activity_id', 'id');

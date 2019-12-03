@@ -8,6 +8,7 @@ use BristolSU\Support\Filters\Contracts\FilterInstanceRepository as FilterInstan
 use BristolSU\Support\Filters\Contracts\FilterManager as FilterManagerContract;
 use BristolSU\Support\Filters\Contracts\FilterRepository as FilterRepositoryContract;
 use BristolSU\Support\Filters\Contracts\FilterTester as FilterTesterContract;
+use BristolSU\Support\Filters\Filters\Group\GroupNameIs;
 use BristolSU\Support\Filters\Filters\Group\GroupTagged;
 use BristolSU\Support\Filters\Filters\Role\RoleHasPosition;
 use BristolSU\Support\Filters\Filters\User\UserEmailIs;
@@ -53,6 +54,7 @@ class FilterServiceProvider extends ServiceProvider
         $this->app->make(FilterManagerContract::class)->register('group_tagged', GroupTagged::class);
         $this->app->make(FilterManagerContract::class)->register('user_email_is', UserEmailIs::class);
         $this->app->make(FilterManagerContract::class)->register('role_has_position', RoleHasPosition::class);
+        $this->app->make(FilterManagerContract::class)->register('group_name_is', GroupNameIs::class);
         $this->commands([CacheFilters::class]);
 
     }

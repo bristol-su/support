@@ -9,14 +9,14 @@ use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Completion\CompletionConditionInstance;
 use BristolSU\Support\Completion\Contracts\CompletionConditionTester;
-use BristolSU\Support\Completion\Contracts\CompletionTester;
 use BristolSU\Support\Control\Models\Group;
 use BristolSU\Support\Control\Models\Role;
-use BristolSU\Support\Logic\Facade\LogicTester;
+use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation;
 use BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Control\Models\User;
+use BristolSU\Support\Tests\Logic\LogicTest;
 use Prophecy\Argument;
 use BristolSU\Support\Tests\TestCase;
 
@@ -31,7 +31,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         
         $evaluation = $this->prophesize(Evaluation::class);
 
-        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal(), $this->prophesize(Authentication::class)->reveal());
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal());
         $this->assertInstanceOf(Evaluation::class, $moduleInstanceEvaluator->evaluateAdministrator($activityInstance, $moduleInstance));
     }
 
@@ -75,8 +75,11 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $evaluation->setMandatory(true)->shouldBeCalled();
         $evaluation->setActive(false)->shouldBeCalled();
         $evaluation->setComplete(true)->shouldBeCalled();
-
-        $this->createLogicTester([$moduleInstance->visibleLogic, $moduleInstance->mandatoryLogic], $moduleInstance->activeLogic);
+        $user = new User(['id' => 1]);
+        $group = new Group(['id' => 2]);
+        $role = new Role(['id' => 3]);
+        
+        $this->createLogicTester([$moduleInstance->visibleLogic, $moduleInstance->mandatoryLogic], $moduleInstance->activeLogic, $user, $group, $role);
         $completionTester = $this->prophesize(CompletionConditionTester::class);
         $completionTester->evaluate(Argument::that(function($actInst) use ($activityInstance) {
             return $activityInstance->is($actInst);
@@ -85,8 +88,8 @@ class ModuleInstanceEvaluatorTest extends TestCase
         }))->shouldBeCalled()->willReturn(true);
         $this->app->instance(CompletionConditionTester::class, $completionTester->reveal());
         
-        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal(), $this->prophesize(Authentication::class)->reveal());
-        $moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance);
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal());
+        $moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance, $user, $group, $role);
     }
 
     /** @test */
@@ -97,14 +100,19 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $activityInstance->activity->moduleInstances()->save($moduleInstance);
         $evaluation = $this->prophesize(Evaluation::class);
         $evaluation->setVisible(true)->shouldBeCalled();
-        $evaluation->setMandatory(false)->shouldBeCalled();
+        $evaluation->setMandatory(true)->shouldBeCalled();
         $evaluation->setActive(false)->shouldBeCalled();
         $evaluation->setComplete(false)->shouldBeCalled();
 
-        $this->createLogicTester([$moduleInstance->visibleLogic, $moduleInstance->mandatoryLogic], $moduleInstance->activeLogic);
+        $user = new User(['id' => 1]);
+        $group = new Group(['id' => 2]);
+        $role = new Role(['id' => 3]);
+
         
-        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal(), $this->prophesize(Authentication::class)->reveal());
-        $moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance);
+        $this->createLogicTester([$moduleInstance->visibleLogic, $moduleInstance->mandatoryLogic], $moduleInstance->activeLogic, $user, $group, $role);
+        
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal());
+        $moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance, $user, $group, $role);
     }
 
     /** @test */
@@ -117,15 +125,19 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $user = new User(['id' => 1]);
         $group = new Group(['id' => 1]);
         $role = new Role(['id' => 2]);
-
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn($user);
-        $authentication->getGroup()->shouldBeCalled()->willReturn($group);
-        $authentication->getRole()->shouldBeCalled()->willReturn($role);
-
-        $this->createLogicTester([$moduleInstance->visibleLogic, $moduleInstance->mandatoryLogic], $moduleInstance->activeLogic, $user, $group, $role);
-
-        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal(), $authentication->reveal());
-        $moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance);
+        $logicTester = $this->prophesize(LogicTester::class);
+        $logicTester->evaluate(Argument::that(function ($arg) use ($moduleInstance) {
+            return $moduleInstance->mandatoryLogic->is($arg);
+        }), $user, $group, $role)->shouldBeCalled()->willReturn(true);
+        $logicTester->evaluate(Argument::that(function ($arg) use ($moduleInstance) {
+            return $moduleInstance->visibleLogic->is($arg);
+        }), $user, $group, $role)->shouldBeCalled()->willReturn(true);
+        $logicTester->evaluate(Argument::that(function ($arg) use ($moduleInstance) {
+            return $moduleInstance->activeLogic->is($arg);
+        }), $user, $group, $role)->shouldBeCalled()->willReturn(true);
+        $this->app->instance(LogicTester::class, $logicTester->reveal());
+        
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal());
+        $moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance, $user, $group, $role);
     }
 }
