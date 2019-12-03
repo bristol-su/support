@@ -1,8 +1,6 @@
 <?php
 
-
 namespace BristolSU\Support\Filters\Filters\Group;
-
 
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 
@@ -12,6 +10,7 @@ use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
  */
 class GroupNameIs extends GroupFilter
 {
+
 
     /**
      * Get possible options as an array
