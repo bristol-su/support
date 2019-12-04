@@ -22,6 +22,22 @@ abstract class CompletionCondition
     {
         return $this->moduleAlias;
     }
+
+    /**
+     * Return the percentage completion of the module
+     * 
+     * @param $settings
+     * @param ActivityInstance $activityInstance
+     * @param ModuleInstance $moduleInstance
+     * @return int
+     */
+    public function percentage($settings, ActivityInstance $activityInstance, ModuleInstance $moduleInstance): int 
+    {
+        if($this->isComplete($settings, $activityInstance, $moduleInstance)) {
+            return 100;
+        }
+        return 0;
+    }
     
     abstract public function isComplete($settings, ActivityInstance $activityInstance, ModuleInstance $moduleInstance): bool;
 

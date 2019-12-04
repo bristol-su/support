@@ -62,7 +62,7 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
     public function evaluateParticipant(ActivityInstance $activityInstance, ModuleInstance $moduleInstance, ?User $user = null, ?Group $group = null, ?Role $role = null): EvaluationContract
     {
         $this->evaluation->setVisible(LogicTester::evaluate($moduleInstance->visibleLogic, $user, $group, $role));
-        $this->evaluation->setMandatory(LogicTester::evaluate($moduleInstance->mandatoryLogic, $user, $group, $role));
+        $this->evaluation->setMandatory($activityInstance->activity->isCompletable()?LogicTester::evaluate($moduleInstance->mandatoryLogic, $user, $group, $role):false);
         $this->evaluation->setActive(LogicTester::evaluate($moduleInstance->activeLogic, $user, $group, $role));
         $this->evaluation->setComplete($this->isComplete($activityInstance, $moduleInstance));
 
@@ -84,54 +84,59 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
         $this->evaluation->setActive(true);
         $this->evaluation->setComplete($this->isComplete($activityInstance, $moduleInstance));
 
-        $resource = $activityInstance->participant();
+        if($activityInstance->activity->isCompletable()) {
+            $resource = $activityInstance->participant();
 
-        if ($resource instanceof User) {
-            $audienceMember = app(AudienceMemberFactory::class)->fromUser($resource);
-            $audienceMember->filterForLogic($moduleInstance->mandatoryLogic);
-            $this->setMandatory($audienceMember->hasAudience());
-        } else {
-            $users = collect();
-            $mandatory = false;
-            $userRepository = app(UserRepository::class);
-            if ($resource instanceof Group) {
-                $users = $userRepository->allThroughGroup($resource)->merge(
-                    app(RoleRepository::class)->allThroughGroup($resource)->map(function(Role $role) {
-                        return $role->users();
-                    })->values()->flatten(1)
-                )->unique(function($user) {
-                    return $user->id();
-                });
-            } elseif ($resource instanceof Role) {
-                $users = $userRepository->allThroughRole($resource);
-            }
-            $audienceMemberFactory = app(AudienceMemberFactory::class);
-            foreach ($users as $user) {
-                $audienceMember = $audienceMemberFactory->fromUser($user);
+            if ($resource instanceof User) {
+                $audienceMember = app(AudienceMemberFactory::class)->fromUser($resource);
                 $audienceMember->filterForLogic($moduleInstance->mandatoryLogic);
-                if (
-                    $audienceMember->hasAudience()
-                    && ((
-                            $resource instanceof Group
-                            && ($audienceMember->groups()->filter(function ($group) use ($resource) {
-                                    return $group->id() === $resource->id();
-                                })->count() > 0
-                                || $audienceMember->roles()->filter(function ($role) use ($resource) {
-                                    return $role->groupId() === $resource->id();
-                                })->count() > 0)
-                        ) || (
-                            $resource instanceof Role
-                            && $audienceMember->roles()->filter(function ($role) use ($resource) {
-                                return $role->id() === $resource->id();
-                            })->count() > 0)
-                    )
-                ) {
-                    $mandatory = true;
-                    break;
+                $this->setMandatory($audienceMember->hasAudience());
+            } else {
+                $users = collect();
+                $mandatory = false;
+                $userRepository = app(UserRepository::class);
+                if ($resource instanceof Group) {
+                    $users = $userRepository->allThroughGroup($resource)->merge(
+                        app(RoleRepository::class)->allThroughGroup($resource)->map(function(Role $role) {
+                            return $role->users();
+                        })->values()->flatten(1)
+                    )->unique(function($user) {
+                        return $user->id();
+                    });
+                } elseif ($resource instanceof Role) {
+                    $users = $userRepository->allThroughRole($resource);
                 }
+                $audienceMemberFactory = app(AudienceMemberFactory::class);
+                foreach ($users as $user) {
+                    $audienceMember = $audienceMemberFactory->fromUser($user);
+                    $audienceMember->filterForLogic($moduleInstance->mandatoryLogic);
+                    if (
+                        $audienceMember->hasAudience()
+                        && ((
+                                $resource instanceof Group
+                                && ($audienceMember->groups()->filter(function ($group) use ($resource) {
+                                        return $group->id() === $resource->id();
+                                    })->count() > 0
+                                    || $audienceMember->roles()->filter(function ($role) use ($resource) {
+                                        return $role->groupId() === $resource->id();
+                                    })->count() > 0)
+                            ) || (
+                                $resource instanceof Role
+                                && $audienceMember->roles()->filter(function ($role) use ($resource) {
+                                    return $role->id() === $resource->id();
+                                })->count() > 0)
+                        )
+                    ) {
+                        $mandatory = true;
+                        break;
+                    }
+                }
+                $this->evaluation->setMandatory($mandatory);
             }
-            $this->evaluation->setMandatory($mandatory);
+        } else {
+            $this->evaluation->setMandatory(false);
         }
+       
 
         return $this->evaluation;
     }

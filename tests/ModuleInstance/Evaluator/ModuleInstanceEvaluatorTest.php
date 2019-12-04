@@ -100,7 +100,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $activityInstance->activity->moduleInstances()->save($moduleInstance);
         $evaluation = $this->prophesize(Evaluation::class);
         $evaluation->setVisible(true)->shouldBeCalled();
-        $evaluation->setMandatory(true)->shouldBeCalled();
+        $evaluation->setMandatory(false)->shouldBeCalled();
         $evaluation->setActive(false)->shouldBeCalled();
         $evaluation->setComplete(false)->shouldBeCalled();
 
@@ -109,7 +109,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $role = new Role(['id' => 3]);
 
         
-        $this->createLogicTester([$moduleInstance->visibleLogic, $moduleInstance->mandatoryLogic], $moduleInstance->activeLogic, $user, $group, $role);
+        $this->createLogicTester([$moduleInstance->visibleLogic], $moduleInstance->activeLogic, $user, $group, $role);
         
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal());
         $moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance, $user, $group, $role);
@@ -117,7 +117,8 @@ class ModuleInstanceEvaluatorTest extends TestCase
 
     /** @test */
     public function participant_passes_the_user_group_and_role_to_the_tester(){
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activity = factory(Activity::class)->create(['type' => 'open']);
+        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
         $moduleInstance = factory(ModuleInstance::class)->make();
         $activityInstance->activity->moduleInstances()->save($moduleInstance);
         $evaluation = $this->prophesize(Evaluation::class);
@@ -126,9 +127,6 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $group = new Group(['id' => 1]);
         $role = new Role(['id' => 2]);
         $logicTester = $this->prophesize(LogicTester::class);
-        $logicTester->evaluate(Argument::that(function ($arg) use ($moduleInstance) {
-            return $moduleInstance->mandatoryLogic->is($arg);
-        }), $user, $group, $role)->shouldBeCalled()->willReturn(true);
         $logicTester->evaluate(Argument::that(function ($arg) use ($moduleInstance) {
             return $moduleInstance->visibleLogic->is($arg);
         }), $user, $group, $role)->shouldBeCalled()->willReturn(true);
