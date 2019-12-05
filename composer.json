@@ -14,7 +14,7 @@
     "laravel/framework": "^6.0",
     "nao-pon/flysystem-google-drive": "^1.1",
     "twigger/unioncloud": "^1.0.1",
-    "laravel/passport": "^7.4",
+    "laravel/passport": "^8.0",
     "orchestra/testbench": "^4.0",
     "brianium/paratest": "^3.0",
     "laracasts/utilities": "^3.0",
