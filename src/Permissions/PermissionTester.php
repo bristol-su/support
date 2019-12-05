@@ -75,9 +75,14 @@ class PermissionTester implements PermissionTesterContract
     /**
      * @param Tester $tester
      */
-    public function register(Tester $tester)
+    public function register(Tester $tester, $position = null)
     {
-        $this->testers[] = $tester;
+	if($position === null) {
+		$this->testers[] = $tester;
+	} else {
+		array_splice($this->testers, $position, 0, [$tester]);
+	}
+        
     }
 
     private function getPermission(string $ability): Permission
