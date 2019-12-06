@@ -47,5 +47,10 @@ trait HasResource
         $query->where('activity_instance_id', ($activityInstanceId??static::activityInstanceId()))
             ->where('module_instance_id', ($moduleInstanceId??static::moduleInstanceId()));
     }
+
+    public function scopeForModuleInstance(Builder $query, $moduleInstanceId = null)
+    {
+        $query->where('module_instance_id', ($moduleInstanceId??static::moduleInstanceId()));
+    }
     
 }
