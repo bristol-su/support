@@ -59,6 +59,25 @@ class HasResourceTest extends TestCase
 
         $this->scopeForResource($builder->reveal(), 100, 101);
     }
+
+	/** @test */
+    public function forModuleInstance_scope_applies_correct_queries(){
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $this->app->instance(ModuleInstance::class, $moduleInstance);
+        
+        $builder = $this->prophesize(Builder::class);
+        $builder->where('module_instance_id', $moduleInstance->id)->shouldBeCalled();
+        
+        $this->scopeForModuleInstance($builder->reveal());
+    }
+    
+    /** @test */
+    public function forModuleInstance_can_have_the_ids_overwritten(){
+        $builder = $this->prophesize(Builder::class);
+        $builder->where('module_instance_id', 101)->shouldBeCalled();
+
+        $this->scopeForModuleInstance($builder->reveal(), 101);
+    }
     
     /** @test */
     public function activity_and_module_instance_id_are_set_on_save(){
