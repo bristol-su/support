@@ -34,14 +34,15 @@ class ModuleFactory implements ModuleFactoryAlias
      */
     public function fromAlias(string $alias): Module
     {
-        $this->moduleBuilder->create($alias);
-        $this->moduleBuilder->setAlias();
-        $this->moduleBuilder->setName();
-        $this->moduleBuilder->setDescription();
-        $this->moduleBuilder->setPermissions();
-        $this->moduleBuilder->setSettings();
-        $this->moduleBuilder->setTriggers();
-        $this->moduleBuilder->setCompletionConditions();
-        return $this->moduleBuilder->getModule();
+        $moduleBuilder = app(ModuleBuilder::class);
+        $moduleBuilder->create($alias);
+        $moduleBuilder->setAlias();
+        $moduleBuilder->setName();
+        $moduleBuilder->setDescription();
+        $moduleBuilder->setPermissions();
+        $moduleBuilder->setSettings();
+        $moduleBuilder->setTriggers();
+        $moduleBuilder->setCompletionConditions();
+        return $moduleBuilder->getModule();
     }
 }
