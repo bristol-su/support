@@ -6,6 +6,7 @@ namespace BristolSU\Support\ModuleInstance;
 
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance as ModuleInstanceContract;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository as ModuleInstanceRepositoryContract;
+use Illuminate\Support\Collection;
 
 /**
  * Class ModuleInstanceRepository
@@ -32,4 +33,19 @@ class ModuleInstanceRepository implements ModuleInstanceRepositoryContract
         return ModuleInstance::create($attributes);
     }
 
+    /**
+     * @inheritDoc
+     */
+    public function all(): Collection
+    {
+        return ModuleInstance::all();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function allWithAlias(string $alias = ''): Collection
+    {
+        return ModuleInstance::where('alias', $alias)->get();
+    }
 }
