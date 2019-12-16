@@ -32,8 +32,6 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         'active',
         'visible',
         'mandatory',
-        'module_instance_settings_id',
-        'module_instance_permissions_id',
         'completion_condition_instance_id'
     ];
 
@@ -78,7 +76,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function moduleInstanceSetting()
+    public function moduleInstanceSettings()
     {
         return $this->hasMany(ModuleInstanceSetting::class);
     }
