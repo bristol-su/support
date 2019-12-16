@@ -18,7 +18,8 @@
     "orchestra/testbench": "^4.0",
     "brianium/paratest": "^3.0",
     "laracasts/utilities": "^3.0",
-    "ext-json": "*"
+    "ext-json": "*",
+    "tobytwigger/form-schema-generator": "^1.1"
   },
   "autoload": {
     "files": [

@@ -3,9 +3,9 @@
 namespace BristolSU\Support\Tests\Module;
 
 use BristolSU\Support\Activity\Activity;
-use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSettings;
+use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
-use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
+use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use BristolSU\Support\Tests\TestCase;
 use BristolSU\Support\ModuleInstance\ModuleInstanceRepository;
@@ -35,8 +35,8 @@ class ModuleInstanceRepositoryTest extends TestCase
 
     /** @test */
     public function it_creates_a_module_instance(){
-        $moduleInstanceSettings = factory(ModuleInstanceSettings::class)->create();
-        $moduleInstancePermissions = factory(ModuleInstancePermissions::class)->create();
+        $moduleInstanceSettings = factory(ModuleInstanceSetting::class)->create();
+        $moduleInstancePermissions = factory(ModuleInstancePermission::class)->create();
         $repository = new ModuleInstanceRepository;
         $activity = factory(Activity::class)->create();
         $instance = $repository->create([

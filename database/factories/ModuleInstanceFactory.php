@@ -2,9 +2,9 @@
 
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Logic\Logic;
-use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
+use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
-use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSettings;
+use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use Faker\Generator as Faker;
 
 /*
@@ -36,10 +36,10 @@ $factory->define(ModuleInstance::class, function (Faker $faker) {
             return factory(Logic::class)->create()->id;
         },
         'module_instance_settings_id' => function() {
-            return factory(ModuleInstanceSettings::class)->create()->id;
+            return factory(ModuleInstanceSetting::class)->create()->id;
         },
         'module_instance_permissions_id' => function() {
-            return factory(ModuleInstancePermissions::class)->create()->id;
+            return factory(ModuleInstancePermission::class)->create()->id;
         },
         'completion_condition_instance_id' => null
     ];

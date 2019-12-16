@@ -6,10 +6,13 @@ use BristolSU\Support\Action\Contracts\Events\EventRepository;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
 use BristolSU\Support\Completion\Contracts\CompletionCondition;
 use BristolSU\Support\Completion\Contracts\CompletionConditionRepository;
+use BristolSU\Support\Connection\Contracts\ServiceRequest;
 use BristolSU\Support\Module\Contracts\ModuleBuilder as ModuleBuilderContract;
 use \BristolSU\Support\Module\Contracts\Module as ModuleContract;
+use BristolSU\Support\ModuleInstance\Contracts\Settings\ModuleSettingsStore;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use Exception;
+use FormSchema\Transformers\VFGTransformer;
 use Illuminate\Contracts\Config\Repository;
 
 /**
@@ -45,6 +48,14 @@ class ModuleBuilder implements ModuleBuilderContract
      * @var CompletionConditionRepository
      */
     private $completionConditionRepository;
+    /**
+     * @var ModuleSettingsStore
+     */
+    private $moduleSettingsStore;
+    /**
+     * @var ServiceRequest
+     */
+    private $serviceRequest;
 
     /**
      * ModuleBuilder constructor.
@@ -57,13 +68,17 @@ class ModuleBuilder implements ModuleBuilderContract
                                 PermissionRepository $permissionRepository,
                                 Repository $config,
                                 EventRepository $eventRepository,
-                                CompletionConditionRepository $completionConditionRepository)
+                                CompletionConditionRepository $completionConditionRepository,
+                                ModuleSettingsStore $moduleSettingsStore,
+                                ServiceRequest $serviceRequest)
     {
         $this->module = $module;
         $this->permissionRepository = $permissionRepository;
         $this->config = $config;
         $this->eventRepository = $eventRepository;
         $this->completionConditionRepository = $completionConditionRepository;
+        $this->moduleSettingsStore = $moduleSettingsStore;
+        $this->serviceRequest = $serviceRequest;
     }
 
     /**
@@ -115,7 +130,9 @@ class ModuleBuilder implements ModuleBuilderContract
     public function setSettings()
     {
         $this->module->setSettings(
-            $this->config->get($this->getAlias() . '.settings')
+            (new VFGTransformer)->transformToArray(
+                $this->moduleSettingsStore->get($this->getAlias())
+            )
         );
     }
 
@@ -128,6 +145,14 @@ class ModuleBuilder implements ModuleBuilderContract
                     return in_array(TriggerableEvent::class, class_implements($event['event']));
                 })
         );
+    }
+
+    public function setServices()
+    {
+        $this->module->setServices([
+            'required' => $this->serviceRequest->getRequired($this->getAlias()),
+            'optional' => $this->serviceRequest->getOptional($this->getAlias())
+        ]);
     }
 
     /**

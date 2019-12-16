@@ -35,6 +35,8 @@ class Module implements ModuleContract
      * @var
      */
     protected $triggers;
+    
+    protected $services;
 
     /**
      * @var array
@@ -70,7 +72,8 @@ class Module implements ModuleContract
             'permissions' => $this->getPermissions(),
             'settings' => $this->getSettings(),
             'triggers' => $this->getTriggers(),
-            'completionConditions' => $this->getCompletionConditions()
+            'completionConditions' => $this->getCompletionConditions(),
+            'services' => $this->getServices()
         ];
     }
 
@@ -184,5 +187,21 @@ class Module implements ModuleContract
     public function getCompletionConditions(): array
     {
         return $this->completionConditions;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function setServices(array $services): void
+    {
+        $this->services = $services;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function getServices(): array
+    {
+        return $this->services;
     }
 }

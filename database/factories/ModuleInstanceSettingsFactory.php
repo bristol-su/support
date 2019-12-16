@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(\BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSettings::class, function (Faker $faker) {
+$factory->define(\BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting::class, function (Faker $faker) {
     return [
         'settings' => [
             'foo' => $faker->word,

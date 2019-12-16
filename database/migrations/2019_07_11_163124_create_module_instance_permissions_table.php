@@ -15,8 +15,10 @@ class CreateModuleInstancePermissionsTable extends Migration
     {
         Schema::create('module_instance_permissions', function (Blueprint $table) {
             $table->increments('id');
-            $table->json('participant_permissions');
-            $table->json('admin_permissions');
+            $table->string('ability');
+            $table->unsignedBigInteger('logic_id');
+            $table->unsignedBigInteger('module_instance_id');
+            $table->enum('type', ['participant', 'admin']);
             $table->timestamps();
         });
     }

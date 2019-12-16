@@ -6,9 +6,10 @@ use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Completion\CompletionConditionInstance;
 use BristolSU\Support\Logic\Logic;
+use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance as ModuleInstanceContract;
-use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
-use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSettings;
+use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
+use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -75,19 +76,19 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function moduleInstanceSettings()
+    public function moduleInstanceSetting()
     {
-        return $this->belongsTo(ModuleInstanceSettings::class);
+        return $this->hasMany(ModuleInstanceSetting::class);
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function moduleInstancePermissions()
     {
-        return $this->belongsTo(ModuleInstancePermissions::class);
+        return $this->hasMany(ModuleInstancePermission::class);
     }
 
     public function completionConditionInstance()
@@ -125,6 +126,11 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     public function actionInstances()
     {
         return $this->hasMany(ActionInstance::class);
+    }
+
+    public function services()
+    {
+        return $this->hasMany(ModuleInstanceService::class);
     }
 
 }

@@ -14,6 +14,7 @@ use Illuminate\Contracts\Container\Container;
 use BristolSU\Support\Control\Contracts\Models\Group;
 use BristolSU\Support\Control\Contracts\Models\Role;
 use BristolSU\Support\Control\Contracts\Models\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class ModuleInstanceUserPermissions
@@ -51,16 +52,16 @@ class ModuleInstanceUserPermissions extends Tester
             return null;
         }
         
-        $participantPermissions = $moduleInstance->moduleInstancePermissions->participant_permissions;
-        if(!array_key_exists($permission->getAbility(), $participantPermissions)) {
-            return null;
-        }
-        
-        $logic = Logic::find($participantPermissions[$permission->getAbility()]);
-        if($logic === null) {
-            return null;
-        }
+        try {
+            $permissionValue = $moduleInstance->moduleInstancePermissions()
+                ->where('key', $permission->getAbility())
+                ->where('type', 'participant')->firstOrFail();
+            if($permissionValue->logic !== null) {
+                return $this->logicTester->evaluate($permissionValue->logic, $user, $group, $role);
 
-        return $this->logicTester->evaluate($logic, $user, $group, $role);
+            }
+        } catch (ModelNotFoundException $e) {
+            return null;
+        }
     }
 }

@@ -10,7 +10,7 @@ use BristolSU\Support\Permissions\Contracts\PermissionStore as PermissionStoreCo
 use BristolSU\Support\Permissions\Contracts\PermissionTester as PermissionTesterContract;
 use BristolSU\Support\Permissions\Facade\Permission as PermissionFacade;
 use BristolSU\Support\Permissions\Facade\PermissionTester as PermissionTesterFacade;
-use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
+use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\Permissions\Models\Permission;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceAdminPermissions;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceUserPermissions;
@@ -58,7 +58,7 @@ class PermissionServiceProvider extends ServiceProvider
         });
 
         Route::bind('module_instance_permission', function ($id) {
-            return ModuleInstancePermissions::findOrFail($id);
+            return ModuleInstancePermission::findOrFail($id);
         });
 
         Route::bind('site_permission', function ($ability) {

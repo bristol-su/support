@@ -9,8 +9,8 @@ use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
-use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSettings;
-use BristolSU\Support\Permissions\Models\ModuleInstancePermissions;
+use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
+use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use Illuminate\Support\Facades\DB;
 use BristolSU\Support\Tests\TestCase;
 
@@ -20,7 +20,7 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function it_has_a_module_instance_setting()
     {
-        $settings = factory(ModuleInstanceSettings::class)->create();
+        $settings = factory(ModuleInstanceSetting::class)->create();
         $moduleInstance = factory(ModuleInstance::class)->create([
             'module_instance_settings_id' => $settings->id
         ]);
@@ -44,7 +44,7 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function it_has_a_module_instance_permission()
     {
-        $permissions = factory(ModuleInstancePermissions::class)->create();
+        $permissions = factory(ModuleInstancePermission::class)->create();
         $moduleInstance = factory(ModuleInstance::class)->create([
             'module_instance_permissions_id' => $permissions->id
         ]);

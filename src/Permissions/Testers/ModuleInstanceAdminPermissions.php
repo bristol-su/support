@@ -15,6 +15,7 @@ use BristolSU\Support\Control\Contracts\Models\Group;
 use BristolSU\Support\Control\Contracts\Models\Role;
 use BristolSU\Support\Control\Contracts\Models\User;
 use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class ModuleInstanceAdminPermissions
@@ -51,16 +52,16 @@ class ModuleInstanceAdminPermissions extends Tester
             return null;
         }
 
-        $adminPermissions = $moduleInstance->moduleInstancePermissions->admin_permissions;
-        if(!array_key_exists($permission->getAbility(), $adminPermissions)) {
+        try {
+            $permissionValue = $moduleInstance->moduleInstancePermissions()
+                ->where('key', $permission->getAbility())
+                ->where('type', 'admin')->firstOrFail();
+            if($permissionValue->logic !== null) {
+                return $this->logicTester->evaluate($permissionValue->logic, $user, $group, $role);
+
+            }
+        } catch (ModelNotFoundException $e) {
             return null;
         }
-
-        $logic = Logic::find($adminPermissions[$permission->getAbility()]);
-        if($logic === null) {
-            return null;
-        }
-
-        return $this->logicTester->evaluate($logic, $user, $group, $role);
     }
 }

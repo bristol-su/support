@@ -43,6 +43,7 @@ class ModuleFactory implements ModuleFactoryAlias
         $moduleBuilder->setSettings();
         $moduleBuilder->setTriggers();
         $moduleBuilder->setCompletionConditions();
+        $moduleBuilder->setServices();
         return $moduleBuilder->getModule();
     }
 }

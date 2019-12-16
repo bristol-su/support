@@ -4,11 +4,14 @@ namespace BristolSU\Support\Module;
 
 use BristolSU\Support\Action\Contracts\Events\EventManager;
 use BristolSU\Support\Module\Contracts\ModuleManager;
+use BristolSU\Support\ModuleInstance\Contracts\Settings\ModuleSettingsStore;
 use BristolSU\Support\Permissions\Facade\Permission;
 use Exception;
+use FormSchema\Schema\Form;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -71,6 +74,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
         $this->registerCommands();
         $this->registerAssets();
         $this->registerRoutes();
+        $this->registerSettings();
     }
 
     public function registerRoutes()
@@ -205,5 +209,28 @@ abstract class ModuleServiceProvider extends ServiceProvider
      * @return string
      */
     abstract public function alias(): string;
+
+    abstract public function settings(): Form;
+    
+    public function registerSettings()
+    {
+        $this->app->make(ModuleSettingsStore::class)->register($this->alias(), $this->settings());
+    }
+
+    /**
+     * Register a js file to be loaded on every request.
+     * 
+     * This is useful for registering custom components. If you want to register a custom component to use in a form,
+     * pass in a js file path which registers the component.
+     * 
+     * @param string $path build path e.g. 'modules/module-alias/js/components.js'
+     */
+    public function registerGlobalScript(string $path) {
+        View::composer('bristolsu::base', function(\Illuminate\View\View $view) use ($path) {
+            $scripts = ($view->offsetExists('globalScripts')?$view->offsetGet('globalScripts'):[]);
+            $scripts[] = asset($path);
+            $view->with('globalScripts', $scripts);
+        });
+    }
 
 }

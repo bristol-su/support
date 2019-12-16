@@ -8,8 +8,7 @@ use BristolSU\Support\Authentication\AuthenticationServiceProvider;
 use BristolSU\Support\Action\ActionServiceProvider;
 use BristolSU\Support\Authorization\AuthorizationServiceProvider;
 use BristolSU\Support\Completion\CompletionConditionServiceProvider;
-use BristolSU\Support\Control\ControlClientServiceProvider;
-use BristolSU\Support\Control\ControlServiceProvider;
+use BristolSU\Support\Connection\ConnectionServiceProvider;
 use BristolSU\Support\DataPlatform\UnionCloudServiceProvider;
 use BristolSU\Support\Filters\FilterServiceProvider;
 use BristolSU\Support\Http\HttpServiceProvider;
@@ -37,8 +36,7 @@ class SupportServiceProvider extends ServiceProvider
         ActivityInstanceServiceProvider::class,
         AuthorizationServiceProvider::class,
         CompletionConditionServiceProvider::class,
-        ControlClientServiceProvider::class,
-        ControlServiceProvider::class,
+        ConnectionServiceProvider::class,
         UnionCloudServiceProvider::class,
         FilterServiceProvider::class,
         LogicServiceProvider::class,

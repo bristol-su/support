@@ -1,3 +1,11 @@
+@if(isset($globalScripts))
+    @foreach($globalScripts as $script)
+        @push('scripts')
+            <script src="{{$script}}"></script>
+        @endpush
+    @endforeach
+@endif
+
 @includeFirst(['partials.injections', 'bristolsu::partials.injections'])
 
 @includeFirst(['partials.doctype', 'bristolsu::partials.doctype'])

@@ -81,4 +81,14 @@ interface Module extends Arrayable, Jsonable
      * @return array
      */
     public function getTriggers(): array;
+
+    /**
+     * @param array $services
+     */
+    public function setServices(array $services): void;
+
+    /**
+     * @return array
+     */
+    public function getServices(): array;
 }

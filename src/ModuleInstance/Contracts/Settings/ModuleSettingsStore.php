@@ -4,7 +4,13 @@
 namespace BristolSU\Support\ModuleInstance\Contracts\Settings;
 
 
-class ModuleSettingsStore
+use FormSchema\Schema\Form;
+
+interface ModuleSettingsStore
 {
 
+    public function register(string $alias, Form $settings);
+
+    public function get(string $alias): Form;
+    
 }

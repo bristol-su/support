@@ -1,6 +1,8 @@
 <?php
 
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Facades\View;
 
 if(!function_exists('settings')) {
     /**
@@ -11,13 +13,19 @@ if(!function_exists('settings')) {
      */
     function settings($key = null, $default = null)
     {
-        $settings = app()->make(ModuleInstance::class)->moduleInstanceSettings->settings;
         if($key === null) {
+            $settings = [];
+            app()->make(ModuleInstance::class)->moduleInstanceSettings->forEach(function($setting) {
+                $settings[$setting->key] = $setting->value;
+            });
             return $settings;
-        } elseif(array_key_exists($key, $settings)) {
-            return $settings[$key];
+        } else {
+            try {
+                $setting = app()->make(ModuleInstance::class)->moduleInstanceSettings()->where('key', $key)->firstOrFail();
+            } catch (ModelNotFoundException $e) {
+                return $default;
+            }   
         }
-        return $default;
     }
 }
 

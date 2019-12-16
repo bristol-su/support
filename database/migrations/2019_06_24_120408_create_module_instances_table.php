@@ -18,8 +18,6 @@ class CreateModuleInstancesTable extends Migration
             $table->string('alias');
             $table->unsignedInteger('activity_id');
             $table->string('slug');
-            $table->unsignedInteger('module_instance_settings_id');
-            $table->unsignedInteger('module_instance_permissions_id');
             $table->unsignedBigInteger('completion_condition_instance_id')->nullable();
             $table->string('name');
             $table->text('description');
