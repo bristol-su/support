@@ -21,7 +21,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
  * Class ModuleInstanceAdminPermissions
  * @package BristolSU\Support\Permissions\Testers
  */
-class ModuleInstanceAdminPermissions extends Tester
+class ModuleInstancePermissions extends Tester
 {
 
     /**
@@ -54,8 +54,7 @@ class ModuleInstanceAdminPermissions extends Tester
 
         try {
             $permissionValue = $moduleInstance->moduleInstancePermissions()
-                ->where('key', $permission->getAbility())
-                ->where('type', 'admin')->firstOrFail();
+                ->where('ability', $permission->getAbility())->firstOrFail();
             if($permissionValue->logic !== null) {
                 return $this->logicTester->evaluate($permissionValue->logic, $user, $group, $role);
 

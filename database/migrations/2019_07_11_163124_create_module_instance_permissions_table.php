@@ -18,7 +18,6 @@ class CreateModuleInstancePermissionsTable extends Migration
             $table->string('ability');
             $table->unsignedBigInteger('logic_id');
             $table->unsignedBigInteger('module_instance_id');
-            $table->enum('type', ['participant', 'admin']);
             $table->timestamps();
         });
     }

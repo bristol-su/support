@@ -126,7 +126,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         return $this->hasMany(ActionInstance::class);
     }
 
-    public function services()
+    public function moduleInstanceServices()
     {
         return $this->hasMany(ModuleInstanceService::class);
     }

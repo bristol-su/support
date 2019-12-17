@@ -4,11 +4,14 @@
 namespace BristolSU\Support\DataPlatform\Models;
 
 
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
+
 /**
  * Class Model
  * @package BristolSU\Support\DataPlatform\Models
  */
-class Model
+class Model implements Arrayable, Jsonable
 {
     /**
      * @var array
@@ -35,5 +38,26 @@ class Model
         }
 
         return null;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toArray()
+    {
+        return $this->attributes;
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
+    }
+
+    public function __toString()
+    {
+        return $this->toJson();
     }
 }

@@ -12,10 +12,8 @@ use BristolSU\Support\Permissions\Facade\Permission as PermissionFacade;
 use BristolSU\Support\Permissions\Facade\PermissionTester as PermissionTesterFacade;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\Permissions\Models\Permission;
-use BristolSU\Support\Permissions\Testers\ModuleInstanceAdminPermissions;
-use BristolSU\Support\Permissions\Testers\ModuleInstanceUserPermissions;
+use BristolSU\Support\Permissions\Testers\ModuleInstancePermissions;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceGroupOverridePermission;
-use BristolSU\Support\Permissions\Testers\ModuleInstanceLogicOverridePermission;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceRoleOverridePermission;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceUserOverridePermission;
 use BristolSU\Support\Permissions\Testers\SystemUserPermission;
@@ -50,8 +48,7 @@ class PermissionServiceProvider extends ServiceProvider
         PermissionTesterFacade::register($this->app->make(ModuleInstanceRoleOverridePermission::class));
         
         // Check default module instance permissions
-        PermissionTesterFacade::register($this->app->make(ModuleInstanceUserPermissions::class));
-        PermissionTesterFacade::register($this->app->make(ModuleInstanceAdminPermissions::class));
+        PermissionTesterFacade::register($this->app->make(ModuleInstancePermissions::class));
 
         Gate::before(function (User $user, $ability) {
             return app()->make(PermissionTesterContract::class)->evaluate($ability);

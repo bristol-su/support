@@ -3,6 +3,9 @@
 namespace BristolSU\Support\ModuleInstance;
 
 use BristolSU\Support\Activity\Middleware\InjectActivityInstance;
+use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
+use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceServiceRepository;
+use BristolSU\Support\ModuleInstance\Contracts\Connection\ModuleInstanceServiceRepository as ModuleInstanceServiceRepositoryContract;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ActivityInstanceEvaluator as ActivityEvaluatorContract;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation as EvaluationContract;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator as ModuleInstanceEvaluatorContract;
@@ -29,7 +32,8 @@ class ModuleInstanceServiceProvider extends ServiceProvider
         $this->app->bind(ModuleInstanceRepositoryContract::class, ModuleInstanceRepository::class);
         $this->app->bind(ActivityEvaluatorContract::class, ActivityInstanceEvaluator::class);
         $this->app->bind(ModuleInstanceEvaluatorContract::class, ModuleInstanceEvaluator::class);
-        $this->app->bind(EvaluationContract::class, Evaluation::class); 
+        $this->app->bind(EvaluationContract::class, Evaluation::class);
+        $this->app->bind(ModuleInstanceServiceRepositoryContract::class, ModuleInstanceServiceRepository::class);
         $this->app->singleton(ModuleSettingsStoreContract::class, ModuleSettingsStore::class);
         
     }
@@ -40,6 +44,10 @@ class ModuleInstanceServiceProvider extends ServiceProvider
 
         Route::bind('module_instance_setting', function ($id) {
             return ModuleInstanceSetting::findOrFail($id);
+        });
+
+        Route::bind('module_instance_service', function ($id) {
+            return ModuleInstanceService::findOrFail($id);
         });
 
         Route::bind('module_instance_slug', function ($slug, $route) {

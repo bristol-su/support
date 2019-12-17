@@ -15,16 +15,16 @@ if(!function_exists('settings')) {
     {
         if($key === null) {
             $settings = [];
-            app()->make(ModuleInstance::class)->moduleInstanceSettings->forEach(function($setting) {
+            app()->make(ModuleInstance::class)->moduleInstanceSettings->each(function($setting) use (&$settings) {
                 $settings[$setting->key] = $setting->value;
             });
             return $settings;
         } else {
             try {
-                $setting = app()->make(ModuleInstance::class)->moduleInstanceSettings()->where('key', $key)->firstOrFail();
+                return app()->make(ModuleInstance::class)->moduleInstanceSettings()->where('key', $key)->firstOrFail()->value;
             } catch (ModelNotFoundException $e) {
                 return $default;
-            }   
+            }
         }
     }
 }

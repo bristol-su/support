@@ -10,7 +10,7 @@ use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\Permissions\Models\Permission;
-use BristolSU\Support\Permissions\Testers\ModuleInstanceAdminPermissions;
+use BristolSU\Support\Permissions\Testers\ModuleInstancePermissions;
 use BristolSU\Support\Tests\TestCase;
 
 class ModuleInstanceAdminPermissionsTest extends TestCase
@@ -20,7 +20,7 @@ class ModuleInstanceAdminPermissionsTest extends TestCase
     public function can_returns_null_if_no_module_instance_is_in_the_container()
     {
         $logicTester = $this->prophesize(LogicTester::class);
-        $tester = new ModuleInstanceAdminPermissions($logicTester->reveal());
+        $tester = new ModuleInstancePermissions($logicTester->reveal());
         
         $this->assertNull($tester->can(new Permission('ability'), null, null, null));
     }
@@ -29,7 +29,7 @@ class ModuleInstanceAdminPermissionsTest extends TestCase
     public function can_returns_null_if_permission_not_in_the_admin_permission_for_the_module_instance()
     {
         $logicTester = $this->prophesize(LogicTester::class);
-        $tester = new ModuleInstanceAdminPermissions($logicTester->reveal());
+        $tester = new ModuleInstancePermissions($logicTester->reveal());
         
         $ModInstPermissions = factory(ModuleInstancePermission::class)->create(['admin_permissions' => [
             'permission1' => factory(Logic::class)->create()->id
@@ -46,7 +46,7 @@ class ModuleInstanceAdminPermissionsTest extends TestCase
     public function can_returns_null_if_the_logic_for_the_permission_could_not_be_found()
     {
         $logicTester = $this->prophesize(LogicTester::class);
-        $tester = new ModuleInstanceAdminPermissions($logicTester->reveal());
+        $tester = new ModuleInstancePermissions($logicTester->reveal());
 
         $ModInstPermissions = factory(ModuleInstancePermission::class)->create(['admin_permissions' => [
             'permission1' => 100
@@ -70,7 +70,7 @@ class ModuleInstanceAdminPermissionsTest extends TestCase
 
         $logic = factory(Logic::class)->create();
         $logicTester = $this->createLogicTester([$logic], [], $user, $group, $role);
-        $tester = new ModuleInstanceAdminPermissions($logicTester->reveal());
+        $tester = new ModuleInstancePermissions($logicTester->reveal());
 
         $ModInstPermissions = factory(ModuleInstancePermission::class)->create(['admin_permissions' => [
             'permission1' => $logic->id
@@ -92,7 +92,7 @@ class ModuleInstanceAdminPermissionsTest extends TestCase
 
         $logic = factory(Logic::class)->create();
         $logicTester = $this->createLogicTester([], [$logic], $user, $group, $role);
-        $tester = new ModuleInstanceAdminPermissions($logicTester->reveal());
+        $tester = new ModuleInstancePermissions($logicTester->reveal());
 
         $ModInstPermissions = factory(ModuleInstancePermission::class)->create(['admin_permissions' => [
             'permission1' => $logic->id
