@@ -4,12 +4,16 @@ namespace BristolSU\Support\Module;
 
 use BristolSU\Support\Action\Contracts\Events\EventManager;
 use BristolSU\Support\Module\Contracts\ModuleManager;
+use BristolSU\Support\ModuleInstance\Contracts\Scheduler\CommandStore;
 use BristolSU\Support\ModuleInstance\Contracts\Settings\ModuleSettingsStore;
+use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\Permissions\Facade\Permission;
 use Exception;
 use FormSchema\Schema\Form;
 use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Routing\Router;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -53,6 +57,13 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     protected $commands = [];
 
+    /**
+     * @var array 
+     */
+    protected $settingListeners = [];
+    
+    protected $scheduledCommands = [];
+
     public function register()
     {
         
@@ -75,8 +86,25 @@ abstract class ModuleServiceProvider extends ServiceProvider
         $this->registerAssets();
         $this->registerRoutes();
         $this->registerSettings();
+        $this->registerSettingListeners();
+        $this->registerScheduledCommands();
     }
 
+    public function registerSettingListeners()
+    {
+        foreach($this->settingListeners as $listener) {
+            Event::listen('eloquent.*: '.ModuleInstanceSetting::class, $listener);
+        }
+    }
+
+    public function registerScheduledCommands()
+    {
+        $commandStore = $this->app->make(CommandStore::class);
+        foreach($this->scheduledCommands as $command => $cron) {
+            $commandStore->schedule($this->alias(), $command, $cron);
+        }
+    }
+    
     public function registerRoutes()
     {
         

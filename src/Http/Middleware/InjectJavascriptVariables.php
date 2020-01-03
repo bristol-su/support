@@ -50,7 +50,8 @@ class InjectJavascriptVariables
             'user' => $this->authentication->getUser(),
             'group' => $this->authentication->getGroup(),
             'role' => $this->authentication->getRole(),
-            'activityinstance' => $this->activityInstanceResolver->getActivityInstance()
+            'activityinstance' => $this->activityInstanceResolver->getActivityInstance(),
+            'moduleinstance' => $request->route('module_instance_slug')
         ]);
         
         JavaScriptFacade::put([

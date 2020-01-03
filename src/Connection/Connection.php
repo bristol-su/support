@@ -4,6 +4,7 @@ namespace BristolSU\Support\Connection;
 
 use BristolSU\Support\Authentication\Contracts\UserAuthentication;
 use BristolSU\Support\Connection\Contracts\Connector;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 class Connection extends Model
@@ -32,8 +33,12 @@ class Connection extends Model
                 $model->user_id = app(UserAuthentication::class)->getUser()->control_id;
             }
         });
-        
-        static::addGlobalScope(new AccessibleConnectionScope());
+    
+    }
+
+    public function scopeAccessible(Builder $builder)
+    {
+        $builder->where('user_id', app(UserAuthentication::class)->getUser()->control_id);
     }
 
     /**

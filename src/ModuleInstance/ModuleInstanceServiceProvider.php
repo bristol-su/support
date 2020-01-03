@@ -10,11 +10,13 @@ use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ActivityInstanceEvaluat
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation as EvaluationContract;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator as ModuleInstanceEvaluatorContract;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository as ModuleInstanceRepositoryContract;
+use BristolSU\Support\ModuleInstance\Contracts\Scheduler\CommandStore as CommandStoreContract;
 use BristolSU\Support\ModuleInstance\Contracts\Settings\ModuleSettingsStore as ModuleSettingsStoreContract;
 use BristolSU\Support\ModuleInstance\Evaluator\ActivityInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\Evaluator\Evaluation;
 use BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\Middleware\InjectModuleInstance;
+use BristolSU\Support\ModuleInstance\Scheduler\CommandStore;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\ModuleInstance\Settings\ModuleSettingsStore;
 use Illuminate\Support\Facades\Route;
@@ -35,7 +37,7 @@ class ModuleInstanceServiceProvider extends ServiceProvider
         $this->app->bind(EvaluationContract::class, Evaluation::class);
         $this->app->bind(ModuleInstanceServiceRepositoryContract::class, ModuleInstanceServiceRepository::class);
         $this->app->singleton(ModuleSettingsStoreContract::class, ModuleSettingsStore::class);
-        
+        $this->app->singleton(CommandStoreContract::class, CommandStore::class);
     }
 
     public function boot()

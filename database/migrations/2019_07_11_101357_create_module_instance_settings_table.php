@@ -18,6 +18,7 @@ class CreateModuleInstanceSettingsTable extends Migration
             $table->string('key');
             $table->text('value');
             $table->unsignedBigInteger('module_instance_id');
+            $table->boolean('encoded')->default(false);
             $table->timestamps();
         });
     }

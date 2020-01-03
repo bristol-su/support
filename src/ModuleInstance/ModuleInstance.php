@@ -11,6 +11,7 @@ use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance as ModuleInstanceC
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;
 
 /**
@@ -131,4 +132,12 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         return $this->hasMany(ModuleInstanceService::class);
     }
 
+    public function setting($key, $default = null)
+    {
+        try {
+            return $this->moduleInstanceSettings()->where('key', $key)->firstOrFail()->value;
+        } catch (ModelNotFoundException $e) {
+            return $default;
+        }
+    }
 }
