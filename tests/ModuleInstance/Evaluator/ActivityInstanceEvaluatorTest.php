@@ -6,9 +6,9 @@ namespace BristolSU\Support\Tests\ModuleInstance\Evaluator;
 
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
-use BristolSU\Support\Control\Models\Group;
-use BristolSU\Support\Control\Models\Role;
-use BristolSU\Support\Control\Models\User;
+use BristolSU\ControlDB\Models\Group;
+use BristolSU\ControlDB\Models\Role;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\Evaluator\ActivityInstanceEvaluator;

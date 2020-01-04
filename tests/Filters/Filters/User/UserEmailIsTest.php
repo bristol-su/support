@@ -7,7 +7,7 @@ namespace BristolSU\Support\Tests\Filters\Filters;
 use BristolSU\Support\DataPlatform\Contracts\Repositories\User as DataUserRepository;
 use BristolSU\Support\DataPlatform\Models\User as DataUser;
 use BristolSU\Support\Filters\Filters\User\UserEmailIs;
-use BristolSU\Support\Control\Models\User;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Tests\TestCase;
 
 class UserEmailIsTest extends TestCase

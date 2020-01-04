@@ -6,10 +6,10 @@ namespace BristolSU\Support\Tests\Permissions;
 
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Authentication\Contracts\UserAuthentication;
-use BristolSU\Support\Control\Contracts\Models\Group;
-use BristolSU\Support\Control\Contracts\Models\Role;
-use BristolSU\Support\Control\Contracts\Models\User;
-use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
+use BristolSU\ControlDB\Contracts\Models\Group;
+use BristolSU\ControlDB\Contracts\Models\Role;
+use BristolSU\ControlDB\Contracts\Models\User;
+use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
 use BristolSU\Support\Permissions\Contracts\PermissionStore;
 use BristolSU\Support\Permissions\Contracts\Tester;
@@ -140,9 +140,9 @@ class PermissionTesterTest extends TestCase
     /** @test */
     public function evaluateFor_passes_the_models_through_to_the_tester()
     {
-        $user = new \BristolSU\Support\Control\Models\User(['id' => 1]);
-        $group = new \BristolSU\Support\Control\Models\Group(['id' => 2]);
-        $role = new \BristolSU\Support\Control\Models\Role(['id' => 3]);
+        $user = new \BristolSU\ControlDB\Models\User(['id' => 1]);
+        $group = new \BristolSU\ControlDB\Models\Group(['id' => 2]);
+        $role = new \BristolSU\ControlDB\Models\Role(['id' => 3]);
 
         $tester = (new DummyTester())
             ->assertPermission(function ($arg) {
@@ -223,9 +223,9 @@ class PermissionTesterTest extends TestCase
     public function evaluate_takes_user_information_from_authentication_by_default()
     {
 
-        $user = new \BristolSU\Support\Control\Models\User(['id' => 1]);
-        $group = new \BristolSU\Support\Control\Models\Group(['id' => 2]);
-        $role = new \BristolSU\Support\Control\Models\Role(['id' => 3]);
+        $user = new \BristolSU\ControlDB\Models\User(['id' => 1]);
+        $group = new \BristolSU\ControlDB\Models\Group(['id' => 2]);
+        $role = new \BristolSU\ControlDB\Models\Role(['id' => 3]);
 
         $authentication = $this->prophesize(Authentication::class);
         $authentication->getUser()->shouldBeCalled()->willReturn($user);
@@ -258,7 +258,7 @@ class PermissionTesterTest extends TestCase
     public function evaluate_finds_the_correct_user_from_the_database_user_if_no_user_in_authentication()
     {
         
-        $user = new \BristolSU\Support\Control\Models\User(['id' => 1]);
+        $user = new \BristolSU\ControlDB\Models\User(['id' => 1]);
         $authentication = $this->prophesize(Authentication::class);
         $authentication->getUser()->shouldBeCalled()->willReturn(null);
         $authentication->getGroup()->shouldBeCalled()->willReturn(null);

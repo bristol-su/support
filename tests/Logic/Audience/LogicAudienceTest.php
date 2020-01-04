@@ -2,8 +2,8 @@
 
 namespace BristolSU\Support\Tests\Logic\Audience;
 
-use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
-use BristolSU\Support\Control\Models\User;
+use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Logic\Audience\AudienceMember;
 use BristolSU\Support\Logic\Audience\LogicAudience;
 use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory;

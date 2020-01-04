@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Tests\Filters\Contracts\Filters;
 
-use BristolSU\Support\Control\Models\Role;
+use BristolSU\ControlDB\Models\Role;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use BristolSU\Support\Tests\TestCase;
 

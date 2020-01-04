@@ -6,9 +6,9 @@ namespace BristolSU\Support\Tests\Activity;
 
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Activity\Repository as ActivityRepository;
-use BristolSU\Support\Control\Models\Group;
-use BristolSU\Support\Control\Models\Role;
-use BristolSU\Support\Control\Models\User;
+use BristolSU\ControlDB\Models\Group;
+use BristolSU\ControlDB\Models\Role;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
 use Carbon\Carbon;

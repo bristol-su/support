@@ -12,7 +12,7 @@ use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory as Audience
 class AudienceMemberFactory implements AudienceMemberFactoryContract
 {
 
-    public function fromUser(User $user) {
+    public function fromUser(User $user): AudienceMember {
         return new AudienceMember($user);
     }
 

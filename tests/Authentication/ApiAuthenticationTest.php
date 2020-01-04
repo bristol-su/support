@@ -5,12 +5,12 @@ namespace BristolSU\Support\Tests\Authentication;
 
 
 use BristolSU\Support\Authentication\ApiAuthentication;
-use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
-use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
-use BristolSU\Support\Control\Models\Group;
-use BristolSU\Support\Control\Models\Role;
-use BristolSU\Support\Control\Models\User;
+use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
+use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
+use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
+use BristolSU\ControlDB\Models\Group;
+use BristolSU\ControlDB\Models\Role;
+use BristolSU\ControlDB\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Prophecy\Argument;

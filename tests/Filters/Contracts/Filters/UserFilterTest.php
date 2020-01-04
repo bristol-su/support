@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Tests\Filters\Contracts\Filters;
 
-use BristolSU\Support\Control\Models\User;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Tests\TestCase;
 

@@ -3,7 +3,7 @@
 namespace BristolSU\Support\Tests\Filters\Contracts\Filters;
 
 use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\Support\Control\Models\Group;
+use BristolSU\ControlDB\Models\Group;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use BristolSU\Support\Tests\TestCase;
 

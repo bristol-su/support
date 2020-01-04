@@ -4,9 +4,9 @@
 namespace BristolSU\Support\Tests\Filters\Filters\Group;
 
 
-use BristolSU\Support\Control\Contracts\Models\Tags\GroupTag as GroupTagModelContract;
-use BristolSU\Support\Control\Contracts\Repositories\Tags\GroupTag as GroupTagRepositoryContract;
-use BristolSU\Support\Control\Models\Group;
+use BristolSU\ControlDB\Contracts\Models\Tags\GroupTag as GroupTagModelContract;
+use BristolSU\ControlDB\Contracts\Repositories\Tags\GroupTag as GroupTagRepositoryContract;
+use BristolSU\ControlDB\Models\Group;
 use BristolSU\Support\Filters\Filters\Group\GroupTagged;
 use BristolSU\Support\Tests\TestCase;
 use Prophecy\Argument;

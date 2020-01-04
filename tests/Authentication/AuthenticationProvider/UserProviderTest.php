@@ -3,8 +3,8 @@
 namespace BristolSU\Support\Tests\Authentication\AuthenticationProvider;
 
 use BristolSU\Support\Authentication\AuthenticationProvider\UserProvider;
-use BristolSU\Support\Control\Contracts\Repositories\User as UserRepositoryContract;
-use BristolSU\Support\Control\Models\User;
+use BristolSU\ControlDB\Contracts\Repositories\User as UserRepositoryContract;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Tests\TestCase;
 
 class UserProviderTest extends TestCase

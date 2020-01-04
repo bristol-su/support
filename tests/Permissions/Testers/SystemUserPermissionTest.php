@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Tests\Permissions\Testers;
 
-use BristolSU\Support\Control\Models\User;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Permissions\Models\ModelPermission;
 use BristolSU\Support\Permissions\Models\Permission;
 use BristolSU\Support\Permissions\Testers\SystemUserPermission;

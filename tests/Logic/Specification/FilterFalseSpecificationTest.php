@@ -2,9 +2,9 @@
 
 namespace BristolSU\Support\Tests\Logic\Specification;
 
-use BristolSU\Support\Control\Models\Group;
-use BristolSU\Support\Control\Models\Role;
-use BristolSU\Support\Control\Models\User;
+use BristolSU\ControlDB\Models\Group;
+use BristolSU\ControlDB\Models\Role;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Filters\Contracts\FilterInstance;
 use BristolSU\Support\Filters\Contracts\FilterTester;
 use BristolSU\Support\Logic\Specification\FilterFalseSpecification;

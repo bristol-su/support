@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Tests\Filters\Jobs;
 
-use BristolSU\Support\Control\Models\User;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Filters\Contracts\FilterRepository;
 use BristolSU\Support\Filters\Contracts\FilterTester;
 use BristolSU\Support\Filters\FilterInstance;

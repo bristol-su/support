@@ -2,8 +2,8 @@
 
 namespace BristolSU\Support\Tests\Filters;
 
-use BristolSU\Support\Control\Models\Group;
-use BristolSU\Support\Control\Models\User;
+use BristolSU\ControlDB\Models\Group;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Filters\CachedFilterTesterDecorator;
 use BristolSU\Support\Filters\Contracts\FilterTester;
 use BristolSU\Support\Filters\FilterInstance;

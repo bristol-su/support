@@ -2,13 +2,13 @@
 
 namespace BristolSU\Support\Tests\Logic\Audience;
 
-use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\Support\Control\Contracts\Repositories\Position as PositionRepository;
-use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
-use BristolSU\Support\Control\Models\Group;
-use BristolSU\Support\Control\Models\Position;
-use BristolSU\Support\Control\Models\Role;
-use BristolSU\Support\Control\Models\User;
+use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
+use BristolSU\ControlDB\Contracts\Repositories\Position as PositionRepository;
+use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
+use BristolSU\ControlDB\Models\Group;
+use BristolSU\ControlDB\Models\Position;
+use BristolSU\ControlDB\Models\Role;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Logic\Audience\AudienceMember;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Tests\TestCase;

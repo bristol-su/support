@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Tests\Permissions\Testers;
 
-use BristolSU\Support\Control\Models\Role;
+use BristolSU\ControlDB\Models\Role;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Models\ModelPermission;
 use BristolSU\Support\Permissions\Models\Permission;

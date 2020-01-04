@@ -8,9 +8,9 @@ use BristolSU\Support\Authorization\Exception\ActivityRequiresGroup;
 use BristolSU\Support\Authorization\Exception\ActivityRequiresRole;
 use BristolSU\Support\Authorization\Exception\ActivityRequiresUser;
 use BristolSU\Support\Authorization\Middleware\CheckLoggedIntoActivityForType;
-use BristolSU\Support\Control\Models\Group;
-use BristolSU\Support\Control\Models\Role;
-use BristolSU\Support\Control\Models\User;
+use BristolSU\ControlDB\Models\Group;
+use BristolSU\ControlDB\Models\Role;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Tests\TestCase;
 use Illuminate\Http\Request;
 

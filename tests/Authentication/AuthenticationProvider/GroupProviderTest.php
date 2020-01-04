@@ -5,8 +5,8 @@ namespace BristolSU\Support\Tests\Authentication\AuthenticationProvider;
 
 
 use BristolSU\Support\Authentication\AuthenticationProvider\GroupProvider;
-use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepositoryContract;
-use BristolSU\Support\Control\Models\Group;
+use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepositoryContract;
+use BristolSU\ControlDB\Models\Group;
 use BristolSU\Support\User\User;
 use BristolSU\Support\Tests\TestCase;
 

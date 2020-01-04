@@ -4,9 +4,9 @@
 namespace BristolSU\Support\Tests\Filters\Filters\Role;
 
 
-use BristolSU\Support\Control\Contracts\Repositories\Position as PositionRepository;
-use BristolSU\Support\Control\Models\Position;
-use BristolSU\Support\Control\Models\Role;
+use BristolSU\ControlDB\Contracts\Repositories\Position as PositionRepository;
+use BristolSU\ControlDB\Models\Position;
+use BristolSU\ControlDB\Models\Role;
 use BristolSU\Support\Filters\Filters\Role\RoleHasPosition;
 use BristolSU\Support\Tests\TestCase;
 

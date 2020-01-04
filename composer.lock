@@ -117,12 +117,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bristol-su/control-db-implementation.git",
-                "reference": "6ff6e7a8a41db23fb8a08c42476d7cc74e1ca76c"
+                "reference": "0b914a43ebb11c6808c1bf872fb5fd8d3ffbdbb0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bristol-su/control-db-implementation/zipball/6ff6e7a8a41db23fb8a08c42476d7cc74e1ca76c",
-                "reference": "6ff6e7a8a41db23fb8a08c42476d7cc74e1ca76c",
+                "url": "https://api.github.com/repos/bristol-su/control-db-implementation/zipball/0b914a43ebb11c6808c1bf872fb5fd8d3ffbdbb0",
+                "reference": "0b914a43ebb11c6808c1bf872fb5fd8d3ffbdbb0",
                 "shasum": ""
             },
             "require": {
@@ -159,7 +159,7 @@
                 }
             ],
             "description": "An implementation of the control contracts using a local database in a laravel app",
-            "time": "2020-01-04T15:13:30+00:00"
+            "time": "2020-01-04T16:02:38+00:00"
         },
         {
             "name": "composer/semver",

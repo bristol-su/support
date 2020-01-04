@@ -2,9 +2,9 @@
 
 namespace BristolSU\Support\Tests\Logic;
 
-use BristolSU\Support\Control\Contracts\Models\Group as GroupContract;
-use BristolSU\Support\Control\Models\Group;
-use BristolSU\Support\Control\Models\Role;
+use BristolSU\ControlDB\Contracts\Models\Group as GroupContract;
+use BristolSU\ControlDB\Models\Group;
+use BristolSU\ControlDB\Models\Role;
 use BristolSU\Support\Filters\Contracts\FilterRepository;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
@@ -13,7 +13,7 @@ use BristolSU\Support\Filters\Contracts\FilterTester;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Logic\LogicTester;
-use BristolSU\Support\Control\Models\User;
+use BristolSU\ControlDB\Models\User;
 use Prophecy\Argument;
 use BristolSU\Support\Tests\TestCase;
 

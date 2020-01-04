@@ -2,12 +2,12 @@
 
 namespace BristolSU\Support\Tests\Filters\Commands;
 
-use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
-use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
-use BristolSU\Support\Control\Models\Group;
-use BristolSU\Support\Control\Models\User;
-use BristolSU\Support\Control\Models\Role;
+use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
+use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
+use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
+use BristolSU\ControlDB\Models\Group;
+use BristolSU\ControlDB\Models\User;
+use BristolSU\ControlDB\Models\Role;
 use BristolSU\Support\Filters\Contracts\FilterInstance as FilterInstanceContract;
 use BristolSU\Support\Filters\Contracts\FilterInstanceRepository;
 use BristolSU\Support\Filters\Jobs\CacheFilter;

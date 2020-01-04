@@ -5,8 +5,8 @@ namespace BristolSU\Support\Tests\Authentication\AuthenticationProvider;
 
 
 use BristolSU\Support\Authentication\AuthenticationProvider\RoleProvider;
-use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepositoryContract;
-use BristolSU\Support\Control\Models\Role;
+use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepositoryContract;
+use BristolSU\ControlDB\Models\Role;
 use BristolSU\Support\User\User;
 use BristolSU\Support\Tests\TestCase;
 
