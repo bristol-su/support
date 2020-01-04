@@ -6,14 +6,14 @@ namespace BristolSU\Support\Permissions;
 
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Authentication\Contracts\UserAuthentication;
-use BristolSU\Support\Control\Contracts\Models\Group;
-use BristolSU\Support\Control\Contracts\Models\Role;
-use BristolSU\Support\Control\Contracts\Models\User;
+use BristolSU\ControlDB\Contracts\Models\Group;
+use BristolSU\ControlDB\Contracts\Models\Role;
+use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository as PermissionRepositoryContract;
 use BristolSU\Support\Permissions\Contracts\PermissionTester as PermissionTesterContract;
 use BristolSU\Support\Permissions\Contracts\Tester;
-use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
+use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 
 /**
  * Class PermissionTester

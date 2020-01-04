@@ -3,7 +3,7 @@
 namespace BristolSU\Support\Logic\Audience;
 
 
-use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
+use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory as AudienceMemberFactoryContract;
 use BristolSU\Support\Logic\Contracts\Audience\LogicAudience as LogicAudienceContract;
 use BristolSU\Support\Logic\Logic;

@@ -3,8 +3,8 @@
 
 namespace BristolSU\Support\Filters\Contracts\Filters;
 
-use \BristolSU\Support\Control\Contracts\Models\User;
-use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
+use \BristolSU\ControlDB\Contracts\Models\User;
+use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 
 /**
  * Class UserFilter

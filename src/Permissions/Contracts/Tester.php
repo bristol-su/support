@@ -4,9 +4,9 @@
 namespace BristolSU\Support\Permissions\Contracts;
 
 
-use BristolSU\Support\Control\Contracts\Models\Group;
-use BristolSU\Support\Control\Contracts\Models\Role;
-use BristolSU\Support\Control\Contracts\Models\User;
+use BristolSU\ControlDB\Contracts\Models\Group;
+use BristolSU\ControlDB\Contracts\Models\Role;
+use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
 
 /**

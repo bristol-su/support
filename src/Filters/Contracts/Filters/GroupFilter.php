@@ -3,7 +3,7 @@
 
 namespace BristolSU\Support\Filters\Contracts\Filters;
 
-use BristolSU\Support\Control\Contracts\Models\Group;
+use BristolSU\ControlDB\Contracts\Models\Group;
 
 /**
  * Class GroupFilter

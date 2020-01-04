@@ -2,11 +2,11 @@
 
 namespace BristolSU\Support\Logic\Audience;
 
-use BristolSU\Support\Control\Contracts\Models\Group;
-use BristolSU\Support\Control\Contracts\Models\Role;
-use BristolSU\Support\Control\Contracts\Models\User;
-use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
+use BristolSU\ControlDB\Contracts\Models\Group;
+use BristolSU\ControlDB\Contracts\Models\Role;
+use BristolSU\ControlDB\Contracts\Models\User;
+use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
+use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\Support\Logic\Facade\LogicTester;
 use BristolSU\Support\Logic\Logic;
 use Illuminate\Contracts\Support\Arrayable;

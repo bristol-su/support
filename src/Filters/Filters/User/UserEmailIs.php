@@ -6,7 +6,7 @@ namespace BristolSU\Support\Filters\Filters\User;
 
 use BristolSU\Support\DataPlatform\Contracts\Repositories\User as DataUserRepository;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
-use \BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
+use \BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 
 /**
  * Class UserEmailIs

@@ -8,7 +8,7 @@
 
 namespace BristolSU\Support\Authentication\AuthenticationProvider;
 
-use BristolSU\Support\Control\Contracts\Repositories\Role as RoleContract;
+use BristolSU\ControlDB\Contracts\Repositories\Role as RoleContract;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 

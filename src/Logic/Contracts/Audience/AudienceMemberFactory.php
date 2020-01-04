@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Logic\Contracts\Audience;
 
-use BristolSU\Support\Control\Contracts\Models\User;
+use BristolSU\ControlDB\Contracts\Models\User;
 
 /**
  * Interface AudienceFactory

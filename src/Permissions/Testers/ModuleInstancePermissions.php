@@ -11,9 +11,9 @@ use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
 use BristolSU\Support\Permissions\Contracts\Tester;
 use Illuminate\Contracts\Container\Container;
-use BristolSU\Support\Control\Contracts\Models\Group;
-use BristolSU\Support\Control\Contracts\Models\Role;
-use BristolSU\Support\Control\Contracts\Models\User;
+use BristolSU\ControlDB\Contracts\Models\Group;
+use BristolSU\ControlDB\Contracts\Models\Role;
+use BristolSU\ControlDB\Contracts\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 

@@ -5,8 +5,8 @@ namespace BristolSU\Support\Filters\Filters\Group;
 
 
 use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\Support\Control\Contracts\Repositories\Tags\GroupTag as GroupTagRepositoryContract;
+use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
+use BristolSU\ControlDB\Contracts\Repositories\Tags\GroupTag as GroupTagRepositoryContract;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 
 /**

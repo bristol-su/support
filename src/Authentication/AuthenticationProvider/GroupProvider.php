@@ -8,7 +8,7 @@
 
 namespace BristolSU\Support\Authentication\AuthenticationProvider;
 
-use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepositoryContract;
+use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepositoryContract;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 

@@ -3,8 +3,8 @@
 
 namespace BristolSU\Support\Filters\Contracts\Filters;
 
-use BristolSU\Support\Control\Contracts\Models\Role;
-use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
+use BristolSU\ControlDB\Contracts\Models\Role;
+use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 
 /**
  * Class RoleFilter

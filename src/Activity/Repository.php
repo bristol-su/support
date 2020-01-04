@@ -3,10 +3,10 @@
 namespace BristolSU\Support\Activity;
 
 use BristolSU\Support\Activity\Contracts\Repository as ActivityRepositoryContract;
-use BristolSU\Support\Control\Contracts\Models\Group;
-use BristolSU\Support\Control\Contracts\Models\Role;
+use BristolSU\ControlDB\Contracts\Models\Group;
+use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\Support\Logic\Contracts\LogicTester;
-use BristolSU\Support\Control\Contracts\Models\User;
+use BristolSU\ControlDB\Contracts\Models\User;
 
 /**
  * Class Repository

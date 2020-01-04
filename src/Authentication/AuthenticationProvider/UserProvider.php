@@ -8,7 +8,7 @@
 
 namespace BristolSU\Support\Authentication\AuthenticationProvider;
 
-use BristolSU\Support\Control\Contracts\Repositories\User as UserRepositoryContract;
+use BristolSU\ControlDB\Contracts\Repositories\User as UserRepositoryContract;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as BaseUserProvider;
 
@@ -35,7 +35,7 @@ class UserProvider implements BaseUserProvider
 
     /**
      * @param mixed $identifier
-     * @return \BristolSU\Support\Control\Contracts\Models\User|Authenticatable|null
+     * @return \BristolSU\ControlDB\Contracts\Models\User|Authenticatable|null
      */
     public function retrieveById($identifier)
     {
@@ -64,7 +64,7 @@ class UserProvider implements BaseUserProvider
 
     /**
      * @param array $credentials
-     * @return \BristolSU\Support\Control\Contracts\Models\User|Authenticatable|null
+     * @return \BristolSU\ControlDB\Contracts\Models\User|Authenticatable|null
      */
     public function retrieveByCredentials(array $credentials)
     {

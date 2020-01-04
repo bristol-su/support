@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Logic\Audience;
 
-use BristolSU\Support\Control\Contracts\Models\User;
+use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory as AudienceMemberFactoryContract;
 
 /**

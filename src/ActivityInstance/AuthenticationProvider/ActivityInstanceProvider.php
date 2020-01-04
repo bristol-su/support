@@ -25,7 +25,7 @@ class ActivityInstanceProvider implements UserProvider
 
     /**
      * @param mixed $identifier
-     * @return \BristolSU\Support\Control\Contracts\Models\User|Authenticatable|null
+     * @return \BristolSU\ControlDB\Contracts\Models\User|Authenticatable|null
      */
     public function retrieveById($identifier)
     {
@@ -54,7 +54,7 @@ class ActivityInstanceProvider implements UserProvider
 
     /**
      * @param array $credentials
-     * @return \BristolSU\Support\Control\Contracts\Models\User|Authenticatable|null
+     * @return \BristolSU\ControlDB\Contracts\Models\User|Authenticatable|null
      */
     public function retrieveByCredentials(array $credentials)
     {

@@ -4,11 +4,11 @@ namespace BristolSU\Support\Logic\Contracts\Audience;
 
 use BristolSU\Support\Logic\Audience\AudienceMember;
 use BristolSU\Support\Logic\Logic;
-use BristolSU\Support\Control\Contracts\Models\Group;
-use BristolSU\Support\Control\Contracts\Models\Role;
-use BristolSU\Support\Control\Contracts\Models\User;
-use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
+use BristolSU\ControlDB\Contracts\Models\Group;
+use BristolSU\ControlDB\Contracts\Models\Role;
+use BristolSU\ControlDB\Contracts\Models\User;
+use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
+use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 
 /**
  * Interface LogicAudience

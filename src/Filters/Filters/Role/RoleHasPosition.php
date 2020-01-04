@@ -5,9 +5,9 @@ namespace BristolSU\Support\Filters\Filters\Role;
 
 
 use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\Support\Control\Contracts\Repositories\Role;
-use BristolSU\Support\Control\Contracts\Repositories\Position;
-use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
+use BristolSU\ControlDB\Contracts\Repositories\Role;
+use BristolSU\ControlDB\Contracts\Repositories\Position;
+use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 
 /**

@@ -2,9 +2,9 @@
 
 namespace BristolSU\Support\Filters\Commands;
 
-use BristolSU\Support\Control\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\Support\Control\Contracts\Repositories\Role as RoleRepository;
-use BristolSU\Support\Control\Contracts\Repositories\User as UserRepository;
+use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
+use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
+use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Filters\Contracts\FilterInstanceRepository;
 use BristolSU\Support\Filters\Jobs\CacheFilter;
 use Illuminate\Console\Command;
