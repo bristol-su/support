@@ -2,6 +2,7 @@
   "name": "bristol-su/support",
   "description": "",
   "license": "MIT",
+  "prefer-stable": false,
   "authors": [
     {
       "name": "Toby Twigger",
