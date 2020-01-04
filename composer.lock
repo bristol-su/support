@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "963e5ed5e2e054f5bf5439fc9825033f",
+    "content-hash": "21fecb8767deb7b8cd5099bdabba03ff",
     "packages": [
         {
             "name": "brianium/habitat",
