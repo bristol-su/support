@@ -7,15 +7,12 @@
             <item>TODO</item>
             <item>FIXME</item>
         </markers>
-        <extensions>
-            <extension>php</extension>
-        </extensions>
     </parser>
     <transformer>
         <target>docs</target>
     </transformer>
     <transformations>
-        <template name="responsive-twig" />
+        <template name="zend" />
     </transformations>
     <files>
         <directory>src</directory>

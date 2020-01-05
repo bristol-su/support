@@ -1,0 +1,7 @@
+<map id="BristolSU\Support\Permissions\Contracts\Tester" name="BristolSU\Support\Permissions\Contracts\Tester">
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1ModuleInstanceGroupOverridePermission.html" title="BristolSU\\Support\\Permissions\l\\Testers\\ModuleInstanceGroupOverride\lPermission" alt="" coords="256,5,507,61"/>
+<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1ModuleInstancePermissions.html" title="BristolSU\\Support\\Permissions\l\\Testers\\ModuleInstancePermissions" alt="" coords="262,86,501,127"/>
+<area shape="rect" id="node4" href="$classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1ModuleInstanceRoleOverridePermission.html" title="BristolSU\\Support\\Permissions\l\\Testers\\ModuleInstanceRoleOverride\lPermission" alt="" coords="260,152,503,208"/>
+<area shape="rect" id="node5" href="$classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1ModuleInstanceUserOverridePermission.html" title="BristolSU\\Support\\Permissions\l\\Testers\\ModuleInstanceUserOverride\lPermission" alt="" coords="260,232,503,288"/>
+<area shape="rect" id="node6" href="$classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1SystemUserPermission.html" title="BristolSU\\Support\\Permissions\l\\Testers\\SystemUserPermission" alt="" coords="275,313,487,354"/>
+</map>
