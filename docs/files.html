@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -43,6 +50,20 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('files.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -122,21 +143,19 @@ $(function() {
 <tr id="row_0_3_1_" style="display:none;"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span id="arr_0_3_1_" class="arrow" onclick="toggleFolder('0_3_1_')">&#9658;</span><span id="img_0_3_1_" class="iconfclosed" onclick="toggleFolder('0_3_1_')">&#160;</span><a class="el" href="dir_3653583993b7b0e71a5a303d2a8d8236.html" target="_self">Contracts</a></td><td class="desc"></td></tr>
 <tr id="row_0_3_1_0_" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="Authentication_8php_source.html"><span class="icondoc"></span></a><a class="el" href="Authentication_8php.html" target="_self">Authentication.php</a></td><td class="desc"></td></tr>
 <tr id="row_0_3_1_1_" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="ResourceIdGenerator_8php_source.html"><span class="icondoc"></span></a><a class="el" href="ResourceIdGenerator_8php.html" target="_self">ResourceIdGenerator.php</a></td><td class="desc"></td></tr>
-<tr id="row_0_3_1_2_" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="UserAuthentication_8php_source.html"><span class="icondoc"></span></a><a class="el" href="UserAuthentication_8php.html" target="_self">UserAuthentication.php</a></td><td class="desc"></td></tr>
 <tr id="row_0_3_2_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="ApiAuthentication_8php_source.html"><span class="icondoc"></span></a><a class="el" href="ApiAuthentication_8php.html" target="_self">ApiAuthentication.php</a></td><td class="desc"></td></tr>
 <tr id="row_0_3_3_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="AuthenticationResourceIdGenerator_8php_source.html"><span class="icondoc"></span></a><a class="el" href="AuthenticationResourceIdGenerator_8php.html" target="_self">AuthenticationResourceIdGenerator.php</a></td><td class="desc"></td></tr>
 <tr id="row_0_3_4_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="AuthenticationServiceProvider_8php_source.html"><span class="icondoc"></span></a><a class="el" href="AuthenticationServiceProvider_8php.html" target="_self">AuthenticationServiceProvider.php</a></td><td class="desc"></td></tr>
 <tr id="row_0_3_5_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="HasResource_8php_source.html"><span class="icondoc"></span></a><a class="el" href="HasResource_8php.html" target="_self">HasResource.php</a></td><td class="desc"></td></tr>
-<tr id="row_0_3_6_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="UserApiAuthentication_8php_source.html"><span class="icondoc"></span></a><a class="el" href="UserApiAuthentication_8php.html" target="_self">UserApiAuthentication.php</a></td><td class="desc"></td></tr>
-<tr id="row_0_3_7_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="UserWebAuthentication_8php_source.html"><span class="icondoc"></span></a><a class="el" href="UserWebAuthentication_8php.html" target="_self">UserWebAuthentication.php</a></td><td class="desc"></td></tr>
-<tr id="row_0_3_8_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="WebAuthentication_8php_source.html"><span class="icondoc"></span></a><a class="el" href="WebAuthentication_8php.html" target="_self">WebAuthentication.php</a></td><td class="desc"></td></tr>
+<tr id="row_0_3_6_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="WebAuthentication_8php_source.html"><span class="icondoc"></span></a><a class="el" href="WebAuthentication_8php.html" target="_self">WebAuthentication.php</a></td><td class="desc"></td></tr>
 <tr id="row_0_4_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_0_4_" class="arrow" onclick="toggleFolder('0_4_')">&#9658;</span><span id="img_0_4_" class="iconfclosed" onclick="toggleFolder('0_4_')">&#160;</span><a class="el" href="dir_c912ed60e72533e4212e54913010d1f4.html" target="_self">Authorization</a></td><td class="desc"></td></tr>
 <tr id="row_0_4_0_" class="even" style="display:none;"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span id="arr_0_4_0_" class="arrow" onclick="toggleFolder('0_4_0_')">&#9658;</span><span id="img_0_4_0_" class="iconfclosed" onclick="toggleFolder('0_4_0_')">&#160;</span><a class="el" href="dir_2fd31f19932111aa7a34128756e494cb.html" target="_self">Exception</a></td><td class="desc"></td></tr>
 <tr id="row_0_4_0_0_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="ActivityRequiresAdmin_8php_source.html"><span class="icondoc"></span></a><a class="el" href="ActivityRequiresAdmin_8php.html" target="_self">ActivityRequiresAdmin.php</a></td><td class="desc"></td></tr>
 <tr id="row_0_4_0_1_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="ActivityRequiresGroup_8php_source.html"><span class="icondoc"></span></a><a class="el" href="ActivityRequiresGroup_8php.html" target="_self">ActivityRequiresGroup.php</a></td><td class="desc"></td></tr>
-<tr id="row_0_4_0_2_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="ActivityRequiresRole_8php_source.html"><span class="icondoc"></span></a><a class="el" href="ActivityRequiresRole_8php.html" target="_self">ActivityRequiresRole.php</a></td><td class="desc"></td></tr>
-<tr id="row_0_4_0_3_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="ActivityRequiresUser_8php_source.html"><span class="icondoc"></span></a><a class="el" href="ActivityRequiresUser_8php.html" target="_self">ActivityRequiresUser.php</a></td><td class="desc"></td></tr>
-<tr id="row_0_4_0_4_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="ModuleInactive_8php_source.html"><span class="icondoc"></span></a><a class="el" href="ModuleInactive_8php.html" target="_self">ModuleInactive.php</a></td><td class="desc"></td></tr>
+<tr id="row_0_4_0_2_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="ActivityRequiresParticipant_8php_source.html"><span class="icondoc"></span></a><a class="el" href="ActivityRequiresParticipant_8php.html" target="_self">ActivityRequiresParticipant.php</a></td><td class="desc"></td></tr>
+<tr id="row_0_4_0_3_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="ActivityRequiresRole_8php_source.html"><span class="icondoc"></span></a><a class="el" href="ActivityRequiresRole_8php.html" target="_self">ActivityRequiresRole.php</a></td><td class="desc"></td></tr>
+<tr id="row_0_4_0_4_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="ActivityRequiresUser_8php_source.html"><span class="icondoc"></span></a><a class="el" href="ActivityRequiresUser_8php.html" target="_self">ActivityRequiresUser.php</a></td><td class="desc"></td></tr>
+<tr id="row_0_4_0_5_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="ModuleInactive_8php_source.html"><span class="icondoc"></span></a><a class="el" href="ModuleInactive_8php.html" target="_self">ModuleInactive.php</a></td><td class="desc"></td></tr>
 <tr id="row_0_4_1_" class="even" style="display:none;"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span id="arr_0_4_1_" class="arrow" onclick="toggleFolder('0_4_1_')">&#9658;</span><span id="img_0_4_1_" class="iconfclosed" onclick="toggleFolder('0_4_1_')">&#160;</span><a class="el" href="dir_54b435b4b2d8a92be49c16229b2ddae0.html" target="_self">Middleware</a></td><td class="desc"></td></tr>
 <tr id="row_0_4_1_0_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="CheckActivityFor_8php_source.html"><span class="icondoc"></span></a><a class="el" href="CheckActivityFor_8php.html" target="_self">CheckActivityFor.php</a></td><td class="desc"></td></tr>
 <tr id="row_0_4_1_1_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="CheckAdminActivityFor_8php_source.html"><span class="icondoc"></span></a><a class="el" href="CheckAdminActivityFor_8php.html" target="_self">CheckAdminActivityFor.php</a></td><td class="desc"></td></tr>
@@ -348,19 +367,25 @@ $(function() {
 <tr id="row_0_16_1_" class="even" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="TestingServiceProvider_8php_source.html"><span class="icondoc"></span></a><a class="el" href="TestingServiceProvider_8php.html" target="_self">TestingServiceProvider.php</a></td><td class="desc"></td></tr>
 <tr id="row_0_17_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_0_17_" class="arrow" onclick="toggleFolder('0_17_')">&#9658;</span><span id="img_0_17_" class="iconfclosed" onclick="toggleFolder('0_17_')">&#160;</span><a class="el" href="dir_33184d9f279d0a35335ee75c08157afa.html" target="_self">User</a></td><td class="desc"></td></tr>
 <tr id="row_0_17_0_" style="display:none;"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span id="arr_0_17_0_" class="arrow" onclick="toggleFolder('0_17_0_')">&#9658;</span><span id="img_0_17_0_" class="iconfclosed" onclick="toggleFolder('0_17_0_')">&#160;</span><a class="el" href="dir_6700acbb1fe0ec5aab2d26212ae2ab8f.html" target="_self">Contracts</a></td><td class="desc"></td></tr>
-<tr id="row_0_17_0_0_" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="Contracts_2UserRepository_8php_source.html"><span class="icondoc"></span></a><a class="el" href="Contracts_2UserRepository_8php.html" target="_self">UserRepository.php</a></td><td class="desc"></td></tr>
+<tr id="row_0_17_0_0_" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="UserAuthentication_8php_source.html"><span class="icondoc"></span></a><a class="el" href="UserAuthentication_8php.html" target="_self">UserAuthentication.php</a></td><td class="desc"></td></tr>
+<tr id="row_0_17_0_1_" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><a href="Contracts_2UserRepository_8php_source.html"><span class="icondoc"></span></a><a class="el" href="Contracts_2UserRepository_8php.html" target="_self">UserRepository.php</a></td><td class="desc"></td></tr>
 <tr id="row_0_17_1_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="User_2User_8php_source.html"><span class="icondoc"></span></a><a class="el" href="User_2User_8php.html" target="_self">User.php</a></td><td class="desc"></td></tr>
-<tr id="row_0_17_2_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="UserRepository_8php_source.html"><span class="icondoc"></span></a><a class="el" href="UserRepository_8php.html" target="_self">UserRepository.php</a></td><td class="desc"></td></tr>
-<tr id="row_0_17_3_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="UserServiceProvider_8php_source.html"><span class="icondoc"></span></a><a class="el" href="UserServiceProvider_8php.html" target="_self">UserServiceProvider.php</a></td><td class="desc"></td></tr>
+<tr id="row_0_17_2_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="UserApiAuthentication_8php_source.html"><span class="icondoc"></span></a><a class="el" href="UserApiAuthentication_8php.html" target="_self">UserApiAuthentication.php</a></td><td class="desc"></td></tr>
+<tr id="row_0_17_3_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="UserRepository_8php_source.html"><span class="icondoc"></span></a><a class="el" href="UserRepository_8php.html" target="_self">UserRepository.php</a></td><td class="desc"></td></tr>
+<tr id="row_0_17_4_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="UserServiceProvider_8php_source.html"><span class="icondoc"></span></a><a class="el" href="UserServiceProvider_8php.html" target="_self">UserServiceProvider.php</a></td><td class="desc"></td></tr>
+<tr id="row_0_17_5_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><a href="UserWebAuthentication_8php_source.html"><span class="icondoc"></span></a><a class="el" href="UserWebAuthentication_8php.html" target="_self">UserWebAuthentication.php</a></td><td class="desc"></td></tr>
 <tr id="row_0_18_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><a href="SupportServiceProvider_8php_source.html"><span class="icondoc"></span></a><a class="el" href="SupportServiceProvider_8php.html" target="_self">SupportServiceProvider.php</a></td><td class="desc"></td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

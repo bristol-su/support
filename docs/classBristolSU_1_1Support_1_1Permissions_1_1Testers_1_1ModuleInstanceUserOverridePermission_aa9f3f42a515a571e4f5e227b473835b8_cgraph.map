@@ -1,0 +1,4 @@
+<map id="BristolSU\Support\Permissions\Testers\ModuleInstanceUserOverridePermission\can" name="BristolSU\Support\Permissions\Testers\ModuleInstanceUserOverridePermission\can">
+<area shape="rect" id="node2" href="$interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html#a428e6cb0632ede6da0abe072ce6f3997" title="BristolSU\\Support\\Permissions\l\\Contracts\\Models\\Permission\l\\getAbility" alt="" coords="296,5,499,61"/>
+<area shape="rect" id="node3" href="$interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html#a81e2af825f795d4e6b6d0e8ee1105246" title="BristolSU\\Support\\Permissions\l\\Contracts\\Models\\Permission\l\\getType" alt="" coords="296,85,499,141"/>
+</map>

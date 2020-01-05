@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -42,6 +49,21 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('Contracts_2DefaultActivityInstanceGenerator_8php_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -56,29 +78,28 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_929888446bb60df17d85db136659e679.html">ActivityInstance</a></li><li class="navelem"><a class="el" href="dir_bff89839f804da82d18fe6ae18e99ef2.html">Contracts</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">DefaultActivityInstanceGenerator.php</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="Contracts_2DefaultActivityInstanceGenerator_8php.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts.html">BristolSU\Support\ActivityInstance\Contracts</a>;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;use <a class="code" href="namespaceBristolSU_1_1Support_1_1Activity_1_1Activity.html">BristolSU\Support\Activity\Activity</a>;</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;use <a class="code" href="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">BristolSU\Support\ActivityInstance\ActivityInstance</a>;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div><div class="line"><a name="l00008"></a><span class="lineno"><a class="line" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1DefaultActivityInstanceGenerator.html">    8</a></span>&#160;<span class="keyword">interface </span><a class="code" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1DefaultActivityInstanceGenerator.html">DefaultActivityInstanceGenerator</a></div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;{</div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1DefaultActivityInstanceGenerator.html#ab8643895a03abec9093e282e6108e291">generate</a>(<a class="code" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> $activity, <span class="keywordtype">string</span> $resourceType, <span class="keywordtype">string</span> $resourceId): <a class="code" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">ActivityInstance</a>;</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    </div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;}</div><div class="ttc" id="namespaceBristolSU_1_1Support_1_1Activity_1_1Activity_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a></div></div>
+<a href="Contracts_2DefaultActivityInstanceGenerator_8php.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts.html">BristolSU\Support\ActivityInstance\Contracts</a>;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;use <a class="code" href="namespaceBristolSU_1_1Support_1_1Activity_1_1Activity.html">BristolSU\Support\Activity\Activity</a>;</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;use <a class="code" href="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">BristolSU\Support\ActivityInstance\ActivityInstance</a>;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div><div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1DefaultActivityInstanceGenerator.html">   11</a></span>&#160;<span class="keyword">interface </span><a class="code" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1DefaultActivityInstanceGenerator.html">DefaultActivityInstanceGenerator</a></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;{</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1DefaultActivityInstanceGenerator.html#ab8643895a03abec9093e282e6108e291">generate</a>(<a class="code" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> $activity, <span class="keywordtype">string</span> $resourceType, <span class="keywordtype">string</span> $resourceId): <a class="code" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">ActivityInstance</a>;</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;    </div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;}</div><div class="ttc" id="namespaceBristolSU_1_1Support_1_1Activity_1_1Activity_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a></div></div>
 <div class="ttc" id="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1DefaultActivityInstanceGenerator_html_ab8643895a03abec9093e282e6108e291"><div class="ttname"><a href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1DefaultActivityInstanceGenerator.html#ab8643895a03abec9093e282e6108e291">BristolSU\Support\ActivityInstance\Contracts\DefaultActivityInstanceGenerator\generate</a></div><div class="ttdeci">generate(Activity $activity, string $resourceType, string $resourceId)</div></div>
-<div class="ttc" id="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1DefaultActivityInstanceGenerator_html"><div class="ttname"><a href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1DefaultActivityInstanceGenerator.html">BristolSU\Support\ActivityInstance\Contracts\DefaultActivityInstanceGenerator</a></div><div class="ttdef"><b>Definition:</b> <a href="Contracts_2DefaultActivityInstanceGenerator_8php_source.html#l00008">DefaultActivityInstanceGenerator.php:8</a></div></div>
+<div class="ttc" id="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1DefaultActivityInstanceGenerator_html"><div class="ttname"><a href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1DefaultActivityInstanceGenerator.html">BristolSU\Support\ActivityInstance\Contracts\DefaultActivityInstanceGenerator</a></div><div class="ttdef"><b>Definition:</b> <a href="Contracts_2DefaultActivityInstanceGenerator_8php_source.html#l00011">DefaultActivityInstanceGenerator.php:11</a></div></div>
 <div class="ttc" id="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts.html">BristolSU\Support\ActivityInstance\Contracts</a></div><div class="ttdef"><b>Definition:</b> <a href="Contracts_2ActivityInstanceRepository_8php_source.html#l00003">ActivityInstanceRepository.php:3</a></div></div>
-<div class="ttc" id="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance_html"><div class="ttname"><a href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">BristolSU\Support\ActivityInstance\ActivityInstance</a></div><div class="ttdef"><b>Definition:</b> <a href="ActivityInstance_8php_source.html#l00013">ActivityInstance.php:13</a></div></div>
+<div class="ttc" id="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance_html"><div class="ttname"><a href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">BristolSU\Support\ActivityInstance\ActivityInstance</a></div><div class="ttdef"><b>Definition:</b> <a href="ActivityInstance_8php_source.html#l00019">ActivityInstance.php:19</a></div></div>
 <div class="ttc" id="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">ActivityInstance</a></div></div>
 <div class="ttc" id="classBristolSU_1_1Support_1_1Activity_1_1Activity_html"><div class="ttname"><a href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">BristolSU\Support\Activity\Activity</a></div><div class="ttdef"><b>Definition:</b> <a href="Activity_8php_source.html#l00016">Activity.php:16</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_929888446bb60df17d85db136659e679.html">ActivityInstance</a></li><li class="navelem"><a class="el" href="dir_bff89839f804da82d18fe6ae18e99ef2.html">Contracts</a></li><li class="navelem"><a class="el" href="Contracts_2DefaultActivityInstanceGenerator_8php.html">DefaultActivityInstanceGenerator.php</a></li>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:10 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -1,31 +1,40 @@
 <?php
 namespace BristolSU\Support\ActivityInstance\AuthenticationProvider;
 
+use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
- * Class UserProvider
- * @package BristolSU\Support\Authentication\AuthenticationProvider
+ * Provider for the current Activity Instance
  */
 class ActivityInstanceProvider implements UserProvider
 {
 
     /**
+     * Holds the Activity Instance repository
+     * 
      * @var ActivityInstanceRepository
      */
     private $repository;
 
+    /**
+     * Initialise the Activity Instance provider 
+     *
+     * @param ActivityInstanceRepository $repository Repository from which to retrieve the activity instances
+     */
     public function __construct(ActivityInstanceRepository $repository)
     {
         $this->repository = $repository;
     }
 
     /**
+     * Retrieve an Activity Instance by ID
+     * 
      * @param mixed $identifier
-     * @return \BristolSU\ControlDB\Contracts\Models\User|Authenticatable|null
+     * @return ActivityInstance|null
      */
     public function retrieveById($identifier)
     {
@@ -34,45 +43,66 @@ class ActivityInstanceProvider implements UserProvider
     }
 
     /**
-     * @param mixed $identifier
-     * @param string $token
+     * Retrieve an Activity Instance by the remember token
+     * 
+     * @param mixed $identifier ID of the activity instance
+     * @param string $token Remember Token the activity instance needs to have
+     * 
      * @return Authenticatable|void|null
      */
     public function retrieveByToken($identifier, $token)
     {
-
+        // TODO Implement retrieveByToken method for Activity Instance
+        return null;
     }
 
     /**
-     * @param Authenticatable $user
-     * @param string $token
+     * Update the remember token for the Activity Instance
+     *
+     * @param Authenticatable $activityInstance Activity Instance
+     * @param string $token New remember token to be set
+     * @return null
      */
-    public function updateRememberToken(Authenticatable $user, $token)
+    public function updateRememberToken(Authenticatable $activityInstance, $token)
     {
-
+        // TODO Implement updateRememberToken method for Activity Instance
+        return null;
     }
 
     /**
+     * Retrieve an Activity Instance by the credentials.
+     * 
+     * When given correct credentials, will return the Activity Instance.
+     * e.g. $credentials = [
+     *      'activity_instance_id' => 1
+     * ]
+     * 
      * @param array $credentials
-     * @return \BristolSU\ControlDB\Contracts\Models\User|Authenticatable|null
+     * @return ActivityInstance|null
      */
     public function retrieveByCredentials(array $credentials)
     {
+        // TODO Make this method take additional credentials for security (if necessary)
+        
         if (isset($credentials['activity_instance_id'])) {
             try {
                 return $this->retrieveById($credentials['activity_instance_id']);
-            } catch (ModelNotFoundException $e) {
-            }
+            } catch (ModelNotFoundException $e) {}
         }
         return null;
     }
 
     /**
-     * Ensure the user owns the committee user
+     * Check the credentials for the Activity Instance.
+     * 
+     * Returns true if credentials are valid. Credentials should look like
+     * [
+     *      'activity_instance_id' => 1
+     * ]
      *
-     * @param Authenticatable $user
-     * @param array $credentials
-     * @return bool
+     * @param Authenticatable $user The Activity Instance to validate the credentials against
+     * @param array $credentials Credentials to test against the Activity Instance
+     * @return bool If the credentials are valid
      */
     public function validateCredentials(Authenticatable $user, array $credentials)
     {

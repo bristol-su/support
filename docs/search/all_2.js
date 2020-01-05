@@ -41,6 +41,8 @@ var searchData=
   ['activityrequiresadmin_2ephp',['ActivityRequiresAdmin.php',['../ActivityRequiresAdmin_8php.html',1,'']]],
   ['activityrequiresgroup',['ActivityRequiresGroup',['../classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresGroup.html',1,'BristolSU::Support::Authorization::Exception']]],
   ['activityrequiresgroup_2ephp',['ActivityRequiresGroup.php',['../ActivityRequiresGroup_8php.html',1,'']]],
+  ['activityrequiresparticipant',['ActivityRequiresParticipant',['../classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresParticipant.html',1,'BristolSU::Support::Authorization::Exception']]],
+  ['activityrequiresparticipant_2ephp',['ActivityRequiresParticipant.php',['../ActivityRequiresParticipant_8php.html',1,'']]],
   ['activityrequiresrole',['ActivityRequiresRole',['../classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresRole.html',1,'BristolSU::Support::Authorization::Exception']]],
   ['activityrequiresrole_2ephp',['ActivityRequiresRole.php',['../ActivityRequiresRole_8php.html',1,'']]],
   ['activityrequiresuser',['ActivityRequiresUser',['../classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresUser.html',1,'BristolSU::Support::Authorization::Exception']]],

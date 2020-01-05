@@ -13,7 +13,7 @@ var searchData=
   ['logicrepository_2ephp',['LogicRepository.php',['../Contracts_2LogicRepository_8php.html',1,'(Global Namespace)'],['../LogicRepository_8php.html',1,'(Global Namespace)']]],
   ['logicserviceprovider',['LogicServiceProvider',['../classBristolSU_1_1Support_1_1Logic_1_1LogicServiceProvider.html',1,'BristolSU::Support::Logic']]],
   ['logicserviceprovider_2ephp',['LogicServiceProvider.php',['../LogicServiceProvider_8php.html',1,'']]],
-  ['logictester',['LogicTester',['../classBristolSU_1_1Support_1_1Logic_1_1Facade_1_1LogicTester.html',1,'BristolSU\Support\Logic\Facade\LogicTester'],['../classBristolSU_1_1Support_1_1Logic_1_1LogicTester.html',1,'BristolSU\Support\Logic\LogicTester'],['../interfaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1LogicTester.html',1,'BristolSU\Support\Logic\Contracts\LogicTester']]],
+  ['logictester',['LogicTester',['../interfaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1LogicTester.html',1,'BristolSU\Support\Logic\Contracts\LogicTester'],['../classBristolSU_1_1Support_1_1Logic_1_1Facade_1_1LogicTester.html',1,'BristolSU\Support\Logic\Facade\LogicTester'],['../classBristolSU_1_1Support_1_1Logic_1_1LogicTester.html',1,'BristolSU\Support\Logic\LogicTester']]],
   ['logictester_2ephp',['LogicTester.php',['../Contracts_2LogicTester_8php.html',1,'(Global Namespace)'],['../Facade_2LogicTester_8php.html',1,'(Global Namespace)'],['../LogicTester_8php.html',1,'(Global Namespace)']]],
   ['logintoactivityinstance',['LogIntoActivityInstance',['../classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1LogIntoActivityInstance.html',1,'BristolSU::Support::ActivityInstance::Middleware']]],
   ['logintoactivityinstance_2ephp',['LogIntoActivityInstance.php',['../LogIntoActivityInstance_8php.html',1,'']]],

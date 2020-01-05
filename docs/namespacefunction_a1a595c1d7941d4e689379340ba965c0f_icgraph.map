@@ -1,0 +1,10 @@
+<map id="function\settings" name="function\settings">
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1ModuleInstance_1_1Settings_1_1ModuleSettingsStore.html#a65abb080e6223857f5d73f40fee04266" title="BristolSU\\Support\\Module\lInstance\\Settings\\ModuleSettings\lStore\\get" alt="" coords="172,5,391,61"/>
+<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Connector.html#a3177d373245e12cc46d1eb08585f5eaa" title="BristolSU\\Support\\Connection\l\\Contracts\\Connector\\getSetting" alt="" coords="176,86,387,127"/>
+<area shape="rect" id="node4" href="$classBristolSU_1_1Support_1_1ModuleInstance_1_1Settings_1_1ModuleSettingsStore.html#aa04b673b765ea1db1c89f46216baa0b3" title="BristolSU\\Support\\Module\lInstance\\Settings\\ModuleSettings\lStore\\register" alt="" coords="172,152,391,208"/>
+<area shape="rect" id="node5" href="$namespacefunction.html#ab9d06240357ba9bf11316992abdc6c33" title="function\\registerSettings" alt="" coords="200,232,363,259"/>
+<area shape="rect" id="node7" href="$classBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Connector.html#ab8d4a8f9ee157cc211621366eef922ba" title="BristolSU\\Support\\Connection\l\\Contracts\\Connector\\setSettings" alt="" coords="173,283,390,325"/>
+<area shape="rect" id="node9" href="$classBristolSU_1_1Support_1_1Module_1_1Module.html#a44e086827f82533c7b7bb52d7a83b584" title="BristolSU\\Support\\Module\l\\Module\\setSettings" alt="" coords="195,349,368,390"/>
+<area shape="rect" id="node6" href="$classBristolSU_1_1Support_1_1Module_1_1ModuleServiceProvider.html#a890cac4fcfeab20e816857a48d4c1125" title="BristolSU\\Support\\Module\l\\ModuleServiceProvider\\boot" alt="" coords="477,221,667,262"/>
+<area shape="rect" id="node8" href="$classBristolSU_1_1Support_1_1Connection_1_1ConnectorFactory.html#a02d04012b954a7fe0d488f20095b97ec" title="BristolSU\\Support\\Connection\l\\ConnectorFactory\\createFromConnection" alt="" coords="439,286,705,327"/>
+</map>

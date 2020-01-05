@@ -19,6 +19,13 @@ use Illuminate\Support\ServiceProvider;
 class ActionServiceProvider extends ServiceProvider
 {
 
+    /**
+     * Register
+     * 
+     * - Bind the action repository contract
+     * - Bind the action manager contract
+     * - Bind the action builder contract
+     */
     public function register()
     {
         // Bind interfaces to contracts
@@ -27,12 +34,16 @@ class ActionServiceProvider extends ServiceProvider
         $this->app->bind(ActionBuilderContract::class, ActionBuilder::class);
     }
 
+    /**
+     * Boot
+     * 
+     * - Initialise the Action Dispatcher to trigger on events
+     * - Register default actions
+     */
     public function boot()
     {
-        // Set up Action Dispatcher
         Event::listen(TriggerableEvent::class, ActionDispatcher::class);
         
-        // Register Actions
         ActionManagerFacade::registerAction(Log::class, 'Log', 'Log some text');
     }
     

@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -43,6 +50,20 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('annotated.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -123,20 +144,18 @@ $(function() {
 <tr id="row_0_0_3_1_" class="even" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span id="arr_0_0_3_1_" class="arrow" onclick="toggleFolder('0_0_3_1_')">&#9658;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespaceBristolSU_1_1Support_1_1Authentication_1_1Contracts.html" target="_self">Contracts</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_3_1_0_" class="even" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="interfaceBristolSU_1_1Support_1_1Authentication_1_1Contracts_1_1Authentication.html" target="_self">Authentication</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_3_1_1_" class="even" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="interfaceBristolSU_1_1Support_1_1Authentication_1_1Contracts_1_1ResourceIdGenerator.html" target="_self">ResourceIdGenerator</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_3_1_2_" class="even" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="interfaceBristolSU_1_1Support_1_1Authentication_1_1Contracts_1_1UserAuthentication.html" target="_self">UserAuthentication</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_3_2_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1ApiAuthentication.html" target="_self">ApiAuthentication</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_3_3_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationResourceIdGenerator.html" target="_self">AuthenticationResourceIdGenerator</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_3_4_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationServiceProvider.html" target="_self">AuthenticationServiceProvider</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_3_5_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1UserApiAuthentication.html" target="_self">UserApiAuthentication</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_3_6_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1UserWebAuthentication.html" target="_self">UserWebAuthentication</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_3_7_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1WebAuthentication.html" target="_self">WebAuthentication</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_3_5_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1WebAuthentication.html" target="_self">WebAuthentication</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_4_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span id="arr_0_0_4_" class="arrow" onclick="toggleFolder('0_0_4_')">&#9658;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespaceBristolSU_1_1Support_1_1Authorization.html" target="_self">Authorization</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_4_0_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span id="arr_0_0_4_0_" class="arrow" onclick="toggleFolder('0_0_4_0_')">&#9658;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespaceBristolSU_1_1Support_1_1Authorization_1_1Exception.html" target="_self">Exception</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_4_0_0_" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresAdmin.html" target="_self">ActivityRequiresAdmin</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_4_0_1_" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresGroup.html" target="_self">ActivityRequiresGroup</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_4_0_2_" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresRole.html" target="_self">ActivityRequiresRole</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_4_0_3_" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresUser.html" target="_self">ActivityRequiresUser</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_4_0_4_" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ModuleInactive.html" target="_self">ModuleInactive</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_4_0_2_" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresParticipant.html" target="_self">ActivityRequiresParticipant</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_4_0_3_" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresRole.html" target="_self">ActivityRequiresRole</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_4_0_4_" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresUser.html" target="_self">ActivityRequiresUser</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_4_0_5_" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ModuleInactive.html" target="_self">ModuleInactive</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_4_1_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span id="arr_0_0_4_1_" class="arrow" onclick="toggleFolder('0_0_4_1_')">&#9658;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespaceBristolSU_1_1Support_1_1Authorization_1_1Middleware.html" target="_self">Middleware</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_4_1_0_" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Middleware_1_1CheckActivityFor.html" target="_self">CheckActivityFor</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_4_1_1_" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Middleware_1_1CheckAdminActivityFor.html" target="_self">CheckAdminActivityFor</a></td><td class="desc"></td></tr>
@@ -346,19 +365,25 @@ $(function() {
 <tr id="row_0_0_15_1_" class="even" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1Testing_1_1TestingServiceProvider.html" target="_self">TestingServiceProvider</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_16_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span id="arr_0_0_16_" class="arrow" onclick="toggleFolder('0_0_16_')">&#9658;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html" target="_self">User</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_16_0_" style="display:none;"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span id="arr_0_0_16_0_" class="arrow" onclick="toggleFolder('0_0_16_0_')">&#9658;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespaceBristolSU_1_1Support_1_1User_1_1Contracts.html" target="_self">Contracts</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_16_0_0_" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html" target="_self">UserRepository</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_16_0_0_" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserAuthentication.html" target="_self">UserAuthentication</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_16_0_1_" style="display:none;"><td class="entry"><span style="width:80px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html" target="_self">UserRepository</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_16_1_" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html" target="_self">User</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_16_2_" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserRepository.html" target="_self">UserRepository</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_16_3_" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html" target="_self">UserServiceProvider</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_16_2_" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserApiAuthentication.html" target="_self">UserApiAuthentication</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_16_3_" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserRepository.html" target="_self">UserRepository</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_16_4_" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html" target="_self">UserServiceProvider</a></td><td class="desc"></td></tr>
+<tr id="row_0_0_16_5_" style="display:none;"><td class="entry"><span style="width:64px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserWebAuthentication.html" target="_self">UserWebAuthentication</a></td><td class="desc"></td></tr>
 <tr id="row_0_0_17_"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classBristolSU_1_1Support_1_1SupportServiceProvider.html" target="_self">SupportServiceProvider</a></td><td class="desc"></td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

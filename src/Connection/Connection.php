@@ -2,8 +2,7 @@
 
 namespace BristolSU\Support\Connection;
 
-use BristolSU\Support\Authentication\Contracts\UserAuthentication;
-use BristolSU\Support\Connection\Contracts\Connector;
+use BristolSU\Support\User\Contracts\UserAuthentication;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 

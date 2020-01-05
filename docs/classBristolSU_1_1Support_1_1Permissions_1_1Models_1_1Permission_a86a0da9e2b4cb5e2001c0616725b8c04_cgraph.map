@@ -1,0 +1,10 @@
+<map id="BristolSU\Support\Permissions\Models\Permission\__toString" name="BristolSU\Support\Permissions\Models\Permission\__toString">
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a2772fa66e804d0fccc06b92c3e85cf3c" title="BristolSU\\Support\\Permissions\l\\Models\\Permission\\toJson" alt="" coords="256,169,459,211"/>
+<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#ace3f06384f6e45fc8e32c290e2adcee4" title="BristolSU\\Support\\Permissions\l\\Models\\Permission\\toArray" alt="" coords="507,169,709,211"/>
+<area shape="rect" id="node4" href="$classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#ad07a0022182335a351157747c20c6ac4" title="BristolSU\\Support\\Permissions\l\\Models\\Permission\\getAbility" alt="" coords="771,5,974,47"/>
+<area shape="rect" id="node5" href="$classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#af2fc23a5270626aa66efb8c69ac82c3a" title="BristolSU\\Support\\Permissions\l\\Models\\Permission\\getName" alt="" coords="771,71,974,112"/>
+<area shape="rect" id="node6" href="$classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a1c1a89c3461902d1729a902a35280d75" title="BristolSU\\Support\\Permissions\l\\Models\\Permission\\getDescription" alt="" coords="760,136,985,177"/>
+<area shape="rect" id="node7" href="$classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a900bb2f43ae22c7f4558a4fc923afff0" title="BristolSU\\Support\\Permissions\l\\Models\\Permission\\getType" alt="" coords="771,201,974,243"/>
+<area shape="rect" id="node8" href="$classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a3ecf56c5e71c9c7092c6fdc2257cd0b7" title="BristolSU\\Support\\Permissions\l\\Models\\Permission\\getModuleAlias" alt="" coords="757,267,988,308"/>
+<area shape="rect" id="node9" href="$classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a2fb768a797370d924d59777205e5fd22" title="BristolSU\\Support\\Permissions\l\\Models\\Permission\\getModuleType" alt="" coords="757,332,988,373"/>
+</map>

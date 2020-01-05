@@ -7,19 +7,41 @@ use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository as A
 use BristolSU\Support\ActivityInstance\Contracts\DefaultActivityInstanceGenerator as DefaultActivityInstanceGeneratorContract;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
+/**
+ * Generate an activity instance using the repository
+ */
 class DefaultActivityInstanceGenerator implements DefaultActivityInstanceGeneratorContract
 {
 
     /**
+     * Holds the activity instance repository
+     * 
      * @var ActivityInstanceRepositoryContract
      */
     private $repository;
 
+    /**
+     * Initialise the generator
+     * 
+     * @param ActivityInstanceRepositoryContract $repository Repository to resolve the activity instance from.
+     */
     public function __construct(ActivityInstanceRepositoryContract $repository)
     {
         $this->repository = $repository;
     }
 
+    /**
+     * Find or create the default activity instance.
+     * 
+     * This method first tries to find the first activity instance and return it.
+     * If no activity instances are found, one is created.
+     * 
+     * @param Activity $activity Activity with which the activity instance should be associated with.
+     * @param string $resourceType User, group or role. The resource type for the activity instance
+     * @param string $resourceId The ID of the user, group or role.
+     * 
+     * @return ActivityInstance
+     */
     public function generate(Activity $activity, string $resourceType, string $resourceId): ActivityInstance
     {
         try {

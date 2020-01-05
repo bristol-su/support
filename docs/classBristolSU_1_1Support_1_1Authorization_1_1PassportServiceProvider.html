@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -42,6 +49,21 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classBristolSU_1_1Support_1_1Authorization_1_1PassportServiceProvider.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -56,11 +78,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Authorization.html">Authorization</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1PassportServiceProvider.html">PassportServiceProvider</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pro-methods">Protected Member Functions</a> &#124;
@@ -73,12 +90,12 @@ $(function() {
 Inheritance diagram for BristolSU\Support\Authorization\PassportServiceProvider:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBristolSU_1_1Support_1_1Authorization_1_1PassportServiceProvider__inherit__graph.png" border="0" usemap="#BristolSU_0CSupport_0CAuthorization_0CPassportServiceProvider_inherit__map" alt="Inheritance graph"/></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for BristolSU\Support\Authorization\PassportServiceProvider:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBristolSU_1_1Support_1_1Authorization_1_1PassportServiceProvider__coll__graph.png" border="0" usemap="#BristolSU_0CSupport_0CAuthorization_0CPassportServiceProvider_coll__map" alt="Collaboration graph"/></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -86,8 +103,10 @@ Protected Member Functions</h2></td></tr>
 <tr class="separator:a64e2adaa7072a6799cc7c2c374023d1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="PassportServiceProvider_8php_source.html#l00023">23</a> of file <a class="el" href="PassportServiceProvider_8php_source.html">PassportServiceProvider.php</a>.</p>
+<div class="textblock"><p>Class <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1PassportServiceProvider.html">PassportServiceProvider</a></p>
+<p>Overridden service provider for Laravel passport to allow for the logout() method to be used without clearing user tokens. </p>
+
+<p class="definition">Definition at line <a class="el" href="PassportServiceProvider_8php_source.html#l00022">22</a> of file <a class="el" href="PassportServiceProvider_8php_source.html">PassportServiceProvider.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a64e2adaa7072a6799cc7c2c374023d1e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a64e2adaa7072a6799cc7c2c374023d1e">&#9670;&nbsp;</a></span>deleteCookieOnLogout()</h2>
@@ -111,8 +130,10 @@ Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Stop the api authentication cookie being logged out when any model is logged out of.</p>
+<p>Since the package uses the same framework for users, groups, roles and activity instances, we need to ensure we only log out of the api if we log out of the database user. </p>
 
-<p class="definition">Definition at line <a class="el" href="PassportServiceProvider_8php_source.html#l00026">26</a> of file <a class="el" href="PassportServiceProvider_8php_source.html">PassportServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PassportServiceProvider_8php_source.html#l00031">31</a> of file <a class="el" href="PassportServiceProvider_8php_source.html">PassportServiceProvider.php</a>.</p>
 
 </div>
 </div>
@@ -120,11 +141,15 @@ Protected Member Functions</h2></td></tr>
 <li>src/Authorization/<a class="el" href="PassportServiceProvider_8php_source.html">PassportServiceProvider.php</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Authorization.html">Authorization</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1PassportServiceProvider.html">PassportServiceProvider</a></li>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

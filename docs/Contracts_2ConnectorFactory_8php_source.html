@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -42,6 +49,21 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('Contracts_2ConnectorFactory_8php_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -56,11 +78,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_debf51e1825bf72ffae3f6f25492d8e0.html">Connection</a></li><li class="navelem"><a class="el" href="dir_01c19d82ecef90762d82cda7f9dc96df.html">Contracts</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">ConnectorFactory.php</div>  </div>
@@ -69,15 +86,19 @@ $(function() {
 <a href="Contracts_2ConnectorFactory_8php.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceBristolSU_1_1Support_1_1Connection_1_1Contracts.html">BristolSU\Support\Connection\Contracts</a>;</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;use <a class="code" href="namespaceBristolSU_1_1Support_1_1Connection_1_1Connection.html">BristolSU\Support\Connection\Connection</a>;</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;</div><div class="line"><a name="l00009"></a><span class="lineno"><a class="line" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectorFactory.html">    9</a></span>&#160;<span class="keyword">interface </span><a class="code" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectorFactory.html">ConnectorFactory</a></div><div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;{</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;</div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectorFactory.html#ac4d8fb8cbe223ef7d7b7e58ecfb93ee5">createFromConnection</a>(<a class="code" href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html">Connection</a> $connection): <a class="code" href="classBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Connector.html">Connector</a>;</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;}</div><div class="ttc" id="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectorFactory_html_ac4d8fb8cbe223ef7d7b7e58ecfb93ee5"><div class="ttname"><a href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectorFactory.html#ac4d8fb8cbe223ef7d7b7e58ecfb93ee5">BristolSU\Support\Connection\Contracts\ConnectorFactory\createFromConnection</a></div><div class="ttdeci">createFromConnection(Connection $connection)</div></div>
 <div class="ttc" id="namespaceBristolSU_1_1Support_1_1Connection_1_1Contracts_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1Connection_1_1Contracts.html">BristolSU\Support\Connection\Contracts</a></div></div>
 <div class="ttc" id="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectorFactory_html"><div class="ttname"><a href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectorFactory.html">BristolSU\Support\Connection\Contracts\ConnectorFactory</a></div><div class="ttdef"><b>Definition:</b> <a href="Contracts_2ConnectorFactory_8php_source.html#l00009">ConnectorFactory.php:9</a></div></div>
-<div class="ttc" id="classBristolSU_1_1Support_1_1Connection_1_1Connection_html"><div class="ttname"><a href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html">BristolSU\Support\Connection\Connection</a></div><div class="ttdef"><b>Definition:</b> <a href="Connection_8php_source.html#l00010">Connection.php:10</a></div></div>
+<div class="ttc" id="classBristolSU_1_1Support_1_1Connection_1_1Connection_html"><div class="ttname"><a href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html">BristolSU\Support\Connection\Connection</a></div><div class="ttdef"><b>Definition:</b> <a href="Connection_8php_source.html#l00009">Connection.php:9</a></div></div>
 <div class="ttc" id="namespaceBristolSU_1_1Support_1_1Connection_1_1Connection_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1Connection_1_1Connection.html">Connection</a></div></div>
 <div class="ttc" id="classBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Connector_html"><div class="ttname"><a href="classBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Connector.html">BristolSU\Support\Connection\Contracts\Connector</a></div><div class="ttdef"><b>Definition:</b> <a href="Connector_8php_source.html#l00009">Connector.php:9</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_debf51e1825bf72ffae3f6f25492d8e0.html">Connection</a></li><li class="navelem"><a class="el" href="dir_01c19d82ecef90762d82cda7f9dc96df.html">Contracts</a></li><li class="navelem"><a class="el" href="Contracts_2ConnectorFactory_8php.html">ConnectorFactory.php</a></li>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:10 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -18,11 +18,16 @@ use Laravel\Passport\PassportServiceProvider as ServiceProvider;
  * Overridden service provider for Laravel passport to allow for the logout() method to be used without
  * clearing user tokens.
  * 
- * @package BristolSU\Support\Authorization
  */
 class PassportServiceProvider extends ServiceProvider
 {
 
+    /**
+     * Stop the api authentication cookie being logged out when any model is logged out of.
+     * 
+     * Since the package uses the same framework for users, groups, roles and activity instances, we need to ensure
+     * we only log out of the api if we log out of the database user.
+     */
     protected function deleteCookieOnLogout()
     {
         Event::listen(Logout::class, function ($event) {

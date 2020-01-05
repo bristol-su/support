@@ -145,7 +145,7 @@ class RegisteredAction implements Arrayable, Jsonable, RegisteredActionContract
     }
 
     /**
-     * Transform the action to json
+     * Transform the action to json when casting class to a string
      *
      * @return string
      */

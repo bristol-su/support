@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -43,6 +50,20 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('functions_func.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -76,21 +97,17 @@ $(function() {
 , <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1CheckActivityInstanceForActivity.html#ab6d9803a5948fc48dc4505e46d6b55b5">BristolSU\Support\ActivityInstance\Middleware\CheckActivityInstanceForActivity</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1CheckLoggedIntoActivityInstance.html#a3ce541230995d0d490116d9bee698067">BristolSU\Support\ActivityInstance\Middleware\CheckLoggedIntoActivityInstance</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1ClearActivityInstance.html#ae2dce99da3fda100939761b9da8f1d56">BristolSU\Support\ActivityInstance\Middleware\ClearActivityInstance</a>
-, <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1InjectActivityInstance.html#a6109658ed46fa05856501309df22d0d1">BristolSU\Support\ActivityInstance\Middleware\InjectActivityInstance</a>
+, <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1InjectActivityInstance.html#a66c120ecebfe64b4aa9d4f35342455a6">BristolSU\Support\ActivityInstance\Middleware\InjectActivityInstance</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1LogIntoActivityInstance.html#a8fe16cfc4588853ce42ae9b4fa562c74">BristolSU\Support\ActivityInstance\Middleware\LogIntoActivityInstance</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1ApiAuthentication.html#ae4c1b89609d7b70da7413cab227a5ec8">BristolSU\Support\Authentication\ApiAuthentication</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider_1_1GroupProvider.html#ac9252a8563945c92d858e72d5f6cf3db">BristolSU\Support\Authentication\AuthenticationProvider\GroupProvider</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider_1_1RoleProvider.html#a2a284e69d8c1eef11d8d7ab3fae6be6b">BristolSU\Support\Authentication\AuthenticationProvider\RoleProvider</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider_1_1UserProvider.html#a6ad44e23f8661a2ec8d30887f9cbcda7">BristolSU\Support\Authentication\AuthenticationProvider\UserProvider</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationResourceIdGenerator.html#a14065ec6f68921281219cc954bc067ee">BristolSU\Support\Authentication\AuthenticationResourceIdGenerator</a>
-, <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1UserApiAuthentication.html#ad795f4f4d430921dc9f34172a2c7aaf5">BristolSU\Support\Authentication\UserApiAuthentication</a>
-, <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1UserWebAuthentication.html#a19c542dcd6309d0f47f9df4a47775ce8">BristolSU\Support\Authentication\UserWebAuthentication</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1WebAuthentication.html#abb68692f79cc193d38ca23a6d5f880a9">BristolSU\Support\Authentication\WebAuthentication</a>
-, <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresAdmin.html#a522fbd3d962804c2bb5f263d92ec4c6a">BristolSU\Support\Authorization\Exception\ActivityRequiresAdmin</a>
-, <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresGroup.html#a9134863f3628ebf11acb4284c6f4abbf">BristolSU\Support\Authorization\Exception\ActivityRequiresGroup</a>
-, <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresRole.html#a46f4924eeb7c011a5fc460edf42d21fc">BristolSU\Support\Authorization\Exception\ActivityRequiresRole</a>
-, <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresUser.html#aed52d4922e303ef60573f55b0d20d70b">BristolSU\Support\Authorization\Exception\ActivityRequiresUser</a>
-, <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ModuleInactive.html#a11b66ad00fc6da650c242bc72fe5961f">BristolSU\Support\Authorization\Exception\ModuleInactive</a>
+, <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresAdmin.html#a782da1ded3f9cac5c82b13982035aa67">BristolSU\Support\Authorization\Exception\ActivityRequiresAdmin</a>
+, <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresParticipant.html#acf1bbf2d82e059e068516435c429b0fd">BristolSU\Support\Authorization\Exception\ActivityRequiresParticipant</a>
+, <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ModuleInactive.html#aa96ae5013118884125e818cc0e1869a0">BristolSU\Support\Authorization\Exception\ModuleInactive</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Middleware_1_1CheckActivityFor.html#ac56c72f4478d263df411ce757effc583">BristolSU\Support\Authorization\Middleware\CheckActivityFor</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Middleware_1_1CheckAdminActivityFor.html#a6ff226460df1a62e4f30e94431650232">BristolSU\Support\Authorization\Middleware\CheckAdminActivityFor</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Middleware_1_1CheckLoggedIntoActivityForType.html#a530092214eaeb5a167042ed29ed778dd">BristolSU\Support\Authorization\Middleware\CheckLoggedIntoActivityForType</a>
@@ -135,6 +152,8 @@ $(function() {
 , <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#ac044251f3e666b875ddb6a9249539085">BristolSU\Support\Permissions\Models\Permission</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1PermissionRepository.html#a392f0f557a804691d54031df746df7c1">BristolSU\Support\Permissions\PermissionRepository</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1ModuleInstancePermissions.html#a7495092605ac7321f1b0f1d274de5439">BristolSU\Support\Permissions\Testers\ModuleInstancePermissions</a>
+, <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserApiAuthentication.html#aacec7dd44cbc0ecd345096afe36909af">BristolSU\Support\User\UserApiAuthentication</a>
+, <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserWebAuthentication.html#a8e4479c4cf5f051a88727491c9145f58">BristolSU\Support\User\UserWebAuthentication</a>
 </li>
 <li>__get()
 : <a class="el" href="classBristolSU_1_1Support_1_1DataPlatform_1_1Models_1_1Model.html#ac106e4081a1939005180c329b666a390">BristolSU\Support\DataPlatform\Models\Model</a>
@@ -150,11 +169,14 @@ $(function() {
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

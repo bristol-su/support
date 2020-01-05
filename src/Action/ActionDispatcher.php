@@ -39,7 +39,8 @@ class ActionDispatcher
      */
     public function handle(TriggerableEvent $event)
     {
-        // TODO replace with repository
+        // TODO Replace the database call with a repository class
+        
         $actionInstances = ActionInstance::where('module_instance_id', app(ModuleInstance::class)->id)
             ->where('event', get_class($event))
             ->get();

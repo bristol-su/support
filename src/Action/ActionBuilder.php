@@ -57,6 +57,7 @@ class ActionBuilder implements ActionBuilderContract
      */
     private function mapFields($fields, array $data)
     {
+        // TODO Mapping fields should be done in its own class
         $actionFields = [];
         foreach ($fields as $field) {
             $actionFields[$field->action_field] = $data[$field->event_field];

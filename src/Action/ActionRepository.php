@@ -48,7 +48,7 @@ class ActionRepository implements ActionRepositoryContract
      * @param string $class Class of the action
      *
      * @throws \Exception Throws an exception if the action has not been registered
-     * @return RegisteredAction
+     * @return \BristolSU\Support\Action\Contracts\RegisteredAction
      */
     public function fromClass($class)
     {

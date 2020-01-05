@@ -2,23 +2,28 @@
 
 namespace BristolSU\Support\ActivityInstance\Middleware;
 
-use BristolSU\Support\ActivityInstance\ActivityInstance;
-use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use BristolSU\Support\ActivityInstance\Exceptions\NotInActivityInstanceException;
-use BristolSU\Support\Authentication\Contracts\Authentication;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
+/**
+ * Check an activity instance is logged in to.
+ */
 class CheckLoggedIntoActivityInstance
 {
 
     /**
+     * Holds the activity instance resolver
+     * 
      * @var ActivityInstanceResolver
      */
     private $activityInstanceResolver;
 
+    /**
+     * Initialise middleware
+     * 
+     * @param ActivityInstanceResolver $activityInstanceResolver Resolver to get the activity instance.
+     */
     public function __construct(ActivityInstanceResolver $activityInstanceResolver)
     {
         $this->activityInstanceResolver = $activityInstanceResolver;
@@ -27,10 +32,10 @@ class CheckLoggedIntoActivityInstance
     /**
      * Check we're logged into an activity instance
      * 
-     * @param Request $request
-     * @param \Closure $next
+     * @param Request $request Request Object
+     * @param \Closure $next Next middleware callback
      * @return mixed
-     * @throws NotInActivityInstanceException
+     * @throws NotInActivityInstanceException If an activity instance is not found
      */
     public function handle(Request $request, \Closure $next)
     {

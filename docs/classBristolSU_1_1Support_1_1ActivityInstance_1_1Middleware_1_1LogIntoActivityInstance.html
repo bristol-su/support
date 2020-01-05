@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -42,6 +49,21 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1LogIntoActivityInstance.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -56,11 +78,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware.html">Middleware</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1LogIntoActivityInstance.html">LogIntoActivityInstance</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -75,8 +92,8 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a8fe16cfc4588853ce42ae9b4fa562c74"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1LogIntoActivityInstance.html#a8fe16cfc4588853ce42ae9b4fa562c74">__construct</a> (<a class="el" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceRepository.html">ActivityInstanceRepository</a> $activityInstanceRepository, <a class="el" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceResolver.html">ActivityInstanceResolver</a> $activityInstanceResolver)</td></tr>
 <tr class="separator:a8fe16cfc4588853ce42ae9b4fa562c74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7328629cf67ea438d3718739fc44ed0c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1LogIntoActivityInstance.html#a7328629cf67ea438d3718739fc44ed0c">handle</a> (Request $request, \Closure $next)</td></tr>
-<tr class="separator:a7328629cf67ea438d3718739fc44ed0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad6a0c9f6a22f8d176a8d3edce6e018dd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1LogIntoActivityInstance.html#ad6a0c9f6a22f8d176a8d3edce6e018dd">handle</a> (Request $request, Closure $next)</td></tr>
+<tr class="separator:ad6a0c9f6a22f8d176a8d3edce6e018dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -86,8 +103,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:aa71c8d806ab2079378eeda221ac69cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="LogIntoActivityInstance_8php_source.html#l00009">9</a> of file <a class="el" href="LogIntoActivityInstance_8php_source.html">LogIntoActivityInstance.php</a>.</p>
+<div class="textblock"><p>Log into an activity if passed in the request </p>
+
+<p class="definition">Definition at line <a class="el" href="LogIntoActivityInstance_8php_source.html#l00013">13</a> of file <a class="el" href="LogIntoActivityInstance_8php_source.html">LogIntoActivityInstance.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a8fe16cfc4588853ce42ae9b4fa562c74"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8fe16cfc4588853ce42ae9b4fa562c74">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -114,16 +132,24 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initialise the middleware</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstanceRepository.html">ActivityInstanceRepository</a></td><td class="paramname">$activityInstanceRepository</td><td>Repository to retrieve the activity instance from </td></tr>
+    <tr><td class="paramtype">ActivityInstanceResolver</td><td class="paramname">$activityInstanceResolver</td><td>Resolver to set the activity instance in </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="LogIntoActivityInstance_8php_source.html#l00021">21</a> of file <a class="el" href="LogIntoActivityInstance_8php_source.html">LogIntoActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LogIntoActivityInstance_8php_source.html#l00036">36</a> of file <a class="el" href="LogIntoActivityInstance_8php_source.html">LogIntoActivityInstance.php</a>.</p>
 
-<p class="reference">References <a class="el" href="LogIntoActivityInstance_8php_source.html#l00019">BristolSU\Support\ActivityInstance\Middleware\LogIntoActivityInstance\$activityInstanceRepository</a>, and <a class="el" href="LogIntoActivityInstance_8php_source.html#l00015">BristolSU\Support\ActivityInstance\Middleware\LogIntoActivityInstance\$activityInstanceResolver</a>.</p>
+<p class="reference">References <a class="el" href="LogIntoActivityInstance_8php_source.html#l00028">BristolSU\Support\ActivityInstance\Middleware\LogIntoActivityInstance\$activityInstanceRepository</a>, and <a class="el" href="LogIntoActivityInstance_8php_source.html#l00021">BristolSU\Support\ActivityInstance\Middleware\LogIntoActivityInstance\$activityInstanceResolver</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a7328629cf67ea438d3718739fc44ed0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7328629cf67ea438d3718739fc44ed0c">&#9670;&nbsp;</a></span>handle()</h2>
+<a id="ad6a0c9f6a22f8d176a8d3edce6e018dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad6a0c9f6a22f8d176a8d3edce6e018dd">&#9670;&nbsp;</a></span>handle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -137,7 +163,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">\Closure&#160;</td>
+          <td class="paramtype">Closure&#160;</td>
           <td class="paramname"><em>$next</em>&#160;</td>
         </tr>
         <tr>
@@ -150,14 +176,14 @@ Private Attributes</h2></td></tr>
 <p>Log into an activity instance if the ID is passed in the request</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">Request</td><td class="paramname">$request</td><td></td></tr>
-    <tr><td class="paramtype">\Closure</td><td class="paramname">$next</td><td></td></tr>
+    <tr><td class="paramtype">Request</td><td class="paramname">$request</td><td>Request object </td></tr>
+    <tr><td class="paramtype">Closure</td><td class="paramname">$next</td><td>Next middleware callback</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="LogIntoActivityInstance_8php_source.html#l00034">34</a> of file <a class="el" href="LogIntoActivityInstance_8php_source.html">LogIntoActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LogIntoActivityInstance_8php_source.html#l00050">50</a> of file <a class="el" href="LogIntoActivityInstance_8php_source.html">LogIntoActivityInstance.php</a>.</p>
 
 </div>
 </div>
@@ -182,9 +208,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LogIntoActivityInstance_8php_source.html#l00019">19</a> of file <a class="el" href="LogIntoActivityInstance_8php_source.html">LogIntoActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LogIntoActivityInstance_8php_source.html#l00028">28</a> of file <a class="el" href="LogIntoActivityInstance_8php_source.html">LogIntoActivityInstance.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="LogIntoActivityInstance_8php_source.html#l00021">BristolSU\Support\ActivityInstance\Middleware\LogIntoActivityInstance\__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="LogIntoActivityInstance_8php_source.html#l00036">BristolSU\Support\ActivityInstance\Middleware\LogIntoActivityInstance\__construct()</a>.</p>
 
 </div>
 </div>
@@ -208,9 +234,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LogIntoActivityInstance_8php_source.html#l00015">15</a> of file <a class="el" href="LogIntoActivityInstance_8php_source.html">LogIntoActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LogIntoActivityInstance_8php_source.html#l00021">21</a> of file <a class="el" href="LogIntoActivityInstance_8php_source.html">LogIntoActivityInstance.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="LogIntoActivityInstance_8php_source.html#l00021">BristolSU\Support\ActivityInstance\Middleware\LogIntoActivityInstance\__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="LogIntoActivityInstance_8php_source.html#l00036">BristolSU\Support\ActivityInstance\Middleware\LogIntoActivityInstance\__construct()</a>.</p>
 
 </div>
 </div>
@@ -218,11 +244,15 @@ Private Attributes</h2></td></tr>
 <li>src/ActivityInstance/Middleware/<a class="el" href="LogIntoActivityInstance_8php_source.html">LogIntoActivityInstance.php</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware.html">Middleware</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1LogIntoActivityInstance.html">LogIntoActivityInstance</a></li>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

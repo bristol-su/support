@@ -9,24 +9,27 @@
 namespace BristolSU\Support\Authentication\AuthenticationProvider;
 
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepositoryContract;
+use BristolSU\ControlDB\Contracts\Models\User;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider as BaseUserProvider;
 
 /**
- * Class UserProvider
- * @package BristolSU\Support\Authentication\AuthenticationProvider
+ * User authentication provider
  */
 class UserProvider implements BaseUserProvider
 {
 
     /**
+     * Holds the user repository
+     *
      * @var UserRepositoryContract
      */
     private $users;
 
     /**
-     * UserProvider constructor.
-     * @param UserRepositoryContract $users
+     * Initialise the user provider
+     * .
+     * @param UserRepositoryContract $user User repository contract to retrieve the user from
      */
     public function __construct(UserRepositoryContract $users)
     {
@@ -34,37 +37,49 @@ class UserProvider implements BaseUserProvider
     }
 
     /**
-     * @param mixed $identifier
-     * @return \BristolSU\ControlDB\Contracts\Models\User|Authenticatable|null
+     * Get a user by ID
+     *
+     * @param mixed $identifier ID of the user
+     * @return User|null
      */
     public function retrieveById($identifier)
     {
         return $this->users->getById($identifier);
-
     }
 
     /**
-     * @param mixed $identifier
-     * @param string $token
-     * @return Authenticatable|void|null
+     * Get a user by the remember token
+     *
+     * @param mixed $identifier ID of the user
+     * @param string $token Remember token of the user
+     * @return User|null
      */
     public function retrieveByToken($identifier, $token)
     {
-
+        // TODO Implement method
     }
 
     /**
-     * @param Authenticatable $user
-     * @param string $token
+     * Update the remember token for the given user
+     *
+     * @param Authenticatable $user User to update the token on
+     * @param string $token Token to update
      */
     public function updateRememberToken(Authenticatable $user, $token)
     {
-
+        // TODO Implement method
     }
 
     /**
-     * @param array $credentials
-     * @return \BristolSU\ControlDB\Contracts\Models\User|Authenticatable|null
+     * Retrieve a user by ID
+     *
+     * Credentials:
+     * [
+     *      'user_id' => 1
+     * ]
+     *
+     * @param array $credentials Credentials containing the user id
+     * @return User|null
      */
     public function retrieveByCredentials(array $credentials)
     {
@@ -75,18 +90,24 @@ class UserProvider implements BaseUserProvider
     }
 
     /**
-     * Ensure the user owns the committee user
+     * Ensure the user credentials are valid for the given user
      *
-     * @param Authenticatable $user
-     * @param array $credentials
+     * $credentials = [
+     *      'user_id' => 1
+     * ]
+     * @param Authenticatable $user User to validate against
+     * @param array $credentials Credentials containing the user id
      * @return bool
      */
     public function validateCredentials(Authenticatable $user, array $credentials)
     {
+        // TODO Validate credentials using actual credentials
         if (isset($credentials['user_id'])) {
             try {
                 $user = $this->retrieveById($credentials['user_id']);
-                return true;
+                if($user !== null) {
+                    return true;
+                }
             } catch (\Exception $e) {
             }
         }

@@ -14,19 +14,27 @@ use BristolSU\Support\Activity\Repository as ActivityRepository;
 class ActivityServiceProvider extends ServiceProvider
 {
 
+    /**
+     * Register
+     * 
+     * - Bind the activity repository contract to an implementation
+     */
     public function register()
     {
-        // Bind contracts
         $this->app->bind(ActivityRepositoryContract::class, ActivityRepository::class);
 
     }
 
+    /**
+     * Boot
+     * 
+     * - Inject the activity 
+     * - Set up route model binding
+     */
     public function boot()
     {
-        // Inject the activity instance middleware
         $this->app['router']->pushMiddlewareToGroup('activity', InjectActivityInstance::class);
 
-        // Set up route model binding
         Route::bind('activity_slug', function ($slug) {
             return Activity::where(['slug' => $slug])->firstOrFail();
         });

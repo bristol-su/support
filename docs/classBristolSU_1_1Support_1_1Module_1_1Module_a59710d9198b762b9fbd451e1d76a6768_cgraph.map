@@ -1,0 +1,11 @@
+<map id="BristolSU\Support\Module\Module\toJson" name="BristolSU\Support\Module\Module\toJson">
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Module_1_1Module.html#a1c84b9f394256e9c843eed0d66c56d74" title="BristolSU\\Support\\Module\l\\Module\\toArray" alt="" coords="227,251,400,292"/>
+<area shape="rect" id="node3" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a40bf73155b78e5e3fac01c2c0878e26f" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getAlias" alt="" coords="469,5,649,47"/>
+<area shape="rect" id="node4" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a8c8305a70a8f47962451eb4062083c0d" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getCompletion\lConditions" alt="" coords="451,71,668,127"/>
+<area shape="rect" id="node5" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a520274375b793facfeca9f3f2700989c" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getDescription" alt="" coords="451,152,668,193"/>
+<area shape="rect" id="node6" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a316e2d47f0aef71572621dffda018b23" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getName" alt="" coords="466,217,653,259"/>
+<area shape="rect" id="node7" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a6073561975875e151c907836f572c7ec" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getPermissions" alt="" coords="448,283,671,324"/>
+<area shape="rect" id="node8" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#aa741a3e92cf025ecaa6cd9d9a8b98d89" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getServices" alt="" coords="458,348,661,389"/>
+<area shape="rect" id="node9" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a88a564c9df48969731a93611b3ce5fb8" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getSettings" alt="" coords="460,413,659,455"/>
+<area shape="rect" id="node10" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a1293378219569d8a9ccd0b2d53180d15" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getTriggers" alt="" coords="460,479,659,520"/>
+</map>

@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -42,6 +49,21 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classBristolSU_1_1Support_1_1ActivityInstance_1_1ApiActivityInstanceResolver.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -56,11 +78,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ApiActivityInstanceResolver.html">ApiActivityInstanceResolver</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -77,7 +94,7 @@ Inheritance diagram for BristolSU\Support\ActivityInstance\ApiActivityInstanceRe
 <map name="BristolSU_0CSupport_0CActivityInstance_0CApiActivityInstanceResolver_inherit__map" id="BristolSU_0CSupport_0CActivityInstance_0CApiActivityInstanceResolver_inherit__map">
 <area shape="rect" id="node2" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceResolver.html" title="BristolSU\\Support\\Activity\lInstance\\Contracts\\ActivityInstance\lResolver" alt="" coords="11,5,241,61"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for BristolSU\Support\ActivityInstance\ApiActivityInstanceResolver:</div>
 <div class="dyncontent">
@@ -85,7 +102,7 @@ Collaboration diagram for BristolSU\Support\ActivityInstance\ApiActivityInstance
 <map name="BristolSU_0CSupport_0CActivityInstance_0CApiActivityInstanceResolver_coll__map" id="BristolSU_0CSupport_0CActivityInstance_0CApiActivityInstanceResolver_coll__map">
 <area shape="rect" id="node2" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceResolver.html" title="BristolSU\\Support\\Activity\lInstance\\Contracts\\ActivityInstance\lResolver" alt="" coords="11,5,241,61"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -106,8 +123,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:af4ecb1bbfd2f5a7c1338960a24679e39"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00012">12</a> of file <a class="el" href="ApiActivityInstanceResolver_8php_source.html">ApiActivityInstanceResolver.php</a>.</p>
+<div class="textblock"><p>Resolve an activity instance when using the API </p>
+
+<p class="definition">Definition at line <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00015">15</a> of file <a class="el" href="ApiActivityInstanceResolver_8php_source.html">ApiActivityInstanceResolver.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad0814f7704c68df42de9050ea7a456b5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad0814f7704c68df42de9050ea7a456b5">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -134,16 +152,18 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initialise the <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance resolver.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">Request</td><td class="paramname">$request</td><td></td></tr>
+    <tr><td class="paramtype">Request</td><td class="paramname">$request</td><td>Request object </td></tr>
+    <tr><td class="paramtype">ActivityInstanceRepositoryContract</td><td class="paramname">$activityInstanceRepository</td><td>Repository to resolve the activity instance from. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00026">26</a> of file <a class="el" href="ApiActivityInstanceResolver_8php_source.html">ApiActivityInstanceResolver.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00037">37</a> of file <a class="el" href="ApiActivityInstanceResolver_8php_source.html">ApiActivityInstanceResolver.php</a>.</p>
 
-<p class="reference">References <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00021">BristolSU\Support\ActivityInstance\ApiActivityInstanceResolver\$activityInstanceRepository</a>, and <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00017">BristolSU\Support\ActivityInstance\ApiActivityInstanceResolver\$request</a>.</p>
+<p class="reference">References <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00029">BristolSU\Support\ActivityInstance\ApiActivityInstanceResolver\$activityInstanceRepository</a>, and <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00022">BristolSU\Support\ActivityInstance\ApiActivityInstanceResolver\$request</a>.</p>
 
 </div>
 </div>
@@ -162,10 +182,18 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Clear the activity instance</p>
+<p>For the API, the activity instance is always set in the query string in the request object, so this method throws an exception.</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceResolver.html#a73d9f84e092e2f3cbffb299dd1db5beb">BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00056">56</a> of file <a class="el" href="ApiActivityInstanceResolver_8php_source.html">ApiActivityInstanceResolver.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00086">86</a> of file <a class="el" href="ApiActivityInstanceResolver_8php_source.html">ApiActivityInstanceResolver.php</a>.</p>
 
 </div>
 </div>
@@ -183,6 +211,8 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Gets the activity instance</p>
+<p>The activity instance will be retrieved from the repository using the ID found in the query string under the key 'activity_instance_id'. If not found, a NotInActivityInstanceException will be thrown</p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">ActivityInstance</a> </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
@@ -190,11 +220,11 @@ Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>get the default activity instance if it's not a multi-completable activity. This will allow us to only enforce using activity_instance_id for a multi completable activity </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000009">Todo:</a></b></dt><dd>get the default activity instance if it's not a multi-completable activity. This will allow us to only enforce using activity_instance_id for a multi completable activity </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceResolver.html#abafd51aaf150daa90e9bd97360df2972">BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00044">44</a> of file <a class="el" href="ApiActivityInstanceResolver_8php_source.html">ApiActivityInstanceResolver.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00066">66</a> of file <a class="el" href="ApiActivityInstanceResolver_8php_source.html">ApiActivityInstanceResolver.php</a>.</p>
 
 </div>
 </div>
@@ -213,16 +243,24 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the activity instance.</p>
+<p>For this resolver, the activity instance id must always be passed through the request object, so this method will throw an exception.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">ActivityInstance</a></td><td class="paramname">$activityInstance</td><td></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceResolver.html#aaaea26287302a2191c7f4ec94b05fbca">BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00035">35</a> of file <a class="el" href="ApiActivityInstanceResolver_8php_source.html">ApiActivityInstanceResolver.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00052">52</a> of file <a class="el" href="ApiActivityInstanceResolver_8php_source.html">ApiActivityInstanceResolver.php</a>.</p>
 
 </div>
 </div>
@@ -247,9 +285,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00021">21</a> of file <a class="el" href="ApiActivityInstanceResolver_8php_source.html">ApiActivityInstanceResolver.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00029">29</a> of file <a class="el" href="ApiActivityInstanceResolver_8php_source.html">ApiActivityInstanceResolver.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00026">BristolSU\Support\ActivityInstance\ApiActivityInstanceResolver\__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00037">BristolSU\Support\ActivityInstance\ApiActivityInstanceResolver\__construct()</a>.</p>
 
 </div>
 </div>
@@ -273,9 +311,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00017">17</a> of file <a class="el" href="ApiActivityInstanceResolver_8php_source.html">ApiActivityInstanceResolver.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00022">22</a> of file <a class="el" href="ApiActivityInstanceResolver_8php_source.html">ApiActivityInstanceResolver.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00026">BristolSU\Support\ActivityInstance\ApiActivityInstanceResolver\__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ApiActivityInstanceResolver_8php_source.html#l00037">BristolSU\Support\ActivityInstance\ApiActivityInstanceResolver\__construct()</a>.</p>
 
 </div>
 </div>
@@ -283,11 +321,15 @@ Private Attributes</h2></td></tr>
 <li>src/ActivityInstance/<a class="el" href="ApiActivityInstanceResolver_8php_source.html">ApiActivityInstanceResolver.php</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ApiActivityInstanceResolver.html">ApiActivityInstanceResolver</a></li>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

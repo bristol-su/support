@@ -1,0 +1,28 @@
+var classBristolSU_1_1Support_1_1Testing_1_1TestCase =
+[
+    [ "adminUrl", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a26a027070d842cbb546e28a420f69bb7", null ],
+    [ "alias", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a1dd6c4cc2a814ef6513ad818a0b5e9e2", null ],
+    [ "apiUrl", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#ad7b9cc71f0af3e769ad80d056fedba21", null ],
+    [ "assertModelEquals", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a75b45e0b3b352b8138b832d601c308dc", null ],
+    [ "assertRequiresAuthorization", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a058674427b785b9793096a9c032a6d78", null ],
+    [ "beGroup", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a9495e0d330cd2d444e510ebd177b2602", null ],
+    [ "beRole", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a5950cca66d4c75b1c4e319443d4dbad8", null ],
+    [ "beUser", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#afad632c12af42c073d8c76fd92b73678", null ],
+    [ "bypassAuthorization", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a73b554024be6626d68094767cee3e906", null ],
+    [ "createLogicTester", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a2399b66d844d5f04cf356c8982cc746a", null ],
+    [ "getEnvironmentSetUp", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a6969b25bd4db6556ae00b133a3b767f3", null ],
+    [ "getPackageProviders", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#af7d2639324df3712fb4037086fccfb41", null ],
+    [ "mockControl", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a4002597cd6306fc9f373676f322f3098", null ],
+    [ "setUp", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a09d07e19804e486eb91a2e5631ef5d2f", null ],
+    [ "stubControl", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a5317d1db76d8d2dfe6f8eda176147856", null ],
+    [ "userUrl", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a550def0a0a66eda25411113c7d330fd0", null ],
+    [ "$activity", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#aec4acbe4567fa00134037c3c329c1cd7", null ],
+    [ "$activityInstance", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#af59a031bb296b57c30d12b1d736d5f55", null ],
+    [ "$controlClient", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a3df4b1e176b280fb8e40ed5eb3f3b32d", null ],
+    [ "$databaseUser", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a1c108d7826c7241a63869fb565453ead", null ],
+    [ "$group", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a4e82a511dd3b0c91a4af0adbbedb36cb", null ],
+    [ "$logicTester", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#ab92935efae4372ed817f1a1a1fde2b50", null ],
+    [ "$moduleInstance", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#abc63bf6a17e72b3d6dbe8d4920788cf4", null ],
+    [ "$role", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a2c73f82af3734b67577a1f25a40d9a8c", null ],
+    [ "$user", "classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#aa626e6fe85079ddf668e3a82b357d63a", null ]
+];

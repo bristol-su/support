@@ -1,0 +1,12 @@
+<map id="BristolSU\Support\Module\Module\__toString" name="BristolSU\Support\Module\Module\__toString">
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Module_1_1Module.html#a59710d9198b762b9fbd451e1d76a6768" title="BristolSU\\Support\\Module\l\\Module\\toJson" alt="" coords="227,235,400,276"/>
+<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Module_1_1Module.html#a1c84b9f394256e9c843eed0d66c56d74" title="BristolSU\\Support\\Module\l\\Module\\toArray" alt="" coords="448,235,621,276"/>
+<area shape="rect" id="node4" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a40bf73155b78e5e3fac01c2c0878e26f" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getAlias" alt="" coords="691,5,871,47"/>
+<area shape="rect" id="node5" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a316e2d47f0aef71572621dffda018b23" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getName" alt="" coords="687,71,874,112"/>
+<area shape="rect" id="node6" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a520274375b793facfeca9f3f2700989c" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getDescription" alt="" coords="672,136,889,177"/>
+<area shape="rect" id="node7" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a6073561975875e151c907836f572c7ec" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getPermissions" alt="" coords="669,201,892,243"/>
+<area shape="rect" id="node8" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a88a564c9df48969731a93611b3ce5fb8" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getSettings" alt="" coords="681,267,880,308"/>
+<area shape="rect" id="node9" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a1293378219569d8a9ccd0b2d53180d15" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getTriggers" alt="" coords="681,332,880,373"/>
+<area shape="rect" id="node10" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a8c8305a70a8f47962451eb4062083c0d" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getCompletion\lConditions" alt="" coords="672,398,889,454"/>
+<area shape="rect" id="node11" href="$interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#aa741a3e92cf025ecaa6cd9d9a8b98d89" title="BristolSU\\Support\\Module\l\\Contracts\\Module\\getServices" alt="" coords="679,479,882,520"/>
+</map>

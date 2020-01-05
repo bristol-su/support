@@ -5,43 +5,56 @@ namespace BristolSU\Support\Authentication;
 
 
 use BristolSU\Support\Authentication\Contracts\Authentication as AuthenticationContract;
-use BristolSU\Support\Authentication\Contracts\UserAuthentication;
+use BristolSU\Support\User\Contracts\UserAuthentication;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use \BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Http\Request;
 
 /**
- * Class LaravelAuthentication
- * @package BristolSU\Support\Authentication
+ * Authentication for getting a user, group or role from the laravel authentication framework
  */
 class WebAuthentication implements AuthenticationContract
 {
 
     /**
+     * Laravel Authentication
+     * 
      * @var AuthFactory
      */
     private $auth;
+    
     /**
+     * Group repository
+     * 
      * @var GroupRepository
      */
+    
     private $groupRepository;
     /**
+     * User Repository
+     * 
      * @var UserRepository
      */
     private $userRepository;
+    
     /**
+     * User Authentication (database access)
+     * 
      * @var UserAuthentication
      */
     private $userAuthentication;
 
     /**
-     * LaravelAuthentication constructor.
-     * @param AuthFactory $auth
+     * Initialise the authentication
+     *
+     * @param AuthFactory $auth Authentication
+     * @param GroupRepository $groupRepository Group Repository
+     * @param UserRepository $userRepository User Repository
+     * @param UserAuthentication $userAuthentication Database User Authentication 
      */
     public function __construct(AuthFactory $auth, GroupRepository $groupRepository, UserRepository $userRepository, UserAuthentication $userAuthentication)
     {
@@ -52,7 +65,11 @@ class WebAuthentication implements AuthenticationContract
     }
 
     /**
-     * @return mixed|null
+     * Get the group
+     * 
+     * Returns the group belonging to a role if logged into a role, otherwise the group logged in
+     * 
+     * @return Group|null
      */
     public function getGroup()
     {
@@ -68,7 +85,9 @@ class WebAuthentication implements AuthenticationContract
     }
 
     /**
-     * @return mixed|null
+     * Get the role
+     * 
+     * @return Role|null
      */
     public function getRole()
     {
@@ -80,6 +99,8 @@ class WebAuthentication implements AuthenticationContract
     }
 
     /**
+     * Get the user
+     * 
      * @return User|null
      */
     public function getUser()
@@ -92,7 +113,10 @@ class WebAuthentication implements AuthenticationContract
     }
 
     /**
+     * Set the group
+     * 
      * @param Group $group
+     * @return void
      */
     public function setGroup(Group $group)
     {
@@ -100,7 +124,10 @@ class WebAuthentication implements AuthenticationContract
     }
 
     /**
+     * Set the role
+     * 
      * @param Role $role
+     * @return void
      */
     public function setRole(Role $role)
     {
@@ -108,13 +135,21 @@ class WebAuthentication implements AuthenticationContract
     }
 
     /**
+     * Set the user
+     * 
      * @param User $user
+     * @return void
      */
     public function setUser(User $user)
     {
         $this->auth->guard('user')->login($user);
     }
-    
+
+    /**
+     * Unset the user, group and role
+     * 
+     * @return void
+     */
     public function reset(): void
     {
         $this->auth->guard('user')->logout();

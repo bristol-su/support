@@ -88,4 +88,6 @@ interface Repository
      * @throws ModelNotFoundException
      */
     public function getById($id): Activity;
+    
+    // TODO Add additional CRUD functionality
 }

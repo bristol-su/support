@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -42,6 +49,21 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider_1_1ActivityInstanceProvider.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -56,11 +78,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider.html">AuthenticationProvider</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider_1_1ActivityInstanceProvider.html">ActivityInstanceProvider</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -74,12 +91,12 @@ $(function() {
 Inheritance diagram for BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider_1_1ActivityInstanceProvider__inherit__graph.png" border="0" usemap="#BristolSU_0CSupport_0CActivityInstance_0CAuthenticationProvider_0CActivityInstanceProvider_inherit__map" alt="Inheritance graph"/></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider_1_1ActivityInstanceProvider__coll__graph.png" border="0" usemap="#BristolSU_0CSupport_0CActivityInstance_0CAuthenticationProvider_0CActivityInstanceProvider_coll__map" alt="Collaboration graph"/></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -89,8 +106,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae68ac0c0371f58c9b3febcad7004f98b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a49508f7cfce7ef7176f5600ad78fa64c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider_1_1ActivityInstanceProvider.html#a49508f7cfce7ef7176f5600ad78fa64c">retrieveByToken</a> ($identifier, $token)</td></tr>
 <tr class="separator:a49508f7cfce7ef7176f5600ad78fa64c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a23971bceaf31df7cf93efe6b70f50663"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider_1_1ActivityInstanceProvider.html#a23971bceaf31df7cf93efe6b70f50663">updateRememberToken</a> (Authenticatable $user, $token)</td></tr>
-<tr class="separator:a23971bceaf31df7cf93efe6b70f50663"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae2b7b4d6584c335eb4a018f2e5b9cd83"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider_1_1ActivityInstanceProvider.html#ae2b7b4d6584c335eb4a018f2e5b9cd83">updateRememberToken</a> (Authenticatable $activityInstance, $token)</td></tr>
+<tr class="separator:ae2b7b4d6584c335eb4a018f2e5b9cd83"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9cb33e261440380d366e1adfcaf345f6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider_1_1ActivityInstanceProvider.html#a9cb33e261440380d366e1adfcaf345f6">retrieveByCredentials</a> (array $credentials)</td></tr>
 <tr class="separator:a9cb33e261440380d366e1adfcaf345f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a43ca351f7fb02214ae9ddcdb9840bfc6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider_1_1ActivityInstanceProvider.html#a43ca351f7fb02214ae9ddcdb9840bfc6">validateCredentials</a> (Authenticatable $user, array $credentials)</td></tr>
@@ -102,7 +119,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a97586eccff999cb666d3323c89da8f63"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
+<div class="textblock"><p>Provider for the current <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance </p>
+
 <p class="definition">Definition at line <a class="el" href="ActivityInstanceProvider_8php_source.html#l00013">13</a> of file <a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="adf80f2bfaa56ec7bfa87f3b995a5f25a"></a>
@@ -120,10 +138,17 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initialise the <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance provider</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstanceRepository.html">ActivityInstanceRepository</a></td><td class="paramname">$repository</td><td>Repository from which to retrieve the activity instances </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstanceProvider_8php_source.html#l00021">21</a> of file <a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstanceProvider_8php_source.html#l00028">28</a> of file <a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a>.</p>
 
-<p class="reference">References <a class="el" href="ActivityInstanceProvider_8php_source.html#l00019">BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider\$repository</a>.</p>
+<p class="reference">References <a class="el" href="ActivityInstanceProvider_8php_source.html#l00021">BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider\$repository</a>.</p>
 
 </div>
 </div>
@@ -143,17 +168,20 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Retrieve an <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance by the credentials.</p>
+<p>When given correct credentials, will return the <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance. e.g. $credentials = [ 'activity_instance_id' =&gt; 1 ]</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">array</td><td class="paramname">$credentials</td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>|Authenticatable|null </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ActivityInstance|null </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000012">Todo:</a></b></dt><dd>Make this method take additional credentials for security (if necessary) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstanceProvider_8php_source.html#l00059">59</a> of file <a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstanceProvider_8php_source.html#l00083">83</a> of file <a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a>.</p>
 
-<p class="reference">References <a class="el" href="ActivityInstanceProvider_8php_source.html#l00030">BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider\retrieveById()</a>.</p>
+<p class="reference">References <a class="el" href="ActivityInstanceProvider_8php_source.html#l00039">BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider\retrieveById()</a>.</p>
 
 </div>
 </div>
@@ -172,17 +200,18 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Retrieve an <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance by ID</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">mixed</td><td class="paramname">$identifier</td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>|Authenticatable|null </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ActivityInstance|null </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstanceProvider_8php_source.html#l00030">30</a> of file <a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstanceProvider_8php_source.html#l00039">39</a> of file <a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ActivityInstanceProvider_8php_source.html#l00059">BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider\retrieveByCredentials()</a>, and <a class="el" href="ActivityInstanceProvider_8php_source.html#l00077">BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider\validateCredentials()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ActivityInstanceProvider_8php_source.html#l00083">BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider\retrieveByCredentials()</a>, and <a class="el" href="ActivityInstanceProvider_8php_source.html#l00107">BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider\validateCredentials()</a>.</p>
 
 </div>
 </div>
@@ -211,21 +240,23 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Retrieve an <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance by the remember token</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">mixed</td><td class="paramname">$identifier</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$token</td><td></td></tr>
+    <tr><td class="paramtype">mixed</td><td class="paramname">$identifier</td><td>ID of the activity instance </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$token</td><td>Remember Token the activity instance needs to have</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Authenticatable|void|null </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd>Implement retrieveByToken method for <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstanceProvider_8php_source.html#l00041">41</a> of file <a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstanceProvider_8php_source.html#l00053">53</a> of file <a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a>.</p>
 
 </div>
 </div>
-<a id="a23971bceaf31df7cf93efe6b70f50663"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a23971bceaf31df7cf93efe6b70f50663">&#9670;&nbsp;</a></span>updateRememberToken()</h2>
+<a id="ae2b7b4d6584c335eb4a018f2e5b9cd83"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae2b7b4d6584c335eb4a018f2e5b9cd83">&#9670;&nbsp;</a></span>updateRememberToken()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,7 +265,7 @@ Private Attributes</h2></td></tr>
           <td class="memname">BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider::updateRememberToken </td>
           <td>(</td>
           <td class="paramtype">Authenticatable&#160;</td>
-          <td class="paramname"><em>$user</em>, </td>
+          <td class="paramname"><em>$activityInstance</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -249,15 +280,18 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Update the remember token for the <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">Authenticatable</td><td class="paramname">$user</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$token</td><td></td></tr>
+    <tr><td class="paramtype">Authenticatable</td><td class="paramname">$activityInstance</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$token</td><td>New remember token to be set </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>null </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000011">Todo:</a></b></dt><dd>Implement updateRememberToken method for <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstanceProvider_8php_source.html#l00050">50</a> of file <a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstanceProvider_8php_source.html#l00066">66</a> of file <a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a>.</p>
 
 </div>
 </div>
@@ -286,19 +320,20 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Ensure the user owns the committee user</p>
+<p>Check the credentials for the <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance.</p>
+<p>Returns true if credentials are valid. Credentials should look like [ 'activity_instance_id' =&gt; 1 ]</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">Authenticatable</td><td class="paramname">$user</td><td></td></tr>
-    <tr><td class="paramtype">array</td><td class="paramname">$credentials</td><td></td></tr>
+    <tr><td class="paramtype">Authenticatable</td><td class="paramname">$user</td><td>The <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance to validate the credentials against </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$credentials</td><td>Credentials to test against the <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>bool If the credentials are valid </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstanceProvider_8php_source.html#l00077">77</a> of file <a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstanceProvider_8php_source.html#l00107">107</a> of file <a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a>.</p>
 
-<p class="reference">References <a class="el" href="ActivityInstanceProvider_8php_source.html#l00030">BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider\retrieveById()</a>.</p>
+<p class="reference">References <a class="el" href="ActivityInstanceProvider_8php_source.html#l00039">BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider\retrieveById()</a>.</p>
 
 </div>
 </div>
@@ -323,9 +358,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstanceProvider_8php_source.html#l00019">19</a> of file <a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstanceProvider_8php_source.html#l00021">21</a> of file <a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ActivityInstanceProvider_8php_source.html#l00021">BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider\__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ActivityInstanceProvider_8php_source.html#l00028">BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider\__construct()</a>.</p>
 
 </div>
 </div>
@@ -333,11 +368,15 @@ Private Attributes</h2></td></tr>
 <li>src/ActivityInstance/AuthenticationProvider/<a class="el" href="ActivityInstanceProvider_8php_source.html">ActivityInstanceProvider.php</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider.html">AuthenticationProvider</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider_1_1ActivityInstanceProvider.html">ActivityInstanceProvider</a></li>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

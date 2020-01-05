@@ -1,0 +1,5 @@
+<map id="BristolSU\Support\Authorization\Exception\ActivityRequiresParticipant" name="BristolSU\Support\Authorization\Exception\ActivityRequiresParticipant">
+<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresGroup.html" title="BristolSU\\Support\\Authorization\l\\Exception\\ActivityRequiresGroup" alt="" coords="428,5,647,47"/>
+<area shape="rect" id="node4" href="$classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresRole.html" title="BristolSU\\Support\\Authorization\l\\Exception\\ActivityRequiresRole" alt="" coords="432,71,643,112"/>
+<area shape="rect" id="node5" href="$classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresUser.html" title="BristolSU\\Support\\Authorization\l\\Exception\\ActivityRequiresUser" alt="" coords="431,136,643,177"/>
+</map>

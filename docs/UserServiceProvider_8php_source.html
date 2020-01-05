@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -42,6 +49,21 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('UserServiceProvider_8php_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -56,26 +78,29 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_33184d9f279d0a35335ee75c08157afa.html">User</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">UserServiceProvider.php</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="UserServiceProvider_8php.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceBristolSU_1_1Support_1_1User.html">BristolSU\Support\User</a>;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;use <a class="code" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html">BristolSU\Support\User\Contracts\UserRepository</a> as UserRepositoryContract;</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;use <a class="code" href="namespaceIlluminate_1_1Support_1_1ServiceProvider.html">Illuminate\Support\ServiceProvider</a>;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;</div><div class="line"><a name="l00012"></a><span class="lineno"><a class="line" href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html">   12</a></span>&#160;<span class="keyword">class </span><a class="code" href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html">UserServiceProvider</a> <span class="keyword">extends</span> ServiceProvider</div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;{</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div><div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html#a13a26a9ec05b182513200bd45d153feb">   15</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <span class="keyword">register</span>()</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;    {</div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;        $this-&gt;app-&gt;bind(UserRepositoryContract::class, UserRepository::class);</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    }</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;}</div><div class="ttc" id="namespaceBristolSU_1_1Support_1_1User_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1User.html">BristolSU\Support\User</a></div></div>
+<a href="UserServiceProvider_8php.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;&lt;?php</div><div class="line"><a name="l00002"></a><span class="lineno">    2</span>&#160;</div><div class="line"><a name="l00003"></a><span class="lineno">    3</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespaceBristolSU_1_1Support_1_1User.html">BristolSU\Support\User</a>;</div><div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160;</div><div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;use <a class="code" href="namespaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserAuthentication.html">BristolSU\Support\User\Contracts\UserAuthentication</a>;</div><div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;use <a class="code" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html">BristolSU\Support\User\Contracts\UserRepository</a> as UserRepositoryContract;</div><div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;use <a class="code" href="namespaceIlluminate_1_1Http_1_1Request.html">Illuminate\Http\Request</a>;</div><div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;use <a class="code" href="namespaceIlluminate_1_1Support_1_1ServiceProvider.html">Illuminate\Support\ServiceProvider</a>;</div><div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;</div><div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html">   14</a></span>&#160;<span class="keyword">class </span><a class="code" href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html">UserServiceProvider</a> <span class="keyword">extends</span> ServiceProvider</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;{</div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;</div><div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html#a13a26a9ec05b182513200bd45d153feb">   17</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <span class="keyword">register</span>()</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;    {</div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;        $this-&gt;app-&gt;call([$this, <span class="stringliteral">&#39;registerUserAuthentication&#39;</span>]);</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;        $this-&gt;app-&gt;bind(UserRepositoryContract::class, UserRepository::class);</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;    }</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div><div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html#a1807df07f59353a31c12b5df349980eb">   23</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html#a1807df07f59353a31c12b5df349980eb">registerUserAuthentication</a>(Request $request)</div><div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;    {</div><div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;        $this-&gt;app-&gt;bind(UserAuthentication::class, <span class="keyword">function</span> ($app) use ($request) {</div><div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;            <span class="keywordflow">return</span> ($request-&gt;is(<span class="stringliteral">&#39;api/*&#39;</span>) ?</div><div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;                $app-&gt;make(UserApiAuthentication::class) :</div><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;                $app-&gt;make(UserWebAuthentication::class));</div><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;        });</div><div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;    }</div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;</div><div class="line"><a name="l00032"></a><span class="lineno"><a class="line" href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html#af261b773018bf2d469815dd95b58f6a4">   32</a></span>&#160;    <span class="keyword">public</span> <span class="keyword">function</span> <a class="code" href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html#af261b773018bf2d469815dd95b58f6a4">boot</a>()</div><div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    {</div><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;        $this-&gt;app[<span class="stringliteral">&#39;auth&#39;</span>]-&gt;resolveUsersUsing(<span class="keyword">function</span>() {</div><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;            <span class="keywordflow">return</span> app()-&gt;make(UserAuthentication::class)-&gt;getUser();</div><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;        });</div><div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    }</div><div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;</div><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;</div><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div><div class="ttc" id="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider_html_af261b773018bf2d469815dd95b58f6a4"><div class="ttname"><a href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html#af261b773018bf2d469815dd95b58f6a4">BristolSU\Support\User\UserServiceProvider\boot</a></div><div class="ttdeci">boot()</div><div class="ttdef"><b>Definition:</b> <a href="UserServiceProvider_8php_source.html#l00032">UserServiceProvider.php:32</a></div></div>
+<div class="ttc" id="namespaceBristolSU_1_1Support_1_1User_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1User.html">BristolSU\Support\User</a></div></div>
 <div class="ttc" id="namespaceIlluminate_1_1Support_1_1ServiceProvider_html"><div class="ttname"><a href="namespaceIlluminate_1_1Support_1_1ServiceProvider.html">ServiceProvider</a></div></div>
-<div class="ttc" id="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider_html"><div class="ttname"><a href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html">BristolSU\Support\User\UserServiceProvider</a></div><div class="ttdef"><b>Definition:</b> <a href="UserServiceProvider_8php_source.html#l00012">UserServiceProvider.php:12</a></div></div>
+<div class="ttc" id="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider_html_a1807df07f59353a31c12b5df349980eb"><div class="ttname"><a href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html#a1807df07f59353a31c12b5df349980eb">BristolSU\Support\User\UserServiceProvider\registerUserAuthentication</a></div><div class="ttdeci">registerUserAuthentication(Request $request)</div><div class="ttdef"><b>Definition:</b> <a href="UserServiceProvider_8php_source.html#l00023">UserServiceProvider.php:23</a></div></div>
+<div class="ttc" id="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider_html"><div class="ttname"><a href="classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html">BristolSU\Support\User\UserServiceProvider</a></div><div class="ttdef"><b>Definition:</b> <a href="UserServiceProvider_8php_source.html#l00014">UserServiceProvider.php:14</a></div></div>
 <div class="ttc" id="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository_html"><div class="ttname"><a href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html">BristolSU\Support\User\Contracts\UserRepository</a></div><div class="ttdef"><b>Definition:</b> <a href="Contracts_2UserRepository_8php_source.html#l00011">UserRepository.php:11</a></div></div>
+<div class="ttc" id="namespaceIlluminate_1_1Http_1_1Request_html"><div class="ttname"><a href="namespaceIlluminate_1_1Http_1_1Request.html">Request</a></div></div>
+<div class="ttc" id="namespaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserAuthentication_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserAuthentication.html">UserAuthentication</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_33184d9f279d0a35335ee75c08157afa.html">User</a></li><li class="navelem"><a class="el" href="UserServiceProvider_8php.html">UserServiceProvider.php</a></li>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

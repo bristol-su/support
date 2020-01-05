@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -42,6 +49,21 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('Evaluator_2ModuleInstanceEvaluator_8php_source.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -56,11 +78,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_0caa296c4e1731fba1f6c5bfd0a46aa6.html">ModuleInstance</a></li><li class="navelem"><a class="el" href="dir_6a8d35ec1bf85bc05c1ad72c4e96547a.html">Evaluator</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">ModuleInstanceEvaluator.php</div>  </div>
@@ -76,8 +93,8 @@ $(function() {
 <div class="ttc" id="namespaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1Audience_1_1AudienceMemberFactory_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1Audience_1_1AudienceMemberFactory.html">AudienceMemberFactory</a></div></div>
 <div class="ttc" id="namespaceBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMember_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMember.html">AudienceMember</a></div></div>
 <div class="ttc" id="namespaceBristolSU_1_1ControlDB_1_1Contracts_1_1Models_1_1Group_html"><div class="ttname"><a href="namespaceBristolSU_1_1ControlDB_1_1Contracts_1_1Models_1_1Group.html">Group</a></div></div>
-<div class="ttc" id="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance_html"><div class="ttname"><a href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">BristolSU\Support\ActivityInstance\ActivityInstance</a></div><div class="ttdef"><b>Definition:</b> <a href="ActivityInstance_8php_source.html#l00013">ActivityInstance.php:13</a></div></div>
-<div class="ttc" id="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance_html_ac6ca7d5b095e4ecb284454192b942f09"><div class="ttname"><a href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#ac6ca7d5b095e4ecb284454192b942f09">BristolSU\Support\ActivityInstance\ActivityInstance\activity</a></div><div class="ttdeci">activity()</div><div class="ttdef"><b>Definition:</b> <a href="ActivityInstance_8php_source.html#l00058">ActivityInstance.php:58</a></div></div>
+<div class="ttc" id="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance_html"><div class="ttname"><a href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">BristolSU\Support\ActivityInstance\ActivityInstance</a></div><div class="ttdef"><b>Definition:</b> <a href="ActivityInstance_8php_source.html#l00019">ActivityInstance.php:19</a></div></div>
+<div class="ttc" id="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance_html_ac6ca7d5b095e4ecb284454192b942f09"><div class="ttname"><a href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#ac6ca7d5b095e4ecb284454192b942f09">BristolSU\Support\ActivityInstance\ActivityInstance\activity</a></div><div class="ttdeci">activity()</div><div class="ttdef"><b>Definition:</b> <a href="ActivityInstance_8php_source.html#l00118">ActivityInstance.php:118</a></div></div>
 <div class="ttc" id="classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ModuleInstanceEvaluator_html_a4338e204f172f0b481faddcbe29bcfea"><div class="ttname"><a href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ModuleInstanceEvaluator.html#a4338e204f172f0b481faddcbe29bcfea">BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator\evaluateAdministrator</a></div><div class="ttdeci">evaluateAdministrator(ActivityInstance $activityInstance, ModuleInstance $moduleInstance, ?User $user=null, ?Group $group=null, ?Role $role=null)</div><div class="ttdef"><b>Definition:</b> <a href="Evaluator_2ModuleInstanceEvaluator_8php_source.html#l00048">ModuleInstanceEvaluator.php:48</a></div></div>
 <div class="ttc" id="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">ActivityInstance</a></div></div>
 <div class="ttc" id="classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ModuleInstanceEvaluator_html_a6d9ede9bce7e5c947cc5d6fcaedb9e58"><div class="ttname"><a href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ModuleInstanceEvaluator.html#a6d9ede9bce7e5c947cc5d6fcaedb9e58">BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator\evaluateParticipant</a></div><div class="ttdeci">evaluateParticipant(ActivityInstance $activityInstance, ModuleInstance $moduleInstance, ?User $user=null, ?Group $group=null, ?Role $role=null)</div><div class="ttdef"><b>Definition:</b> <a href="Evaluator_2ModuleInstanceEvaluator_8php_source.html#l00062">ModuleInstanceEvaluator.php:62</a></div></div>
@@ -86,17 +103,21 @@ $(function() {
 <div class="ttc" id="classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ModuleInstanceEvaluator_html_a57f2ec6703213780936384e978a06b8c"><div class="ttname"><a href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ModuleInstanceEvaluator.html#a57f2ec6703213780936384e978a06b8c">BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator\isComplete</a></div><div class="ttdeci">isComplete(ActivityInstance $activityInstance, ModuleInstance $moduleInstance)</div><div class="ttdef"><b>Definition:</b> <a href="Evaluator_2ModuleInstanceEvaluator_8php_source.html#l00074">ModuleInstanceEvaluator.php:74</a></div></div>
 <div class="ttc" id="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance_html"><div class="ttname"><a href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html">BristolSU\Support\ModuleInstance\Contracts\ModuleInstance</a></div><div class="ttdef"><b>Definition:</b> <a href="Contracts_2ModuleInstance_8php_source.html#l00011">ModuleInstance.php:11</a></div></div>
 <div class="ttc" id="namespaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html">ModuleInstance</a></div></div>
-<div class="ttc" id="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance_html_a4187cfac3fdf1fb8015a1c90dc831c1a"><div class="ttname"><a href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a4187cfac3fdf1fb8015a1c90dc831c1a">BristolSU\Support\ActivityInstance\ActivityInstance\participant</a></div><div class="ttdeci">participant()</div><div class="ttdef"><b>Definition:</b> <a href="ActivityInstance_8php_source.html#l00048">ActivityInstance.php:48</a></div></div>
+<div class="ttc" id="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance_html_a4187cfac3fdf1fb8015a1c90dc831c1a"><div class="ttname"><a href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a4187cfac3fdf1fb8015a1c90dc831c1a">BristolSU\Support\ActivityInstance\ActivityInstance\participant</a></div><div class="ttdeci">participant()</div><div class="ttdef"><b>Definition:</b> <a href="ActivityInstance_8php_source.html#l00098">ActivityInstance.php:98</a></div></div>
 <div class="ttc" id="namespaceBristolSU_1_1Support_1_1Authentication_1_1Contracts_1_1Authentication_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1Authentication_1_1Contracts_1_1Authentication.html">Authentication</a></div></div>
 <div class="ttc" id="namespaceBristolSU_1_1ControlDB_1_1Contracts_1_1Repositories_1_1Role_html"><div class="ttname"><a href="namespaceBristolSU_1_1ControlDB_1_1Contracts_1_1Repositories_1_1Role.html">Role</a></div></div>
 <div class="ttc" id="namespaceBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionConditionTester_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionConditionTester.html">CompletionConditionTester</a></div></div>
 <div class="ttc" id="namespaceBristolSU_1_1Support_1_1Logic_1_1Facade_1_1LogicTester_html"><div class="ttname"><a href="namespaceBristolSU_1_1Support_1_1Logic_1_1Facade_1_1LogicTester.html">LogicTester</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_0caa296c4e1731fba1f6c5bfd0a46aa6.html">ModuleInstance</a></li><li class="navelem"><a class="el" href="dir_6a8d35ec1bf85bc05c1ad72c4e96547a.html">Evaluator</a></li><li class="navelem"><a class="el" href="Evaluator_2ModuleInstanceEvaluator_8php.html">ModuleInstanceEvaluator.php</a></li>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:10 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

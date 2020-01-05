@@ -1,0 +1,25 @@
+var classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission =
+[
+    [ "__construct", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#ac044251f3e666b875ddb6a9249539085", null ],
+    [ "__toString", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a86a0da9e2b4cb5e2001c0616725b8c04", null ],
+    [ "getAbility", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#ad07a0022182335a351157747c20c6ac4", null ],
+    [ "getDescription", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a1c1a89c3461902d1729a902a35280d75", null ],
+    [ "getModuleAlias", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a3ecf56c5e71c9c7092c6fdc2257cd0b7", null ],
+    [ "getModuleType", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a2fb768a797370d924d59777205e5fd22", null ],
+    [ "getName", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#af2fc23a5270626aa66efb8c69ac82c3a", null ],
+    [ "getType", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a900bb2f43ae22c7f4558a4fc923afff0", null ],
+    [ "setAbility", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#ad2a22e472c3df209585fddc04381c4e3", null ],
+    [ "setDescription", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a4a783d55010bdcd35acdfb63b392928e", null ],
+    [ "setModuleAlias", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a2dd38f8f9c8dc52d46e47e8d6a984fbd", null ],
+    [ "setModuleType", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#aff243107e30a16a761f451ee157adc77", null ],
+    [ "setName", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a68adee61c559bd3e990af2ba398b3a61", null ],
+    [ "setType", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#ac121ad205118171a88f88cd0928fea81", null ],
+    [ "toArray", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#ace3f06384f6e45fc8e32c290e2adcee4", null ],
+    [ "toJson", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a2772fa66e804d0fccc06b92c3e85cf3c", null ],
+    [ "$ability", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#abaafbcf47c5bc39992fa763cffd10895", null ],
+    [ "$description", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a5c762f891a4315c1d5aadd403f930727", null ],
+    [ "$moduleAlias", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a8619c1368ee98a8a66f41edd98d8deda", null ],
+    [ "$moduleType", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a3c725bd5a096c86f61acf52b483afbbe", null ],
+    [ "$name", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#aadec9faec3a33db464a36dfd98295204", null ],
+    [ "$type", "classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a18fa2ba07eaac2b8674e6e1b8dc99801", null ]
+];

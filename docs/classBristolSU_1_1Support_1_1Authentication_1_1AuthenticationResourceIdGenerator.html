@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -42,6 +49,21 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationResourceIdGenerator.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -56,11 +78,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Authentication.html">Authentication</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationResourceIdGenerator.html">AuthenticationResourceIdGenerator</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -77,7 +94,7 @@ Inheritance diagram for BristolSU\Support\Authentication\AuthenticationResourceI
 <map name="BristolSU_0CSupport_0CAuthentication_0CAuthenticationResourceIdGenerator_inherit__map" id="BristolSU_0CSupport_0CAuthentication_0CAuthenticationResourceIdGenerator_inherit__map">
 <area shape="rect" id="node2" href="interfaceBristolSU_1_1Support_1_1Authentication_1_1Contracts_1_1ResourceIdGenerator.html" title="BristolSU\\Support\\Authentication\l\\Contracts\\ResourceIdGenerator" alt="" coords="15,5,229,47"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for BristolSU\Support\Authentication\AuthenticationResourceIdGenerator:</div>
 <div class="dyncontent">
@@ -85,7 +102,7 @@ Collaboration diagram for BristolSU\Support\Authentication\AuthenticationResourc
 <map name="BristolSU_0CSupport_0CAuthentication_0CAuthenticationResourceIdGenerator_coll__map" id="BristolSU_0CSupport_0CAuthentication_0CAuthenticationResourceIdGenerator_coll__map">
 <area shape="rect" id="node2" href="interfaceBristolSU_1_1Support_1_1Authentication_1_1Contracts_1_1ResourceIdGenerator.html" title="BristolSU\\Support\\Authentication\l\\Contracts\\ResourceIdGenerator" alt="" coords="15,5,229,47"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -100,8 +117,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:aff75da3ea27cd46b397873487fa64f3e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html#l00008">8</a> of file <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html">AuthenticationResourceIdGenerator.php</a>.</p>
+<div class="textblock"><p>Generates a resource ID from the authenticatoin </p>
+
+<p class="definition">Definition at line <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html#l00011">11</a> of file <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html">AuthenticationResourceIdGenerator.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a14065ec6f68921281219cc954bc067ee"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a14065ec6f68921281219cc954bc067ee">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -118,10 +136,17 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initialise the authentication resource id generator</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1Authentication.html">Authentication</a></td><td class="paramname">$authentication</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Authentication.html">Authentication</a> implementation </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html#l00016">16</a> of file <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html">AuthenticationResourceIdGenerator.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html#l00026">26</a> of file <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html">AuthenticationResourceIdGenerator.php</a>.</p>
 
-<p class="reference">References <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html#l00014">BristolSU\Support\Authentication\AuthenticationResourceIdGenerator\$authentication</a>.</p>
+<p class="reference">References <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html#l00019">BristolSU\Support\Authentication\AuthenticationResourceIdGenerator\$authentication</a>.</p>
 
 </div>
 </div>
@@ -141,10 +166,25 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Generate a resource id</p>
+<p>Passing a resource type (user, group or role) will get the corresponding model from authentication and return the id</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$resourceType</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a>, group or role </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>int ID of the authenticated model</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Authentication_1_1Contracts_1_1ResourceIdGenerator.html#a53a573067f29ec19cdeee38b1eb8c752">BristolSU\Support\Authentication\Contracts\ResourceIdGenerator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html#l00021">21</a> of file <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html">AuthenticationResourceIdGenerator.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html#l00041">41</a> of file <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html">AuthenticationResourceIdGenerator.php</a>.</p>
 
 </div>
 </div>
@@ -169,9 +209,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html#l00014">14</a> of file <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html">AuthenticationResourceIdGenerator.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html#l00019">19</a> of file <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html">AuthenticationResourceIdGenerator.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html#l00016">BristolSU\Support\Authentication\AuthenticationResourceIdGenerator\__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="AuthenticationResourceIdGenerator_8php_source.html#l00026">BristolSU\Support\Authentication\AuthenticationResourceIdGenerator\__construct()</a>.</p>
 
 </div>
 </div>
@@ -179,11 +219,15 @@ Private Attributes</h2></td></tr>
 <li>src/Authentication/<a class="el" href="AuthenticationResourceIdGenerator_8php_source.html">AuthenticationResourceIdGenerator.php</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Authentication.html">Authentication</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationResourceIdGenerator.html">AuthenticationResourceIdGenerator</a></li>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

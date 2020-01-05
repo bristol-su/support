@@ -9,18 +9,20 @@ use Closure;
 use Illuminate\Http\Request;
 
 /**
- * Class CheckLoggedIntoActivityFor
- * @package BristolSU\Support\Activity\Middleware
+ * Middleware to check the user is in the adminLogic logic group
  */
 class CheckAdminActivityFor
 {
     /**
+     * Holds the authentication
+     * 
      * @var Authentication
      */
     private $authentication;
 
     /**
-     * CheckLoggedIntoActivityFor constructor.
+     * Initialise middleware
+     * 
      * @param Authentication $authentication
      */
     public function __construct(Authentication $authentication)
@@ -28,11 +30,18 @@ class CheckAdminActivityFor
         $this->authentication = $authentication;
     }
 
+    /**
+     * Check the user is in the adminLogic logic group
+     * @param Request $request
+     * @param Closure $next
+     * @return mixed
+     * @throws ActivityRequiresAdmin
+     */
     public function handle(Request $request, Closure $next)
     {
         $activity = $request->route('activity_slug');
         if(!LogicTester::evaluate($activity->adminLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole())) {
-            throw new ActivityRequiresAdmin('You must be an administrator to access this page', 403, null, $activity);
+            throw ActivityRequiresAdmin::createWithActivity($activity, 'You must be an administrator to access this page', 403);
         }
         return $next($request);
     }

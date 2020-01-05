@@ -78,5 +78,25 @@ class ActivityInstanceProviderTest extends TestCase
         $provider = new ActivityInstanceProvider($activityInstanceRepository->reveal());
         $this->assertFalse($provider->validateCredentials($user, ['activity_instance_id' => 100]));
     }
-    
+
+    /** @test */
+    public function retrieveByToken_returns_null()
+    {
+        // TODO
+        $activityInstanceRepository = $this->prophesize(ActivityInstanceRepository::class);
+        $provider = new ActivityInstanceProvider($activityInstanceRepository->reveal());
+        $this->assertNull($provider->retrieveByToken(1, 'token'));
+    }
+
+    /** @test */
+    public function updateRememberToken_returns_null()
+    {
+        // TODO
+        $user = factory(User::class)->create();
+        $activityInstanceRepository = $this->prophesize(ActivityInstanceRepository::class);
+
+        $provider = new ActivityInstanceProvider($activityInstanceRepository->reveal());
+        $this->assertNull($provider->updateRememberToken($user, 'token'));
+    }
+
 }

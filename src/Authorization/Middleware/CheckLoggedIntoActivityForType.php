@@ -4,24 +4,26 @@ namespace BristolSU\Support\Authorization\Middleware;
 
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Authorization\Exception\ActivityRequiresGroup;
+use BristolSU\Support\Authorization\Exception\ActivityRequiresParticipant;
 use BristolSU\Support\Authorization\Exception\ActivityRequiresRole;
 use BristolSU\Support\Authorization\Exception\ActivityRequiresUser;
 use Closure;
 use Illuminate\Http\Request;
 
 /**
- * Class CheckLoggedIntoActivityFor
- * @package BristolSU\Support\Activity\Middleware
+ * Check the user is logged into the correct resource
  */
 class CheckLoggedIntoActivityForType
 {
     /**
+     * Holds the authentication
+     * 
      * @var Authentication
      */
     private $authentication;
 
     /**
-     * CheckLoggedIntoActivityFor constructor.
+     * Initialise middleware
      * @param Authentication $authentication
      */
     public function __construct(Authentication $authentication)
@@ -30,12 +32,14 @@ class CheckLoggedIntoActivityForType
     }
 
     /**
+     * Check the user is logged into the correct resource.
+     * 
+     * If, for example, the activity is a group activity, an exception will be thrown if the user is not logged into a group
+     * 
      * @param Request $request
      * @param Closure $next
      * @return mixed
-     * @throws ActivityRequiresGroup
-     * @throws ActivityRequiresRole
-     * @throws ActivityRequiresUser
+     * @throws ActivityRequiresParticipant
      */
     public function handle(Request $request, Closure $next)
     {

@@ -8,25 +8,28 @@
 
 namespace BristolSU\Support\Authentication\AuthenticationProvider;
 
+use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Repositories\Role as RoleContract;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Contracts\Auth\UserProvider;
 
 /**
- * Class RoleProvider
- * @package BristolSU\Support\Authentication\AuthenticationProvider
+ * Role authentication provider
  */
 class RoleProvider implements UserProvider
 {
 
     /**
+     * Holds the role repository
+     *
      * @var RoleContract
      */
     private $role;
 
     /**
-     * RoleProvider constructor.
-     * @param RoleContract $role
+     * Initialise the role provider
+     * .
+     * @param RoleContract $role Role repository contract to retrieve the role from
      */
     public function __construct(RoleContract $role)
     {
@@ -34,8 +37,10 @@ class RoleProvider implements UserProvider
     }
 
     /**
-     * @param mixed $identifier
-     * @return Authenticatable|mixed|null
+     * Get a role by ID
+     * 
+     * @param mixed $identifier ID of the role
+     * @return Role|null
      */
     public function retrieveById($identifier)
     {
@@ -44,27 +49,39 @@ class RoleProvider implements UserProvider
     }
 
     /**
-     * @param mixed $identifier
-     * @param string $token
-     * @return Authenticatable|void|null
+     * Get a role by the remember token
+     * 
+     * @param mixed $identifier ID of the role
+     * @param string $token Remember token of the role
+     * @return Role|null
      */
     public function retrieveByToken($identifier, $token)
     {
-
+        // TODO Implement method
+        return null;
     }
 
     /**
-     * @param Authenticatable $user
-     * @param string $token
+     * Update the remember token for the given role
+     * 
+     * @param Authenticatable $role Role to update the token on
+     * @param string $token Token to update
      */
-    public function updateRememberToken(Authenticatable $user, $token)
+    public function updateRememberToken(Authenticatable $role, $token)
     {
-
+        // TODO Implement method
     }
 
     /**
-     * @param array $credentials
-     * @return Authenticatable|mixed|null
+     * Retrieve a role by ID
+     * 
+     * Credentials: 
+     * [
+     *      'role_id' => 1
+     * ]
+     * 
+     * @param array $credentials Credentials containing the role id
+     * @return Role|null
      */
     public function retrieveByCredentials(array $credentials)
     {
@@ -75,22 +92,24 @@ class RoleProvider implements UserProvider
     }
 
     /**
-     * Ensure the user owns the committee role
+     * Ensure the role credentials are valid for the given role
      *
-     * @param Authenticatable $user
-     * @param array $credentials
+     * $credentials = [
+     *      'role_id' => 1
+     * ]
+     * @param Authenticatable $role Role to validate against
+     * @param array $credentials Credentials containing the role id
      * @return bool
      */
-    public function validateCredentials(Authenticatable $user, array $credentials)
+    public function validateCredentials(Authenticatable $role, array $credentials)
     {
-        if (isset($credentials['student_control_id']) && isset($credentials['role_id'])) {
+        // TODO Validate credentials using actual credentials
+        if (isset($credentials['role_id'])) {
             try {
                 $role = $this->retrieveById($credentials['role_id']);
+                return true;
             } catch (\Exception $e) {
                 return false;
-            }
-            if ($role->student_id === (int) $credentials['student_control_id']) {
-                return true;
             }
         }
         return false;

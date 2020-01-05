@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -42,6 +49,21 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('namespacefunction.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -56,7 +78,6 @@ $(function() {
 </iframe>
 </div>
 
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#func-members">Functions</a>  </div>
@@ -103,7 +124,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="ModuleBuilder_8php_source.html#l00087">BristolSU\Support\Module\ModuleBuilder\create()</a>, <a class="el" href="ModuleBuilder_8php_source.html#l00096">BristolSU\Support\Module\ModuleBuilder\getAlias()</a>, <a class="el" href="Connection_8php_source.html#l00047">BristolSU\Support\Connection\Connection\getConnectorAttribute()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00209">BristolSU\Support\Module\ModuleServiceProvider\mapAdminApiRoutes()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00193">BristolSU\Support\Module\ModuleServiceProvider\mapAdminRoutes()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00201">BristolSU\Support\Module\ModuleServiceProvider\mapParticipantApiRoutes()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00185">BristolSU\Support\Module\ModuleServiceProvider\mapParticipantRoutes()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00224">BristolSU\Support\Module\ModuleServiceProvider\registerAssets()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00154">BristolSU\Support\Module\ModuleServiceProvider\registerConfig()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\registerEvents()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00117">BristolSU\Support\Module\ModuleServiceProvider\registerModule()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00122">BristolSU\Support\Module\ModuleServiceProvider\registerPermissions()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00100">BristolSU\Support\Module\ModuleServiceProvider\registerScheduledCommands()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00243">registerSettings()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00149">BristolSU\Support\Module\ModuleServiceProvider\registerTranslations()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00163">BristolSU\Support\Module\ModuleServiceProvider\registerViews()</a>, <a class="el" href="Module_8php_source.html#l00091">BristolSU\Support\Module\Module\setAlias()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00105">BristolSU\Support\Connection\RegisteredConnector\setAlias()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleBuilder_8php_source.html#l00087">BristolSU\Support\Module\ModuleBuilder\create()</a>, <a class="el" href="ModuleBuilder_8php_source.html#l00096">BristolSU\Support\Module\ModuleBuilder\getAlias()</a>, <a class="el" href="Connection_8php_source.html#l00046">BristolSU\Support\Connection\Connection\getConnectorAttribute()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00209">BristolSU\Support\Module\ModuleServiceProvider\mapAdminApiRoutes()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00193">BristolSU\Support\Module\ModuleServiceProvider\mapAdminRoutes()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00201">BristolSU\Support\Module\ModuleServiceProvider\mapParticipantApiRoutes()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00185">BristolSU\Support\Module\ModuleServiceProvider\mapParticipantRoutes()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00224">BristolSU\Support\Module\ModuleServiceProvider\registerAssets()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00154">BristolSU\Support\Module\ModuleServiceProvider\registerConfig()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\registerEvents()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00117">BristolSU\Support\Module\ModuleServiceProvider\registerModule()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00122">BristolSU\Support\Module\ModuleServiceProvider\registerPermissions()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00100">BristolSU\Support\Module\ModuleServiceProvider\registerScheduledCommands()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00243">registerSettings()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00149">BristolSU\Support\Module\ModuleServiceProvider\registerTranslations()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00163">BristolSU\Support\Module\ModuleServiceProvider\registerViews()</a>, <a class="el" href="Module_8php_source.html#l00091">BristolSU\Support\Module\Module\setAlias()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00105">BristolSU\Support\Connection\RegisteredConnector\setAlias()</a>.</p>
 
 </div>
 </div>
@@ -214,11 +235,15 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespacefunction.html">function</a></li>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

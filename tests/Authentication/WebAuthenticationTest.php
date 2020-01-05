@@ -4,8 +4,7 @@
 namespace BristolSU\Support\Tests\Authentication;
 
 
-use BristolSU\Support\Authentication\ApiAuthentication;
-use BristolSU\Support\Authentication\Contracts\UserAuthentication;
+use BristolSU\Support\User\Contracts\UserAuthentication;
 use BristolSU\Support\Authentication\WebAuthentication;
 use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;

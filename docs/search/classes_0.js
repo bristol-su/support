@@ -18,6 +18,7 @@ var searchData=
   ['activityinstanceserviceprovider',['ActivityInstanceServiceProvider',['../classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstanceServiceProvider.html',1,'BristolSU::Support::ActivityInstance']]],
   ['activityrequiresadmin',['ActivityRequiresAdmin',['../classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresAdmin.html',1,'BristolSU::Support::Authorization::Exception']]],
   ['activityrequiresgroup',['ActivityRequiresGroup',['../classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresGroup.html',1,'BristolSU::Support::Authorization::Exception']]],
+  ['activityrequiresparticipant',['ActivityRequiresParticipant',['../classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresParticipant.html',1,'BristolSU::Support::Authorization::Exception']]],
   ['activityrequiresrole',['ActivityRequiresRole',['../classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresRole.html',1,'BristolSU::Support::Authorization::Exception']]],
   ['activityrequiresuser',['ActivityRequiresUser',['../classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresUser.html',1,'BristolSU::Support::Authorization::Exception']]],
   ['activityserviceprovider',['ActivityServiceProvider',['../classBristolSU_1_1Support_1_1Activity_1_1ActivityServiceProvider.html',1,'BristolSU::Support::Activity']]],

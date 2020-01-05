@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -42,6 +49,21 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classBristolSU_1_1Support_1_1Testing_1_1TestCase.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -56,11 +78,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Testing.html">Testing</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1Testing_1_1TestCase.html">TestCase</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -75,12 +92,12 @@ $(function() {
 Inheritance diagram for BristolSU\Support\Testing\TestCase:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBristolSU_1_1Support_1_1Testing_1_1TestCase__inherit__graph.png" border="0" usemap="#BristolSU_0CSupport_0CTesting_0CTestCase_inherit__map" alt="Inheritance graph"/></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for BristolSU\Support\Testing\TestCase:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBristolSU_1_1Support_1_1Testing_1_1TestCase__coll__graph.png" border="0" usemap="#BristolSU_0CSupport_0CTesting_0CTestCase_coll__map" alt="Collaboration graph"/></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -143,7 +160,7 @@ Protected Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00030">30</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00031">31</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a26a027070d842cbb546e28a420f69bb7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a26a027070d842cbb546e28a420f69bb7">&#9670;&nbsp;</a></span>adminUrl()</h2>
@@ -168,7 +185,7 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00288">288</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00289">289</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
 <p class="reference">References <a class="el" href="classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a1dd6c4cc2a814ef6513ad818a0b5e9e2">BristolSU\Support\Testing\TestCase\alias()</a>.</p>
 
@@ -198,7 +215,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00288">BristolSU\Support\Testing\TestCase\adminUrl()</a>, <a class="el" href="TestCase_8php_source.html#l00212">BristolSU\Support\Testing\TestCase\assertRequiresAuthorization()</a>, <a class="el" href="TestCase_8php_source.html#l00079">BristolSU\Support\Testing\TestCase\setUp()</a>, and <a class="el" href="TestCase_8php_source.html#l00300">BristolSU\Support\Testing\TestCase\userUrl()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00289">BristolSU\Support\Testing\TestCase\adminUrl()</a>, <a class="el" href="TestCase_8php_source.html#l00213">BristolSU\Support\Testing\TestCase\assertRequiresAuthorization()</a>, <a class="el" href="TestCase_8php_source.html#l00080">BristolSU\Support\Testing\TestCase\setUp()</a>, and <a class="el" href="TestCase_8php_source.html#l00301">BristolSU\Support\Testing\TestCase\userUrl()</a>.</p>
 
 </div>
 </div>
@@ -235,7 +252,7 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00312">312</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00313">313</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
 </div>
 </div>
@@ -272,7 +289,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00162">162</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00163">163</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
 </div>
 </div>
@@ -323,9 +340,9 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00212">212</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00213">213</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
-<p class="reference">References <a class="el" href="classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a1dd6c4cc2a814ef6513ad818a0b5e9e2">BristolSU\Support\Testing\TestCase\alias()</a>, <a class="el" href="TestCase_8php_source.html#l00266">BristolSU\Support\Testing\TestCase\beGroup()</a>, <a class="el" href="TestCase_8php_source.html#l00277">BristolSU\Support\Testing\TestCase\beRole()</a>, and <a class="el" href="TestCase_8php_source.html#l00238">BristolSU\Support\Testing\TestCase\beUser()</a>.</p>
+<p class="reference">References <a class="el" href="classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a1dd6c4cc2a814ef6513ad818a0b5e9e2">BristolSU\Support\Testing\TestCase\alias()</a>, <a class="el" href="TestCase_8php_source.html#l00267">BristolSU\Support\Testing\TestCase\beGroup()</a>, <a class="el" href="TestCase_8php_source.html#l00278">BristolSU\Support\Testing\TestCase\beRole()</a>, and <a class="el" href="TestCase_8php_source.html#l00239">BristolSU\Support\Testing\TestCase\beUser()</a>.</p>
 
 </div>
 </div>
@@ -352,11 +369,11 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>$this </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00266">266</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00267">267</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
-<p class="reference">References <a class="el" href="TestCase_8php_source.html#l00056">BristolSU\Support\Testing\TestCase\$group</a>, and <a class="el" href="TestCase_8php_source.html#l00251">BristolSU\Support\Testing\TestCase\mockControl()</a>.</p>
+<p class="reference">References <a class="el" href="TestCase_8php_source.html#l00057">BristolSU\Support\Testing\TestCase\$group</a>, and <a class="el" href="TestCase_8php_source.html#l00252">BristolSU\Support\Testing\TestCase\mockControl()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00212">BristolSU\Support\Testing\TestCase\assertRequiresAuthorization()</a>, and <a class="el" href="TestCase_8php_source.html#l00320">BristolSU\Support\Testing\TestCase\bypassAuthorization()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00213">BristolSU\Support\Testing\TestCase\assertRequiresAuthorization()</a>, and <a class="el" href="TestCase_8php_source.html#l00321">BristolSU\Support\Testing\TestCase\bypassAuthorization()</a>.</p>
 
 </div>
 </div>
@@ -383,11 +400,11 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>$this </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00277">277</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00278">278</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
-<p class="reference">References <a class="el" href="TestCase_8php_source.html#l00061">BristolSU\Support\Testing\TestCase\$role</a>, and <a class="el" href="TestCase_8php_source.html#l00251">BristolSU\Support\Testing\TestCase\mockControl()</a>.</p>
+<p class="reference">References <a class="el" href="TestCase_8php_source.html#l00062">BristolSU\Support\Testing\TestCase\$role</a>, and <a class="el" href="TestCase_8php_source.html#l00252">BristolSU\Support\Testing\TestCase\mockControl()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00212">BristolSU\Support\Testing\TestCase\assertRequiresAuthorization()</a>, and <a class="el" href="TestCase_8php_source.html#l00320">BristolSU\Support\Testing\TestCase\bypassAuthorization()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00213">BristolSU\Support\Testing\TestCase\assertRequiresAuthorization()</a>, and <a class="el" href="TestCase_8php_source.html#l00321">BristolSU\Support\Testing\TestCase\bypassAuthorization()</a>.</p>
 
 </div>
 </div>
@@ -414,11 +431,11 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>$this </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00238">238</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00239">239</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
-<p class="reference">References <a class="el" href="TestCase_8php_source.html#l00051">BristolSU\Support\Testing\TestCase\$user</a>, and <a class="el" href="TestCase_8php_source.html#l00251">BristolSU\Support\Testing\TestCase\mockControl()</a>.</p>
+<p class="reference">References <a class="el" href="TestCase_8php_source.html#l00052">BristolSU\Support\Testing\TestCase\$user</a>, and <a class="el" href="TestCase_8php_source.html#l00252">BristolSU\Support\Testing\TestCase\mockControl()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00212">BristolSU\Support\Testing\TestCase\assertRequiresAuthorization()</a>, and <a class="el" href="TestCase_8php_source.html#l00320">BristolSU\Support\Testing\TestCase\bypassAuthorization()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00213">BristolSU\Support\Testing\TestCase\assertRequiresAuthorization()</a>, and <a class="el" href="TestCase_8php_source.html#l00321">BristolSU\Support\Testing\TestCase\bypassAuthorization()</a>.</p>
 
 </div>
 </div>
@@ -437,9 +454,9 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00320">320</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00321">321</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
-<p class="reference">References <a class="el" href="TestCase_8php_source.html#l00266">BristolSU\Support\Testing\TestCase\beGroup()</a>, <a class="el" href="TestCase_8php_source.html#l00277">BristolSU\Support\Testing\TestCase\beRole()</a>, and <a class="el" href="TestCase_8php_source.html#l00238">BristolSU\Support\Testing\TestCase\beUser()</a>.</p>
+<p class="reference">References <a class="el" href="TestCase_8php_source.html#l00267">BristolSU\Support\Testing\TestCase\beGroup()</a>, <a class="el" href="TestCase_8php_source.html#l00278">BristolSU\Support\Testing\TestCase\beRole()</a>, and <a class="el" href="TestCase_8php_source.html#l00239">BristolSU\Support\Testing\TestCase\beUser()</a>.</p>
 
 </div>
 </div>
@@ -497,9 +514,9 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00174">174</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00175">175</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
-<p class="reference">References <a class="el" href="TestCase_8php_source.html#l00056">BristolSU\Support\Testing\TestCase\$group</a>, <a class="el" href="TestCase_8php_source.html#l00069">BristolSU\Support\Testing\TestCase\$logicTester</a>, <a class="el" href="TestCase_8php_source.html#l00061">BristolSU\Support\Testing\TestCase\$role</a>, and <a class="el" href="TestCase_8php_source.html#l00051">BristolSU\Support\Testing\TestCase\$user</a>.</p>
+<p class="reference">References <a class="el" href="TestCase_8php_source.html#l00057">BristolSU\Support\Testing\TestCase\$group</a>, <a class="el" href="TestCase_8php_source.html#l00070">BristolSU\Support\Testing\TestCase\$logicTester</a>, <a class="el" href="TestCase_8php_source.html#l00062">BristolSU\Support\Testing\TestCase\$role</a>, and <a class="el" href="TestCase_8php_source.html#l00052">BristolSU\Support\Testing\TestCase\$user</a>.</p>
 
 </div>
 </div>
@@ -525,7 +542,7 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00113">113</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00114">114</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
 </div>
 </div>
@@ -560,7 +577,7 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00336">336</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00337">337</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
 </div>
 </div>
@@ -611,9 +628,9 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00251">251</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00252">252</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00266">BristolSU\Support\Testing\TestCase\beGroup()</a>, <a class="el" href="TestCase_8php_source.html#l00277">BristolSU\Support\Testing\TestCase\beRole()</a>, and <a class="el" href="TestCase_8php_source.html#l00238">BristolSU\Support\Testing\TestCase\beUser()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00267">BristolSU\Support\Testing\TestCase\beGroup()</a>, <a class="el" href="TestCase_8php_source.html#l00278">BristolSU\Support\Testing\TestCase\beRole()</a>, and <a class="el" href="TestCase_8php_source.html#l00239">BristolSU\Support\Testing\TestCase\beUser()</a>.</p>
 
 </div>
 </div>
@@ -631,9 +648,9 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000015">Todo:</a></b></dt><dd>remove support from here </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000028">Todo:</a></b></dt><dd>remove support from here </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00079">79</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00080">80</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
 <p class="reference">References <a class="el" href="classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a1dd6c4cc2a814ef6513ad818a0b5e9e2">BristolSU\Support\Testing\TestCase\alias()</a>.</p>
 
@@ -654,7 +671,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00073">73</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00074">74</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
 </div>
 </div>
@@ -681,7 +698,7 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00300">300</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00301">301</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
 <p class="reference">References <a class="el" href="classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a1dd6c4cc2a814ef6513ad818a0b5e9e2">BristolSU\Support\Testing\TestCase\alias()</a>.</p>
 
@@ -708,7 +725,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00041">41</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00042">42</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
 </div>
 </div>
@@ -732,7 +749,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00071">71</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00072">72</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
 </div>
 </div>
@@ -756,7 +773,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00065">65</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00066">66</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
 </div>
 </div>
@@ -780,7 +797,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00046">46</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00047">47</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
 </div>
 </div>
@@ -804,9 +821,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00056">56</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00057">57</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00266">BristolSU\Support\Testing\TestCase\beGroup()</a>, and <a class="el" href="TestCase_8php_source.html#l00174">BristolSU\Support\Testing\TestCase\createLogicTester()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00267">BristolSU\Support\Testing\TestCase\beGroup()</a>, and <a class="el" href="TestCase_8php_source.html#l00175">BristolSU\Support\Testing\TestCase\createLogicTester()</a>.</p>
 
 </div>
 </div>
@@ -830,9 +847,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00069">69</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00070">70</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00174">BristolSU\Support\Testing\TestCase\createLogicTester()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00175">BristolSU\Support\Testing\TestCase\createLogicTester()</a>.</p>
 
 </div>
 </div>
@@ -856,7 +873,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00036">36</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00037">37</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
 </div>
 </div>
@@ -880,9 +897,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00061">61</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00062">62</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00277">BristolSU\Support\Testing\TestCase\beRole()</a>, and <a class="el" href="TestCase_8php_source.html#l00174">BristolSU\Support\Testing\TestCase\createLogicTester()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00278">BristolSU\Support\Testing\TestCase\beRole()</a>, and <a class="el" href="TestCase_8php_source.html#l00175">BristolSU\Support\Testing\TestCase\createLogicTester()</a>.</p>
 
 </div>
 </div>
@@ -906,9 +923,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00051">51</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TestCase_8php_source.html#l00052">52</a> of file <a class="el" href="TestCase_8php_source.html">TestCase.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00238">BristolSU\Support\Testing\TestCase\beUser()</a>, and <a class="el" href="TestCase_8php_source.html#l00174">BristolSU\Support\Testing\TestCase\createLogicTester()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="TestCase_8php_source.html#l00239">BristolSU\Support\Testing\TestCase\beUser()</a>, and <a class="el" href="TestCase_8php_source.html#l00175">BristolSU\Support\Testing\TestCase\createLogicTester()</a>.</p>
 
 </div>
 </div>
@@ -916,11 +933,15 @@ Protected Attributes</h2></td></tr>
 <li>src/Testing/<a class="el" href="TestCase_8php_source.html">TestCase.php</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Testing.html">Testing</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1Testing_1_1TestCase.html">TestCase</a></li>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -42,6 +49,21 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classBristolSU_1_1Support_1_1Completion_1_1CompletionConditions_1_1EventFired_1_1EventFired.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -56,11 +78,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Completion.html">Completion</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Completion_1_1CompletionConditions.html">CompletionConditions</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Completion_1_1CompletionConditions_1_1EventFired.html">EventFired</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditions_1_1EventFired_1_1EventFired.html">EventFired</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -77,7 +94,7 @@ Inheritance diagram for BristolSU\Support\Completion\CompletionConditions\EventF
 <map name="BristolSU_0CSupport_0CCompletion_0CCompletionConditions_0CEventFired_0CEventFired_inherit__map" id="BristolSU_0CSupport_0CCompletion_0CCompletionConditions_0CEventFired_0CEventFired_inherit__map">
 <area shape="rect" id="node2" href="classBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionCondition.html" title="BristolSU\\Support\\Completion\l\\Contracts\\CompletionCondition" alt="" coords="12,5,220,47"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for BristolSU\Support\Completion\CompletionConditions\EventFired\EventFired:</div>
 <div class="dyncontent">
@@ -85,7 +102,7 @@ Collaboration diagram for BristolSU\Support\Completion\CompletionConditions\Even
 <map name="BristolSU_0CSupport_0CCompletion_0CCompletionConditions_0CEventFired_0CEventFired_coll__map" id="BristolSU_0CSupport_0CCompletion_0CCompletionConditions_0CEventFired_0CEventFired_coll__map">
 <area shape="rect" id="node2" href="classBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionCondition.html" title="BristolSU\\Support\\Completion\l\\Contracts\\CompletionCondition" alt="" coords="12,5,220,47"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -125,8 +142,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a67b3ff9aedf2ac9415e313021804eb51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00011">11</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
+<div class="textblock"><p>Has an event been fired </p>
+
+<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00013">13</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a5b3af0f1db3b8a932b61b20cb3a92cd5"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5b3af0f1db3b8a932b61b20cb3a92cd5">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -153,10 +171,17 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$moduleAlias</td><td>Alias of the module the completion condition is for </td></tr>
+    <tr><td class="paramtype">EventRepository</td><td class="paramname">$eventRepository</td><td>The event repository to get events from </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00019">19</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00027">27</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
 
-<p class="reference">References <a class="el" href="EventFired_8php_source.html#l00017">BristolSU\Support\Completion\CompletionConditions\EventFired\EventFired\$eventRepository</a>.</p>
+<p class="reference">References <a class="el" href="EventFired_8php_source.html#l00021">BristolSU\Support\Completion\CompletionConditions\EventFired\EventFired\$eventRepository</a>.</p>
 
 </div>
 </div>
@@ -175,8 +200,10 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Alias of the completion condition</p>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00045">45</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00073">73</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
 
 </div>
 </div>
@@ -194,8 +221,10 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Description of the completion condition</p>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00040">40</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00063">63</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
 
 </div>
 </div>
@@ -230,9 +259,19 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000010">Todo:</a></b></dt><dd></dd></dl>
+<p>Is the condition satisfied?</p>
+<p>///</p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000023">Todo:</a></b></dt><dd>Implement this method</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$settings</td><td>Settings </td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></td><td class="paramname">$activityInstance</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> instance to test </td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1ModuleInstance.html">ModuleInstance</a></td><td class="paramname">$moduleInstance</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> instance to test</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00050">50</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00089">89</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
 
 </div>
 </div>
@@ -250,8 +289,10 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Name of the completion condition</p>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00035">35</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00053">53</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
 
 </div>
 </div>
@@ -269,8 +310,10 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all events for the module instance</p>
+<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00025">25</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00038">38</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
 
 <p class="reference">References <a class="el" href="CompletionCondition_8php_source.html#l00021">BristolSU\Support\Completion\Contracts\CompletionCondition\moduleAlias()</a>.</p>
 
@@ -297,9 +340,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00017">17</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="EventFired_8php_source.html#l00021">21</a> of file <a class="el" href="EventFired_8php_source.html">EventFired.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="EventFired_8php_source.html#l00019">BristolSU\Support\Completion\CompletionConditions\EventFired\EventFired\__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="EventFired_8php_source.html#l00027">BristolSU\Support\Completion\CompletionConditions\EventFired\EventFired\__construct()</a>.</p>
 
 </div>
 </div>
@@ -307,11 +350,15 @@ Private Attributes</h2></td></tr>
 <li>src/Completion/CompletionConditions/EventFired/<a class="el" href="EventFired_8php_source.html">EventFired.php</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Completion.html">Completion</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Completion_1_1CompletionConditions.html">CompletionConditions</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Completion_1_1CompletionConditions_1_1EventFired.html">EventFired</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditions_1_1EventFired_1_1EventFired.html">EventFired</a></li>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

@@ -7,7 +7,6 @@ use BristolSU\Support\Authentication\AuthenticationProvider\RoleProvider;
 use BristolSU\Support\Authentication\AuthenticationProvider\UserProvider;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Authentication\Contracts\ResourceIdGenerator;
-use BristolSU\Support\Authentication\Contracts\UserAuthentication;
 use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
@@ -17,19 +16,29 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class AuthenticationServiceProvider
- * @package BristolSU\Support\Authentication
+ * Authentication Service Provider
  */
 class AuthenticationServiceProvider extends ServiceProvider
 {
 
+    /**
+     * Register
+     * 
+     * - Bind the resource ID generator
+     * - Bind the authentication contract
+     */
     public function register()
     {
         $this->app->call([$this, 'registerAuthentication']);
         $this->app->bind(ResourceIdGenerator::class, AuthenticationResourceIdGenerator::class);
     }
 
-    public function boot(Request $request)
+    /**
+     * Boot
+     * 
+     * - Boot authentication providers for user, group and role
+     */
+    public function boot()
     {
         Auth::provider('role-provider', function(Container $app, array $config) {
             return new RoleProvider($app->make(RoleRepository::class));
@@ -43,9 +52,6 @@ class AuthenticationServiceProvider extends ServiceProvider
             return new UserProvider($app->make(UserRepository::class));
         });
 
-        $this->app['auth']->resolveUsersUsing(function() {
-            return app()->make(UserAuthentication::class)->getUser();
-        });
     }
 
     public function registerAuthentication(Request $request)
@@ -55,11 +61,7 @@ class AuthenticationServiceProvider extends ServiceProvider
                 $app->make(ApiAuthentication::class):
                 $app->make(WebAuthentication::class));
         });
-        $this->app->bind(UserAuthentication::class, function($app) use ($request) {
-            return ($request->is('api/*')?
-                $app->make(UserApiAuthentication::class):
-                $app->make(UserWebAuthentication::class));
-        });
+
     }
     
 

@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Testing;
 
+use BristolSU\ControlDB\ControlDBServiceProvider;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
@@ -337,7 +338,8 @@ abstract class TestCase extends BaseTestCase
     {
         return [
             SupportServiceProvider::class,
-            JavaScriptServiceProvider::class
+            JavaScriptServiceProvider::class,
+            ControlDBServiceProvider::class
         ];
     }
 

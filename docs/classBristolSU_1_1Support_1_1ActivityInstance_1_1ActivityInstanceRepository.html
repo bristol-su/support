@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -42,6 +49,21 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstanceRepository.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -56,11 +78,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstanceRepository.html">ActivityInstanceRepository</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -76,7 +93,7 @@ Inheritance diagram for BristolSU\Support\ActivityInstance\ActivityInstanceRepos
 <map name="BristolSU_0CSupport_0CActivityInstance_0CActivityInstanceRepository_inherit__map" id="BristolSU_0CSupport_0CActivityInstance_0CActivityInstanceRepository_inherit__map">
 <area shape="rect" id="node2" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceRepository.html" title="BristolSU\\Support\\Activity\lInstance\\Contracts\\ActivityInstance\lRepository" alt="" coords="7,5,237,61"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for BristolSU\Support\ActivityInstance\ActivityInstanceRepository:</div>
 <div class="dyncontent">
@@ -84,7 +101,7 @@ Collaboration diagram for BristolSU\Support\ActivityInstance\ActivityInstanceRep
 <map name="BristolSU_0CSupport_0CActivityInstance_0CActivityInstanceRepository_coll__map" id="BristolSU_0CSupport_0CActivityInstance_0CActivityInstanceRepository_coll__map">
 <area shape="rect" id="node2" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceRepository.html" title="BristolSU\\Support\\Activity\lInstance\\Contracts\\ActivityInstance\lRepository" alt="" coords="7,5,237,61"/>
 </map>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -100,8 +117,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa8d31a684996781d8f02e11700996ed8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="ActivityInstanceRepository_8php_source.html#l00008">8</a> of file <a class="el" href="ActivityInstanceRepository_8php_source.html">ActivityInstanceRepository.php</a>.</p>
+<div class="textblock"><p>Repository for an eloquent-based activity instance. </p>
+
+<p class="definition">Definition at line <a class="el" href="ActivityInstanceRepository_8php_source.html#l00011">11</a> of file <a class="el" href="ActivityInstanceRepository_8php_source.html">ActivityInstanceRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a099758d021359c3f3476de9bf8c7eb94"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a099758d021359c3f3476de9bf8c7eb94">&#9670;&nbsp;</a></span>allFor()</h2>
@@ -134,10 +152,20 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all activity instances with the given parameters</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$activityId</td><td>ID of the activity to which the activity instances should belong </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$resourceType</td><td>Resource (owner) type. One of user, group or role. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$resourceId</td><td>Resource (owner) id. ID of the model in resource type.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Collection </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceRepository.html#a2e7c65fc7f9388801066f3ea7aa8572c">BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstanceRepository_8php_source.html#l00036">36</a> of file <a class="el" href="ActivityInstanceRepository_8php_source.html">ActivityInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstanceRepository_8php_source.html#l00073">73</a> of file <a class="el" href="ActivityInstanceRepository_8php_source.html">ActivityInstanceRepository.php</a>.</p>
 
 </div>
 </div>
@@ -156,10 +184,18 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all activity instances belonging to an activity</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$activityId</td><td>ID Of the activity</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Collection </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceRepository.html#ad7ce1733af43951fe2c65a65b4444019">BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstanceRepository_8php_source.html#l00045">45</a> of file <a class="el" href="ActivityInstanceRepository_8php_source.html">ActivityInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstanceRepository_8php_source.html#l00089">89</a> of file <a class="el" href="ActivityInstanceRepository_8php_source.html">ActivityInstanceRepository.php</a>.</p>
 
 </div>
 </div>
@@ -206,10 +242,22 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Create a new <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$activityId</td><td>ID of the activity to which the activity instance should belong </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$resourceType</td><td>Resource (owner) type. One of user, group or role. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$resourceId</td><td>Resource (owner) id. ID of the model in resource type. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>Name of the activity instance. </td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;null</td><td class="paramname">$description</td><td>Description for the activity instance.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">ActivityInstance</a> </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceRepository.html#af571538ebff663aaf5062aad5be48a76">BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstanceRepository_8php_source.html#l00020">20</a> of file <a class="el" href="ActivityInstanceRepository_8php_source.html">ActivityInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstanceRepository_8php_source.html#l00042">42</a> of file <a class="el" href="ActivityInstanceRepository_8php_source.html">ActivityInstanceRepository.php</a>.</p>
 
 </div>
 </div>
@@ -244,10 +292,20 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the first activity instance found with the given parameters</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$activityId</td><td>ID of the activity to which the activity instance should belong </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$resourceType</td><td>Resource (owner) type. One of user, group or role. </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$resourceId</td><td>Resource (owner) id. ID of the model in resource type. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">ActivityInstance</a> </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceRepository.html#a69b2909d86fd91eedbe080333c43a0b6">BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstanceRepository_8php_source.html#l00011">11</a> of file <a class="el" href="ActivityInstanceRepository_8php_source.html">ActivityInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstanceRepository_8php_source.html#l00022">22</a> of file <a class="el" href="ActivityInstanceRepository_8php_source.html">ActivityInstanceRepository.php</a>.</p>
 
 </div>
 </div>
@@ -266,10 +324,18 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get an activity instance by ID</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>ID of the activity instance </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">ActivityInstance</a> </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceRepository.html#ab521b27da04d919c46086b61d9fc04f8">BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstanceRepository_8php_source.html#l00031">31</a> of file <a class="el" href="ActivityInstanceRepository_8php_source.html">ActivityInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstanceRepository_8php_source.html#l00059">59</a> of file <a class="el" href="ActivityInstanceRepository_8php_source.html">ActivityInstanceRepository.php</a>.</p>
 
 </div>
 </div>
@@ -277,11 +343,15 @@ Public Member Functions</h2></td></tr>
 <li>src/ActivityInstance/<a class="el" href="ActivityInstanceRepository_8php_source.html">ActivityInstanceRepository.php</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstanceRepository.html">ActivityInstanceRepository</a></li>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

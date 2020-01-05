@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -42,6 +49,21 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -56,11 +78,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">ActivityInstance</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -74,12 +91,12 @@ $(function() {
 Inheritance diagram for BristolSU\Support\ActivityInstance\ActivityInstance:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance__inherit__graph.png" border="0" usemap="#BristolSU_0CSupport_0CActivityInstance_0CActivityInstance_inherit__map" alt="Inheritance graph"/></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <div class="dynheader">
 Collaboration diagram for BristolSU\Support\ActivityInstance\ActivityInstance:</div>
 <div class="dyncontent">
 <div class="center"><img src="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance__coll__graph.png" border="0" usemap="#BristolSU_0CSupport_0CActivityInstance_0CActivityInstance_coll__map" alt="Collaboration graph"/></div>
-<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -108,14 +125,15 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a331dfa53023c0eca4ccfb101e52715d7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a331dfa53023c0eca4ccfb101e52715d7">$guarded</a> = []</td></tr>
-<tr class="separator:a331dfa53023c0eca4ccfb101e52715d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5853f13eb741244e6c33b046b53cece6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a5853f13eb741244e6c33b046b53cece6">$appends</a> = ['run_number', '<a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a4187cfac3fdf1fb8015a1c90dc831c1a">participant</a>']</td></tr>
 <tr class="separator:a5853f13eb741244e6c33b046b53cece6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ace3b09051e5f29841a6bfbf82a2a94e1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#ace3b09051e5f29841a6bfbf82a2a94e1">$fillable</a></td></tr>
+<tr class="separator:ace3b09051e5f29841a6bfbf82a2a94e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00013">13</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
+<div class="textblock"><p>An eloquent model representing an <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance </p>
+
+<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00019">19</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ac6ca7d5b095e4ecb284454192b942f09"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac6ca7d5b095e4ecb284454192b942f09">&#9670;&nbsp;</a></span>activity()</h2>
@@ -131,8 +149,10 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p><a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> relationship</p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00058">58</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00118">118</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Evaluator_2ActivityInstanceEvaluator_8php_source.html#l00041">BristolSU\Support\ModuleInstance\Evaluator\ActivityInstanceEvaluator\evaluateAdministrator()</a>, <a class="el" href="Evaluator_2ActivityInstanceEvaluator_8php_source.html#l00053">BristolSU\Support\ModuleInstance\Evaluator\ActivityInstanceEvaluator\evaluateParticipant()</a>, <a class="el" href="Evaluator_2ModuleInstanceEvaluator_8php_source.html#l00062">BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator\evaluateParticipant()</a>, <a class="el" href="Evaluator_2ActivityInstanceEvaluator_8php_source.html#l00061">BristolSU\Support\ModuleInstance\Evaluator\ActivityInstanceEvaluator\evaluateResource()</a>, <a class="el" href="Evaluator_2ModuleInstanceEvaluator_8php_source.html#l00081">BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator\evaluateResource()</a>, and <a class="el" href="Evaluator_2ModuleInstanceEvaluator_8php_source.html#l00074">BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator\isComplete()</a>.</p>
 
@@ -152,10 +172,10 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get the unique identifier for the user.</p>
+<p>Get the unique identifier for the activity instance.</p>
 <dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00078">78</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00138">138</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
 
 </div>
 </div>
@@ -173,10 +193,10 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get the name of the unique identifier for the user.</p>
+<p>Get the name of the unique identifier for the activity instance.</p>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00068">68</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00128">128</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
 
 </div>
 </div>
@@ -194,11 +214,11 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get the password for the user.</p>
+<p>Get the password for the activity instance.</p>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000002">Todo:</a></b></dt><dd>: Implement <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a8d888c915beb9e93b954d183009b34f0">getAuthPassword()</a> method. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>: Implement <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a8d888c915beb9e93b954d183009b34f0">getAuthPassword()</a> method. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00088">88</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00148">148</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
 
 </div>
 </div>
@@ -216,8 +236,17 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the model from the current resource as a Laravel attribute.</p>
+<p>If the resource_type is user, returns the user with the id 'resource_id' If the resource_type is group, returns the group with the id 'resource_id' If the resource_type is role, returns the role with the id 'resource_id'</p>
+<dl class="section return"><dt>Returns</dt><dd>User|Group|Role The model for the resource of the activity instance.</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00034">34</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00077">77</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
 
 </div>
 </div>
@@ -237,9 +266,9 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Get the token value for the "remember me" session.</p>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>: Implement <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a8eaed80d0ab9609a567a098bee3c75c7">getRememberToken()</a> method. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>: Implement <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a8eaed80d0ab9609a567a098bee3c75c7">getRememberToken()</a> method. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00098">98</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00158">158</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
 
 </div>
 </div>
@@ -259,9 +288,9 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 <p>Get the column name for the "remember me" token.</p>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000005">Todo:</a></b></dt><dd>: Implement <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#aa6c4eba1ed8b8ad76f95a9d2f259ba56">getRememberTokenName()</a> method. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>: Implement <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#aa6c4eba1ed8b8ad76f95a9d2f259ba56">getRememberTokenName()</a> method. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00119">119</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00179">179</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
 
 </div>
 </div>
@@ -279,8 +308,11 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the run number of the activity instance as a Laravel attribute.</p>
+<p>If there are multiple run throughs of an activity, this ID will number them from oldest to newest.</p>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00019">19</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00048">48</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
 
 </div>
 </div>
@@ -298,8 +330,10 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> Instance relationship</p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00053">53</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00108">108</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
 
 </div>
 </div>
@@ -317,8 +351,11 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the model from the current resource.</p>
+<p>Function for retrieving the user, group or role associated with the activity instance.</p>
+<dl class="section return"><dt>Returns</dt><dd>User|Group|Role The model for the resource of the activity instance. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00048">48</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00098">98</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Evaluator_2ModuleInstanceEvaluator_8php_source.html#l00081">BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator\evaluateResource()</a>.</p>
 
@@ -347,9 +384,9 @@ Protected Attributes</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>: Implement <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a68e672eea9ca7145fddeb2853cd0963a">setRememberToken()</a> method. </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>: Implement <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a68e672eea9ca7145fddeb2853cd0963a">setRememberToken()</a> method. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00109">109</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00169">169</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
 
 </div>
 </div>
@@ -374,12 +411,12 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00017">17</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00030">30</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
 
 </div>
 </div>
-<a id="a331dfa53023c0eca4ccfb101e52715d7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a331dfa53023c0eca4ccfb101e52715d7">&#9670;&nbsp;</a></span>$guarded</h2>
+<a id="ace3b09051e5f29841a6bfbf82a2a94e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ace3b09051e5f29841a6bfbf82a2a94e1">&#9670;&nbsp;</a></span>$fillable</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -388,7 +425,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">BristolSU\Support\ActivityInstance\ActivityInstance::$guarded = []</td>
+          <td class="memname">BristolSU\Support\ActivityInstance\ActivityInstance::$fillable</td>
         </tr>
       </table>
   </td>
@@ -397,8 +434,8 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00015">15</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
+<b>Initial value:</b><div class="fragment"><div class="line">= [</div><div class="line">        <span class="stringliteral">&#39;name&#39;</span>, <span class="stringliteral">&#39;description&#39;</span>, <span class="stringliteral">&#39;activity_id&#39;</span>, <span class="stringliteral">&#39;resource_type&#39;</span>, <span class="stringliteral">&#39;resource_id&#39;</span></div><div class="line">    ]</div></div><!-- fragment -->
+<p class="definition">Definition at line <a class="el" href="ActivityInstance_8php_source.html#l00037">37</a> of file <a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a>.</p>
 
 </div>
 </div>
@@ -406,11 +443,15 @@ Protected Attributes</h2></td></tr>
 <li>src/ActivityInstance/<a class="el" href="ActivityInstance_8php_source.html">ActivityInstance.php</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">ActivityInstance</a></li>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

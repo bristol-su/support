@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -42,6 +49,21 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
+</div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1CheckLoggedIntoActivityInstance.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -56,11 +78,6 @@ $(function() {
 </iframe>
 </div>
 
-<div id="nav-path" class="navpath">
-  <ul>
-<li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware.html">Middleware</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1CheckLoggedIntoActivityInstance.html">CheckLoggedIntoActivityInstance</a></li>  </ul>
-</div>
-</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -84,8 +101,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a6725f24dd0934f51f62954c428c8b118"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html#l00014">14</a> of file <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html">CheckLoggedIntoActivityInstance.php</a>.</p>
+<div class="textblock"><p>Check an activity instance is logged in to. </p>
+
+<p class="definition">Definition at line <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html#l00012">12</a> of file <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html">CheckLoggedIntoActivityInstance.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3ce541230995d0d490116d9bee698067"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3ce541230995d0d490116d9bee698067">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -102,8 +120,15 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initialise middleware</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">ActivityInstanceResolver</td><td class="paramname">$activityInstanceResolver</td><td>Resolver to get the activity instance. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html#l00022">22</a> of file <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html">CheckLoggedIntoActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html#l00027">27</a> of file <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html">CheckLoggedIntoActivityInstance.php</a>.</p>
 
 <p class="reference">References <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html#l00020">BristolSU\Support\ActivityInstance\Middleware\CheckLoggedIntoActivityInstance\$activityInstanceResolver</a>.</p>
 
@@ -138,20 +163,20 @@ Private Attributes</h2></td></tr>
 <p>Check we're logged into an activity instance</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">Request</td><td class="paramname">$request</td><td></td></tr>
-    <tr><td class="paramtype">\Closure</td><td class="paramname">$next</td><td></td></tr>
+    <tr><td class="paramtype">Request</td><td class="paramname">$request</td><td>Request Object </td></tr>
+    <tr><td class="paramtype">\Closure</td><td class="paramname">$next</td><td>Next middleware callback </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">NotInActivityInstanceException</td><td></td></tr>
+    <tr><td class="paramname">NotInActivityInstanceException</td><td>If an activity instance is not found </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html#l00035">35</a> of file <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html">CheckLoggedIntoActivityInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html#l00040">40</a> of file <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html">CheckLoggedIntoActivityInstance.php</a>.</p>
 
 </div>
 </div>
@@ -178,7 +203,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html#l00020">20</a> of file <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html">CheckLoggedIntoActivityInstance.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html#l00022">BristolSU\Support\ActivityInstance\Middleware\CheckLoggedIntoActivityInstance\__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html#l00027">BristolSU\Support\ActivityInstance\Middleware\CheckLoggedIntoActivityInstance\__construct()</a>.</p>
 
 </div>
 </div>
@@ -186,11 +211,15 @@ Private Attributes</h2></td></tr>
 <li>src/ActivityInstance/Middleware/<a class="el" href="CheckLoggedIntoActivityInstance_8php_source.html">CheckLoggedIntoActivityInstance.php</a></li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware.html">Middleware</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1CheckLoggedIntoActivityInstance.html">CheckLoggedIntoActivityInstance</a></li>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>

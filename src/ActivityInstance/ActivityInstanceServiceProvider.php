@@ -16,9 +16,19 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * ActivityInstanceServiceProvider
+ */
 class ActivityInstanceServiceProvider extends ServiceProvider
 {
 
+    /**
+     * Register
+     * 
+     * - Register the activity instance resolver, API or Web
+     * - Bind the activity instance repository contract to an implementation
+     * - Bind the activity instance generator contract to an implementation
+     */
     public function register()
     {
         $this->app->call([$this, 'registerActivityInstanceResolver']);
@@ -26,6 +36,12 @@ class ActivityInstanceServiceProvider extends ServiceProvider
         $this->app->bind(DefaultActivityInstanceGeneratorContract::class, DefaultActivityInstanceGenerator::class);
     }
 
+    /**
+     * Register
+     *
+     * - Push middleware to a middleware group
+     * - Set up activity instance authentication provider
+     */
     public function boot()
     {
         $this->app['router']->pushMiddlewareToGroup('activity', LogIntoActivityInstance::class);
@@ -39,6 +55,13 @@ class ActivityInstanceServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * Register the activity instance resolver.
+     * 
+     * Registers the api activitiy instance resoolver for an API route, or a web resolver otherwise.
+     * 
+     * @param Request $request
+     */
     public function registerActivityInstanceResolver(Request $request)
     {
         $this->app->bind(ActivityInstanceResolver::class, function($app) use ($request) {

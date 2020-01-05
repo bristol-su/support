@@ -12,26 +12,48 @@ use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use Exception;
 use Illuminate\Http\Request;
 
+/**
+ * Api Authentication for getting authentication models from the query string
+ */
 class ApiAuthentication implements Authentication
 {
 
     /**
+     * Holds the request object
+     * 
      * @var Request
      */
     private $request;
+    
     /**
+     * Holds the role repository
+     * 
      * @var RoleRepository
      */
     private $roleRepository;
+    
     /**
+     * Holds the group repository
+     * 
      * @var GroupRepository
      */
     private $groupRepository;
+    
     /**
+     * Holds the user repository
+     * 
      * @var UserRepository
      */
     private $userRepository;
 
+    /**
+     * Initialise the API authentication
+     * 
+     * @param Request $request Request object to get parameters from
+     * @param RoleRepository $roleRepository Role repository for retrieving roles
+     * @param GroupRepository $groupRepository Group repository for retrieving groups
+     * @param UserRepository $userRepository User repository for retrieving users
+     */
     public function __construct(Request $request,
                                 RoleRepository $roleRepository,
                                 GroupRepository $groupRepository,
@@ -43,6 +65,11 @@ class ApiAuthentication implements Authentication
         $this->userRepository = $userRepository;
     }
 
+    /**
+     * Get a group from the group_id parameter
+     * 
+     * @return Group|null
+     */
     public function getGroup()
     {
         if(($role = $this->getRole()) !== null) {
@@ -59,6 +86,8 @@ class ApiAuthentication implements Authentication
     }
 
     /**
+     * Get a role from the role_id parameter
+     * 
      * @return Role|null
      */
     public function getRole()
@@ -72,6 +101,11 @@ class ApiAuthentication implements Authentication
         return null;
     }
 
+    /**
+     * Get a user from the user_id parameter
+     * 
+     * @return User|null
+     */    
     public function getUser()
     {
         if ($this->request !== null && $this->request->has('user_id')) {
@@ -84,8 +118,10 @@ class ApiAuthentication implements Authentication
     }
 
     /**
+     * Set the group
+     * 
      * @param Group $group
-     * @return mixed
+     * @return void
      */
     public function setGroup(Group $group)
     {
@@ -93,24 +129,32 @@ class ApiAuthentication implements Authentication
     }
 
     /**
+     * Set the role
+     * 
      * @param Role $role
-     * @return mixed
+     * @return void
      */
     public function setRole(Role $role)
     {
         $this->request->query->set('role_id', $role->id());
-        return $this->request;
     }
 
     /**
+     * Set the user
+     * 
      * @param User $user
-     * @return mixed
+     * @return void
      */
     public function setUser(User $user)
     {
         $this->request->query->set('user_id', $user->id());
     }
-    
+
+    /**
+     * Reset the query strings to null
+     * 
+     * @return void
+     */
     public function reset(): void
     {
         $this->request->query->set('user_id', null);

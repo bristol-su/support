@@ -10,17 +10,22 @@ use BristolSU\Support\Authorization\Middleware\LogoutOfExtras;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class AuthenticationServiceProvider
- * @package BristolSU\Support\Authentication
+ * Authorization Service Provider
  */
 class AuthorizationServiceProvider extends ServiceProvider
 {
 
+    /**
+     * Register the passport service provider. The normal service provider should be disabled.
+     */
     public function register()
     {
         $this->app->register(PassportServiceProvider::class);
     }
 
+    /**
+     * Push middleware to groups
+     */
     public function boot()
     {
         $this->app['router']->pushMiddlewareToGroup('participant', CheckLoggedIntoActivityForType::class);

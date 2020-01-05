@@ -9,6 +9,13 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
+<link href="navtree.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="resize.js"></script>
+<script type="text/javascript" src="navtreedata.js"></script>
+<script type="text/javascript" src="navtree.js"></script>
+<script type="text/javascript">
+  $(document).ready(initResizable);
+</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -43,6 +50,20 @@ $(function() {
 </script>
 <div id="main-nav"></div>
 </div><!-- top -->
+<div id="side-nav" class="ui-resizable side-nav-resizable">
+  <div id="nav-tree">
+    <div id="nav-tree-contents">
+      <div id="nav-sync" class="sync"></div>
+    </div>
+  </div>
+  <div id="splitbar" style="-moz-user-select:none;" 
+       class="ui-resizable-handle">
+  </div>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){initNavTree('functions.html','');});
+</script>
+<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -72,9 +93,7 @@ $(function() {
 </li>
 <li>$activity
 : <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresAdmin.html#afecb51bba79fa063f2ab816da2788333">BristolSU\Support\Authorization\Exception\ActivityRequiresAdmin</a>
-, <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresGroup.html#a441ceb3220c31d7a7689574a67cc27ea">BristolSU\Support\Authorization\Exception\ActivityRequiresGroup</a>
-, <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresRole.html#af81d3fd909b5ade7d59447e5066da9e8">BristolSU\Support\Authorization\Exception\ActivityRequiresRole</a>
-, <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresUser.html#a90e07cbc239b6c72ddebc2febd3667b6">BristolSU\Support\Authorization\Exception\ActivityRequiresUser</a>
+, <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Exception_1_1ActivityRequiresParticipant.html#adeb3aaae37ba338044071ca375706abe">BristolSU\Support\Authorization\Exception\ActivityRequiresParticipant</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#aec4acbe4567fa00134037c3c329c1cd7">BristolSU\Support\Testing\TestCase</a>
 </li>
 <li>$activityInstance
@@ -103,7 +122,6 @@ $(function() {
 <li>$app
 : <a class="el" href="classBristolSU_1_1Support_1_1Action_1_1ActionBuilder.html#a56bc0d9ee8f03db503941a5b0dd8a9e3">BristolSU\Support\Action\ActionBuilder</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Middleware_1_1InjectActivityInstance.html#ab9a2ff641a28b9c609a7547d4e7b9f43">BristolSU\Support\Activity\Middleware\InjectActivityInstance</a>
-, <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1InjectActivityInstance.html#aaa7a940cb6f5b8edabe87ceecaade986">BristolSU\Support\ActivityInstance\Middleware\InjectActivityInstance</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Middleware_1_1InjectModuleInstance.html#ae17d56e14ec1e75d1e1f2d9e7c668759">BristolSU\Support\ModuleInstance\Middleware\InjectModuleInstance</a>
 </li>
 <li>$appends
@@ -122,9 +140,9 @@ $(function() {
 </li>
 <li>$auth
 : <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1LaravelAuthActivityInstanceResolver.html#a6a9f4798935789a5e3cdc36323ea8f76">BristolSU\Support\ActivityInstance\LaravelAuthActivityInstanceResolver</a>
-, <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1UserApiAuthentication.html#aa73262f849e60a150839d96e2cdc7f32">BristolSU\Support\Authentication\UserApiAuthentication</a>
-, <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1UserWebAuthentication.html#a30a7a11ec14f8d29481384b25b0a4ff1">BristolSU\Support\Authentication\UserWebAuthentication</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1WebAuthentication.html#acfbc159631feacfc747cefff4621db9e">BristolSU\Support\Authentication\WebAuthentication</a>
+, <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserApiAuthentication.html#a223858021c18642c1a7151b2bff179df">BristolSU\Support\User\UserApiAuthentication</a>
+, <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserWebAuthentication.html#ad43034de1e22ceb9d322f244b5b37d05">BristolSU\Support\User\UserWebAuthentication</a>
 </li>
 <li>$authentication
 : <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationResourceIdGenerator.html#aff75da3ea27cd46b397873487fa64f3e">BristolSU\Support\Authentication\AuthenticationResourceIdGenerator</a>
@@ -194,7 +212,8 @@ $(function() {
 : <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1ConnectorRepository.html#adb8c9f362670113f75779845ee44dd6f">BristolSU\Support\Connection\ConnectorRepository</a>
 </li>
 <li>$container
-: <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionFactory.html#a5b0a8613d784dd1ad4ef4c35949b26a4">BristolSU\Support\Completion\CompletionConditionFactory</a>
+: <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1InjectActivityInstance.html#a4dbd6aa1e74c93fdf87e2d0eb892f4b5">BristolSU\Support\ActivityInstance\Middleware\InjectActivityInstance</a>
+, <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionFactory.html#a5b0a8613d784dd1ad4ef4c35949b26a4">BristolSU\Support\Completion\CompletionConditionFactory</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterFactory.html#a70020887bc1f395c18c4b15a72a9a51f">BristolSU\Support\Filters\FilterFactory</a>
 </li>
 <li>$controlClient
@@ -234,6 +253,7 @@ $(function() {
 : <a class="el" href="classBristolSU_1_1Support_1_1Action_1_1ActionInstance.html#a0ff4303b091e756f426e0deb994001b7">BristolSU\Support\Action\ActionInstance</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Action_1_1ActionInstanceField.html#a0a07849969c506b5248813c8e3245176">BristolSU\Support\Action\ActionInstanceField</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html#a150eb9b4404ded589c13c7d40e62d68c">BristolSU\Support\Activity\Activity</a>
+, <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#ace3b09051e5f29841a6bfbf82a2a94e1">BristolSU\Support\ActivityInstance\ActivityInstance</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionInstance.html#af7c63a8cb63f29d5dfe60406b332622a">BristolSU\Support\Completion\CompletionConditionInstance</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html#a265b9e3f4eac6921d7691d27304aacb8">BristolSU\Support\Connection\Connection</a>
 , <a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstance.html#abd7d4733039eb75d57b669296aec753d">BristolSU\Support\Filters\FilterInstance</a>
@@ -280,9 +300,6 @@ $(function() {
 </li>
 <li>$groupTagRepository
 : <a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Group_1_1GroupTagged.html#ae455e0d44b8b654e0fe65e3ea6f29b1f">BristolSU\Support\Filters\Filters\Group\GroupTagged</a>
-</li>
-<li>$guarded
-: <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a331dfa53023c0eca4ccfb101e52715d7">BristolSU\Support\ActivityInstance\ActivityInstance</a>
 </li>
 <li>$hidden
 : <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html#ad17f6bb9526daf2f4175e308e435926b">BristolSU\Support\Connection\Connection</a>
@@ -456,11 +473,14 @@ $(function() {
 </li>
 </ul>
 </div><!-- contents -->
+</div><!-- doc-content -->
 <!-- start footer part -->
-<hr class="footer"/><address class="footer"><small>
-Generated by &#160;<a href="http://www.doxygen.org/index.html">
-<img class="footer" src="doxygen.png" alt="doxygen"/>
-</a> 1.8.13
-</small></address>
+<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
+  <ul>
+    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <a href="http://www.doxygen.org/index.html">
+    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
+  </ul>
+</div>
 </body>
 </html>
