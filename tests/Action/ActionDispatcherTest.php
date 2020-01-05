@@ -29,11 +29,11 @@ class ActionDispatcherTest extends TestCase
         foreach($actionInstances as $actionInstance) {
             $builder->build(Argument::that(function($arg) use ($actionInstance) {
                 return $arg->id === $actionInstance->id;
-            }), ['field1' => 'field1value'])->shouldBeCalled()->willReturn(new DispatcherDummyAction());
+            }), ['field1' => 'field1value'])->shouldBeCalled()->willReturn(new DispatcherDummyAction([]));
         }
         
         $actionDispatcher = new ActionDispatcher($builder->reveal());
-        $actionDispatcher->handle(new DispatcherDummyEvent());
+        $actionDispatcher->handle(new DispatcherDummyEvent([]));
     }
     
     /** @test */
@@ -48,11 +48,11 @@ class ActionDispatcherTest extends TestCase
 
         $builder = $this->prophesize(ActionBuilder::class);
         foreach($actionInstances as $actionInstance) {
-            $builder->build(Argument::any(), Argument::any())->shouldBeCalled()->willReturn(new DispatcherDummyAction());
+            $builder->build(Argument::any(), Argument::any())->shouldBeCalled()->willReturn(new DispatcherDummyAction([]));
         }
 
         $actionDispatcher = new ActionDispatcher($builder->reveal());
-        $actionDispatcher->handle(new DispatcherDummyEvent());
+        $actionDispatcher->handle(new DispatcherDummyEvent([]));
         
         Bus::assertDispatched(DispatcherDummyAction::class, $actionInstances->count());
     }
@@ -93,5 +93,9 @@ class DispatcherDummyAction implements Action
     public static function getFieldMetaData(): array
     {
         // TODO: Implement getFieldMetaData() method.
+    }
+
+    public function __construct(array $data)
+    {
     }
 }

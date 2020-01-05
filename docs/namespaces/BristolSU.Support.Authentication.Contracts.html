@@ -1,0 +1,1732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <meta charset="utf-8"/>
+    <title>Bristol SU Support Package</title>
+    <meta name="author" content=""/>
+    <meta name="description" content=""/>
+
+    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
+    <link href="../css/font-awesome.min.css" rel="stylesheet">
+    <link href="../css/prism.css" rel="stylesheet" media="all"/>
+    <link href="../css/template.css" rel="stylesheet" media="all"/>
+    
+    <!--[if lt IE 9]>
+    <script src="../js/html5.js"></script>
+    <![endif]-->
+    <script src="../js/jquery-1.11.0.min.js"></script>
+    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/jquery.smooth-scroll.js"></script>
+    <script src="../js/prism.min.js"></script>
+    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+    
+    <link rel="shortcut icon" href="../images/favicon.ico"/>
+    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
+    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
+    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
+</head>
+<body>
+
+<div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                <i class="icon-ellipsis-vertical"></i>
+            </a>
+            <a class="brand" href="../index.html">Bristol SU Support Package</a>
+
+            <div class="nav-collapse">
+                <ul class="nav pull-right">
+                                        <li class="dropdown">
+                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
+                            API Documentation <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                                                        <li>\BristolSU</li>
+                                                    </ul>
+                    </li>
+                                        <li class="dropdown" id="charts-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Charts <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../graphs/class.html">
+                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="dropdown" id="reports-menu">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                            Reports <b class="caret"></b>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li>
+                                <a href="../reports/errors.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/markers.html">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="../reports/deprecated.html">
+                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!--<div class="go_to_top">-->
+    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
+    <!--</div>-->
+</div>
+
+<div id="___" class="container-fluid">
+        <section class="row-fluid">
+        <div class="span2 sidebar">
+                                <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-338787004"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">\</a>
+            </div>
+            <div id="namespace-338787004" class="accordion-body collapse in">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-517202067"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">BristolSU</a>
+            </div>
+            <div id="namespace-517202067" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-886194722"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Support</a>
+            </div>
+            <div id="namespace-886194722" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-146238397"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Action</a>
+            </div>
+            <div id="namespace-146238397" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2057850983"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Actions</a>
+            </div>
+            <div id="namespace-2057850983" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">Log</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1553519420"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Contracts</a>
+            </div>
+            <div id="namespace-1553519420" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">Action</li>
+                                                    <li class="interface">ActionBuilder</li>
+                                                    <li class="interface">ActionManager</li>
+                                                    <li class="interface">ActionRepository</li>
+                                                    <li class="interface">RegisteredAction</li>
+                                                    <li class="interface">TriggerableEvent</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-239647752"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Facade</a>
+            </div>
+            <div id="namespace-239647752" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">ActionManager</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">ActionBuilder</li>
+                                                    <li class="class">ActionDispatcher</li>
+                                                    <li class="class">ActionInstance</li>
+                                                    <li class="class">ActionInstanceField</li>
+                                                    <li class="class">ActionManager</li>
+                                                    <li class="class">ActionRepository</li>
+                                                    <li class="class">ActionServiceProvider</li>
+                                                    <li class="class">RegisteredAction</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-292576152"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Activity</a>
+            </div>
+            <div id="namespace-292576152" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1451042016"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Contracts</a>
+            </div>
+            <div id="namespace-1451042016" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">Repository</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1367820969"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Middleware</a>
+            </div>
+            <div id="namespace-1367820969" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">InjectActivityInstance</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">Activity</li>
+                                                    <li class="class">ActivityServiceProvider</li>
+                                                    <li class="class">Repository</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-474784487"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">ActivityInstance</a>
+            </div>
+            <div id="namespace-474784487" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1381205962"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">AuthenticationProvider</a>
+            </div>
+            <div id="namespace-1381205962" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">ActivityInstanceProvider</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1244351689"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Contracts</a>
+            </div>
+            <div id="namespace-1244351689" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">ActivityInstanceRepository</li>
+                                                    <li class="interface">ActivityInstanceResolver</li>
+                                                    <li class="interface">DefaultActivityInstanceGenerator</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-992898678"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Exceptions</a>
+            </div>
+            <div id="namespace-992898678" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">NotInActivityInstanceException</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1665034064"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Middleware</a>
+            </div>
+            <div id="namespace-1665034064" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">CheckActivityInstanceForActivity</li>
+                                                    <li class="class">CheckLoggedIntoActivityInstance</li>
+                                                    <li class="class">ClearActivityInstance</li>
+                                                    <li class="class">InjectActivityInstance</li>
+                                                    <li class="class">LogIntoActivityInstance</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">ActivityInstance</li>
+                                                    <li class="class">ActivityInstanceRepository</li>
+                                                    <li class="class">ActivityInstanceServiceProvider</li>
+                                                    <li class="class">ApiActivityInstanceResolver</li>
+                                                    <li class="class">DefaultActivityInstanceGenerator</li>
+                                                    <li class="class">LaravelAuthActivityInstanceResolver</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-294731193"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Authentication</a>
+            </div>
+            <div id="namespace-294731193" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1914127128"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">AuthenticationProvider</a>
+            </div>
+            <div id="namespace-1914127128" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">GroupProvider</li>
+                                                    <li class="class">RoleProvider</li>
+                                                    <li class="class">UserProvider</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1329476339"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Contracts</a>
+            </div>
+            <div id="namespace-1329476339" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">Authentication</li>
+                                                    <li class="interface">ResourceIdGenerator</li>
+                                                    <li class="interface">UserAuthentication</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                            <li class="trait">HasResource</li>
+                                                                            <li class="class">ApiAuthentication</li>
+                                                    <li class="class">AuthenticationResourceIdGenerator</li>
+                                                    <li class="class">AuthenticationServiceProvider</li>
+                                                    <li class="class">UserApiAuthentication</li>
+                                                    <li class="class">UserWebAuthentication</li>
+                                                    <li class="class">WebAuthentication</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1328404127"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Authorization</a>
+            </div>
+            <div id="namespace-1328404127" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-762395696"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Exception</a>
+            </div>
+            <div id="namespace-762395696" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">ActivityRequiresAdmin</li>
+                                                    <li class="class">ActivityRequiresGroup</li>
+                                                    <li class="class">ActivityRequiresRole</li>
+                                                    <li class="class">ActivityRequiresUser</li>
+                                                    <li class="class">ModuleInactive</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1531181957"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Middleware</a>
+            </div>
+            <div id="namespace-1531181957" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">CheckActivityFor</li>
+                                                    <li class="class">CheckAdminActivityFor</li>
+                                                    <li class="class">CheckLoggedIntoActivityForType</li>
+                                                    <li class="class">CheckModuleInstanceActive</li>
+                                                    <li class="class">LogoutOfExtras</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">AuthorizationServiceProvider</li>
+                                                    <li class="class">PassportServiceProvider</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1220545071"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Completion</a>
+            </div>
+            <div id="namespace-1220545071" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1974789706"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">CompletionConditions</a>
+            </div>
+            <div id="namespace-1974789706" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2046862102"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">EventFired</a>
+            </div>
+            <div id="namespace-2046862102" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">EventFired</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1565669415"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Contracts</a>
+            </div>
+            <div id="namespace-1565669415" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">CompletionConditionFactory</li>
+                                                    <li class="interface">CompletionConditionInstance</li>
+                                                    <li class="interface">CompletionConditionInstanceRepository</li>
+                                                    <li class="interface">CompletionConditionManager</li>
+                                                    <li class="interface">CompletionConditionRepository</li>
+                                                    <li class="interface">CompletionConditionTester</li>
+                                                                                                    <li class="class">CompletionCondition</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">CompletionConditionFactory</li>
+                                                    <li class="class">CompletionConditionInstance</li>
+                                                    <li class="class">CompletionConditionInstanceRepository</li>
+                                                    <li class="class">CompletionConditionManager</li>
+                                                    <li class="class">CompletionConditionRepository</li>
+                                                    <li class="class">CompletionConditionServiceProvider</li>
+                                                    <li class="class">CompletionConditionTester</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1528725684"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Connection</a>
+            </div>
+            <div id="namespace-1528725684" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1101290695"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Client</a>
+            </div>
+            <div id="namespace-1101290695" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">CachedClientDecorator</li>
+                                                    <li class="class">GuzzleClient</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1318881691"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Contracts</a>
+            </div>
+            <div id="namespace-1318881691" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1334284308"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Client</a>
+            </div>
+            <div id="namespace-1334284308" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">Client</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface">ConnectionRepository</li>
+                                                    <li class="interface">ConnectorFactory</li>
+                                                    <li class="interface">ConnectorRepository</li>
+                                                    <li class="interface">ConnectorStore</li>
+                                                    <li class="interface">ServiceRequest</li>
+                                                                                                    <li class="class">Connector</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">AccessibleConnectionScope</li>
+                                                    <li class="class">Connection</li>
+                                                    <li class="class">ConnectionRepository</li>
+                                                    <li class="class">ConnectionServiceProvider</li>
+                                                    <li class="class">ConnectorFactory</li>
+                                                    <li class="class">ConnectorRepository</li>
+                                                    <li class="class">ConnectorStore</li>
+                                                    <li class="class">RegisteredConnector</li>
+                                                    <li class="class">ServiceRequest</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-990889707"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">DataPlatform</a>
+            </div>
+            <div id="namespace-990889707" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1697244862"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Contracts</a>
+            </div>
+            <div id="namespace-1697244862" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-443998413"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Models</a>
+            </div>
+            <div id="namespace-443998413" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">User</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1559265431"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Repositories</a>
+            </div>
+            <div id="namespace-1559265431" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">User</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1066668483"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Models</a>
+            </div>
+            <div id="namespace-1066668483" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">Model</li>
+                                                    <li class="class">User</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-87800383"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Repositories</a>
+            </div>
+            <div id="namespace-87800383" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">User</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">UnionCloudServiceProvider</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1032390810"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Events</a>
+            </div>
+            <div id="namespace-1032390810" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-524003416"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Contracts</a>
+            </div>
+            <div id="namespace-524003416" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">EventManager</li>
+                                                    <li class="interface">EventRepository</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">EventManager</li>
+                                                    <li class="class">EventRepository</li>
+                                                    <li class="class">EventsServiceProvider</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-25964321"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Filters</a>
+            </div>
+            <div id="namespace-25964321" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-158067673"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Commands</a>
+            </div>
+            <div id="namespace-158067673" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">CacheFilters</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1007486539"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Contracts</a>
+            </div>
+            <div id="namespace-1007486539" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1368857327"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Filters</a>
+            </div>
+            <div id="namespace-1368857327" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">Filter</li>
+                                                    <li class="class">GroupFilter</li>
+                                                    <li class="class">RoleFilter</li>
+                                                    <li class="class">UserFilter</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface">FilterFactory</li>
+                                                    <li class="interface">FilterInstance</li>
+                                                    <li class="interface">FilterInstanceRepository</li>
+                                                    <li class="interface">FilterManager</li>
+                                                    <li class="interface">FilterRepository</li>
+                                                    <li class="interface">FilterTester</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1379528914"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Filters</a>
+            </div>
+            <div id="namespace-1379528914" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1256179877"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Group</a>
+            </div>
+            <div id="namespace-1256179877" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">GroupNameIs</li>
+                                                    <li class="class">GroupTagged</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-68614985"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Role</a>
+            </div>
+            <div id="namespace-68614985" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">RoleHasPosition</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-709849723"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">User</a>
+            </div>
+            <div id="namespace-709849723" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">UserEmailIs</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-663876831"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Jobs</a>
+            </div>
+            <div id="namespace-663876831" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">CacheFilter</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">CachedFilterTesterDecorator</li>
+                                                    <li class="class">FilterFactory</li>
+                                                    <li class="class">FilterInstance</li>
+                                                    <li class="class">FilterInstanceRepository</li>
+                                                    <li class="class">FilterManager</li>
+                                                    <li class="class">FilterRepository</li>
+                                                    <li class="class">FilterServiceProvider</li>
+                                                    <li class="class">FilterTester</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1979090380"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Http</a>
+            </div>
+            <div id="namespace-1979090380" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-804397503"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Controllers</a>
+            </div>
+            <div id="namespace-804397503" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">ModuleInstanceRedirectController</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1128081079"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Middleware</a>
+            </div>
+            <div id="namespace-1128081079" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">InjectJavascriptVariables</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">HttpServiceProvider</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-27519057"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Logic</a>
+            </div>
+            <div id="namespace-27519057" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-491666254"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Audience</a>
+            </div>
+            <div id="namespace-491666254" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">AudienceMember</li>
+                                                    <li class="class">AudienceMemberFactory</li>
+                                                    <li class="class">LogicAudience</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-457011907"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Contracts</a>
+            </div>
+            <div id="namespace-457011907" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-766070806"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Audience</a>
+            </div>
+            <div id="namespace-766070806" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">AudienceMemberFactory</li>
+                                                                                                    <li class="class">LogicAudience</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface">LogicRepository</li>
+                                                    <li class="interface">LogicTester</li>
+                                                    <li class="interface">Specification</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1856979572"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Facade</a>
+            </div>
+            <div id="namespace-1856979572" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">LogicTester</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-2072486089"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Specification</a>
+            </div>
+            <div id="namespace-2072486089" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">AndSpecification</li>
+                                                    <li class="class">FilterFalseSpecification</li>
+                                                    <li class="class">FilterTrueSpecification</li>
+                                                    <li class="class">OrSpecification</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">Logic</li>
+                                                    <li class="class">LogicRepository</li>
+                                                    <li class="class">LogicServiceProvider</li>
+                                                    <li class="class">LogicTester</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-287008546"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Module</a>
+            </div>
+            <div id="namespace-287008546" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1709610788"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Contracts</a>
+            </div>
+            <div id="namespace-1709610788" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">Module</li>
+                                                    <li class="interface">ModuleBuilder</li>
+                                                    <li class="interface">ModuleFactory</li>
+                                                    <li class="interface">ModuleManager</li>
+                                                    <li class="interface">ModuleRepository</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">Module</li>
+                                                    <li class="class">ModuleBuilder</li>
+                                                    <li class="class">ModuleFactory</li>
+                                                    <li class="class">ModuleFrameworkServiceProvider</li>
+                                                    <li class="class">ModuleManager</li>
+                                                    <li class="class">ModuleRepository</li>
+                                                    <li class="class">ModuleServiceProvider</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1969783963"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">ModuleInstance</a>
+            </div>
+            <div id="namespace-1969783963" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-627828308"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Connection</a>
+            </div>
+            <div id="namespace-627828308" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">ModuleInstanceService</li>
+                                                    <li class="class">ModuleInstanceServiceRepository</li>
+                                                    <li class="class">NoConnectionAvailable</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1658433443"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Contracts</a>
+            </div>
+            <div id="namespace-1658433443" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1961400087"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Connection</a>
+            </div>
+            <div id="namespace-1961400087" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">ModuleInstanceServiceRepository</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1468192213"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Evaluator</a>
+            </div>
+            <div id="namespace-1468192213" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">ActivityInstanceEvaluator</li>
+                                                    <li class="interface">Evaluation</li>
+                                                    <li class="interface">ModuleInstanceEvaluator</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1733216205"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Scheduler</a>
+            </div>
+            <div id="namespace-1733216205" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">CommandStore</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1024709701"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Settings</a>
+            </div>
+            <div id="namespace-1024709701" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">ModuleSettingsStore</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface">ModuleInstance</li>
+                                                    <li class="interface">ModuleInstanceRepository</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-158202251"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Evaluator</a>
+            </div>
+            <div id="namespace-158202251" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">ActivityInstanceEvaluator</li>
+                                                    <li class="class">Evaluation</li>
+                                                    <li class="class">ModuleInstanceEvaluator</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1811509064"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Facade</a>
+            </div>
+            <div id="namespace-1811509064" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">ModuleInstanceEvaluator</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-880071142"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Middleware</a>
+            </div>
+            <div id="namespace-880071142" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">InjectModuleInstance</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-27840244"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Scheduler</a>
+            </div>
+            <div id="namespace-27840244" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">CommandStore</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-110947278"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Settings</a>
+            </div>
+            <div id="namespace-110947278" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">ModuleInstanceSetting</li>
+                                                    <li class="class">ModuleSettingsStore</li>
+                                                    <li class="class">SettingListener</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">ModuleInstance</li>
+                                                    <li class="class">ModuleInstanceRepository</li>
+                                                    <li class="class">ModuleInstanceServiceProvider</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1340656017"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Permissions</a>
+            </div>
+            <div id="namespace-1340656017" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1301995574"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Contracts</a>
+            </div>
+            <div id="namespace-1301995574" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-937387688"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Models</a>
+            </div>
+            <div id="namespace-937387688" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">Permission</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                    <li class="interface">PermissionRepository</li>
+                                                    <li class="interface">PermissionStore</li>
+                                                    <li class="interface">PermissionTester</li>
+                                                                                                    <li class="class">Tester</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-509299505"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Facade</a>
+            </div>
+            <div id="namespace-509299505" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">Permission</li>
+                                                    <li class="class">PermissionTester</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1168014839"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Models</a>
+            </div>
+            <div id="namespace-1168014839" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">ModelPermission</li>
+                                                    <li class="class">ModuleInstancePermission</li>
+                                                    <li class="class">Permission</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1978120853"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Testers</a>
+            </div>
+            <div id="namespace-1978120853" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">ModuleInstanceGroupOverridePermission</li>
+                                                    <li class="class">ModuleInstancePermissions</li>
+                                                    <li class="class">ModuleInstanceRoleOverridePermission</li>
+                                                    <li class="class">ModuleInstanceUserOverridePermission</li>
+                                                    <li class="class">SystemUserPermission</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">PermissionRepository</li>
+                                                    <li class="class">PermissionServiceProvider</li>
+                                                    <li class="class">PermissionStore</li>
+                                                    <li class="class">PermissionTester</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-853799652"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Testing</a>
+            </div>
+            <div id="namespace-853799652" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                                                                    <li class="class">TestCase</li>
+                                                    <li class="class">TestingServiceProvider</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-109554815"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">User</a>
+            </div>
+            <div id="namespace-109554815" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                                                    <div class="accordion" style="margin-bottom: 0">
+        <div class="accordion-group">
+            <div class="accordion-heading">
+                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-676799721"></a>
+                                <a href="" style="margin-left: 30px; padding-left: 0">Contracts</a>
+            </div>
+            <div id="namespace-676799721" class="accordion-body collapse ">
+                <div class="accordion-inner">
+
+                    
+                    <ul>
+                                                    <li class="interface">UserRepository</li>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">User</li>
+                                                    <li class="class">UserRepository</li>
+                                                    <li class="class">UserServiceProvider</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                                    <li class="class">SupportServiceProvider</li>
+                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+                    
+                    <ul>
+                                                                                            </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+        </div>
+    </section>
+    <section class="row-fluid">
+        <div class="span10 offset2">
+            <div class="row-fluid">
+                <div class="span8 content namespace">
+                    <nav>
+                                                \BristolSU\Support\Authentication
+                                            </nav>
+                    <h1><small>\BristolSU\Support\Authentication</small>Contracts</h1>
+
+                    
+                    
+                                        <h2>Interfaces</h2>
+                    <table class="table table-hover">
+                                                    <tr>
+                                <td>Authentication</td>
+                                <td><em>Interface Authentication</em></td>
+                            </tr>
+                                                    <tr>
+                                <td>ResourceIdGenerator</td>
+                                <td><em></em></td>
+                            </tr>
+                                                    <tr>
+                                <td>UserAuthentication</td>
+                                <td><em>Interface UserAuthentication</em></td>
+                            </tr>
+                                            </table>
+                    
+                                    </div>
+
+                <aside class="span4 detailsbar">
+                    <dl>
+                        <dt>Namespace hierarchy</dt>
+                        <dd class="hierarchy">
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    
+                                    <div class="namespace-wrapper">\</div>
+                                                            
+                                    <div class="namespace-wrapper">\BristolSU</div>
+                                                            
+                                    <div class="namespace-wrapper">\BristolSU\Support</div>
+                                                            
+                                    <div class="namespace-wrapper">\BristolSU\Support\Authentication</div>
+                                                                                        <div class="namespace-wrapper">\BristolSU\Support\Authentication\Contracts</div>
+                        </dd>
+                    </dl>
+                </aside>
+            </div>
+
+            
+            
+        </div>
+    </section>
+
+    <footer class="row-fluid">
+        <section class="span10 offset2">
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <section class="row-fluid footer-sections">
+                        <section class="span4">
+                                                        <h1><i class="icon-code"></i></h1>
+                            <div>
+                                <ul>
+                                                                            <li>\BristolSU</li>
+                                                                    </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-bar-chart"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                        <section class="span4">
+                                                        <h1><i class="icon-pushpin"></i></h1>
+                            <div>
+                                <ul>
+                                    <li><a href="../reports/errors.html">Errors</a></li>
+                                    <li><a href="../reports/markers.html">Markers</a></li>
+                                </ul>
+                            </div>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <section class="row-fluid">
+                <section class="span10 offset1">
+                    <hr />
+                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
+                    on January 5th, 2020 at 00:28.
+                </section>
+            </section>
+        </section>
+    </footer>
+</div>
+
+</body>
+</html>

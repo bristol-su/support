@@ -90,6 +90,10 @@ class ActionInstanceDummyAction implements Action
             ]
         ];
     }
+
+    public function __construct(array $data)
+    {
+    }
 }
 
 class ActionInstanceDummyEvent implements TriggerableEvent

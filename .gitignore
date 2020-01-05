@@ -1,7 +1,6 @@
 /vendor
 .idea
 coverage
-docs
 build
 report.*
 .phpunit.result.cache

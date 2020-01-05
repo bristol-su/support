@@ -17,7 +17,7 @@ class ActionBuilderTest extends TestCase
     /** @test */
     public function build_resolves_the_class_from_the_container(){
         $app = $this->prophesize(Application::class);
-        $app->make(ActionBuilderDummyAction::class, ['data' => []])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction);
+        $app->make(ActionBuilderDummyAction::class, ['data' => []])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction([]));
         
         $actionInstance = factory(ActionInstance::class)->create([
             'action' => ActionBuilderDummyAction::class,
@@ -30,7 +30,7 @@ class ActionBuilderTest extends TestCase
     /** @test */
     public function build_maps_action_fields_to_event_fields(){
         $app = $this->prophesize(Application::class);
-        $app->make(ActionBuilderDummyAction::class, ['data' => ['action1' => 'field1value']])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction);
+        $app->make(ActionBuilderDummyAction::class, ['data' => ['action1' => 'field1value']])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction([]));
 
         $actionInstance = factory(ActionInstance::class)->create([
             'action' => ActionBuilderDummyAction::class,
@@ -70,6 +70,9 @@ class ActionBuilderDummyAction implements Action
         ];
     }
 
+    public function __construct(array $data)
+    {
+    }
 }
 
 class ActionBuilderDummyEvent implements TriggerableEvent

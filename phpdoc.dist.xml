@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <phpdocumentor>
-    <title>Bristol SU Portal</title>
+    <title>Bristol SU Support Package</title>
     <parser>
         <target>docs</target>
         <markers>
@@ -10,13 +10,12 @@
         <extensions>
             <extension>php</extension>
         </extensions>
-        <visibility></visibility>
     </parser>
     <transformer>
         <target>docs</target>
     </transformer>
     <transformations>
-        <template name="clean" />
+        <template name="responsive-twig" />
     </transformations>
     <files>
         <directory>src</directory>

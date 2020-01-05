@@ -3,26 +3,40 @@
 namespace BristolSU\Support\Action\Contracts;
 
 /**
- * Interface ActionManager
- * @package BristolSU\Support\Action\Contracts
+ * Stores action classes and raw metadata
  */
 interface ActionManager
 {
 
     /**
-     * @param $class
-     * @param $name
-     * @param $description
-     * @return mixed
+     * Register an action to be used.
+     * 
+     * An action is any class that implements the Action interface. Call the registerAction method in the service
+     * provider to register an action.
+     * 
+     * @param string $class Class name of the action.
+     * @param string $name A name for the action.
+     * @param string $description A description of the action.
+     * 
+     * @return void
      */
-    public function registerAction($class, $name, $description);
-
-    public function all();
+    public function registerAction(string $class, string $name, string $description): void;
 
     /**
-     * @param $class
-     * @return mixed
+     * Return all registered actions.
+     * 
+     * @return array
      */
-    public function fromClass($class);
+    public function all(): array;
+
+    /**
+     * Return an action registered with the given class.
+     * 
+     * @param string $class Class of the action
+     * 
+     * @throws \Exception Throws an exception if the action has not been registered
+     * @return array
+     */
+    public function fromClass(string $class): array;
     
 }

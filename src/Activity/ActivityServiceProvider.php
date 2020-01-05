@@ -9,22 +9,24 @@ use BristolSU\Support\Activity\Contracts\Repository as ActivityRepositoryContrac
 use BristolSU\Support\Activity\Repository as ActivityRepository;
 
 /**
- * Class ActivityServiceProvider
- * @package BristolSU\Support\Activity
+ * ActivityServiceProvider
  */
 class ActivityServiceProvider extends ServiceProvider
 {
 
     public function register()
     {
+        // Bind contracts
         $this->app->bind(ActivityRepositoryContract::class, ActivityRepository::class);
 
     }
 
     public function boot()
     {
+        // Inject the activity instance middleware
         $this->app['router']->pushMiddlewareToGroup('activity', InjectActivityInstance::class);
 
+        // Set up route model binding
         Route::bind('activity_slug', function ($slug) {
             return Activity::where(['slug' => $slug])->firstOrFail();
         });

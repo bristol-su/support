@@ -6,21 +6,24 @@ namespace BristolSU\Support\Action;
 
 use BristolSU\Support\Action\Contracts\ActionRepository as ActionRepositoryContract;
 use BristolSU\Support\Action\Contracts\ActionManager as ActionManagerContract;
+use Illuminate\Support\Collection;
 
 /**
- * Class ActionRepository
- * @package BristolSU\Support\Action
+ * Retrieves actions from the action manager
  */
 class ActionRepository implements ActionRepositoryContract
 {
     /**
+     * Holds the action manager instance
+     * 
      * @var ActionManagerContract
      */
     private $manager;
 
     /**
-     * ActionRepository constructor.
-     * @param ActionManagerContract $manager
+     * Initialises the action repository
+     * 
+     * @param ActionManagerContract $manager Action Manager instance, holding all registered actions.
      */
     public function __construct(ActionManagerContract $manager)
     {
@@ -28,7 +31,9 @@ class ActionRepository implements ActionRepositoryContract
     }
 
     /**
-     * @return \Illuminate\Support\Collection
+     * Retrieve all actions.
+     * 
+     * @return Collection<RegisteredAction>
      */
     public function all()
     {
@@ -38,8 +43,12 @@ class ActionRepository implements ActionRepositoryContract
     }
 
     /**
-     * @param $class
-     * @return RegisteredAction|mixed
+     * Retrieve a RegisteredAction class by class name
+     *
+     * @param string $class Class of the action
+     *
+     * @throws \Exception Throws an exception if the action has not been registered
+     * @return RegisteredAction
      */
     public function fromClass($class)
     {

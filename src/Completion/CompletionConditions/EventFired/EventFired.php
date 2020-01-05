@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Completion\CompletionConditions\EventFired;
 
-use BristolSU\Support\Action\Contracts\Events\EventRepository;
+use BristolSU\Support\Events\Contracts\EventRepository;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Completion\Contracts\CompletionCondition;

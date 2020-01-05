@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Module;
 
-use BristolSU\Support\Action\Contracts\Events\EventManager;
+use BristolSU\Support\Events\Contracts\EventManager;
 use BristolSU\Support\Module\Contracts\ModuleManager;
 use BristolSU\Support\ModuleInstance\Contracts\Scheduler\CommandStore;
 use BristolSU\Support\ModuleInstance\Contracts\Settings\ModuleSettingsStore;

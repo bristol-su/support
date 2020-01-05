@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Tests\Completion\CompletionConditions\EventFired;
 
-use BristolSU\Support\Action\Contracts\Events\EventRepository;
+use BristolSU\Support\Events\Contracts\EventRepository;
 use BristolSU\Support\Completion\CompletionConditions\EventFired\EventFired;
 use BristolSU\Support\Tests\TestCase;
 

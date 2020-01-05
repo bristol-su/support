@@ -5,13 +5,14 @@ namespace BristolSU\Support\Action;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class ActionInstanceField
- * @package BristolSU\Support\Action
+ * Action Instance Field Model
  */
 class ActionInstanceField extends Model
 {
 
     /**
+     * Fillable Properties
+     * 
      * @var array
      */
     protected $fillable = [
@@ -19,6 +20,8 @@ class ActionInstanceField extends Model
     ];
 
     /**
+     * The action instance relationship
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function actionInstance()

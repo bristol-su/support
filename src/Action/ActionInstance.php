@@ -6,13 +6,16 @@ use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class ActionInstance
- * @package BristolSU\Support\Action
+ * ActionInstance Model.
+ * 
+ * Represents an Action and Event link in the database
  */
 class ActionInstance extends Model
 {
 
     /**
+     * Fillable properties
+     * 
      * @var array
      */
     protected $fillable = [
@@ -20,6 +23,8 @@ class ActionInstance extends Model
     ];
 
     /**
+     * Additional properties to compute dynamically
+     * 
      * @var array
      */
     protected $appends = [
@@ -27,6 +32,7 @@ class ActionInstance extends Model
     ];
 
     /**
+     * Action Instance field relationships
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function actionInstanceFields() {
@@ -34,6 +40,8 @@ class ActionInstance extends Model
     }
 
     /**
+     * Get the field meta data for the event
+     * 
      * @return mixed
      */
     public function getEventFieldsAttribute()
@@ -42,6 +50,8 @@ class ActionInstance extends Model
     }
 
     /**
+     * Get the field meta data for the action
+     * 
      * @return mixed
      */
     public function getActionFieldsAttribute()
@@ -50,6 +60,8 @@ class ActionInstance extends Model
     }
 
     /**
+     * Module Instance relationship
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function moduleInstance()

@@ -10,20 +10,22 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
 
 /**
- * Class InjectActivityInstance
- * @package BristolSU\Support\Activity\Middleware
+ * Inject the activity instance into the container.
  */
 class InjectActivityInstance
 {
 
     /**
+     * Holds a reference to the container
+     * 
      * @var Container
      */
     private $app;
 
     /**
-     * InjectActivityInstance constructor.
-     * @param Container $app
+     * Initialise the middleware
+     * 
+     * @param Container $app The container to bind the activity to.
      */
     public function __construct(Container $app)
     {
@@ -31,6 +33,8 @@ class InjectActivityInstance
     }
 
     /**
+     * Bind the activity to the container
+     * 
      * @param Request $request
      * @param \Closure $next
      * @return mixed

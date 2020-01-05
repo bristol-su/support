@@ -11,12 +11,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
- * Class Activity
- * @package BristolSU\Support\Activity
+ * Activity Model
  */
 class Activity extends Model
 {
     /**
+     * Fillable attributes
+     * 
      * @var array
      */
     protected $fillable = [
@@ -32,6 +33,8 @@ class Activity extends Model
     ];
 
     /**
+     * Attributes to be casted
+     * 
      * @var array
      */
     protected $casts = [
@@ -40,7 +43,10 @@ class Activity extends Model
     ];
 
     /**
-     * Activity constructor.
+     * Initialise an Activity model. 
+     * 
+     * Set up creating event to set the slug automatically
+     * 
      * @param array $attributes
      */
     public function __construct(array $attributes = [])
@@ -54,6 +60,8 @@ class Activity extends Model
     }
 
     /**
+     * Module Instance relationship
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function moduleInstances()
@@ -62,6 +70,8 @@ class Activity extends Model
     }
 
     /**
+     * For logic relationship
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function forLogic()
@@ -70,6 +80,8 @@ class Activity extends Model
     }
 
     /**
+     * Admin logic relationship
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function adminLogic()
@@ -78,6 +90,10 @@ class Activity extends Model
     }
 
     /**
+     * Active scope
+     * 
+     * Only returns activities which are either not time sensitive, or within the correct time frame
+     * 
      * @param Builder $query
      * @return Builder
      */
@@ -90,10 +106,22 @@ class Activity extends Model
             ]);
     }
 
-    public function isCompletable() {
+    /**
+     * Is the activity completable?
+     * 
+     * Can the activity be completed? An open activity cannot, but a completable activity can be
+     * 
+     * @return bool
+     */
+    public function isCompletable(): bool {
         return $this->type === 'completable' || $this->type === 'multi-completable';
     }
 
+    /**
+     * Activity Instance relationship
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function activityInstances()
     {
         return $this->hasMany(ActivityInstance::class);

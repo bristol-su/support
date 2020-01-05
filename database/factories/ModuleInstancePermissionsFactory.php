@@ -4,17 +4,13 @@ use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use Faker\Generator as Faker;
 
 $factory->define(ModuleInstancePermission::class, function (Faker $faker) {
-    $logic = factory(\BristolSU\Support\Logic\Logic::class)->create();
     return [
-        'participant_permissions' => [
-            'foo' => $logic->id,
-            'bar' => $logic->id,
-            'baz' => $logic->id,
-        ],
-        'admin_permissions' => [
-            'foo' => $logic->id,
-            'bar' => $logic->id,
-            'baz' => $logic->id,
-        ]
+        'ability' => '',
+        'logic_id' => function() {
+            return factory(\BristolSU\Support\Logic\Logic::class)->create()->id;
+        },
+        'module_instance_id' => function() {
+            return factory(\BristolSU\Support\ModuleInstance\ModuleInstance::class)->create()->id;
+        }
     ];
 });

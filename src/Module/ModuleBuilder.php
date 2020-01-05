@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Module;
 
-use BristolSU\Support\Action\Contracts\Events\EventRepository;
+use BristolSU\Support\Events\Contracts\EventRepository;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
 use BristolSU\Support\Completion\Contracts\CompletionCondition;
 use BristolSU\Support\Completion\Contracts\CompletionConditionRepository;

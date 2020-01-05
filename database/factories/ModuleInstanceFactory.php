@@ -35,12 +35,6 @@ $factory->define(ModuleInstance::class, function (Faker $faker) {
         'mandatory' => function () {
             return factory(Logic::class)->create()->id;
         },
-        'module_instance_settings_id' => function() {
-            return factory(ModuleInstanceSetting::class)->create()->id;
-        },
-        'module_instance_permissions_id' => function() {
-            return factory(ModuleInstancePermission::class)->create()->id;
-        },
         'completion_condition_instance_id' => null
     ];
 });

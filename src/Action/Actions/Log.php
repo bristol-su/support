@@ -5,19 +5,23 @@ namespace BristolSU\Support\Action\Actions;
 use BristolSU\Support\Action\Contracts\Action;
 
 /**
- * Class Log
- * @package BristolSU\Support\Action\Actions
+ * Logging Action.
+ * 
+ * Logs a message to the PHP log.
  */
 class Log implements Action
 {
 
     /**
+     * Message to be written to the log
+     * 
      * @var mixed|string
      */
     private $text = 'This will be written to the log';
 
     /**
-     * Log constructor.
+     * Initialise the Log action with the text
+     * 
      * @param array $data
      */
     public function __construct(array $data = [])
@@ -25,12 +29,17 @@ class Log implements Action
         $this->text = $data['text'];
     }
 
+    /**
+     * Handle logging the message to the log
+     */
     public function handle()
     {
         \Illuminate\Support\Facades\Log::info($this->text);
     }
 
     /**
+     * Returns the log attributes needed.
+     * 
      * @return array
      */
     public function getFields(): array
@@ -41,6 +50,8 @@ class Log implements Action
     }
 
     /**
+     * Returns the log attribute meta data
+     * 
      * @return array
      */
     public static function getFieldMetaData(): array

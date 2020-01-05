@@ -10,6 +10,7 @@ use BristolSU\Support\Authorization\AuthorizationServiceProvider;
 use BristolSU\Support\Completion\CompletionConditionServiceProvider;
 use BristolSU\Support\Connection\ConnectionServiceProvider;
 use BristolSU\Support\DataPlatform\UnionCloudServiceProvider;
+use BristolSU\Support\Events\EventsServiceProvider;
 use BristolSU\Support\Filters\FilterServiceProvider;
 use BristolSU\Support\Http\HttpServiceProvider;
 use BristolSU\Support\Logic\LogicServiceProvider;
@@ -33,6 +34,7 @@ class SupportServiceProvider extends ServiceProvider
     protected $providers = [
         ActionServiceProvider::class,
         ActivityServiceProvider::class,
+        EventsServiceProvider::class,
         ActivityInstanceServiceProvider::class,
         AuthorizationServiceProvider::class,
         CompletionConditionServiceProvider::class,

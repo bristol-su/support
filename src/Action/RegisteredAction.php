@@ -14,73 +14,103 @@ class RegisteredAction implements Arrayable, Jsonable, RegisteredActionContract
 {
 
     /**
-     * @var
+     * Name of the action
+     * 
+     * @var string
      */
     private $name;
 
     /**
-     * @var
+     * Description for the action
+     * 
+     * @var string
      */
     private $description;
 
     /**
-     * @var
+     * Class name of the action
+     * 
+     * @var string
      */
     private $className;
 
     /**
-     * @param $name
+     * Set the name of the action.
+     * 
+     * @param string $name Name of the action
+     * @return void
      */
-    public function setName($name)
+    public function setName(string $name): void
     {
         $this->name = $name;
     }
 
     /**
-     * @return mixed
+     * Get the name of the action.
+     *
+     * @return string Name
      */
-    public function getName()
+    public function getName(): string
     {
         return $this->name;
     }
 
     /**
-     * @param $description
+     * Set the description of the action.
+     * 
+     * @param string $description Name of the description
+     * @return void
      */
-    public function setDescription($description)
+    public function setDescription(string $description): void
     {
         $this->description = $description;
     }
 
     /**
-     * @return mixed
+     * Get the description of the action.
+     *
+     * @return string Description
      */
-    public function getDescription()
+    public function getDescription(): string
     {
         return $this->description;
     }
 
     /**
-     * @param $className
+     * Set the class name of the action.
+     *
+     * @param string $className Class of the action
+     * @return void
      */
-    public function setClassName($className)
+    public function setClassName(string $className): void
     {
         $this->className = $className;
     }
 
     /**
-     * @return mixed
+     * Get the class name of the action
+     *
+     * @return string
      */
-    public function getClassName()
+    public function getClassName(): string
     {
         return $this->className;
     }
 
     /**
-     * @param $parameters
-     * @return RegisteredAction
+     * Create a RegisteredAction instance from a raw metadata array.
+     *
+     * Creates a RegisteredAction instance from an array of the form
+     * [
+     *      'name' => 'Action Name',
+     *      'description' => 'Action Description',
+     *      'class' => 'ClassName'
+     * ]
+     *
+     * @param array $parameters The raw metadata of the action
+     * @return \BristolSU\Support\Action\Contracts\RegisteredAction
      */
-    public static function fromArray($parameters)
+    public static function fromArray(array $parameters): RegisteredActionContract
     {
         $registeredAction = new self;
         $registeredAction->setName($parameters['name']);
@@ -90,6 +120,8 @@ class RegisteredAction implements Arrayable, Jsonable, RegisteredActionContract
     }
 
     /**
+     * Transform the action to an array
+     *
      * @return array
      */
     public function toArray()
@@ -102,8 +134,10 @@ class RegisteredAction implements Arrayable, Jsonable, RegisteredActionContract
     }
 
     /**
+     * Transform the action to json
+     *
      * @param int $options
-     * @return false|string
+     * @return string
      */
     public function toJson($options = 0)
     {
@@ -111,7 +145,9 @@ class RegisteredAction implements Arrayable, Jsonable, RegisteredActionContract
     }
 
     /**
-     * @return false|string
+     * Transform the action to json
+     *
+     * @return string
      */
     public function __toString()
     {
