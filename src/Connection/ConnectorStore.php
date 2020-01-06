@@ -5,13 +5,14 @@ namespace BristolSU\Support\Connection;
 use BristolSU\Support\Connection\Contracts\ConnectorStore as ConnectorStoreContract;
 
 /**
- * Class ConnectorStore
- * @package BristolSU\Support\Connector
+ * Stores connectors
  */
 class ConnectorStore implements ConnectorStoreContract
 {
 
     /**
+     * Connectors registered
+     * 
      * @var array
      */
     private $connectors = [];
@@ -19,7 +20,8 @@ class ConnectorStore implements ConnectorStoreContract
     /**
      * Register a connector class directly
      * 
-     * @param RegisteredConnector $connector
+     * @param RegisteredConnector $connector Connector to register
+     * @return void
      */
     public function registerConnector(RegisteredConnector $connector): void
     {
@@ -27,13 +29,15 @@ class ConnectorStore implements ConnectorStoreContract
     }
 
     /**
-     * Register a new connector
+     * Register a new connector from its attributes
+     *
+     * @param string $name Name of the connector
+     * @param string $description Description for the connector
+     * @param string $alias Unique alias of the connector
+     * @param string $service Alias of the service
+     * @param string $connector Connector class name
      * 
-     * @param string $name
-     * @param string $description
-     * @param string $alias
-     * @param string $service
-     * @param string $connector
+     * @return void
      */
     public function register(string $name, string $description, string $alias, string $service, string $connector): void
     {
@@ -47,9 +51,11 @@ class ConnectorStore implements ConnectorStoreContract
     }
 
     /**
-     * @param string $alias
+     * Get a registered connector by alias
+     *
+     * @param string $alias Alias of the registered connector
      * @return RegisteredConnector
-     * @throws \Exception
+     * @throws \Exception If not found
      */
     public function get(string $alias): RegisteredConnector
     {
@@ -60,7 +66,9 @@ class ConnectorStore implements ConnectorStoreContract
     }
 
     /**
-     * @return array
+     * Return all registered connectors
+     *
+     * @return RegisteredConnector[]
      */
     public function all(): array
     {

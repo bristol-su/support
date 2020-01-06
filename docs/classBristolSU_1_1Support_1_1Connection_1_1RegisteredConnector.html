@@ -141,8 +141,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a2becaed614cb9e3cad46fc608a826248"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00009">9</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<div class="textblock"><p>A class to hold a connector and its metadata, and gracefully cast to json or array </p>
+
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00012">12</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a5b02c0775c0322e979675069ab64d002"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5b02c0775c0322e979675069ab64d002">&#9670;&nbsp;</a></span>__toString()</h2>
@@ -158,10 +159,12 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Cast the registered connector to a string</p>
+<dl class="section return"><dt>Returns</dt><dd>string Representation of the registered connector as json (a string) </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00142">142</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00188">188</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00137">BristolSU\Support\Connection\RegisteredConnector\toJson()</a>.</p>
+<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00178">BristolSU\Support\Connection\RegisteredConnector\toJson()</a>.</p>
 
 </div>
 </div>
@@ -179,13 +182,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<p>Get the alias of the connector</p>
+<dl class="section return"><dt>Returns</dt><dd>string Alias of the connector </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00097">97</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00118">118</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00037">BristolSU\Support\Connection\RegisteredConnector\$alias</a>.</p>
+<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00041">BristolSU\Support\Connection\RegisteredConnector\$alias</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ConnectorStore_8php_source.html#l00024">BristolSU\Support\Connection\ConnectorStore\registerConnector()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00126">BristolSU\Support\Connection\RegisteredConnector\toArray()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ConnectorStore_8php_source.html#l00026">BristolSU\Support\Connection\ConnectorStore\registerConnector()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00160">BristolSU\Support\Connection\RegisteredConnector\toArray()</a>.</p>
 
 </div>
 </div>
@@ -203,13 +207,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<p>Get the connector class name</p>
+<dl class="section return"><dt>Returns</dt><dd>string Class name of the connector </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00113">113</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00139">139</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00044">BristolSU\Support\Connection\RegisteredConnector\$connector</a>.</p>
+<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00048">BristolSU\Support\Connection\RegisteredConnector\$connector</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00126">BristolSU\Support\Connection\RegisteredConnector\toArray()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00160">BristolSU\Support\Connection\RegisteredConnector\toArray()</a>.</p>
 
 </div>
 </div>
@@ -227,13 +232,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<p>Get the description of the connector</p>
+<dl class="section return"><dt>Returns</dt><dd>string Description of the connector </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00065">65</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00076">76</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00023">BristolSU\Support\Connection\RegisteredConnector\$description</a>.</p>
+<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00027">BristolSU\Support\Connection\RegisteredConnector\$description</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00126">BristolSU\Support\Connection\RegisteredConnector\toArray()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00160">BristolSU\Support\Connection\RegisteredConnector\toArray()</a>.</p>
 
 </div>
 </div>
@@ -251,13 +257,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<p>Get the name of the connector</p>
+<dl class="section return"><dt>Returns</dt><dd>string Name of the connector </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00049">49</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00055">55</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00016">BristolSU\Support\Connection\RegisteredConnector\$name</a>.</p>
+<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00020">BristolSU\Support\Connection\RegisteredConnector\$name</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00126">BristolSU\Support\Connection\RegisteredConnector\toArray()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00160">BristolSU\Support\Connection\RegisteredConnector\toArray()</a>.</p>
 
 </div>
 </div>
@@ -275,13 +282,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<p>Get the service the connector supplies</p>
+<dl class="section return"><dt>Returns</dt><dd>string Service the connector supplies </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00081">81</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00097">97</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00030">BristolSU\Support\Connection\RegisteredConnector\$service</a>.</p>
+<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00034">BristolSU\Support\Connection\RegisteredConnector\$service</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ConnectorRepository_8php_source.html#l00045">BristolSU\Support\Connection\ConnectorRepository\forService()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00126">BristolSU\Support\Connection\RegisteredConnector\toArray()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ConnectorRepository_8php_source.html#l00049">BristolSU\Support\Connection\ConnectorRepository\forService()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00160">BristolSU\Support\Connection\RegisteredConnector\toArray()</a>.</p>
 
 </div>
 </div>
@@ -300,16 +308,18 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the alias of the connector</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the connector </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00105">105</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00129">129</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00037">BristolSU\Support\Connection\RegisteredConnector\$alias</a>, and <a class="el" href="namespacefunction.html#a5bcf11c4a236a5ec022421ae8840ffb1">function\alias()</a>.</p>
+<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00041">BristolSU\Support\Connection\RegisteredConnector\$alias</a>, and <a class="el" href="namespacefunction.html#a5bcf11c4a236a5ec022421ae8840ffb1">function\alias()</a>.</p>
 
 </div>
 </div>
@@ -328,16 +338,18 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the class name</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$connector</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$connector</td><td>Class name of the connector </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00121">121</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00150">150</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00044">BristolSU\Support\Connection\RegisteredConnector\$connector</a>.</p>
+<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00048">BristolSU\Support\Connection\RegisteredConnector\$connector</a>.</p>
 
 </div>
 </div>
@@ -356,16 +368,18 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the description of the connector</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$description</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$description</td><td>Description of the connector </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00073">73</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00087">87</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00023">BristolSU\Support\Connection\RegisteredConnector\$description</a>.</p>
+<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00027">BristolSU\Support\Connection\RegisteredConnector\$description</a>.</p>
 
 </div>
 </div>
@@ -384,16 +398,18 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the name of the connector</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>Name of the connector </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00057">57</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00066">66</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00016">BristolSU\Support\Connection\RegisteredConnector\$name</a>.</p>
+<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00020">BristolSU\Support\Connection\RegisteredConnector\$name</a>.</p>
 
 </div>
 </div>
@@ -412,16 +428,18 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the service the connector supplies</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$service</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$service</td><td>Service the connector supplies </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00089">89</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00108">108</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00030">BristolSU\Support\Connection\RegisteredConnector\$service</a>.</p>
+<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00034">BristolSU\Support\Connection\RegisteredConnector\$service</a>.</p>
 
 </div>
 </div>
@@ -439,12 +457,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Cast the registered connector to an array</p>
+<dl class="section return"><dt>Returns</dt><dd>array Representation of the registered connector as an array </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00126">126</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00160">160</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00097">BristolSU\Support\Connection\RegisteredConnector\getAlias()</a>, <a class="el" href="RegisteredConnector_8php_source.html#l00113">BristolSU\Support\Connection\RegisteredConnector\getConnector()</a>, <a class="el" href="RegisteredConnector_8php_source.html#l00065">BristolSU\Support\Connection\RegisteredConnector\getDescription()</a>, <a class="el" href="RegisteredConnector_8php_source.html#l00049">BristolSU\Support\Connection\RegisteredConnector\getName()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00081">BristolSU\Support\Connection\RegisteredConnector\getService()</a>.</p>
+<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00118">BristolSU\Support\Connection\RegisteredConnector\getAlias()</a>, <a class="el" href="RegisteredConnector_8php_source.html#l00139">BristolSU\Support\Connection\RegisteredConnector\getConnector()</a>, <a class="el" href="RegisteredConnector_8php_source.html#l00076">BristolSU\Support\Connection\RegisteredConnector\getDescription()</a>, <a class="el" href="RegisteredConnector_8php_source.html#l00055">BristolSU\Support\Connection\RegisteredConnector\getName()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00097">BristolSU\Support\Connection\RegisteredConnector\getService()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00137">BristolSU\Support\Connection\RegisteredConnector\toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00178">BristolSU\Support\Connection\RegisteredConnector\toJson()</a>.</p>
 
 </div>
 </div>
@@ -463,12 +483,20 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Cast the registered connector to json</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$options</td><td>Options for json encoding</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string Representation of the registered connector as json </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00137">137</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00178">178</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00126">BristolSU\Support\Connection\RegisteredConnector\toArray()</a>.</p>
+<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00160">BristolSU\Support\Connection\RegisteredConnector\toArray()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00142">BristolSU\Support\Connection\RegisteredConnector\__toString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00188">BristolSU\Support\Connection\RegisteredConnector\__toString()</a>.</p>
 
 </div>
 </div>
@@ -493,9 +521,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00037">37</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00041">41</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00097">BristolSU\Support\Connection\RegisteredConnector\getAlias()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00105">BristolSU\Support\Connection\RegisteredConnector\setAlias()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00118">BristolSU\Support\Connection\RegisteredConnector\getAlias()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00129">BristolSU\Support\Connection\RegisteredConnector\setAlias()</a>.</p>
 
 </div>
 </div>
@@ -519,9 +547,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00044">44</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00048">48</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00113">BristolSU\Support\Connection\RegisteredConnector\getConnector()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00121">BristolSU\Support\Connection\RegisteredConnector\setConnector()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00139">BristolSU\Support\Connection\RegisteredConnector\getConnector()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00150">BristolSU\Support\Connection\RegisteredConnector\setConnector()</a>.</p>
 
 </div>
 </div>
@@ -545,9 +573,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00023">23</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00027">27</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00065">BristolSU\Support\Connection\RegisteredConnector\getDescription()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00073">BristolSU\Support\Connection\RegisteredConnector\setDescription()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00076">BristolSU\Support\Connection\RegisteredConnector\getDescription()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00087">BristolSU\Support\Connection\RegisteredConnector\setDescription()</a>.</p>
 
 </div>
 </div>
@@ -571,9 +599,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00016">16</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00020">20</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00049">BristolSU\Support\Connection\RegisteredConnector\getName()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00057">BristolSU\Support\Connection\RegisteredConnector\setName()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00055">BristolSU\Support\Connection\RegisteredConnector\getName()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00066">BristolSU\Support\Connection\RegisteredConnector\setName()</a>.</p>
 
 </div>
 </div>
@@ -597,9 +625,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00030">30</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="RegisteredConnector_8php_source.html#l00034">34</a> of file <a class="el" href="RegisteredConnector_8php_source.html">RegisteredConnector.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00081">BristolSU\Support\Connection\RegisteredConnector\getService()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00089">BristolSU\Support\Connection\RegisteredConnector\setService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="RegisteredConnector_8php_source.html#l00097">BristolSU\Support\Connection\RegisteredConnector\getService()</a>, and <a class="el" href="RegisteredConnector_8php_source.html#l00108">BristolSU\Support\Connection\RegisteredConnector\setService()</a>.</p>
 
 </div>
 </div>
@@ -612,7 +640,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Connection.html">Connection</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html">RegisteredConnector</a></li>
-    <li class="footer">Generated on Mon Jan 6 2020 13:16:09 for Bristol SU Support Package by
+    <li class="footer">Generated on Mon Jan 6 2020 14:41:54 for Bristol SU Support Package by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

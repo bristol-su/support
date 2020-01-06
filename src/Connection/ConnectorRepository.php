@@ -8,20 +8,20 @@ use BristolSU\Support\Connection\Contracts\ConnectorRepository as ConnectorRepos
 use BristolSU\Support\Connection\Contracts\ConnectorStore as ConnectorStoreContract;
 
 /**
- * Class ConnectorRepository
- * @package BristolSU\Support\Connectors
+ * Connector repository
  */
 class ConnectorRepository implements ConnectorRepositoryContract
 {
 
     /**
+     * Holds the connector store
+     * 
      * @var ConnectorStoreContract
      */
     private $connectorStore;
 
     /**
-     * ConnectorRepository constructor.
-     * @param ConnectorStoreContract $connectorStore
+     * @param ConnectorStoreContract $connectorStore Store to retrieve connectors from
      */
     public function __construct(ConnectorStoreContract $connectorStore)
     {
@@ -29,9 +29,11 @@ class ConnectorRepository implements ConnectorRepositoryContract
     }
 
     /**
-     * @param string $ability
-     * @return RegisteredConnector
-     * @throws \Exception
+     * Get a registered connector by alias
+     * 
+     * @param string $alias Alias of the connector
+     * @return RegisteredConnector The registered connector
+     * @throws \Exception If the connector is not found
      */
     public function get(string $alias): RegisteredConnector
     {
@@ -39,8 +41,10 @@ class ConnectorRepository implements ConnectorRepositoryContract
     }
 
     /**
-     * @param string $service
-     * @return array
+     * Get all connectors for a given service
+     * 
+     * @param string $service Service to get connectors for
+     * @return RegisteredConnector[]|array
      */
     public function forService(string $service): array
     {
@@ -52,7 +56,7 @@ class ConnectorRepository implements ConnectorRepositoryContract
     /**
      * Get all connectors registered 
      * 
-     * @return array
+     * @return RegisteredConnector[]|array
      */
     public function all(): array
     {

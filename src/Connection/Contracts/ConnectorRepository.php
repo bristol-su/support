@@ -6,26 +6,32 @@ namespace BristolSU\Support\Connection\Contracts;
 
 use BristolSU\Support\Connection\RegisteredConnector;
 
+/**
+ * Repository for handling connectors
+ */
 interface ConnectorRepository
 {
 
     /**
-     * @param string $ability
-     * @return RegisteredConnector
-     * @throws \Exception
+     * Get a connector by alias
+     * 
+     * @param string $alias Alias of the connector
+     * @return RegisteredConnector The connector
      */
     public function get(string $alias): RegisteredConnector;
 
     /**
-     * @param string $service
-     * @return array
+     * Get all connectors for the given service
+     * 
+     * @param string $service Service to find connectors for
+     * @return RegisteredConnector[]
      */
     public function forService(string $service): array;
 
     /**
      * Get all connectors registered
      *
-     * @return array
+     * @return RegisteredConnector[]
      */
     public function all(): array;
     

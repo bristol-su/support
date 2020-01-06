@@ -121,8 +121,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:adb8c9f362670113f75779845ee44dd6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="ConnectorRepository_8php_source.html#l00014">14</a> of file <a class="el" href="ConnectorRepository_8php_source.html">ConnectorRepository.php</a>.</p>
+<div class="textblock"><p>Connector repository </p>
+
+<p class="definition">Definition at line <a class="el" href="ConnectorRepository_8php_source.html#l00013">13</a> of file <a class="el" href="ConnectorRepository_8php_source.html">ConnectorRepository.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="af4f49796b6c70c9fce350c954c0ade93"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#af4f49796b6c70c9fce350c954c0ade93">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -139,16 +140,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1ConnectorRepository.html">ConnectorRepository</a> constructor. </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">ConnectorStoreContract</td><td class="paramname">$connectorStore</td><td></td></tr>
+    <tr><td class="paramtype">ConnectorStoreContract</td><td class="paramname">$connectorStore</td><td>Store to retrieve connectors from </td></tr>
   </table>
   </dd>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="ConnectorRepository_8php_source.html#l00026">26</a> of file <a class="el" href="ConnectorRepository_8php_source.html">ConnectorRepository.php</a>.</p>
 
-<p class="reference">References <a class="el" href="ConnectorRepository_8php_source.html#l00020">BristolSU\Support\Connection\ConnectorRepository\$connectorStore</a>.</p>
+<p class="reference">References <a class="el" href="ConnectorRepository_8php_source.html#l00021">BristolSU\Support\Connection\ConnectorRepository\$connectorStore</a>.</p>
 
 </div>
 </div>
@@ -168,11 +169,11 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get all connectors registered</p>
-<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html">RegisteredConnector</a>[]|array </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectorRepository.html#a13a6a9a10f01c2fcdbdab87fd7547539">BristolSU\Support\Connection\Contracts\ConnectorRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ConnectorRepository_8php_source.html#l00057">57</a> of file <a class="el" href="ConnectorRepository_8php_source.html">ConnectorRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConnectorRepository_8php_source.html#l00061">61</a> of file <a class="el" href="ConnectorRepository_8php_source.html">ConnectorRepository.php</a>.</p>
 
 </div>
 </div>
@@ -191,19 +192,20 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all connectors for a given service</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$service</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$service</td><td>Service to get connectors for </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html">RegisteredConnector</a>[]|array </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectorRepository.html#a74309489cca51be6b97e7fb091e5114d">BristolSU\Support\Connection\Contracts\ConnectorRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ConnectorRepository_8php_source.html#l00045">45</a> of file <a class="el" href="ConnectorRepository_8php_source.html">ConnectorRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConnectorRepository_8php_source.html#l00049">49</a> of file <a class="el" href="ConnectorRepository_8php_source.html">ConnectorRepository.php</a>.</p>
 
-<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00081">BristolSU\Support\Connection\RegisteredConnector\getService()</a>.</p>
+<p class="reference">References <a class="el" href="RegisteredConnector_8php_source.html#l00097">BristolSU\Support\Connection\RegisteredConnector\getService()</a>.</p>
 
 </div>
 </div>
@@ -222,13 +224,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get a registered connector by alias</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the connector </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html">RegisteredConnector</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html">RegisteredConnector</a> The registered connector </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"></td><td></td></tr>
@@ -238,7 +241,7 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectorRepository.html#abfdd3f378099612dbc893ec7d10b5e8d">BristolSU\Support\Connection\Contracts\ConnectorRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ConnectorRepository_8php_source.html#l00036">36</a> of file <a class="el" href="ConnectorRepository_8php_source.html">ConnectorRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConnectorRepository_8php_source.html#l00038">38</a> of file <a class="el" href="ConnectorRepository_8php_source.html">ConnectorRepository.php</a>.</p>
 
 </div>
 </div>
@@ -263,7 +266,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ConnectorRepository_8php_source.html#l00020">20</a> of file <a class="el" href="ConnectorRepository_8php_source.html">ConnectorRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConnectorRepository_8php_source.html#l00021">21</a> of file <a class="el" href="ConnectorRepository_8php_source.html">ConnectorRepository.php</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="ConnectorRepository_8php_source.html#l00026">BristolSU\Support\Connection\ConnectorRepository\__construct()</a>.</p>
 
@@ -278,7 +281,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Connection.html">Connection</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1ConnectorRepository.html">ConnectorRepository</a></li>
-    <li class="footer">Generated on Mon Jan 6 2020 13:16:09 for Bristol SU Support Package by
+    <li class="footer">Generated on Mon Jan 6 2020 14:41:54 for Bristol SU Support Package by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

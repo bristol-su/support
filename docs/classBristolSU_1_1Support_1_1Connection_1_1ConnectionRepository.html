@@ -121,8 +121,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:abcc4a564b138ca711a23e12ef52b6db7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00007">7</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
+<div class="textblock"><p>Handles connections </p>
+
+<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00011">11</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a7364a81ccbb0bd6896fc7a7856cd8cb7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7364a81ccbb0bd6896fc7a7856cd8cb7">&#9670;&nbsp;</a></span>all()</h2>
@@ -138,10 +139,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all connections</p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html">Connection</a>[]| </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectionRepository.html#a7f525cbedf7e41cf7b791be480cb6efc">BristolSU\Support\Connection\Contracts\ConnectionRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00010">10</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00019">19</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
 
 </div>
 </div>
@@ -160,10 +163,19 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Create a connection</p>
+<p>Attributes should contain [ 'name' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html">Connection</a> Name', 'description' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html">Connection</a> Description', 'alias' =&gt; 'connector_alias', 'settings' =&gt; [ 'api_key' =&gt; 'abc123', ... ] ] The settings are the settings specific to the connector being used.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td>Attributes to make the connection </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html">Connection</a> New connection </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectionRepository.html#a8035373494917bd44cce253841de3cc5">BristolSU\Support\Connection\Contracts\ConnectionRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00024">24</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00064">64</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
 
 </div>
 </div>
@@ -182,10 +194,24 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Delete a connection</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>ID of the connection </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool|void|null </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectionRepository.html#a746159b45ed77f9a0163e042189ed076">BristolSU\Support\Connection\Contracts\ConnectionRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00020">20</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00042">42</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
 
 </div>
 </div>
@@ -204,10 +230,18 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get a connection by ID</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>ID of the connection </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html">Connection</a> </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectionRepository.html#a96c6b1918004164b5829d0429c6d8670">BristolSU\Support\Connection\Contracts\ConnectionRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00015">15</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00030">30</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
 
 </div>
 </div>
@@ -226,12 +260,20 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all connections for a specific connector</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Connector to return connections for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html">Connection</a>[] </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectionRepository.html#a9c29b4cadb90f535fc8df7cebd17b25b">BristolSU\Support\Connection\Contracts\ConnectionRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00047">47</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00117">117</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ConnectionRepository_8php_source.html#l00039">BristolSU\Support\Connection\ConnectionRepository\getAllForService()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ConnectionRepository_8php_source.html#l00104">BristolSU\Support\Connection\ConnectionRepository\getAllForService()</a>.</p>
 
 </div>
 </div>
@@ -250,13 +292,20 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000028">Todo:</a></b></dt><dd>pass a <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html">RegisteredConnector</a> into the map closure </dd></dl>
+<p>Get all connections for a service. These may be from multiple connectors.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$service</td><td>Service to get the connections for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html">Connection</a>[]|Collection </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectionRepository.html#a301f30c793e2de0d29a4337724c13f80">BristolSU\Support\Connection\Contracts\ConnectionRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00039">39</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00104">104</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
 
-<p class="reference">References <a class="el" href="ConnectionRepository_8php_source.html#l00047">BristolSU\Support\Connection\ConnectionRepository\getAllForConnector()</a>.</p>
+<p class="reference">References <a class="el" href="ConnectionRepository_8php_source.html#l00117">BristolSU\Support\Connection\ConnectionRepository\getAllForConnector()</a>.</p>
 
 </div>
 </div>
@@ -285,10 +334,26 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Update a connection</p>
+<p>Attributes can contain [ 'name' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html">Connection</a> Name', 'description' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html">Connection</a> Description', 'alias' =&gt; 'connector_alias', 'settings' =&gt; [ 'api_key' =&gt; 'abc123', ... ] ]</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>ID of the connection to update </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td>Attributes to change </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html">Connection</a> Edited connection </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectionRepository.html#af06d1a6bab5fe014ada53edd38e5e1df">BristolSU\Support\Connection\Contracts\ConnectionRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00029">29</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ConnectionRepository_8php_source.html#l00088">88</a> of file <a class="el" href="ConnectionRepository_8php_source.html">ConnectionRepository.php</a>.</p>
 
 </div>
 </div>
@@ -301,7 +366,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Connection.html">Connection</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1ConnectionRepository.html">ConnectionRepository</a></li>
-    <li class="footer">Generated on Mon Jan 6 2020 13:16:09 for Bristol SU Support Package by
+    <li class="footer">Generated on Mon Jan 6 2020 14:41:54 for Bristol SU Support Package by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

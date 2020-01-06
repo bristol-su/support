@@ -115,8 +115,9 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a1bfc43333ac5edc61844667498574db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Connector_8php_source.html#l00009">9</a> of file <a class="el" href="Connector_8php_source.html">Connector.php</a>.</p>
+<div class="textblock"><p>Represents a third party connector </p>
+
+<p class="definition">Definition at line <a class="el" href="Connector_8php_source.html#l00012">12</a> of file <a class="el" href="Connector_8php_source.html">Connector.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ae754721008afe4e6a0888516036cf1df"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae754721008afe4e6a0888516036cf1df">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -133,10 +134,16 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Client.html">Client</a></td><td class="paramname">$client</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Client.html">Client</a> to make the request through </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="Connector_8php_source.html#l00022">22</a> of file <a class="el" href="Connector_8php_source.html">Connector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Connector_8php_source.html#l00032">32</a> of file <a class="el" href="Connector_8php_source.html">Connector.php</a>.</p>
 
-<p class="reference">References <a class="el" href="Connector_8php_source.html#l00015">BristolSU\Support\Connection\Contracts\Connector\$client</a>, <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Connector.html#a63cf2c72ab7566ae64c07f1452179a85">BristolSU\Support\Connection\Contracts\Connector\request()</a>, <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Connector.html#ab5b110a1fa32c66ede1a0b1081d85fa2">BristolSU\Support\Connection\Contracts\Connector\settingsSchema()</a>, and <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Connector.html#a051e92264e79154a17bb07e29df7c46f">BristolSU\Support\Connection\Contracts\Connector\test()</a>.</p>
+<p class="reference">References <a class="el" href="Connector_8php_source.html#l00020">BristolSU\Support\Connection\Contracts\Connector\$client</a>, <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Connector.html#a63cf2c72ab7566ae64c07f1452179a85">BristolSU\Support\Connection\Contracts\Connector\request()</a>, <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Connector.html#ab5b110a1fa32c66ede1a0b1081d85fa2">BristolSU\Support\Connection\Contracts\Connector\settingsSchema()</a>, and <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Connector.html#a051e92264e79154a17bb07e29df7c46f">BristolSU\Support\Connection\Contracts\Connector\test()</a>.</p>
 
 </div>
 </div>
@@ -169,20 +176,14 @@ Protected Attributes</h2></td></tr>
 <p>Get a setting value</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$key</td><td></td></tr>
-    <tr><td class="paramtype">null</td><td class="paramname">$default</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$key</td><td>Key of the setting </td></tr>
+    <tr><td class="paramtype">null</td><td class="paramname">$default</td><td>Default value if the setting is not found. Defaults to null</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname"></td><td></td></tr>
-  </table>
-  </dd>
-</dl>
 
-<p class="definition">Definition at line <a class="el" href="Connector_8php_source.html#l00071">71</a> of file <a class="el" href="Connector_8php_source.html">Connector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Connector_8php_source.html#l00081">81</a> of file <a class="el" href="Connector_8php_source.html">Connector.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a1a595c1d7941d4e689379340ba965c0f">function\settings()</a>.</p>
 
@@ -231,15 +232,15 @@ Protected Attributes</h2></td></tr>
 <p>You may add authentication, default fields or anything else here. Call $this-&gt;client-&gt;request and return the result when prepared.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype"></td><td class="paramname">$method</td><td></td></tr>
-    <tr><td class="paramtype"></td><td class="paramname">$uri</td><td></td></tr>
-    <tr><td class="paramtype">array</td><td class="paramname">$options</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$method</td><td>Method to use for the request </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$uri</td><td>URI to use for the request </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$options</td><td>Options to use for the request. See Guzzle options for more information </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ResponseInterface </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="Connector_8php_source.html#l00022">BristolSU\Support\Connection\Contracts\Connector\__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Connector_8php_source.html#l00032">BristolSU\Support\Connection\Contracts\Connector\__construct()</a>.</p>
 
 </div>
 </div>
@@ -261,16 +262,16 @@ Protected Attributes</h2></td></tr>
 <p>Set the settings on the connector</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">array</td><td class="paramname">$settings</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$settings</td><td>Settings for the connector </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="Connector_8php_source.html#l00059">59</a> of file <a class="el" href="Connector_8php_source.html">Connector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Connector_8php_source.html#l00069">69</a> of file <a class="el" href="Connector_8php_source.html">Connector.php</a>.</p>
 
-<p class="reference">References <a class="el" href="Connector_8php_source.html#l00020">BristolSU\Support\Connection\Contracts\Connector\$settings</a>, and <a class="el" href="namespacefunction.html#a1a595c1d7941d4e689379340ba965c0f">function\settings()</a>.</p>
+<p class="reference">References <a class="el" href="Connector_8php_source.html#l00027">BristolSU\Support\Connection\Contracts\Connector\$settings</a>, and <a class="el" href="namespacefunction.html#a1a595c1d7941d4e689379340ba965c0f">function\settings()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ConnectorFactory_8php_source.html#l00011">BristolSU\Support\Connection\ConnectorFactory\createFromConnection()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ConnectorFactory_8php_source.html#l00020">BristolSU\Support\Connection\ConnectorFactory\createFromConnection()</a>.</p>
 
 </div>
 </div>
@@ -297,9 +298,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <p>Get the settings schema to use</p>
-<dl class="section return"><dt>Returns</dt><dd>Form </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Form Setting schema representation </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="Connector_8php_source.html#l00022">BristolSU\Support\Connection\Contracts\Connector\__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Connector_8php_source.html#l00032">BristolSU\Support\Connection\Contracts\Connector\__construct()</a>.</p>
 
 </div>
 </div>
@@ -328,7 +329,7 @@ Protected Attributes</h2></td></tr>
 <p>Check the connection is still connected</p>
 <dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="Connector_8php_source.html#l00022">BristolSU\Support\Connection\Contracts\Connector\__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Connector_8php_source.html#l00032">BristolSU\Support\Connection\Contracts\Connector\__construct()</a>.</p>
 
 </div>
 </div>
@@ -353,9 +354,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Connector_8php_source.html#l00015">15</a> of file <a class="el" href="Connector_8php_source.html">Connector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Connector_8php_source.html#l00020">20</a> of file <a class="el" href="Connector_8php_source.html">Connector.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Connector_8php_source.html#l00022">BristolSU\Support\Connection\Contracts\Connector\__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Connector_8php_source.html#l00032">BristolSU\Support\Connection\Contracts\Connector\__construct()</a>.</p>
 
 </div>
 </div>
@@ -379,9 +380,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Connector_8php_source.html#l00020">20</a> of file <a class="el" href="Connector_8php_source.html">Connector.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Connector_8php_source.html#l00027">27</a> of file <a class="el" href="Connector_8php_source.html">Connector.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Connector_8php_source.html#l00059">BristolSU\Support\Connection\Contracts\Connector\setSettings()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Connector_8php_source.html#l00069">BristolSU\Support\Connection\Contracts\Connector\setSettings()</a>.</p>
 
 </div>
 </div>
@@ -394,7 +395,7 @@ Protected Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Connection.html">Connection</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Connection_1_1Contracts.html">Contracts</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Connector.html">Connector</a></li>
-    <li class="footer">Generated on Mon Jan 6 2020 13:16:09 for Bristol SU Support Package by
+    <li class="footer">Generated on Mon Jan 6 2020 14:41:54 for Bristol SU Support Package by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

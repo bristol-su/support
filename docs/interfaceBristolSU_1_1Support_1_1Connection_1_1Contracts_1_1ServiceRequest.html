@@ -111,8 +111,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a48f5a8305044734a0651a69e34ddff5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Contracts_2ServiceRequest_8php_source.html#l00005">5</a> of file <a class="el" href="Contracts_2ServiceRequest_8php_source.html">ServiceRequest.php</a>.</p>
+<div class="textblock"><p>An object for making requests to get a service </p>
+
+<p class="definition">Definition at line <a class="el" href="Contracts_2ServiceRequest_8php_source.html#l00008">8</a> of file <a class="el" href="Contracts_2ServiceRequest_8php_source.html">ServiceRequest.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a48f5a8305044734a0651a69e34ddff5e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a48f5a8305044734a0651a69e34ddff5e">&#9670;&nbsp;</a></span>getAllOptional()</h2>
@@ -128,6 +129,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all optional services from all modules</p>
+<dl class="section return"><dt>Returns</dt><dd>array ['module_alias' =&gt; ['typeform', 'facebook', ...], ...] </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1ServiceRequest.html#a0ae465219d78bdf16fe686d0643dcfab">BristolSU\Support\Connection\ServiceRequest</a>.</p>
 
@@ -147,6 +150,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all required services from all modules</p>
+<dl class="section return"><dt>Returns</dt><dd>array ['module_alias' =&gt; ['typeform', 'facebook', ...], ...] </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1ServiceRequest.html#ac0834c93de4b4503e723f8a34e283f64">BristolSU\Support\Connection\ServiceRequest</a>.</p>
 
@@ -167,6 +172,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all optional services for a module</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the module </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array Array of optional services e.g. ['typeform', 'facebook'] </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1ServiceRequest.html#ab32b1c81d5bc82e7469b0fe2261260c3">BristolSU\Support\Connection\ServiceRequest</a>.</p>
 
@@ -187,6 +200,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all required services for a module</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the module </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>array Array of services required e.g. ['typeform', 'facebook'] </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1ServiceRequest.html#af67c687a05f378f2a550f6071f12af2b">BristolSU\Support\Connection\ServiceRequest</a>.</p>
 
@@ -217,6 +238,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Request an optional service.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the module requesting the service </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$services</td><td>An array of services that are optional but useable </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1ServiceRequest.html#afbd71d128569de84a7dc6d2b0c7e1925">BristolSU\Support\Connection\ServiceRequest</a>.</p>
 
@@ -247,6 +277,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Request a required service.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the module requesting the service </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$services</td><td>An array of services that are required </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1ServiceRequest.html#a12a5c198c7fc35a517f39dfdac93c0d9">BristolSU\Support\Connection\ServiceRequest</a>.</p>
 
@@ -261,7 +300,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Connection.html">Connection</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Connection_1_1Contracts.html">Contracts</a></li><li class="navelem"><a class="el" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ServiceRequest.html">ServiceRequest</a></li>
-    <li class="footer">Generated on Mon Jan 6 2020 13:16:09 for Bristol SU Support Package by
+    <li class="footer">Generated on Mon Jan 6 2020 14:41:54 for Bristol SU Support Package by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

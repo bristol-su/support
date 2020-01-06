@@ -15,9 +15,20 @@ use Illuminate\Cache\Repository;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Connection Service Provider
+ */
 class ConnectionServiceProvider extends ServiceProvider
 {
 
+    /**
+     * Register
+     * 
+     * - Register the base client as a singleton
+     * - Set up request caching
+     * - Bind interfaces to concretions
+     * - Set up the connector store and service request as singletons
+     */
     public function register()
     {
         $this->app->singleton(Client::class, GuzzleClient::class);
@@ -34,6 +45,11 @@ class ConnectionServiceProvider extends ServiceProvider
         $this->app->singleton(ServiceRequestContract::class, ServiceRequest::class);
     }
 
+    /**
+     * Boot
+     * 
+     * - Set up route model binding
+     */
     public function boot()
     {
         Route::bind('connection_id', function($id) {

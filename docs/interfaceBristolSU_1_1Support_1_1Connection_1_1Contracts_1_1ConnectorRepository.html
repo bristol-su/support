@@ -105,8 +105,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a13a6a9a10f01c2fcdbdab87fd7547539"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Contracts_2ConnectorRepository_8php_source.html#l00009">9</a> of file <a class="el" href="Contracts_2ConnectorRepository_8php_source.html">ConnectorRepository.php</a>.</p>
+<div class="textblock"><p>Repository for handling connectors </p>
+
+<p class="definition">Definition at line <a class="el" href="Contracts_2ConnectorRepository_8php_source.html#l00012">12</a> of file <a class="el" href="Contracts_2ConnectorRepository_8php_source.html">ConnectorRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a13a6a9a10f01c2fcdbdab87fd7547539"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a13a6a9a10f01c2fcdbdab87fd7547539">&#9670;&nbsp;</a></span>all()</h2>
@@ -123,7 +124,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get all connectors registered</p>
-<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html">RegisteredConnector</a>[] </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1ConnectorRepository.html#a1035f33b57c136d3afa474593875651c">BristolSU\Support\Connection\ConnectorRepository</a>.</p>
 
@@ -144,13 +145,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all connectors for the given service</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$service</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$service</td><td>Service to find connectors for </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html">RegisteredConnector</a>[] </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1ConnectorRepository.html#a428b5b5657e2d94d52498041f1e84b49">BristolSU\Support\Connection\ConnectorRepository</a>.</p>
 
@@ -171,19 +173,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get a connector by alias</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the connector </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html">RegisteredConnector</a> </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname"></td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html">RegisteredConnector</a> The connector </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1ConnectorRepository.html#aecc2a31676ea152a316ddd5e8974e3b5">BristolSU\Support\Connection\ConnectorRepository</a>.</p>
 
@@ -198,7 +195,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Connection.html">Connection</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Connection_1_1Contracts.html">Contracts</a></li><li class="navelem"><a class="el" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectorRepository.html">ConnectorRepository</a></li>
-    <li class="footer">Generated on Mon Jan 6 2020 13:16:09 for Bristol SU Support Package by
+    <li class="footer">Generated on Mon Jan 6 2020 14:41:54 for Bristol SU Support Package by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
