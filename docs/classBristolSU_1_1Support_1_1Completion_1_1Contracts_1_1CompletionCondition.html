@@ -121,8 +121,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a115241ad5706c47167c5c72372df7b23"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="CompletionCondition_8php_source.html#l00009">9</a> of file <a class="el" href="CompletionCondition_8php_source.html">CompletionCondition.php</a>.</p>
+<div class="textblock"><p><a class="el" href="namespaceBristolSU_1_1Support_1_1Completion.html">Completion</a> Conditon class </p>
+
+<p class="definition">Definition at line <a class="el" href="CompletionCondition_8php_source.html#l00011">11</a> of file <a class="el" href="CompletionCondition_8php_source.html">CompletionCondition.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a272423c6ab54ecb23c100ca63bdefd4a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a272423c6ab54ecb23c100ca63bdefd4a">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -139,10 +140,17 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Initialise the condition</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$moduleAlias</td><td>The module alias of the condition. This is passed in so that a condition can be made exclusive to a module, or can be a global condition which changes its behaviour depending on the module. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="CompletionCondition_8php_source.html#l00016">16</a> of file <a class="el" href="CompletionCondition_8php_source.html">CompletionCondition.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CompletionCondition_8php_source.html#l00026">26</a> of file <a class="el" href="CompletionCondition_8php_source.html">CompletionCondition.php</a>.</p>
 
-<p class="reference">References <a class="el" href="CompletionCondition_8php_source.html#l00014">BristolSU\Support\Completion\Contracts\CompletionCondition\$moduleAlias</a>, and <a class="el" href="CompletionCondition_8php_source.html#l00021">BristolSU\Support\Completion\Contracts\CompletionCondition\moduleAlias()</a>.</p>
+<p class="reference">References <a class="el" href="CompletionCondition_8php_source.html#l00018">BristolSU\Support\Completion\Contracts\CompletionCondition\$moduleAlias</a>, and <a class="el" href="CompletionCondition_8php_source.html#l00036">BristolSU\Support\Completion\Contracts\CompletionCondition\moduleAlias()</a>.</p>
 
 </div>
 </div>
@@ -169,8 +177,11 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>The alias of the completion condition</p>
+<dl class="section return"><dt>Returns</dt><dd>string</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000026">Todo:</a></b></dt><dd>Do not register the alias in the class, only in the service provider </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="CompletionCondition_8php_source.html#l00034">BristolSU\Support\Completion\Contracts\CompletionCondition\percentage()</a>, and <a class="el" href="ModuleBuilder_8php_source.html#l00166">BristolSU\Support\Module\ModuleBuilder\setCompletionConditions()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CompletionCondition_8php_source.html#l00052">BristolSU\Support\Completion\Contracts\CompletionCondition\percentage()</a>, and <a class="el" href="ModuleBuilder_8php_source.html#l00166">BristolSU\Support\Module\ModuleBuilder\setCompletionConditions()</a>.</p>
 
 </div>
 </div>
@@ -196,8 +207,10 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>A description of the completion condition</p>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="CompletionCondition_8php_source.html#l00034">BristolSU\Support\Completion\Contracts\CompletionCondition\percentage()</a>, and <a class="el" href="ModuleBuilder_8php_source.html#l00166">BristolSU\Support\Module\ModuleBuilder\setCompletionConditions()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CompletionCondition_8php_source.html#l00052">BristolSU\Support\Completion\Contracts\CompletionCondition\percentage()</a>, and <a class="el" href="ModuleBuilder_8php_source.html#l00166">BristolSU\Support\Module\ModuleBuilder\setCompletionConditions()</a>.</p>
 
 </div>
 </div>
@@ -240,8 +253,18 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Is the condition fully complete?</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$settings</td><td>Settings of the completion condition </td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></td><td class="paramname">$activityInstance</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> instance to test </td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1ModuleInstance.html">ModuleInstance</a></td><td class="paramname">$moduleInstance</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> instance to test </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool If the condition is complete </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="CompletionCondition_8php_source.html#l00034">BristolSU\Support\Completion\Contracts\CompletionCondition\percentage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CompletionCondition_8php_source.html#l00052">BristolSU\Support\Completion\Contracts\CompletionCondition\percentage()</a>.</p>
 
 </div>
 </div>
@@ -259,12 +282,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the module alias</p>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CompletionCondition_8php_source.html#l00021">21</a> of file <a class="el" href="CompletionCondition_8php_source.html">CompletionCondition.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CompletionCondition_8php_source.html#l00036">36</a> of file <a class="el" href="CompletionCondition_8php_source.html">CompletionCondition.php</a>.</p>
 
-<p class="reference">References <a class="el" href="CompletionCondition_8php_source.html#l00014">BristolSU\Support\Completion\Contracts\CompletionCondition\$moduleAlias</a>.</p>
+<p class="reference">References <a class="el" href="CompletionCondition_8php_source.html#l00018">BristolSU\Support\Completion\Contracts\CompletionCondition\$moduleAlias</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CompletionCondition_8php_source.html#l00016">BristolSU\Support\Completion\Contracts\CompletionCondition\__construct()</a>, and <a class="el" href="EventFired_8php_source.html#l00038">BristolSU\Support\Completion\CompletionConditions\EventFired\EventFired\options()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CompletionCondition_8php_source.html#l00026">BristolSU\Support\Completion\Contracts\CompletionCondition\__construct()</a>, and <a class="el" href="EventFired_8php_source.html#l00038">BristolSU\Support\Completion\CompletionConditions\EventFired\EventFired\options()</a>.</p>
 
 </div>
 </div>
@@ -290,8 +315,10 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>A name for the completion condition</p>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="CompletionCondition_8php_source.html#l00034">BristolSU\Support\Completion\Contracts\CompletionCondition\percentage()</a>, and <a class="el" href="ModuleBuilder_8php_source.html#l00166">BristolSU\Support\Module\ModuleBuilder\setCompletionConditions()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CompletionCondition_8php_source.html#l00052">BristolSU\Support\Completion\Contracts\CompletionCondition\percentage()</a>, and <a class="el" href="ModuleBuilder_8php_source.html#l00166">BristolSU\Support\Module\ModuleBuilder\setCompletionConditions()</a>.</p>
 
 </div>
 </div>
@@ -317,8 +344,12 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Options required by the completion condition.</p>
+<p>This allows for you to get user input to modify the behaviour of this class. For example, you could give an option of a 'number of files' to be approved before the condition is complete. [ 'number_of_files' =&gt; 1 ] Any settings requested in here will be passed into the percentage or isComplete methods.</p>
+<dl class="section return"><dt>Returns</dt><dd>array</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000025">Todo:</a></b></dt><dd>Accept a Form schema object </dd></dl>
 
-<p class="reference">Referenced by <a class="el" href="CompletionCondition_8php_source.html#l00034">BristolSU\Support\Completion\Contracts\CompletionCondition\percentage()</a>, and <a class="el" href="ModuleBuilder_8php_source.html#l00166">BristolSU\Support\Module\ModuleBuilder\setCompletionConditions()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CompletionCondition_8php_source.html#l00052">BristolSU\Support\Completion\Contracts\CompletionCondition\percentage()</a>, and <a class="el" href="ModuleBuilder_8php_source.html#l00166">BristolSU\Support\Module\ModuleBuilder\setCompletionConditions()</a>.</p>
 
 </div>
 </div>
@@ -354,17 +385,18 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Return the percentage completion of the module</p>
+<p>By default, this function returns 0 if the condition is not complete, or 100 if the condition is complete. You may override this method to provide more granular percentage settings</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype"></td><td class="paramname">$settings</td><td></td></tr>
-    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></td><td class="paramname">$activityInstance</td><td></td></tr>
-    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1ModuleInstance.html">ModuleInstance</a></td><td class="paramname">$moduleInstance</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$settings</td><td>Settings of the completion condition </td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></td><td class="paramname">$activityInstance</td><td>The activity instance being tested </td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1ModuleInstance.html">ModuleInstance</a></td><td class="paramname">$moduleInstance</td><td>The module instance being tested </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>int Percentage complete. </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CompletionCondition_8php_source.html#l00034">34</a> of file <a class="el" href="CompletionCondition_8php_source.html">CompletionCondition.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CompletionCondition_8php_source.html#l00052">52</a> of file <a class="el" href="CompletionCondition_8php_source.html">CompletionCondition.php</a>.</p>
 
 <p class="reference">References <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionCondition.html#a8b2cad1d40819e9356e2083d9979b70e">BristolSU\Support\Completion\Contracts\CompletionCondition\alias()</a>, <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionCondition.html#adf8ebe90818dbe9ccb26f100501c8674">BristolSU\Support\Completion\Contracts\CompletionCondition\description()</a>, <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionCondition.html#adc89d54f78835c7f918866c279d3839c">BristolSU\Support\Completion\Contracts\CompletionCondition\isComplete()</a>, <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionCondition.html#a9ff00efbee77a35930154f400888c576">BristolSU\Support\Completion\Contracts\CompletionCondition\name()</a>, and <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionCondition.html#aeda23b1cbe37a3db59538defa5f5c2bf">BristolSU\Support\Completion\Contracts\CompletionCondition\options()</a>.</p>
 
@@ -391,9 +423,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CompletionCondition_8php_source.html#l00014">14</a> of file <a class="el" href="CompletionCondition_8php_source.html">CompletionCondition.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CompletionCondition_8php_source.html#l00018">18</a> of file <a class="el" href="CompletionCondition_8php_source.html">CompletionCondition.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CompletionCondition_8php_source.html#l00016">BristolSU\Support\Completion\Contracts\CompletionCondition\__construct()</a>, and <a class="el" href="CompletionCondition_8php_source.html#l00021">BristolSU\Support\Completion\Contracts\CompletionCondition\moduleAlias()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CompletionCondition_8php_source.html#l00026">BristolSU\Support\Completion\Contracts\CompletionCondition\__construct()</a>, and <a class="el" href="CompletionCondition_8php_source.html#l00036">BristolSU\Support\Completion\Contracts\CompletionCondition\moduleAlias()</a>.</p>
 
 </div>
 </div>
@@ -406,7 +438,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Completion.html">Completion</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Completion_1_1Contracts.html">Contracts</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionCondition.html">CompletionCondition</a></li>
-    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <li class="footer">Generated on Mon Jan 6 2020 13:16:09 for Bristol SU Support Package by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

@@ -9,19 +9,19 @@ use BristolSU\Support\Completion\Contracts\CompletionConditionFactory as Complet
 use Illuminate\Contracts\Container\Container;
 
 /**
- * Class CompletionConditionFactory
- * @package BristolSU\Support\Completion
+ * Resolve a completion condition from the container
  */
 class CompletionConditionFactory implements CompletionConditionFactoryContract
 {
     /**
+     * Holds a reference to the container
+     * 
      * @var Container
      */
     private $container;
 
     /**
-     * CompletionConditionFactory constructor.
-     * @param Container $container
+     * @param Container $container Container to resolve the condition from
      */
     public function __construct(Container $container)
     {
@@ -29,9 +29,13 @@ class CompletionConditionFactory implements CompletionConditionFactoryContract
     }
 
     /**
-     * @param $className
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * Resolve a condition from its class name
+     *
+     * @param string $className Name of the class to resolve
+     * @param string $moduleAlias Module alias requesting the condition
+     * @return CompletionCondition
+     * 
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException If the resolving failed
      */
     public function createCompletionConditionFromClassName($className, $moduleAlias): CompletionCondition
     {

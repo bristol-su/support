@@ -120,8 +120,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ad0220262aee5fa785034386b44ec86ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="CompletionConditionTester_8php_source.html#l00018">18</a> of file <a class="el" href="CompletionConditionTester_8php_source.html">CompletionConditionTester.php</a>.</p>
+<div class="textblock"><p>Test if a module instance is complete </p>
+
+<p class="definition">Definition at line <a class="el" href="CompletionConditionTester_8php_source.html#l00017">17</a> of file <a class="el" href="CompletionConditionTester_8php_source.html">CompletionConditionTester.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ad8d270b994b3f671833d72d22c0e3115"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad8d270b994b3f671833d72d22c0e3115">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -138,7 +139,7 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionTester.html">CompletionConditionTester</a> constructor. </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionRepository.html">CompletionConditionRepository</a></td><td class="paramname">$repository</td><td></td></tr>
   </table>
@@ -147,7 +148,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="CompletionConditionTester_8php_source.html#l00029">29</a> of file <a class="el" href="CompletionConditionTester_8php_source.html">CompletionConditionTester.php</a>.</p>
 
-<p class="reference">References <a class="el" href="CompletionConditionTester_8php_source.html#l00023">BristolSU\Support\Completion\CompletionConditionTester\$repository</a>.</p>
+<p class="reference">References <a class="el" href="CompletionConditionTester_8php_source.html#l00024">BristolSU\Support\Completion\CompletionConditionTester\$repository</a>.</p>
 
 </div>
 </div>
@@ -177,10 +178,19 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Check if the completion condition is complete for the given activity instance</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></td><td class="paramname">$activityInstance</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> instance to test </td></tr>
+    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionInstance.html">CompletionConditionInstance</a></td><td class="paramname">$completionConditionInstance</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Completion.html">Completion</a> condition instance to test</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool If the completion condition is complete </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CompletionConditionTester_8php_source.html#l00035">35</a> of file <a class="el" href="CompletionConditionTester_8php_source.html">CompletionConditionTester.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CompletionConditionTester_8php_source.html#l00042">42</a> of file <a class="el" href="CompletionConditionTester_8php_source.html">CompletionConditionTester.php</a>.</p>
 
-<p class="reference">References <a class="el" href="CompletionConditionInstance_8php_source.html#l00051">BristolSU\Support\Completion\CompletionConditionInstance\alias()</a>, <a class="el" href="CompletionConditionInstance_8php_source.html#l00056">BristolSU\Support\Completion\CompletionConditionInstance\moduleInstance()</a>, and <a class="el" href="CompletionConditionInstance_8php_source.html#l00043">BristolSU\Support\Completion\CompletionConditionInstance\settings()</a>.</p>
+<p class="reference">References <a class="el" href="CompletionConditionInstance_8php_source.html#l00060">BristolSU\Support\Completion\CompletionConditionInstance\alias()</a>, <a class="el" href="CompletionConditionInstance_8php_source.html#l00070">BristolSU\Support\Completion\CompletionConditionInstance\moduleInstance()</a>, and <a class="el" href="CompletionConditionInstance_8php_source.html#l00050">BristolSU\Support\Completion\CompletionConditionInstance\settings()</a>.</p>
 
 </div>
 </div>
@@ -205,7 +215,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CompletionConditionTester_8php_source.html#l00023">23</a> of file <a class="el" href="CompletionConditionTester_8php_source.html">CompletionConditionTester.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CompletionConditionTester_8php_source.html#l00024">24</a> of file <a class="el" href="CompletionConditionTester_8php_source.html">CompletionConditionTester.php</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="CompletionConditionTester_8php_source.html#l00029">BristolSU\Support\Completion\CompletionConditionTester\__construct()</a>.</p>
 
@@ -220,7 +230,7 @@ Private Attributes</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Completion.html">Completion</a></li><li class="navelem"><a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionTester.html">CompletionConditionTester</a></li>
-    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <li class="footer">Generated on Mon Jan 6 2020 13:16:09 for Bristol SU Support Package by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>

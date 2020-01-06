@@ -12,18 +12,18 @@ use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Support\Facades\Log;
 
 /**
- * Class CompletionConditionTester
- * @package BristolSU\Support\Completion
+ * Test if a module instance is complete
  */
 class CompletionConditionTester implements CompletionConditionTesterContract
 {
     /**
+     * Holds the completion condition repository
+     * 
      * @var CompletionConditionRepository
      */
     private $repository;
 
     /**
-     * CompletionConditionTester constructor.
      * @param CompletionConditionRepository $repository
      */
     public function __construct(CompletionConditionRepository $repository)
@@ -31,7 +31,14 @@ class CompletionConditionTester implements CompletionConditionTesterContract
         $this->repository = $repository;
     }
 
-
+    /**
+     * Check if the completion condition is complete for the given activity instance
+     * 
+     * @param ActivityInstance $activityInstance Activity instance to test
+     * @param CompletionConditionInstance $completionConditionInstance Completion condition instance to test
+     * 
+     * @return bool If the completion condition is complete
+     */
     public function evaluate(ActivityInstance $activityInstance, CompletionConditionInstance $completionConditionInstance): bool
     {
         $completionCondition = $this->repository->getByAlias($completionConditionInstance->moduleInstance->alias(), $completionConditionInstance->alias());
@@ -41,4 +48,6 @@ class CompletionConditionTester implements CompletionConditionTesterContract
             $completionConditionInstance->moduleInstance
         );
     }
+    
+    // TODO Test for percentage too
 }

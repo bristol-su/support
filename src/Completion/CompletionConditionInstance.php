@@ -9,13 +9,14 @@ use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class CompletionConditionInstance
- * @package BristolSU\Support\Completion
+ * Represents a completion condition instance
  */
 class CompletionConditionInstance extends Model implements CompletionConditionInstanceContract
 {
 
     /**
+     * Fillable properties
+     * 
      * @var array
      */
     protected $fillable = [
@@ -23,6 +24,8 @@ class CompletionConditionInstance extends Model implements CompletionConditionIn
     ];
 
     /**
+     * Castable properties
+     * 
      * @var array
      */
     protected $casts = [
@@ -30,7 +33,9 @@ class CompletionConditionInstance extends Model implements CompletionConditionIn
     ];
 
     /**
-     * @return mixed
+     * Get the name of the completion condition instance
+     * 
+     * @return string
      */
     public function name()
     {
@@ -38,7 +43,9 @@ class CompletionConditionInstance extends Model implements CompletionConditionIn
     }
 
     /**
-     * @return mixed
+     * Get the settings for the completion condition instance
+     * 
+     * @return array
      */
     public function settings()
     {
@@ -46,13 +53,20 @@ class CompletionConditionInstance extends Model implements CompletionConditionIn
     }
 
     /**
-     * @return mixed
+     * Get the alias of the completion condition instance
+     * 
+     * @return string
      */
     public function alias()
     {
         return $this->alias;
     }
 
+    /**
+     * Module instance relationship
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
     public function moduleInstance()
     {
         return $this->hasOne(ModuleInstance::class);

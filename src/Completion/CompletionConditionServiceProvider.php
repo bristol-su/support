@@ -10,13 +10,22 @@ use BristolSU\Support\Completion\Contracts\CompletionConditionRepository as Comp
 use BristolSU\Support\Completion\Contracts\CompletionConditionTester as CompletionConditionTesterContract;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Completion Service Provider
+ */
 class CompletionConditionServiceProvider extends ServiceProvider
 {
 
     protected $completionConditions = [
 //        'portalsystem_event_fired' => EventFired::class
     ];
-    
+
+    /**
+     * Register
+     * 
+     * - Bind contracts to implementations
+     * - Set up the manager as a singleton
+     */
     public function register()
     {
         $this->app->bind(CompletionConditionFactoryContract::class, CompletionConditionFactory::class);
@@ -27,6 +36,11 @@ class CompletionConditionServiceProvider extends ServiceProvider
         $this->app->bind(CompletionConditionTesterContract::class, CompletionConditionTester::class);
     }
 
+    /**
+     * Boot
+     * 
+     * - Register global conditions provided by the framework
+     */
     public function boot()
     {
         foreach($this->completionConditions as $alias => $class) {

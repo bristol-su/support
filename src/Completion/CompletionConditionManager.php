@@ -5,27 +5,58 @@ namespace BristolSU\Support\Completion;
 use BristolSU\Support\Completion\Contracts\CompletionConditionManager as CompletionConditionManagerContract;
 
 /**
- * Class CompletionConditionManager
- * @package BristolSU\Support\Completion
+ * Register and retrieve completion conditions
  */
 class CompletionConditionManager implements CompletionConditionManagerContract
 {
 
     /**
+     * Holds the completion conditions
+     * 
+     * [
+     *      'module_alias' => [
+     *          'condition_alias' => 'ConditionClass',
+     *          ...
+     *      ],
+     *      ...
+     * ]
      * @var array
      */
     protected $conditions = [];
 
+    /**
+     * Holds global completion conditions relevant for all modules
+     * 
+     * [
+     *      'condition_alias' => 'ConditionClass',
+     *      ...
+     * ]
+     * 
+     * @var array 
+     */
     protected $global = [];
 
+    /**
+     * Register a condition which all modules can use
+     * 
+     * @param string $alias Alias of the completion condition
+     * @param string $class Completion condition class name
+     * 
+     * @return void
+     */
     public function registerGlobalCondition($alias, $class)
     {
         $this->global[$alias] = $class;
     }
-    
+
     /**
-     * @param $alias
-     * @param $class
+     * Register a completion condition for a module
+     * 
+     * @param string $moduleAlias Module which owns the completion condition
+     * @param string $alias Alias of the completion condition
+     * @param string $class Class name for the completion condition
+     * 
+     * @return void
      */
     public function register($moduleAlias, $alias, $class)
     {
@@ -36,7 +67,11 @@ class CompletionConditionManager implements CompletionConditionManagerContract
     }
 
     /**
-     * @return array
+     * Get all completion conditions for a given module
+     *
+     * @param string $moduleAlias Alias of the module
+     * 
+     * @return array [ 'condition_alias' => 'ConditionClass', ...]
      */
     public function getForModule($moduleAlias)
     {
@@ -45,9 +80,14 @@ class CompletionConditionManager implements CompletionConditionManagerContract
     }
 
     /**
-     * @param $alias
-     * @return mixed
-     * @throws \Exception
+     * Get a class name given the completion condition alias
+     * 
+     * @param string $moduleAlias Module requesting the completion condition alias
+     * @param string $alias Alias of the completion condition
+     * 
+     * @return string Class name of the completion condition
+     * 
+     * @throws \Exception If the condition was not registered for the given module
      */
     public function getClassFromAlias($moduleAlias, $alias)
     {

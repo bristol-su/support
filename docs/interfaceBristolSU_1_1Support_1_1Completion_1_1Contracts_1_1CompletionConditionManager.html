@@ -97,6 +97,8 @@ Inheritance diagram for BristolSU\Support\Completion\Contracts\CompletionConditi
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr class="memitem:a0596d6b1d61643654037e07666f6a76a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionConditionManager.html#a0596d6b1d61643654037e07666f6a76a">registerGlobalCondition</a> ($alias, $class)</td></tr>
+<tr class="separator:a0596d6b1d61643654037e07666f6a76a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a360e34afdbf570ee3dadabbd8ae8a4d6"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionConditionManager.html#a360e34afdbf570ee3dadabbd8ae8a4d6">register</a> ($moduleAlias, $alias, $class)</td></tr>
 <tr class="separator:a360e34afdbf570ee3dadabbd8ae8a4d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae64d5dcb5cc8f8e4e9e6455d03b147a1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionConditionManager.html#ae64d5dcb5cc8f8e4e9e6455d03b147a1">getForModule</a> ($moduleAlias)</td></tr>
@@ -105,8 +107,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aadd2d7cd127aef6480d06b79838852de"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Contracts_2CompletionConditionManager_8php_source.html#l00009">9</a> of file <a class="el" href="Contracts_2CompletionConditionManager_8php_source.html">CompletionConditionManager.php</a>.</p>
+<div class="textblock"><p>Allow for registration of completion conditions </p>
+
+<p class="definition">Definition at line <a class="el" href="Contracts_2CompletionConditionManager_8php_source.html#l00010">10</a> of file <a class="el" href="Contracts_2CompletionConditionManager_8php_source.html">CompletionConditionManager.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aadd2d7cd127aef6480d06b79838852de"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aadd2d7cd127aef6480d06b79838852de">&#9670;&nbsp;</a></span>getClassFromAlias()</h2>
@@ -133,6 +136,21 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get a class name of a completion condition given an alias</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$moduleAlias</td><td>Alias of the module calling for a completion condition </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the completion condition </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>string Class name</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Exception</td><td>If the alias is not registered or accessible </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionManager.html#a5e9af021cbdbb79c34e2794dd98dd942">BristolSU\Support\Completion\CompletionConditionManager</a>.</p>
 
@@ -153,6 +171,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all completion conditions for a module</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$moduleAlias</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> alias to get completion conditions for </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>mixed Array of aliases and classes e.g. ['alias1' =&gt; 'classname', ...] </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionManager.html#a34579bccda28ab57a8074dcc20e91cb5">BristolSU\Support\Completion\CompletionConditionManager</a>.</p>
 
@@ -189,8 +215,57 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register a completion condition specific to a module</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$moduleAlias</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> to which the completion condition belongs </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the completion condition </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$class</td><td>Class name for the completion condition</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionManager.html#a50f3860351a508b4b68aa24ca555fb4f">BristolSU\Support\Completion\CompletionConditionManager</a>.</p>
+
+</div>
+</div>
+<a id="a0596d6b1d61643654037e07666f6a76a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0596d6b1d61643654037e07666f6a76a">&#9670;&nbsp;</a></span>registerGlobalCondition()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\Completion\Contracts\CompletionConditionManager::registerGlobalCondition </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$alias</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$class</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Register a completion condition usable by all modules</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the completion condition </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$class</td><td>Class name for the completion condition</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionManager.html#a4f585e30701c3410d308ed27bd16c3c4">BristolSU\Support\Completion\CompletionConditionManager</a>.</p>
 
 </div>
 </div>
@@ -203,7 +278,7 @@ Public Member Functions</h2></td></tr>
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
     <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Completion.html">Completion</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Completion_1_1Contracts.html">Contracts</a></li><li class="navelem"><a class="el" href="interfaceBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionConditionManager.html">CompletionConditionManager</a></li>
-    <li class="footer">Generated on Sun Jan 5 2020 19:41:11 for Bristol SU Support Package by
+    <li class="footer">Generated on Mon Jan 6 2020 13:16:09 for Bristol SU Support Package by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
   </ul>
