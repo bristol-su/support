@@ -9,13 +9,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-  $(document).ready(initResizable);
-</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -49,21 +42,6 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-$(document).ready(function(){initNavTree('interfaceBristolSU_1_1Support_1_1Events_1_1Contracts_1_1EventRepository.html','');});
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -78,6 +56,11 @@ $(document).ready(function(){initNavTree('interfaceBristolSU_1_1Support_1_1Event
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Events.html">Events</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Events_1_1Contracts.html">Contracts</a></li><li class="navelem"><a class="el" href="interfaceBristolSU_1_1Support_1_1Events_1_1Contracts_1_1EventRepository.html">EventRepository</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
@@ -93,7 +76,7 @@ Inheritance diagram for BristolSU\Support\Events\Contracts\EventRepository:</div
 <map name="BristolSU_0CSupport_0CEvents_0CContracts_0CEventRepository_inherit__map" id="BristolSU_0CSupport_0CEvents_0CContracts_0CEventRepository_inherit__map">
 <area shape="rect" id="node2" href="classBristolSU_1_1Support_1_1Events_1_1EventRepository.html" title="BristolSU\\Support\\Events\l\\EventRepository" alt="" coords="11,95,183,136"/>
 </map>
-<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -101,7 +84,7 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3296bf233468a5e4a44b27930e149c7c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Interface <a class="el" href="interfaceBristolSU_1_1Support_1_1Events_1_1Contracts_1_1EventRepository.html">EventRepository</a> </p>
+<div class="textblock"><p>Access to events registered by modules </p>
 
 <p class="definition">Definition at line <a class="el" href="Contracts_2EventRepository_8php_source.html#l00010">10</a> of file <a class="el" href="Contracts_2EventRepository_8php_source.html">EventRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -120,13 +103,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all events a module has registered</p>
+<p>Returns events in the form [ 'name' =&gt; 'Event Name', 'description' =&gt; 'Event Description', 'event' =&gt; 'EventClassName' ]</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> alias</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Events_1_1EventRepository.html#a0978f31c5ac2e43d7c15701f03e0f1c3">BristolSU\Support\Events\EventRepository</a>.</p>
 
@@ -136,15 +121,11 @@ Public Member Functions</h2></td></tr>
 <li>src/Events/Contracts/<a class="el" href="Contracts_2EventRepository_8php_source.html">EventRepository.php</a></li>
 </ul>
 </div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="namespaceBristolSU.html">BristolSU</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support.html">Support</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Events.html">Events</a></li><li class="navelem"><a class="el" href="namespaceBristolSU_1_1Support_1_1Events_1_1Contracts.html">Contracts</a></li><li class="navelem"><a class="el" href="interfaceBristolSU_1_1Support_1_1Events_1_1Contracts_1_1EventRepository.html">EventRepository</a></li>
-    <li class="footer">Generated on Mon Jan 6 2020 14:41:54 for Bristol SU Support Package by
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Jan 6 2020 17:15:29 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
 </body>
 </html>

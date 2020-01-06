@@ -8,17 +8,18 @@ use BristolSU\Support\Events\Contracts\EventManager as EventManagerContract;
 use BristolSU\Support\Events\Contracts\EventRepository as EventRepositoryContract;
 
 /**
- * Class EventRepository
+ * Event repository using the event manager to resolve events
  */
 class EventRepository implements EventRepositoryContract
 {
     /**
+     * Holds the event manager to retrieve events from
+     * 
      * @var EventManagerContract
      */
     private $manager;
 
     /**
-     * EventRepository constructor.
      * @param EventManagerContract $manager
      */
     public function __construct(EventManagerContract $manager)
@@ -27,8 +28,18 @@ class EventRepository implements EventRepositoryContract
     }
 
     /**
-     * @param string $alias
-     * @return mixed
+     * Get all events a module has registered with the manager
+     *
+     * Returns events in the form
+     * [
+     *      'name' => 'Event Name',
+     *      'description' => 'Event Description',
+     *      'event' => 'EventClassName'
+     * ]
+     *
+     * @param string $alias Module alias
+     *
+     * @return array
      */
     public function allForModule(string $alias)
     {

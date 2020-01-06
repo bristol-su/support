@@ -5,14 +5,24 @@ namespace BristolSU\Support\Events\Contracts;
 
 
 /**
- * Interface EventRepository
+ * Access to events registered by modules
  */
 interface EventRepository
 {
 
     /**
-     * @param string $alias
-     * @return mixed
+     * Get all events a module has registered
+     * 
+     * Returns events in the form
+     * [
+     *      'name' => 'Event Name',
+     *      'description' => 'Event Description',
+     *      'event' => 'EventClassName'
+     * ]
+     * 
+     * @param string $alias Module alias
+     * 
+     * @return array
      */
     public function allForModule(string $alias);
 

@@ -9,13 +9,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-  $(document).ready(initResizable);
-</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -49,21 +42,6 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-$(document).ready(function(){initNavTree('Filter_8php_source.html','');});
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -78,6 +56,11 @@ $(document).ready(function(){initNavTree('Filter_8php_source.html','');});
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_34df5910c3dede183eac518413f13c07.html">Filters</a></li><li class="navelem"><a class="el" href="dir_7df77c89a6113e9d6d1077bdcbaaf942.html">Contracts</a></li><li class="navelem"><a class="el" href="dir_3fed9c917595f4f8197996547c88210c.html">Filters</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">Filter.php</div>  </div>
@@ -95,15 +78,11 @@ $(document).ready(function(){initNavTree('Filter_8php_source.html','');});
 <div class="ttc" id="classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1Filter_html_a4ed790ed3f4d45376937a0cbb28ca681"><div class="ttname"><a href="classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1Filter.html#a4ed790ed3f4d45376937a0cbb28ca681">BristolSU\Support\Filters\Contracts\Filters\Filter\options</a></div><div class="ttdeci">options()</div></div>
 <div class="ttc" id="classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1Filter_html_ad129321b906dd750d92b6e19e69b1ec2"><div class="ttname"><a href="classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1Filter.html#ad129321b906dd750d92b6e19e69b1ec2">BristolSU\Support\Filters\Contracts\Filters\Filter\evaluate</a></div><div class="ttdeci">evaluate($settings)</div></div>
 </div><!-- fragment --></div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_34df5910c3dede183eac518413f13c07.html">Filters</a></li><li class="navelem"><a class="el" href="dir_7df77c89a6113e9d6d1077bdcbaaf942.html">Contracts</a></li><li class="navelem"><a class="el" href="dir_3fed9c917595f4f8197996547c88210c.html">Filters</a></li><li class="navelem"><a class="el" href="Filter_8php.html">Filter.php</a></li>
-    <li class="footer">Generated on Mon Jan 6 2020 14:41:53 for Bristol SU Support Package by
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Jan 6 2020 17:15:28 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
 </body>
 </html>

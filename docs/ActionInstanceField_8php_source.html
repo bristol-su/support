@@ -9,13 +9,6 @@
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
-<link href="navtree.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript" src="resize.js"></script>
-<script type="text/javascript" src="navtreedata.js"></script>
-<script type="text/javascript" src="navtree.js"></script>
-<script type="text/javascript">
-  $(document).ready(initResizable);
-</script>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
@@ -49,21 +42,6 @@ $(function() {
 });
 </script>
 <div id="main-nav"></div>
-</div><!-- top -->
-<div id="side-nav" class="ui-resizable side-nav-resizable">
-  <div id="nav-tree">
-    <div id="nav-tree-contents">
-      <div id="nav-sync" class="sync"></div>
-    </div>
-  </div>
-  <div id="splitbar" style="-moz-user-select:none;" 
-       class="ui-resizable-handle">
-  </div>
-</div>
-<script type="text/javascript">
-$(document).ready(function(){initNavTree('ActionInstanceField_8php_source.html','');});
-</script>
-<div id="doc-content">
 <!-- window showing the filter options -->
 <div id="MSearchSelectWindow"
      onmouseover="return searchBox.OnSearchSelectShow()"
@@ -78,6 +56,11 @@ $(document).ready(function(){initNavTree('ActionInstanceField_8php_source.html',
 </iframe>
 </div>
 
+<div id="nav-path" class="navpath">
+  <ul>
+<li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_0ab19f518a88a3600f58460549f26c96.html">Action</a></li>  </ul>
+</div>
+</div><!-- top -->
 <div class="header">
   <div class="headertitle">
 <div class="title">ActionInstanceField.php</div>  </div>
@@ -89,15 +72,11 @@ $(document).ready(function(){initNavTree('ActionInstanceField_8php_source.html',
 <div class="ttc" id="classBristolSU_1_1Support_1_1Action_1_1ActionInstanceField_html_aeb3f8fec884c2f3d0480b06e48b9304b"><div class="ttname"><a href="classBristolSU_1_1Support_1_1Action_1_1ActionInstanceField.html#aeb3f8fec884c2f3d0480b06e48b9304b">BristolSU\Support\Action\ActionInstanceField\actionInstance</a></div><div class="ttdeci">actionInstance()</div><div class="ttdef"><b>Definition:</b> <a href="ActionInstanceField_8php_source.html#l00027">ActionInstanceField.php:27</a></div></div>
 <div class="ttc" id="classBristolSU_1_1Support_1_1Action_1_1ActionInstanceField_html_a0a07849969c506b5248813c8e3245176"><div class="ttname"><a href="classBristolSU_1_1Support_1_1Action_1_1ActionInstanceField.html#a0a07849969c506b5248813c8e3245176">BristolSU\Support\Action\ActionInstanceField\$fillable</a></div><div class="ttdeci">$fillable</div><div class="ttdef"><b>Definition:</b> <a href="ActionInstanceField_8php_source.html#l00018">ActionInstanceField.php:18</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
-</div><!-- doc-content -->
 <!-- start footer part -->
-<div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
-  <ul>
-    <li class="navelem"><a class="el" href="dir_68267d1309a1af8e8297ef4c3efbcdba.html">src</a></li><li class="navelem"><a class="el" href="dir_0ab19f518a88a3600f58460549f26c96.html">Action</a></li><li class="navelem"><a class="el" href="ActionInstanceField_8php.html">ActionInstanceField.php</a></li>
-    <li class="footer">Generated on Mon Jan 6 2020 14:41:53 for Bristol SU Support Package by
-    <a href="http://www.doxygen.org/index.html">
-    <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>
-  </ul>
-</div>
+<hr class="footer"/><address class="footer"><small>
+Generated on Mon Jan 6 2020 17:15:27 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/>
+</a> 1.8.13
+</small></address>
 </body>
 </html>

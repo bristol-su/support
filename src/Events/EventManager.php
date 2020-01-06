@@ -11,15 +11,28 @@ class EventManager implements EventManagerContract
 {
 
     /**
+     * Stores registered events
+     * 
+     * Stores events in the form
+     * [
+     *      'name' => 'Event Name',
+     *      'description' => 'Event Description',
+     *      'event' => 'Event Class Name'
+     * ]
+     * 
      * @var array
      */
     protected $events = [];
 
     /**
-     * @param $alias
-     * @param $name
-     * @param $class
-     * @param $description
+     * Register an event
+     *
+     * @param string $alias Module alias registering the event
+     * @param string $name Event Name
+     * @param string $class Event Class
+     * @param string $description Event Description
+     * 
+     * @return void
      */
     public function registerEvent($alias, $name, $class, $description)
     {
@@ -34,7 +47,16 @@ class EventManager implements EventManagerContract
     }
 
     /**
-     * @return array
+     * Get all events
+     *
+     * Returns all events, each one in the form
+     * [
+     *      'name' => 'Event Name',
+     *      'description' => 'Event Description',
+     *      'event' => 'Event Class Name'
+     * ]
+     * 
+     * @return array All events
      */
     public function all()
     {
@@ -42,8 +64,17 @@ class EventManager implements EventManagerContract
     }
 
     /**
-     * @param $alias
-     * @return array|mixed
+     * Get all events for a given module
+     *
+     * Returns all events, each one in the form
+     * [
+     *      'name' => 'Event Name',
+     *      'description' => 'Event Description',
+     *      'event' => 'Event Class Name'
+     * ]
+     *
+     * @param string $alias Module alias
+     * @return array All events fired by the module
      */
     public function allForModule($alias)
     {
