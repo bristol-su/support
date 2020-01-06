@@ -9,21 +9,20 @@ use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use \BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 
 /**
- * Class UserEmailIs
- * @package BristolSU\Support\Filters\Filters
+ * Does the user have the given email?
  */
 class UserEmailIs extends UserFilter
 {
 
     /**
+     * Holds the data user repository
+     * 
      * @var DataUserRepository
      */
     private $dataUserRepository;
 
     /**
-     * UserEmailIs constructor.
-     * @param UserRepository $userRepository
-     * @param DataUserRepository $dataUserRepository
+     * @param DataUserRepository $dataUserRepository To resolve the user email
      */
     public function __construct(DataUserRepository $dataUserRepository)
     {
@@ -32,6 +31,8 @@ class UserEmailIs extends UserFilter
 
     /**
      * Get possible options as an array
+     * 
+     * Options are [ 'email' => 'emailaddress@example.com' ]
      *
      * @return array
      */
@@ -43,11 +44,11 @@ class UserEmailIs extends UserFilter
     }
 
     /**
-     * Test if the filter passes
+     * The user email is the same as the settings
      *
-     * @param string $settings Key of the chosen option
+     * @param string $settings ['email' => '' ]
      *
-     * @return bool
+     * @return bool Does the user have the given email?
      */
     public function evaluate($settings): bool
     {
@@ -55,11 +56,14 @@ class UserEmailIs extends UserFilter
             $user = $this->dataUserRepository->getById($this->user()->dataPlatformId());
         } catch (\Exception $e) {
             return false;
-        }        return $user->email === $settings['email'];
+        }        
+        return $user->email === $settings['email'];
     }
 
     /**
-     * @return mixed|string
+     * Return the filter name
+     * 
+     * @return string Filter name
      */
     public function name()
     {
@@ -67,7 +71,9 @@ class UserEmailIs extends UserFilter
     }
 
     /**
-     * @return mixed|string
+     * Return the filter description
+     * 
+     * @return string Filter description
      */
     public function description()
     {
@@ -75,7 +81,9 @@ class UserEmailIs extends UserFilter
     }
 
     /**
-     * @return mixed|string
+     * Return the filter alias
+     * 
+     * @return string Filter alias
      */
     public function alias()
     {

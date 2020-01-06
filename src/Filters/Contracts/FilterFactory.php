@@ -4,16 +4,20 @@
 namespace BristolSU\Support\Filters\Contracts;
 
 
+use BristolSU\Support\Filters\Contracts\Filters\Filter;
+
 /**
- * Interface FilterFactory
- * @package BristolSU\Support\Filters\Contracts
+ * Create a filter from a class
  */
 interface FilterFactory
 {
 
     /**
-     * @param $className
-     * @return mixed
+     * Create a filter
+     * 
+     * @param string $className Class name of the filter 
+     * 
+     * @return Filter
      */
     public function createFilterFromClassName($className);
 

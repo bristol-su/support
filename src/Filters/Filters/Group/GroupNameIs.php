@@ -5,8 +5,7 @@ namespace BristolSU\Support\Filters\Filters\Group;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 
 /**
- * Class GroupEmailIs
- * @package BristolSU\Support\Filters\Filters
+ * Test the group name matches
  */
 class GroupNameIs extends GroupFilter
 {
@@ -25,9 +24,9 @@ class GroupNameIs extends GroupFilter
     }
 
     /**
-     * Test if the filter passes
+     * Test if the group has the given name
      *
-     * @param string $settings Key of the chosen option
+     * @param string $settings [ 'Group Name' => 'name' ]
      *
      * @return bool
      */
@@ -37,7 +36,9 @@ class GroupNameIs extends GroupFilter
     }
 
     /**
-     * @return mixed|string
+     * Get the filter name
+     * 
+     * @return string Name
      */
     public function name()
     {
@@ -45,7 +46,9 @@ class GroupNameIs extends GroupFilter
     }
 
     /**
-     * @return mixed|string
+     * Filter description
+     * 
+     * @return string Description
      */
     public function description()
     {
@@ -53,7 +56,9 @@ class GroupNameIs extends GroupFilter
     }
 
     /**
-     * @return mixed|string
+     * Filter alias
+     * 
+     * @return string Alias
      */
     public function alias()
     {

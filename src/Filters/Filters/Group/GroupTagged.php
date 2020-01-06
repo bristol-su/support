@@ -10,21 +10,20 @@ use BristolSU\ControlDB\Contracts\Repositories\Tags\GroupTag as GroupTagReposito
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 
 /**
- * Class GroupTagged
- * @package BristolSU\Support\Filters\Filters
+ * Is the group tagged with a tag?
  */
 class GroupTagged extends GroupFilter
 {
 
     /**
+     * Group Tag Repository, for retrieving all tags as options
+     * 
      * @var GroupTagRepositoryContract
      */
     private $groupTagRepository;
 
     /**
-     * GroupTagged constructor.
-     * @param GroupTagRepositoryContract $groupTagRepository
-     * @param GroupRepository $groupRepository
+     * @param GroupTagRepositoryContract $groupTagRepository Group tag repository
      */
     public function __construct(GroupTagRepositoryContract $groupTagRepository)
     {
@@ -32,7 +31,10 @@ class GroupTagged extends GroupFilter
     }
 
     /**
-     * @param string $settings
+     * See if the group is tagged
+     * 
+     * @param string $settings [ 'tag' => 'full.reference' ]
+     * 
      * @return bool
      */
     public function evaluate($settings): bool
@@ -51,10 +53,13 @@ class GroupTagged extends GroupFilter
     }
 
     /**
+     * Get all tags as options
+     * 
      * @return array
      */
     public function options(): array
     {
+        // TODO Transform to a form schema
         $tags = $this->groupTagRepository->all();
         $options = ['tag' => []];
         foreach($tags as $tag) {
@@ -64,7 +69,9 @@ class GroupTagged extends GroupFilter
     }
 
     /**
-     * @return mixed|string
+     * Get the filter name
+     * 
+     * @return string Filter name
      */
     public function name()
     {
@@ -72,7 +79,9 @@ class GroupTagged extends GroupFilter
     }
 
     /**
-     * @return mixed|string
+     * Get a description of the filter
+     * 
+     * @return string Filter description
      */
     public function description()
     {
@@ -80,7 +89,9 @@ class GroupTagged extends GroupFilter
     }
 
     /**
-     * @return mixed|string
+     * Get an alias for the filter
+     * 
+     * @return string Filter alias
      */
     public function alias()
     {

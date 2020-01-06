@@ -4,23 +4,27 @@
 namespace BristolSU\Support\Filters\Contracts\Filters;
 
 use \BristolSU\ControlDB\Contracts\Models\User;
-use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 
 /**
- * Class UserFilter
- * @package BristolSU\Support\Filters\Contracts\Filters
+ * A filter for a user
  */
 abstract class UserFilter extends Filter
 {
 
     /**
-     * @var
+     * Holds the user if set
+     *
+     * @var User|null
      */
     private $user;
 
     /**
-     * @param $model
-     * @throws \Exception
+     * Set the user
+     *
+     * @param User $model User to set
+     * @return void
+     *
+     * @throws \Exception If model is not a user
      */
     public function setModel($model)
     {
@@ -33,7 +37,9 @@ abstract class UserFilter extends Filter
     }
 
     /**
-     * @return bool
+     * Does the filter have a user?
+     *
+     * @return bool If the filter has a user
      */
     public function hasModel(): bool
     {
@@ -41,7 +47,9 @@ abstract class UserFilter extends Filter
     }
 
     /**
-     * @return mixed
+     * Get the user
+     *
+     * @return User|null
      */
     public function model()
     {
@@ -49,11 +57,14 @@ abstract class UserFilter extends Filter
     }
 
     /**
-     * @return User
+     * Get the user
+     *
+     * @return User|null
      */
     public function user()
     {
         return $this->model();
     }
+
 
 }

@@ -94,8 +94,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a8bb48ba434605df204673338e3902ffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="FilterInstanceRepository_8php_source.html#l00013">13</a> of file <a class="el" href="FilterInstanceRepository_8php_source.html">FilterInstanceRepository.php</a>.</p>
+<div class="textblock"><p>Repository for retrieving and updating filter instances </p>
+
+<p class="definition">Definition at line <a class="el" href="FilterInstanceRepository_8php_source.html#l00011">11</a> of file <a class="el" href="FilterInstanceRepository_8php_source.html">FilterInstanceRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a8bb48ba434605df204673338e3902ffa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8bb48ba434605df204673338e3902ffa">&#9670;&nbsp;</a></span>all()</h2>
@@ -111,10 +112,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all filter instances</p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstance.html">FilterInstance</a>[] </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterInstanceRepository.html#a71ec3ff2b765a5ca21d5263dc354a41e">BristolSU\Support\Filters\Contracts\FilterInstanceRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="FilterInstanceRepository_8php_source.html#l00024">24</a> of file <a class="el" href="FilterInstanceRepository_8php_source.html">FilterInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterInstanceRepository_8php_source.html#l00039">39</a> of file <a class="el" href="FilterInstanceRepository_8php_source.html">FilterInstanceRepository.php</a>.</p>
 
 </div>
 </div>
@@ -133,17 +136,19 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Create a filter instance</p>
+<p>The attributes should be [ 'alias' =&gt; 'alias_of_the_filter', 'name' =&gt; 'Name of the filter', 'settings' =&gt; [], // Settings for the filter 'logic_id' =&gt; '', // ID of the logic row 'logic_type' =&gt; 'all_true', 'any_true', 'all_false', 'any_false' // How the filter should be tested in the logic group ]</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td>Attributes </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstance.html">FilterInstance</a> </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterInstanceRepository.html#aba9e6c176373fb48c9d35817fa64339c">BristolSU\Support\Filters\Contracts\FilterInstanceRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="FilterInstanceRepository_8php_source.html#l00019">19</a> of file <a class="el" href="FilterInstanceRepository_8php_source.html">FilterInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterInstanceRepository_8php_source.html#l00029">29</a> of file <a class="el" href="FilterInstanceRepository_8php_source.html">FilterInstanceRepository.php</a>.</p>
 
 </div>
 </div>
@@ -153,7 +158,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 6 2020 17:15:29 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 6 2020 20:40:27 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

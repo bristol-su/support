@@ -4,24 +4,27 @@
 namespace BristolSU\Support\Filters\Contracts\Filters;
 
 use BristolSU\ControlDB\Contracts\Models\Role;
-use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 
 /**
- * Class RoleFilter
- * @package BristolSU\Support\Filters\Contracts\Filters
+ * A filter for a role
  */
 abstract class RoleFilter extends Filter
 {
 
     /**
-     * @var
+     * Holds the role if set
+     *
+     * @var Role|null
      */
     private $role;
 
     /**
-     * @param $model
-     * @return mixed|void
-     * @throws \Exception
+     * Set the role
+     *
+     * @param Role $model Role to set
+     * @return void
+     *
+     * @throws \Exception If model is not a role
      */
     public function setModel($model)
     {
@@ -34,7 +37,9 @@ abstract class RoleFilter extends Filter
     }
 
     /**
-     * @return bool
+     * Does the filter have a role?
+     *
+     * @return bool If the filter has a role
      */
     public function hasModel(): bool
     {
@@ -42,13 +47,20 @@ abstract class RoleFilter extends Filter
     }
 
     /**
-     * @return mixed
+     * Get the role
+     *
+     * @return Role|null
      */
     public function model()
     {
         return $this->role;
     }
 
+    /**
+     * Get the role
+     *
+     * @return Role|null
+     */
     public function role()
     {
         return $this->model();

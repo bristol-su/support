@@ -4,27 +4,24 @@
 namespace BristolSU\Support\Filters\Filters\Role;
 
 
-use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\ControlDB\Contracts\Repositories\Role;
 use BristolSU\ControlDB\Contracts\Repositories\Position;
-use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
+use BristolSU\ControlDB\Contracts\Repositories\Position as PositionRepository;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 
 /**
- * Class RoleHasPosition
- * @package BristolSU\Support\Filters\Filters
+ * Does the role have the specified position?
  */
 class RoleHasPosition extends RoleFilter
 {
     /**
-     * @var RoleRepository
+     * Holds the position repository
+     * 
+     * @var PositionRepository
      */
     private $positionRepository;
 
     /**
-     * RoleHasPosition constructor.
-     * @param Position $positionRepository
-     * @param RoleRepository $roleRepository
+     * @param Position $positionRepository Position repository 
      */
     public function __construct(Position $positionRepository)
     {
@@ -32,7 +29,9 @@ class RoleHasPosition extends RoleFilter
     }
 
     /**
-     * @param string $settings
+     * Does the role have the given position ID?
+     * 
+     * @param string $settings Contain the position id as 'position'
      * @return bool
      */
     public function evaluate($settings): bool
@@ -44,6 +43,8 @@ class RoleHasPosition extends RoleFilter
     }
 
     /**
+     * Register the position option
+     * 
      * @return array
      */
     public function options(): array
@@ -57,7 +58,9 @@ class RoleHasPosition extends RoleFilter
     }
 
     /**
-     * @return mixed|string
+     * Return the filter name
+     * 
+     * @return string Filter name
      */
     public function name()
     {
@@ -65,7 +68,9 @@ class RoleHasPosition extends RoleFilter
     }
 
     /**
-     * @return mixed|string
+     * Return the filter description
+     * 
+     * @return string Filter description
      */
     public function description()
     {
@@ -73,7 +78,9 @@ class RoleHasPosition extends RoleFilter
     }
 
     /**
-     * @return mixed|string
+     * Returh the filter alias
+     * 
+     * @return string Filter alias
      */
     public function alias()
     {

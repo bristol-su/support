@@ -7,28 +7,32 @@ namespace BristolSU\Support\Filters;
 use BristolSU\Support\Filters\Contracts\FilterFactory as FilterFactoryContract;
 use BristolSU\Support\Filters\Contracts\FilterManager as FilterManagerContract;
 use BristolSU\Support\Filters\Contracts\FilterRepository as FilterRepositoryContract;
+use BristolSU\Support\Filters\Contracts\Filters\Filter;
 use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 /**
- * Class FilterRepository
- * @package BristolSU\Support\Filters
+ * Repository to retrieve filters
  */
 class FilterRepository implements FilterRepositoryContract
 {
 
     /**
+     * Holds the filter manager contract
+     * 
      * @var FilterManagerContract
      */
     private $manager;
+    
     /**
+     * Hold the filter factory to create a filter
+     * 
      * @var FilterFactoryContract
      */
     private $filterFactory;
 
     /**
-     * FilterRepository constructor.
-     * @param FilterManagerContract $manager
-     * @param FilterFactoryContract $filterFactory
+     * @param FilterManagerContract $manager Filter manager to resolve the filters from
+     * @param FilterFactoryContract $filterFactory Factory to create the filters
      */
     public function __construct(FilterManagerContract $manager, FilterFactoryContract $filterFactory)
     {
@@ -37,8 +41,11 @@ class FilterRepository implements FilterRepositoryContract
     }
 
     /**
-     * @param string $alias
-     * @return Contracts\Filters\Filter
+     * Get a filter by alias
+     * 
+     * @param string $alias Alias of the filter
+     * @return Filter Filter class with the given alias
+     * @throws \Exception If the filter is not registered
      */
     public function getByAlias($alias)
     {
@@ -47,6 +54,8 @@ class FilterRepository implements FilterRepositoryContract
     }
 
     /**
+     * Get all registered filters.
+     *
      * @return array
      */
     public function getAll()

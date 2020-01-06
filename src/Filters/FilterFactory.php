@@ -5,11 +5,11 @@ namespace BristolSU\Support\Filters;
 
 
 use BristolSU\Support\Filters\Contracts\FilterFactory as FilterFactoryContract;
+use BristolSU\Support\Filters\Contracts\Filters\Filter;
 use Illuminate\Contracts\Container\Container;
 
 /**
- * Class FilterFactory
- * @package BristolSU\Support\Filters
+ * Create a filter from a class
  */
 class FilterFactory implements FilterFactoryContract
 {
@@ -28,9 +28,12 @@ class FilterFactory implements FilterFactoryContract
     }
 
     /**
-     * @param $className
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * Resolve a filter from the container
+     *
+     * @param string $className Class name of the filter
+     *
+     * @return Filter
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException If the class is not found
      */
     public function createFilterFromClassName($className)
     {

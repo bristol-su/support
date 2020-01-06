@@ -88,8 +88,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a3f70d9624e40c7d47029319cff79ce74"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Contracts_2FilterManager_8php_source.html#l00009">9</a> of file <a class="el" href="Contracts_2FilterManager_8php_source.html">FilterManager.php</a>.</p>
+<div class="textblock"><p>Register and retrieve filters </p>
+
+<p class="definition">Definition at line <a class="el" href="Contracts_2FilterManager_8php_source.html#l00010">10</a> of file <a class="el" href="Contracts_2FilterManager_8php_source.html">FilterManager.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a6e8e3f19cb69a3ec43bd6a7bc5d928ee"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6e8e3f19cb69a3ec43bd6a7bc5d928ee">&#9670;&nbsp;</a></span>getAll()</h2>
@@ -105,6 +106,9 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all the registered filters</p>
+<p>Return filters represented as an array, e.g. ['filter_alias_1' =&gt; 'FilterClass1', ... ]</p>
+<dl class="section return"><dt>Returns</dt><dd>array filters </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterManager.html#a0c14d5feb3319a65732c7e07ca688169">BristolSU\Support\Filters\FilterManager</a>.</p>
 
@@ -125,13 +129,20 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the class name from a filter alias</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">$alias</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the filter </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>string</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Exception</td><td>If the alias is not registered </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterManager.html#a64e4555be70e5a899df2d08aed3f70e6">BristolSU\Support\Filters\FilterManager</a>.</p>
 
@@ -162,14 +173,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register a new filter</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">$alias</td><td></td></tr>
-    <tr><td class="paramname">$class</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the filter </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$class</td><td>Class of the filter </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterManager.html#a5ec6e73bdc6a03c793f19dc8fbe287bd">BristolSU\Support\Filters\FilterManager</a>.</p>
 
@@ -181,7 +193,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 6 2020 17:15:29 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 6 2020 20:40:27 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

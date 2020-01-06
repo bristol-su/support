@@ -6,21 +6,25 @@ namespace BristolSU\Support\Filters\Contracts\Filters;
 use BristolSU\ControlDB\Contracts\Models\Group;
 
 /**
- * Class GroupFilter
- * @package BristolSU\Support\Filters\Contracts\Filters
+ * A filter for a group
  */
 abstract class GroupFilter extends Filter
 {
 
     /**
-     * @var
+     * Holds the group if set
+     * 
+     * @var Group|null
      */
     private $group;
 
     /**
-     * @param $model
-     * @return mixed|void
-     * @throws \Exception
+     * Set the group
+     * 
+     * @param Group $model Group to set
+     * @return void
+     * 
+     * @throws \Exception If model is not a group
      */
     public function setModel($model)
     {
@@ -33,7 +37,9 @@ abstract class GroupFilter extends Filter
     }
 
     /**
-     * @return bool
+     * Does the filter have a group?
+     * 
+     * @return bool If the filter has a group
      */
     public function hasModel(): bool
     {
@@ -41,13 +47,20 @@ abstract class GroupFilter extends Filter
     }
 
     /**
-     * @return mixed
+     * Get the group
+     * 
+     * @return Group|null
      */
     public function model()
     {
         return $this->group;
     }
 
+    /**
+     * Get the group
+     * 
+     * @return Group|null
+     */
     public function group()
     {
         return $this->model();

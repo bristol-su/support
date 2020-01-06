@@ -104,7 +104,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a3531f5b7ae78fc51aef21782b5360868"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
+<div class="textblock"><p>Repository to retrieve filters </p>
+
 <p class="definition">Definition at line <a class="el" href="FilterRepository_8php_source.html#l00016">16</a> of file <a class="el" href="FilterRepository_8php_source.html">FilterRepository.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa451d6e33effb5066c9e962c4377f1ca"></a>
@@ -132,15 +133,15 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterRepository.html">FilterRepository</a> constructor. </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">FilterManagerContract</td><td class="paramname">$manager</td><td></td></tr>
-    <tr><td class="paramtype">FilterFactoryContract</td><td class="paramname">$filterFactory</td><td></td></tr>
+    <tr><td class="paramtype">FilterManagerContract</td><td class="paramname">$manager</td><td>Filter manager to resolve the filters from </td></tr>
+    <tr><td class="paramtype">FilterFactoryContract</td><td class="paramname">$filterFactory</td><td>Factory to create the filters </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="FilterRepository_8php_source.html#l00033">33</a> of file <a class="el" href="FilterRepository_8php_source.html">FilterRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterRepository_8php_source.html#l00037">37</a> of file <a class="el" href="FilterRepository_8php_source.html">FilterRepository.php</a>.</p>
 
 </div>
 </div>
@@ -159,11 +160,12 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all registered filters.</p>
 <dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterRepository.html#a582a0083c20507a20f46712369e37358">BristolSU\Support\Filters\Contracts\FilterRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="FilterRepository_8php_source.html#l00052">52</a> of file <a class="el" href="FilterRepository_8php_source.html">FilterRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterRepository_8php_source.html#l00061">61</a> of file <a class="el" href="FilterRepository_8php_source.html">FilterRepository.php</a>.</p>
 
 </div>
 </div>
@@ -182,17 +184,24 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get a filter by alias</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the filter </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="namespaceBristolSU_1_1Support_1_1Filters_1_1Contracts.html">Contracts</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Filter Filter class with the given alias </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterRepository.html#aefa9a56f816133b43172c43533d0a12f">BristolSU\Support\Filters\Contracts\FilterRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="FilterRepository_8php_source.html#l00043">43</a> of file <a class="el" href="FilterRepository_8php_source.html">FilterRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterRepository_8php_source.html#l00050">50</a> of file <a class="el" href="FilterRepository_8php_source.html">FilterRepository.php</a>.</p>
 
 </div>
 </div>
@@ -217,7 +226,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="FilterRepository_8php_source.html#l00026">26</a> of file <a class="el" href="FilterRepository_8php_source.html">FilterRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterRepository_8php_source.html#l00031">31</a> of file <a class="el" href="FilterRepository_8php_source.html">FilterRepository.php</a>.</p>
 
 </div>
 </div>
@@ -241,7 +250,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="FilterRepository_8php_source.html#l00022">22</a> of file <a class="el" href="FilterRepository_8php_source.html">FilterRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterRepository_8php_source.html#l00024">24</a> of file <a class="el" href="FilterRepository_8php_source.html">FilterRepository.php</a>.</p>
 
 </div>
 </div>
@@ -251,7 +260,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 6 2020 17:15:29 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 6 2020 20:40:27 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -14,13 +14,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Class FilterInstance
- * @package BristolSU\Support\Filters
+ * Represents a filter instance
  */
 class FilterInstance extends Model implements FilterInstanceContract
 {
 
     /**
+     * Fillable attributes
+     * 
      * @var array
      */
     protected $fillable = [
@@ -28,18 +29,27 @@ class FilterInstance extends Model implements FilterInstanceContract
     ];
 
     /**
+     * Cast settings to an array
+     * 
      * @var array
      */
     protected $casts = [
         'settings' => 'array'
     ];
 
+    /**
+     * Append the 'for' attribute to the Laravel model
+     * 
+     * @var array 
+     */
     protected $appends = [
         'for'
     ];
     
     /**
-     * @return mixed
+     * Return the filter instance name
+     * 
+     * @return string Filter instance name
      */
     public function name()
     {
@@ -47,13 +57,21 @@ class FilterInstance extends Model implements FilterInstanceContract
     }
 
     /**
-     * @return mixed
+     * Return the filter instance settings
+     * 
+     * @return array
      */
     public function settings()
     {
         return $this->settings;
     }
 
+    /**
+     * Return who the filter instance is for
+     * 
+     * @return string user, group or role
+     * @throws \Exception If the filter does not extend a user, group or role filter contract
+     */
     public function for()
     {
         $filter = app(FilterRepositoryContract::class)->getByAlias($this->alias());
@@ -70,6 +88,8 @@ class FilterInstance extends Model implements FilterInstanceContract
     }
     
     /**
+     * Logic relationship
+     * 
      * @return BelongsTo
      */
     public function logic()
@@ -77,13 +97,21 @@ class FilterInstance extends Model implements FilterInstanceContract
         return $this->belongsTo(Logic::class);
     }
 
+    /**
+     * Dynamically get the for attribute
+     * 
+     * @return string Get the for attribute
+     * @throws \Exception If the filter does not extend a user, group or role contract
+     */
     public function getForAttribute()
     {
         return $this->for();
     }
 
     /**
-     * @return mixed
+     * Get the filter alias
+     * 
+     * @return string Filter alias
      */
     public function alias()
     {

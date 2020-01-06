@@ -2,25 +2,39 @@
 
 namespace BristolSU\Support\Filters\Contracts;
 
+use Exception;
+
 /**
- * Interface FilterManager
- * @package BristolSU\Support\Filters\Contracts
+ * Register and retrieve filters
  */
 interface FilterManager
 {
 
     /**
-     * @param $alias
-     * @param $class
-     * @return mixed
+     * Register a new filter
+     * 
+     * @param string $alias Alias of the filter
+     * @param string $class Class of the filter
+     * @return void
      */
     public function register($alias, $class);
 
+    /**
+     * Get all the registered filters
+     * 
+     * Return filters represented as an array, e.g. ['filter_alias_1' => 'FilterClass1', ... ]
+     * 
+     * @return array filters
+     */
     public function getAll();
 
     /**
-     * @param $alias
-     * @return mixed
+     * Get the class name from a filter alias
+     * 
+     * @param string $alias Alias of the filter
+     * @return string
+     * 
+     * @throws Exception If the alias is not registered
      */
     public function getClassFromAlias($alias);
 }

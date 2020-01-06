@@ -86,8 +86,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a582a0083c20507a20f46712369e37358"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Contracts_2FilterRepository_8php_source.html#l00013">13</a> of file <a class="el" href="Contracts_2FilterRepository_8php_source.html">FilterRepository.php</a>.</p>
+<div class="textblock"><p>Repository to retrieve filters </p>
+
+<p class="definition">Definition at line <a class="el" href="Contracts_2FilterRepository_8php_source.html#l00010">10</a> of file <a class="el" href="Contracts_2FilterRepository_8php_source.html">FilterRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a582a0083c20507a20f46712369e37358"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a582a0083c20507a20f46712369e37358">&#9670;&nbsp;</a></span>getAll()</h2>
@@ -103,6 +104,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all filters registered</p>
+<dl class="section return"><dt>Returns</dt><dd>Filter[] </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterRepository.html#a59e0ae44b75bb82f9615086166908a01">BristolSU\Support\Filters\FilterRepository</a>.</p>
 
@@ -123,14 +126,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get a filter instance by alias</p>
+<p>Get a filter by alias.</p>
+<p>Returns a filter given an alias</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the filter </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Filter mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Filter Resolved filter </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterRepository.html#a4e80480f37d1478cb72e124bc4248558">BristolSU\Support\Filters\FilterRepository</a>.</p>
 
@@ -142,7 +146,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 6 2020 17:15:29 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 6 2020 20:40:27 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

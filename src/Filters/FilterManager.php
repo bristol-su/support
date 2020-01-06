@@ -5,20 +5,25 @@ namespace BristolSU\Support\Filters;
 use BristolSU\Support\Filters\Contracts\FilterManager as FilterManagerContract;
 
 /**
- * Class FilterManager
- * @package BristolSU\Support\Filters
+ * Register and retrieve filters
  */
 class FilterManager implements FilterManagerContract
 {
 
     /**
-     * @var array
+     * Holds the registered filters
+     * 
+     * Each filter alias in an index in the array, and the value is the filter class
+     * 
+     * @var array ['filter_alias' => 'FilterClass', ... ]
      */
     protected $filters = [];
 
     /**
-     * @param $alias
-     * @param $class
+     * Register a new filter
+     * 
+     * @param string $alias Alias of the filter
+     * @param string $class Class of the filter
      */
     public function register($alias, $class)
     {
@@ -26,7 +31,9 @@ class FilterManager implements FilterManagerContract
     }
 
     /**
-     * @return array
+     * Get all filters
+     * 
+     * @return array ['filter_alias' => 'FilterClass', ... ]
      */
     public function getAll()
     {
@@ -34,9 +41,11 @@ class FilterManager implements FilterManagerContract
     }
 
     /**
-     * @param $alias
-     * @return mixed
-     * @throws \Exception
+     * Get the class of a filter by its alias
+     * 
+     * @param string $alias Alias of the filter
+     * @return string
+     * @throws \Exception If the alias is not registered
      */
     public function getClassFromAlias($alias)
     {

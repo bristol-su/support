@@ -100,8 +100,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a525224a460d2ef62bcc3b1957dd2e1da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="FilterTester_8php_source.html#l00016">16</a> of file <a class="el" href="FilterTester_8php_source.html">FilterTester.php</a>.</p>
+<div class="textblock"><p>Test filters for the result </p>
+
+<p class="definition">Definition at line <a class="el" href="FilterTester_8php_source.html#l00018">18</a> of file <a class="el" href="FilterTester_8php_source.html">FilterTester.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a068c5b74fa697fec3bd3f51cff562bfc"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a068c5b74fa697fec3bd3f51cff562bfc">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -118,16 +119,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterTester.html">FilterTester</a> constructor. </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterRepository.html">FilterRepository</a></td><td class="paramname">$repository</td><td></td></tr>
+    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterRepository.html">FilterRepository</a></td><td class="paramname">$repository</td><td>Filter repository to resolve the filter out of </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="FilterTester_8php_source.html#l00027">27</a> of file <a class="el" href="FilterTester_8php_source.html">FilterTester.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterTester_8php_source.html#l00030">30</a> of file <a class="el" href="FilterTester_8php_source.html">FilterTester.php</a>.</p>
 
-<p class="reference">References <a class="el" href="FilterTester_8php_source.html#l00021">BristolSU\Support\Filters\FilterTester\$repository</a>.</p>
+<p class="reference">References <a class="el" href="FilterTester_8php_source.html#l00025">BristolSU\Support\Filters\FilterTester\$repository</a>.</p>
 
 </div>
 </div>
@@ -157,10 +158,26 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Tests a filter and returns the result.</p>
+<p>This function will test the filter instance with the given model.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstance.html">FilterInstance</a></td><td class="paramname">$filterInstance</td><td>Filter instance to test </td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a>&#160;|&#160;Group&#160;|&#160;Role</td><td class="paramname">$model</td><td>Model to test the filter instance up </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool If the filter passes</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Exception</td><td>If the model type does not match the filter type </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterTester.html#ac76e7bade956d990e68da5c40bb02496">BristolSU\Support\Filters\Contracts\FilterTester</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="FilterTester_8php_source.html#l00033">33</a> of file <a class="el" href="FilterTester_8php_source.html">FilterTester.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterTester_8php_source.html#l00046">46</a> of file <a class="el" href="FilterTester_8php_source.html">FilterTester.php</a>.</p>
 
 <p class="reference">References <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterInstance.html#a0bd9843da10389ce7c31957edec78d24">BristolSU\Support\Filters\Contracts\FilterInstance\alias()</a>, and <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterInstance.html#ae4de0c1df626a2d0208f9909d04e7411">BristolSU\Support\Filters\Contracts\FilterInstance\settings()</a>.</p>
 
@@ -187,9 +204,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="FilterTester_8php_source.html#l00021">21</a> of file <a class="el" href="FilterTester_8php_source.html">FilterTester.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterTester_8php_source.html#l00025">25</a> of file <a class="el" href="FilterTester_8php_source.html">FilterTester.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="FilterTester_8php_source.html#l00027">BristolSU\Support\Filters\FilterTester\__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="FilterTester_8php_source.html#l00030">BristolSU\Support\Filters\FilterTester\__construct()</a>.</p>
 
 </div>
 </div>
@@ -199,7 +216,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 6 2020 17:15:29 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 6 2020 20:40:27 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

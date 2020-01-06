@@ -4,7 +4,7 @@ var searchData=
   ['cachedclientdecorator_2ephp',['CachedClientDecorator.php',['../CachedClientDecorator_8php.html',1,'']]],
   ['cachedfiltertesterdecorator',['CachedFilterTesterDecorator',['../classBristolSU_1_1Support_1_1Filters_1_1CachedFilterTesterDecorator.html',1,'BristolSU::Support::Filters']]],
   ['cachedfiltertesterdecorator_2ephp',['CachedFilterTesterDecorator.php',['../CachedFilterTesterDecorator_8php.html',1,'']]],
-  ['cachefilter',['CacheFilter',['../classBristolSU_1_1Support_1_1Filters_1_1Jobs_1_1CacheFilter.html',1,'BristolSU\Support\Filters\Jobs\CacheFilter'],['../classBristolSU_1_1Support_1_1Filters_1_1Commands_1_1CacheFilters.html#afc125cc9436b01911c0fcf1a5f45073c',1,'BristolSU\Support\Filters\Commands\CacheFilters\cacheFilter()']]],
+  ['cachefilter',['CacheFilter',['../classBristolSU_1_1Support_1_1Filters_1_1Jobs_1_1CacheFilter.html',1,'BristolSU\Support\Filters\Jobs\CacheFilter'],['../classBristolSU_1_1Support_1_1Filters_1_1Commands_1_1CacheFilters.html#a522f5b0f81116bbc7bcac72c930b30b7',1,'BristolSU\Support\Filters\Commands\CacheFilters\cacheFilter()']]],
   ['cachefilter_2ephp',['CacheFilter.php',['../CacheFilter_8php.html',1,'']]],
   ['cachefilters',['CacheFilters',['../classBristolSU_1_1Support_1_1Filters_1_1Commands_1_1CacheFilters.html',1,'BristolSU::Support::Filters::Commands']]],
   ['cachefilters_2ephp',['CacheFilters.php',['../CacheFilters_8php.html',1,'']]],

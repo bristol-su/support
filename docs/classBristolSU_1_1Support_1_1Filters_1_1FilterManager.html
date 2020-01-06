@@ -102,8 +102,9 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a8e7e4b2c6847eba799cb52b85753cb9a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="FilterManager_8php_source.html#l00011">11</a> of file <a class="el" href="FilterManager_8php_source.html">FilterManager.php</a>.</p>
+<div class="textblock"><p>Register and retrieve filters </p>
+
+<p class="definition">Definition at line <a class="el" href="FilterManager_8php_source.html#l00010">10</a> of file <a class="el" href="FilterManager_8php_source.html">FilterManager.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0c14d5feb3319a65732c7e07ca688169"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0c14d5feb3319a65732c7e07ca688169">&#9670;&nbsp;</a></span>getAll()</h2>
@@ -119,13 +120,14 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+<p>Get all filters</p>
+<dl class="section return"><dt>Returns</dt><dd>array ['filter_alias' =&gt; 'FilterClass', ... ] </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterManager.html#a6e8e3f19cb69a3ec43bd6a7bc5d928ee">BristolSU\Support\Filters\Contracts\FilterManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="FilterManager_8php_source.html#l00031">31</a> of file <a class="el" href="FilterManager_8php_source.html">FilterManager.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterManager_8php_source.html#l00038">38</a> of file <a class="el" href="FilterManager_8php_source.html">FilterManager.php</a>.</p>
 
-<p class="reference">References <a class="el" href="FilterManager_8php_source.html#l00017">BristolSU\Support\Filters\FilterManager\$filters</a>.</p>
+<p class="reference">References <a class="el" href="FilterManager_8php_source.html#l00020">BristolSU\Support\Filters\FilterManager\$filters</a>.</p>
 
 </div>
 </div>
@@ -144,13 +146,14 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the class of a filter by its alias</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">$alias</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the filter </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"></td><td></td></tr>
@@ -160,7 +163,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterManager.html#a3f70d9624e40c7d47029319cff79ce74">BristolSU\Support\Filters\Contracts\FilterManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="FilterManager_8php_source.html#l00041">41</a> of file <a class="el" href="FilterManager_8php_source.html">FilterManager.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterManager_8php_source.html#l00050">50</a> of file <a class="el" href="FilterManager_8php_source.html">FilterManager.php</a>.</p>
 
 </div>
 </div>
@@ -189,17 +192,18 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register a new filter</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">$alias</td><td></td></tr>
-    <tr><td class="paramname">$class</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the filter </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$class</td><td>Class of the filter </td></tr>
   </table>
   </dd>
 </dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterManager.html#a6a4e52203ad5e4770d02cfb9538a995a">BristolSU\Support\Filters\Contracts\FilterManager</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="FilterManager_8php_source.html#l00023">23</a> of file <a class="el" href="FilterManager_8php_source.html">FilterManager.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterManager_8php_source.html#l00028">28</a> of file <a class="el" href="FilterManager_8php_source.html">FilterManager.php</a>.</p>
 
 </div>
 </div>
@@ -224,9 +228,9 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="FilterManager_8php_source.html#l00017">17</a> of file <a class="el" href="FilterManager_8php_source.html">FilterManager.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterManager_8php_source.html#l00020">20</a> of file <a class="el" href="FilterManager_8php_source.html">FilterManager.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="FilterManager_8php_source.html#l00031">BristolSU\Support\Filters\FilterManager\getAll()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="FilterManager_8php_source.html#l00038">BristolSU\Support\Filters\FilterManager\getAll()</a>.</p>
 
 </div>
 </div>
@@ -236,7 +240,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 6 2020 17:15:29 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 6 2020 20:40:27 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

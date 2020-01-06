@@ -18,15 +18,16 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class FilterServiceProvider
- * @package BristolSU\Support\Filters
+ * Filter service provider
  */
 class FilterServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
-     *
-     * @return void
+     * 
+     * - Bind implementations of contracts
+     * - Set up filter tester caching
+     * - Set up the filter manager as a singleton
      */
     public function register()
     {

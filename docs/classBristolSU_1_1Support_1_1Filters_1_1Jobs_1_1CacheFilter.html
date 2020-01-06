@@ -100,8 +100,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:af8b57b69d7a5e73888b9413f502848eb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="CacheFilter_8php_source.html#l00010">10</a> of file <a class="el" href="CacheFilter_8php_source.html">CacheFilter.php</a>.</p>
+<div class="textblock"><p>Job to cache a filter result </p>
+
+<p class="definition">Definition at line <a class="el" href="CacheFilter_8php_source.html#l00016">16</a> of file <a class="el" href="CacheFilter_8php_source.html">CacheFilter.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a2dc2724a1a5efbf1124cd9bbc05fbe14"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2dc2724a1a5efbf1124cd9bbc05fbe14">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -128,10 +129,17 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstance.html">FilterInstance</a></td><td class="paramname">$filterInstance</td><td>Filter instance to resolve the filter from </td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a>&#160;|&#160;Group&#160;|&#160;Role</td><td class="paramname">$model</td><td>Model to test the filter against </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="CacheFilter_8php_source.html#l00028">28</a> of file <a class="el" href="CacheFilter_8php_source.html">CacheFilter.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CacheFilter_8php_source.html#l00058">58</a> of file <a class="el" href="CacheFilter_8php_source.html">CacheFilter.php</a>.</p>
 
-<p class="reference">References <a class="el" href="CacheFilter_8php_source.html#l00014">BristolSU\Support\Filters\Jobs\CacheFilter\$filterInstance</a>, <a class="el" href="CacheFilter_8php_source.html#l00016">BristolSU\Support\Filters\Jobs\CacheFilter\$model</a>, <a class="el" href="CacheFilter_8php_source.html#l00018">BristolSU\Support\Filters\Jobs\CacheFilter\filterInstance()</a>, and <a class="el" href="CacheFilter_8php_source.html#l00023">BristolSU\Support\Filters\Jobs\CacheFilter\model()</a>.</p>
+<p class="reference">References <a class="el" href="CacheFilter_8php_source.html#l00025">BristolSU\Support\Filters\Jobs\CacheFilter\$filterInstance</a>, <a class="el" href="CacheFilter_8php_source.html#l00032">BristolSU\Support\Filters\Jobs\CacheFilter\$model</a>, <a class="el" href="CacheFilter_8php_source.html#l00039">BristolSU\Support\Filters\Jobs\CacheFilter\filterInstance()</a>, and <a class="el" href="CacheFilter_8php_source.html#l00049">BristolSU\Support\Filters\Jobs\CacheFilter\model()</a>.</p>
 
 </div>
 </div>
@@ -150,12 +158,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the filter instance</p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstance.html">FilterInstance</a> </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CacheFilter_8php_source.html#l00018">18</a> of file <a class="el" href="CacheFilter_8php_source.html">CacheFilter.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CacheFilter_8php_source.html#l00039">39</a> of file <a class="el" href="CacheFilter_8php_source.html">CacheFilter.php</a>.</p>
 
-<p class="reference">References <a class="el" href="CacheFilter_8php_source.html#l00014">BristolSU\Support\Filters\Jobs\CacheFilter\$filterInstance</a>.</p>
+<p class="reference">References <a class="el" href="CacheFilter_8php_source.html#l00025">BristolSU\Support\Filters\Jobs\CacheFilter\$filterInstance</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CacheFilter_8php_source.html#l00028">BristolSU\Support\Filters\Jobs\CacheFilter\__construct()</a>, and <a class="el" href="CacheFilter_8php_source.html#l00034">BristolSU\Support\Filters\Jobs\CacheFilter\handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CacheFilter_8php_source.html#l00058">BristolSU\Support\Filters\Jobs\CacheFilter\__construct()</a>, and <a class="el" href="CacheFilter_8php_source.html#l00072">BristolSU\Support\Filters\Jobs\CacheFilter\handle()</a>.</p>
 
 </div>
 </div>
@@ -174,10 +184,24 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Handle the job</p>
+<p>Test the filter. If the cached decorator is bound to the container, the result will be cached</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterTester.html">FilterTester</a></td><td class="paramname">$filterTester</td><td>Filter tester to test the result with. It should cache the result </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="CacheFilter_8php_source.html#l00034">34</a> of file <a class="el" href="CacheFilter_8php_source.html">CacheFilter.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CacheFilter_8php_source.html#l00072">72</a> of file <a class="el" href="CacheFilter_8php_source.html">CacheFilter.php</a>.</p>
 
-<p class="reference">References <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterTester.html#ac76e7bade956d990e68da5c40bb02496">BristolSU\Support\Filters\Contracts\FilterTester\evaluate()</a>, <a class="el" href="CacheFilter_8php_source.html#l00018">BristolSU\Support\Filters\Jobs\CacheFilter\filterInstance()</a>, and <a class="el" href="CacheFilter_8php_source.html#l00023">BristolSU\Support\Filters\Jobs\CacheFilter\model()</a>.</p>
+<p class="reference">References <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterTester.html#ac76e7bade956d990e68da5c40bb02496">BristolSU\Support\Filters\Contracts\FilterTester\evaluate()</a>, <a class="el" href="CacheFilter_8php_source.html#l00039">BristolSU\Support\Filters\Jobs\CacheFilter\filterInstance()</a>, and <a class="el" href="CacheFilter_8php_source.html#l00049">BristolSU\Support\Filters\Jobs\CacheFilter\model()</a>.</p>
 
 </div>
 </div>
@@ -195,12 +219,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the model</p>
+<dl class="section return"><dt>Returns</dt><dd>Group|Role|User </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="CacheFilter_8php_source.html#l00023">23</a> of file <a class="el" href="CacheFilter_8php_source.html">CacheFilter.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CacheFilter_8php_source.html#l00049">49</a> of file <a class="el" href="CacheFilter_8php_source.html">CacheFilter.php</a>.</p>
 
-<p class="reference">References <a class="el" href="CacheFilter_8php_source.html#l00016">BristolSU\Support\Filters\Jobs\CacheFilter\$model</a>.</p>
+<p class="reference">References <a class="el" href="CacheFilter_8php_source.html#l00032">BristolSU\Support\Filters\Jobs\CacheFilter\$model</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CacheFilter_8php_source.html#l00028">BristolSU\Support\Filters\Jobs\CacheFilter\__construct()</a>, and <a class="el" href="CacheFilter_8php_source.html#l00034">BristolSU\Support\Filters\Jobs\CacheFilter\handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CacheFilter_8php_source.html#l00058">BristolSU\Support\Filters\Jobs\CacheFilter\__construct()</a>, and <a class="el" href="CacheFilter_8php_source.html#l00072">BristolSU\Support\Filters\Jobs\CacheFilter\handle()</a>.</p>
 
 </div>
 </div>
@@ -225,9 +251,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CacheFilter_8php_source.html#l00014">14</a> of file <a class="el" href="CacheFilter_8php_source.html">CacheFilter.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CacheFilter_8php_source.html#l00025">25</a> of file <a class="el" href="CacheFilter_8php_source.html">CacheFilter.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CacheFilter_8php_source.html#l00028">BristolSU\Support\Filters\Jobs\CacheFilter\__construct()</a>, and <a class="el" href="CacheFilter_8php_source.html#l00018">BristolSU\Support\Filters\Jobs\CacheFilter\filterInstance()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CacheFilter_8php_source.html#l00058">BristolSU\Support\Filters\Jobs\CacheFilter\__construct()</a>, and <a class="el" href="CacheFilter_8php_source.html#l00039">BristolSU\Support\Filters\Jobs\CacheFilter\filterInstance()</a>.</p>
 
 </div>
 </div>
@@ -251,9 +277,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CacheFilter_8php_source.html#l00016">16</a> of file <a class="el" href="CacheFilter_8php_source.html">CacheFilter.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CacheFilter_8php_source.html#l00032">32</a> of file <a class="el" href="CacheFilter_8php_source.html">CacheFilter.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CacheFilter_8php_source.html#l00028">BristolSU\Support\Filters\Jobs\CacheFilter\__construct()</a>, and <a class="el" href="CacheFilter_8php_source.html#l00023">BristolSU\Support\Filters\Jobs\CacheFilter\model()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CacheFilter_8php_source.html#l00058">BristolSU\Support\Filters\Jobs\CacheFilter\__construct()</a>, and <a class="el" href="CacheFilter_8php_source.html#l00049">BristolSU\Support\Filters\Jobs\CacheFilter\model()</a>.</p>
 
 </div>
 </div>
@@ -263,7 +289,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 6 2020 17:15:29 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 6 2020 20:40:27 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

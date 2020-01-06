@@ -96,15 +96,16 @@ Protected Attributes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
-<tr class="memitem:afc125cc9436b01911c0fcf1a5f45073c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1Commands_1_1CacheFilters.html#afc125cc9436b01911c0fcf1a5f45073c">cacheFilter</a> ($filterInstance, Collection $models)</td></tr>
-<tr class="separator:afc125cc9436b01911c0fcf1a5f45073c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a522f5b0f81116bbc7bcac72c930b30b7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1Commands_1_1CacheFilters.html#a522f5b0f81116bbc7bcac72c930b30b7">cacheFilter</a> (<a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstance.html">FilterInstance</a> $filterInstance, Collection $models)</td></tr>
+<tr class="separator:a522f5b0f81116bbc7bcac72c930b30b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="CacheFilters_8php_source.html#l00015">15</a> of file <a class="el" href="CacheFilters_8php_source.html">CacheFilters.php</a>.</p>
+<div class="textblock"><p>Command to cache the result of all filters </p>
+
+<p class="definition">Definition at line <a class="el" href="CacheFilters_8php_source.html#l00017">17</a> of file <a class="el" href="CacheFilters_8php_source.html">CacheFilters.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
-<a id="afc125cc9436b01911c0fcf1a5f45073c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc125cc9436b01911c0fcf1a5f45073c">&#9670;&nbsp;</a></span>cacheFilter()</h2>
+<a id="a522f5b0f81116bbc7bcac72c930b30b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a522f5b0f81116bbc7bcac72c930b30b7">&#9670;&nbsp;</a></span>cacheFilter()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -115,7 +116,7 @@ Private Member Functions</h2></td></tr>
         <tr>
           <td class="memname">BristolSU\Support\Filters\Commands\CacheFilters::cacheFilter </td>
           <td>(</td>
-          <td class="paramtype">&#160;</td>
+          <td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstance.html">FilterInstance</a>&#160;</td>
           <td class="paramname"><em>$filterInstance</em>, </td>
         </tr>
         <tr>
@@ -136,10 +137,18 @@ Private Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Fire a job to cache the given filter with the given models</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstance.html">FilterInstance</a></td><td class="paramname">$filterInstance</td><td>Filter instance to cache </td></tr>
+    <tr><td class="paramtype">Collection</td><td class="paramname">$models</td><td>Models to cache the result of. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="CacheFilters_8php_source.html#l00060">60</a> of file <a class="el" href="CacheFilters_8php_source.html">CacheFilters.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CacheFilters_8php_source.html#l00078">78</a> of file <a class="el" href="CacheFilters_8php_source.html">CacheFilters.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="CacheFilters_8php_source.html#l00032">BristolSU\Support\Filters\Commands\CacheFilters\handle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="CacheFilters_8php_source.html#l00044">BristolSU\Support\Filters\Commands\CacheFilters\handle()</a>.</p>
 
 </div>
 </div>
@@ -180,10 +189,21 @@ Private Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Cache the result of all filter instances.</p>
+<p>This function will fire a job to cache the filter of all filter instances.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstanceRepository.html">FilterInstanceRepository</a></td><td class="paramname">$filterInstanceRepository</td><td>Filter instance repository to get the filter instances from </td></tr>
+    <tr><td class="paramtype">UserRepository</td><td class="paramname">$userRepository</td><td>Repository to get all users from </td></tr>
+    <tr><td class="paramtype">GroupRepository</td><td class="paramname">$groupRepository</td><td>Repository to get all groups from </td></tr>
+    <tr><td class="paramtype">RoleRepository</td><td class="paramname">$roleRepository</td><td>Repository to get all roles from </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="CacheFilters_8php_source.html#l00032">32</a> of file <a class="el" href="CacheFilters_8php_source.html">CacheFilters.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CacheFilters_8php_source.html#l00044">44</a> of file <a class="el" href="CacheFilters_8php_source.html">CacheFilters.php</a>.</p>
 
-<p class="reference">References <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterInstanceRepository.html#a71ec3ff2b765a5ca21d5263dc354a41e">BristolSU\Support\Filters\Contracts\FilterInstanceRepository\all()</a>, and <a class="el" href="CacheFilters_8php_source.html#l00060">BristolSU\Support\Filters\Commands\CacheFilters\cacheFilter()</a>.</p>
+<p class="reference">References <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterInstanceRepository.html#a71ec3ff2b765a5ca21d5263dc354a41e">BristolSU\Support\Filters\Contracts\FilterInstanceRepository\all()</a>, and <a class="el" href="CacheFilters_8php_source.html#l00078">BristolSU\Support\Filters\Commands\CacheFilters\cacheFilter()</a>.</p>
 
 </div>
 </div>
@@ -208,7 +228,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CacheFilters_8php_source.html#l00030">30</a> of file <a class="el" href="CacheFilters_8php_source.html">CacheFilters.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CacheFilters_8php_source.html#l00032">32</a> of file <a class="el" href="CacheFilters_8php_source.html">CacheFilters.php</a>.</p>
 
 </div>
 </div>
@@ -232,7 +252,7 @@ Private Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="CacheFilters_8php_source.html#l00023">23</a> of file <a class="el" href="CacheFilters_8php_source.html">CacheFilters.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="CacheFilters_8php_source.html#l00025">25</a> of file <a class="el" href="CacheFilters_8php_source.html">CacheFilters.php</a>.</p>
 
 </div>
 </div>
@@ -242,7 +262,7 @@ Private Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 6 2020 17:15:29 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Mon Jan 6 2020 20:40:27 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
