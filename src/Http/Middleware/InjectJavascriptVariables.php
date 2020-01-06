@@ -55,7 +55,7 @@ class InjectJavascriptVariables
         ]);
         
         JavaScriptFacade::put([
-            'data_user' => ($this->authentication->getUser() === null?null:app(User::class)->getById($this->authentication->getUser()->data_platform_id))
+            'data_user' => ($this->authentication->getUser() === null?null:app(User::class)->getById($this->authentication->getUser()->data_provider_id))
         ]);
         
         return $next($request);
