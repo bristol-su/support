@@ -108,8 +108,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:af1f977c70b872f175085f7a96d03eff1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00014">14</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
+<div class="textblock"><p>Store all permissions in an array </p>
+
+<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00011">11</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="acf08fc8f7e76ff83e66e07a7749e3012"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acf08fc8f7e76ff83e66e07a7749e3012">&#9670;&nbsp;</a></span>all()</h2>
@@ -125,13 +126,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+<p>Get all registered permissions</p>
+<dl class="section return"><dt>Returns</dt><dd>Permission[] </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1PermissionStore.html#a983cd8f825fbc972ba20d2d910d09c12">BristolSU\Support\Permissions\Contracts\PermissionStore</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00094">94</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00110">110</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
 
-<p class="reference">References <a class="el" href="PermissionStore_8php_source.html#l00020">BristolSU\Support\Permissions\PermissionStore\$permissions</a>.</p>
+<p class="reference">References <a class="el" href="PermissionStore_8php_source.html#l00019">BristolSU\Support\Permissions\PermissionStore\$permissions</a>.</p>
 
 </div>
 </div>
@@ -150,13 +152,14 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get a permission by ability</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td>Ability of the permission </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Permission </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Permission Permission with the given ability </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
     <tr><td class="paramname"></td><td></td></tr>
@@ -166,7 +169,7 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1PermissionStore.html#a430af5012654e3ed7e4f1d2ec240cb85">BristolSU\Support\Permissions\Contracts\PermissionStore</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00083">83</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00097">97</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
 
 </div>
 </div>
@@ -213,22 +216,24 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register a permission for a module</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$description</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td></td></tr>
-    <tr><td class="paramtype">bool</td><td class="paramname">$admin</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td>Ability of the permission </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>Name for the permission </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$description</td><td>Description for the permission </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the module registering the permission </td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$admin</td><td>If the permission is an admin permission $admin is true, or false for a participant permission </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1PermissionStore.html#ad3bb5ef27956b5cecf3953889a3ee60f">BristolSU\Support\Permissions\Contracts\PermissionStore</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00073">73</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00085">85</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
 
-<p class="reference">References <a class="el" href="PermissionStore_8php_source.html#l00053">BristolSU\Support\Permissions\PermissionStore\registerModulePermission()</a>.</p>
+<p class="reference">References <a class="el" href="PermissionStore_8php_source.html#l00062">BristolSU\Support\Permissions\PermissionStore\registerModulePermission()</a>.</p>
 
 </div>
 </div>
@@ -275,24 +280,26 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register a permission for a module</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$description</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td></td></tr>
-    <tr><td class="paramtype">bool</td><td class="paramname">$admin</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td>Ability of the permission </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>Name for the permission </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$description</td><td>Description for the permission </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the module registering the permission </td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$admin</td><td>If the permission is an admin permission $admin is true, or false for a participant permission </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1PermissionStore.html#adea1409bd631d5c8ee16c93186747310">BristolSU\Support\Permissions\Contracts\PermissionStore</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00053">53</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00062">62</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
 
-<p class="reference">References <a class="el" href="PermissionStore_8php_source.html#l00041">BristolSU\Support\Permissions\PermissionStore\registerPermission()</a>.</p>
+<p class="reference">References <a class="el" href="PermissionStore_8php_source.html#l00047">BristolSU\Support\Permissions\PermissionStore\registerPermission()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="PermissionStore_8php_source.html#l00073">BristolSU\Support\Permissions\PermissionStore\register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="PermissionStore_8php_source.html#l00085">BristolSU\Support\Permissions\PermissionStore\register()</a>.</p>
 
 </div>
 </div>
@@ -311,20 +318,22 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register a permission model</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">Permission</td><td class="paramname">$permission</td><td></td></tr>
+    <tr><td class="paramtype">Permission</td><td class="paramname">$permission</td><td>Permission model to register </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1PermissionStore.html#a06ca6f0ef0774f18ac188453354ae29e">BristolSU\Support\Permissions\Contracts\PermissionStore</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00041">41</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00047">47</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
 
 <p class="reference">References <a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html#a428e6cb0632ede6da0abe072ce6f3997">BristolSU\Support\Permissions\Contracts\Models\Permission\getAbility()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="PermissionStore_8php_source.html#l00053">BristolSU\Support\Permissions\PermissionStore\registerModulePermission()</a>, and <a class="el" href="PermissionStore_8php_source.html#l00027">BristolSU\Support\Permissions\PermissionStore\registerSitePermission()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="PermissionStore_8php_source.html#l00062">BristolSU\Support\Permissions\PermissionStore\registerModulePermission()</a>, and <a class="el" href="PermissionStore_8php_source.html#l00030">BristolSU\Support\Permissions\PermissionStore\registerSitePermission()</a>.</p>
 
 </div>
 </div>
@@ -359,20 +368,22 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register a new site permission</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$description</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td>Ability of the permission </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>Name for the permission </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$description</td><td>Description of the permission</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1PermissionStore.html#a8386860b6380b60ada70cd80d4f0d208">BristolSU\Support\Permissions\Contracts\PermissionStore</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00027">27</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00030">30</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
 
-<p class="reference">References <a class="el" href="PermissionStore_8php_source.html#l00041">BristolSU\Support\Permissions\PermissionStore\registerPermission()</a>.</p>
+<p class="reference">References <a class="el" href="PermissionStore_8php_source.html#l00047">BristolSU\Support\Permissions\PermissionStore\registerPermission()</a>.</p>
 
 </div>
 </div>
@@ -397,9 +408,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00020">20</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionStore_8php_source.html#l00019">19</a> of file <a class="el" href="PermissionStore_8php_source.html">PermissionStore.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="PermissionStore_8php_source.html#l00094">BristolSU\Support\Permissions\PermissionStore\all()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="PermissionStore_8php_source.html#l00110">BristolSU\Support\Permissions\PermissionStore\all()</a>.</p>
 
 </div>
 </div>
@@ -409,7 +420,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2020 16:17:25 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 7 2020 18:21:30 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

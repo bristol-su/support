@@ -115,8 +115,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a9fb00349bd1590c585f1eeec42d4f596"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="PermissionTester_8php_source.html#l00022">22</a> of file <a class="el" href="PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
+<div class="textblock"><p>Test if credentials have permissions </p>
+
+<p class="definition">Definition at line <a class="el" href="PermissionTester_8php_source.html#l00020">20</a> of file <a class="el" href="PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a4311efc3f1dcd1f527e8ea7a2f7687a7"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4311efc3f1dcd1f527e8ea7a2f7687a7">&#9670;&nbsp;</a></span>evaluate()</h2>
@@ -133,27 +134,26 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Evaluate a permission</p>
+<p>Evaluate a permission using the currently authenticated credentials.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td>Ability to test </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>bool If the permission is owned by the logged in credentials </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"></td><td></td></tr>
+    <tr><td class="paramname">Exception</td><td>If no testers are registered </td></tr>
   </table>
   </dd>
 </dl>
-<p>We always need to pass a user in. This is always possible, since you will always be logged into a database user. By default, we take from authentication. If this is null, we take from the database user</p>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1PermissionTester.html#a73e3771b8cbaa4045a087ff499e84ab3">BristolSU\Support\Permissions\Contracts\PermissionTester</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="PermissionTester_8php_source.html#l00037">37</a> of file <a class="el" href="PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
 
-<p class="reference">References <a class="el" href="PermissionTester_8php_source.html#l00052">BristolSU\Support\Permissions\PermissionTester\evaluateFor()</a>.</p>
+<p class="reference">References <a class="el" href="PermissionTester_8php_source.html#l00062">BristolSU\Support\Permissions\PermissionTester\evaluateFor()</a>.</p>
 
 </div>
 </div>
@@ -194,10 +194,27 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Evaluate a permission for the given credentials.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td>Ability to test </td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a>&#160;|&#160;null</td><td class="paramname">$user</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a> to test the ability on </td></tr>
+    <tr><td class="paramtype">Group&#160;|&#160;null</td><td class="paramname">$group</td><td>Group to test the ability on </td></tr>
+    <tr><td class="paramtype">Role&#160;|&#160;null</td><td class="paramname">$role</td><td>Role to test the ability on </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool If the permission is owned </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Exception</td><td>If no testers are registered </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="PermissionTester_8php_source.html#l00052">52</a> of file <a class="el" href="PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionTester_8php_source.html#l00062">62</a> of file <a class="el" href="PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
 
-<p class="reference">References <a class="el" href="PermissionTester_8php_source.html#l00062">BristolSU\Support\Permissions\PermissionTester\getChain()</a>.</p>
+<p class="reference">References <a class="el" href="PermissionTester_8php_source.html#l00077">BristolSU\Support\Permissions\PermissionTester\getChain()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="PermissionTester_8php_source.html#l00037">BristolSU\Support\Permissions\PermissionTester\evaluate()</a>.</p>
 
@@ -217,19 +234,21 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>Tester </dd></dl>
+<p>Gets the tester chain</p>
+<p>This returns the first registered tester. This tester will have a successor of the first tester, which in turn will have a successor of the second tester etc.</p>
+<dl class="section return"><dt>Returns</dt><dd>Tester First registered tester, with the successor chain set </dd></dl>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"></td><td></td></tr>
+    <tr><td class="paramname">Exception</td><td>If no testers are registered </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="PermissionTester_8php_source.html#l00062">62</a> of file <a class="el" href="PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionTester_8php_source.html#l00077">77</a> of file <a class="el" href="PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
 
 <p class="reference">References <a class="el" href="PermissionTester_8php_source.html#l00028">BristolSU\Support\Permissions\PermissionTester\$testers</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="PermissionTester_8php_source.html#l00052">BristolSU\Support\Permissions\PermissionTester\evaluateFor()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="PermissionTester_8php_source.html#l00062">BristolSU\Support\Permissions\PermissionTester\evaluateFor()</a>.</p>
 
 </div>
 </div>
@@ -256,8 +275,16 @@ Private Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Get a permission from the ability</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td>Ability of the permission </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Permission </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="PermissionTester_8php_source.html#l00087">87</a> of file <a class="el" href="PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionTester_8php_source.html#l00095">95</a> of file <a class="el" href="PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
 
 </div>
 </div>
@@ -286,14 +313,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register a new tester</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">Tester</td><td class="paramname">$tester</td><td></td></tr>
+    <tr><td class="paramtype">Tester</td><td class="paramname">$tester</td><td>Tester to register </td></tr>
+    <tr><td class="paramtype">null</td><td class="paramname">$position</td><td>Position to insert the tester into. i.e. 0 will put the tester first. </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="PermissionTester_8php_source.html#l00077">77</a> of file <a class="el" href="PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionTester_8php_source.html#l00106">106</a> of file <a class="el" href="PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
 
 </div>
 </div>
@@ -320,7 +349,7 @@ Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="PermissionTester_8php_source.html#l00028">28</a> of file <a class="el" href="PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="PermissionTester_8php_source.html#l00062">BristolSU\Support\Permissions\PermissionTester\getChain()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="PermissionTester_8php_source.html#l00077">BristolSU\Support\Permissions\PermissionTester\getChain()</a>.</p>
 
 </div>
 </div>
@@ -330,7 +359,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2020 16:17:25 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 7 2020 18:21:30 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

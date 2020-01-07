@@ -1,28 +1,31 @@
 <?php
 
-
 namespace BristolSU\Support\Permissions;
-
 
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
 use BristolSU\Support\Permissions\Contracts\PermissionStore as PermissionStoreContract;
 
 /**
- * Class PermissionStore
- * @package BristolSU\Support\Permissions
+ * Store all permissions in an array
  */
 class PermissionStore implements PermissionStoreContract
 {
 
     /**
-     * @var array
+     * Holds the permissions registered
+     * 
+     * @var Permission[]
      */
     private $permissions = [];
 
     /**
-     * @param string $ability
-     * @param string $name
-     * @param string $description
+     * Register a new site permission
+     * 
+     * @param string $ability Ability of the permission
+     * @param string $name Name for the permission
+     * @param string $description Description of the permission
+     * 
+     * @return void
      */
     public function registerSitePermission(string $ability, string $name, string $description): void
     {
@@ -36,7 +39,10 @@ class PermissionStore implements PermissionStoreContract
     }
 
     /**
-     * @param Permission $permission
+     * Register a permission model
+     * 
+     * @param Permission $permission Permission model to register
+     * @return void
      */
     public function registerPermission(Permission $permission): void
     {
@@ -44,11 +50,14 @@ class PermissionStore implements PermissionStoreContract
     }
 
     /**
-     * @param string $ability
-     * @param string $name
-     * @param string $description
-     * @param string $alias
-     * @param bool $admin
+     * Register a permission for a module
+     * 
+     * @param string $ability Ability of the permission
+     * @param string $name Name for the permission
+     * @param string $description Description for the permission
+     * @param string $alias Alias of the module registering the permission
+     * @param bool $admin If the permission is an admin permission $admin is true, or false for a participant permission
+     * @return void
      */
     public function registerModulePermission(string $ability, string $name, string $description, string $alias, bool $admin = false): void
     {
@@ -64,11 +73,14 @@ class PermissionStore implements PermissionStoreContract
     }
 
     /**
-     * @param string $ability
-     * @param string $name
-     * @param string $description
-     * @param string $alias
-     * @param bool $admin
+     * Register a permission for a module
+     *
+     * @param string $ability Ability of the permission
+     * @param string $name Name for the permission
+     * @param string $description Description for the permission
+     * @param string $alias Alias of the module registering the permission
+     * @param bool $admin If the permission is an admin permission $admin is true, or false for a participant permission
+     * @return void
      */
     public function register(string $ability, string $name, string $description, string $alias, bool $admin = false): void
     {
@@ -76,9 +88,11 @@ class PermissionStore implements PermissionStoreContract
     }
 
     /**
-     * @param string $ability
-     * @return Permission
-     * @throws \Exception
+     * Get a permission by ability 
+     * 
+     * @param string $ability Ability of the permission
+     * @return Permission Permission with the given ability
+     * @throws \Exception If the permission could not be found
      */
     public function get(string $ability): Permission
     {
@@ -89,7 +103,9 @@ class PermissionStore implements PermissionStoreContract
     }
 
     /**
-     * @return array
+     * Get all registered permissions
+     * 
+     * @return Permission[]
      */
     public function all(): array
     {

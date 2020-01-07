@@ -104,8 +104,9 @@ Private Attributes</h2></td></tr>
 <tr class="separator:a2b55c25bc59366c3a6df89f32ebbcc93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="PermissionRepository_8php_source.html#l00015">15</a> of file <a class="el" href="PermissionRepository_8php_source.html">PermissionRepository.php</a>.</p>
+<div class="textblock"><p>Handle getting permissions from the permission store </p>
+
+<p class="definition">Definition at line <a class="el" href="PermissionRepository_8php_source.html#l00014">14</a> of file <a class="el" href="PermissionRepository_8php_source.html">PermissionRepository.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a392f0f557a804691d54031df746df7c1"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a392f0f557a804691d54031df746df7c1">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -122,16 +123,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1PermissionRepository.html">PermissionRepository</a> constructor. </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">PermissionStoreContract</td><td class="paramname">$permissionStore</td><td></td></tr>
+    <tr><td class="paramtype">PermissionStoreContract</td><td class="paramname">$permissionStore</td><td>Permission store to retrieve permissions from </td></tr>
   </table>
   </dd>
 </dl>
 
 <p class="definition">Definition at line <a class="el" href="PermissionRepository_8php_source.html#l00027">27</a> of file <a class="el" href="PermissionRepository_8php_source.html">PermissionRepository.php</a>.</p>
 
-<p class="reference">References <a class="el" href="PermissionRepository_8php_source.html#l00021">BristolSU\Support\Permissions\PermissionRepository\$permissionStore</a>.</p>
+<p class="reference">References <a class="el" href="PermissionRepository_8php_source.html#l00022">BristolSU\Support\Permissions\PermissionRepository\$permissionStore</a>.</p>
 
 </div>
 </div>
@@ -151,11 +152,11 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get all permissions registered</p>
-<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Permission[] </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1PermissionRepository.html#a33d64edc7fd35f5215d803a3a627f4af">BristolSU\Support\Permissions\Contracts\PermissionRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="PermissionRepository_8php_source.html#l00057">57</a> of file <a class="el" href="PermissionRepository_8php_source.html">PermissionRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionRepository_8php_source.html#l00061">61</a> of file <a class="el" href="PermissionRepository_8php_source.html">PermissionRepository.php</a>.</p>
 
 </div>
 </div>
@@ -174,17 +175,18 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all permissions for a given module alias</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the module </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Permission[] </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1PermissionRepository.html#a55ed52f358156a90e97c67ce6eecb02b">BristolSU\Support\Permissions\Contracts\PermissionRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="PermissionRepository_8php_source.html#l00045">45</a> of file <a class="el" href="PermissionRepository_8php_source.html">PermissionRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionRepository_8php_source.html#l00049">49</a> of file <a class="el" href="PermissionRepository_8php_source.html">PermissionRepository.php</a>.</p>
 
 <p class="reference">References <a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html#a7b200539c1d09c6fc0cfa448dc6913ec">BristolSU\Support\Permissions\Contracts\Models\Permission\getModuleAlias()</a>.</p>
 
@@ -205,9 +207,10 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get a permission from the permission store</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td>Ability of the permission </td></tr>
   </table>
   </dd>
 </dl>
@@ -215,7 +218,7 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1PermissionRepository.html#ae2463428e8f25534a5abcbae4f6c855c">BristolSU\Support\Permissions\Contracts\PermissionRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="PermissionRepository_8php_source.html#l00036">36</a> of file <a class="el" href="PermissionRepository_8php_source.html">PermissionRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionRepository_8php_source.html#l00038">38</a> of file <a class="el" href="PermissionRepository_8php_source.html">PermissionRepository.php</a>.</p>
 
 </div>
 </div>
@@ -240,7 +243,7 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="PermissionRepository_8php_source.html#l00021">21</a> of file <a class="el" href="PermissionRepository_8php_source.html">PermissionRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionRepository_8php_source.html#l00022">22</a> of file <a class="el" href="PermissionRepository_8php_source.html">PermissionRepository.php</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="PermissionRepository_8php_source.html#l00027">BristolSU\Support\Permissions\PermissionRepository\__construct()</a>.</p>
 
@@ -252,7 +255,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2020 16:17:25 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 7 2020 18:21:30 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

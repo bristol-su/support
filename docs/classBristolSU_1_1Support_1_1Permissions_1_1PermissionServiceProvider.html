@@ -88,7 +88,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a99123366be3b67310307e3a054003042"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
+<div class="textblock"><p>Permission Service Provider </p>
+
 <p class="definition">Definition at line <a class="el" href="PermissionServiceProvider_8php_source.html#l00029">29</a> of file <a class="el" href="PermissionServiceProvider_8php_source.html">PermissionServiceProvider.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a99123366be3b67310307e3a054003042"></a>
@@ -105,8 +106,22 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Boot</p>
+<ul>
+<li>Register provided permission testers.</li>
+<li>Set the Laravel gate callback to use the Permission Tester. This allows us to still use laravel functions to check permissions.</li>
+<li>Route model binding for a module instance permission</li>
+<li>route model binding for a permission</li>
+<li>Route model binding for a site (global) permission specifically</li>
+</ul>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">BindingResolutionException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="PermissionServiceProvider_8php_source.html#l00040">40</a> of file <a class="el" href="PermissionServiceProvider_8php_source.html">PermissionServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionServiceProvider_8php_source.html#l00058">58</a> of file <a class="el" href="PermissionServiceProvider_8php_source.html">PermissionServiceProvider.php</a>.</p>
 
 </div>
 </div>
@@ -124,8 +139,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register</p>
+<ul>
+<li>Bind the permission model and the permission repository</li>
+<li>Set the permission store as a singleton</li>
+<li>Set the permission tester as a singleton </li>
+</ul>
 
-<p class="definition">Definition at line <a class="el" href="PermissionServiceProvider_8php_source.html#l00032">32</a> of file <a class="el" href="PermissionServiceProvider_8php_source.html">PermissionServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="PermissionServiceProvider_8php_source.html#l00039">39</a> of file <a class="el" href="PermissionServiceProvider_8php_source.html">PermissionServiceProvider.php</a>.</p>
 
 </div>
 </div>
@@ -135,7 +156,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2020 16:17:25 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 7 2020 18:21:30 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

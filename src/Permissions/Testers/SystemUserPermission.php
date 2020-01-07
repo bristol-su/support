@@ -11,8 +11,7 @@ use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
 
 /**
- * Class SystemUserPermission
- * @package BristolSU\Support\Permissions\Testers
+ * Check if a global position is owned by the user
  */
 // TODO Create system group, role and logic testers
 class SystemUserPermission extends Tester
@@ -20,14 +19,14 @@ class SystemUserPermission extends Tester
 
     /**
      * Do the given models have the ability?
-     * 
+     *
      * If the permission is a system permission, we'll see if the user has it or not.
      *
-     * @param string $ability
-     * @param User|null $user
-     * @param Group|null $group
-     * @param Role|null $role
-     * @return bool|null
+     * @param Permission $permission Permission to test
+     * @param User|null $user User to test on
+     * @param Group|null $group Group to test on. Not used
+     * @param Role|null $role Role to test on. Not used
+     * @return bool|null If the permission is owned or not owned. Null if no records found
      */
     public function can(Permission $permission, ?User $user, ?Group $group, ?Role $role): ?bool
     {

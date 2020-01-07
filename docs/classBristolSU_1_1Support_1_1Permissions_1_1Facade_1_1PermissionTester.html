@@ -86,8 +86,10 @@ Static Protected Member Functions</h2></td></tr>
 <tr class="separator:ac32de2d9cf546bc2cb574c50e23fe04b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Facade_2PermissionTester_8php_source.html#l00018">18</a> of file <a class="el" href="Facade_2PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
+<div class="textblock"><p><a class="el" href="namespaceBristolSU_1_1Support_1_1Permissions_1_1Facade.html">Facade</a> for testing permissions and registering testers</p>
+<p>static bool evaluate(string $ability) Test if the currently authenticated user/group/role has the given ability  static bool evaluateFor(string $ability, ?<a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a> $userModel = null, ?Group $group = null, ?Role $role = null) Test if the given set of credentials have a given ability  static void register(Tester $tester) Register a new permission tester </p>
+
+<p class="definition">Definition at line <a class="el" href="Facade_2PermissionTester_8php_source.html#l00021">21</a> of file <a class="el" href="Facade_2PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ac32de2d9cf546bc2cb574c50e23fe04b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ac32de2d9cf546bc2cb574c50e23fe04b">&#9670;&nbsp;</a></span>getFacadeAccessor()</h2>
@@ -111,9 +113,10 @@ Static Protected Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<p>Get the binding in the laravel container</p>
+<dl class="section return"><dt>Returns</dt><dd>string <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Facade_1_1PermissionTester.html">PermissionTester</a> Contract </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Facade_2PermissionTester_8php_source.html#l00024">24</a> of file <a class="el" href="Facade_2PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Facade_2PermissionTester_8php_source.html#l00029">29</a> of file <a class="el" href="Facade_2PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
 
 </div>
 </div>
@@ -123,7 +126,7 @@ Static Protected Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2020 16:17:25 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 7 2020 18:21:31 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

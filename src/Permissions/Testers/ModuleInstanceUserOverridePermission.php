@@ -9,26 +9,24 @@ use BristolSU\Support\Permissions\Models\ModelPermission;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
-use Illuminate\Contracts\Foundation\Application;
 
 /**
- * Class SystemUserPermission
- * @package BristolSU\Support\Permissions\Testers
+ * Check if a module permission is owned by a user
  */
+// TODO Create a module instance logic override permission
 class ModuleInstanceUserOverridePermission extends Tester
 {
     
     /**
      * Do the given models have the ability?
      *
-     * Check if the given user has been given an overrided permission for the specific module instance
-     * 
-     * @param Permission $permission
-     * @param User|null $user
-     * @param Group|null $group
-     * @param Role|null $role
-     * @return bool|null
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * Check if the given user has been given an overridden permission for the specific module instance
+     *
+     * @param Permission $permission Permission to test
+     * @param User|null $user User to test on
+     * @param Group|null $group Group to test on. Not used
+     * @param Role|null $role Role to test on. Not used
+     * @return bool|null If the permission is owned or not owned. Null if no records found
      */
     public function can(Permission $permission, ?User $user, ?Group $group, ?Role $role): ?bool
     {

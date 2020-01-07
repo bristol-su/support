@@ -7,52 +7,68 @@ namespace BristolSU\Support\Permissions\Models;
 use BristolSU\Support\Permissions\Contracts\Models\Permission as PermissionContract;
 
 /**
- * Class Permission
- * @package BristolSU\Support\Permissions\Models
+ * Represents a permission
  */
 class Permission implements PermissionContract
 {
 
     /**
-     * @var
+     * The ability string of the permission.
+     * 
+     * @var string
      */
     private $ability;
 
     /**
-     * @var
+     * The name of the permission
+     * 
+     * @var string
      */
     private $name;
 
     /**
-     * @var
+     * The description for the permission
+     * 
+     * @var string
      */
     private $description;
 
     /**
-     * @var
+     * The type of the permission.
+     * 
+     * This should either be module, if the permission is a module permission, or global if the permission is a site permission
+     * 
+     * @var string module or global
      */
     private $type;
 
     /**
-     * @var
+     * The module alias for the permission, if a module permission
+     * 
+     * @var string|null
      */
     private $moduleAlias;
 
     /**
-     * @var
+     * The type of module permission if a module permission
+     * 
+     * This should either be 'administrator' or 'participant'
+     * 
+     * @var string administrator or participant
      */
     private $moduleType;
 
     /**
-     * Permission constructor.
-     * @param string $ability
-     * @param string $name
-     * @param string $description
-     * @param string $type
-     * @param string $alias
-     * @param string $moduleType
+     * Populate the permission model with the given attributes
+     * 
+     * @param string $ability The ability string of the permission.
+     * @param string $name The name of the permission
+     * @param string $description The description for the permission
+     * @param string $type The type of the permission.
+     * @param string|null $alias The module alias for the permission, if a module permission. Null otherwise
+     * @param string|null $moduleType The type of module permission if a module permission. Null otherwise
      */
-    public function __construct(string $ability = '', string $name = '', string $description = '', string $type = 'global', string $alias = '', string $moduleType = '')
+    public function __construct(string $ability = '', string $name = '', string $description = '', string $type = 'global', ?string $alias = null, ?string $moduleType = null)
     {
         $this->setAbility($ability);
         $this->setName($name);
@@ -63,6 +79,8 @@ class Permission implements PermissionContract
     }
 
     /**
+     * Get the ability string of the permission
+     * 
      * @return string
      */
     public function getAbility(): string
@@ -71,8 +89,10 @@ class Permission implements PermissionContract
     }
 
     /**
-     * @param string $ability
-     * @return mixed|void
+     * Set the ability string of the permission
+     * 
+     * @param string $ability New ability string
+     * @return void
      */
     public function setAbility(string $ability)
     {
@@ -80,7 +100,9 @@ class Permission implements PermissionContract
     }
 
     /**
-     * @return string
+     * Get the name of the permission
+     * 
+     * @return string Name
      */
     public function getName(): string
     {
@@ -88,8 +110,10 @@ class Permission implements PermissionContract
     }
 
     /**
-     * @param string $name
-     * @return mixed|void
+     * Set the name of the permission
+     * 
+     * @param string $name New name
+     * @return void
      */
     public function setName(string $name)
     {
@@ -97,6 +121,8 @@ class Permission implements PermissionContract
     }
 
     /**
+     * Get the description of the permission
+     * 
      * @return string
      */
     public function getDescription(): string
@@ -105,8 +131,10 @@ class Permission implements PermissionContract
     }
 
     /**
-     * @param string $description
-     * @return mixed|void
+     * Set the description of the permission
+     * 
+     * @param string $description New description
+     * @return void
      */
     public function setDescription(string $description)
     {
@@ -114,7 +142,9 @@ class Permission implements PermissionContract
     }
 
     /**
-     * @return string
+     * Get the type of the permission
+     * 
+     * @return string module or global
      */
     public function getType(): string
     {
@@ -122,8 +152,10 @@ class Permission implements PermissionContract
     }
 
     /**
-     * @param string $type
-     * @return mixed|void
+     * Set the type of the permission. 
+     * 
+     * @param string $type One of global or module
+     * @return void
      */
     public function setType(string $type)
     {
@@ -131,24 +163,30 @@ class Permission implements PermissionContract
     }
 
     /**
-     * @return string
+     * Get the module alias of the module the permission belongs to
+     * 
+     * @return string|null Module alias, or null of a global permission
      */
-    public function getModuleAlias(): string
+    public function getModuleAlias(): ?string
     {
         return $this->moduleAlias;
     }
 
     /**
-     * @param string $moduleAlias
-     * @return mixed|void
+     * Set the module alias the permission belongs to
+     * 
+     * @param string|null $moduleAlias New module alias
+     * @return void
      */
-    public function setModuleAlias(string $moduleAlias)
+    public function setModuleAlias(?string $moduleAlias)
     {
         $this->moduleAlias = $moduleAlias;
     }
 
     /**
-     * @return string
+     * Get the type of module permission, either administrator or participant
+     * 
+     * @return string|null administrator or participant, or null if a global permission
      */
     public function getModuleType(): string
     {
@@ -156,8 +194,10 @@ class Permission implements PermissionContract
     }
 
     /**
-     * @param string $moduleType
-     * @return mixed|void
+     * Set the type of module permission, administrator or participant
+     * 
+     * @param string $moduleType Administrator or participant
+     * @return void
      */
     public function setModuleType(string $moduleType)
     {
@@ -165,6 +205,8 @@ class Permission implements PermissionContract
     }
 
     /**
+     * Get the permission represented as an array
+     * 
      * @return array
      */
     public function toArray()
@@ -179,11 +221,22 @@ class Permission implements PermissionContract
         ];
     }
 
+    /**
+     * Get the permission in a JSON representation
+     * 
+     * @param int $options See json_encode options for more information
+     * @return false|string
+     */
     public function toJson($options = 0)
     {
         return json_encode($this->toArray(), $options);
     }
 
+    /**
+     * Get the permission in a JSON representation
+     *
+     * @return false|string
+     */
     public function __toString()
     {
         return $this->toJson();

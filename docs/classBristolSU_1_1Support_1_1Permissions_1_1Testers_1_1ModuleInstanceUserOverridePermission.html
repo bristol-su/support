@@ -99,8 +99,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a96bfbb26c0187b331ba762a344b09109 inherit pub_methods_classBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Tester"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="ModuleInstanceUserOverridePermission_8php_source.html#l00018">18</a> of file <a class="el" href="ModuleInstanceUserOverridePermission_8php_source.html">ModuleInstanceUserOverridePermission.php</a>.</p>
+<div class="textblock"><p>Check if a module permission is owned by a user</p><dl class="todo"><dt><b><a class="el" href="todo.html#_todo000037">Todo:</a></b></dt><dd>Create a module instance logic override permission </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="ModuleInstanceUserOverridePermission_8php_source.html#l00017">17</a> of file <a class="el" href="ModuleInstanceUserOverridePermission_8php_source.html">ModuleInstanceUserOverridePermission.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aa9f3f42a515a571e4f5e227b473835b8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aa9f3f42a515a571e4f5e227b473835b8">&#9670;&nbsp;</a></span>can()</h2>
@@ -140,25 +141,19 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Do the given models have the ability?</p>
-<p>Check if the given user has been given an overrided permission for the specific module instance</p>
+<p>Check if the given user has been given an overridden permission for the specific module instance</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">Permission</td><td class="paramname">$permission</td><td></td></tr>
-    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a>&#160;|&#160;null</td><td class="paramname">$user</td><td></td></tr>
-    <tr><td class="paramtype">Group&#160;|&#160;null</td><td class="paramname">$group</td><td></td></tr>
-    <tr><td class="paramtype">Role&#160;|&#160;null</td><td class="paramname">$role</td><td></td></tr>
+    <tr><td class="paramtype">Permission</td><td class="paramname">$permission</td><td>Permission to test </td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a>&#160;|&#160;null</td><td class="paramname">$user</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a> to test on </td></tr>
+    <tr><td class="paramtype">Group&#160;|&#160;null</td><td class="paramname">$group</td><td>Group to test on. Not used </td></tr>
+    <tr><td class="paramtype">Role&#160;|&#160;null</td><td class="paramname">$role</td><td>Role to test on. Not used </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bool|null </dd></dl>
-<dl class="exception"><dt>Exceptions</dt><dd>
-  <table class="exception">
-    <tr><td class="paramname"></td><td></td></tr>
-  </table>
-  </dd>
-</dl>
+<dl class="section return"><dt>Returns</dt><dd>bool|null If the permission is owned or not owned. Null if no records found </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstanceUserOverridePermission_8php_source.html#l00033">33</a> of file <a class="el" href="ModuleInstanceUserOverridePermission_8php_source.html">ModuleInstanceUserOverridePermission.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstanceUserOverridePermission_8php_source.html#l00031">31</a> of file <a class="el" href="ModuleInstanceUserOverridePermission_8php_source.html">ModuleInstanceUserOverridePermission.php</a>.</p>
 
 <p class="reference">References <a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html#a428e6cb0632ede6da0abe072ce6f3997">BristolSU\Support\Permissions\Contracts\Models\Permission\getAbility()</a>, and <a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html#a81e2af825f795d4e6b6d0e8ee1105246">BristolSU\Support\Permissions\Contracts\Models\Permission\getType()</a>.</p>
 
@@ -170,7 +165,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2020 16:17:25 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 7 2020 18:21:31 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

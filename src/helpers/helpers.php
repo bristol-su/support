@@ -1,5 +1,8 @@
 <?php
 
+use BristolSU\ControlDB\Contracts\Models\Group;
+use BristolSU\ControlDB\Contracts\Models\Role;
+use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -45,4 +48,26 @@ if(!function_exists('alias')) {
         }
         throw new Exception('Alias cannot be returned outside a module environment');
     }
+}
+
+if(!function_exists('hasPermission')) {
+    /**
+     * Does the user/group/role have the given permission?
+     * 
+     * Just pass the ability to test if the currently authenticated user has the permission
+     * Pass a user, user and group or user, group and role to test them instead of the authenticated user/group/role
+     * 
+     * @param string $ability Permission to test
+     * @param User|null $userModel User to test. Leave as null to test the authenticated user.
+     * @param Group|null $group Group to test. Leave as null to test the authenticated group.
+     * @param Role|null $role Role to test. Leave as null to test the authenticated role.
+     * @return bool Does the user have the permission?
+     */
+    function hasPermission(string $ability, ?User $userModel, ?Group $group, ?Role $role): bool {
+        if($userModel === null && $group === null && $role === null) {
+            return \BristolSU\Support\Permissions\Facade\PermissionTester::evaluate($ability);
+        }
+        return \BristolSU\Support\Permissions\Facade\PermissionTester::evaluateFor($ability, $userModel, $group, $role);
+    }
+
 }

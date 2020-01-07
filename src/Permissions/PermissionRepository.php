@@ -9,20 +9,20 @@ use BristolSU\Support\Permissions\Contracts\PermissionRepository as PermissionRe
 use BristolSU\Support\Permissions\Contracts\PermissionStore as PermissionStoreContract;
 
 /**
- * Class PermissionRepository
- * @package BristolSU\Support\Permissions
+ * Handle getting permissions from the permission store
  */
 class PermissionRepository implements PermissionRepositoryContract
 {
 
     /**
+     * Underlying permission store to retrieve permissions from
+     * 
      * @var PermissionStoreContract
      */
     private $permissionStore;
 
     /**
-     * PermissionRepository constructor.
-     * @param PermissionStoreContract $permissionStore
+     * @param PermissionStoreContract $permissionStore Permission store to retrieve permissions from
      */
     public function __construct(PermissionStoreContract $permissionStore)
     {
@@ -30,7 +30,9 @@ class PermissionRepository implements PermissionRepositoryContract
     }
 
     /**
-     * @param string $ability
+     * Get a permission from the permission store
+     * 
+     * @param string $ability Ability of the permission
      * @return Permission
      */
     public function get(string $ability): Permission
@@ -39,8 +41,10 @@ class PermissionRepository implements PermissionRepositoryContract
     }
 
     /**
-     * @param string $alias
-     * @return array
+     * Get all permissions for a given module alias
+     * 
+     * @param string $alias Alias of the module
+     * @return Permission[]
      */
     public function forModule(string $alias): array
     {
@@ -52,7 +56,7 @@ class PermissionRepository implements PermissionRepositoryContract
     /**
      * Get all permissions registered 
      * 
-     * @return array
+     * @return Permission[]
      */
     public function all(): array
     {

@@ -18,17 +18,24 @@ use BristolSU\Support\Permissions\Testers\ModuleInstanceRoleOverridePermission;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceUserOverridePermission;
 use BristolSU\Support\Permissions\Testers\SystemUserPermission;
 use BristolSU\Support\User\User;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class PermissionServiceProvider
- * @package BristolSU\Support\Permissions
+ * Permission Service Provider
  */
 class PermissionServiceProvider extends ServiceProvider
 {
 
+    /**
+     * Register
+     * 
+     * - Bind the permission model and the permission repository
+     * - Set the permission store as a singleton
+     * - Set the permission tester as a singleton
+     */
     public function register()
     {
         $this->app->bind(PermissionContract::class, Permission::class);
@@ -37,16 +44,25 @@ class PermissionServiceProvider extends ServiceProvider
         $this->app->singleton(PermissionTesterContract::class, PermissionTester::class);
     }
 
+    /**
+     * Boot
+     * 
+     * - Register provided permission testers.
+     * - Set the Laravel gate callback to use the Permission Tester. This allows us to still use laravel functions to check permissions.
+     * - Route model binding for a module instance permission
+     * - route model binding for a permission
+     * - Route model binding for a site (global) permission specifically
+     * 
+     * @throws BindingResolutionException
+     */
     public function boot()
     {
         // Check system permissions
         PermissionTesterFacade::register($this->app->make(SystemUserPermission::class));
-        
         // Check module instance override permissions
         PermissionTesterFacade::register($this->app->make(ModuleInstanceUserOverridePermission::class));
         PermissionTesterFacade::register($this->app->make(ModuleInstanceGroupOverridePermission::class));
         PermissionTesterFacade::register($this->app->make(ModuleInstanceRoleOverridePermission::class));
-        
         // Check default module instance permissions
         PermissionTesterFacade::register($this->app->make(ModuleInstancePermissions::class));
 
