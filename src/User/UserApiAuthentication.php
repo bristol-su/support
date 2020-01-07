@@ -5,16 +5,20 @@ namespace BristolSU\Support\User;
 use BristolSU\Support\User\Contracts\UserAuthentication;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 
+/**
+ * Resolve a user from the API authentication
+ */
 class UserApiAuthentication implements UserAuthentication
 {
     /**
+     *  User authentication factory for resolving and setting users
+     * 
      * @var AuthFactory
      */
     private $auth;
 
     /**
-     * UserAuthentication constructor.
-     * @param AuthFactory $auth
+     * @param AuthFactory $auth Factory to resolve the user from
      */
     public function __construct(AuthFactory $auth)
     {
@@ -22,7 +26,9 @@ class UserApiAuthentication implements UserAuthentication
     }
     
     /**
-     * @return User
+     * Get the user from the API authentication
+     * 
+     * @return User|null Logged in user, or null if no user found.
      */
     public function getUser(): ?User
     {
@@ -33,8 +39,11 @@ class UserApiAuthentication implements UserAuthentication
     }
 
     /**
-     * @param User $user
-     * @return mixed
+     * Set a user. This method cannot be used since the user cannot be set for an API authentication
+     *
+     * @param User $user User to log in
+     * @return void
+     * @throws \Exception Always, the user cannot be set.
      */
     public function setUser(User $user)
     {

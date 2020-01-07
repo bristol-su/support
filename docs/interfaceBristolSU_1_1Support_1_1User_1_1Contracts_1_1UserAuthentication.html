@@ -87,8 +87,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9588076f7a4d6241cd95944eb338e77e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="UserAuthentication_8php_source.html#l00013">13</a> of file <a class="el" href="UserAuthentication_8php_source.html">UserAuthentication.php</a>.</p>
+<div class="textblock"><p>Contract to set or resolve a logged in user </p>
+
+<p class="definition">Definition at line <a class="el" href="UserAuthentication_8php_source.html#l00010">10</a> of file <a class="el" href="UserAuthentication_8php_source.html">UserAuthentication.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="adb2a7a5dd25b9817ac0d8774ff0b4433"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adb2a7a5dd25b9817ac0d8774ff0b4433">&#9670;&nbsp;</a></span>getUser()</h2>
@@ -104,7 +105,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html">User</a> </dd></dl>
+<p>Get the currently set user</p>
+<dl class="section return"><dt>Returns</dt><dd>User|null Returns the user, or null if no user found </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserWebAuthentication.html#af41bed56c38ac7522800f0ee9311c482">BristolSU\Support\User\UserWebAuthentication</a>, and <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserApiAuthentication.html#aa93791ecb9eeca66a032d50f503d51a9">BristolSU\Support\User\UserApiAuthentication</a>.</p>
 
@@ -125,15 +127,16 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the currently logged in user</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html">User</a></td><td class="paramname">$user</td><td></td></tr>
+    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html">User</a></td><td class="paramname">$user</td><td><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html">User</a> to log in </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
-<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserWebAuthentication.html#ada86d92128ceb8c568beb41733feb6cc">BristolSU\Support\User\UserWebAuthentication</a>, and <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserApiAuthentication.html#afa0e3a7bd7ce519bd2bef6808421792b">BristolSU\Support\User\UserApiAuthentication</a>.</p>
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserApiAuthentication.html#afa0e3a7bd7ce519bd2bef6808421792b">BristolSU\Support\User\UserApiAuthentication</a>, and <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserWebAuthentication.html#ada86d92128ceb8c568beb41733feb6cc">BristolSU\Support\User\UserWebAuthentication</a>.</p>
 
 </div>
 </div>
@@ -143,7 +146,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2020 11:45:21 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 7 2020 14:56:43 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

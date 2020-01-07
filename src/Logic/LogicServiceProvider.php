@@ -4,22 +4,21 @@ namespace BristolSU\Support\Logic;
 
 use BristolSU\Support\Logic\Audience\AudienceMemberFactory;
 use BristolSU\Support\Logic\Audience\LogicAudience;
-use BristolSU\Support\Logic\Commands\CacheFilters;
 use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory as AudienceFactoryContract;
 use BristolSU\Support\Logic\Contracts\Audience\LogicAudience as LogicAudienceContract;
 use BristolSU\Support\Logic\Contracts\LogicRepository as LogicRepositoryContract;
 use BristolSU\Support\Logic\Contracts\LogicTester as LogicTesterContract;
-use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class LogicServiceProvider
- * @package BristolSU\Support\Logic
+ * Logic Service Provider
  */
 class LogicServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
+     * 
+     * - Bind implementations to interfaces
      *
      * @return void
      */

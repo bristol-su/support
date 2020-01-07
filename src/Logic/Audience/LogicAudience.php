@@ -10,6 +10,8 @@ use BristolSU\Support\Logic\Logic;
 
 /**
  * Get the audience of a logic group
+ * 
+ * @see LogicAudienceContract
  */
 class LogicAudience extends LogicAudienceContract
 {

@@ -2,25 +2,25 @@
 
 namespace BristolSU\Support\User;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Auth\MustVerifyEmail;
+use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Mail;
 use Laravel\Passport\HasApiTokens;
 
 /**
- * Class User
- * @package BristolSU\Support\User
+ * Represents a user in the database
  */
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use Notifiable, HasApiTokens, \Illuminate\Auth\MustVerifyEmail;
+    use Notifiable, HasApiTokens, MustVerifyEmail;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
+    // TODO Remove Student ID
     protected $fillable = [
         'forename', 'surname', 'email', 'student_id', 'control_id'
     ];

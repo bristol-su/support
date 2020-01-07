@@ -12,32 +12,43 @@ use BristolSU\Support\Filters\Contracts\FilterTester;
 use BristolSU\Support\Logic\Contracts\Specification;
 
 /**
- * Class FilterFalseSpecification
- * @package BristolSU\Support\Logic\Specification
+ * Does the given filter return false for the given resources?
  */
 class FilterFalseSpecification implements Specification
 {
     /**
+     * Holds the filter instance to test
+     * 
      * @var FilterInstance
      */
     private $filter;
+    
     /**
+     * Holds the user to test the filter against
+     * 
      * @var User|null
      */
     private $user;
+    
     /**
+     * Holds the group to test the filter against
+     * 
      * @var Group|null
      */
     private $group;
+    
     /**
+     * Holds the role to test the filter against
+     * 
      * @var Role|null
      */
     private $role;
 
     /**
-     * FilterFalseSpecification constructor.
-     * @param FilterInstance $filter
-     * @param FilterTester $filterTester
+     * @param FilterInstance $filter Filter instance to test
+     * @param User|null $user Use to test the filter against
+     * @param Group|null $group Group to test the filter against
+     * @param Role|null $role Role to test the filter against
      */
     public function __construct(FilterInstance $filter, ?User $user, ?Group $group, ?Role $role)
     {
@@ -48,7 +59,9 @@ class FilterFalseSpecification implements Specification
     }
 
     /**
-     * @return bool
+     * Does the filter return false?
+     * 
+     * @return bool True if the filter is false, false if the filter is true
      */
     public function isSatisfied(): bool
     {

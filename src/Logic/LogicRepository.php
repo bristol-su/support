@@ -7,15 +7,22 @@ namespace BristolSU\Support\Logic;
 use BristolSU\Support\Logic\Contracts\LogicRepository as LogicRepositoryContract;
 
 /**
- * Class LogicRepository
- * @package BristolSU\Support\Logic
+ * Handles saving and retrieving logic group information
  */
 class LogicRepository implements LogicRepositoryContract
 {
 
     /**
-     * @param array $attributes
-     * @return mixed
+     * Create a logic group in the database
+     *
+     * The attributes should be a name and a description
+     * [
+     *      'name' => 'Name of the logic group',
+     *      'description' => 'Description of the logic group'
+     * ]
+     *
+     * @param array $attributes Attributes for the logic group
+     * @return Logic Created logic group
      */
     public function create(array $attributes)
     {
@@ -23,7 +30,9 @@ class LogicRepository implements LogicRepositoryContract
     }
 
     /**
-     * @return Logic[]|\Illuminate\Database\Eloquent\Collection
+     * Get all logic groups
+     *
+     * @return Logic[]
      */
     public function all()
     {

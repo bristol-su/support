@@ -94,8 +94,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a78d948da0c2313895f73c8237b2037ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="LogicRepository_8php_source.html#l00013">13</a> of file <a class="el" href="LogicRepository_8php_source.html">LogicRepository.php</a>.</p>
+<div class="textblock"><p>Handles saving and retrieving logic group information </p>
+
+<p class="definition">Definition at line <a class="el" href="LogicRepository_8php_source.html#l00012">12</a> of file <a class="el" href="LogicRepository_8php_source.html">LogicRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a78d948da0c2313895f73c8237b2037ef"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a78d948da0c2313895f73c8237b2037ef">&#9670;&nbsp;</a></span>all()</h2>
@@ -111,11 +112,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Logic.html">Logic</a>[]| </dd></dl>
+<p>Get all logic groups</p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Logic.html">Logic</a>[] </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1LogicRepository.html#a068ce53e75aab7b8521e45381e74c0f8">BristolSU\Support\Logic\Contracts\LogicRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="LogicRepository_8php_source.html#l00028">28</a> of file <a class="el" href="LogicRepository_8php_source.html">LogicRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LogicRepository_8php_source.html#l00037">37</a> of file <a class="el" href="LogicRepository_8php_source.html">LogicRepository.php</a>.</p>
 
 </div>
 </div>
@@ -134,17 +136,19 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Create a logic group in the database</p>
+<p>The attributes should be a name and a description [ 'name' =&gt; 'Name of the logic group', 'description' =&gt; 'Description of the logic group' ]</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td>Attributes for the logic group </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Logic.html">Logic</a> Created logic group </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1LogicRepository.html#aa045daae3cfab410529f038e8a606074">BristolSU\Support\Logic\Contracts\LogicRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="LogicRepository_8php_source.html#l00020">20</a> of file <a class="el" href="LogicRepository_8php_source.html">LogicRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="LogicRepository_8php_source.html#l00027">27</a> of file <a class="el" href="LogicRepository_8php_source.html">LogicRepository.php</a>.</p>
 
 </div>
 </div>
@@ -154,7 +158,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2020 11:45:21 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 7 2020 14:56:43 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

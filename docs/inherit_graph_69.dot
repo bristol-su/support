@@ -1,0 +1,9 @@
+digraph "Graphical Class Hierarchy"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir="LR";
+  Node0 [label="BristolSU\\Support\\Module\lInstance\\Contracts\\Settings\l\\ModuleSettingsStore",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Settings_1_1ModuleSettingsStore.html"];
+  Node0 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [label="BristolSU\\Support\\Module\lInstance\\Settings\\ModuleSettingsStore",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$classBristolSU_1_1Support_1_1ModuleInstance_1_1Settings_1_1ModuleSettingsStore.html"];
+}
