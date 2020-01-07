@@ -10,24 +10,28 @@ use Illuminate\Http\Request;
 use Laracasts\Utilities\JavaScript\JavaScriptFacade;
 
 /**
- * Class InjectJavascriptVariables
- * @package BristolSU\Support\Http\Middleware
+ * Inject Javascript Variables
  */
 class InjectJavascriptVariables
 {
 
     /**
+     * Authentication resolver
+     * 
      * @var Authentication
      */
     private $authentication;
+    
     /**
+     * Activity Instance Resolver
+     * 
      * @var ActivityInstanceResolver
      */
     private $activityInstanceResolver;
 
     /**
-     * InjectJavascriptVariables constructor.
-     * @param Authentication $authentication
+     * @param Authentication $authentication Authentication resolver
+     * @param ActivityInstanceResolver $activityInstanceResolver Activity instance resolver
      */
     public function __construct(Authentication $authentication, ActivityInstanceResolver $activityInstanceResolver)
     {
@@ -36,9 +40,12 @@ class InjectJavascriptVariables
     }
 
     /**
-     * @param Request $request
-     * @param \Closure $next
-     * @return mixed
+     * Inject variables to be used in JavaScript
+     *
+     * @param Request $request Request Object
+     * @param \Closure $next Next middleware callback
+     * @return mixed 
+     * @throws NotInActivityInstanceException If an activity instance is not found
      */
     public function handle(Request $request, \Closure $next)
     {
