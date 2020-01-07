@@ -88,8 +88,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0d26994057a4545786fb15ed6799688c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Contracts_2PermissionTester_8php_source.html#l00015">15</a> of file <a class="el" href="Contracts_2PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
+<div class="textblock"><p>Test a permission </p>
+
+<p class="definition">Definition at line <a class="el" href="Contracts_2PermissionTester_8php_source.html#l00014">14</a> of file <a class="el" href="Contracts_2PermissionTester_8php_source.html">PermissionTester.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a73e3771b8cbaa4045a087ff499e84ab3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a73e3771b8cbaa4045a087ff499e84ab3">&#9670;&nbsp;</a></span>evaluate()</h2>
@@ -106,10 +107,10 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Test if the currently authenticated user has the given ability</p>
+<p>Test if the currently authenticated user/group/role has the given ability</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td>Ability of the permission </td></tr>
   </table>
   </dd>
 </dl>
@@ -156,16 +157,17 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Test if the given set of credentials have a given ability </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Test if the given set of credentials have a given ability</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td></td></tr>
-    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a>&#160;|&#160;null</td><td class="paramname">$userModel</td><td></td></tr>
-    <tr><td class="paramtype">Group&#160;|&#160;null</td><td class="paramname">$group</td><td></td></tr>
-    <tr><td class="paramtype">Role&#160;|&#160;null</td><td class="paramname">$role</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td>Ability of the permission </td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a>&#160;|&#160;null</td><td class="paramname">$userModel</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a> to test the permission against </td></tr>
+    <tr><td class="paramtype">Group&#160;|&#160;null</td><td class="paramname">$group</td><td>Group to test the permission against </td></tr>
+    <tr><td class="paramtype">Role&#160;|&#160;null</td><td class="paramname">$role</td><td>Role to test the permission against </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>bool Do the given credentials have the permission? </dd></dl>
 
 </div>
 </div>
@@ -184,13 +186,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register a new permission tester</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Tester.html">Tester</a></td><td class="paramname">$tester</td><td></td></tr>
+    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Tester.html">Tester</a></td><td class="paramname">$tester</td><td>Implementation of the permission tester </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 </div>
 </div>
@@ -200,7 +203,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2020 15:14:03 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 7 2020 16:17:25 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -7,40 +7,41 @@ namespace BristolSU\Support\Permissions\Contracts;
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
 
 /**
- * Interface PermissionStore
- * @package BristolSU\Support\Permissions\Contracts
+ * Register and retrieve permissions
  */
 interface PermissionStore
 {
     /**
      * Register a global site permission
      *
-     * @param string $ability
-     * @param string $name
-     * @param string $description
+     * @param string $ability Ability of the permission
+     * @param string $name Name of the permission
+     * @param string $description Description for the permission
      */
     public function registerSitePermission(string $ability, string $name, string $description): void;
 
     /**
-     * Register a module permission
+     * Register a module permission.
+     * 
+     * Alias of the registerModulePermission function
      *
-     * @param string $ability
-     * @param string $name
-     * @param string $description
-     * @param string $alias
-     * @param bool $admin
+     * @param string $ability Ability of the permission
+     * @param string $name Name of the permission
+     * @param string $description Description of the permission
+     * @param string $alias Alias of the module registering the permission
+     * @param bool $admin Is the permission an admin permission? Defaults to false
      */
     public function register(string $ability, string $name, string $description, string $alias, bool $admin = false): void;
 
 
     /**
-     * Register a module permission
+     * Register a module permission.
      *
-     * @param string $ability
-     * @param string $name
-     * @param string $description
-     * @param string $alias
-     * @param bool $admin
+     * @param string $ability Ability of the permission
+     * @param string $name Name of the permission
+     * @param string $description Description of the permission
+     * @param string $alias Alias of the module registering the permission
+     * @param bool $admin Is the permission an admin permission? Defaults to false
      */
     public function registerModulePermission(string $ability, string $name, string $description, string $alias, bool $admin = false): void;
 
@@ -48,18 +49,22 @@ interface PermissionStore
     /**
      * Register a permission class
      *
-     * @param Permission $permission
+     * @param Permission $permission Permission to register
      */
     public function registerPermission(Permission $permission): void;
 
     /**
-     * @param string $ability
-     * @return Permission
+     * Get a permission by its ability string
+     * 
+     * @param string $ability Ability string of the permission
+     * @return Permission Permission with the given ability string
      */
     public function get(string $ability): Permission;
 
     /**
-     * @return array
+     * Get all registered permissions
+     * 
+     * @return Permission[]
      */
     public function all(): array;
 

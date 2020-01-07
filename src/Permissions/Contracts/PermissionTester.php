@@ -9,33 +9,35 @@ use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
 
 /**
- * Interface PermissionTester
- * @package BristolSU\Support\Permissions\Contracts
+ * Test a permission
  */
 interface PermissionTester
 {
 
     /**
-     * Test if the currently authenticated user has the given ability
+     * Test if the currently authenticated user/group/role has the given ability
      * 
-     * @param string $ability
+     * @param string $ability Ability of the permission
      * @return bool
      */
     public function evaluate(string $ability): bool;
 
     /**
      * Test if the given set of credentials have a given ability
-     * @param string $ability
-     * @param User|null $userModel
-     * @param Group|null $group
-     * @param Role|null $role
-     * @return bool
+     * 
+     * @param string $ability Ability of the permission
+     * @param User|null $userModel User to test the permission against
+     * @param Group|null $group Group to test the permission against
+     * @param Role|null $role Role to test the permission against
+     * @return bool Do the given credentials have the permission?
      */
     public function evaluateFor(string $ability, ?User $userModel, ?Group $group, ?Role $role): bool;
     
     /**
-     * @param Tester $tester
-     * @return mixed
+     * Register a new permission tester
+     * 
+     * @param Tester $tester Implementation of the permission tester
+     * @return void
      */
     public function register(Tester $tester);
 

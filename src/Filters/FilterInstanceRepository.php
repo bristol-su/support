@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Filters;
 
-use BristolSU\Support\Filters\Contracts\FilterInstance;
+use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Filters\Contracts\FilterInstanceRepository as FilterInstanceRepositoryContract;
 
 /**

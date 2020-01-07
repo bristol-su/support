@@ -113,8 +113,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1a8532f73adffbb899c1923f582df57b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Contracts_2Models_2Permission_8php_source.html#l00014">14</a> of file <a class="el" href="Contracts_2Models_2Permission_8php_source.html">Permission.php</a>.</p>
+<div class="textblock"><p>Represents a permission registered in a Service Provider </p>
+
+<p class="definition">Definition at line <a class="el" href="Contracts_2Models_2Permission_8php_source.html#l00011">11</a> of file <a class="el" href="Contracts_2Models_2Permission_8php_source.html">Permission.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a927b0b7c8f7abc2a157fe209b2bdbae3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a927b0b7c8f7abc2a157fe209b2bdbae3">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -147,11 +148,11 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html">Permission</a> constructor. </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$description</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td>Ability string for the permission </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>A name for the permission </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$description</td><td>A description for the permission </td></tr>
   </table>
   </dd>
 </dl>
@@ -173,11 +174,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<p>Get the ability string for the permission</p>
+<dl class="section return"><dt>Returns</dt><dd>string Ability string </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#ad07a0022182335a351157747c20c6ac4">BristolSU\Support\Permissions\Models\Permission</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleInstanceGroupOverridePermission_8php_source.html#l00031">BristolSU\Support\Permissions\Testers\ModuleInstanceGroupOverridePermission\can()</a>, <a class="el" href="SystemUserPermission_8php_source.html#l00031">BristolSU\Support\Permissions\Testers\SystemUserPermission\can()</a>, <a class="el" href="ModuleInstanceUserOverridePermission_8php_source.html#l00033">BristolSU\Support\Permissions\Testers\ModuleInstanceUserOverridePermission\can()</a>, <a class="el" href="ModuleInstanceRoleOverridePermission_8php_source.html#l00033">BristolSU\Support\Permissions\Testers\ModuleInstanceRoleOverridePermission\can()</a>, <a class="el" href="ModuleInstancePermissions_8php_source.html#l00048">BristolSU\Support\Permissions\Testers\ModuleInstancePermissions\can()</a>, and <a class="el" href="PermissionStore_8php_source.html#l00041">BristolSU\Support\Permissions\PermissionStore\registerPermission()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleInstanceGroupOverridePermission_8php_source.html#l00031">BristolSU\Support\Permissions\Testers\ModuleInstanceGroupOverridePermission\can()</a>, <a class="el" href="SystemUserPermission_8php_source.html#l00032">BristolSU\Support\Permissions\Testers\SystemUserPermission\can()</a>, <a class="el" href="ModuleInstanceUserOverridePermission_8php_source.html#l00033">BristolSU\Support\Permissions\Testers\ModuleInstanceUserOverridePermission\can()</a>, <a class="el" href="ModuleInstanceRoleOverridePermission_8php_source.html#l00033">BristolSU\Support\Permissions\Testers\ModuleInstanceRoleOverridePermission\can()</a>, <a class="el" href="ModuleInstancePermissions_8php_source.html#l00048">BristolSU\Support\Permissions\Testers\ModuleInstancePermissions\can()</a>, and <a class="el" href="PermissionStore_8php_source.html#l00041">BristolSU\Support\Permissions\PermissionStore\registerPermission()</a>.</p>
 
 </div>
 </div>
@@ -195,7 +197,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<p>Get the description of the permission</p>
+<dl class="section return"><dt>Returns</dt><dd>string Description of the permission </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a1c1a89c3461902d1729a902a35280d75">BristolSU\Support\Permissions\Models\Permission</a>.</p>
 
@@ -215,7 +218,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<p>Get the alias of the module for which the permission belongs</p>
+<dl class="section return"><dt>Returns</dt><dd>string|null Alias of the module. Null if not a module permission </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a3ecf56c5e71c9c7092c6fdc2257cd0b7">BristolSU\Support\Permissions\Models\Permission</a>.</p>
 
@@ -237,7 +241,9 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<p>Get the type of module permission.</p>
+<p>If the permission is an admin permission, this function should return 'administrator'. Otherwise, the function will return 'participant'.</p>
+<dl class="section return"><dt>Returns</dt><dd>string|null. administrator/participant. Null if not a module permission </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a2fb768a797370d924d59777205e5fd22">BristolSU\Support\Permissions\Models\Permission</a>.</p>
 
@@ -257,7 +263,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<p>Get the name of the permission</p>
+<dl class="section return"><dt>Returns</dt><dd>string Name of the permission </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#af2fc23a5270626aa66efb8c69ac82c3a">BristolSU\Support\Permissions\Models\Permission</a>.</p>
 
@@ -277,11 +284,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<p>Get the type of the permission</p>
+<dl class="section return"><dt>Returns</dt><dd>string Type of the permission </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a900bb2f43ae22c7f4558a4fc923afff0">BristolSU\Support\Permissions\Models\Permission</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SystemUserPermission_8php_source.html#l00031">BristolSU\Support\Permissions\Testers\SystemUserPermission\can()</a>, and <a class="el" href="ModuleInstanceUserOverridePermission_8php_source.html#l00033">BristolSU\Support\Permissions\Testers\ModuleInstanceUserOverridePermission\can()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SystemUserPermission_8php_source.html#l00032">BristolSU\Support\Permissions\Testers\SystemUserPermission\can()</a>, and <a class="el" href="ModuleInstanceUserOverridePermission_8php_source.html#l00033">BristolSU\Support\Permissions\Testers\ModuleInstanceUserOverridePermission\can()</a>.</p>
 
 </div>
 </div>
@@ -300,13 +308,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the ability string of the permission</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td>Ability String </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#ad2a22e472c3df209585fddc04381c4e3">BristolSU\Support\Permissions\Models\Permission</a>.</p>
 
@@ -327,13 +336,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the description of the permission</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$description</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$description</td><td>Description of the permission </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a4a783d55010bdcd35acdfb63b392928e">BristolSU\Support\Permissions\Models\Permission</a>.</p>
 
@@ -354,13 +364,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the module alias for the permission</p>
+<p>If the permission is a module permission, the module alias is the module which has registered the permission</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$moduleAlias</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$moduleAlias</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> that registers the permission </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a2dd38f8f9c8dc52d46e47e8d6a984fbd">BristolSU\Support\Permissions\Models\Permission</a>.</p>
 
@@ -381,6 +393,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the module type.</p>
+<p>If the permission is a module permission, this should either be 'administrator' or 'participant', depending on if the module is an admin or a participant permission.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$moduleType</td><td></td></tr>
@@ -408,13 +422,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the name of the permission</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>Name of the permission </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a68adee61c559bd3e990af2ba398b3a61">BristolSU\Support\Permissions\Models\Permission</a>.</p>
 
@@ -435,13 +450,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the type of permission.</p>
+<p>The type of the permission can either be 'global' for a system permission, or 'module' for a module permission</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$type</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$type</td><td>Type of the permission, either global or module </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#ac121ad205118171a88f88cd0928fea81">BristolSU\Support\Permissions\Models\Permission</a>.</p>
 
@@ -453,7 +470,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2020 15:14:03 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 7 2020 16:17:25 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

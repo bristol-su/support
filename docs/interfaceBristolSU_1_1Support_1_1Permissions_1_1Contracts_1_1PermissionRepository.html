@@ -88,8 +88,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a33d64edc7fd35f5215d803a3a627f4af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Contracts_2PermissionRepository_8php_source.html#l00013">13</a> of file <a class="el" href="Contracts_2PermissionRepository_8php_source.html">PermissionRepository.php</a>.</p>
+<div class="textblock"><p>Handle retrieving permissions </p>
+
+<p class="definition">Definition at line <a class="el" href="Contracts_2PermissionRepository_8php_source.html#l00012">12</a> of file <a class="el" href="Contracts_2PermissionRepository_8php_source.html">PermissionRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a33d64edc7fd35f5215d803a3a627f4af"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a33d64edc7fd35f5215d803a3a627f4af">&#9670;&nbsp;</a></span>all()</h2>
@@ -105,6 +106,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all permissions registered</p>
+<dl class="section return"><dt>Returns</dt><dd>Permission[] </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1PermissionRepository.html#aaf728e3369dd051df98414fa9099f847">BristolSU\Support\Permissions\PermissionRepository</a>.</p>
 
@@ -125,13 +128,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all permissions for a module</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> alias to retrieve permissions from </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Permission[] </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1PermissionRepository.html#af33a30090a6e82cfa7bd09e213af3944">BristolSU\Support\Permissions\PermissionRepository</a>.</p>
 
@@ -152,13 +156,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get a permission by ability</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$ability</td><td>Ability of the permission </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Permission </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Permission Permission model </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1PermissionRepository.html#a888a35a084905c43e4e5dadc9446b76e">BristolSU\Support\Permissions\PermissionRepository</a>.</p>
 
@@ -170,7 +175,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Tue Jan 7 2020 15:14:03 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 7 2020 16:17:25 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

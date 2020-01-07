@@ -14,6 +14,7 @@ use BristolSU\ControlDB\Contracts\Models\User;
  * Class SystemUserPermission
  * @package BristolSU\Support\Permissions\Testers
  */
+// TODO Create system group, role and logic testers
 class SystemUserPermission extends Tester
 {
 

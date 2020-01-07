@@ -36,7 +36,6 @@ class PermissionTester implements PermissionTesterContract
      */
     public function evaluate(string $ability): bool
     {
-        $tester = $this->getChain();
         /**
          * We always need to pass a user in. This is always possible, since you will always be logged into a database user.
          * By default, we take from authentication. If this is null, we take from the database user
@@ -46,7 +45,7 @@ class PermissionTester implements PermissionTesterContract
             $user = app(UserRepository::class)->getById($dbUser->control_id);
         };
         
-        $result = $tester->handle($this->getPermission($ability), $user, app(Authentication::class)->getGroup(), app(Authentication::class)->getRole());
+        $result = $this->evaluateFor($ability, $user, app(Authentication::class)->getGroup(), app(Authentication::class)->getRole());
         return ($result??false);
     }
     
