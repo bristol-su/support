@@ -5,14 +5,15 @@ namespace BristolSU\Support\Logic\Contracts;
 
 
 /**
- * Interface Specification
- * @package BristolSU\Support\Logic\Contracts
+ * ISpecification interface.
  */
 interface Specification
 {
 
     /**
-     * @return bool
+     * Is the specification satisfied?
+     * 
+     * @return bool If the specification is satisfied
      */
     public function isSatisfied() : bool;
 

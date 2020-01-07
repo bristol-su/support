@@ -23,7 +23,7 @@ class LogicTester implements LogicTesterContract
      * @param null $roleModel
      * @return bool
      */
-    public function evaluate(Logic $logic, $userModel = null, $groupModel = null, $roleModel = null)
+    public function evaluate(Logic $logic, $userModel = null, $groupModel = null, $roleModel = null): bool
     {
         $allTrue = [];
         $anyTrue = [];

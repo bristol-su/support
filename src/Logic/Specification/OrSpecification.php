@@ -7,20 +7,20 @@ namespace BristolSU\Support\Logic\Specification;
 use BristolSU\Support\Logic\Contracts\Specification;
 
 /**
- * Class OrSpecification
- * @package BristolSU\Support\Logic\Specification
+ * Are any of the given specifications satisfied?
  */
 class OrSpecification implements Specification
 {
 
     /**
+     * Holds the specifications
+     *
      * @var array
      */
     private $specifications;
 
     /**
-     * OrSpecification constructor.
-     * @param mixed ...$specifications
+     * @param Specification ...$specifications Specifications to test
      */
     public function __construct(...$specifications)
     {
@@ -28,15 +28,14 @@ class OrSpecification implements Specification
     }
 
     /**
-     * @return bool
+     * Are any of the given specifications satisfied?
+     *
+     * @return bool If any of the specifications are satisfied
      */
     public function isSatisfied() : bool
     {
-        if(count($this->specifications) === 0) {
-            return true;
-        }
         foreach($this->specifications as $specification) {
-            if($specification->isSatisfied()) {
+            if(!$specification->isSatisfied()) {
                 return true;
             }
         }

@@ -7,26 +7,33 @@ use BristolSU\Support\Logic\Logic;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
-use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 
 /**
- * Interface LogicAudience
- * @package BristolSU\Support\Logic\Contracts
+ * Gets the audience for a logic group
  */
 abstract class LogicAudience
 {
 
     /**
-     * @param Logic $logic
+     * Gets the audience of a logic group
+     * 
+     * @param Logic $logic Logic group to get the audience from
      * @return mixed
      */
     abstract public function audience(Logic $logic);
 
+    /**
+     * Get the users belonging to a logic group
+     * 
+     * Extracts the user models from audiences and returns all users who can access the logic group
+     * 
+     * @param Logic $logic Logic group to test
+     * @return \Illuminate\Support\Collection All users who can access the logic group
+     */
     public function userAudience(Logic $logic)
     {
         return collect($this->audience($logic))->filter(function (AudienceMember $audienceMember) {
-            return $audienceMember->canBeUser();
+            return $audienceMember->canBeUser(); // TODO Change to hasAudience?
         })->map(function (AudienceMember $audienceMember) {
             return $audienceMember->user();
         })->flatten(1)->unique(function (User $user) {
@@ -34,6 +41,12 @@ abstract class LogicAudience
         })->values();
     }
 
+    /**
+     * Return all groups in the logic group
+     * 
+     * @param Logic $logic Logic group to test
+     * @return \Illuminate\Support\Collection All groups who can access the logic group
+     */
     public function groupAudience(Logic $logic)
     {
         return collect($this->audience($logic))->filter(function (AudienceMember $audienceMember) {
@@ -47,6 +60,12 @@ abstract class LogicAudience
         })->values();
     }
 
+    /**
+     * Returns all roles in the logic group
+     *
+     * @param Logic $logic Logic group to test
+     * @return \Illuminate\Support\Collection All roles who can access the logic group
+     */
     public function roleAudience(Logic $logic)
     {
         return collect($this->audience($logic))->filter(function (AudienceMember $audienceMember) {

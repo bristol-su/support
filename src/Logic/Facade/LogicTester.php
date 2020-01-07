@@ -12,10 +12,9 @@ use BristolSU\ControlDB\Contracts\Models\User;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * Class LogicTester
- * @package BristolSU\Support\Logic\Facade
+ * CTest a logic group
  *
- * @method static bool evaluate(Logic $logic, ?User $user = null, ?Group $group = null, ?Role $role = null)
+ * @method static bool evaluate(Logic $logic, ?User $user = null, ?Group $group = null, ?Role $role = null) Are the given resources in the logic group?
  *
  * @see LogicTesterContract
  */
@@ -23,6 +22,8 @@ class LogicTester extends Facade
 {
 
     /**
+     * Get the name of the logic tester binding in the container
+     * 
      * @return string
      */
     protected static function getFacadeAccessor()

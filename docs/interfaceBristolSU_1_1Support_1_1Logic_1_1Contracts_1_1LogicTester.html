@@ -84,8 +84,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aeb25dbe27514d990cd50b656b0e44496"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Contracts_2LogicTester_8php_source.html#l00011">11</a> of file <a class="el" href="Contracts_2LogicTester_8php_source.html">LogicTester.php</a>.</p>
+<div class="textblock"><p>Test a set of resources against a logic group </p>
+
+<p class="definition">Definition at line <a class="el" href="Contracts_2LogicTester_8php_source.html#l00013">13</a> of file <a class="el" href="Contracts_2LogicTester_8php_source.html">LogicTester.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="aeb25dbe27514d990cd50b656b0e44496"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aeb25dbe27514d990cd50b656b0e44496">&#9670;&nbsp;</a></span>evaluate()</h2>
@@ -124,16 +125,17 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>See if the given resources together are in the logic group</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Logic.html">Logic</a></td><td class="paramname">$logic</td><td></td></tr>
-    <tr><td class="paramtype">null</td><td class="paramname">$userModel</td><td></td></tr>
-    <tr><td class="paramtype">null</td><td class="paramname">$groupModel</td><td></td></tr>
-    <tr><td class="paramtype">null</td><td class="paramname">$roleModel</td><td></td></tr>
+    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Logic.html">Logic</a></td><td class="paramname">$logic</td><td><a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Logic.html">Logic</a> group to test </td></tr>
+    <tr><td class="paramtype">null&#160;|&#160;<a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a></td><td class="paramname">$userModel</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a> to test in the logic group </td></tr>
+    <tr><td class="paramtype">null&#160;|&#160;Group</td><td class="paramname">$groupModel</td><td>Group to test in the logic group </td></tr>
+    <tr><td class="paramtype">null&#160;|&#160;Role</td><td class="paramname">$roleModel</td><td>Role to test in the logic group </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>bool Are the given resources in the logic group </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1LogicTester.html#ac4906a3d06e8762248b353cfc63a6aa6">BristolSU\Support\Logic\LogicTester</a>.</p>
 
@@ -145,7 +147,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Mon Jan 6 2020 20:40:27 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Tue Jan 7 2020 11:45:21 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

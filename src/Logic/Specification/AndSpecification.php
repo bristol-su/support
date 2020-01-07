@@ -7,20 +7,20 @@ namespace BristolSU\Support\Logic\Specification;
 use BristolSU\Support\Logic\Contracts\Specification;
 
 /**
- * Class AndSpecification
- * @package BristolSU\Support\Logic\Specification
+ * Are all the given specifications satisfied?
  */
 class AndSpecification implements Specification
 {
 
     /**
+     * Holds the specifications
+     * 
      * @var array
      */
     private $specifications;
 
     /**
-     * AndSpecification constructor.
-     * @param mixed ...$specifications
+     * @param Specification ...$specifications Specifications to test
      */
     public function __construct(...$specifications)
     {
@@ -28,7 +28,9 @@ class AndSpecification implements Specification
     }
 
     /**
-     * @return bool
+     * Are all the given specifications satisfied?
+     * 
+     * @return bool If all the specifications are satisfied
      */
     public function isSatisfied() : bool
     {

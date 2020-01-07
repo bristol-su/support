@@ -9,23 +9,27 @@ use BristolSU\Support\Logic\Contracts\Audience\LogicAudience as LogicAudienceCon
 use BristolSU\Support\Logic\Logic;
 
 /**
- * Class LogicAudience
- * @package BristolSU\Support\Logic
+ * Get the audience of a logic group
  */
 class LogicAudience extends LogicAudienceContract
 {
     /**
+     * User Repository, to resolve all users from
+     * 
      * @var UserRepository
      */
     private $userRepository;
+    
     /**
+     * Audience member factory to construct audience members
+     * 
      * @var AudienceMemberFactoryContract
      */
     private $audienceMemberFactory;
 
     /**
-     * LogicAudience constructor.
-     * @param UserRepository $userRepository
+     * @param UserRepository $userRepository User Repository to resolve all users from
+     * @param AudienceMemberFactoryContract $audienceMemberFactory Audience member factory to construct audience members from users
      */
     public function __construct(UserRepository $userRepository, AudienceMemberFactoryContract $audienceMemberFactory)
     {
@@ -34,8 +38,12 @@ class LogicAudience extends LogicAudienceContract
     }
 
     /**
-     * @param Logic $logic
-     * @return mixed
+     * Get the audience of a logic group
+     * 
+     * Will return an array of AudienceMember objects representing the audience of the given logic group.
+     * 
+     * @param Logic $logic Logic group to get the audience for
+     * @return AudienceMember[]
      */
     public function audience(Logic $logic)
     {
@@ -49,6 +57,13 @@ class LogicAudience extends LogicAudienceContract
         return $audienceMembers;
     }
 
+    /**
+     * Get the possible audience
+     * 
+     * Returns all users of the portal as AudienceMembers. 
+     * 
+     * @return \Generator Used as an array, eases memory constraints at runtime
+     */
     private function possibleAudience()
     {
         foreach ($this->userRepository->all() as $user) {
