@@ -11,12 +11,17 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class ModuleFrameworkServiceProvider
- * @package BristolSU\Support\Module
+ * Module Framework service provider
  */
 class ModuleFrameworkServiceProvider extends ServiceProvider
 {
 
+    /**
+     * Register
+     * 
+     * - Bind implementations to interfaces
+     * - Set up the module manager as a singleton
+     */
     public function register()
     {
         $this->app->bind(ModuleContract::class, Module::class);
@@ -26,6 +31,11 @@ class ModuleFrameworkServiceProvider extends ServiceProvider
         $this->app->bind(ModuleRepositoryContract::class, ModuleRepository::class);
     }
 
+    /**
+     * Boot
+     * 
+     * - Set up route model binding for a module
+     */
     public function boot()
     {
         Route::bind('module', function ($alias) {

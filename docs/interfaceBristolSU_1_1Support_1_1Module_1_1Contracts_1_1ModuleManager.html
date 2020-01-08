@@ -88,8 +88,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5cbc0eace319804ea71ebc251ad2332d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Contracts_2ModuleManager_8php_source.html#l00009">9</a> of file <a class="el" href="Contracts_2ModuleManager_8php_source.html">ModuleManager.php</a>.</p>
+<div class="textblock"><p>Manages module registration </p>
+
+<p class="definition">Definition at line <a class="el" href="Contracts_2ModuleManager_8php_source.html#l00008">8</a> of file <a class="el" href="Contracts_2ModuleManager_8php_source.html">ModuleManager.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a35a86656ff3d8645b51482510b0c7914"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a35a86656ff3d8645b51482510b0c7914">&#9670;&nbsp;</a></span>aliases()</h2>
@@ -105,10 +106,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get all aliases which have been registered</p>
+<dl class="section return"><dt>Returns</dt><dd>array Array of module aliases </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Module_1_1ModuleManager.html#aa829b97ae818a7b24675010a131cb9e3">BristolSU\Support\Module\ModuleManager</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleManager_8php_source.html#l00041">BristolSU\Support\Module\ModuleManager\exists()</a>, and <a class="el" href="ModuleManager_8php_source.html#l00022">BristolSU\Support\Module\ModuleManager\register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleManager_8php_source.html#l00049">BristolSU\Support\Module\ModuleManager\exists()</a>, and <a class="el" href="ModuleManager_8php_source.html#l00026">BristolSU\Support\Module\ModuleManager\register()</a>.</p>
 
 </div>
 </div>
@@ -127,17 +130,18 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Has the given module alias been registered?</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias to test </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>bool </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>bool If the module has been registered </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Module_1_1ModuleManager.html#a660cac225d8f6b2397610322fc767cca">BristolSU\Support\Module\ModuleManager</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleManager_8php_source.html#l00022">BristolSU\Support\Module\ModuleManager\register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleManager_8php_source.html#l00026">BristolSU\Support\Module\ModuleManager\register()</a>.</p>
 
 </div>
 </div>
@@ -156,13 +160,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register a new module</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">$alias</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the module </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Module_1_1ModuleManager.html#a96deca9ffe5474aab52660129c914154">BristolSU\Support\Module\ModuleManager</a>.</p>
 
@@ -174,7 +179,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 8 2020 10:20:41 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 8 2020 13:20:12 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

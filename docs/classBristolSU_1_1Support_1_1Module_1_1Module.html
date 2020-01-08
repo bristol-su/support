@@ -119,14 +119,14 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:af7e60ec8b4ec112959793ed9e325c0a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad0b42e06f7a9980d77f42c43bf06ad39"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Module_1_1Module.html#ad0b42e06f7a9980d77f42c43bf06ad39">setTriggers</a> (array $triggers)</td></tr>
 <tr class="separator:ad0b42e06f7a9980d77f42c43bf06ad39"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0e835601a482cda6dd39ba06ca0b452b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Module_1_1Module.html#a0e835601a482cda6dd39ba06ca0b452b">setCompletionConditions</a> (array $completionConditions)</td></tr>
-<tr class="separator:a0e835601a482cda6dd39ba06ca0b452b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac78d815cf4da400ae9150d5a502e1946"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Module_1_1Module.html#ac78d815cf4da400ae9150d5a502e1946">getCompletionConditions</a> ()</td></tr>
 <tr class="separator:ac78d815cf4da400ae9150d5a502e1946"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5dbcea7a8a4b27e9ea704765e1ea72cf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Module_1_1Module.html#a5dbcea7a8a4b27e9ea704765e1ea72cf">setServices</a> (array $services)</td></tr>
-<tr class="separator:a5dbcea7a8a4b27e9ea704765e1ea72cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0e835601a482cda6dd39ba06ca0b452b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Module_1_1Module.html#a0e835601a482cda6dd39ba06ca0b452b">setCompletionConditions</a> (array $completionConditions)</td></tr>
+<tr class="separator:a0e835601a482cda6dd39ba06ca0b452b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1e6023106aad12ee5068bb5a7b557d9f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Module_1_1Module.html#a1e6023106aad12ee5068bb5a7b557d9f">getServices</a> ()</td></tr>
 <tr class="separator:a1e6023106aad12ee5068bb5a7b557d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dbcea7a8a4b27e9ea704765e1ea72cf"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Module_1_1Module.html#a5dbcea7a8a4b27e9ea704765e1ea72cf">setServices</a> (array $services)</td></tr>
+<tr class="separator:a5dbcea7a8a4b27e9ea704765e1ea72cf"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -148,7 +148,8 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a1e7b328ab375d6002b4528007f4218f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
+<div class="textblock"><p>Represents a module </p>
+
 <p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00011">11</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a12d736afb890e26a585138f183647c4b"></a>
@@ -165,11 +166,12 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Return the module as a json representation</p>
 <dl class="section return"><dt>Returns</dt><dd>false|string </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00049">49</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00094">94</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
-<p class="reference">References <a class="el" href="Module_8php_source.html#l00058">BristolSU\Support\Module\Module\toJson()</a>.</p>
+<p class="reference">References <a class="el" href="Module_8php_source.html#l00105">BristolSU\Support\Module\Module\toJson()</a>.</p>
 
 </div>
 </div>
@@ -187,11 +189,12 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the alias of the module</p>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a40bf73155b78e5e3fac01c2c0878e26f">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00083">83</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00146">146</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -209,11 +212,12 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<p>Get the completion conditions used by the module</p>
+<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a8c8305a70a8f47962451eb4062083c0d">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00187">187</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00278">278</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -231,11 +235,12 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the description for the module</p>
 <dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a520274375b793facfeca9f3f2700989c">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00115">115</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00186">186</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -253,11 +258,12 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
+<p>Get the name of the module</p>
+<dl class="section return"><dt>Returns</dt><dd>string Name </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a316e2d47f0aef71572621dffda018b23">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00099">99</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00166">166</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -275,11 +281,12 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the permissions for the module</p>
 <dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a6073561975875e151c907836f572c7ec">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00131">131</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00206">206</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -297,10 +304,13 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the services for the module</p>
+<p>[ 'required' =&gt; ['typeform', 'facebook', ... ], 'optional' =&gt; [] ]</p>
+<dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#aa741a3e92cf025ecaa6cd9d9a8b98d89">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00203">203</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00303">303</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -318,11 +328,12 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the settings for the module</p>
 <dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a88a564c9df48969731a93611b3ce5fb8">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00147">147</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00226">226</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -340,11 +351,13 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the triggers for the module</p>
+<p>[ 'name' =&gt; 'Event Name', 'description' =&gt; 'Event Description', 'event' =&gt; 'EventClassName' ]</p>
 <dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a1293378219569d8a9ccd0b2d53180d15">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00163">163</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00252">252</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -363,16 +376,17 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the alias of the module</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the module </td></tr>
   </table>
   </dd>
 </dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a84c6e945dfd7afa33294363e67fe4601">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00091">91</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00156">156</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a5bcf11c4a236a5ec022421ae8840ffb1">function\alias()</a>.</p>
 
@@ -393,16 +407,17 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the completion conditions used by the module</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$completionConditions</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$completionConditions</td><td></td></tr>
   </table>
   </dd>
 </dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a44d946c64c32f8bb8e7b87a8de8713ed">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00179">179</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00288">288</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -421,6 +436,7 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the description for the module</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$description</td><td></td></tr>
@@ -430,7 +446,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a98595e44af6a4984075164250953ba32">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00123">123</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00196">196</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -449,6 +465,7 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the name of the module</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
@@ -458,7 +475,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a835ac4c999bd56c1b3bc515fb39595e7">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00107">107</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00176">176</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -477,6 +494,7 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the permissions for the module</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">array</td><td class="paramname">$permissions</td><td></td></tr>
@@ -486,7 +504,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a23cc7316d5977fece88af77d884000fd">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00139">139</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00216">216</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -505,10 +523,19 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the services for the module</p>
+<p>[ 'required' =&gt; ['typeform', 'facebook', ... ], 'optional' =&gt; [] ]</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$services</td><td>Services for the module </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a62790a3be77de0180560908e1ce3a2b3">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00195">195</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00319">319</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -527,6 +554,7 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the settings for the module</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">array</td><td class="paramname">$settings</td><td></td></tr>
@@ -536,7 +564,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#ab9db968bcfcb7e236e56d9c893d0b2c3">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00155">155</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00236">236</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a1a595c1d7941d4e689379340ba965c0f">function\settings()</a>.</p>
 
@@ -557,6 +585,8 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Set the triggers for the module</p>
+<p>[ 'name' =&gt; 'Event Name', 'description' =&gt; 'Event Description', 'event' =&gt; 'EventClassName' ]</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">array</td><td class="paramname">$triggers</td><td></td></tr>
@@ -566,7 +596,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a59b72ff572a1663e363ba7dddec94a69">BristolSU\Support\Module\Contracts\Module</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00171">171</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00268">268</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -584,13 +614,15 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Cast the module to an array</p>
+<p>Returns an array of the form [ 'alias' =&gt; 'module_alias', 'name' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Module_1_1Module.html">Module</a> Name', 'description' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Module_1_1Module.html">Module</a> Description', 'permissions' =&gt; [], 'settings' =&gt; [], 'triggers' =&gt; [], 'completionConditions' =&gt; [], 'services' =&gt; [] ]</p>
 <dl class="section return"><dt>Returns</dt><dd>array </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00066">66</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00127">127</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 <p class="reference">References <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a40bf73155b78e5e3fac01c2c0878e26f">BristolSU\Support\Module\Contracts\Module\getAlias()</a>, <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a8c8305a70a8f47962451eb4062083c0d">BristolSU\Support\Module\Contracts\Module\getCompletionConditions()</a>, <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a520274375b793facfeca9f3f2700989c">BristolSU\Support\Module\Contracts\Module\getDescription()</a>, <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a316e2d47f0aef71572621dffda018b23">BristolSU\Support\Module\Contracts\Module\getName()</a>, <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a6073561975875e151c907836f572c7ec">BristolSU\Support\Module\Contracts\Module\getPermissions()</a>, <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#aa741a3e92cf025ecaa6cd9d9a8b98d89">BristolSU\Support\Module\Contracts\Module\getServices()</a>, <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a88a564c9df48969731a93611b3ce5fb8">BristolSU\Support\Module\Contracts\Module\getSettings()</a>, and <a class="el" href="interfaceBristolSU_1_1Support_1_1Module_1_1Contracts_1_1Module.html#a1293378219569d8a9ccd0b2d53180d15">BristolSU\Support\Module\Contracts\Module\getTriggers()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Module_8php_source.html#l00058">BristolSU\Support\Module\Module\toJson()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Module_8php_source.html#l00105">BristolSU\Support\Module\Module\toJson()</a>.</p>
 
 </div>
 </div>
@@ -609,6 +641,7 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Return the module as a json representation</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">int</td><td class="paramname">$options</td><td></td></tr>
@@ -617,11 +650,11 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>false|string </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00058">58</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00105">105</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
-<p class="reference">References <a class="el" href="Module_8php_source.html#l00066">BristolSU\Support\Module\Module\toArray()</a>.</p>
+<p class="reference">References <a class="el" href="Module_8php_source.html#l00127">BristolSU\Support\Module\Module\toArray()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Module_8php_source.html#l00049">BristolSU\Support\Module\Module\__toString()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Module_8php_source.html#l00094">BristolSU\Support\Module\Module\__toString()</a>.</p>
 
 </div>
 </div>
@@ -646,7 +679,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00017">17</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00019">19</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -670,7 +703,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00044">44</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00087">87</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -694,7 +727,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00025">25</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00033">33</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -718,7 +751,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00021">21</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00026">26</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -742,7 +775,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00029">29</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00040">40</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -766,7 +799,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00039">39</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00073">73</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -790,7 +823,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00033">33</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00047">47</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -814,7 +847,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00037">37</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Module_8php_source.html#l00060">60</a> of file <a class="el" href="Module_8php_source.html">Module.php</a>.</p>
 
 </div>
 </div>
@@ -824,7 +857,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 8 2020 10:20:41 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 8 2020 13:20:12 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

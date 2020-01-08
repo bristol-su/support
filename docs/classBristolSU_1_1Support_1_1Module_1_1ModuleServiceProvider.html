@@ -84,8 +84,6 @@ Collaboration diagram for BristolSU\Support\Module\ModuleServiceProvider:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:adfe8b2c29ecea1049857333051bb7e35"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Module_1_1ModuleServiceProvider.html#adfe8b2c29ecea1049857333051bb7e35">register</a> ()</td></tr>
-<tr class="separator:adfe8b2c29ecea1049857333051bb7e35"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a890cac4fcfeab20e816857a48d4c1125"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Module_1_1ModuleServiceProvider.html#a890cac4fcfeab20e816857a48d4c1125">boot</a> ()</td></tr>
 <tr class="separator:a890cac4fcfeab20e816857a48d4c1125"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a445e23ecdfd4bc4bc90159b80a3d40a9"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Module_1_1ModuleServiceProvider.html#a445e23ecdfd4bc4bc90159b80a3d40a9">registerSettingListeners</a> ()</td></tr>
@@ -142,8 +140,10 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a18121d82c2d62942b195877ead46f364"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00036">36</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<div class="textblock"><p><a class="el" href="classBristolSU_1_1Support_1_1Module_1_1Module.html">Module</a> Service Provider.</p>
+<p>Extend this service provider to register a module </p>
+
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00025">25</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a890cac4fcfeab20e816857a48d4c1125"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a890cac4fcfeab20e816857a48d4c1125">&#9670;&nbsp;</a></span>boot()</h2>
@@ -159,16 +159,33 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Boot</p>
+<ul>
+<li>Register translations</li>
+<li>Register configuration</li>
+<li>Register the module</li>
+<li>Register module permissions</li>
+<li>Register module events</li>
+<li>Register views</li>
+<li>Register factories</li>
+<li>Register migrations to use</li>
+<li>Register commands</li>
+<li>Register assets</li>
+<li>Register routes</li>
+<li>Register settings</li>
+<li>Register setting listeners</li>
+<li>Register scheduled commands</li>
+</ul>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname">Exception</td><td></td></tr>
+    <tr><td class="paramname">BindingResolutionException</td><td></td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00075">75</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">138</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
-<p class="reference">References <a class="el" href="ModuleServiceProvider_8php_source.html#l00179">BristolSU\Support\Module\ModuleServiceProvider\loadMigrations()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00224">BristolSU\Support\Module\ModuleServiceProvider\registerAssets()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00217">BristolSU\Support\Module\ModuleServiceProvider\registerCommands()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00154">BristolSU\Support\Module\ModuleServiceProvider\registerConfig()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\registerEvents()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00172">BristolSU\Support\Module\ModuleServiceProvider\registerFactories()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00117">BristolSU\Support\Module\ModuleServiceProvider\registerModule()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00122">BristolSU\Support\Module\ModuleServiceProvider\registerPermissions()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00108">BristolSU\Support\Module\ModuleServiceProvider\registerRoutes()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00100">BristolSU\Support\Module\ModuleServiceProvider\registerScheduledCommands()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00093">BristolSU\Support\Module\ModuleServiceProvider\registerSettingListeners()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00243">function\registerSettings()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00149">BristolSU\Support\Module\ModuleServiceProvider\registerTranslations()</a>, and <a class="el" href="ModuleServiceProvider_8php_source.html#l00163">BristolSU\Support\Module\ModuleServiceProvider\registerViews()</a>.</p>
+<p class="reference">References <a class="el" href="ModuleServiceProvider_8php_source.html#l00286">BristolSU\Support\Module\ModuleServiceProvider\loadMigrations()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00348">BristolSU\Support\Module\ModuleServiceProvider\registerAssets()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00338">BristolSU\Support\Module\ModuleServiceProvider\registerCommands()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00250">BristolSU\Support\Module\ModuleServiceProvider\registerConfig()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00228">BristolSU\Support\Module\ModuleServiceProvider\registerEvents()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00276">BristolSU\Support\Module\ModuleServiceProvider\registerFactories()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00200">BristolSU\Support\Module\ModuleServiceProvider\registerModule()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00210">BristolSU\Support\Module\ModuleServiceProvider\registerPermissions()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00186">BristolSU\Support\Module\ModuleServiceProvider\registerRoutes()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00175">BristolSU\Support\Module\ModuleServiceProvider\registerScheduledCommands()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00161">BristolSU\Support\Module\ModuleServiceProvider\registerSettingListeners()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00391">function\registerSettings()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00242">BristolSU\Support\Module\ModuleServiceProvider\registerTranslations()</a>, and <a class="el" href="ModuleServiceProvider_8php_source.html#l00262">BristolSU\Support\Module\ModuleServiceProvider\registerViews()</a>.</p>
 
 </div>
 </div>
@@ -186,12 +203,13 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Load migrations to be used </p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00179">179</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00286">286</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#ab321ee73993a4d056dab6a844200b6cf">function\baseDirectory()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00075">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
 
 </div>
 </div>
@@ -209,12 +227,13 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Load admin API routes </p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00209">209</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00327">327</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a5bcf11c4a236a5ec022421ae8840ffb1">function\alias()</a>, and <a class="el" href="namespacefunction.html#ab321ee73993a4d056dab6a844200b6cf">function\baseDirectory()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00108">BristolSU\Support\Module\ModuleServiceProvider\registerRoutes()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00186">BristolSU\Support\Module\ModuleServiceProvider\registerRoutes()</a>.</p>
 
 </div>
 </div>
@@ -232,12 +251,13 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Load admin routes </p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00193">193</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00305">305</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a5bcf11c4a236a5ec022421ae8840ffb1">function\alias()</a>, and <a class="el" href="namespacefunction.html#ab321ee73993a4d056dab6a844200b6cf">function\baseDirectory()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00108">BristolSU\Support\Module\ModuleServiceProvider\registerRoutes()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00186">BristolSU\Support\Module\ModuleServiceProvider\registerRoutes()</a>.</p>
 
 </div>
 </div>
@@ -255,12 +275,13 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Load participant API routes </p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00201">201</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00316">316</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a5bcf11c4a236a5ec022421ae8840ffb1">function\alias()</a>, and <a class="el" href="namespacefunction.html#ab321ee73993a4d056dab6a844200b6cf">function\baseDirectory()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00108">BristolSU\Support\Module\ModuleServiceProvider\registerRoutes()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00186">BristolSU\Support\Module\ModuleServiceProvider\registerRoutes()</a>.</p>
 
 </div>
 </div>
@@ -278,31 +299,13 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Load participant routes </p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00185">185</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00294">294</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a5bcf11c4a236a5ec022421ae8840ffb1">function\alias()</a>, and <a class="el" href="namespacefunction.html#ab321ee73993a4d056dab6a844200b6cf">function\baseDirectory()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00108">BristolSU\Support\Module\ModuleServiceProvider\registerRoutes()</a>.</p>
-
-</div>
-</div>
-<a id="adfe8b2c29ecea1049857333051bb7e35"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adfe8b2c29ecea1049857333051bb7e35">&#9670;&nbsp;</a></span>register()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">BristolSU\Support\Module\ModuleServiceProvider::register </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00067">67</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00186">BristolSU\Support\Module\ModuleServiceProvider\registerRoutes()</a>.</p>
 
 </div>
 </div>
@@ -320,12 +323,13 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register assets </p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00224">224</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00348">348</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a5bcf11c4a236a5ec022421ae8840ffb1">function\alias()</a>, and <a class="el" href="namespacefunction.html#ab321ee73993a4d056dab6a844200b6cf">function\baseDirectory()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00075">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
 
 </div>
 </div>
@@ -343,10 +347,11 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register commmands to make available </p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00217">217</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00338">338</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00075">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
 
 </div>
 </div>
@@ -372,12 +377,13 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Register config </p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00154">154</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00250">250</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a5bcf11c4a236a5ec022421ae8840ffb1">function\alias()</a>, and <a class="el" href="namespacefunction.html#ab321ee73993a4d056dab6a844200b6cf">function\baseDirectory()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00075">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
 
 </div>
 </div>
@@ -395,18 +401,19 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register events the module fires</p>
 <dl class="exception"><dt>Exceptions</dt><dd>
   <table class="exception">
-    <tr><td class="paramname"></td><td></td></tr>
+    <tr><td class="paramname">BindingResolutionException</td><td></td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">138</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00228">228</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a5bcf11c4a236a5ec022421ae8840ffb1">function\alias()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00075">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
 
 </div>
 </div>
@@ -424,12 +431,19 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register factories in a non-production environment</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">BindingResolutionException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00172">172</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00276">276</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#ab321ee73993a4d056dab6a844200b6cf">function\baseDirectory()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00075">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
 
 </div>
 </div>
@@ -447,12 +461,19 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register the module</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">BindingResolutionException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00117">117</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00200">200</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a5bcf11c4a236a5ec022421ae8840ffb1">function\alias()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00075">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
 
 </div>
 </div>
@@ -470,12 +491,19 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register permissions the module uses</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">Exception</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00122">122</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00210">210</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a5bcf11c4a236a5ec022421ae8840ffb1">function\alias()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00075">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
 
 </div>
 </div>
@@ -493,12 +521,13 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register routes for the module </p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00108">108</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00186">186</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
-<p class="reference">References <a class="el" href="ModuleServiceProvider_8php_source.html#l00209">BristolSU\Support\Module\ModuleServiceProvider\mapAdminApiRoutes()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00193">BristolSU\Support\Module\ModuleServiceProvider\mapAdminRoutes()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00201">BristolSU\Support\Module\ModuleServiceProvider\mapParticipantApiRoutes()</a>, and <a class="el" href="ModuleServiceProvider_8php_source.html#l00185">BristolSU\Support\Module\ModuleServiceProvider\mapParticipantRoutes()</a>.</p>
+<p class="reference">References <a class="el" href="ModuleServiceProvider_8php_source.html#l00327">BristolSU\Support\Module\ModuleServiceProvider\mapAdminApiRoutes()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00305">BristolSU\Support\Module\ModuleServiceProvider\mapAdminRoutes()</a>, <a class="el" href="ModuleServiceProvider_8php_source.html#l00316">BristolSU\Support\Module\ModuleServiceProvider\mapParticipantApiRoutes()</a>, and <a class="el" href="ModuleServiceProvider_8php_source.html#l00294">BristolSU\Support\Module\ModuleServiceProvider\mapParticipantRoutes()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00075">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
 
 </div>
 </div>
@@ -516,12 +545,20 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register scheduled commands</p>
+<p>Register commands to run at scheduled times.</p>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">BindingResolutionException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00100">100</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00175">175</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a5bcf11c4a236a5ec022421ae8840ffb1">function\alias()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00075">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
 
 </div>
 </div>
@@ -539,10 +576,12 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register setting listeners</p>
+<p>Register listeners to be fired when settings are changed. </p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00093">93</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00161">161</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00075">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
 
 </div>
 </div>
@@ -560,12 +599,13 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register translations </p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00149">149</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00242">242</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a5bcf11c4a236a5ec022421ae8840ffb1">function\alias()</a>, and <a class="el" href="namespacefunction.html#ab321ee73993a4d056dab6a844200b6cf">function\baseDirectory()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00075">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
 
 </div>
 </div>
@@ -583,12 +623,13 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register views </p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00163">163</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00262">262</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a5bcf11c4a236a5ec022421ae8840ffb1">function\alias()</a>, and <a class="el" href="namespacefunction.html#ab321ee73993a4d056dab6a844200b6cf">function\baseDirectory()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00075">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleServiceProvider_8php_source.html#l00138">BristolSU\Support\Module\ModuleServiceProvider\boot()</a>.</p>
 
 </div>
 </div>
@@ -613,7 +654,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00058">58</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00086">86</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 </div>
 </div>
@@ -637,7 +678,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00042">42</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00033">33</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 </div>
 </div>
@@ -661,7 +702,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00053">53</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00072">72</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 </div>
 </div>
@@ -685,7 +726,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= [</div><div class="line">    ]</div></div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00047">47</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00056">56</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 </div>
 </div>
@@ -709,7 +750,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00065">65</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00116">116</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 </div>
 </div>
@@ -733,7 +774,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00063">63</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleServiceProvider_8php_source.html#l00099">99</a> of file <a class="el" href="ModuleServiceProvider_8php_source.html">ModuleServiceProvider.php</a>.</p>
 
 </div>
 </div>
@@ -743,7 +784,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 8 2020 10:20:41 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 8 2020 13:20:12 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

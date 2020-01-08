@@ -6,6 +6,7 @@ use BristolSU\Support\Connection\Connection;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Database\Eloquent\Model;
 
+// TODO Move to own package
 class ModuleInstanceService extends Model
 {
 

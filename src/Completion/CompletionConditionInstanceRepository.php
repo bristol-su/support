@@ -4,7 +4,6 @@
 namespace BristolSU\Support\Completion;
 
 
-use BristolSU\Support\Completion\Contracts\CompletionConditionInstance;
 use BristolSU\Support\Completion\Contracts\CompletionConditionInstanceRepository as CompletionConditionInstanceRepositoryContract;
 
 /**

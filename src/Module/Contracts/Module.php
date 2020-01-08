@@ -2,92 +2,158 @@
 
 namespace BristolSU\Support\Module\Contracts;
 
+use BristolSU\Support\Permissions\Contracts\Models\Permission;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
 /**
- * Interface Module
- * @package BristolSU\Support\Module\Contracts
+ * Represents a registered module in the framework
  */
 interface Module extends Arrayable, Jsonable
 {
     /**
-     * @param string $alias
+     * Set the alias of the module
+     * 
+     * @param string $alias Alias of the module
+     * @return void
      */
     public function setAlias(string $alias): void;
 
     /**
+     * Get the alias associated with the module
+     * 
      * @return string
      */
     public function getAlias(): string;
 
     /**
-     * @param string $name
+     * Set the name of the module
+     * 
+     * @param string $name Name of the module
+     * @return void
      */
     public function setName(string $name): void;
     
     /**
-     * @return string
+     * Get the name of the module
+     * 
+     * @return string Name of the module
      */
     public function getName(): string;
 
 
     /**
-     * @param string $completionConditions
+     * Set the completion conditions for the module
+     * 
+     * Conditions should be set as
+     * [
+     *      'name' => '',
+     *      'description' => '',
+     *      'options' => [],
+     *      'alias' => ''
+     * ]
+     * 
+     * @param array $completionConditions
+     * @return void
      */
     public function setCompletionConditions(array $completionConditions): void;
 
     /**
-     * @return string
+     * Get the completion conditions for the module
+     * 
+     * Return [
+     *      'name' => '',
+     *      'description' => '',
+     *      'options' => [],
+     *      'alias' => ''
+     * ]
+     *
+     * @return array
      */
     public function getCompletionConditions(): array;
     
     /**
-     * @param string $description
+     * Set the description of the module
+     * 
+     * @param string $description Description of the module
+     * @return void
      */
     public function setDescription(string $description): void;
 
     /**
-     * @return string
+     * Get the description of the module
+     * 
+     * @return string Description of the module
      */
     public function getDescription(): string;
 
     /**
-     * @param array $permissions
+     * Set the permissions for the module
+     * 
+     * @param Permission[] $permissions Set the permissions for the module
+     * @return void
      */
     public function setPermissions(array $permissions): void;
 
     /**
-     * @return array
+     * Get the permissions for the module
+     * 
+     * @return Permission[]
      */
     public function getPermissions(): array;
 
     /**
-     * @param array $settings
+     * Set the settings for the module
+     * 
+     * @param array $settings Form schema settings
+     * @return void
      */
     public function setSettings(array $settings): void;
 
     /**
-     * @return array
+     * Get the settings for the module
+     * 
+     * @return array Form schema settings
      */
     public function getSettings(): array;
 
     /**
-     * @param array $triggers
+     * Set the triggers for the module
+     *
+     * [
+     *      'name' => 'Event Name',
+     *      'description' => 'Event Description',
+     *      'event' => 'EventClassName'
+     * ]
+     * 
+     * @param array $triggers Triggers for the module
+     * @return void
      */
     public function setTriggers(array $triggers): void;
 
     /**
-     * @return array
+     * Get the triggers for the module
+     * 
+     * @return array Triggers
      */
     public function getTriggers(): array;
 
     /**
-     * @param array $services
+     * Set the services for the module
+     * 
+     * [
+     *      'required' => ['typeform', 'facebook', ... ],
+     *      'optional' => []
+     * ]
+     * 
+     * @param array $services Services for the module
+     * @return void
      */
     public function setServices(array $services): void;
 
     /**
+     * Get the services for the module
+     * 
      * @return array
      */
     public function getServices(): array;

@@ -16,53 +16,76 @@ use FormSchema\Transformers\VFGTransformer;
 use Illuminate\Contracts\Config\Repository;
 
 /**
- * Class ModuleBuilder
- * @package BristolSU\Support\Module
+ * Handles building a module using the framework tools
  */
 class ModuleBuilder implements ModuleBuilderContract
 {
 
     /**
+     * Holds the module
+     * 
      * @var ModuleContract
      */
     private $module;
+    
     /**
+     * Repository for resolving permissions
+     * 
      * @var PermissionRepository
      */
     private $permissionRepository;
+    
     /**
+     * Configuration for resolving name/description
+     * 
      * @var Repository
      */
+    // TODO Register the name and description of the module in the service provider
     private $config;
 
     /**
-     * @var
+     * Alias for the module to use
+     * 
+     * @var string
      */
     private $alias;
 
     /**
+     * Repository for resolving events from
+     * 
      * @var EventRepository
      */
     private $eventRepository;
+    
     /**
+     * Repository for resolving completion conditions used by the module
+     * 
      * @var CompletionConditionRepository
      */
     private $completionConditionRepository;
+    
     /**
+     * Store for resolving module settings out of
+     * 
      * @var ModuleSettingsStore
      */
     private $moduleSettingsStore;
+    
     /**
+     * Service request for resolving services needed by the module
+     * 
      * @var ServiceRequest
      */
     private $serviceRequest;
 
     /**
-     * ModuleBuilder constructor.
-     * @param ModuleContract $module
-     * @param PermissionRepository $permissionRepository
-     * @param Repository $config
-     * @param EventRepository $eventRepository
+     * @param ModuleContract $module Module object to build
+     * @param PermissionRepository $permissionRepository Repository for resolving permissions
+     * @param Repository $config Configuration for resolving name/description
+     * @param EventRepository $eventRepository Repository for resolving events from
+     * @param CompletionConditionRepository $completionConditionRepository Repository for resolving completion conditions used by the module
+     * @param ModuleSettingsStore $moduleSettingsStore Store for resolving module settings out of
+     * @param ServiceRequest $serviceRequest Service request for resolving services needed by the module
      */
     public function __construct(ModuleContract $module,
                                 PermissionRepository $permissionRepository,
@@ -82,7 +105,9 @@ class ModuleBuilder implements ModuleBuilderContract
     }
 
     /**
-     * @param string $alias
+     * Initialise the module builder
+     * 
+     * @param string $alias Alias to use for the module
      */
     public function create(string $alias)
     {
@@ -90,8 +115,10 @@ class ModuleBuilder implements ModuleBuilderContract
     }
 
     /**
-     * @return string
-     * @throws Exception
+     * Get the alias to use for the module
+     * 
+     * @return string Alias
+     * @throws Exception If the create() function has not been called, so no alias is known
      */
     protected function getAlias(): string
     {
@@ -101,11 +128,21 @@ class ModuleBuilder implements ModuleBuilderContract
         return $this->alias;
     }
 
+    /**
+     * Set the alias on the module
+     * 
+     * @throws Exception If no alias is known by the builder
+     */
     public function setAlias()
     {
         $this->module->setAlias($this->getAlias());
     }
 
+    /**
+     * Set the permissions on the module
+     *
+     * @throws Exception If no alias is known by the builder
+     */
     public function setPermissions()
     {
         $this->module->setPermissions(
@@ -113,6 +150,11 @@ class ModuleBuilder implements ModuleBuilderContract
         );
     }
 
+    /**
+     * Set the name of the module
+     * 
+     * @throws Exception If no alias is known by the builder
+     */
     public function setName()
     {
         $this->module->setName(
@@ -120,6 +162,11 @@ class ModuleBuilder implements ModuleBuilderContract
         );
     }
 
+    /**
+     * Set the description of the module
+     * 
+     * @throws Exception If no alias is known by the builder
+     */
     public function setDescription()
     {
         $this->module->setDescription(
@@ -127,6 +174,11 @@ class ModuleBuilder implements ModuleBuilderContract
         );
     }
 
+    /**
+     * Set the settings of the module
+     * 
+     * @throws Exception If no alias is known by the builder
+     */
     public function setSettings()
     {
         $this->module->setSettings(
@@ -136,6 +188,11 @@ class ModuleBuilder implements ModuleBuilderContract
         );
     }
 
+    /**
+     * Set the triggers of the module
+     * 
+     * @throws Exception If no alias is known by the builder
+     */
     public function setTriggers()
     {
         $this->module->setTriggers(
@@ -147,6 +204,11 @@ class ModuleBuilder implements ModuleBuilderContract
         );
     }
 
+    /**
+     * Set the services of the module
+     * 
+     * @throws Exception If no alias is known by the builder
+     */
     public function setServices()
     {
         $this->module->setServices([
@@ -156,13 +218,20 @@ class ModuleBuilder implements ModuleBuilderContract
     }
 
     /**
-     * @return ModuleContract
+     * Get the built module
+     * 
+     * @return ModuleContract Initialised module
      */
     public function getModule(): ModuleContract
     {
         return $this->module;
     }
 
+    /**
+     * Set the completion conditions for the module
+     * 
+     * @throws Exception If no alias is known by the builder
+     */
     public function setCompletionConditions()
     {
         $this->module->setCompletionConditions(

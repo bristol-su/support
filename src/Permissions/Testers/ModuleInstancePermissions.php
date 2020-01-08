@@ -58,8 +58,8 @@ class ModuleInstancePermissions extends Tester
                 return $this->logicTester->evaluate($permissionValue->logic, $user, $group, $role);
 
             }
-        } catch (ModelNotFoundException $e) {
-            return null;
-        }
+        } catch (ModelNotFoundException $e) {}
+        
+        return null;
     }
 }

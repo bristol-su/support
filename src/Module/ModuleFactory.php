@@ -5,23 +5,22 @@ namespace BristolSU\Support\Module;
 use BristolSU\Support\Module\Contracts\ModuleBuilder as ModuleBuilderContract;
 use BristolSU\Support\Module\Contracts\Module;
 use BristolSU\Support\Module\Contracts\ModuleFactory as ModuleFactoryAlias;
-use Illuminate\Contracts\Container\Container;
 
 /**
- * Class ModuleFactory
- * @package BristolSU\Support\Module
+ * Create a module object
  */
 class ModuleFactory implements ModuleFactoryAlias
 {
 
     /**
+     * Holds a module builder to build the module
+     * 
      * @var ModuleBuilderContract
      */
     private $moduleBuilder;
 
     /**
-     * ModuleFactory constructor.
-     * @param ModuleBuilderContract $moduleBuilder
+     * @param ModuleBuilderContract $moduleBuilder Builder to create the module object
      */
     public function __construct(ModuleBuilderContract $moduleBuilder)
     {
@@ -29,9 +28,12 @@ class ModuleFactory implements ModuleFactoryAlias
     }
 
     /**
-     * @param string $alias
-     * @return Module
+     * Create a module from its alias
+     * 
+     * @param string $alias Alias of the module
+     * @return Module Fully constructed module
      */
+    // TODO Use the module builder in the construct as opposed to resolving
     public function fromAlias(string $alias): Module
     {
         $moduleBuilder = app(ModuleBuilder::class);

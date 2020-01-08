@@ -5,19 +5,23 @@ namespace BristolSU\Support\Module;
 use BristolSU\Support\Module\Contracts\ModuleManager as ModuleManagerContract;
 
 /**
- * Class ModuleManager
- * @package BristolSU\Support\Module
+ * Stores module registration information in an array
  */
 class ModuleManager implements ModuleManagerContract
 {
 
     /**
+     * A list of registered aliases
+     * 
      * @var array
      */
     protected $aliases = [];
 
     /**
-     * @param $alias
+     * Register a new module by alias
+     * 
+     * @param string $alias Alias of the module
+     * @return void
      */
     public function register($alias)
     {
@@ -27,6 +31,8 @@ class ModuleManager implements ModuleManagerContract
     }
 
     /**
+     * Get all registered aliases
+     * 
      * @return array
      */
     public function aliases()
@@ -35,8 +41,10 @@ class ModuleManager implements ModuleManagerContract
     }
 
     /**
-     * @param string $alias
-     * @return bool
+     * Check if a module has been registered
+     * 
+     * @param string $alias Alias of the module
+     * @return bool If the module has been registered
      */
     public function exists(string $alias): bool
     {

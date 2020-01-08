@@ -3,22 +3,30 @@
 namespace BristolSU\Support\Module\Contracts;
 
 /**
- * Interface ModuleManager
- * @package BristolSU\Support\Module\Contracts
+ * Manages module registration
  */
 interface ModuleManager
 {
     /**
-     * @param $alias
-     * @return mixed
+     * Register a new module
+     * 
+     * @param string $alias Alias of the module
+     * @return void
      */
     public function register($alias);
 
+    /**
+     * Get all aliases which have been registered
+     * 
+     * @return array Array of module aliases
+     */
     public function aliases();
 
     /**
-     * @param string $alias
-     * @return bool
+     * Has the given module alias been registered?
+     * 
+     * @param string $alias Alias to test
+     * @return bool If the module has been registered
      */
     public function exists(string $alias): bool;
 }

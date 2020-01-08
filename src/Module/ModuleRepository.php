@@ -7,25 +7,28 @@ use BristolSU\Support\Module\Contracts\ModuleManager as ModuleManagerContract;
 use BristolSU\Support\Module\Contracts\ModuleRepository as ModuleRepositoryContract;
 
 /**
- * Class ModuleRepository
- * @package BristolSU\Support\Module
+ * Module Repository for retrieving registered modules
  */
 class ModuleRepository implements ModuleRepositoryContract
 {
 
     /**
+     * Holds the module manager to retrieve modules from
+     * 
      * @var ModuleManagerContract
      */
     private $manager;
+    
     /**
+     * Module factory to create modules
+     * 
      * @var ModuleFactoryContract
      */
     private $factory;
 
     /**
-     * ModuleRepository constructor.
-     * @param ModuleManagerContract $manager
-     * @param ModuleFactoryContract $factory
+     * @param ModuleManagerContract $manager Manager to retrieve modules from
+     * @param ModuleFactoryContract $factory Factory to create the modules
      */
     public function __construct(ModuleManagerContract $manager, ModuleFactoryContract $factory)
     {
@@ -34,7 +37,9 @@ class ModuleRepository implements ModuleRepositoryContract
     }
 
     /**
-     * @return array
+     * Get all modules registered
+     * 
+     * @return \BristolSU\Support\Module\Contracts\Module[]
      */
     public function all()
     {
@@ -46,8 +51,10 @@ class ModuleRepository implements ModuleRepositoryContract
     }
 
     /**
-     * @param $alias
-     * @return Contracts\Module|null
+     * Get a module by alias
+     * 
+     * @param string $alias Alias of the module
+     * @return \BristolSU\Support\Module\Contracts\Module|null Module or null if not registered 
      */
     public function findByAlias($alias)
     {

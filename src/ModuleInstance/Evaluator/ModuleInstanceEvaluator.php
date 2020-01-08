@@ -69,8 +69,6 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
         return $this->evaluation;
     }
 
-    // TODO make active and visible meaningful
-
     private function isComplete(ActivityInstance $activityInstance, ModuleInstance $moduleInstance): bool
     {
         return ($activityInstance->activity->isCompletable() ?
@@ -78,12 +76,14 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
             false);
     }
 
+    // TODO tidy
     public function evaluateResource(ActivityInstance $activityInstance, ModuleInstance $moduleInstance): EvaluationContract
     {
         $this->evaluation->setVisible(true);
         $this->evaluation->setActive(true);
         $this->evaluation->setComplete($this->isComplete($activityInstance, $moduleInstance));
 
+        // It is mandatory if mandatory for anyone
         if($activityInstance->activity->isCompletable()) {
             $resource = $activityInstance->participant();
 

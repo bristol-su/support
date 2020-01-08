@@ -2,23 +2,13 @@
 
 namespace BristolSU\Support\ModuleInstance\Settings;
 
-use BristolSU\Support\ModuleInstance\Events\SettingCreated;
-use BristolSU\Support\ModuleInstance\Events\SettingCreating;
-use BristolSU\Support\ModuleInstance\Events\SettingDeleted;
-use BristolSU\Support\ModuleInstance\Events\SettingDeleting;
-use BristolSU\Support\ModuleInstance\Events\SettingRestored;
-use BristolSU\Support\ModuleInstance\Events\SettingRestoring;
-use BristolSU\Support\ModuleInstance\Events\SettingRetrieved;
-use BristolSU\Support\ModuleInstance\Events\SettingSaved;
-use BristolSU\Support\ModuleInstance\Events\SettingSaving;
-use BristolSU\Support\ModuleInstance\Events\SettingUpdated;
-use BristolSU\Support\ModuleInstance\Events\SettingUpdating;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class ModuleInstanceSettings
  * @package BristolSU\Support\ModuleInstance\Settings
+ * TODO Move to Settings directory
  */
 class ModuleInstanceSetting extends Model
 {
