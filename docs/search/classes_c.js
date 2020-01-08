@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['passportserviceprovider',['PassportServiceProvider',['../classBristolSU_1_1Support_1_1Authorization_1_1PassportServiceProvider.html',1,'BristolSU::Support::Authorization']]],
+  ['passportserviceprovider',['PassportServiceProvider',['../classBristolSU_1_1Support_1_1Authentication_1_1PassportServiceProvider.html',1,'BristolSU::Support::Authentication']]],
   ['permission',['Permission',['../classBristolSU_1_1Support_1_1Permissions_1_1Facade_1_1Permission.html',1,'BristolSU\Support\Permissions\Facade\Permission'],['../interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html',1,'BristolSU\Support\Permissions\Contracts\Models\Permission'],['../classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html',1,'BristolSU\Support\Permissions\Models\Permission']]],
   ['permissionrepository',['PermissionRepository',['../classBristolSU_1_1Support_1_1Permissions_1_1PermissionRepository.html',1,'BristolSU\Support\Permissions\PermissionRepository'],['../interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1PermissionRepository.html',1,'BristolSU\Support\Permissions\Contracts\PermissionRepository']]],
   ['permissionserviceprovider',['PermissionServiceProvider',['../classBristolSU_1_1Support_1_1Permissions_1_1PermissionServiceProvider.html',1,'BristolSU::Support::Permissions']]],

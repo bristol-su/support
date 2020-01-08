@@ -1,7 +1,7 @@
 var searchData=
 [
   ['participant',['participant',['../classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a4187cfac3fdf1fb8015a1c90dc831c1a',1,'BristolSU::Support::ActivityInstance::ActivityInstance']]],
-  ['passportserviceprovider',['PassportServiceProvider',['../classBristolSU_1_1Support_1_1Authorization_1_1PassportServiceProvider.html',1,'BristolSU::Support::Authorization']]],
+  ['passportserviceprovider',['PassportServiceProvider',['../classBristolSU_1_1Support_1_1Authentication_1_1PassportServiceProvider.html',1,'BristolSU::Support::Authentication']]],
   ['passportserviceprovider_2ephp',['PassportServiceProvider.php',['../PassportServiceProvider_8php.html',1,'']]],
   ['percentage',['percentage',['../classBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionCondition.html#a505eee86b89c5493fb3c0af068b33d66',1,'BristolSU::Support::Completion::Contracts::CompletionCondition']]],
   ['permission',['Permission',['../classBristolSU_1_1Support_1_1Permissions_1_1Facade_1_1Permission.html',1,'BristolSU\Support\Permissions\Facade\Permission'],['../interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html',1,'BristolSU\Support\Permissions\Contracts\Models\Permission'],['../classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html',1,'BristolSU\Support\Permissions\Models\Permission']]],
