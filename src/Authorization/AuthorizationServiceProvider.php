@@ -16,14 +16,6 @@ class AuthorizationServiceProvider extends ServiceProvider
 {
 
     /**
-     * Register the passport service provider. The normal service provider should be disabled.
-     */
-    public function register()
-    {
-        $this->app->register(PassportServiceProvider::class);
-    }
-
-    /**
      * Push middleware to groups
      */
     public function boot()

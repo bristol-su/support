@@ -26,11 +26,13 @@ class AuthenticationServiceProvider extends ServiceProvider
      * 
      * - Bind the resource ID generator
      * - Bind the authentication contract
+     * - Register the passport service provider. The normal service provider should be disabled.
      */
     public function register()
     {
         $this->app->call([$this, 'registerAuthentication']);
         $this->app->bind(ResourceIdGenerator::class, AuthenticationResourceIdGenerator::class);
+        $this->app->register(PassportServiceProvider::class);
     }
 
     /**

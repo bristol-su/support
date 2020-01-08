@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BristolSU\Support\Authorization;
+namespace BristolSU\Support\Authentication;
 
 
 use BristolSU\Support\User\User;
