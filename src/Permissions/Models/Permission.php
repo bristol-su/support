@@ -188,7 +188,7 @@ class Permission implements PermissionContract
      * 
      * @return string|null administrator or participant, or null if a global permission
      */
-    public function getModuleType(): string
+    public function getModuleType(): ?string
     {
         return $this->moduleType;
     }
@@ -196,10 +196,10 @@ class Permission implements PermissionContract
     /**
      * Set the type of module permission, administrator or participant
      * 
-     * @param string $moduleType Administrator or participant
+     * @param null|string $moduleType Administrator or participant
      * @return void
      */
-    public function setModuleType(string $moduleType)
+    public function setModuleType(?string $moduleType)
     {
         $this->moduleType = $moduleType;
     }
