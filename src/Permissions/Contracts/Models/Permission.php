@@ -57,10 +57,10 @@ interface Permission extends Arrayable, Jsonable
      * 
      * If the permission is a module permission, the module alias is the module which has registered the permission
      * 
-     * @param string $moduleAlias Module that registers the permission
+     * @param null|string $moduleAlias Module that registers the permission
      * @return void
      */
-    public function setModuleAlias(string $moduleAlias);
+    public function setModuleAlias(?string $moduleAlias);
 
     /**
      * Set the module type. 
@@ -68,10 +68,10 @@ interface Permission extends Arrayable, Jsonable
      * If the permission is a module permission, this should either be 'administrator' or 'participant', depending on 
      * if the module is an admin or a participant permission.
      * 
-     * @param string $moduleType
+     * @param null|string $moduleType
      * @return mixed
      */
-    public function setModuleType(string $moduleType);
+    public function setModuleType(?string $moduleType);
 
     /**
      * Get the ability string for the permission
