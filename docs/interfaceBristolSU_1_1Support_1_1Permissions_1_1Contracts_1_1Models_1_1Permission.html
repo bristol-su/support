@@ -95,10 +95,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a814dc7ff344fc7f8b6ab94b74f61fedc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab20fc0cad097e11e358832f6b4f40e24"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html#ab20fc0cad097e11e358832f6b4f40e24">setType</a> (string $type)</td></tr>
 <tr class="separator:ab20fc0cad097e11e358832f6b4f40e24"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a8775ebc59bc75ffc977b2d53ad0829"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html#a4a8775ebc59bc75ffc977b2d53ad0829">setModuleAlias</a> (string $moduleAlias)</td></tr>
-<tr class="separator:a4a8775ebc59bc75ffc977b2d53ad0829"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a015280bde485c05f8e3bbfa986af712e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html#a015280bde485c05f8e3bbfa986af712e">setModuleType</a> (string $moduleType)</td></tr>
-<tr class="separator:a015280bde485c05f8e3bbfa986af712e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a77f204b7ffbce88fe85ff6a2341516ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html#a77f204b7ffbce88fe85ff6a2341516ad">setModuleAlias</a> (?string $moduleAlias)</td></tr>
+<tr class="separator:a77f204b7ffbce88fe85ff6a2341516ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8c066ec2f7c4ef697caaa97b7f0be245"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html#a8c066ec2f7c4ef697caaa97b7f0be245">setModuleType</a> (?string $moduleType)</td></tr>
+<tr class="separator:a8c066ec2f7c4ef697caaa97b7f0be245"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a428e6cb0632ede6da0abe072ce6f3997"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html#a428e6cb0632ede6da0abe072ce6f3997">getAbility</a> ()</td></tr>
 <tr class="separator:a428e6cb0632ede6da0abe072ce6f3997"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b081098681ef1015209d9383e91f947"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html#a7b081098681ef1015209d9383e91f947">getName</a> ()</td></tr>
@@ -349,8 +349,8 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a4a8775ebc59bc75ffc977b2d53ad0829"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a8775ebc59bc75ffc977b2d53ad0829">&#9670;&nbsp;</a></span>setModuleAlias()</h2>
+<a id="a77f204b7ffbce88fe85ff6a2341516ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77f204b7ffbce88fe85ff6a2341516ad">&#9670;&nbsp;</a></span>setModuleAlias()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -358,7 +358,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">BristolSU\Support\Permissions\Contracts\Models\Permission::setModuleAlias </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
+          <td class="paramtype">?string&#160;</td>
           <td class="paramname"><em>$moduleAlias</em></td><td>)</td>
           <td></td>
         </tr>
@@ -368,16 +368,18 @@ Public Member Functions</h2></td></tr>
 <p>If the permission is a module permission, the module alias is the module which has registered the permission</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$moduleAlias</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> that registers the permission </td></tr>
+    <tr><td class="paramtype">null&#160;|&#160;string</td><td class="paramname">$moduleAlias</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> that registers the permission </td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#a023fe733a7ea135df41b1da8275af766">BristolSU\Support\Permissions\Models\Permission</a>.</p>
+
 </div>
 </div>
-<a id="a015280bde485c05f8e3bbfa986af712e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a015280bde485c05f8e3bbfa986af712e">&#9670;&nbsp;</a></span>setModuleType()</h2>
+<a id="a8c066ec2f7c4ef697caaa97b7f0be245"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c066ec2f7c4ef697caaa97b7f0be245">&#9670;&nbsp;</a></span>setModuleType()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -385,7 +387,7 @@ Public Member Functions</h2></td></tr>
         <tr>
           <td class="memname">BristolSU\Support\Permissions\Contracts\Models\Permission::setModuleType </td>
           <td>(</td>
-          <td class="paramtype">string&#160;</td>
+          <td class="paramtype">?string&#160;</td>
           <td class="paramname"><em>$moduleType</em></td><td>)</td>
           <td></td>
         </tr>
@@ -395,13 +397,13 @@ Public Member Functions</h2></td></tr>
 <p>If the permission is a module permission, this should either be 'administrator' or 'participant', depending on if the module is an admin or a participant permission.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$moduleType</td><td></td></tr>
+    <tr><td class="paramtype">null&#160;|&#160;string</td><td class="paramname">$moduleType</td><td></td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
 
-<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#aff243107e30a16a761f451ee157adc77">BristolSU\Support\Permissions\Models\Permission</a>.</p>
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1Permission.html#ae7e4b01a8a52646198848a70f38c9049">BristolSU\Support\Permissions\Models\Permission</a>.</p>
 
 </div>
 </div>
@@ -468,7 +470,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 9 2020 13:04:56 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 9 2020 14:43:02 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
