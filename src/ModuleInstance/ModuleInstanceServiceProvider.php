@@ -23,12 +23,18 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Class ModuleInstanceServiceProvider
- * @package BristolSU\Support\ModuleInstance
+ * Module Instance Service Provider
  */
 class ModuleInstanceServiceProvider extends ServiceProvider
 {
 
+    /**
+     * Register
+     * 
+     * - Bind implementations to contracts
+     * - Set up the module settings store as a singleton
+     * - Set up the command store as a singleton
+     */
     public function register()
     {
         $this->app->bind(ModuleInstanceRepositoryContract::class, ModuleInstanceRepository::class);
@@ -40,6 +46,14 @@ class ModuleInstanceServiceProvider extends ServiceProvider
         $this->app->singleton(CommandStoreContract::class, CommandStore::class);
     }
 
+    /**
+     * Boot
+     * 
+     * - Push middleware to module group
+     * - Route model binding for a module_instance_setting
+     * - Route model binding for a module_instance_service
+     * - Route model binding for the module_instance_slug
+     */
     public function boot()
     {
         $this->app['router']->pushMiddlewareToGroup('module', InjectModuleInstance::class);

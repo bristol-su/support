@@ -90,8 +90,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ac69270835d60605c71e50bfe4984685d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Contracts_2ModuleInstanceRepository_8php_source.html#l00011">11</a> of file <a class="el" href="Contracts_2ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
+<div class="textblock"><p>Handle interacting with module instances </p>
+
+<p class="definition">Definition at line <a class="el" href="Contracts_2ModuleInstanceRepository_8php_source.html#l00010">10</a> of file <a class="el" href="Contracts_2ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a61a56fa9db8557a001ce3fa362263f79"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a61a56fa9db8557a001ce3fa362263f79">&#9670;&nbsp;</a></span>all()</h2>
@@ -108,7 +109,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get all module instances</p>
-<dl class="section return"><dt>Returns</dt><dd>Collection </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html">ModuleInstance</a>[]|Collection </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstanceRepository.html#af5297bc16b9fa719050f24cd2adc696c">BristolSU\Support\ModuleInstance\ModuleInstanceRepository</a>.</p>
 
@@ -132,11 +133,11 @@ Public Member Functions</h2></td></tr>
 <p>Get all module instances belonging to a module alias</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the module </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Collection </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html">ModuleInstance</a>[]|Collection </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstanceRepository.html#ae26cebacdc39081b4cdc374eff9e5440">BristolSU\Support\ModuleInstance\ModuleInstanceRepository</a>.</p>
 
@@ -157,13 +158,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Create a new module instance</p>
+<p>The module instance has the following attributes [ 'alias' =&gt; 'alias of the module', 'activity_id' =&gt; 1, 'slug' =&gt; 'slug-of-the-module', 'completion_condition_instance_id' =&gt; 1, // nullable 'name' =&gt; 'Name of the module', 'description' =&gt; 'Description', 'active' =&gt; <a class="el" href="namespaceBristolSU_1_1Support_1_1Logic.html">Logic</a> ID for the active logic, 'visible' =&gt; <a class="el" href="namespaceBristolSU_1_1Support_1_1Logic.html">Logic</a> ID for the visible logic, 'mandatory' =&gt; Nullable logic ID for the mandatory logic ]</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td>Attributes as defined in the description </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html">ModuleInstance</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html">ModuleInstance</a> Created module instance </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstanceRepository.html#aa94f95e825d03a2d479819e03e839c16">BristolSU\Support\ModuleInstance\ModuleInstanceRepository</a>.</p>
 
@@ -184,13 +187,14 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get a module instance by ID</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>ID of the module instance </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html">ModuleInstance</a> </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html">ModuleInstance</a> <a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> instance with the given ID </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstanceRepository.html#a6a4a81df8539d1e98b1abaf061ebefdf">BristolSU\Support\ModuleInstance\ModuleInstanceRepository</a>.</p>
 
@@ -202,7 +206,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 8 2020 13:20:12 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 9 2020 13:04:56 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

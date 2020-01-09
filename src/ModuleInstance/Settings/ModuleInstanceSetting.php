@@ -6,20 +6,15 @@ use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class ModuleInstanceSettings
- * @package BristolSU\Support\ModuleInstance\Settings
+ * Represents a setting value associated with a module instance
  * TODO Move to Settings directory
  */
 class ModuleInstanceSetting extends Model
 {
-    /**
-     * @var array
-     */
-    protected $casts = [
-        'settings' => 'array'
-    ];
 
     /**
+     * Fillable attributes for mass assignment
+     * 
      * @var array
      */
     protected $fillable = [
@@ -27,6 +22,8 @@ class ModuleInstanceSetting extends Model
     ];
 
     /**
+     * Module instance relationship
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function moduleInstance()
@@ -34,6 +31,11 @@ class ModuleInstanceSetting extends Model
         return $this->belongsTo(ModuleInstance::class);
     }
 
+    /**
+     * Dynamically encode the value of the setting if an array
+     * 
+     * @param mixed $value
+     */
     public function setValueAttribute($value)
     {
         if(is_array($value)) {
@@ -44,6 +46,11 @@ class ModuleInstanceSetting extends Model
         }
     }
 
+    /**
+     * Dynamically decode the value of the setting if json
+     * 
+     * @return mixed
+     */
     public function getValueAttribute()
     {
         if(($this->attributes['encoded']??false)) {

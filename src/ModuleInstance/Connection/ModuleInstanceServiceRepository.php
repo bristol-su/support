@@ -7,9 +7,21 @@ use BristolSU\Support\Connection\Contracts\ConnectorFactory;
 use BristolSU\Support\ModuleInstance\Contracts\Connection\ModuleInstanceServiceRepository as ModuleInstanceServiceRepositoryContract;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
+/**
+ * Interact with connections belonging to module instances
+ */
 class ModuleInstanceServiceRepository implements ModuleInstanceServiceRepositoryContract
 {
 
+    /**
+     * Get a connector for a module instance given the service
+     * 
+     * @param string $service Name of the service required
+     * @param int $moduleInstanceId Module instance ID using the connector
+     * @return Connector Authenticated connector for use in making requests
+     * 
+     * @throws NoConnectionAvailable If no available connection has been found
+     */
     public function getConnectorForService(string $service, int $moduleInstanceId): Connector
     {
         try {
@@ -21,6 +33,11 @@ class ModuleInstanceServiceRepository implements ModuleInstanceServiceRepository
         return app(ConnectorFactory::class)->createFromConnection($moduleInstanceService->connection);
     }
 
+    /**
+     * Return all module instance service assignments
+     * 
+     * @return ModuleInstanceService[]|\Illuminate\Database\Eloquent\Collection
+     */
     public function all()
     {
         return ModuleInstanceService::all();

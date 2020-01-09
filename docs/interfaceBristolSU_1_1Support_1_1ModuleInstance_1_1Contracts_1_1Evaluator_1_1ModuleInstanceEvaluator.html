@@ -88,8 +88,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a673d77280387f857e8878c2ee5da57ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Contracts_2Evaluator_2ModuleInstanceEvaluator_8php_source.html#l00019">19</a> of file <a class="el" href="Contracts_2Evaluator_2ModuleInstanceEvaluator_8php_source.html">ModuleInstanceEvaluator.php</a>.</p>
+<div class="textblock"><p>Evaluates a given module instance and module </p>
+
+<p class="definition">Definition at line <a class="el" href="Contracts_2Evaluator_2ModuleInstanceEvaluator_8php_source.html#l00017">17</a> of file <a class="el" href="Contracts_2Evaluator_2ModuleInstanceEvaluator_8php_source.html">ModuleInstanceEvaluator.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ae79caba9a0c2db1c7ea001346e9ddeb3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae79caba9a0c2db1c7ea001346e9ddeb3">&#9670;&nbsp;</a></span>evaluateAdministrator()</h2>
@@ -134,13 +135,18 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Evaluate a module instance for a given administrator</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype"><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html">ModuleInstance</a></td><td class="paramname">$moduleInstance</td><td></td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></td><td class="paramname">$activityInstance</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> instance to evaluate </td></tr>
+    <tr><td class="paramtype"><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html">ModuleInstance</a></td><td class="paramname">$moduleInstance</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> instance to evaluate </td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a>&#160;|&#160;null</td><td class="paramname">$user</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a> to evaluate for </td></tr>
+    <tr><td class="paramtype">Group&#160;|&#160;null</td><td class="paramname">$group</td><td>Group to evaluate for </td></tr>
+    <tr><td class="paramtype">Role&#160;|&#160;null</td><td class="paramname">$role</td><td>Role to evaluate for </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>EvaluationContract </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ModuleInstanceEvaluator.html#a4338e204f172f0b481faddcbe29bcfea">BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator</a>.</p>
 
@@ -189,13 +195,18 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Evaluate a module instance for a given participant</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype"><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html">ModuleInstance</a></td><td class="paramname">$moduleInstance</td><td></td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></td><td class="paramname">$activityInstance</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> instance to evaluate </td></tr>
+    <tr><td class="paramtype"><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html">ModuleInstance</a></td><td class="paramname">$moduleInstance</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> instance to evaluate </td></tr>
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a>&#160;|&#160;null</td><td class="paramname">$user</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a> to evaluate for </td></tr>
+    <tr><td class="paramtype">Group&#160;|&#160;null</td><td class="paramname">$group</td><td>Group to evaluate for </td></tr>
+    <tr><td class="paramtype">Role&#160;|&#160;null</td><td class="paramname">$role</td><td>Role to evaluate for </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>EvaluationContract </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ModuleInstanceEvaluator.html#a6d9ede9bce7e5c947cc5d6fcaedb9e58">BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator</a>.</p>
 
@@ -226,6 +237,16 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Evaluate the module instance for all participants of the activity instance.</p>
+<p>This method, unlike the admin or participant methods, does not accept a user/group/role. Instead, it evaluates the module instance as a whole for a general overview of how the resource (i.e. the model associated to the activity instance) is doing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></td><td class="paramname">$activityInstance</td><td></td></tr>
+    <tr><td class="paramtype"><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html">ModuleInstance</a></td><td class="paramname">$moduleInstance</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Evaluator_1_1Evaluation.html">Evaluation</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ModuleInstanceEvaluator.html#a09d7a28aa7772a19015f17fa0a3960a2">BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator</a>.</p>
 
@@ -237,7 +258,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 8 2020 13:20:12 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 9 2020 13:04:56 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

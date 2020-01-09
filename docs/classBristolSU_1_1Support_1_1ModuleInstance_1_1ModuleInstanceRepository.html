@@ -98,7 +98,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ae26cebacdc39081b4cdc374eff9e5440"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
+<div class="textblock"><p>Class to interact with module instances through </p>
+
 <p class="definition">Definition at line <a class="el" href="ModuleInstanceRepository_8php_source.html#l00015">15</a> of file <a class="el" href="ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="af5297bc16b9fa719050f24cd2adc696c"></a>
@@ -118,7 +119,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstanceRepository.html#a61a56fa9db8557a001ce3fa362263f79">BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstanceRepository_8php_source.html#l00039">39</a> of file <a class="el" href="ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstanceRepository_8php_source.html#l00051">51</a> of file <a class="el" href="ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
 
 </div>
 </div>
@@ -140,7 +141,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstanceRepository.html#ac69270835d60605c71e50bfe4984685d">BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstanceRepository_8php_source.html#l00047">47</a> of file <a class="el" href="ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstanceRepository_8php_source.html#l00059">59</a> of file <a class="el" href="ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
 
 </div>
 </div>
@@ -159,6 +160,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Create a new module instance</p>
+<p>The attributes must be of the following form: [ 'alias' =&gt; 'alias_of_the_module', '' =&gt; '', ]</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td></td></tr>
@@ -169,7 +172,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstanceRepository.html#a7b49065904c11799afd4668b62817a62">BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstanceRepository_8php_source.html#l00031">31</a> of file <a class="el" href="ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstanceRepository_8php_source.html#l00043">43</a> of file <a class="el" href="ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
 
 </div>
 </div>
@@ -188,17 +191,24 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get a module instance by ID</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>ID of the module instance </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>ModuleInstanceContract </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>ModuleInstanceContract <a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> instance with the given ID</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ModelNotFoundException</td><td>If the model does not exist. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstanceRepository.html#a08c657237fdd7d4786af59dfd280f9ed">BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstanceRepository_8php_source.html#l00022">22</a> of file <a class="el" href="ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstanceRepository_8php_source.html#l00026">26</a> of file <a class="el" href="ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
 
 </div>
 </div>
@@ -208,7 +218,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 8 2020 13:20:12 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 9 2020 13:04:56 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
