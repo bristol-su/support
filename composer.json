@@ -21,7 +21,7 @@
     "laracasts/utilities": "^3.0",
     "ext-json": "*",
     "tobytwigger/form-schema-generator": "^1.1",
-    "bristol-su/control-db-implementation": "@dev"
+    "bristol-su/control": "@dev"
   },
   "autoload": {
     "files": [
