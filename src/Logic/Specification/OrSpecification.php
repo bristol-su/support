@@ -34,6 +34,9 @@ class OrSpecification implements Specification
      */
     public function isSatisfied() : bool
     {
+        if(count($this->specifications) === 0) {
+            return true;
+        }
         foreach($this->specifications as $specification) {
             if(!$specification->isSatisfied()) {
                 return true;
