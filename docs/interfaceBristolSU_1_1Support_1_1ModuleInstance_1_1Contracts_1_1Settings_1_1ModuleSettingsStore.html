@@ -86,8 +86,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a116345df044df17cc33c76b6d0b60e2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Contracts_2Settings_2ModuleSettingsStore_8php_source.html#l00009">9</a> of file <a class="el" href="Contracts_2Settings_2ModuleSettingsStore_8php_source.html">ModuleSettingsStore.php</a>.</p>
+<div class="textblock"><p>Store setting schemas for a module </p>
+
+<p class="definition">Definition at line <a class="el" href="Contracts_2Settings_2ModuleSettingsStore_8php_source.html#l00010">10</a> of file <a class="el" href="Contracts_2Settings_2ModuleSettingsStore_8php_source.html">ModuleSettingsStore.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a116345df044df17cc33c76b6d0b60e2c"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a116345df044df17cc33c76b6d0b60e2c">&#9670;&nbsp;</a></span>get()</h2>
@@ -104,6 +105,20 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the settings schema for a given alias</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> alias </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Form <a class="el" href="namespaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Settings.html">Settings</a> Schema</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Settings_1_1ModuleSettingsStore.html#a65abb080e6223857f5d73f40fee04266">BristolSU\Support\ModuleInstance\Settings\ModuleSettingsStore</a>.</p>
 
@@ -134,6 +149,15 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register a new required settings schema</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the module </td></tr>
+    <tr><td class="paramtype">Form</td><td class="paramname">$settings</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Settings.html">Settings</a> schema </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Settings_1_1ModuleSettingsStore.html#aa04b673b765ea1db1c89f46216baa0b3">BristolSU\Support\ModuleInstance\Settings\ModuleSettingsStore</a>.</p>
 
@@ -145,7 +169,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 8 2020 13:20:12 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 9 2020 14:43:02 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

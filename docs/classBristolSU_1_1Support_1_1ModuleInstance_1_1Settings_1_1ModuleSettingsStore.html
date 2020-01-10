@@ -96,12 +96,13 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:ad5a1664e8f40dd0d21c7a5e37ab7c6a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Settings_1_1ModuleSettingsStore.html#ad5a1664e8f40dd0d21c7a5e37ab7c6a4">$settings</a></td></tr>
+<tr class="memitem:ad5a1664e8f40dd0d21c7a5e37ab7c6a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Settings_1_1ModuleSettingsStore.html#ad5a1664e8f40dd0d21c7a5e37ab7c6a4">$settings</a> = []</td></tr>
 <tr class="separator:ad5a1664e8f40dd0d21c7a5e37ab7c6a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html#l00010">10</a> of file <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html">ModuleSettingsStore.php</a>.</p>
+<div class="textblock"><p>Store setting schemas for a module </p>
+
+<p class="definition">Definition at line <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html#l00011">11</a> of file <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html">ModuleSettingsStore.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a65abb080e6223857f5d73f40fee04266"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a65abb080e6223857f5d73f40fee04266">&#9670;&nbsp;</a></span>get()</h2>
@@ -118,10 +119,24 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the settings schema for a given alias</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> alias </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Form <a class="el" href="namespaceBristolSU_1_1Support_1_1ModuleInstance_1_1Settings.html">Settings</a> Schema</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Settings_1_1ModuleSettingsStore.html#a116345df044df17cc33c76b6d0b60e2c">BristolSU\Support\ModuleInstance\Contracts\Settings\ModuleSettingsStore</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html#l00020">20</a> of file <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html">ModuleSettingsStore.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html#l00043">43</a> of file <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html">ModuleSettingsStore.php</a>.</p>
 
 <p class="reference">References <a class="el" href="namespacefunction.html#a1a595c1d7941d4e689379340ba965c0f">function\settings()</a>.</p>
 
@@ -152,12 +167,21 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Register a new required settings schema</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$alias</td><td>Alias of the module </td></tr>
+    <tr><td class="paramtype">Form</td><td class="paramname">$settings</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1ModuleInstance_1_1Settings.html">Settings</a> schema </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Settings_1_1ModuleSettingsStore.html#a7ad518b3a1087be29adeed8feedaa0fb">BristolSU\Support\ModuleInstance\Contracts\Settings\ModuleSettingsStore</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html#l00015">15</a> of file <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html">ModuleSettingsStore.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html#l00030">30</a> of file <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html">ModuleSettingsStore.php</a>.</p>
 
-<p class="reference">References <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html#l00013">BristolSU\Support\ModuleInstance\Settings\ModuleSettingsStore\$settings</a>, and <a class="el" href="namespacefunction.html#a1a595c1d7941d4e689379340ba965c0f">function\settings()</a>.</p>
+<p class="reference">References <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html#l00021">BristolSU\Support\ModuleInstance\Settings\ModuleSettingsStore\$settings</a>, and <a class="el" href="namespacefunction.html#a1a595c1d7941d4e689379340ba965c0f">function\settings()</a>.</p>
 
 </div>
 </div>
@@ -172,7 +196,7 @@ Private Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">BristolSU\Support\ModuleInstance\Settings\ModuleSettingsStore::$settings</td>
+          <td class="memname">BristolSU\Support\ModuleInstance\Settings\ModuleSettingsStore::$settings = []</td>
         </tr>
       </table>
   </td>
@@ -182,9 +206,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html#l00013">13</a> of file <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html">ModuleSettingsStore.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html#l00021">21</a> of file <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html">ModuleSettingsStore.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html#l00015">BristolSU\Support\ModuleInstance\Settings\ModuleSettingsStore\register()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Settings_2ModuleSettingsStore_8php_source.html#l00030">BristolSU\Support\ModuleInstance\Settings\ModuleSettingsStore\register()</a>.</p>
 
 </div>
 </div>
@@ -194,7 +218,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 8 2020 13:20:12 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 9 2020 14:43:02 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

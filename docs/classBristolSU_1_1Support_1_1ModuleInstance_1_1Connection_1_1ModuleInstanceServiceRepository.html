@@ -94,8 +94,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a748ad9c657490b029b8e80b0bfd43680"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Connection_2ModuleInstanceServiceRepository_8php_source.html#l00010">10</a> of file <a class="el" href="Connection_2ModuleInstanceServiceRepository_8php_source.html">ModuleInstanceServiceRepository.php</a>.</p>
+<div class="textblock"><p>Interact with connections belonging to module instances </p>
+
+<p class="definition">Definition at line <a class="el" href="Connection_2ModuleInstanceServiceRepository_8php_source.html#l00013">13</a> of file <a class="el" href="Connection_2ModuleInstanceServiceRepository_8php_source.html">ModuleInstanceServiceRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a748ad9c657490b029b8e80b0bfd43680"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a748ad9c657490b029b8e80b0bfd43680">&#9670;&nbsp;</a></span>all()</h2>
@@ -111,10 +112,12 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Return all module instance service assignments</p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Connection_1_1ModuleInstanceService.html">ModuleInstanceService</a>[]| </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Connection_1_1ModuleInstanceServiceRepository.html#adc678d8dd6baeb9474cf9bbc83a8740f">BristolSU\Support\ModuleInstance\Contracts\Connection\ModuleInstanceServiceRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Connection_2ModuleInstanceServiceRepository_8php_source.html#l00024">24</a> of file <a class="el" href="Connection_2ModuleInstanceServiceRepository_8php_source.html">ModuleInstanceServiceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Connection_2ModuleInstanceServiceRepository_8php_source.html#l00041">41</a> of file <a class="el" href="Connection_2ModuleInstanceServiceRepository_8php_source.html">ModuleInstanceServiceRepository.php</a>.</p>
 
 </div>
 </div>
@@ -143,10 +146,25 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get a connector for a module instance given the service</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$service</td><td>Name of the service required </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$moduleInstanceId</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> instance ID using the connector </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Connector Authenticated connector for use in making requests</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Connection_1_1NoConnectionAvailable.html">NoConnectionAvailable</a></td><td>If no available connection has been found </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Connection_1_1ModuleInstanceServiceRepository.html#a91f600b7085f46b9b4661bbdb241bdcf">BristolSU\Support\ModuleInstance\Contracts\Connection\ModuleInstanceServiceRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Connection_2ModuleInstanceServiceRepository_8php_source.html#l00013">13</a> of file <a class="el" href="Connection_2ModuleInstanceServiceRepository_8php_source.html">ModuleInstanceServiceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Connection_2ModuleInstanceServiceRepository_8php_source.html#l00025">25</a> of file <a class="el" href="Connection_2ModuleInstanceServiceRepository_8php_source.html">ModuleInstanceServiceRepository.php</a>.</p>
 
 </div>
 </div>
@@ -156,7 +174,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 8 2020 13:20:12 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 9 2020 14:43:02 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

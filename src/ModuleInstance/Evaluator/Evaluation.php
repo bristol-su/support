@@ -7,32 +7,41 @@ namespace BristolSU\Support\ModuleInstance\Evaluator;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation as EvaluationContract;
 
 /**
- * Class Evaluation
- * @package BristolSU\Support\ModuleInstance\Evaluator
+ * Represents an evaluation of a module instance
  */
 class Evaluation implements EvaluationContract
 {
     /**
+     * Is the module instance active?
+     * 
      * @var bool
      */
     private $active = false;
 
     /**
+     * Is the module instance visible?
+     * 
      * @var bool
      */
     private $visible = false;
 
     /**
+     * Is the module instance mandatory?
+     * 
      * @var bool
      */
     private $mandatory = false;
 
     /**
+     * Is the module instance complete?
+     * 
      * @var bool
      */
     private $complete = false;
     
     /**
+     * Is the module instance active?
+     * 
      * @return bool
      */
     public function active(): bool
@@ -41,6 +50,8 @@ class Evaluation implements EvaluationContract
     }
 
     /**
+     * Is the module instance mandatory?
+     * 
      * @return bool
      */
     public function mandatory(): bool
@@ -49,6 +60,8 @@ class Evaluation implements EvaluationContract
     }
 
     /**
+     * Is the module instance complete?
+     * 
      * @return bool
      */
     public function complete(): bool
@@ -57,8 +70,10 @@ class Evaluation implements EvaluationContract
     }
 
     /**
-     * @param bool $active
-     * @return mixed|void
+     * Set the active status of the module instance evaluation
+     * 
+     * @param bool $active New active status of the module instance evaluation
+     * @return void
      */
     public function setActive(bool $active)
     {
@@ -66,8 +81,10 @@ class Evaluation implements EvaluationContract
     }
 
     /**
-     * @param bool $mandatory
-     * @return mixed|void
+     * Set the mandatory status of the module instance evaluation
+     * 
+     * @param bool $mandatory Mandatory status
+     * @return void
      */
     public function setMandatory(bool $mandatory)
     {
@@ -75,8 +92,10 @@ class Evaluation implements EvaluationContract
     }
 
     /**
-     * @param bool $visible
-     * @return mixed|void
+     * Set the visible status of the module instance evaluation
+     * 
+     * @param bool $visible Visible status
+     * @return void
      */
     public function setVisible(bool $visible)
     {
@@ -84,8 +103,10 @@ class Evaluation implements EvaluationContract
     }
 
     /**
-     * @param bool $complete
-     * @return mixed|void
+     * Set the complete status of the module instance evaluation 
+     * 
+     * @param bool $complete Complete status
+     * @return void
      */
     public function setComplete(bool $complete)
     {
@@ -93,6 +114,8 @@ class Evaluation implements EvaluationContract
     }
 
     /**
+     * Is the module instance visible?
+     * 
      * @return bool
      */
     public function visible(): bool
@@ -101,6 +124,8 @@ class Evaluation implements EvaluationContract
     }
 
     /**
+     * Cast the representation to an array
+     * 
      * @return array
      */
     public function toArray()
@@ -125,6 +150,11 @@ class Evaluation implements EvaluationContract
         return json_encode($this->toArray(), $options);
     }
 
+    /**
+     * Convert the object to a JSON representation
+     * 
+     * @return string
+     */
     public function __toString()
     {
         return $this->toJson();

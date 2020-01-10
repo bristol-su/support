@@ -15,13 +15,14 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;
 
 /**
- * Class ModuleInstance
- * @package BristolSU\Support\ModuleInstance
+ * Represents a module instance in the database
  */
 class ModuleInstance extends Model implements ModuleInstanceContract
 {
 
     /**
+     * Fillable attributes 
+     * 
      * @var array
      */
     protected $fillable = [
@@ -37,8 +38,9 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     ];
 
     /**
-     * ModuleInstance constructor.
-     * @param array $attributes
+     * When the model is saved, the slug will be dynamically set if not given
+     * 
+     * @param array $attributes Attributes for the model
      */
     public function __construct(array $attributes = [])
     {
@@ -51,7 +53,9 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * @return mixed
+     * Get the alias of the module
+     * 
+     * @return string
      */
     public function alias()
     {
@@ -59,7 +63,9 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * @return mixed
+     * Get the ID of the module
+     * 
+     * @return int
      */
     public function id()
     {
@@ -67,6 +73,8 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
+     * Activity relationship
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function activity()
@@ -75,6 +83,8 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
+     * Settings relationship
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function moduleInstanceSettings()
@@ -83,6 +93,8 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
+     * Permissions relationship
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function moduleInstancePermissions()
@@ -90,12 +102,19 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         return $this->hasMany(ModuleInstancePermission::class);
     }
 
+    /**
+     * Completion condition relationship
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function completionConditionInstance()
     {
         return $this->belongsTo(CompletionConditionInstance::class);
     }
 
     /**
+     * Active logic relationship
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function activeLogic()
@@ -104,6 +123,8 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
+     * Visible logic relationship
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function visibleLogic()
@@ -112,6 +133,8 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
+     * Mandatory logic relationship
+     * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function mandatoryLogic()
@@ -120,6 +143,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
+     * Action instances relationship
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function actionInstances()
@@ -127,11 +151,23 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         return $this->hasMany(ActionInstance::class);
     }
 
+    /**
+     * Services relationship
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function moduleInstanceServices()
     {
         return $this->hasMany(ModuleInstanceService::class);
     }
 
+    /**
+     * Get a setting from the module instance
+     * 
+     * @param string $key Key of the setting
+     * @param mixed|null $default Default value if the setting is not found
+     * @return mixed|null
+     */
     public function setting($key, $default = null)
     {
         try {

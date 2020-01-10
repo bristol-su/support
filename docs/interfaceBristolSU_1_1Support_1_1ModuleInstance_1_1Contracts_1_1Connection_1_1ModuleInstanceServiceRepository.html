@@ -86,8 +86,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:adc678d8dd6baeb9474cf9bbc83a8740f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Contracts_2Connection_2ModuleInstanceServiceRepository_8php_source.html#l00009">9</a> of file <a class="el" href="Contracts_2Connection_2ModuleInstanceServiceRepository_8php_source.html">ModuleInstanceServiceRepository.php</a>.</p>
+<div class="textblock"><p>Handle interactions with connections assigned to services </p>
+
+<p class="definition">Definition at line <a class="el" href="Contracts_2Connection_2ModuleInstanceServiceRepository_8php_source.html#l00012">12</a> of file <a class="el" href="Contracts_2Connection_2ModuleInstanceServiceRepository_8php_source.html">ModuleInstanceServiceRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="adc678d8dd6baeb9474cf9bbc83a8740f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#adc678d8dd6baeb9474cf9bbc83a8740f">&#9670;&nbsp;</a></span>all()</h2>
@@ -103,6 +104,8 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Return all module instance service assignments</p>
+<dl class="section return"><dt>Returns</dt><dd>ModuleInstanceService[]| </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Connection_1_1ModuleInstanceServiceRepository.html#a748ad9c657490b029b8e80b0bfd43680">BristolSU\Support\ModuleInstance\Connection\ModuleInstanceServiceRepository</a>.</p>
 
@@ -133,6 +136,21 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get a connector for a module instance given the service</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$service</td><td>Name of the service required </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$moduleInstanceId</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Module.html">Module</a> instance ID using the connector </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Connector Authenticated connector for use in making requests</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">NoConnectionAvailable</td><td>If no available connection has been found </td></tr>
+  </table>
+  </dd>
+</dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Connection_1_1ModuleInstanceServiceRepository.html#ace738b9cb2db78318dd34a883f5be4f7">BristolSU\Support\ModuleInstance\Connection\ModuleInstanceServiceRepository</a>.</p>
 
@@ -144,7 +162,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 8 2020 13:20:12 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 9 2020 14:43:02 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

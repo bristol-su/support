@@ -122,8 +122,9 @@ Protected Attributes</h2></td></tr>
 <tr class="separator:a486d9ed6068be00bc8bcb30b687812d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
-<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00021">21</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
+<div class="textblock"><p>Represents a module instance in the database </p>
+
+<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00020">20</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a258db7a2639ce0937b99abfd917f7c0b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a258db7a2639ce0937b99abfd917f7c0b">&#9670;&nbsp;</a></span>__construct()</h2>
@@ -140,14 +141,15 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstance.html">ModuleInstance</a> constructor. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>When the model is saved, the slug will be dynamically set if not given</p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td>Attributes for the model </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00043">43</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00045">45</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
 
 </div>
 </div>
@@ -166,9 +168,9 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<p><a class="el" href="namespaceBristolSU_1_1Support_1_1Action.html">Action</a> instances relationship </p><dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00125">125</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00149">149</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
 
 </div>
 </div>
@@ -186,9 +188,10 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Active logic relationship</p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00101">101</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00120">120</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
 
 </div>
 </div>
@@ -206,9 +209,10 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p><a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> relationship</p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00072">72</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00080">80</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
 
 </div>
 </div>
@@ -226,11 +230,12 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<p>Get the alias of the module</p>
+<dl class="section return"><dt>Returns</dt><dd>string </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html#af7acdf7c862730c6dd503e2c423dae68">BristolSU\Support\ModuleInstance\Contracts\ModuleInstance</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00056">56</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00060">60</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="ModuleInstanceRedirectController_8php_source.html#l00023">BristolSU\Support\Http\Controllers\ModuleInstanceRedirectController\index()</a>.</p>
 
@@ -250,8 +255,10 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p><a class="el" href="namespaceBristolSU_1_1Support_1_1Completion.html">Completion</a> condition relationship</p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00093">93</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00110">110</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
 
 </div>
 </div>
@@ -269,11 +276,12 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<p>Get the ID of the module</p>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html#a4bbb1a3313e8223a9b4cf8713ae024b7">BristolSU\Support\ModuleInstance\Contracts\ModuleInstance</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00064">64</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00070">70</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
 
 </div>
 </div>
@@ -291,9 +299,10 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Mandatory logic relationship</p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00117">117</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00140">140</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
 
 </div>
 </div>
@@ -311,9 +320,10 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p><a class="el" href="namespaceBristolSU_1_1Support_1_1Permissions.html">Permissions</a> relationship</p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00088">88</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00100">100</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
 
 </div>
 </div>
@@ -331,8 +341,10 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Services relationship</p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00130">130</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00159">159</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
 
 </div>
 </div>
@@ -350,11 +362,12 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p><a class="el" href="namespaceBristolSU_1_1Support_1_1ModuleInstance_1_1Settings.html">Settings</a> relationship</p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00080">80</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00090">90</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModuleInstance_8php_source.html#l00135">BristolSU\Support\ModuleInstance\ModuleInstance\setting()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModuleInstance_8php_source.html#l00171">BristolSU\Support\ModuleInstance\ModuleInstance\setting()</a>.</p>
 
 </div>
 </div>
@@ -383,10 +396,19 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get a setting from the module instance</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$key</td><td>Key of the setting </td></tr>
+    <tr><td class="paramtype">mixed&#160;|&#160;null</td><td class="paramname">$default</td><td>Default value if the setting is not found </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>mixed|null </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00135">135</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00171">171</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
 
-<p class="reference">References <a class="el" href="ModuleInstance_8php_source.html#l00080">BristolSU\Support\ModuleInstance\ModuleInstance\moduleInstanceSettings()</a>.</p>
+<p class="reference">References <a class="el" href="ModuleInstance_8php_source.html#l00090">BristolSU\Support\ModuleInstance\ModuleInstance\moduleInstanceSettings()</a>.</p>
 
 </div>
 </div>
@@ -404,9 +426,10 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Visible logic relationship</p>
 <dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00109">109</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00130">130</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
 
 </div>
 </div>
@@ -431,7 +454,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= [</div><div class="line">        <span class="stringliteral">&#39;alias&#39;</span>,</div><div class="line">        <span class="stringliteral">&#39;activity_id&#39;</span>,</div><div class="line">        <span class="stringliteral">&#39;name&#39;</span>,</div><div class="line">        <span class="stringliteral">&#39;slug&#39;</span>,</div><div class="line">        <span class="stringliteral">&#39;description&#39;</span>,</div><div class="line">        <span class="stringliteral">&#39;active&#39;</span>,</div><div class="line">        <span class="stringliteral">&#39;visible&#39;</span>,</div><div class="line">        <span class="stringliteral">&#39;mandatory&#39;</span>,</div><div class="line">        <span class="stringliteral">&#39;completion_condition_instance_id&#39;</span></div><div class="line">    ]</div></div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00027">27</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="ModuleInstance_8php_source.html#l00028">28</a> of file <a class="el" href="ModuleInstance_8php_source.html">ModuleInstance.php</a>.</p>
 
 </div>
 </div>
@@ -441,7 +464,7 @@ Protected Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 8 2020 13:20:12 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 9 2020 14:43:02 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

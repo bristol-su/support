@@ -75,8 +75,8 @@ $(function() {
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aa0637f71b1065e764d32b71b1a58438d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Middleware_1_1InjectModuleInstance.html#aa0637f71b1065e764d32b71b1a58438d">__construct</a> (Container $app)</td></tr>
 <tr class="separator:aa0637f71b1065e764d32b71b1a58438d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a250d949a5951549495b1c6fe29e5b9a3"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Middleware_1_1InjectModuleInstance.html#a250d949a5951549495b1c6fe29e5b9a3">handle</a> (Request $request, \Closure $next)</td></tr>
-<tr class="separator:a250d949a5951549495b1c6fe29e5b9a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a344f45941cf00654438f6931af91d6f7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Middleware_1_1InjectModuleInstance.html#a344f45941cf00654438f6931af91d6f7">handle</a> (Request $request, Closure $next)</td></tr>
+<tr class="separator:a344f45941cf00654438f6931af91d6f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
@@ -84,7 +84,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:ae17d56e14ec1e75d1e1f2d9e7c668759"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock">
+<div class="textblock"><p>Inject the module instance into the container </p>
+
 <p class="definition">Definition at line <a class="el" href="InjectModuleInstance_8php_source.html#l00015">15</a> of file <a class="el" href="InjectModuleInstance_8php_source.html">InjectModuleInstance.php</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aa0637f71b1065e764d32b71b1a58438d"></a>
@@ -102,22 +103,22 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Middleware_1_1InjectModuleInstance.html">InjectModuleInstance</a> constructor. </p><dl class="params"><dt>Parameters</dt><dd>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">Container</td><td class="paramname">$app</td><td></td></tr>
+    <tr><td class="paramtype">Container</td><td class="paramname">$app</td><td>Container to inject the module instance into </td></tr>
   </table>
   </dd>
 </dl>
 
-<p class="definition">Definition at line <a class="el" href="InjectModuleInstance_8php_source.html#l00027">27</a> of file <a class="el" href="InjectModuleInstance_8php_source.html">InjectModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InjectModuleInstance_8php_source.html#l00028">28</a> of file <a class="el" href="InjectModuleInstance_8php_source.html">InjectModuleInstance.php</a>.</p>
 
-<p class="reference">References <a class="el" href="InjectModuleInstance_8php_source.html#l00021">BristolSU\Support\ModuleInstance\Middleware\InjectModuleInstance\$app</a>.</p>
+<p class="reference">References <a class="el" href="InjectModuleInstance_8php_source.html#l00023">BristolSU\Support\ModuleInstance\Middleware\InjectModuleInstance\$app</a>, and <a class="el" href="InjectModuleInstance_8php_source.html#l00042">BristolSU\Support\ModuleInstance\Middleware\InjectModuleInstance\handle()</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a250d949a5951549495b1c6fe29e5b9a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a250d949a5951549495b1c6fe29e5b9a3">&#9670;&nbsp;</a></span>handle()</h2>
+<a id="a344f45941cf00654438f6931af91d6f7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a344f45941cf00654438f6931af91d6f7">&#9670;&nbsp;</a></span>handle()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -131,7 +132,7 @@ Private Attributes</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">\Closure&#160;</td>
+          <td class="paramtype">Closure&#160;</td>
           <td class="paramname"><em>$next</em>&#160;</td>
         </tr>
         <tr>
@@ -141,16 +142,20 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Inject the module instance into the container</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramtype">Request</td><td class="paramname">$request</td><td></td></tr>
-    <tr><td class="paramtype">\Closure</td><td class="paramname">$next</td><td></td></tr>
+    <tr><td class="paramtype">Request</td><td class="paramname">$request</td><td>Request object </td></tr>
+    <tr><td class="paramtype">Closure</td><td class="paramname">$next</td><td>Next middleware callback</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>mixed </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>mixed</dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000040">Todo:</a></b></dt><dd>Inject as a string </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="InjectModuleInstance_8php_source.html#l00037">37</a> of file <a class="el" href="InjectModuleInstance_8php_source.html">InjectModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InjectModuleInstance_8php_source.html#l00042">42</a> of file <a class="el" href="InjectModuleInstance_8php_source.html">InjectModuleInstance.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="InjectModuleInstance_8php_source.html#l00028">BristolSU\Support\ModuleInstance\Middleware\InjectModuleInstance\__construct()</a>.</p>
 
 </div>
 </div>
@@ -175,9 +180,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="InjectModuleInstance_8php_source.html#l00021">21</a> of file <a class="el" href="InjectModuleInstance_8php_source.html">InjectModuleInstance.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="InjectModuleInstance_8php_source.html#l00023">23</a> of file <a class="el" href="InjectModuleInstance_8php_source.html">InjectModuleInstance.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="InjectModuleInstance_8php_source.html#l00027">BristolSU\Support\ModuleInstance\Middleware\InjectModuleInstance\__construct()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="InjectModuleInstance_8php_source.html#l00028">BristolSU\Support\ModuleInstance\Middleware\InjectModuleInstance\__construct()</a>.</p>
 
 </div>
 </div>
@@ -187,7 +192,7 @@ Private Attributes</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Wed Jan 8 2020 13:20:12 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 9 2020 14:43:02 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>
