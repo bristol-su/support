@@ -27,5 +27,7 @@ var searchData=
   ['connector_2ephp',['Connector.php',['../Connector_8php.html',1,'']]],
   ['connectorfactory_2ephp',['ConnectorFactory.php',['../ConnectorFactory_8php.html',1,'(Global Namespace)'],['../Contracts_2ConnectorFactory_8php.html',1,'(Global Namespace)']]],
   ['connectorrepository_2ephp',['ConnectorRepository.php',['../ConnectorRepository_8php.html',1,'(Global Namespace)'],['../Contracts_2ConnectorRepository_8php.html',1,'(Global Namespace)']]],
-  ['connectorstore_2ephp',['ConnectorStore.php',['../ConnectorStore_8php.html',1,'(Global Namespace)'],['../Contracts_2ConnectorStore_8php.html',1,'(Global Namespace)']]]
+  ['connectorstore_2ephp',['ConnectorStore.php',['../ConnectorStore_8php.html',1,'(Global Namespace)'],['../Contracts_2ConnectorStore_8php.html',1,'(Global Namespace)']]],
+  ['createsmoduleenvironment_2ephp',['CreatesModuleEnvironment.php',['../CreatesModuleEnvironment_8php.html',1,'']]],
+  ['createssdkenvironment_2ephp',['CreatesSdkEnvironment.php',['../CreatesSdkEnvironment_8php.html',1,'']]]
 ];

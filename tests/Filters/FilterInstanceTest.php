@@ -4,6 +4,9 @@
 namespace BristolSU\Support\Tests\Filters;
 
 
+use BristolSU\ControlDB\Contracts\Models\Group;
+use BristolSU\ControlDB\Contracts\Models\Role;
+use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Filters\Contracts\FilterRepository as FilterRepositoryContract;
 use BristolSU\Support\Filters\Contracts\Filters\Filter;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
@@ -154,5 +157,13 @@ class DummyFilter extends Filter {
     public function alias()
     {
         // TODO: Implement alias() method.
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function model()
+    {
+        // TODO: Implement model() method.
     }
 }

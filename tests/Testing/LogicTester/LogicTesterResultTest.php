@@ -7,6 +7,7 @@ use BristolSU\ControlDB\Models\Group;
 use BristolSU\ControlDB\Models\Role;
 use BristolSU\Support\Testing\LogicTester\LogicTesterResult;
 use BristolSU\Support\Tests\TestCase;
+use PHPUnit\Framework\ExpectationFailedException;
 
 class LogicTesterResultTest extends TestCase
 {
@@ -102,6 +103,43 @@ class LogicTesterResultTest extends TestCase
         $this->assertFalse($logicTesterResult->evaluate($user, $group, $role));
     }
     
+    /** @test */
+    public function it_asserts_incorrect_if_required_logic_test_not_called(){
+        $this->expectException(ExpectationFailedException::class);
+        $user1 = factory(User::class)->create();
+        $user2 = factory(User::class)->create();
+        
+        (new LogicTesterResult())
+            ->pass($user1)
+            ->fail($user2)
+            ->shouldBeCalled($user2);
+    }
+
+    /** @test */
+    public function it_asserts_correct_if_required_logic_test_called(){
+        $user = factory(User::class)->create();
+
+        $logicTesterResult = (new LogicTesterResult())
+            ->fail($user)
+            ->shouldBeCalled($user);
+        
+        $logicTesterResult->evaluate($user);
+    }
     
+    /** @test */
+    public function alwaysTrue_always_returns_true_from_evaluate(){
+        $logicTesterResult = (new LogicTesterResult());
+        $logicTesterResult->pass()->alwaysFail();
+        
+        $this->assertFalse($logicTesterResult->evaluate());
+    }
+
+    /** @test */
+    public function alwaysFalse_always_returns_false_from_evaluate(){
+        $logicTesterResult = (new LogicTesterResult());
+        $logicTesterResult->fail()->alwaysPass();
+
+        $this->assertTrue($logicTesterResult->evaluate());
+    }
     
 }

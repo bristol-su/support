@@ -4,7 +4,6 @@ namespace BristolSU\Support\Testing;
 
 use BristolSU\ControlDB\ControlDBServiceProvider;
 use BristolSU\Support\SupportServiceProvider;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Application;
 use Laracasts\Utilities\JavaScript\JavaScriptServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -14,9 +13,9 @@ use Orchestra\Testbench\TestCase as BaseTestCase;
  * 
  * Sets up a Laravel testing environment for any project using the sdk.
  */
-abstract class TestCase extends BaseTestCase
+class TestCase extends BaseTestCase
 {
-    use CreatesSdkEnvironment, HandlesAuthentication, FakesLogicTesters;
+    use CreatesSdkEnvironment;
 
     /**
      * Initialise the test case.
@@ -50,16 +49,6 @@ abstract class TestCase extends BaseTestCase
         $this->createSdkEnvironment($app);
     }
 
-    /**
-     * Assert two Eloquent models are equal
-     * @param Model $expected Expected model
-     * @param Model $actual Actual model to test
-     */
-    public function assertModelEquals(Model $expected, Model $actual)
-    {
-        $this->assertTrue($expected->is($actual), 'Models are not equal');
-    }
-    
     /**
      * Get the service providers the sdk registers and requires.
      * 

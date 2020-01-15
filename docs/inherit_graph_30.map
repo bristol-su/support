@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionConditionInstanceRepository.html" title="BristolSU\\Support\\Completion\l\\Contracts\\CompletionConditionInstance\lRepository" alt="" coords="5,5,264,61"/>
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionInstanceRepository.html" title="BristolSU\\Support\\Completion\l\\CompletionConditionInstanceRepository" alt="" coords="312,13,572,54"/>
+<area shape="rect" id="node1" href="$classBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionCondition.html" title="BristolSU\\Support\\Completion\l\\Contracts\\CompletionCondition" alt="" coords="5,13,213,54"/>
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Completion_1_1CompletionConditions_1_1EventFired_1_1EventFired.html" title="BristolSU\\Support\\Completion\l\\CompletionConditions\\EventFired\l\\EventFired" alt="" coords="261,5,483,61"/>
 </map>

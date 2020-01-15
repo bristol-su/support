@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['fakeslogictesters',['FakesLogicTesters',['../classBristolSU_1_1Support_1_1Testing_1_1FakesLogicTesters.html',1,'BristolSU::Support::Testing']]],
   ['filter',['Filter',['../classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1Filter.html',1,'BristolSU::Support::Filters::Contracts::Filters']]],
   ['filterfactory',['FilterFactory',['../interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterFactory.html',1,'BristolSU\Support\Filters\Contracts\FilterFactory'],['../classBristolSU_1_1Support_1_1Filters_1_1FilterFactory.html',1,'BristolSU\Support\Filters\FilterFactory']]],
   ['filterfalsespecification',['FilterFalseSpecification',['../classBristolSU_1_1Support_1_1Logic_1_1Specification_1_1FilterFalseSpecification.html',1,'BristolSU::Support::Logic::Specification']]],

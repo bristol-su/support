@@ -6,7 +6,7 @@ use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Testing\LogicTester\LogicTesterFake;
 use BristolSU\Support\Testing\LogicTester\LogicTesterResult;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class LogicTesterFakeTest extends TestCase
 {

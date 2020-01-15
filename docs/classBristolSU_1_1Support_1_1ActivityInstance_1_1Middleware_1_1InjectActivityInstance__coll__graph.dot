@@ -1,0 +1,10 @@
+digraph "BristolSU\Support\ActivityInstance\Middleware\InjectActivityInstance"
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="BristolSU\\Support\\Activity\lInstance\\Middleware\\InjectActivity\lInstance",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black"];
+  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" $container" ,fontname="Helvetica"];
+  Node2 [label="Container",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled"];
+  Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" $activityInstanceResolver" ,fontname="Helvetica"];
+  Node3 [label="BristolSU\\Support\\Activity\lInstance\\Contracts\\ActivityInstance\lResolver",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceResolver.html"];
+}

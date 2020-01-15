@@ -9,13 +9,15 @@ use BristolSU\Support\ActivityInstance\ActivityInstance;
 use Illuminate\Contracts\Foundation\Application;
 
 /**
- * Handle the necessary setup to use the sdk test tools
+ * Trait to handle the necessary setup to use the sdk test tools
  */
 trait CreatesSdkEnvironment
 {
 
     /**
      * Handle the necessary setup to use the sdk test tools
+     * 
+     * - Set up authentication providers for user, group, role and activity instance
      * 
      * @param Application $app
      */

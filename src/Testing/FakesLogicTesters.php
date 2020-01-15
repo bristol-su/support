@@ -6,7 +6,7 @@ use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Testing\LogicTester\LogicTesterFake;
 
 /**
- * Host of tools for creating fake logic testers for testing purposes
+ * Trait with tools for creating fake logic testers for testing purposes
  */
 trait FakesLogicTesters
 {

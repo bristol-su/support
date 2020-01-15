@@ -63,97 +63,23 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><dl class="reflist">
-<dt><a class="anchor" id="_todo000001"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Action_1_1ActionBuilder.html#a7edb75db65603fa05bb6b9dbb56a73e6">BristolSU::mapFields</a>  ($fields, array $data)</dt>
-<dd>Mapping fields should be done in its own class  </dd>
-<dt><a class="anchor" id="_todo000002"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Action_1_1ActionDispatcher.html#a0e541757ca49cb71869d96d7fa87053e">BristolSU::handle</a>  (TriggerableEvent $event)</dt>
-<dd>Replace the database call with a repository class  </dd>
-<dt><a class="anchor" id="_todo000004"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Middleware_1_1InjectActivityInstance.html#ace22437db3ede293a642896f0511f07a">BristolSU::handle</a>  (Request $request,  $next)</dt>
-<dd>Should bind activity to the string 'activity', to avoid confusion when resolving  </dd>
-<dt><a class="anchor" id="_todo000005"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a8d888c915beb9e93b954d183009b34f0">BristolSU::getAuthPassword</a>  ()</dt>
-<dd>: Implement <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a8d888c915beb9e93b954d183009b34f0">getAuthPassword()</a> method.  </dd>
-<dt><a class="anchor" id="_todo000006"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a8eaed80d0ab9609a567a098bee3c75c7">BristolSU::getRememberToken</a>  ()</dt>
-<dd>: Implement <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a8eaed80d0ab9609a567a098bee3c75c7">getRememberToken()</a> method.  </dd>
-<dt><a class="anchor" id="_todo000008"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#aa6c4eba1ed8b8ad76f95a9d2f259ba56">BristolSU::getRememberTokenName</a>  ()</dt>
-<dd>: Implement <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#aa6c4eba1ed8b8ad76f95a9d2f259ba56">getRememberTokenName()</a> method.  </dd>
-<dt><a class="anchor" id="_todo000007"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a68e672eea9ca7145fddeb2853cd0963a">BristolSU::setRememberToken</a>  ($value)</dt>
-<dd>: Implement <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html#a68e672eea9ca7145fddeb2853cd0963a">setRememberToken()</a> method.  </dd>
-<dt><a class="anchor" id="_todo000009"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ApiActivityInstanceResolver.html#add3afc1926dfacb4aade23e5c8103e27">BristolSU::getActivityInstance</a>  ()</dt>
-<dd>get the default activity instance if it's not a multi-completable activity. This will allow us to only enforce using activity_instance_id for a multi completable activity  </dd>
-<dt><a class="anchor" id="_todo000012"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider_1_1ActivityInstanceProvider.html#a9cb33e261440380d366e1adfcaf345f6">BristolSU::retrieveByCredentials</a>  (array $credentials)</dt>
-<dd>Make this method take additional credentials for security (if necessary)  </dd>
-<dt><a class="anchor" id="_todo000010"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider_1_1ActivityInstanceProvider.html#a49508f7cfce7ef7176f5600ad78fa64c">BristolSU::retrieveByToken</a>  ($identifier, $token)</dt>
-<dd>Implement retrieveByToken method for <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance  </dd>
-<dt><a class="anchor" id="_todo000011"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider_1_1ActivityInstanceProvider.html#ae2b7b4d6584c335eb4a018f2e5b9cd83">BristolSU::updateRememberToken</a>  (Authenticatable $activityInstance, $token)</dt>
-<dd>Implement updateRememberToken method for <a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> Instance  </dd>
-<dt><a class="anchor" id="_todo000013"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1InjectActivityInstance.html#a4e6918d9f130fdda5d5b92b79bd8c4e0">BristolSU::handle</a>  (Request $request, Closure $next)</dt>
-<dd>Bind to a string 'activity-instance' instead.  </dd>
-<dt><a class="anchor" id="_todo000014"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider_1_1GroupProvider.html#a8f933b33ab6b0590b2b906a8fbf3b010">BristolSU::updateRememberToken</a>  (Authenticatable $group, $token)</dt>
-<dd>Implement method  </dd>
-<dt><a class="anchor" id="_todo000015"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider_1_1GroupProvider.html#ae6cece29dc26e21a53d85775fcd60f40">BristolSU::validateCredentials</a>  (Authenticatable $group, array $credentials)</dt>
-<dd>Validate credentials using actual credentials  </dd>
-<dt><a class="anchor" id="_todo000016"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider_1_1RoleProvider.html#ad267695e23dee087a8e7f191bef6731d">BristolSU::retrieveByToken</a>  ($identifier, $token)</dt>
-<dd>Implement method  </dd>
-<dt><a class="anchor" id="_todo000017"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider_1_1RoleProvider.html#a3864079601402a613f980982507ea838">BristolSU::updateRememberToken</a>  (Authenticatable $role, $token)</dt>
-<dd>Implement method  </dd>
-<dt><a class="anchor" id="_todo000018"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider_1_1RoleProvider.html#ad9f18dce2dfeeb0dbf5476451913184e">BristolSU::validateCredentials</a>  (Authenticatable $role, array $credentials)</dt>
-<dd>Validate credentials using actual credentials  </dd>
-<dt><a class="anchor" id="_todo000019"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider_1_1UserProvider.html#a4c050cd922725a2ff9e78840178ad6d1">BristolSU::retrieveByToken</a>  ($identifier, $token)</dt>
-<dd>Implement method  </dd>
-<dt><a class="anchor" id="_todo000020"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider_1_1UserProvider.html#ac420e12ae00b1f033fd76a770a999b61">BristolSU::updateRememberToken</a>  (Authenticatable $user, $token)</dt>
-<dd>Implement method  </dd>
-<dt><a class="anchor" id="_todo000021"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider_1_1UserProvider.html#a06e199f02af6a6c65624cbc5f13fcab3">BristolSU::validateCredentials</a>  (Authenticatable $user, array $credentials)</dt>
-<dd>Validate credentials using actual credentials  </dd>
-<dt><a class="anchor" id="_todo000022"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Authorization_1_1Middleware_1_1LogoutOfExtras.html#aaba3f668d233faa87e99ac08364cf680">BristolSU::handle</a>  (Request $request,  $next)</dt>
-<dd>Do the same if we're going from one module to another.  </dd>
-<dt><a class="anchor" id="_todo000023"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditions_1_1EventFired_1_1EventFired.html#aa67724516b99aea8597784c76302d7f0">BristolSU::isComplete</a>  ($settings, <a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a> $activityInstance, <a class="el" href="namespaceBristolSU_1_1Support_1_1ModuleInstance.html">ModuleInstance</a> $moduleInstance)</dt>
+<dt><a class="anchor" id="_todo000001"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditions_1_1EventFired_1_1EventFired.html#aa67724516b99aea8597784c76302d7f0">BristolSU::isComplete</a>  ($settings, <a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a> $activityInstance, <a class="el" href="namespaceBristolSU_1_1Support_1_1ModuleInstance.html">ModuleInstance</a> $moduleInstance)</dt>
 <dd>Implement this method </dd>
-<dt><a class="anchor" id="_todo000026"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionCondition.html#a8b2cad1d40819e9356e2083d9979b70e">BristolSU::alias</a>  ()</dt>
-<dd>Do not register the alias in the class, only in the service provider  </dd>
-<dt><a class="anchor" id="_todo000025"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionCondition.html#aeda23b1cbe37a3db59538defa5f5c2bf">BristolSU::options</a>  ()</dt>
-<dd>Accept a Form schema object  </dd>
-<dt><a class="anchor" id="_todo000027"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1AccessibleConnectionScope.html#ac8377fc989a6038a91f2425c569e9392">BristolSU::apply</a>  (Builder $builder, Model $model)</dt>
-<dd>Build in adding open or shared connections  </dd>
-<dt><a class="anchor" id="_todo000028"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html#aab4519f3fd0920726a6d230d0691519d">BristolSU::boot</a>  ()</dt>
-<dd>We should be using the global scope  </dd>
-<dt><a class="anchor" id="_todo000029"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Connection_1_1Connection.html#a5e74e496b268c4fb5329ba2ce8ab6e20">BristolSU::scopeAccessible</a>  (Builder $builder)</dt>
-<dd>Should this scope be here?  </dd>
-<dt><a class="anchor" id="_todo000030"></a>Member <a class="el" href="interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Client_1_1Client.html#a75e8338d143a81567632aab0539e515b">BristolSU::request</a>  ($method, $uri, array $options=[])</dt>
-<dd><p class="startdd">Add helper methods for manipulating requests </p>
-<p class="enddd">Standardise response type  </p>
-</dd>
-<dt><a class="anchor" id="_todo000032"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1Filter.html#a4ed790ed3f4d45376937a0cbb28ca681">BristolSU::options</a>  ()</dt>
-<dd>Turn to FormSchema  </dd>
-<dt><a class="anchor" id="_todo000033"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Group_1_1GroupTagged.html#a8790109b4a948b7a7b8a965064a421ec">BristolSU::options</a>  ()</dt>
-<dd>Transform to a form schema  </dd>
-<dt><a class="anchor" id="_todo000034"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1Audience_1_1LogicAudience.html#a91eb9b391d115816f3372380ddd50cc9">BristolSU::userAudience</a>  (<a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Logic.html">Logic</a> $logic)</dt>
-<dd>Change to hasAudience?  </dd>
-<dt><a class="anchor" id="_todo000035"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Module_1_1ModuleBuilder.html#aff039cac4bbe2f2e6abbab7ae010c599">BristolSU::$config</a>  </dt>
-<dd>Register the name and description of the module in the service provider  </dd>
-<dt><a class="anchor" id="_todo000036"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Module_1_1ModuleFactory.html#a7ccbc01bdfce0c65978d4f0c55241073">BristolSU::fromAlias</a>  (string $alias)</dt>
-<dd>Use the module builder in the construct as opposed to resolving  </dd>
-<dt><a class="anchor" id="_todo000037"></a>Class <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Connection_1_1ModuleInstanceService.html">BristolSU</a>  </dt>
+<dt><a class="anchor" id="_todo000002"></a>Class <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Connection_1_1ModuleInstanceService.html">BristolSU</a>  </dt>
 <dd>Move to connection package  </dd>
-<dt><a class="anchor" id="_todo000038"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ModuleInstanceEvaluator.html#a09d7a28aa7772a19015f17fa0a3960a2">BristolSU::evaluateResource</a>  (<a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a> $activityInstance, <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstance.html">ModuleInstance</a> $moduleInstance)</dt>
-<dd><p class="startdd">Tidy this function!</p>
-<p class="enddd">Visible and active only if true for anyone  </p>
+<dt><a class="anchor" id="_todo000003"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ModuleInstanceEvaluator.html#a09d7a28aa7772a19015f17fa0a3960a2">BristolSU::evaluateResource</a>  (<a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a> $activityInstance, <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstance.html">ModuleInstance</a> $moduleInstance)</dt>
+<dd>Tidy this function! </dd>
+<dt><a class="anchor" id="_todo000004"></a>Class <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Settings_1_1ModuleInstanceSetting.html">BristolSU</a>  </dt>
+<dd>Move to <a class="el" href="namespaceBristolSU_1_1Support_1_1ModuleInstance_1_1Settings.html">Settings</a> directory  </dd>
+<dt><a class="anchor" id="_todo000005"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1ModelPermission.html#a058cf7ae60d8c238bdf10f1b8c943539">BristolSU::moduleInstance</a>  ()</dt>
+<dd><p class="startdd">Create a type() method to return either global or module, and use this in support to test the type. </p>
+<p class="enddd">Create a permission method to use for </p>
 </dd>
-<dt><a class="anchor" id="_todo000040"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Middleware_1_1InjectModuleInstance.html#a344f45941cf00654438f6931af91d6f7">BristolSU::handle</a>  (Request $request, Closure $next)</dt>
-<dd>Inject as a string  </dd>
-<dt><a class="anchor" id="_todo000041"></a>Class <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Models_1_1ModuleInstancePermission.html">BristolSU</a>  </dt>
-<dd>Migrate module instance permissions to model permissions  </dd>
-<dt><a class="anchor" id="_todo000042"></a>Class <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1ModuleInstanceUserOverridePermission.html">BristolSU</a>  </dt>
-<dd>Create a module instance logic override permission  </dd>
-<dt><a class="anchor" id="_todo000043"></a>Class <a class="el" href="classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1SystemUserPermission.html">BristolSU</a>  </dt>
-<dd>Create system group, role and logic testers  </dd>
-<dt><a class="anchor" id="_todo000044"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1Testing_1_1TestCase.html#a09d07e19804e486eb91a2e5631ef5d2f">BristolSU::setUp</a>  ()</dt>
-<dd>remove support from here  </dd>
-<dt><a class="anchor" id="_todo000045"></a>Member <a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html#a093fe4dd5827a3cca6d2b926b0006820">BristolSU::$fillable</a>  </dt>
-<dd>Remove Student ID </dd>
 </dl>
 </div></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 9 2020 14:43:02 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Wed Jan 15 2020 23:09:40 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -9,7 +9,7 @@ use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Testing\FakesLogicTesters;
 use BristolSU\Support\Testing\LogicTester\LogicTesterFake;
-use BristolSU\Support\Testing\TestCase;
+use BristolSU\Support\Tests\TestCase;
 
 class FakesLogicTestersTest extends TestCase
 {

@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['model_2ephp',['Model.php',['../Model_8php.html',1,'']]],
   ['modelpermission_2ephp',['ModelPermission.php',['../ModelPermission_8php.html',1,'']]],
   ['module_2ephp',['Module.php',['../Contracts_2Module_8php.html',1,'(Global Namespace)'],['../Module_8php.html',1,'(Global Namespace)']]],
   ['modulebuilder_2ephp',['ModuleBuilder.php',['../Contracts_2ModuleBuilder_8php.html',1,'(Global Namespace)'],['../ModuleBuilder_8php.html',1,'(Global Namespace)']]],

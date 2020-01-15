@@ -2,6 +2,9 @@
 
 namespace BristolSU\Support\Tests\Filters\Contracts\Filters;
 
+use BristolSU\ControlDB\Contracts\Models\Group;
+use BristolSU\ControlDB\Contracts\Models\Role;
+use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Filters\Contracts\Filters\Filter;
 use BristolSU\Support\Tests\TestCase;
 
@@ -79,5 +82,13 @@ class DummyFilter extends Filter
     public function alias()
     {
         return 'alias1';
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function model()
+    {
+        // TODO: Implement model() method.
     }
 }

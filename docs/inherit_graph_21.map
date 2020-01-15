@@ -1,5 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1Authentication_1_1Contracts_1_1Authentication.html" title="BristolSU\\Support\\Authentication\l\\Contracts\\Authentication" alt="" coords="5,39,220,80"/>
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Authentication_1_1ApiAuthentication.html" title="BristolSU\\Support\\Authentication\l\\ApiAuthentication" alt="" coords="268,5,483,47"/>
-<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Authentication_1_1WebAuthentication.html" title="BristolSU\\Support\\Authentication\l\\WebAuthentication" alt="" coords="268,71,483,112"/>
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider_1_1UserProvider.html" title="BristolSU\\Support\\Authentication\l\\AuthenticationProvider\\UserProvider" alt="" coords="181,39,419,80"/>
+<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider_1_1GroupProvider.html" title="BristolSU\\Support\\Authentication\l\\AuthenticationProvider\\GroupProvider" alt="" coords="467,5,711,47"/>
+<area shape="rect" id="node4" href="$classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider_1_1RoleProvider.html" title="BristolSU\\Support\\Authentication\l\\AuthenticationProvider\\RoleProvider" alt="" coords="471,71,707,112"/>
 </map>

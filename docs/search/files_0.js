@@ -25,6 +25,7 @@ var searchData=
   ['andspecification_2ephp',['AndSpecification.php',['../AndSpecification_8php.html',1,'']]],
   ['apiactivityinstanceresolver_2ephp',['ApiActivityInstanceResolver.php',['../ApiActivityInstanceResolver_8php.html',1,'']]],
   ['apiauthentication_2ephp',['ApiAuthentication.php',['../ApiAuthentication_8php.html',1,'']]],
+  ['assertseloquentmodels_2ephp',['AssertsEloquentModels.php',['../AssertsEloquentModels_8php.html',1,'']]],
   ['audiencemember_2ephp',['AudienceMember.php',['../AudienceMember_8php.html',1,'']]],
   ['audiencememberfactory_2ephp',['AudienceMemberFactory.php',['../Audience_2AudienceMemberFactory_8php.html',1,'(Global Namespace)'],['../Contracts_2Audience_2AudienceMemberFactory_8php.html',1,'(Global Namespace)']]],
   ['authentication_2ephp',['Authentication.php',['../Authentication_8php.html',1,'']]],

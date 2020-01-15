@@ -53,8 +53,11 @@ class RepositoryTest extends TestCase
         $adminActivity = factory(Activity::class)->create();
         $neitherActivity = factory(Activity::class)->create();
 
-        $this->createLogicTester($participantActivity->forLogic, [$adminActivity->forLogic, $neitherActivity->forLogic]);
-
+        $this->logicTester()->forLogic($participantActivity->forLogic)->alwaysPass();
+        $this->logicTester()->forLogic($adminActivity->forLogic)->alwaysFail();
+        $this->logicTester()->forLogic($neitherActivity->forLogic)->alwaysFail();
+        $this->logicTester()->bind();
+        
         $activitiesForUser = (new ActivityRepository)->getForParticipant();
         $this->assertCount(1, $activitiesForUser);
         $this->assertModelEquals($participantActivity, $activitiesForUser->first());
@@ -68,7 +71,10 @@ class RepositoryTest extends TestCase
         $adminActivity = factory(Activity::class)->create();
         $neitherActivity = factory(Activity::class)->create();
 
-        $this->createLogicTester($adminActivity->adminLogic, [$participantActivity->adminLogic, $neitherActivity->adminLogic]);
+        $this->logicTester()->forLogic($adminActivity->adminLogic)->alwaysPass();
+        $this->logicTester()->forLogic($participantActivity->adminLogic)->alwaysFail();
+        $this->logicTester()->forLogic($neitherActivity->adminLogic)->alwaysFail();
+        $this->logicTester()->bind();
 
         $activitiesForAdmin = (new ActivityRepository)->getForAdministrator();
         $this->assertCount(1, $activitiesForAdmin);
@@ -82,7 +88,9 @@ class RepositoryTest extends TestCase
         $adminActivity = factory(Activity::class)->create();
         $neitherActivity = factory(Activity::class)->create();
 
-        $this->createLogicTester([], [$adminActivity->forLogic, $neitherActivity->forLogic]);
+        $this->logicTester()->forLogic($adminActivity->forLogic)->alwaysFail();
+        $this->logicTester()->forLogic($neitherActivity->forLogic)->alwaysFail();
+        $this->logicTester()->bind();
 
         $activitiesForUser = (new ActivityRepository)->getForParticipant();
         $this->assertInstanceOf(Collection::class, $activitiesForUser);
@@ -96,8 +104,10 @@ class RepositoryTest extends TestCase
         $participantActivity = factory(Activity::class)->create();
         $neitherActivity = factory(Activity::class)->create();
 
-        $this->createLogicTester([], [$participantActivity->adminLogic, $neitherActivity->adminLogic]);
-
+        $this->logicTester()->forLogic($participantActivity->adminLogic)->alwaysFail();
+        $this->logicTester()->forLogic($neitherActivity->adminLogic)->alwaysFail();
+        $this->logicTester()->bind();
+        
         $activitiesForAdmin = (new ActivityRepository)->getForAdministrator();
         $this->assertInstanceOf(Collection::class, $activitiesForAdmin);
         $this->assertEmpty($activitiesForAdmin);

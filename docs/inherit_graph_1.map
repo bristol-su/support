@@ -7,16 +7,14 @@
 <area shape="rect" id="node7" href="$classBristolSU_1_1Support_1_1Authorization_1_1AuthorizationServiceProvider.html" title="BristolSU\\Support\\Authorization\l\\AuthorizationServiceProvider" alt="" coords="184,348,391,389"/>
 <area shape="rect" id="node8" href="$classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionServiceProvider.html" title="BristolSU\\Support\\Completion\l\\CompletionConditionServiceProvider" alt="" coords="168,413,407,455"/>
 <area shape="rect" id="node9" href="$classBristolSU_1_1Support_1_1Connection_1_1ConnectionServiceProvider.html" title="BristolSU\\Support\\Connection\l\\ConnectionServiceProvider" alt="" coords="189,479,386,520"/>
-<area shape="rect" id="node10" href="$classBristolSU_1_1Support_1_1DataPlatform_1_1UnionCloudServiceProvider.html" title="BristolSU\\Support\\DataPlatform\l\\UnionCloudServiceProvider" alt="" coords="183,544,391,585"/>
-<area shape="rect" id="node11" href="$classBristolSU_1_1Support_1_1Events_1_1EventsServiceProvider.html" title="BristolSU\\Support\\Events\l\\EventsServiceProvider" alt="" coords="201,609,373,651"/>
-<area shape="rect" id="node12" href="$classBristolSU_1_1Support_1_1Filters_1_1FilterServiceProvider.html" title="BristolSU\\Support\\Filters\l\\FilterServiceProvider" alt="" coords="204,675,371,716"/>
-<area shape="rect" id="node13" href="$classBristolSU_1_1Support_1_1Http_1_1HttpServiceProvider.html" title="BristolSU\\Support\\Http\l\\HttpServiceProvider" alt="" coords="209,740,365,781"/>
-<area shape="rect" id="node14" href="$classBristolSU_1_1Support_1_1Logic_1_1LogicServiceProvider.html" title="BristolSU\\Support\\Logic\l\\LogicServiceProvider" alt="" coords="206,805,369,847"/>
-<area shape="rect" id="node15" href="$classBristolSU_1_1Support_1_1Module_1_1ModuleFrameworkServiceProvider.html" title="BristolSU\\Support\\Module\l\\ModuleFrameworkServiceProvider" alt="" coords="175,871,400,912"/>
-<area shape="rect" id="node16" href="$classBristolSU_1_1Support_1_1Module_1_1ModuleServiceProvider.html" title="BristolSU\\Support\\Module\l\\ModuleServiceProvider" alt="" coords="201,936,374,977"/>
-<area shape="rect" id="node17" href="$classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstanceServiceProvider.html" title="BristolSU\\Support\\Module\lInstance\\ModuleInstanceService\lProvider" alt="" coords="181,1002,393,1058"/>
-<area shape="rect" id="node18" href="$classBristolSU_1_1Support_1_1Permissions_1_1PermissionServiceProvider.html" title="BristolSU\\Support\\Permissions\l\\PermissionServiceProvider" alt="" coords="186,1083,389,1124"/>
-<area shape="rect" id="node19" href="$classBristolSU_1_1Support_1_1SupportServiceProvider.html" title="BristolSU\\Support\\Support\lServiceProvider" alt="" coords="199,1148,375,1189"/>
-<area shape="rect" id="node20" href="$classBristolSU_1_1Support_1_1Testing_1_1TestingServiceProvider.html" title="BristolSU\\Support\\Testing\l\\TestingServiceProvider" alt="" coords="200,1213,375,1255"/>
-<area shape="rect" id="node21" href="$classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html" title="BristolSU\\Support\\User\l\\UserServiceProvider" alt="" coords="208,1279,367,1320"/>
+<area shape="rect" id="node10" href="$classBristolSU_1_1Support_1_1Events_1_1EventsServiceProvider.html" title="BristolSU\\Support\\Events\l\\EventsServiceProvider" alt="" coords="201,544,373,585"/>
+<area shape="rect" id="node11" href="$classBristolSU_1_1Support_1_1Filters_1_1FilterServiceProvider.html" title="BristolSU\\Support\\Filters\l\\FilterServiceProvider" alt="" coords="204,609,371,651"/>
+<area shape="rect" id="node12" href="$classBristolSU_1_1Support_1_1Http_1_1HttpServiceProvider.html" title="BristolSU\\Support\\Http\l\\HttpServiceProvider" alt="" coords="209,675,365,716"/>
+<area shape="rect" id="node13" href="$classBristolSU_1_1Support_1_1Logic_1_1LogicServiceProvider.html" title="BristolSU\\Support\\Logic\l\\LogicServiceProvider" alt="" coords="206,740,369,781"/>
+<area shape="rect" id="node14" href="$classBristolSU_1_1Support_1_1Module_1_1ModuleFrameworkServiceProvider.html" title="BristolSU\\Support\\Module\l\\ModuleFrameworkServiceProvider" alt="" coords="175,805,400,847"/>
+<area shape="rect" id="node15" href="$classBristolSU_1_1Support_1_1Module_1_1ModuleServiceProvider.html" title="BristolSU\\Support\\Module\l\\ModuleServiceProvider" alt="" coords="201,871,374,912"/>
+<area shape="rect" id="node16" href="$classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstanceServiceProvider.html" title="BristolSU\\Support\\Module\lInstance\\ModuleInstanceService\lProvider" alt="" coords="181,937,393,993"/>
+<area shape="rect" id="node17" href="$classBristolSU_1_1Support_1_1Permissions_1_1PermissionServiceProvider.html" title="BristolSU\\Support\\Permissions\l\\PermissionServiceProvider" alt="" coords="186,1017,389,1059"/>
+<area shape="rect" id="node18" href="$classBristolSU_1_1Support_1_1SupportServiceProvider.html" title="BristolSU\\Support\\Support\lServiceProvider" alt="" coords="199,1083,375,1124"/>
+<area shape="rect" id="node19" href="$classBristolSU_1_1Support_1_1User_1_1UserServiceProvider.html" title="BristolSU\\Support\\User\l\\UserServiceProvider" alt="" coords="208,1148,367,1189"/>
 </map>
