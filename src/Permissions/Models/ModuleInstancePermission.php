@@ -69,7 +69,7 @@ class ModuleInstancePermission extends Model
      */
     public function getTypeAttribute()
     {
-        return $this->permission->getModuleType();
+        return $this->permission->getType();
     }
     
 }

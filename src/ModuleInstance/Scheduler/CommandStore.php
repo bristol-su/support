@@ -35,7 +35,7 @@ class CommandStore implements CommandStoreContract
      */
     public function schedule($alias, $command, $cron)
     {
-        if(!isset($this->commands, $alias)) {
+        if(!array_key_exists($alias, $this->commands)) {
             $this->commands[$alias] = [];
         }
         $this->commands[$alias][$command] = $cron;

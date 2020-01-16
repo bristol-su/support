@@ -58,10 +58,23 @@ class LogicTesterResult
      */
     public function pass($userModel = null, $groupModel = null, $roleModel = null)
     {
-        $this->passes[] = [$userModel, $groupModel, $roleModel];
+        $this->passes[] = $this->parseArguments($userModel, $groupModel, $roleModel);
         return $this;
     }
 
+    /**
+     * Return an array of the user id, group id and role id.
+     *
+     * @param User|null $userModel User model
+     * @param Group|null $groupModel Group model
+     * @param Role|null $roleModel Role model
+     * @return array
+     */
+    private function parseArguments($userModel = null, $groupModel = null, $roleModel = null)
+    {
+        return [($userModel instanceof User?$userModel->id():null),($groupModel instanceof Group?$groupModel->id():null),($roleModel instanceof Role?$roleModel->id():null)];
+    }
+    
     /**
      * The given combination of user, group and role should return false when tested
      *
@@ -72,7 +85,7 @@ class LogicTesterResult
      */
     public function fail($userModel = null, $groupModel = null, $roleModel = null)
     {
-        $this->fails[] = [$userModel, $groupModel, $roleModel];
+        $this->fails[] = $this->parseArguments($userModel, $groupModel, $roleModel);
         return $this;
     }
 
@@ -86,7 +99,7 @@ class LogicTesterResult
      */
     public function shouldBeCalled($userModel = null, $groupModel = null, $roleModel = null)
     {
-        $this->required[] = [$userModel, $groupModel, $roleModel];
+        $this->required[] = $this->parseArguments($userModel, $groupModel, $roleModel);
         return $this;
     }
 
@@ -128,18 +141,19 @@ class LogicTesterResult
      */
     public function evaluate($userModel = null, $groupModel = null, $roleModel = null): bool
     {
-        $this->required = array_filter($this->required, function($parameters) use ($userModel, $groupModel, $roleModel) {
-            return $parameters !== [$userModel, $groupModel, $roleModel];
+        $args = $this->parseArguments($userModel, $groupModel, $roleModel);
+        $this->required = array_filter($this->required, function($parameters) use ($args) {
+            return $parameters !== $args;
         });
      
         if($this->overrideResult !== null) {
             return $this->overrideResult;
         }
         
-        if(in_array([$userModel, $groupModel, $roleModel], $this->passes)) {
+        if(in_array($args, $this->passes)) {
             return true;
         }
-        if(in_array([$userModel, $groupModel, $roleModel], $this->fails)) {
+        if(in_array($args, $this->fails)) {
             return false;
         }
         return $this->default;

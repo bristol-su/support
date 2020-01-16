@@ -54,7 +54,7 @@ class ModuleInstanceSetting extends Model
     public function getValueAttribute()
     {
         if(($this->attributes['encoded']??false)) {
-            return json_decode($this->attributes['value']);
+            return json_decode($this->attributes['value'], true);
         }
         return $this->attributes['value'];
     }

@@ -8,6 +8,7 @@ use BristolSU\Module\Tests\UploadFile\Integration\Http\Controllers\ParticipantPa
 use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Logic\Logic;
+use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
@@ -130,4 +131,33 @@ class ModuleInstanceTest extends TestCase
         }
     }
 
+    /** @test */
+    public function it_has_many_module_instance_services(){
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstanceServices = factory(ModuleInstanceService::class, 7)->create(['module_instance_id' => $moduleInstance->id]);
+        
+        $foundModuleInstanceServices = $moduleInstance->moduleInstanceServices;
+        
+        $this->assertEquals(7, $foundModuleInstanceServices->count());
+        $this->assertContainsOnlyInstancesOf(ModuleInstanceService::class, $foundModuleInstanceServices);
+        foreach($moduleInstanceServices as $service) {
+            $this->assertModelEquals($service, $foundModuleInstanceServices->shift());
+        }
+    }
+    
+    /** @test */
+    public function setting_returns_a_setting_if_found(){
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        factory(ModuleInstanceSetting::class)->create(['key' => 'asetting', 'value' => 'thevalue', 'module_instance_id' => $moduleInstance->id]);
+
+        $this->assertEquals('thevalue', $moduleInstance->setting('asetting'));
+    }
+
+    /** @test */
+    public function setting_returns_the_given_default_if_not_found(){
+        $moduleInstance = factory(ModuleInstance::class)->create();
+
+        $this->assertEquals('thedefault', $moduleInstance->setting('setting1', 'thedefault'));
+    }
+    
 }

@@ -59,5 +59,35 @@ class ModuleInstanceRepositoryTest extends TestCase
             'complete' => 'complete',
         ]);
     }
+    
+    /** @test */
+    public function all_returns_all_module_instances(){
+        $moduleInstances = factory(ModuleInstance::class, 5)->create();
+        
+        $repository = new ModuleInstanceRepository();
+        $foundModuleInstances = $repository->all();
+        
+        $this->assertEquals(5, $foundModuleInstances->count());
+        $this->assertContainsOnlyInstancesOf(ModuleInstance::class, $foundModuleInstances);
+        foreach($moduleInstances as $moduleInstance) {
+            $this->assertModelEquals($moduleInstance, $foundModuleInstances->shift());
+        }
+    }
+    
+    /** @test */
+    public function allWithAlias_returns_all_module_instances_with_the_alias(){
+        factory(ModuleInstance::class, 5)->create();
+        $moduleInstances = factory(ModuleInstance::class, 3)->create(['alias' => 'an-alias-here']);
+        factory(ModuleInstance::class, 3)->create();
+
+        $repository = new ModuleInstanceRepository();
+        $foundModuleInstances = $repository->allWithAlias('an-alias-here');
+
+        $this->assertEquals(3, $foundModuleInstances->count());
+        $this->assertContainsOnlyInstancesOf(ModuleInstance::class, $foundModuleInstances);
+        foreach($moduleInstances as $moduleInstance) {
+            $this->assertModelEquals($moduleInstance, $foundModuleInstances->shift());
+        }
+    }
 
 }

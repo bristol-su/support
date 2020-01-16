@@ -151,7 +151,16 @@ class ModuleBuilderTest extends TestCase
     
     /** @test */
     public function setServiceRequest_sets_the_service_request(){
-        $this->markTestIncomplete();
+        $this->builder->create('alias1');
+        $this->serviceRequest->getRequired('alias1')->shouldBeCalled()->willReturn(['required1', 'required2']);
+        $this->serviceRequest->getOptional('alias1')->shouldBeCalled()->willReturn(['optional1', 'optional2']);
+     
+        $this->module->setServices([
+            'required' => ['required1', 'required2'],
+            'optional' => ['optional1', 'optional2']
+        ])->shouldBeCalled();
+        
+        $this->builder->setServices();
     }
     
     /** @test */

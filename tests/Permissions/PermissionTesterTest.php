@@ -64,6 +64,19 @@ class PermissionTesterTest extends TestCase
     }
 
     /** @test */
+    public function getChain_returns_testers_registered_in_specific_positions_in_those_positions()
+    {
+        $tester1 = $this->prophesize(Tester::class);
+        $tester2 = $this->prophesize(Tester::class);
+        $permissionTester = new PermissionTester();
+        $permissionTester->register($tester1->reveal());
+        $permissionTester->register($tester2->reveal(), 0);
+
+        $this->assertInstanceOf(Tester::class, $permissionTester->getChain());
+        $this->assertEquals($tester2->reveal(), $permissionTester->getChain());
+    }
+
+    /** @test */
     public function getChain_sets_a_chain()
     {
         $tester1 = $this->prophesize(Tester::class);

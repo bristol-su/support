@@ -4,12 +4,16 @@
 namespace BristolSU\Support\Tests\ModuleInstance\Evaluator;
 
 
+use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Completion\CompletionConditionInstance;
 use BristolSU\Support\Completion\Contracts\CompletionConditionTester;
+use BristolSU\Support\Logic\Audience\AudienceMember;
+use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory;
 use BristolSU\Support\Logic\Contracts\LogicTester;
+use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation;
 use BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
@@ -27,7 +31,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         
         $evaluation = $this->prophesize(Evaluation::class);
 
-        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal());
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
         $this->assertInstanceOf(Evaluation::class, $moduleInstanceEvaluator->evaluateAdministrator($activityInstance, $moduleInstance));
     }
 
@@ -90,7 +94,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         }))->shouldBeCalled()->willReturn(true);
         $this->app->instance(CompletionConditionTester::class, $completionTester->reveal());
         
-        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal());
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
         $moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance, $user, $group, $role);
     }
 
@@ -115,7 +119,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $this->logicTester()->forLogic($moduleInstance->activeLogic)->fail($user, $group, $role);
         $this->logicTester()->bind();
         
-        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal());
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
         $moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance, $user, $group, $role);
     }
 
@@ -139,7 +143,183 @@ class ModuleInstanceEvaluatorTest extends TestCase
         }), $user, $group, $role)->shouldBeCalled()->willReturn(true);
         $this->app->instance(LogicTester::class, $logicTester->reveal());
         
-        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal());
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
         $moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance, $user, $group, $role);
     }
+
+    /** @test */
+    public function evaluateResource_returns_an_evaluation_contract(){
+        $user = $this->newUser();
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $activityInstance = factory(ActivityInstance::class)->create([
+            'activity_id' => $moduleInstance->activity_id,
+            'resource_id' => $user->id(),
+            'resource_type' => 'user'
+        ]);
+
+        $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::any(), Argument::any())->willReturn(collect());
+        $this->instance(AudienceMemberFactory::class, $audienceMemberFactory->reveal());
+
+        $evaluation = $this->prophesize(Evaluation::class);
+        $this->app->instance(Evaluation::class, $evaluation->reveal());
+        
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
+        $this->assertEquals($evaluation->reveal(), $moduleInstanceEvaluator->evaluateResource($activityInstance, $moduleInstance));
+
+    }
+    
+    /** @test */
+    public function evaluateResource_sets_visible_mandatory_active_complete_attributes_to_true_if_audience_members_returned(){
+        $user = $this->newUser();
+        $completionCondition = factory(CompletionConditionInstance::class)->create();
+        $activity = factory(Activity::class)->create(['type' => 'completable']);
+        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id, 'completion_condition_instance_id' => $completionCondition->id]);
+        $audienceMembers = collect([$this->prophesize(AudienceMember::class)->reveal()]);
+        $activityInstance = factory(ActivityInstance::class)->create([
+            'activity_id' => $moduleInstance->activity_id,
+            'resource_id' => $user->id(),
+            'resource_type' => 'user'
+        ]);
+
+        $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+            return $arg instanceof User && $user->id() === $arg->id();
+        }), Argument::that(function($arg) use($moduleInstance) {
+            return $arg instanceof Logic && $moduleInstance->visibleLogic->id === $arg->id;
+        }))->shouldBeCalled()->willReturn($audienceMembers);
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+            return $arg instanceof User && $user->id() === $arg->id();
+        }), Argument::that(function($arg) use($moduleInstance) {
+            return $arg instanceof Logic && $moduleInstance->activeLogic->id === $arg->id;
+        }))->shouldBeCalled()->willReturn($audienceMembers);
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+            return $arg instanceof User && $user->id() === $arg->id();
+        }), Argument::that(function($arg) use($moduleInstance) {
+            return $arg instanceof Logic && $moduleInstance->mandatoryLogic->id === $arg->id;
+        }))->shouldBeCalled()->willReturn($audienceMembers);
+        $this->instance(AudienceMemberFactory::class, $audienceMemberFactory->reveal());
+
+        $completionTester = $this->prophesize(CompletionConditionTester::class);
+        $completionTester->evaluate(Argument::that(function($arg) use($activityInstance) {
+            return $arg instanceof ActivityInstance && $activityInstance->id === $arg->id;
+        }), Argument::that(function($arg) use($completionCondition) {
+            return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
+        }))->shouldBeCalled()->willReturn(true);
+        $this->instance(CompletionConditionTester::class, $completionTester->reveal());
+        
+        $evaluation = $this->prophesize(Evaluation::class);
+        $evaluation->setVisible(true)->shouldBeCalled();
+        $evaluation->setActive(true)->shouldBeCalled();
+        $evaluation->setMandatory(true)->shouldBeCalled();
+        $evaluation->setComplete(true)->shouldBeCalled();
+        $this->app->instance(Evaluation::class, $evaluation->reveal());
+
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
+        $moduleInstanceEvaluator->evaluateResource($activityInstance, $moduleInstance);
+
+    }
+
+    /** @test */
+    public function evaluateResource_sets_visible_mandatory_active_complete_attributes_to_false_if_audience_members_not_returned(){
+        $user = $this->newUser();
+        $completionCondition = factory(CompletionConditionInstance::class)->create();
+        $activity = factory(Activity::class)->create(['type' => 'completable']);
+        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id, 'completion_condition_instance_id' => $completionCondition->id]);
+        $audienceMembers = collect();
+        $activityInstance = factory(ActivityInstance::class)->create([
+            'activity_id' => $moduleInstance->activity_id,
+            'resource_id' => $user->id(),
+            'resource_type' => 'user'
+        ]);
+
+        $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+            return $arg instanceof User && $user->id() === $arg->id();
+        }), Argument::that(function($arg) use($moduleInstance) {
+            return $arg instanceof Logic && $moduleInstance->visibleLogic->id === $arg->id;
+        }))->shouldBeCalled()->willReturn($audienceMembers);
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+            return $arg instanceof User && $user->id() === $arg->id();
+        }), Argument::that(function($arg) use($moduleInstance) {
+            return $arg instanceof Logic && $moduleInstance->activeLogic->id === $arg->id;
+        }))->shouldBeCalled()->willReturn($audienceMembers);
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+            return $arg instanceof User && $user->id() === $arg->id();
+        }), Argument::that(function($arg) use($moduleInstance) {
+            return $arg instanceof Logic && $moduleInstance->mandatoryLogic->id === $arg->id;
+        }))->shouldBeCalled()->willReturn($audienceMembers);
+        $this->instance(AudienceMemberFactory::class, $audienceMemberFactory->reveal());
+
+        $completionTester = $this->prophesize(CompletionConditionTester::class);
+        $completionTester->evaluate(Argument::that(function($arg) use($activityInstance) {
+            return $arg instanceof ActivityInstance && $activityInstance->id === $arg->id;
+        }), Argument::that(function($arg) use($completionCondition) {
+            return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
+        }))->shouldBeCalled()->willReturn(false);
+        $this->instance(CompletionConditionTester::class, $completionTester->reveal());
+
+        $evaluation = $this->prophesize(Evaluation::class);
+        $evaluation->setVisible(false)->shouldBeCalled();
+        $evaluation->setActive(false)->shouldBeCalled();
+        $evaluation->setMandatory(false)->shouldBeCalled();
+        $evaluation->setComplete(false)->shouldBeCalled();
+        $this->app->instance(Evaluation::class, $evaluation->reveal());
+
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
+        $moduleInstanceEvaluator->evaluateResource($activityInstance, $moduleInstance);
+
+    }
+    
+    /** @test */
+    public function evaluateResource_sets_mandatory_and_complete_to_false_if_a_non_completable_activity(){
+        $user = $this->newUser();
+        $completionCondition = factory(CompletionConditionInstance::class)->create();
+        $activity = factory(Activity::class)->create(['type' => 'open']);
+        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id, 'completion_condition_instance_id' => $completionCondition->id]);
+        $audienceMembers = collect([$this->prophesize(AudienceMember::class)->reveal()]);
+        $activityInstance = factory(ActivityInstance::class)->create([
+            'activity_id' => $moduleInstance->activity_id,
+            'resource_id' => $user->id(),
+            'resource_type' => 'user'
+        ]);
+
+        $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+            return $arg instanceof User && $user->id() === $arg->id();
+        }), Argument::that(function($arg) use($moduleInstance) {
+            return $arg instanceof Logic && $moduleInstance->visibleLogic->id === $arg->id;
+        }))->shouldBeCalled()->willReturn(collect());
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+            return $arg instanceof User && $user->id() === $arg->id();
+        }), Argument::that(function($arg) use($moduleInstance) {
+            return $arg instanceof Logic && $moduleInstance->activeLogic->id === $arg->id;
+        }))->shouldBeCalled()->willReturn(collect());
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+            return $arg instanceof User && $user->id() === $arg->id();
+        }), Argument::that(function($arg) use($moduleInstance) {
+            return $arg instanceof Logic && $moduleInstance->mandatoryLogic->id === $arg->id;
+        }))->shouldNotBeCalled();
+        $this->instance(AudienceMemberFactory::class, $audienceMemberFactory->reveal());
+
+        $completionTester = $this->prophesize(CompletionConditionTester::class);
+        $completionTester->evaluate(Argument::that(function($arg) use($activityInstance) {
+            return $arg instanceof ActivityInstance && $activityInstance->id === $arg->id;
+        }), Argument::that(function($arg) use($completionCondition) {
+            return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
+        }))->shouldNotBeCalled();
+        $this->instance(CompletionConditionTester::class, $completionTester->reveal());
+
+        $evaluation = $this->prophesize(Evaluation::class);
+        $evaluation->setVisible(false)->shouldBeCalled();
+        $evaluation->setActive(false)->shouldBeCalled();
+        $evaluation->setMandatory(false)->shouldBeCalled();
+        $evaluation->setComplete(false)->shouldBeCalled();
+        $this->app->instance(Evaluation::class, $evaluation->reveal());
+
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
+        $moduleInstanceEvaluator->evaluateResource($activityInstance, $moduleInstance);
+
+    }
+
 }
