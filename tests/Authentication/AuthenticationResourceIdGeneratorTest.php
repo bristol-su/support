@@ -16,7 +16,7 @@ class AuthenticationResourceIdGeneratorTest extends TestCase
     /** @test */
     public function fromString_returns_the_user_id_if_user_given(){
         $authentication = $this->prophesize(Authentication::class);
-        $user = new User(['id' => 1]);
+        $user = $this->newUser(['id' => 1]);
         $authentication->getUser()->shouldBeCalled()->willReturn($user);
 
         $idGenerator = new AuthenticationResourceIdGenerator($authentication->reveal());
@@ -26,7 +26,7 @@ class AuthenticationResourceIdGeneratorTest extends TestCase
     /** @test */
     public function fromString_returns_the_group_id_if_group_given(){
         $authentication = $this->prophesize(Authentication::class);
-        $group = new Group(['id' => 1]);
+        $group = $this->newGroup(['id' => 1]);
         $authentication->getGroup()->shouldBeCalled()->willReturn($group);
 
         $idGenerator = new AuthenticationResourceIdGenerator($authentication->reveal());
@@ -36,7 +36,7 @@ class AuthenticationResourceIdGeneratorTest extends TestCase
     /** @test */
     public function fromString_returns_the_role_id_if_role_given(){
         $authentication = $this->prophesize(Authentication::class);
-        $role = new Role(['id' => 1]);
+        $role = $this->newRole(['id' => 1]);
         $authentication->getRole()->shouldBeCalled()->willReturn($role);
 
         $idGenerator = new AuthenticationResourceIdGenerator($authentication->reveal());

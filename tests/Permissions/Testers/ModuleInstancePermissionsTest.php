@@ -13,7 +13,7 @@ use BristolSU\Support\Permissions\Models\Permission;
 use BristolSU\Support\Permissions\Testers\ModuleInstancePermissions;
 use BristolSU\Support\Tests\TestCase;
 
-class ModuleInstanceAdminPermissionsTest extends TestCase
+class ModuleInstancePermissionsTest extends TestCase
 {
 
     /** @test */
@@ -26,15 +26,15 @@ class ModuleInstanceAdminPermissionsTest extends TestCase
     }
 
     /** @test */
-    public function can_returns_null_if_permission_not_in_the_admin_permission_for_the_module_instance()
+    public function can_returns_null_if_permission_not_in_the_module_permission_for_the_module_instance()
     {
         $logicTester = $this->prophesize(LogicTester::class);
         $tester = new ModuleInstancePermissions($logicTester->reveal());
         
-        $ModInstPermissions = factory(ModuleInstancePermission::class)->create(['admin_permissions' => [
-            'permission1' => factory(Logic::class)->create()->id
-        ]]);
-        $moduleInstance = factory(ModuleInstance::class)->create(['module_instance_permissions_id' => $ModInstPermissions->id]);
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstancePermission = factory(ModuleInstancePermission::class)->create([
+            'ability' => 'permission1', 'logic_id' => factory(Logic::class)->create(), 'module_instance_id' => $moduleInstance->id
+        ]);
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
         $this->assertNull(
@@ -48,10 +48,10 @@ class ModuleInstanceAdminPermissionsTest extends TestCase
         $logicTester = $this->prophesize(LogicTester::class);
         $tester = new ModuleInstancePermissions($logicTester->reveal());
 
-        $ModInstPermissions = factory(ModuleInstancePermission::class)->create(['admin_permissions' => [
-            'permission1' => 100
-        ]]);
-        $moduleInstance = factory(ModuleInstance::class)->create(['module_instance_permissions_id' => $ModInstPermissions->id]);
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstancePermission = factory(ModuleInstancePermission::class)->create([
+            'ability' => 'permission1', 'logic_id' => 100, 'module_instance_id' => $moduleInstance->id
+        ]);
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
         $this->assertDatabaseMissing('logics', ['id' => 100]);
@@ -64,18 +64,18 @@ class ModuleInstanceAdminPermissionsTest extends TestCase
     /** @test */
     public function can_returns_true_if_the_logic_is_true()
     {
-        $user = new User(['id' => 1]);
-        $group = new Group(['id' => 2]);
-        $role = new Role(['id' => 3]);
+        $user = $this->newUser(['id' => 1]);
+        $group = $this->newGroup(['id' => 2]);
+        $role = $this->newRole(['id' => 3]);
 
         $logic = factory(Logic::class)->create();
-        $logicTester = $this->createLogicTester([$logic], [], $user, $group, $role);
-        $tester = new ModuleInstancePermissions($logicTester->reveal());
+        $this->logicTester()->forLogic($logic)->pass($user, $group, $role);
+        $tester = new ModuleInstancePermissions($this->logicTester());
 
-        $ModInstPermissions = factory(ModuleInstancePermission::class)->create(['admin_permissions' => [
-            'permission1' => $logic->id
-        ]]);
-        $moduleInstance = factory(ModuleInstance::class)->create(['module_instance_permissions_id' => $ModInstPermissions->id]);
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstancePermission = factory(ModuleInstancePermission::class)->create([
+            'ability' => 'permission1', 'logic_id' => $logic->id, 'module_instance_id' => $moduleInstance->id
+        ]);
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
         $this->assertTrue(
@@ -86,18 +86,18 @@ class ModuleInstanceAdminPermissionsTest extends TestCase
     /** @test */
     public function can_returns_false_if_the_logic_is_false()
     {
-        $user = new User(['id' => 1]);
-        $group = new Group(['id' => 2]);
-        $role = new Role(['id' => 3]);
+        $user = $this->newUser(['id' => 1]);
+        $group = $this->newGroup(['id' => 2]);
+        $role = $this->newRole(['id' => 3]);
 
         $logic = factory(Logic::class)->create();
-        $logicTester = $this->createLogicTester([], [$logic], $user, $group, $role);
-        $tester = new ModuleInstancePermissions($logicTester->reveal());
+        $this->logicTester()->forLogic($logic)->fail($user, $group, $role);
+        $tester = new ModuleInstancePermissions($this->logicTester());
 
-        $ModInstPermissions = factory(ModuleInstancePermission::class)->create(['admin_permissions' => [
-            'permission1' => $logic->id
-        ]]);
-        $moduleInstance = factory(ModuleInstance::class)->create(['module_instance_permissions_id' => $ModInstPermissions->id]);
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstancePermission = factory(ModuleInstancePermission::class)->create([
+            'ability' => 'permission1', 'logic_id' => $logic->id, 'module_instance_id' => $moduleInstance->id
+        ]);
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
         $this->assertFalse(

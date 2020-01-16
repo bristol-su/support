@@ -4,10 +4,9 @@
 namespace BristolSU\Support\Tests\Filters\Filters;
 
 
-use BristolSU\Support\DataPlatform\Contracts\Repositories\User as DataUserRepository;
-use BristolSU\Support\DataPlatform\Models\User as DataUser;
+use BristolSU\ControlDB\Contracts\Repositories\DataUser as DataUserRepository;
+use BristolSU\ControlDB\Models\DataUser;
 use BristolSU\Support\Filters\Filters\User\UserEmailIs;
-use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Tests\TestCase;
 
 class UserEmailIsTest extends TestCase
@@ -15,40 +14,47 @@ class UserEmailIsTest extends TestCase
 
     /** @test */
     public function options_returns_a_blank_string_for_email(){
-        $filter = new UserEmailIs($this->prophesize(DataUserRepository::class)->reveal());
+        $filter = new UserEmailIs();
 
         $this->assertEquals(['email' => ''], $filter->options());
     }
 
     /** @test */
     public function evaluate_returns_true_if_a_user_email_is_equal_to_the_settings(){
-        $user = new User(['id' => 10, 'uc_uid' => 1]);
+        $dataUser = factory(DataUser::class)->create(['id' => 1, 'email' => 'tobyt@example.com']);
+        $user = $this->newUser(['id' => 10, 'data_provider_id' => 1]);
         $dataUserRepository = $this->prophesize(DataUserRepository::class);
-        $dataUserRepository->getById(1)->shouldBeCalled()->willReturn(new DataUser(['id' => 1, 'email' => 'tt15951@example.com']));
+        $dataUserRepository->getById(1)->shouldBeCalled()->willReturn($dataUser);
+        $this->app->instance(DataUserRepository::class, $dataUserRepository->reveal());
         
-        $filter = new UserEmailIs($dataUserRepository->reveal());
+        $filter = new UserEmailIs();
         $filter->setModel($user);
-        $this->assertTrue($filter->evaluate(['email' => 'tt15951@example.com']));
+        $this->assertTrue($filter->evaluate(['email' => 'tobyt@example.com']));
     }
 
     /** @test */
     public function evaluate_returns_false_if_a_user_email_is_not_equal_to_the_settings(){
-        $user = new User(['id' => 10, 'uc_uid' => 1]);
+        $dataUser = factory(DataUser::class)->create(['id' => 1, 'email' => 'tobyt@example.com']);
+        $user = $this->newUser(['id' => 10, 'data_provider_id' => 1]);
         $dataUserRepository = $this->prophesize(DataUserRepository::class);
-        $dataUserRepository->getById(1)->shouldBeCalled()->willReturn(new DataUser(['id' => 1, 'email' => 'tt15951@example.com']));
-        $filter = new UserEmailIs($dataUserRepository->reveal());
+        $dataUserRepository->getById(1)->shouldBeCalled()->willReturn($dataUser);
+        $this->app->instance(DataUserRepository::class, $dataUserRepository->reveal());
+
+        $filter = new UserEmailIs();
         $filter->setModel($user);
-        $this->assertFalse($filter->evaluate(['email' => 'tt15951@notexample.com']));
+        $this->assertFalse($filter->evaluate(['email' => 'tobyt@notexample.com']));
     }
 
     /** @test */
     public function evaluate_returns_false_if_dataRepository_throws_exception(){
-        $user = new User(['id' => 10, 'uc_uid' => 1]);
+        $user = $this->newUser(['id' => 10, 'data_provider_id' => 1]);
         $dataUserRepository = $this->prophesize(DataUserRepository::class);
         $dataUserRepository->getById(1)->shouldBeCalled()->willThrow(new \Exception());
-        $filter = new UserEmailIs($dataUserRepository->reveal());
+        $this->app->instance(DataUserRepository::class, $dataUserRepository->reveal());
+
+        $filter = new UserEmailIs();
         $filter->setModel($user);
-        $this->assertFalse($filter->evaluate(['email' => 'tt15951@notexample.com']));
+        $this->assertFalse($filter->evaluate(['email' => 'tobyt@notexample.com']));
     }
 
 

@@ -33,19 +33,17 @@ class ModuleFactory implements ModuleFactoryAlias
      * @param string $alias Alias of the module
      * @return Module Fully constructed module
      */
-    // TODO Use the module builder in the construct as opposed to resolving
     public function fromAlias(string $alias): Module
     {
-        $moduleBuilder = app(ModuleBuilder::class);
-        $moduleBuilder->create($alias);
-        $moduleBuilder->setAlias();
-        $moduleBuilder->setName();
-        $moduleBuilder->setDescription();
-        $moduleBuilder->setPermissions();
-        $moduleBuilder->setSettings();
-        $moduleBuilder->setTriggers();
-        $moduleBuilder->setCompletionConditions();
-        $moduleBuilder->setServices();
-        return $moduleBuilder->getModule();
+        $this->moduleBuilder->create($alias);
+        $this->moduleBuilder->setAlias();
+        $this->moduleBuilder->setName();
+        $this->moduleBuilder->setDescription();
+        $this->moduleBuilder->setPermissions();
+        $this->moduleBuilder->setSettings();
+        $this->moduleBuilder->setTriggers();
+        $this->moduleBuilder->setCompletionConditions();
+        $this->moduleBuilder->setServices();
+        return $this->moduleBuilder->getModule();
     }
 }

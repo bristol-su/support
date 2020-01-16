@@ -22,102 +22,97 @@ use BristolSU\Support\Tests\TestCase;
 class WebAuthenticationTest extends TestCase
 {
 
-    /**
-     * @var WebAuthentication
-     */
-    private $authentication;
-
-    public function setUp(): void
-    {
-        parent::setUp();
-        $this->authentication = resolve(WebAuthentication::class);
-    }
-
     /** @test */
     public function get_group_gets_a_group_from_a_group()
     {
-        $group = new Group([
+        $group = $this->newGroup([
             'id' => 2
         ]);
         $this->beGroup($group);
+        $authentication = resolve(WebAuthentication::class);
 
-        $this->assertEquals(2, $this->authentication->getGroup()->id);
+        $this->assertEquals(2, $authentication->getGroup()->id);
     }
 
     /** @test */
     public function get_group_returns_a_group_given_by_a_role_if_role_given(){
-        $role = new Role(['id' => 1, 'group_id' => 2]);
-        $group = new Group(['id' => 2]);
+        $group = $this->newGroup(['id' => 2]);
+        $role = $this->newRole(['id' => 1, 'group_id' => 2]);
         $this->beRole($role);
 
-        $groupRepository =  $this->prophesize(GroupRepository::class);
-        $groupRepository->getById(2)->shouldBeCalled()->willReturn($group);
-        $this->app->instance(GroupRepository::class, $groupRepository->reveal());
-        $authGroup = $this->authentication->getGroup();
-        $this->assertEquals($group, $authGroup);
+        $authentication = resolve(WebAuthentication::class);
+        $authGroup = $authentication->getGroup();
+        $this->assertInstanceOf(Group::class, $authGroup);
+        $this->assertModelEquals($group, $authGroup);
     }
 
     /** @test */
     public function get_group_returns_null_if_not_logged_into_a_group_or_role()
     {
-        $this->stubControl();
-        $this->assertNull($this->authentication->getGroup());
+        $authentication = resolve(WebAuthentication::class);
+        $this->assertNull($authentication->getGroup());
     }
 
 
     /** @test */
     public function get_role_gets_role_if_logged_in()
     {
-        $role = new Role(['id' => 2]);
+        $role = $this->newRole(['id' => 2]);
         $this->beRole($role);
-
-        $this->assertEquals(2, $this->authentication->getRole()->id);
+        
+        $authentication = resolve(WebAuthentication::class);
+        $this->assertEquals(2, $authentication->getRole()->id);
     }
 
     /** @test */
     public function get_role_returns_null_if_not_logged_into_role()
     {
-        $this->stubControl();
-        $this->assertNull($this->authentication->getRole());
+        $authentication = resolve(WebAuthentication::class);
+        $this->assertNull($authentication->getRole());
     }
 
 
     /** @test */
     public function get_user_returns_a_user_if_logged_into_a_user()
     {
-        $user = new User(['id' => 1]);
+        $user = $this->newUser(['id' => 1]);
         $this->beUser($user);
-        $this->assertEquals($user->id, $this->authentication->getUser()->id());
+        $authentication = resolve(WebAuthentication::class);
+        $this->assertEquals($user->id, $authentication->getUser()->id());
     }
 
     /** @test */
     public function get_user_returns_null_if_not_logged_into_a_user()
     {
-        $this->assertNull($this->authentication->getUser());
+        $authentication = resolve(WebAuthentication::class);
+        $this->assertNull($authentication->getUser());
     }
 
 
     /** @test */
     public function set_user_sets_the_user()
     {
-        $user = new User(['id' => 1]);
-        $this->authentication->setUser($user);
+        $user = $this->newUser(['id' => 1]);
+        $authentication = resolve(WebAuthentication::class);
+        $authentication->setUser($user);
         $this->assertEquals($user, Auth::guard('user')->user());
     }
 
     /** @test */
     public function set_group_sets_the_group()
     {
-        $group = new Group(['id' => 1]);
-        $this->authentication->setGroup($group);
+        $group = $this->newGroup(['id' => 1]);
+        $authentication = resolve(WebAuthentication::class);
+        $authentication->setGroup($group);
         $this->assertEquals(1, Auth::guard('group')->user()->id);
     }
 
     /** @test */
     public function set_role_sets_the_role()
     {
-        $role = new Role(['id' => 1]);
-        $this->authentication->setRole($role);
+        $role = $this->newRole(['id' => 1]);
+        $authentication = resolve(WebAuthentication::class);
+        $authentication->setRole($role);
         $this->assertEquals(1, Auth::guard('role')->user()->id);
     }
     
@@ -129,7 +124,7 @@ class WebAuthenticationTest extends TestCase
         $authFactory->guard('user')->shouldBeCalled()->willReturn($guard->reveal());
         $authFactory->guard('group')->shouldBeCalled()->willReturn($guard->reveal());
         $authFactory->guard('role')->shouldBeCalled()->willReturn($guard->reveal());
-        
+
         $authentication = new WebAuthentication($authFactory->reveal(), 
         $this->prophesize(GroupRepository::class)->reveal(),
         $this->prophesize(UserRepository::class)->reveal(),

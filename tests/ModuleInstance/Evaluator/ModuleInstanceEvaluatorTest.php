@@ -9,14 +9,10 @@ use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Completion\CompletionConditionInstance;
 use BristolSU\Support\Completion\Contracts\CompletionConditionTester;
-use BristolSU\ControlDB\Models\Group;
-use BristolSU\ControlDB\Models\Role;
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation;
 use BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
-use BristolSU\ControlDB\Models\User;
-use BristolSU\Support\Tests\Logic\LogicTest;
 use Prophecy\Argument;
 use BristolSU\Support\Tests\TestCase;
 
@@ -58,8 +54,9 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $evaluation->setMandatory(false)->shouldBeCalled();
         $evaluation->setActive(true)->shouldBeCalled();
         $evaluation->setComplete(false)->shouldBeCalled();
+        $this->app->instance(Evaluation::class, $evaluation->reveal());
 
-        $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal(), $this->prophesize(Authentication::class)->reveal());
+        $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
         $moduleInstanceEvaluator->evaluateAdministrator($activityInstance, $moduleInstance);
     }
 
@@ -75,11 +72,16 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $evaluation->setMandatory(true)->shouldBeCalled();
         $evaluation->setActive(false)->shouldBeCalled();
         $evaluation->setComplete(true)->shouldBeCalled();
-        $user = new User(['id' => 1]);
-        $group = new Group(['id' => 2]);
-        $role = new Role(['id' => 3]);
+        $this->app->instance(Evaluation::class, $evaluation->reveal());
+        $user = $this->newUser(['id' => 1]);
+        $group = $this->newGroup(['id' => 2]);
+        $role = $this->newRole(['id' => 3]);
+
+        $this->logicTester()->forLogic($moduleInstance->visibleLogic)->pass($user, $group, $role);
+        $this->logicTester()->forLogic($moduleInstance->mandatoryLogic)->pass($user, $group, $role);
+        $this->logicTester()->forLogic($moduleInstance->activeLogic)->fail($user, $group, $role);
+        $this->logicTester()->bind();
         
-        $this->createLogicTester([$moduleInstance->visibleLogic, $moduleInstance->mandatoryLogic], $moduleInstance->activeLogic, $user, $group, $role);
         $completionTester = $this->prophesize(CompletionConditionTester::class);
         $completionTester->evaluate(Argument::that(function($actInst) use ($activityInstance) {
             return $activityInstance->is($actInst);
@@ -103,13 +105,15 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $evaluation->setMandatory(false)->shouldBeCalled();
         $evaluation->setActive(false)->shouldBeCalled();
         $evaluation->setComplete(false)->shouldBeCalled();
+        $this->app->instance(Evaluation::class, $evaluation->reveal());
 
-        $user = new User(['id' => 1]);
-        $group = new Group(['id' => 2]);
-        $role = new Role(['id' => 3]);
+        $user = $this->newUser(['id' => 1]);
+        $group = $this->newGroup(['id' => 2]);
+        $role = $this->newRole(['id' => 3]);
 
-        
-        $this->createLogicTester([$moduleInstance->visibleLogic], $moduleInstance->activeLogic, $user, $group, $role);
+        $this->logicTester()->forLogic($moduleInstance->visibleLogic)->pass($user, $group, $role);
+        $this->logicTester()->forLogic($moduleInstance->activeLogic)->fail($user, $group, $role);
+        $this->logicTester()->bind();
         
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator($evaluation->reveal());
         $moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance, $user, $group, $role);
@@ -123,9 +127,9 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $activityInstance->activity->moduleInstances()->save($moduleInstance);
         $evaluation = $this->prophesize(Evaluation::class);
 
-        $user = new User(['id' => 1]);
-        $group = new Group(['id' => 1]);
-        $role = new Role(['id' => 2]);
+        $user = $this->newUser(['id' => 1]);
+        $group = $this->newGroup(['id' => 1]);
+        $role = $this->newRole(['id' => 2]);
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function ($arg) use ($moduleInstance) {
             return $moduleInstance->visibleLogic->is($arg);

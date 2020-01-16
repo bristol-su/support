@@ -28,14 +28,16 @@ class CheckAdminActivityForTest extends TestCase
         $request->route('activity_slug')->willReturn($activity);
         $authentication = $this->prophesize(Authentication::class);
 
-        $user = new User(['id' => 1]);
-        $group = new Group(['id' => 5]);
-        $role = new Role(['id' => 10]);
+        $user = $this->newUser(['id' => 1]);
+        $group = $this->newGroup(['id' => 5]);
+        $role = $this->newRole(['id' => 10]);
         $authentication->getUser()->willReturn($user);
         $authentication->getGroup()->willReturn($group);
         $authentication->getRole()->willReturn($role);
 
-        $this->createLogicTester([], [$logic], $user, $group, $role);
+        $this->logicTester()->forLogic($logic)->fail($user, $group, $role);
+        $this->logicTester()->bind();
+        
         $middleware = new CheckAdminActivityFor($authentication->reveal());
         $middleware->handle($request->reveal(), function(){ });
     }
@@ -48,13 +50,16 @@ class CheckAdminActivityForTest extends TestCase
         $request->route('test_callback_is_called')->shouldBeCalled()->willReturn(true);
 
         $authentication = $this->prophesize(Authentication::class);
-        $user = new User(['id' => 1]);
-        $group = new Group(['id' => 5]);
-        $role = new Role(['id' => 10]);
+        $user = $this->newUser(['id' => 1]);
+        $group = $this->newGroup(['id' => 5]);
+        $role = $this->newRole(['id' => 10]);
         $authentication->getUser()->willReturn($user);
         $authentication->getGroup()->willReturn($group);
         $authentication->getRole()->willReturn($role);
-        $this->createLogicTester([$logic], [], $user, $group, $role);
+
+        $this->logicTester()->forLogic($logic)->pass($user, $group, $role);
+        $this->logicTester()->bind();
+        
         $middleware = new CheckAdminActivityFor($authentication->reveal());
         $middleware->handle($request->reveal(), function($request){
             $this->assertTrue(

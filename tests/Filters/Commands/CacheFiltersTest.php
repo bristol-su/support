@@ -25,15 +25,15 @@ class CacheFiltersTest extends TestCase
 
         $userFilterInstances = [];
         for($i = 0; $i < 10; $i++) {
-            $gfi = $this->prophesize(FilterInstanceContract::class);
-            $gfi->for()->shouldBeCalled()->willReturn('user');
-            $userFilterInstances[] = $gfi->reveal();
+            $fi = $this->prophesize(FilterInstanceContract::class);
+            $fi->for()->shouldBeCalled()->willReturn('user');
+            $userFilterInstances[] = $fi->reveal();
         }
 
         $users = [
-            new User(['id' => 1]),
-            new User(['id' => 2]),
-            new User(['id' => 3]),
+            $this->newUser(['id' => 1]),
+            $this->newUser(['id' => 2]),
+            $this->newUser(['id' => 3]),
         ];
 
         $filterInstanceRepository = $this->prophesize(FilterInstanceRepository::class);
@@ -75,9 +75,9 @@ class CacheFiltersTest extends TestCase
         }
 
         $groups = [
-            new Group(['id' => 1]),
-            new Group(['id' => 2]),
-            new Group(['id' => 3]),
+            $this->newGroup(['id' => 1]),
+            $this->newGroup(['id' => 2]),
+            $this->newGroup(['id' => 3]),
         ];
 
         $filterInstanceRepository = $this->prophesize(FilterInstanceRepository::class);
@@ -119,9 +119,9 @@ class CacheFiltersTest extends TestCase
         }
 
         $roles = [
-            new Role(['id' => 1]),
-            new Role(['id' => 2]),
-            new Role(['id' => 3]),
+            $this->newRole(['id' => 1]),
+            $this->newRole(['id' => 2]),
+            $this->newRole(['id' => 3]),
         ];
 
         $filterInstanceRepository = $this->prophesize(FilterInstanceRepository::class);

@@ -6,7 +6,7 @@ use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Filters\Contracts\FilterInstanceRepository;
-use BristolSU\Support\Filters\FilterInstance;
+use BristolSU\Support\Filters\Contracts\FilterInstance;
 use BristolSU\Support\Filters\Jobs\CacheFilter;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;

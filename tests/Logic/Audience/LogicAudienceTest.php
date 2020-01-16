@@ -24,9 +24,9 @@ class LogicAudienceTest extends TestCase
     public function it_creates_an_audience_member_for_each_user(){
         $logic = factory(Logic::class)->create();
         
-        $user1 = new User(['id' => 1]);
-        $user2 = new User(['id' => 2]);
-        $user3 = new User(['id' => 3]);
+        $user1 = $this->newUser(['id' => 1]);
+        $user2 = $this->newUser(['id' => 2]);
+        $user3 = $this->newUser(['id' => 3]);
         $audienceMember1 = $this->prophesize(AudienceMember::class);
         $audienceMember2 = $this->prophesize(AudienceMember::class);
         $audienceMember3 = $this->prophesize(AudienceMember::class);
@@ -48,9 +48,9 @@ class LogicAudienceTest extends TestCase
     public function it_calls_filterForLogic_on_each_audience_member(){
         $logic = factory(Logic::class)->create();
 
-        $user1 = new User(['id' => 1]);
-        $user2 = new User(['id' => 2]);
-        $user3 = new User(['id' => 3]);
+        $user1 = $this->newUser(['id' => 1]);
+        $user2 = $this->newUser(['id' => 2]);
+        $user3 = $this->newUser(['id' => 3]);
         $audienceMember1 = $this->prophesize(AudienceMember::class);
         $audienceMember2 = $this->prophesize(AudienceMember::class);
         $audienceMember3 = $this->prophesize(AudienceMember::class);
@@ -85,9 +85,9 @@ class LogicAudienceTest extends TestCase
     public function it_calls_hasAudience_on_each_audience_member_and_returns_them_if_true(){
         $logic = factory(Logic::class)->create();
 
-        $user1 = new User(['id' => 1]);
-        $user2 = new User(['id' => 2]);
-        $user3 = new User(['id' => 3]);
+        $user1 = $this->newUser(['id' => 1]);
+        $user2 = $this->newUser(['id' => 2]);
+        $user3 = $this->newUser(['id' => 3]);
         $audienceMember1 = $this->prophesize(AudienceMember::class);
         $audienceMember2 = $this->prophesize(AudienceMember::class);
         $audienceMember3 = $this->prophesize(AudienceMember::class);
@@ -122,9 +122,9 @@ class LogicAudienceTest extends TestCase
     public function it_returns_an_empty_array_if_no_audience_found(){
         $logic = factory(Logic::class)->create();
 
-        $user1 = new User(['id' => 1]);
-        $user2 = new User(['id' => 2]);
-        $user3 = new User(['id' => 3]);
+        $user1 = $this->newUser(['id' => 1]);
+        $user2 = $this->newUser(['id' => 2]);
+        $user3 = $this->newUser(['id' => 3]);
         $audienceMember1 = $this->prophesize(AudienceMember::class);
         $audienceMember2 = $this->prophesize(AudienceMember::class);
         $audienceMember3 = $this->prophesize(AudienceMember::class);

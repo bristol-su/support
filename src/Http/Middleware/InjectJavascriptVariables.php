@@ -5,7 +5,6 @@ namespace BristolSU\Support\Http\Middleware;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use BristolSU\Support\ActivityInstance\Exceptions\NotInActivityInstanceException;
 use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\Support\DataPlatform\Contracts\Repositories\User;
 use Illuminate\Http\Request;
 use Laracasts\Utilities\JavaScript\JavaScriptFacade;
 
@@ -58,11 +57,8 @@ class InjectJavascriptVariables
             'group' => $this->authentication->getGroup(),
             'role' => $this->authentication->getRole(),
             'activityinstance' => $this->activityInstanceResolver->getActivityInstance(),
-            'moduleinstance' => $request->route('module_instance_slug')
-        ]);
-        
-        JavaScriptFacade::put([
-            'data_user' => ($this->authentication->getUser() === null?null:app(User::class)->getById($this->authentication->getUser()->data_provider_id))
+            'moduleinstance' => $request->route('module_instance_slug'),
+            'data_user' => ($this->authentication->getUser() === null?null:$this->authentication->getUser()->data())
         ]);
         
         return $next($request);

@@ -16,7 +16,7 @@ class GroupProviderTest extends TestCase
     /** @test */
     public function retrieve_by_id_retrieves_a_group_by_id(){
         $groupRepository = $this->prophesize(GroupRepositoryContract::class);
-        $groupRepository->getById(1)->shouldBeCalled()->willReturn(new Group(['id' => 1]));
+        $groupRepository->getById(1)->shouldBeCalled()->willReturn($this->newGroup(['id' => 1]));
 
         $groupProvider = new GroupProvider($groupRepository->reveal());
         $this->assertEquals(1, $groupProvider->retrieveById(1)->id);
@@ -25,7 +25,7 @@ class GroupProviderTest extends TestCase
     /** @test */
     public function retrieve_by_credentials_retrieves_a_group_by_credentials(){
         $groupRepository = $this->prophesize(GroupRepositoryContract::class);
-        $groupRepository->getById(1)->shouldBeCalled()->willReturn(new Group(['id' => 1]));
+        $groupRepository->getById(1)->shouldBeCalled()->willReturn($this->newGroup(['id' => 1]));
 
         $groupProvider = new GroupProvider($groupRepository->reveal());
         $this->assertEquals(1, $groupProvider->retrieveByCredentials(['group_id' => 1])->id);
@@ -42,7 +42,7 @@ class GroupProviderTest extends TestCase
     /** @test */
     public function validate_credentials_returns_true_if_group_id_valid(){
         $groupRepository = $this->prophesize(GroupRepositoryContract::class);
-        $groupRepository->getById(1)->shouldBeCalled()->willReturn(new Group(['id' => 1]));
+        $groupRepository->getById(1)->shouldBeCalled()->willReturn($this->newGroup(['id' => 1]));
         $user = factory(User::class)->create();
 
         $groupProvider = new GroupProvider($groupRepository->reveal());

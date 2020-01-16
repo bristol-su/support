@@ -2,14 +2,19 @@
 
 namespace BristolSU\Support\Tests\Module;
 
+use BristolSU\Support\Connection\ServiceRequest;
 use BristolSU\Support\Events\Contracts\EventRepository;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
 use BristolSU\Support\Completion\Contracts\CompletionCondition;
 use BristolSU\Support\Completion\Contracts\CompletionConditionRepository;
 use BristolSU\Support\Module\Contracts\Module;
 use BristolSU\Support\Module\ModuleBuilder;
+use BristolSU\Support\ModuleInstance\Contracts\Settings\ModuleSettingsStore;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Generator\Form;
+use FormSchema\Generator\Group;
+use FormSchema\Transformers\VFGTransformer;
 use Illuminate\Contracts\Config\Repository;
 
 class ModuleBuilderTest extends TestCase
@@ -39,6 +44,10 @@ class ModuleBuilderTest extends TestCase
      * @var \Prophecy\Prophecy\ObjectProphecy
      */
     private $completionRepository;
+    
+    private $moduleSettingsStore;
+    
+    private $serviceRequest;
 
     public function setUp(): void
     {
@@ -48,12 +57,16 @@ class ModuleBuilderTest extends TestCase
         $this->permissionRepository = $this->prophesize(PermissionRepository::class);
         $this->config = $this->prophesize(Repository::class);
         $this->completionRepository = $this->prophesize(CompletionConditionRepository::class);
+        $this->moduleSettingsStore = $this->prophesize(ModuleSettingsStore::class);
+        $this->serviceRequest = $this->prophesize(ServiceRequest::class);
         $this->builder = new ModuleBuilder(
             $this->module->reveal(),
             $this->permissionRepository->reveal(),
             $this->config->reveal(),
             $this->eventRepository->reveal(),
-            $this->completionRepository->reveal()
+            $this->completionRepository->reveal(),
+            $this->moduleSettingsStore->reveal(),
+            $this->serviceRequest->reveal()
         );
     }
 
@@ -82,9 +95,10 @@ class ModuleBuilderTest extends TestCase
 
     /** @test */
     public function setSettings_sets_the_settings_in_the_module(){
+        $form = Form::make()->withGroup(Group::make('legend-one'))->getSchema();
         $this->builder->create('alias1');
-        $this->config->get('alias1.settings')->shouldBeCalled()->willReturn(['settings1']);
-        $this->module->setSettings(['settings1'])->shouldBeCalled();
+        $this->moduleSettingsStore->get('alias1')->shouldBeCalled()->willReturn($form);
+        $this->module->setSettings((new VFGTransformer())->transformToArray($form))->shouldBeCalled();
         $this->builder->setSettings();
     }
 
@@ -136,11 +150,22 @@ class ModuleBuilderTest extends TestCase
     }
     
     /** @test */
+    public function setServiceRequest_sets_the_service_request(){
+        $this->markTestIncomplete();
+    }
+    
+    /** @test */
     public function getModule_returns_the_built_module(){
         $module = new \BristolSU\Support\Module\Module();
         $module->setAlias('alias1');
         
-        $builder = new ModuleBuilder($module, $this->permissionRepository->reveal(), $this->config->reveal(), $this->eventRepository->reveal(), $this->completionRepository->reveal());
+        $builder = new ModuleBuilder($module, 
+            $this->permissionRepository->reveal(),
+            $this->config->reveal(), 
+            $this->eventRepository->reveal(), 
+            $this->completionRepository->reveal(),
+            $this->moduleSettingsStore->reveal(),
+            $this->serviceRequest->reveal());
         $this->assertEquals('alias1', $builder->getModule()->getAlias());
     }
     
@@ -148,7 +173,13 @@ class ModuleBuilderTest extends TestCase
     public function getAlias_returns_the_alias(){
         $module = new \BristolSU\Support\Module\Module();
 
-        $builder = new ModuleBuilderFake($module, $this->permissionRepository->reveal(), $this->config->reveal(), $this->eventRepository->reveal(), $this->completionRepository->reveal());
+        $builder = new ModuleBuilderFake($module,
+            $this->permissionRepository->reveal(),
+            $this->config->reveal(),
+            $this->eventRepository->reveal(),
+            $this->completionRepository->reveal(),
+            $this->moduleSettingsStore->reveal(),
+            $this->serviceRequest->reveal());
         $builder->create('alias1');
         $this->assertEquals('alias1', $builder->testGetAlias()); 
     }
@@ -159,7 +190,13 @@ class ModuleBuilderTest extends TestCase
         $this->expectExceptionMessage('Set an alias before using the builder');
         $module = new \BristolSU\Support\Module\Module();
 
-        $builder = new ModuleBuilderFake($module, $this->permissionRepository->reveal(), $this->config->reveal(), $this->eventRepository->reveal(), $this->completionRepository->reveal());
+        $builder = new ModuleBuilderFake($module,
+            $this->permissionRepository->reveal(),
+            $this->config->reveal(),
+            $this->eventRepository->reveal(),
+            $this->completionRepository->reveal(),
+            $this->moduleSettingsStore->reveal(),
+            $this->serviceRequest->reveal());
         $this->assertEquals('alias1', $builder->testGetAlias());
     }
 }

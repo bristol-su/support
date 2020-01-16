@@ -307,13 +307,15 @@ trait CreatesModuleEnvironment
      */
     private function setUpAuthentication()
     {
-        if($this->for === 'group' || $this->for === 'role') {
+        if($this->for === 'group') {
             $this->controlGroup = ($this->controlGroup ?? $this->newGroup());
             $this->beGroup($this->controlGroup);
         }
         if($this->for === 'role') {
             $this->controlRole = ($this->controlRole ?? $this->newRole());
+            $this->controlGroup = $this->controlRole->group();
             $this->beRole($this->controlRole);
+            $this->beGroup($this->controlGroup);
 
         }
         $this->controlUser = ($this->controlUser ?? $this->newUser());

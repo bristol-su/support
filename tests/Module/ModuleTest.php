@@ -71,6 +71,13 @@ class ModuleTest extends TestCase
     }
 
     /** @test */
+    public function service_request_has_setters_and_getters(){
+        $module = new Module;
+        $module->setServices(['required' => ['facebook'], 'optional' => []]);
+        $this->assertEquals(['required' => ['facebook'], 'optional' => []], $module->getServices());
+    }
+
+    /** @test */
     public function toArray_returns_an_array_of_parameters(){
         $module = new Module;
         $module->setAlias('alias1');
@@ -80,7 +87,8 @@ class ModuleTest extends TestCase
         $module->setSettings(['setting1']);
         $module->setTriggers(['trigger1']);
         $module->setCompletionConditions(['cc1']);
-        
+        $module->setServices(['required' => ['facebook'], 'optional' => []]);
+
         $this->assertEquals([
             'alias' => 'alias1',
             'name' => 'name1',
@@ -88,7 +96,8 @@ class ModuleTest extends TestCase
             'permissions' => ['permission1'],
             'settings' => ['setting1'],
             'triggers' => ['trigger1'],
-            'completionConditions' => ['cc1']
+            'completionConditions' => ['cc1'],
+            'services' => ['required' => ['facebook'], 'optional' => []]
         ], $module->toArray());
     }
 
@@ -102,6 +111,7 @@ class ModuleTest extends TestCase
         $module->setSettings(['setting1']);
         $module->setTriggers(['trigger1']);
         $module->setCompletionConditions(['cc1']);
+        $module->setServices(['required' => ['facebook'], 'optional' => []]);
 
         $this->assertEquals(json_encode([
             'alias' => 'alias1',
@@ -110,7 +120,8 @@ class ModuleTest extends TestCase
             'permissions' => ['permission1'],
             'settings' => ['setting1'],
             'triggers' => ['trigger1'],
-            'completionConditions' => ['cc1']
+            'completionConditions' => ['cc1'],
+            'services' => ['required' => ['facebook'], 'optional' => []]
         ]), $module->toJson());
     }
 
@@ -124,6 +135,7 @@ class ModuleTest extends TestCase
         $module->setSettings(['setting1']);
         $module->setTriggers(['trigger1']);
         $module->setCompletionConditions(['cc1']);
+        $module->setServices(['required' => ['facebook'], 'optional' => []]);
 
         $this->assertEquals(json_encode([
             'alias' => 'alias1',
@@ -132,7 +144,8 @@ class ModuleTest extends TestCase
             'permissions' => ['permission1'],
             'settings' => ['setting1'],
             'triggers' => ['trigger1'],
-            'completionConditions' => ['cc1']
+            'completionConditions' => ['cc1'],
+            'services' => ['required' => ['facebook'], 'optional' => []]
         ]), (string)$module);
     }
 }

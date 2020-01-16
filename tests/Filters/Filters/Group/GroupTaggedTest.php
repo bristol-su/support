@@ -92,7 +92,7 @@ class GroupTaggedTest extends TestCase
         $groupTagRepository->allThroughGroup(Argument::any())->shouldBeCalled()->willThrow(new \Exception());
 
         $groupTagFilter = new GroupTagged($groupTagRepository->reveal());
-        $groupTagFilter->setModel(new Group());
+        $groupTagFilter->setModel($this->newGroup());
         $this->assertFalse($groupTagFilter->evaluate(['tag' => 'reference.ref3']));
     }
 }

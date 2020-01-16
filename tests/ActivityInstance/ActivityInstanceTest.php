@@ -82,7 +82,7 @@ class ActivityInstanceTest extends TestCase
 
     /** @test */
     public function getParticipantAttribute_returns_a_user_if_resource_type_is_a_user(){
-        $user = new User(['id' => 3]);
+        $user = $this->newUser(['id' => 3]);
         $userRepository = $this->prophesize(UserRepository::class);
         $userRepository->getById(3)->shouldBeCalledTimes(3)->willReturn($user);
         $this->app->instance(UserRepository::class, $userRepository->reveal());
@@ -95,7 +95,7 @@ class ActivityInstanceTest extends TestCase
 
     /** @test */
     public function getParticipantAttribute_returns_a_group_if_resource_type_is_a_group(){
-        $group = new Group(['id' => 3]);
+        $group = $this->newGroup(['id' => 3]);
         $groupRepository = $this->prophesize(GroupRepository::class);
         $groupRepository->getById(3)->shouldBeCalledTimes(3)->willReturn($group);
         $this->app->instance(GroupRepository::class, $groupRepository->reveal());
@@ -108,7 +108,7 @@ class ActivityInstanceTest extends TestCase
 
     /** @test */
     public function getParticipantAttribute_returns_a_role_if_resource_type_is_a_role(){
-        $role = new Role(['id' => 3]);
+        $role = $this->newRole(['id' => 3]);
         $roleRepository = $this->prophesize(RoleRepository::class);
         $roleRepository->getById(3)->shouldBeCalledTimes(3)->willReturn($role);
         $this->app->instance(RoleRepository::class, $roleRepository->reveal());
@@ -129,4 +129,39 @@ class ActivityInstanceTest extends TestCase
         $activityInstance->getParticipantAttribute();
     }
     
+    /** @test */
+    public function getAuthIdentifierName_returns_id(){
+        $activityInstance = factory(ActivityInstance::class)->create();
+        $this->assertEquals('id', $activityInstance->getAuthIdentifierName());
+    }
+
+    /** @test */
+    public function getAuthIdentifier_returns_id_of_model(){
+        $activityInstance = factory(ActivityInstance::class)->create();
+        $this->assertEquals($activityInstance->id, $activityInstance->getAuthIdentifier());
+    }
+
+    /** @test */
+    public function getAuthPassword_returns_null(){
+        $activityInstance = factory(ActivityInstance::class)->create();
+        $this->assertNull($activityInstance->getAuthPassword());
+    }
+
+    /** @test */
+    public function getRememberToken_returns_null(){
+        $activityInstance = factory(ActivityInstance::class)->create();
+        $this->assertNull($activityInstance->getRememberToken());
+    }
+
+    /** @test */
+    public function getRememberTokenName_returns_null(){
+        $activityInstance = factory(ActivityInstance::class)->create();
+        $this->assertNull($activityInstance->getRememberTokenName());
+    }
+
+    /** @test */
+    public function setRememberTokenName_returns_null(){
+        $activityInstance = factory(ActivityInstance::class)->create();
+        $this->assertNull($activityInstance->setRememberToken('token'));
+    }
 }

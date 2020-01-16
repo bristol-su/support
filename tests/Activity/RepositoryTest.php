@@ -146,7 +146,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function getForAdministrator_passes_a_user_to_the_logic_tester(){
         $activity = factory(Activity::class)->create();
-        $user = new User(['id' => 1]);
+        $user = $this->newUser(['id' => 1]);
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
             return $arg->id === $activity->adminLogic->id;
@@ -162,7 +162,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function getForAdministrator_passes_a_group_to_the_logic_tester(){
         $activity = factory(Activity::class)->create();
-        $group = new Group(['id' => 1]);
+        $group = $this->newGroup(['id' => 1]);
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
             return $arg->id === $activity->adminLogic->id;
@@ -176,7 +176,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function getForAdministrator_passes_a_role_to_the_logic_tester(){
         $activity = factory(Activity::class)->create();
-        $role = new Role(['id' => 1]);
+        $role = $this->newRole(['id' => 1]);
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
             return $arg->id === $activity->adminLogic->id;
@@ -204,7 +204,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function getForParticipant_passes_a_user_to_the_logic_tester(){
         $activity = factory(Activity::class)->create();
-        $user = new User(['id' => 2]);
+        $user = $this->newUser(['id' => 2]);
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
             return $arg->id === $activity->forLogic->id;
@@ -220,7 +220,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function getForParticipant_passes_a_group_to_the_logic_tester(){
         $activity = factory(Activity::class)->create();
-        $group = new Group(['id' => 1]);
+        $group = $this->newGroup(['id' => 1]);
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
             return $arg->id === $activity->forLogic->id;
@@ -234,7 +234,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function getForParticipant_passes_a_role_to_the_logic_tester(){
         $activity = factory(Activity::class)->create();
-        $role = new Role(['id' => 1]);
+        $role = $this->newRole(['id' => 1]);
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
             return $arg->id === $activity->forLogic->id;

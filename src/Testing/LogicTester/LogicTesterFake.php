@@ -30,7 +30,7 @@ class LogicTesterFake implements LogicTester
     public function forLogic(Logic $logic)
     {
         if(!array_key_exists($logic->id, $this->results)) {
-            $this->results[$logic->id] = new LogicTesterResult($logic);
+            $this->results[$logic->id] = new LogicTesterResult();
         }
         return $this->results[$logic->id];
     }

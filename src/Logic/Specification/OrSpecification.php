@@ -38,7 +38,7 @@ class OrSpecification implements Specification
             return true;
         }
         foreach($this->specifications as $specification) {
-            if(!$specification->isSatisfied()) {
+            if($specification->isSatisfied()) {
                 return true;
             }
         }

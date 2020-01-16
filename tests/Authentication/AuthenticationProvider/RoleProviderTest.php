@@ -15,20 +15,22 @@ class RoleProviderTest extends TestCase
 
     /** @test */
     public function retrieve_by_id_retrieves_a_role_by_id(){
+        $role = $this->newRole();
         $roleRepository = $this->prophesize(RoleRepositoryContract::class);
-        $roleRepository->getById(1)->shouldBeCalled()->willReturn(new Role(['id' => 1]));
+        $roleRepository->getById($role->id())->shouldBeCalled()->willReturn($role);
 
         $roleProvider = new RoleProvider($roleRepository->reveal());
-        $this->assertEquals(1, $roleProvider->retrieveById(1)->id);
+        $this->assertModelEquals($role, $roleProvider->retrieveById($role->id()));
     }
 
     /** @test */
     public function retrieve_by_credentials_retrieves_a_role_by_credentials(){
+        $role = $this->newRole();
         $roleRepository = $this->prophesize(RoleRepositoryContract::class);
-        $roleRepository->getById(1)->shouldBeCalled()->willReturn(new Role(['id' => 1]));
+        $roleRepository->getById($role->id())->shouldBeCalled()->willReturn($role);
 
         $roleProvider = new RoleProvider($roleRepository->reveal());
-        $this->assertEquals(1, $roleProvider->retrieveByCredentials(['role_id' => 1])->id);
+        $this->assertModelEquals($role, $roleProvider->retrieveByCredentials(['role_id' => $role->id()]));
     }
 
     /** @test */
@@ -43,40 +45,10 @@ class RoleProviderTest extends TestCase
     public function validate_credentials_returns_false_if_role_id_not_found(){
         $roleRepository = $this->prophesize(RoleRepositoryContract::class);
         $roleRepository->getById(1)->shouldBeCalled()->willThrow(new \Exception);
-        $user = factory(User::class)->create();
+        $user = $this->newUser();
 
         $roleProvider = new RoleProvider($roleRepository->reveal());
-        $this->assertFalse($roleProvider->validateCredentials($user, ['student_control_id' => 2, 'role_id' => 1]));
-    }
-
-    /** @test */
-    public function validate_credentials_returns_true_if_control_id_owns_role_id(){
-        $roleRepository = $this->prophesize(RoleRepositoryContract::class);
-        $roleRepository->getById(1)->shouldBeCalled()->willReturn(new Role(['id' => 1, 'student_id' => 2]));
-        $user = factory(User::class)->create();
-
-        $roleProvider = new RoleProvider($roleRepository->reveal());
-        $this->assertTrue($roleProvider->validateCredentials($user, ['student_control_id' => 2, 'role_id' => 1]));
-    }
-
-    /** @test */
-    public function validate_credentials_returns_false_if_control_id_does_not_own_role(){
-        $roleRepository = $this->prophesize(RoleRepositoryContract::class);
-        $roleRepository->getById(1)->shouldBeCalled()->willReturn(new Role(['id' => 1, 'student_id' => 3]));
-        $user = factory(User::class)->create();
-
-        $roleProvider = new RoleProvider($roleRepository->reveal());
-        $this->assertFalse($roleProvider->validateCredentials($user, ['student_control_id' => 2, 'role_id' => 1]));
-    }
-
-    /** @test */
-    public function validate_credentials_returns_false_if_control_id_or_role_id_are_not_given(){
-        $roleRepository = $this->prophesize(RoleRepositoryContract::class);
-        $user = factory(User::class)->create();
-
-        $roleProvider = new RoleProvider($roleRepository->reveal());
-        $this->assertFalse($roleProvider->validateCredentials($user, ['student_control_id' => 1]));
-        $this->assertFalse($roleProvider->validateCredentials($user, ['role_id' => 2]));
+        $this->assertFalse($roleProvider->validateCredentials($user, ['role_id' => 1]));
     }
 
 }

@@ -35,8 +35,6 @@ class ModuleInstanceRepositoryTest extends TestCase
 
     /** @test */
     public function it_creates_a_module_instance(){
-        $moduleInstanceSettings = factory(ModuleInstanceSetting::class)->create();
-        $moduleInstancePermissions = factory(ModuleInstancePermission::class)->create();
         $repository = new ModuleInstanceRepository;
         $activity = factory(Activity::class)->create();
         $instance = $repository->create([
@@ -48,8 +46,6 @@ class ModuleInstanceRepositoryTest extends TestCase
             'visible' => 2,
             'mandatory' => 3,
             'complete' => 'complete',
-            'module_instance_settings_id' => $moduleInstanceSettings->id,
-            'module_instance_permissions_id' => $moduleInstancePermissions->id
         ]);
 
         $this->assertDatabaseHas('module_instances', [
@@ -61,8 +57,6 @@ class ModuleInstanceRepositoryTest extends TestCase
             'visible' => 2,
             'mandatory' => 3,
             'complete' => 'complete',
-            'module_instance_settings_id' => $moduleInstanceSettings->id,
-            'module_instance_permissions_id' => $moduleInstancePermissions->id
         ]);
     }
 

@@ -14,10 +14,11 @@ class ModuleInstanceSettingsTest extends TestCase
     /** @test */
     public function it_has_a_module_instance()
     {
-        $settings = factory(ModuleInstanceSetting::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create(['module_instance_settings_id' => $settings->id]);
-        $this->assertInstanceOf(ModuleInstance::class, $settings->moduleInstance);
-        $this->assertModelEquals($moduleInstance, $settings->moduleInstance);
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $setting = factory(ModuleInstanceSetting::class)->create(['module_instance_id' => $moduleInstance->id]);
+        
+        $this->assertInstanceOf(ModuleInstance::class, $setting->moduleInstance);
+        $this->assertModelEquals($moduleInstance, $setting->moduleInstance);
     }
 
 }

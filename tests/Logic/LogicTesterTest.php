@@ -47,9 +47,9 @@ class LogicTesterTest extends TestCase
         $this->filterRepository = $this->prophesize(FilterRepository::class);
         $this->instance(FilterTester::class, $this->filterTester->reveal());
         $this->instance(FilterRepository::class, $this->filterRepository->reveal());
-        $this->fakeUser = new User(['id' => 1]);
-        $this->fakeGroup = new Group(['id' => 2]);
-        $this->fakeRole = new Role(['id' => 3]);
+        $this->fakeUser = $this->newUser(['id' => 1]);
+        $this->fakeGroup = $this->newGroup(['id' => 2]);
+        $this->fakeRole = $this->newRole(['id' => 3]);
     }
 
     public function createFilter($logicId, $type, $evaluated, $filterType = 'user')

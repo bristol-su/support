@@ -4,30 +4,14 @@
 namespace BristolSU\Support\Filters\Filters\User;
 
 
-use BristolSU\Support\DataPlatform\Contracts\Repositories\User as DataUserRepository;
+use BristolSU\ControlDB\Contracts\Repositories\DataUser as DataUserRepository;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
-use \BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 
 /**
  * Does the user have the given email?
  */
 class UserEmailIs extends UserFilter
 {
-
-    /**
-     * Holds the data user repository
-     * 
-     * @var DataUserRepository
-     */
-    private $dataUserRepository;
-
-    /**
-     * @param DataUserRepository $dataUserRepository To resolve the user email
-     */
-    public function __construct(DataUserRepository $dataUserRepository)
-    {
-        $this->dataUserRepository = $dataUserRepository;
-    }
 
     /**
      * Get possible options as an array
@@ -53,11 +37,10 @@ class UserEmailIs extends UserFilter
     public function evaluate($settings): bool
     {
         try {
-            $user = $this->dataUserRepository->getById($this->user()->dataPlatformId());
+            return $this->user()->data()->email() === $settings['email'];
         } catch (\Exception $e) {
             return false;
         }        
-        return $user->email === $settings['email'];
     }
 
     /**

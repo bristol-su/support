@@ -25,7 +25,7 @@ class ModuleInstanceGroupOverridePermissionTest extends TestCase
     /** @test */
     public function can_returns_null_if_no_module_instance_injected(){
         $tester = new ModuleInstanceGroupOverridePermission;
-        $group = new Group(['id' => 1]);
+        $group = $this->newGroup(['id' => 1]);
         $this->assertNull(
             $tester->can(new Permission('ability', '', '', 'module'), null, $group, null)
         );
@@ -34,7 +34,7 @@ class ModuleInstanceGroupOverridePermissionTest extends TestCase
     /** @test */
     public function can_returns_null_if_the_permission_is_not_module(){
         $tester = new ModuleInstanceGroupOverridePermission;
-        $group = new Group(['id' => 1]);
+        $group = $this->newGroup(['id' => 1]);
         $moduleInstance = factory(ModuleInstance::class)->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
@@ -46,7 +46,7 @@ class ModuleInstanceGroupOverridePermissionTest extends TestCase
     /** @test */
     public function can_returns_true_if_there_is_a_system_override_in_the_database_with_a_true_result(){
         $tester = new ModuleInstanceGroupOverridePermission;
-        $group = new Group(['id' => 1]);
+        $group = $this->newGroup(['id' => 1]);
         $moduleInstance = factory(ModuleInstance::class)->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
@@ -66,7 +66,7 @@ class ModuleInstanceGroupOverridePermissionTest extends TestCase
     /** @test */
     public function can_returns_false_if_there_is_a_system_override_in_the_database_with_a_false_result(){
         $tester = new ModuleInstanceGroupOverridePermission;
-        $group = new Group(['id' => 1]);
+        $group = $this->newGroup(['id' => 1]);
         $moduleInstance = factory(ModuleInstance::class)->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
@@ -86,7 +86,7 @@ class ModuleInstanceGroupOverridePermissionTest extends TestCase
     /** @test */
     public function can_returns_null_if_there_is_no_system_override_in_the_database(){
         $tester = new ModuleInstanceGroupOverridePermission;
-        $group = new Group(['id' => 1]);
+        $group = $this->newGroup(['id' => 1]);
 
         $this->assertNull(
             $tester->can(new Permission('ability1', '', '', 'module'), null, $group, null)
@@ -96,7 +96,7 @@ class ModuleInstanceGroupOverridePermissionTest extends TestCase
     /** @test */
     public function can_returns_null_if_module_instance_id_not_in_permission_override(){
         $tester = new ModuleInstanceGroupOverridePermission;
-        $group = new Group(['id' => 1]);
+        $group = $this->newGroup(['id' => 1]);
         $moduleInstance = factory(ModuleInstance::class)->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 

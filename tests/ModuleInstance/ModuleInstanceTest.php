@@ -18,13 +18,15 @@ class ModuleInstanceTest extends TestCase
 {
 
     /** @test */
-    public function it_has_a_module_instance_setting()
+    public function it_has_module_instance_settings()
     {
-        $settings = factory(ModuleInstanceSetting::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create([
-            'module_instance_settings_id' => $settings->id
-        ]);
-        $this->assertModelEquals($settings, $moduleInstance->moduleInstanceSettings);
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $settings = factory(ModuleInstanceSetting::class, 5)->create(['module_instance_id' => $moduleInstance->id]);
+
+        $moduleInstanceSettings = $moduleInstance->moduleInstanceSettings;
+        foreach($settings as $setting) {
+            $this->assertModelEquals($setting, $moduleInstanceSettings->shift());
+        }
     }
 
     /** @test */
@@ -44,12 +46,13 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function it_has_a_module_instance_permission()
     {
-        $permissions = factory(ModuleInstancePermission::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create([
-            'module_instance_permissions_id' => $permissions->id
-        ]);
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $permissions = factory(ModuleInstancePermission::class, 5)->create(['module_instance_id' => $moduleInstance->id]);
 
-        $this->assertModelEquals($permissions, $moduleInstance->moduleInstancePermissions);
+        $moduleInstancePermissions = $moduleInstance->moduleInstancePermissions;
+        foreach($permissions as $permission) {
+            $this->assertModelEquals($permission, $moduleInstancePermissions->shift());
+        }
     }
 
     /** @test */
