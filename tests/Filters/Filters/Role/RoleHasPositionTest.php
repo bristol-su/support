@@ -51,4 +51,22 @@ class RoleHasPositionTest extends TestCase
         $roleHasPositionFilter->setModel($role);
         $this->assertFalse($roleHasPositionFilter->evaluate(['position' => '1']));
     }
+
+    /** @test */
+    public function name_returns_a_string(){
+        $filter = new RoleHasPosition($this->prophesize(PositionRepository::class)->reveal());
+        $this->assertIsString($filter->name());
+    }
+
+    /** @test */
+    public function description_returns_a_string(){
+        $filter = new RoleHasPosition($this->prophesize(PositionRepository::class)->reveal());
+        $this->assertIsString($filter->description());
+    }
+
+    /** @test */
+    public function alias_returns_a_string(){
+        $filter = new RoleHasPosition($this->prophesize(PositionRepository::class)->reveal());
+        $this->assertIsString($filter->alias());
+    }
 }

@@ -63,4 +63,22 @@ class UserProviderTest extends TestCase
         $userProvider = new UserProvider($userRepository->reveal());
         $this->assertFalse($userProvider->validateCredentials($user, []));
     }
+
+    /** @test */
+    public function retrieveByToken_always_returns_null(){
+        $userRepository = $this->prophesize(UserRepositoryContract::class);
+        $userProvider = new UserProvider($userRepository->reveal());
+
+        $this->assertNull($userProvider->retrieveByToken(1, 'fff'));
+
+    }
+
+    /** @test */
+    public function updateRememberToken_always_returns_null(){
+        $user = $this->newUser();
+        $userRepository = $this->prophesize(UserRepositoryContract::class);
+        $userProvider = new UserProvider($userRepository->reveal());
+
+        $this->assertNull($userProvider->updateRememberToken($user, 'fff'));
+    }
 }

@@ -95,4 +95,22 @@ class GroupTaggedTest extends TestCase
         $groupTagFilter->setModel($this->newGroup());
         $this->assertFalse($groupTagFilter->evaluate(['tag' => 'reference.ref3']));
     }
+
+    /** @test */
+    public function name_returns_a_string(){
+        $filter = new GroupTagged($this->prophesize(GroupTagRepositoryContract::class)->reveal());
+        $this->assertIsString($filter->name());
+    }
+
+    /** @test */
+    public function description_returns_a_string(){
+        $filter = new GroupTagged($this->prophesize(GroupTagRepositoryContract::class)->reveal());
+        $this->assertIsString($filter->description());
+    }
+
+    /** @test */
+    public function alias_returns_a_string(){
+        $filter = new GroupTagged($this->prophesize(GroupTagRepositoryContract::class)->reveal());
+        $this->assertIsString($filter->alias());
+    }
 }

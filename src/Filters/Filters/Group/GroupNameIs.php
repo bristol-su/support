@@ -32,7 +32,7 @@ class GroupNameIs extends GroupFilter
      */
     public function evaluate($settings): bool
     {
-        return strtoupper($this->group()->name()) === strtoupper($settings['Group Name']);
+        return strtoupper($this->group()->data()->name()) === strtoupper($settings['Group Name']);
     }
 
     /**

@@ -16,32 +16,57 @@ class CompletionConditionTest extends TestCase
         $this->assertEquals('alias1', $condition->moduleAlias());
     }
     
+    /** @test */
+    public function percentage_returns_100_if_condition_is_complete(){
+        $activityInstance = $this->prophesize(ActivityInstance::class)->reveal();
+        $moduleInstance = $this->prophesize(ModuleInstance::class)->reveal();
+        
+        $condition = new DummyCondition('alias1');
+        $condition->complete();
+        
+        $this->assertTrue($condition->isComplete([], $activityInstance, $moduleInstance));
+        $this->assertEquals(100, $condition->percentage([], $activityInstance, $moduleInstance));
+    }
+
+    /** @test */
+    public function percentage_returns_0_if_condition_is_not_complete(){
+        $activityInstance = $this->prophesize(ActivityInstance::class)->reveal();
+        $moduleInstance = $this->prophesize(ModuleInstance::class)->reveal();
+        $condition = new DummyCondition('alias1');
+
+        $this->assertFalse($condition->isComplete([], $activityInstance, $moduleInstance));
+        $this->assertEquals(0, $condition->percentage([], $activityInstance, $moduleInstance));
+    }
+    
 }
 
 class DummyCondition extends CompletionCondition {
 
+    protected $complete = false;
+    
+    public function complete()
+    {
+        $this->complete = true;
+    }
+    
     public function isComplete($settings, ActivityInstance $activityInstance, ModuleInstance $moduleInstance): bool
     {
-        // TODO: Implement isComplete() method.
+        return $this->complete;
     }
 
     public function options(): array
     {
-        // TODO: Implement options() method.
     }
 
     public function name(): string
     {
-        // TODO: Implement name() method.
     }
 
     public function description(): string
     {
-        // TODO: Implement description() method.
     }
 
     public function alias(): string
     {
-        // TODO: Implement alias() method.
     }
 }

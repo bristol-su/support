@@ -4,7 +4,9 @@ namespace BristolSU\Support\Tests\helpers;
 
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
+use BristolSU\Support\Permissions\Contracts\PermissionTester;
 use BristolSU\Support\Tests\TestCase;
+use Illuminate\Support\Str;
 
 class helpersTest extends TestCase
 {
@@ -59,4 +61,68 @@ class helpersTest extends TestCase
         alias();
     }
     
+    /** @test */
+    public function hasPermission_evaluates_a_permission_using_evaluate_if_no_credentials_given(){
+        $permissionTester = $this->prophesize(PermissionTester::class);
+        $permissionTester->evaluate('ability1')->shouldBeCalled()->willReturn(true);
+        \BristolSU\Support\Permissions\Facade\PermissionTester::swap($permissionTester->reveal());
+        hasPermission('ability1');
+    }
+
+    /** @test */
+    public function hasPermission_returns_true_if_no_credentials_given_and_evaluate_is_true(){
+        $permissionTester = $this->prophesize(PermissionTester::class);
+        $permissionTester->evaluate('ability1')->shouldBeCalled()->willReturn(true);
+        \BristolSU\Support\Permissions\Facade\PermissionTester::swap($permissionTester->reveal());
+
+        $this->assertTrue(hasPermission('ability1'));
+    }
+
+    /** @test */
+    public function hasPermission_returns_false_if_no_credentials_given_and_evaluate_is_false(){
+        $permissionTester = $this->prophesize(PermissionTester::class);
+        $permissionTester->evaluate('ability1')->shouldBeCalled()->willReturn(false);
+        \BristolSU\Support\Permissions\Facade\PermissionTester::swap($permissionTester->reveal());
+
+        $this->assertFalse(hasPermission('ability1'));
+    }
+
+    /** @test */
+    public function hasPermission_evaluates_a_permission_using_evaluateFor_if_credentials_given(){
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
+        
+        $permissionTester = $this->prophesize(PermissionTester::class);
+        $permissionTester->evaluateFor('ability1', $user, $group, $role)->shouldBeCalled()->willReturn(true);
+        \BristolSU\Support\Permissions\Facade\PermissionTester::swap($permissionTester->reveal());
+
+        hasPermission('ability1', $user, $group, $role);
+    }
+
+    /** @test */
+    public function hasPermission_returns_true_if_credentials_given_and_evaluateFor_is_true(){
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
+        
+        $permissionTester = $this->prophesize(PermissionTester::class);
+        $permissionTester->evaluateFor('ability1', $user, $group, $role)->shouldBeCalled()->willReturn(true);
+        \BristolSU\Support\Permissions\Facade\PermissionTester::swap($permissionTester->reveal());
+
+        $this->assertTrue(hasPermission('ability1', $user, $group, $role));
+    }
+
+    /** @test */
+    public function hasPermission_returns_false_if_credentials_given_and_evaluateFor_is_false(){
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
+
+        $permissionTester = $this->prophesize(PermissionTester::class);
+        $permissionTester->evaluateFor('ability1', $user, $group, $role)->shouldBeCalled()->willReturn(false);
+        \BristolSU\Support\Permissions\Facade\PermissionTester::swap($permissionTester->reveal());
+
+        $this->assertFalse(hasPermission('ability1', $user, $group, $role));
+    }
 }

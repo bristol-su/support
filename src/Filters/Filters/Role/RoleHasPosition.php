@@ -36,7 +36,7 @@ class RoleHasPosition extends RoleFilter
      */
     public function evaluate($settings): bool
     {
-        if($this->model()->position_id === (int)$settings['position']) {
+        if($this->role()->positionId() === (int)$settings['position']) {
             return true;
         }
         return false;

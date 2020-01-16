@@ -57,6 +57,23 @@ class UserEmailIsTest extends TestCase
         $this->assertFalse($filter->evaluate(['email' => 'tobyt@notexample.com']));
     }
 
+    /** @test */
+    public function name_returns_a_string(){
+        $filter = new UserEmailIs();
+        $this->assertIsString($filter->name());
+    }
+
+    /** @test */
+    public function description_returns_a_string(){
+        $filter = new UserEmailIs();
+        $this->assertIsString($filter->description());
+    }
+
+    /** @test */
+    public function alias_returns_a_string(){
+        $filter = new UserEmailIs();
+        $this->assertIsString($filter->alias());
+    }
 
 
 

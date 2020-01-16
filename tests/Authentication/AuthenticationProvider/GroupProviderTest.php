@@ -62,12 +62,29 @@ class GroupProviderTest extends TestCase
     /** @test */
     public function validate_credentials_returns_false_if_group_id_not_given(){
         $groupRepository = $this->prophesize(GroupRepositoryContract::class);
-        $user = factory(User::class)->create();
+        $group = $this->newGroup();
 
         $groupProvider = new GroupProvider($groupRepository->reveal());
-        $this->assertFalse($groupProvider->validateCredentials($user, []));
+        $this->assertFalse($groupProvider->validateCredentials($group, []));
     }
 
+    /** @test */
+    public function retrieveByToken_always_returns_null(){
+        $groupRepository = $this->prophesize(GroupRepositoryContract::class);
+        $groupProvider = new GroupProvider($groupRepository->reveal());
+        
+        $this->assertNull($groupProvider->retrieveByToken(1, 'fff'));
 
+    }
 
+    /** @test */
+    public function updateRememberToken_always_returns_null(){
+        $group = $this->newGroup();
+        $groupRepository = $this->prophesize(GroupRepositoryContract::class);
+        $groupProvider = new GroupProvider($groupRepository->reveal());
+
+        $this->assertNull($groupProvider->updateRememberToken($group, 'fff'));
+    }
+
+    
 }

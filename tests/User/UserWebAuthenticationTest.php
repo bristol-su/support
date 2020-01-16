@@ -28,4 +28,10 @@ class UserWebAuthenticationTest extends TestCase
         $this->assertAuthenticatedAs($user, 'web');
     }
     
+    /** @test */
+    public function getUser_returns_null_if_no_user_in_guard(){
+        $auth = resolve(UserWebAuthentication::class);
+        $this->assertNull($auth->getUser());
+    }
+    
 }

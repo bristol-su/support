@@ -63,7 +63,7 @@ if(!function_exists('hasPermission')) {
      * @param Role|null $role Role to test. Leave as null to test the authenticated role.
      * @return bool Does the user have the permission?
      */
-    function hasPermission(string $ability, ?User $userModel, ?Group $group, ?Role $role): bool {
+    function hasPermission(string $ability, ?User $userModel = null, ?Group $group = null, ?Role $role = null): bool {
         if($userModel === null && $group === null && $role === null) {
             return \BristolSU\Support\Permissions\Facade\PermissionTester::evaluate($ability);
         }

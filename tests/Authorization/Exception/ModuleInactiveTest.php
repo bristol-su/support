@@ -16,5 +16,15 @@ class ModuleInactiveTest extends TestCase
         
         $this->assertModelEquals($moduleInstance, $exception->getModuleInstance());
     }
+
+    /** @test */
+    public function createWithModuleInstance_creates_the_exception_with_a_module_instance(){
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $exception = ModuleInactive::createWithModuleInstance($moduleInstance, 'A Message', 404);
+
+        $this->assertModelEquals($moduleInstance, $exception->getModuleInstance());
+        $this->assertEquals(404, $exception->getCode());
+        $this->assertEquals('A Message', $exception->getMessage());
+    }
     
 }
