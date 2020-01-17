@@ -72,7 +72,7 @@ class LogicTesterResult
      */
     private function parseArguments($userModel = null, $groupModel = null, $roleModel = null)
     {
-        return [($userModel instanceof User?$userModel->id():null),($groupModel instanceof Group?$groupModel->id():null),($roleModel instanceof Role?$roleModel->id():null)];
+        return [($userModel instanceof User ? $userModel->id() : null), ($groupModel instanceof Group ? $groupModel->id() : null), ($roleModel instanceof Role ? $roleModel->id() : null)];
     }
     
     /**
@@ -146,14 +146,14 @@ class LogicTesterResult
             return $parameters !== $args;
         });
      
-        if($this->overrideResult !== null) {
+        if ($this->overrideResult !== null) {
             return $this->overrideResult;
         }
         
-        if(in_array($args, $this->passes)) {
+        if (in_array($args, $this->passes)) {
             return true;
         }
-        if(in_array($args, $this->fails)) {
+        if (in_array($args, $this->fails)) {
             return false;
         }
         return $this->default;

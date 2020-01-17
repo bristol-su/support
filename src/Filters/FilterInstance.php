@@ -72,7 +72,7 @@ class FilterInstance extends Model implements FilterInstanceContract
      * @return string user, group or role
      * @throws \Exception If the filter does not extend a user, group or role filter contract
      */
-    public function for()
+    public function for ()
     {
         $filter = app(FilterRepositoryContract::class)->getByAlias($this->alias());
         if ($filter instanceof UserFilter) {

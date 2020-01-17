@@ -13,7 +13,7 @@ class CreateActionInstanceFieldsTable extends Migration
      */
     public function up()
     {
-        Schema::create('action_instance_fields', function (Blueprint $table) {
+        Schema::create('action_instance_fields', function(Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('event_field');
             $table->string('action_field');

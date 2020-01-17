@@ -67,7 +67,7 @@ class PermissionStore implements PermissionStoreContract
             'description' => $description,
             'type' => 'module',
             'alias' => $alias,
-            'moduleType' => ($admin?'administrator':'participant')
+            'moduleType' => ($admin ? 'administrator' : 'participant')
         ]);
         $this->registerPermission($permission);
     }
@@ -96,10 +96,10 @@ class PermissionStore implements PermissionStoreContract
      */
     public function get(string $ability): Permission
     {
-        if(array_key_exists($ability, $this->permissions)) {
+        if (array_key_exists($ability, $this->permissions)) {
             return $this->permissions[$ability];
         }
-        throw new \Exception('Permission ' . $ability . ' not registered');
+        throw new \Exception('Permission '.$ability.' not registered');
     }
 
     /**

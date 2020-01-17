@@ -52,13 +52,13 @@ class InjectJavascriptVariables
             'ALIAS' => $request->route('module_instance_slug')->alias,
             'ACTIVITY_SLUG' => $request->route('activity_slug')->slug,
             'MODULE_INSTANCE_SLUG' => $request->route('module_instance_slug')->slug,
-            'A_OR_P' => ($request->is('a/*')?'a':'p'),
+            'A_OR_P' => ($request->is('a/*') ? 'a' : 'p'),
             'user' => $this->authentication->getUser(),
             'group' => $this->authentication->getGroup(),
             'role' => $this->authentication->getRole(),
             'activityinstance' => $this->activityInstanceResolver->getActivityInstance(),
             'moduleinstance' => $request->route('module_instance_slug'),
-            'data_user' => ($this->authentication->getUser() === null?null:$this->authentication->getUser()->data())
+            'data_user' => ($this->authentication->getUser() === null ?null:$this->authentication->getUser()->data())
         ]);
         
         return $next($request);

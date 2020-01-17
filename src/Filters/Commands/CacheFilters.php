@@ -42,9 +42,9 @@ class CacheFilters extends Command
      * @param RoleRepository $roleRepository Repository to get all roles from
      */
     public function handle(FilterInstanceRepository $filterInstanceRepository,
-                           UserRepository $userRepository,
-                           GroupRepository $groupRepository,
-                           RoleRepository $roleRepository)
+                            UserRepository $userRepository,
+                            GroupRepository $groupRepository,
+                            RoleRepository $roleRepository)
     {
         $this->info('Caching filters');
 
@@ -77,7 +77,7 @@ class CacheFilters extends Command
      */
     private function cacheFilter(FilterInstance $filterInstance, Collection $models)
     {
-        foreach($models as $model) {
+        foreach ($models as $model) {
             dispatch(new CacheFilter($filterInstance, $model));
         }
     }

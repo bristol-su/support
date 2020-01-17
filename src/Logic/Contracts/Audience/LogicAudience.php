@@ -32,11 +32,11 @@ abstract class LogicAudience
      */
     public function userAudience(Logic $logic)
     {
-        return collect($this->audience($logic))->filter(function (AudienceMember $audienceMember) {
+        return collect($this->audience($logic))->filter(function(AudienceMember $audienceMember) {
             return $audienceMember->canBeUser(); // TODO Change to hasAudience?
-        })->map(function (AudienceMember $audienceMember) {
+        })->map(function(AudienceMember $audienceMember) {
             return $audienceMember->user();
-        })->flatten(1)->unique(function (User $user) {
+        })->flatten(1)->unique(function(User $user) {
             return $user->id();
         })->values();
     }
@@ -49,13 +49,13 @@ abstract class LogicAudience
      */
     public function groupAudience(Logic $logic)
     {
-        return collect($this->audience($logic))->filter(function (AudienceMember $audienceMember) {
+        return collect($this->audience($logic))->filter(function(AudienceMember $audienceMember) {
             return $audienceMember->groups()->count() > 0 || $audienceMember->roles()->count() > 0;
-        })->map(function (AudienceMember $audienceMember) {
+        })->map(function(AudienceMember $audienceMember) {
             return $audienceMember->groups()->merge($audienceMember->roles()->map(function(Role $role) {
                 return $role->group();
             }));
-        })->flatten(1)->unique(function (Group $group) {
+        })->flatten(1)->unique(function(Group $group) {
             return $group->id();
         })->values();
     }
@@ -68,11 +68,11 @@ abstract class LogicAudience
      */
     public function roleAudience(Logic $logic)
     {
-        return collect($this->audience($logic))->filter(function (AudienceMember $audienceMember) {
+        return collect($this->audience($logic))->filter(function(AudienceMember $audienceMember) {
             return $audienceMember->roles()->count();
-        })->map(function (AudienceMember $audienceMember) {
+        })->map(function(AudienceMember $audienceMember) {
             return $audienceMember->roles();
-        })->flatten(1)->unique(function (Role $role) {
+        })->flatten(1)->unique(function(Role $role) {
             return $role->id();
         })->values();
     }

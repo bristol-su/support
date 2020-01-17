@@ -39,7 +39,7 @@ class FilterServiceProvider extends ServiceProvider
         $this->app->bind(FilterInstanceRepositoryContract::class, FilterInstanceRepository::class);
         $this->app->singleton(FilterManagerContract::class, FilterManager::class);
 
-        $this->app->extend(FilterTesterContract::class, function (FilterTesterContract $filterTester) {
+        $this->app->extend(FilterTesterContract::class, function(FilterTesterContract $filterTester) {
             return new CachedFilterTesterDecorator($filterTester, $this->app->make(Cache::class));
         });
     }

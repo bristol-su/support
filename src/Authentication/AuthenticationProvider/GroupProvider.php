@@ -107,7 +107,7 @@ class GroupProvider implements UserProvider
         if (isset($credentials['group_id'])) {
             try {
                 $group = $this->retrieveById($credentials['group_id']);
-                if($group !== null) {
+                if ($group !== null) {
                     return true;
                 }
             } catch (\Exception $e) {

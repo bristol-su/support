@@ -18,21 +18,21 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(ModuleInstance::class, function (Faker $faker) {
+$factory->define(ModuleInstance::class, function(Faker $faker) {
     return [
         'alias' => $faker->word,
-        'activity_id' => function () {
+        'activity_id' => function() {
             return factory(Activity::class)->create()->id;
         },
         'name' => $faker->word,
         'description' => $faker->text,
-        'active' => function () {
+        'active' => function() {
             return factory(Logic::class)->create()->id;
         },
-        'visible' => function () {
+        'visible' => function() {
             return factory(Logic::class)->create()->id;
         },
-        'mandatory' => function () {
+        'mandatory' => function() {
             return factory(Logic::class)->create()->id;
         },
         'completion_condition_instance_id' => null

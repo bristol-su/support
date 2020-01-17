@@ -46,7 +46,7 @@ abstract class Tester
     public function handle(Permission $permission, ?User $user, ?Group $group, ?Role $role)
     {
         $result = $this->can($permission, $user, $group, $role);
-        if($result === null && $this->successor !== null) {
+        if ($result === null && $this->successor !== null) {
             return $this->successor->handle($permission, $user, $group, $role);
         }
         return $result;

@@ -44,9 +44,9 @@ class ActivityInstanceEvaluator implements ActivityEvaluatorContract
      *
      * @return EvaluationContract[] Array of evaluations with the module instance id as the index
      */
-    public function evaluateAdministrator(ActivityInstance $activityInstance, ?User $user = null, ?Group $group = null, ?Role $role = null){
+    public function evaluateAdministrator(ActivityInstance $activityInstance, ?User $user = null, ?Group $group = null, ?Role $role = null) {
         $evaluated = [];
-        foreach($activityInstance->activity->moduleInstances as $moduleInstance) {
+        foreach ($activityInstance->activity->moduleInstances as $moduleInstance) {
             $evaluated[$moduleInstance->id] = clone $this->moduleInstanceEvaluator->evaluateAdministrator($activityInstance, $moduleInstance, $user, $group, $role);
         }
         return $evaluated;
@@ -64,7 +64,7 @@ class ActivityInstanceEvaluator implements ActivityEvaluatorContract
      */
     public function evaluateParticipant(ActivityInstance $activityInstance, ?User $user = null, ?Group $group = null, ?Role $role = null) {
         $evaluated = [];
-        foreach($activityInstance->activity->moduleInstances as $moduleInstance) {
+        foreach ($activityInstance->activity->moduleInstances as $moduleInstance) {
             $evaluated[$moduleInstance->id] = clone $this->moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance, $user, $group, $role);
         }
         return $evaluated;
@@ -82,7 +82,7 @@ class ActivityInstanceEvaluator implements ActivityEvaluatorContract
     public function evaluateResource(ActivityInstance $activityInstance)
     {
         $evaluated = [];
-        foreach($activityInstance->activity->moduleInstances as $moduleInstance) {
+        foreach ($activityInstance->activity->moduleInstances as $moduleInstance) {
             $evaluated[$moduleInstance->id] = clone $this->moduleInstanceEvaluator->evaluateResource($activityInstance, $moduleInstance);
         }
         return $evaluated;

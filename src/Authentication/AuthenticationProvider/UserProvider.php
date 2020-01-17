@@ -102,7 +102,7 @@ class UserProvider implements BaseUserProvider
         if (isset($credentials['user_id'])) {
             try {
                 $user = $this->retrieveById($credentials['user_id']);
-                if($user !== null) {
+                if ($user !== null) {
                     return true;
                 }
             } catch (\Exception $e) {

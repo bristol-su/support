@@ -43,7 +43,7 @@ class CompletionConditionServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        foreach($this->completionConditions as $alias => $class) {
+        foreach ($this->completionConditions as $alias => $class) {
             app(CompletionConditionManagerContract::class)->registerGlobalCondition($alias, $class);
         }
     }

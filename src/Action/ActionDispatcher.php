@@ -45,7 +45,7 @@ class ActionDispatcher
             ->where('event', get_class($event))
             ->get();
         
-        foreach($actionInstances as $actionInstance) {
+        foreach ($actionInstances as $actionInstance) {
             $action = $this->builder->build($actionInstance, $event->getFields());
             dispatch($action);
         }

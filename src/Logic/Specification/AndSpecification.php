@@ -34,8 +34,8 @@ class AndSpecification implements Specification
      */
     public function isSatisfied() : bool
     {
-        foreach($this->specifications as $specification) {
-            if(!$specification->isSatisfied()) {
+        foreach ($this->specifications as $specification) {
+            if (!$specification->isSatisfied()) {
                 return false;
             }
         }

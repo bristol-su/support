@@ -24,7 +24,7 @@ trait FakesLogicTesters
      */
     public function logicTester()
     {
-        if($this->logicTester === null) {
+        if ($this->logicTester === null) {
             $this->logicTester = new LogicTesterFake();
         }
         return $this->logicTester;

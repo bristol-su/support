@@ -13,7 +13,7 @@ class CreateConnectionInstancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('connection_instances', function (Blueprint $table) {
+        Schema::create('connection_instances', function(Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
             $table->text('description')->nullable();

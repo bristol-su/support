@@ -3,7 +3,7 @@
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use Faker\Generator as Faker;
 
-$factory->define(ModuleInstancePermission::class, function (Faker $faker) {
+$factory->define(ModuleInstancePermission::class, function(Faker $faker) {
     return [
         'ability' => '',
         'logic_id' => function() {

@@ -14,7 +14,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Logic::class, function (Faker $faker) {
+$factory->define(Logic::class, function(Faker $faker) {
     return [
         'name' => $faker->word,
         'description' => $faker->text,

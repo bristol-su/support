@@ -158,7 +158,7 @@ class ModuleBuilder implements ModuleBuilderContract
     public function setName()
     {
         $this->module->setName(
-            $this->config->get($this->getAlias() . '.name')
+            $this->config->get($this->getAlias().'.name')
         );
     }
 
@@ -170,7 +170,7 @@ class ModuleBuilder implements ModuleBuilderContract
     public function setDescription()
     {
         $this->module->setDescription(
-            $this->config->get($this->getAlias() . '.description')
+            $this->config->get($this->getAlias().'.description')
         );
     }
 

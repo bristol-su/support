@@ -13,7 +13,7 @@ class CreateModuleInstancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('module_instances', function (Blueprint $table) {
+        Schema::create('module_instances', function(Blueprint $table) {
             $table->increments('id');
             $table->string('alias');
             $table->unsignedInteger('activity_id');

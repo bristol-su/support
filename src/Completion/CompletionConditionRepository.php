@@ -65,7 +65,7 @@ class CompletionConditionRepository implements CompletionConditionRepositoryCont
         $classes = $this->manager->getForModule($moduleAlias);
 
         $completionConditions = [];
-        foreach($classes as $class) {
+        foreach ($classes as $class) {
             $completionConditions[] = $this->completionConditionFactory->createCompletionConditionFromClassName($class, $moduleAlias);
         }
         return $completionConditions;

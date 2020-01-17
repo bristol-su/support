@@ -67,13 +67,13 @@ class FilterFalseSpecification implements Specification
     {
         switch ($this->filter->for()) {
             case 'user':
-                return ($this->user === null?false:
+                return ($this->user === null ?false:
                     app(FilterTester::class)->evaluate($this->filter, $this->user) === false);
             case 'group':
-                return ($this->group === null?false:
+                return ($this->group === null ?false:
                     app(FilterTester::class)->evaluate($this->filter, $this->group) === false);
             case 'role':
-                return ($this->role === null?false:
+                return ($this->role === null ?false:
                     app(FilterTester::class)->evaluate($this->filter, $this->role) === false);
             default:
                 return false;

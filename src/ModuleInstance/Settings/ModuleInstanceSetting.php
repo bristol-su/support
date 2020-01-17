@@ -38,7 +38,7 @@ class ModuleInstanceSetting extends Model
      */
     public function setValueAttribute($value)
     {
-        if(is_array($value)) {
+        if (is_array($value)) {
             $this->attributes['value'] = json_encode($value);
             $this->attributes['encoded'] = true;
         } else {
@@ -53,7 +53,7 @@ class ModuleInstanceSetting extends Model
      */
     public function getValueAttribute()
     {
-        if(($this->attributes['encoded']??false)) {
+        if (($this->attributes['encoded']??false)) {
             return json_decode($this->attributes['value'], true);
         }
         return $this->attributes['value'];

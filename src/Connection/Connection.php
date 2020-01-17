@@ -60,7 +60,7 @@ class Connection extends Model
         parent::boot();
 
         static::creating(function($model) {
-            if($model->user_id === null) {
+            if ($model->user_id === null) {
                 $model->user_id = app(UserAuthentication::class)->getUser()->control_id;
             }
         });

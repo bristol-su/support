@@ -59,10 +59,10 @@ class ConnectorStore implements ConnectorStoreContract
      */
     public function get(string $alias): RegisteredConnector
     {
-        if(array_key_exists($alias, $this->connectors)) {
+        if (array_key_exists($alias, $this->connectors)) {
             return $this->connectors[$alias];
         }
-        throw new \Exception('Connector ' . $alias . ' not registered');
+        throw new \Exception('Connector '.$alias.' not registered');
     }
 
     /**

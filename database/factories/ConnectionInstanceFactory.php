@@ -15,7 +15,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(Connection::class, function (Faker $faker) {
+$factory->define(Connection::class, function(Faker $faker) {
     return [
         'name' => $faker->word,
         'description' => $faker->text,

@@ -33,10 +33,9 @@ class UserServiceProvider extends ServiceProvider
      */
     public function registerUserAuthentication(Request $request)
     {
-        $this->app->bind(UserAuthentication::class, function ($app) use ($request) {
+        $this->app->bind(UserAuthentication::class, function($app) use ($request) {
             return ($request->is('api/*') ?
-                $app->make(UserApiAuthentication::class) :
-                $app->make(UserWebAuthentication::class));
+                $app->make(UserApiAuthentication::class) : $app->make(UserWebAuthentication::class));
         });
     }
 

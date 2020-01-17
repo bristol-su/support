@@ -13,7 +13,7 @@ class CreateModuleInstancePermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('module_instance_permissions', function (Blueprint $table) {
+        Schema::create('module_instance_permissions', function(Blueprint $table) {
             $table->increments('id');
             $table->string('ability');
             $table->unsignedBigInteger('logic_id');

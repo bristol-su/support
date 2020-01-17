@@ -13,7 +13,7 @@ class CreateModelPermissionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('model_permissions', function (Blueprint $table) {
+        Schema::create('model_permissions', function(Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('ability');
             $table->string('model');
