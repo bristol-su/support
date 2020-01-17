@@ -2,7 +2,7 @@
     "name": "bristol-su/support",
     "description": "SDK for the Bristol SU Portal",
     "license": "GPL-3.0-or-later",
-    "prefer-stable": false,
+    "prefer-stable": true,
     "keywords": [
         "portal",
         "sdk",
@@ -23,7 +23,7 @@
         "laracasts/utilities": "^3.0",
         "ext-json": "*",
         "tobytwigger/form-schema-generator": "^1.1",
-        "bristol-su/control": "@dev"
+        "bristol-su/control": "dev-master"
     },
     "require-dev": {
         "phpstan/phpstan": "^0.12.3",
