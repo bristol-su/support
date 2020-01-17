@@ -80,7 +80,7 @@ abstract class Connector
      */
     public function getSetting(string $key, $default = null)
     {
-        if(array_key_exists($key, $this->settings)) {
+        if (array_key_exists($key, $this->settings)) {
             return $this->settings[$key];
         }
         return $default;

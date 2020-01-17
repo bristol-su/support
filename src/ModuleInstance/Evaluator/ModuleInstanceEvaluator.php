@@ -105,8 +105,7 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
     private function isComplete(ActivityInstance $activityInstance, ModuleInstance $moduleInstance): bool
     {
         return ($activityInstance->activity->isCompletable() ?
-            app(CompletionConditionTester::class)->evaluate($activityInstance, $moduleInstance->completionConditionInstance) :
-            false);
+            app(CompletionConditionTester::class)->evaluate($activityInstance, $moduleInstance->completionConditionInstance) : false);
     }
 
 }

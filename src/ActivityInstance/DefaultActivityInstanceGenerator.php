@@ -48,7 +48,7 @@ class DefaultActivityInstanceGenerator implements DefaultActivityInstanceGenerat
             $activityInstance = $this->repository->firstFor($activity->id, $resourceType, $resourceId);
         } catch (ModelNotFoundException $e) {
             $activityInstance = $this->repository->create($activity->id, $resourceType, $resourceId, $activity->name,
-                'Default activity instance for activity ' . $activity->name . ' (#' . $activity->id . ')');
+                'Default activity instance for activity '.$activity->name.' (#'.$activity->id.')');
         }
         return $activityInstance;
     }

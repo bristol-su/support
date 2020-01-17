@@ -35,5 +35,5 @@ interface FilterInstance
      *
      * @return string
      */
-    public function for();
+    public function for ();
 }

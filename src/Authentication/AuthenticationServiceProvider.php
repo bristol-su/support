@@ -59,9 +59,8 @@ class AuthenticationServiceProvider extends ServiceProvider
     public function registerAuthentication(Request $request)
     {
         $this->app->bind(Authentication::class, function($app) use ($request) {
-            return ($request->is('api/*')?
-                $app->make(ApiAuthentication::class):
-                $app->make(WebAuthentication::class));
+            return ($request->is('api/*') ?
+                $app->make(ApiAuthentication::class) : $app->make(WebAuthentication::class));
         });
 
     }

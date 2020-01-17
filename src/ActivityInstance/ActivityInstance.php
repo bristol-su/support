@@ -53,10 +53,10 @@ class ActivityInstance extends Model implements Authenticatable
             ->where('resource_id', $this->resource_id)
             ->orderBy('created_at')
             ->get();
-        if($activityInstances->count() > 0) {
-            for($i=0;$i<=$activityInstances->count();$i++) {
-                if($this->is($activityInstances->offsetGet($i))) {
-                    return $i+1;
+        if ($activityInstances->count() > 0) {
+            for ($i = 0; $i <= $activityInstances->count(); $i++) {
+                if ($this->is($activityInstances->offsetGet($i))) {
+                    return $i + 1;
                 }
             }
         }
@@ -76,13 +76,13 @@ class ActivityInstance extends Model implements Authenticatable
      */
     public function getParticipantAttribute()
     {
-        if($this->resource_type === 'user') {
+        if ($this->resource_type === 'user') {
             return app(UserRepository::class)->getById($this->resource_id);
         }
-        if($this->resource_type === 'group') {
+        if ($this->resource_type === 'group') {
             return app(GroupRepository::class)->getById($this->resource_id);
         }
-        if($this->resource_type === 'role') {
+        if ($this->resource_type === 'role') {
             return app(RoleRepository::class)->getById($this->resource_id);
         }
         throw new \Exception('Resource type is not valid');

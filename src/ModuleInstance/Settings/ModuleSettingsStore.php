@@ -42,7 +42,7 @@ class ModuleSettingsStore implements ModuleSettingsStoreContract
      */
     public function get(string $alias): Form
     {
-        if(array_key_exists($alias, $this->settings)) {
+        if (array_key_exists($alias, $this->settings)) {
             return $this->settings[$alias];
         }
         throw new \Exception(sprintf('Settings not found for alias %s', $alias));

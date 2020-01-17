@@ -13,7 +13,7 @@ class CreateModuleInstanceServicesTable extends Migration
      */
     public function up()
     {
-        Schema::create('module_instance_services', function (Blueprint $table) {
+        Schema::create('module_instance_services', function(Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('service');
             $table->unsignedInteger('module_instance_id');

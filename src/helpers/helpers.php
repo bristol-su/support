@@ -7,7 +7,7 @@ use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-if(!function_exists('settings')) {
+if (!function_exists('settings')) {
     /**
      * Get the value of a setting for a module
      *
@@ -18,7 +18,7 @@ if(!function_exists('settings')) {
      */
     function settings($key = null, $default = null)
     {
-        if($key === null) {
+        if ($key === null) {
             $settings = [];
             app()->make(ModuleInstance::class)->moduleInstanceSettings->each(function($setting) use (&$settings) {
                 $settings[$setting->key] = $setting->value;
@@ -34,7 +34,7 @@ if(!function_exists('settings')) {
     }
 }
 
-if(!function_exists('alias')) {
+if (!function_exists('alias')) {
     /**
      * Get the alias of the currently injected module instance
      * 
@@ -43,14 +43,14 @@ if(!function_exists('alias')) {
      */
     function alias() {
         $moduleInstance = app()->make(ModuleInstance::class);
-        if($moduleInstance->exists) {
+        if ($moduleInstance->exists) {
             return $moduleInstance->alias;
         }
         throw new Exception('Alias cannot be returned outside a module environment');
     }
 }
 
-if(!function_exists('hasPermission')) {
+if (!function_exists('hasPermission')) {
     /**
      * Does the user/group/role have the given permission?
      * 
@@ -64,7 +64,7 @@ if(!function_exists('hasPermission')) {
      * @return bool Does the user have the permission?
      */
     function hasPermission(string $ability, ?User $userModel = null, ?Group $group = null, ?Role $role = null): bool {
-        if($userModel === null && $group === null && $role === null) {
+        if ($userModel === null && $group === null && $role === null) {
             return \BristolSU\Support\Permissions\Facade\PermissionTester::evaluate($ability);
         }
         return \BristolSU\Support\Permissions\Facade\PermissionTester::evaluateFor($ability, $userModel, $group, $role);

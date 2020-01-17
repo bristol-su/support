@@ -41,12 +41,12 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
         }
         if ($resource instanceof Group) {
             return app(UserRepository::class)->allThroughGroup($resource)->merge(
-                app(RoleRepository::class)->allThroughGroup($resource)->map(function (Role $role) {
+                app(RoleRepository::class)->allThroughGroup($resource)->map(function(Role $role) {
                     return $role->users();
                 })->values()->flatten(1)
-            )->unique(function ($user) {
+            )->unique(function($user) {
                 return $user->id();
-            })->map(function ($user) {
+            })->map(function($user) {
                 return $this->fromUser($user);
             });
         }
@@ -69,10 +69,10 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
      */
     public function withAccessToLogicGroupWithResource($resource, Logic $logic)
     {
-        return $this->withAccessToResource($resource)->map(function (AudienceMember $audienceMember) use ($logic) {
+        return $this->withAccessToResource($resource)->map(function(AudienceMember $audienceMember) use ($logic) {
             $audienceMember->filterForLogic($logic);
             return $audienceMember;
-        })->filter(function (AudienceMember $audienceMember) use ($resource) {
+        })->filter(function(AudienceMember $audienceMember) use ($resource) {
             // Make sure the audience member has an audience with the given resource
             return ($audienceMember->hasAudience() && $resource instanceof User)
                 || ($audienceMember->hasAudience() && $resource instanceof Group && (

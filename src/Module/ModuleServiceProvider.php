@@ -160,7 +160,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function registerSettingListeners()
     {
-        foreach($this->settingListeners as $listener) {
+        foreach ($this->settingListeners as $listener) {
             Event::listen('eloquent.*: '.ModuleInstanceSetting::class, $listener);
         }
     }
@@ -175,7 +175,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function registerScheduledCommands()
     {
         $commandStore = $this->app->make(CommandStore::class);
-        foreach($this->scheduledCommands as $command => $cron) {
+        foreach ($this->scheduledCommands as $command => $cron) {
             $commandStore->schedule($this->alias(), $command, $cron);
         }
     }
@@ -209,14 +209,14 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function registerPermissions()
     {
-        foreach($this->permissions as $ability => $permission) {
-            if(!array_key_exists('name', $permission) || !array_key_exists('description', $permission)) {
+        foreach ($this->permissions as $ability => $permission) {
+            if (!array_key_exists('name', $permission) || !array_key_exists('description', $permission)) {
                 throw new \Exception('Name and description of permission required.');
             }
-            if(!array_key_exists('admin', $permission)) {
+            if (!array_key_exists('admin', $permission)) {
                 $permission['admin'] = false;
             }
-            Permission::register($this->alias() . '.' . $ability, $permission['name'], $permission['description'], $this->alias(), $permission['admin']);
+            Permission::register($this->alias().'.'.$ability, $permission['name'], $permission['description'], $this->alias(), $permission['admin']);
         }
     }
 
@@ -228,8 +228,8 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function registerEvents()
     {
         $manager = $this->app->make(EventManager::class);
-        foreach($this->events as $class => $meta) {
-            if(!array_key_exists('name', $meta) || !array_key_exists('description', $meta)) {
+        foreach ($this->events as $class => $meta) {
+            if (!array_key_exists('name', $meta) || !array_key_exists('description', $meta)) {
                 throw new \Exception('Name and description of event required.');
             }
             $manager->registerEvent($this->alias(), $meta['name'], $class, $meta['description']);
@@ -241,7 +241,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $this->loadTranslationsFrom($this->baseDirectory() . '/resources/lang', $this->alias());
+        $this->loadTranslationsFrom($this->baseDirectory().'/resources/lang', $this->alias());
     }
 
     /**
@@ -249,10 +249,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     protected function registerConfig()
     {
-        $this->publishes([$this->baseDirectory() . '/config/config.php' => config_path($this->alias() . '.php'),
+        $this->publishes([$this->baseDirectory().'/config/config.php' => config_path($this->alias().'.php'),
         ], 'config');
         $this->mergeConfigFrom(
-            $this->baseDirectory() . '/config/config.php', $this->alias()
+            $this->baseDirectory().'/config/config.php', $this->alias()
         );
     }
 
@@ -262,10 +262,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function registerViews()
     {
         $this->publishes([
-            $this->baseDirectory() . '/resources/views' => resource_path('views/vendor/' . $this->alias()),
+            $this->baseDirectory().'/resources/views' => resource_path('views/vendor/'.$this->alias()),
         ], 'views');
 
-        $this->loadViewsFrom($this->baseDirectory() . '/resources/views', $this->alias());
+        $this->loadViewsFrom($this->baseDirectory().'/resources/views', $this->alias());
     }
 
     /**
@@ -276,7 +276,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function registerFactories()
     {
         if (!app()->environment('production')) {
-            $this->app->make(Factory::class)->load($this->baseDirectory() . '/database/factories');
+            $this->app->make(Factory::class)->load($this->baseDirectory().'/database/factories');
         }
     }
 
@@ -285,7 +285,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function loadMigrations()
     {
-        $this->loadMigrationsFrom($this->baseDirectory() . '/database/migrations');
+        $this->loadMigrationsFrom($this->baseDirectory().'/database/migrations');
     }
 
     /**
@@ -293,10 +293,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function mapParticipantRoutes()
     {
-        Route::prefix('/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
+        Route::prefix('/p/{activity_slug}/{module_instance_slug}/'.$this->alias())
             ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'participant'])
             ->namespace($this->namespace())
-            ->group($this->baseDirectory() . '/routes/participant/web.php');
+            ->group($this->baseDirectory().'/routes/participant/web.php');
     }
 
     /**
@@ -304,10 +304,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function mapAdminRoutes()
     {
-        Route::prefix('/a/{activity_slug}/{module_instance_slug}/' . $this->alias())
+        Route::prefix('/a/{activity_slug}/{module_instance_slug}/'.$this->alias())
             ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'administrator'])
             ->namespace($this->namespace())
-            ->group($this->baseDirectory() . '/routes/admin/web.php');
+            ->group($this->baseDirectory().'/routes/admin/web.php');
     }
 
     /**
@@ -315,10 +315,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function mapParticipantApiRoutes()
     {
-        Route::prefix('/api/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
+        Route::prefix('/api/p/{activity_slug}/{module_instance_slug}/'.$this->alias())
             ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'participant'])
             ->namespace($this->namespace())
-            ->group($this->baseDirectory() . '/routes/participant/api.php');
+            ->group($this->baseDirectory().'/routes/participant/api.php');
     }
 
     /**
@@ -326,10 +326,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function mapAdminApiRoutes()
     {
-        Route::prefix('/api/a/{activity_slug}/{module_instance_slug}/' . $this->alias())
+        Route::prefix('/api/a/{activity_slug}/{module_instance_slug}/'.$this->alias())
             ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'administrator'])
             ->namespace($this->namespace())
-            ->group($this->baseDirectory() . '/routes/admin/api.php');
+            ->group($this->baseDirectory().'/routes/admin/api.php');
     }
 
     /**
@@ -337,7 +337,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function registerCommands()
     {
-        if($this->app->runningInConsole()) {
+        if ($this->app->runningInConsole()) {
             $this->commands($this->commands);
         }
     }
@@ -347,7 +347,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function registerAssets()
     {
-        $this->publishes([$this->baseDirectory() . '/public/modules/' . $this->alias() => public_path('modules/' . $this->alias())]);
+        $this->publishes([$this->baseDirectory().'/public/modules/'.$this->alias() => public_path('modules/'.$this->alias())]);
     }
 
     /**
@@ -403,7 +403,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function registerGlobalScript(string $path) {
         View::composer('bristolsu::base', function(\Illuminate\View\View $view) use ($path) {
-            $scripts = ($view->offsetExists('globalScripts')?$view->offsetGet('globalScripts'):[]);
+            $scripts = ($view->offsetExists('globalScripts') ? $view->offsetGet('globalScripts') : []);
             $scripts[] = asset($path);
             $view->with('globalScripts', $scripts);
         });

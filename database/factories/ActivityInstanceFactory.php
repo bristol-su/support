@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(ActivityInstance::class, function (Faker $faker) {
+$factory->define(ActivityInstance::class, function(Faker $faker) {
     return [
         'name' => $faker->word,
         'description' => $faker->text,

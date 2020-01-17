@@ -40,7 +40,7 @@ class CheckAdminActivityFor
     public function handle(Request $request, Closure $next)
     {
         $activity = $request->route('activity_slug');
-        if(!LogicTester::evaluate($activity->adminLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole())) {
+        if (!LogicTester::evaluate($activity->adminLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole())) {
             throw ActivityRequiresAdmin::createWithActivity($activity, 'You must be an administrator to access this page', 403);
         }
         return $next($request);

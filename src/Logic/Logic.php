@@ -104,11 +104,11 @@ class Logic extends Model
     {
         /** @var Collection $filters */
         $filters = $this->filters;
-        if($filters->contains('for', 'role')) {
+        if ($filters->contains('for', 'role')) {
             return 'role';
-        } else if($filters->contains('for', 'group')) {
+        } else if ($filters->contains('for', 'group')) {
             return 'group';
-        } else if($filters->contains('for', 'user')) {
+        } else if ($filters->contains('for', 'user')) {
             return 'user';
         }
         return 'none';

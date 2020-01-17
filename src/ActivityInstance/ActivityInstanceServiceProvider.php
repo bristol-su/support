@@ -65,9 +65,8 @@ class ActivityInstanceServiceProvider extends ServiceProvider
     public function registerActivityInstanceResolver(Request $request)
     {
         $this->app->bind(ActivityInstanceResolver::class, function($app) use ($request) {
-            return ($request->is('api/*')?
-                $app->make(ApiActivityInstanceResolver::class):
-                $app->make(LaravelAuthActivityInstanceResolver::class));
+            return ($request->is('api/*') ?
+                $app->make(ApiActivityInstanceResolver::class) : $app->make(LaravelAuthActivityInstanceResolver::class));
         });
     }
 

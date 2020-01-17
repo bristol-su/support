@@ -13,7 +13,7 @@ class CreateFilterInstancesTable extends Migration
      */
     public function up()
     {
-        Schema::create('filter_instances', function (Blueprint $table) {
+        Schema::create('filter_instances', function(Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('alias');
             $table->string('name');

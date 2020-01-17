@@ -41,7 +41,7 @@ interface Action
      *      'to' => [
      *          'label' => 'To',
      *          'helptext' => 'Email address of the recipient'
- *          ], 
+     *          ], 
      *      ...
      * ]
      * @return array

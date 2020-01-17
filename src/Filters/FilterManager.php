@@ -49,7 +49,7 @@ class FilterManager implements FilterManagerContract
      */
     public function getClassFromAlias($alias)
     {
-        if(!isset($this->filters[$alias])) {
+        if (!isset($this->filters[$alias])) {
             throw new \Exception(sprintf('Filter alias [%s] not found', $alias));
         }
         return $this->filters[$alias];

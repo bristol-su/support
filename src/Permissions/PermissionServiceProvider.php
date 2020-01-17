@@ -66,23 +66,23 @@ class PermissionServiceProvider extends ServiceProvider
         // Check default module instance permissions
         PermissionTesterFacade::register($this->app->make(ModuleInstancePermissions::class));
 
-        Gate::before(function (User $user, $ability) {
+        Gate::before(function(User $user, $ability) {
             return app()->make(PermissionTesterContract::class)->evaluate($ability);
         });
 
-        Route::bind('module_instance_permission', function ($id) {
+        Route::bind('module_instance_permission', function($id) {
             return ModuleInstancePermission::findOrFail($id);
         });
 
-        Route::bind('site_permission', function ($ability) {
+        Route::bind('site_permission', function($ability) {
             $permission = app(PermissionRepositoryContract::class)->get($ability);
-            if($permission->getType() !== 'global') {
+            if ($permission->getType() !== 'global') {
                 throw new \HttpException('Permission not a site permission', 404);
             }
             return $permission;
         });
 
-        Route::bind('permission', function ($ability) {
+        Route::bind('permission', function($ability) {
             return app(PermissionRepositoryContract::class)->get($ability);
         });
 

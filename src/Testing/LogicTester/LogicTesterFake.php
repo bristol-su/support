@@ -29,7 +29,7 @@ class LogicTesterFake implements LogicTester
      */
     public function forLogic(Logic $logic)
     {
-        if(!array_key_exists($logic->id, $this->results)) {
+        if (!array_key_exists($logic->id, $this->results)) {
             $this->results[$logic->id] = new LogicTesterResult();
         }
         return $this->results[$logic->id];
@@ -52,7 +52,7 @@ class LogicTesterFake implements LogicTester
      */
     public function evaluate(Logic $logic, $userModel = null, $groupModel = null, $roleModel = null): bool
     {
-        if(!array_key_exists($logic->id, $this->results)) {
+        if (!array_key_exists($logic->id, $this->results)) {
             return false;
         }
         

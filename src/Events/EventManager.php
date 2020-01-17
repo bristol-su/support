@@ -36,7 +36,7 @@ class EventManager implements EventManagerContract
      */
     public function registerEvent($alias, $name, $class, $description)
     {
-        if(!isset($this->events[$alias])) {
+        if (!isset($this->events[$alias])) {
             $this->events[$alias] = [];
         }
         $this->events[$alias][] = [
@@ -78,7 +78,7 @@ class EventManager implements EventManagerContract
      */
     public function allForModule($alias)
     {
-        return (array_key_exists($alias, $this->events)?$this->events[$alias]:[]);
+        return (array_key_exists($alias, $this->events) ? $this->events[$alias] : []);
     }
     
 }

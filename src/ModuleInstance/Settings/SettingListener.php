@@ -30,8 +30,8 @@ abstract class SettingListener implements ShouldQueue
      */
     public function handle($event, $payload) {
         $setting = $payload[0];
-        $eventName =substr(substr($event, 9), 0, -65);
-        if($setting->key === $this->key) {
+        $eventName = substr(substr($event, 9), 0, -65);
+        if ($setting->key === $this->key) {
             return $this->callEventFunction($eventName, $setting);
         }
         return false;
@@ -47,8 +47,8 @@ abstract class SettingListener implements ShouldQueue
      */
     private function callEventFunction($eventName, $setting)
     {
-        $method = 'on' . ucfirst($eventName);
-        return (method_exists($this, $method)?$this->{$method}($setting):null);
+        $method = 'on'.ucfirst($eventName);
+        return (method_exists($this, $method) ? $this->{$method}($setting) : null);
     }
 
 

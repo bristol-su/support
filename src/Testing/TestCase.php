@@ -25,8 +25,8 @@ class TestCase extends BaseTestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->loadMigrationsFrom(realpath(__DIR__ . '/../database/migrations'));
-        $this->withFactories(__DIR__ . '/../../database/factories');
+        $this->loadMigrationsFrom(realpath(__DIR__.'/../database/migrations'));
+        $this->withFactories(__DIR__.'/../../database/factories');
     }
 
     /**

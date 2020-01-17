@@ -44,7 +44,7 @@ class ModuleRepository implements ModuleRepositoryContract
     public function all()
     {
         $modules = [];
-        foreach($this->manager->aliases() as $alias) {
+        foreach ($this->manager->aliases() as $alias) {
             $modules[$alias] = $this->factory->fromAlias($alias);
         }
         return $modules;
@@ -58,7 +58,7 @@ class ModuleRepository implements ModuleRepositoryContract
      */
     public function findByAlias($alias)
     {
-        if($this->manager->exists($alias)) {
+        if ($this->manager->exists($alias)) {
             return $this->factory->fromAlias($alias);
         }
         return null;

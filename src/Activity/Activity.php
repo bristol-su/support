@@ -53,7 +53,7 @@ class Activity extends Model
     {
         parent::__construct($attributes);
         self::creating(function($model) {
-            if($model->slug === null) {
+            if ($model->slug === null) {
                 $model->slug = Str::slug($model->name);
             }
         });

@@ -62,7 +62,7 @@ class ServiceRequest implements ServiceRequestContract
      */
     public function getRequired(string $alias)
     {
-        if(array_key_exists($alias, $this->required)) {
+        if (array_key_exists($alias, $this->required)) {
             return $this->required[$alias];
         }
         return [];
@@ -76,7 +76,7 @@ class ServiceRequest implements ServiceRequestContract
      */
     public function getOptional(string $alias)
     {
-        if(array_key_exists($alias, $this->optional)) {
+        if (array_key_exists($alias, $this->optional)) {
             return $this->optional[$alias];
         }
         return [];

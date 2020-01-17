@@ -51,7 +51,7 @@ abstract class CompletionCondition
      */
     public function percentage($settings, ActivityInstance $activityInstance, ModuleInstance $moduleInstance): int 
     {
-        if($this->isComplete($settings, $activityInstance, $moduleInstance)) {
+        if ($this->isComplete($settings, $activityInstance, $moduleInstance)) {
             return 100;
         }
         return 0;

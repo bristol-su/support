@@ -16,7 +16,7 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(ModuleInstanceService::class, function (Faker $faker) {
+$factory->define(ModuleInstanceService::class, function(Faker $faker) {
     return [
         'service' => $faker->word,
         'connection_id' => function() {

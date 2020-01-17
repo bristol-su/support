@@ -28,7 +28,7 @@ abstract class GroupFilter extends Filter
      */
     public function setModel($model)
     {
-        if(!($model instanceof Group)) {
+        if (!($model instanceof Group)) {
             throw new \Exception(
                 sprintf('Cannot pass a class of type [%s] to a group filter', get_class($model))
             );

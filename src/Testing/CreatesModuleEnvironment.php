@@ -282,8 +282,7 @@ trait CreatesModuleEnvironment
         $this->activityInstance = ($this->activityInstance 
             ?? factory(ActivityInstance::class)->create([
                 'activity_id' => $this->activity->id,
-                'resource_id' => ($this->for === 'role'?$this->controlRole->id():
-                    ($this->for === 'group'?$this->controlGroup->id():$this->controlUser->id())
+                'resource_id' => ($this->for === 'role' ? $this->controlRole->id() : ($this->for === 'group' ? $this->controlGroup->id() : $this->controlUser->id())
                 ), 
                 'resource_type' => ($this->for??'user')
             ]));
@@ -307,11 +306,11 @@ trait CreatesModuleEnvironment
      */
     private function setUpAuthentication()
     {
-        if($this->for === 'group') {
+        if ($this->for === 'group') {
             $this->controlGroup = ($this->controlGroup ?? $this->newGroup());
             $this->beGroup($this->controlGroup);
         }
-        if($this->for === 'role') {
+        if ($this->for === 'role') {
             $this->controlRole = ($this->controlRole ?? $this->newRole());
             $this->controlGroup = $this->controlRole->group();
             $this->beRole($this->controlRole);
@@ -328,7 +327,7 @@ trait CreatesModuleEnvironment
     private function setUpDatabaseUser()
     {
         $this->databaseUser = ($this->databaseUser ?? factory(DatabaseUser::class)->create([
-            'control_id' => ($this->controlUser?$this->controlUser->id():1)
+            'control_id' => ($this->controlUser ? $this->controlUser->id() : 1)
         ]));
         $this->be($this->databaseUser);
     }
@@ -342,9 +341,9 @@ trait CreatesModuleEnvironment
     public function adminUrl($path = '')
     {
         if (!Str::startsWith($path, '/')) {
-            $path = '/' . $path;
+            $path = '/'.$path;
         }
-        return '/a/' . $this->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->alias . $path;
+        return '/a/'.$this->activity->slug.'/'.$this->moduleInstance->slug.'/'.$this->alias.$path;
     }
 
     /**
@@ -356,9 +355,9 @@ trait CreatesModuleEnvironment
     public function userUrl($path = '')
     {
         if (!Str::startsWith($path, '/')) {
-            $path = '/' . $path;
+            $path = '/'.$path;
         }
-        return '/p/' . $this->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->alias . $path;
+        return '/p/'.$this->activity->slug.'/'.$this->moduleInstance->slug.'/'.$this->alias.$path;
     }
 
     /**
@@ -370,9 +369,9 @@ trait CreatesModuleEnvironment
     public function adminApiUrl($path = '')
     {
         if (!Str::startsWith($path, '/')) {
-            $path = '/' . $path;
+            $path = '/'.$path;
         }
-        return '/api/a/' . $this->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->alias . $path;
+        return '/api/a/'.$this->activity->slug.'/'.$this->moduleInstance->slug.'/'.$this->alias.$path;
     }
 
     /**
@@ -384,9 +383,9 @@ trait CreatesModuleEnvironment
     public function userApiUrl($path = '')
     {
         if (!Str::startsWith($path, '/')) {
-            $path = '/' . $path;
+            $path = '/'.$path;
         }
-        return '/api/p/' . $this->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->alias . $path;
+        return '/api/p/'.$this->activity->slug.'/'.$this->moduleInstance->slug.'/'.$this->alias.$path;
     }
 
 

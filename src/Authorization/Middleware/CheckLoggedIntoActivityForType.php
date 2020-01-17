@@ -49,7 +49,7 @@ class CheckLoggedIntoActivityForType
                 'Activity requires a user to be logged in,', 403, null, $activity
             );
         }
-        if($activity->activity_for === 'group' && $this->authentication->getGroup() === null) {
+        if ($activity->activity_for === 'group' && $this->authentication->getGroup() === null) {
             throw new ActivityRequiresGroup(                
                 'Activity requires a group to be logged in,', 403, null, $activity
             );
