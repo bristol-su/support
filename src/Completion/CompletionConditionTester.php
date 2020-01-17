@@ -8,8 +8,6 @@ use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Completion\Contracts\CompletionConditionInstance;
 use BristolSU\Support\Completion\Contracts\CompletionConditionRepository;
 use BristolSU\Support\Completion\Contracts\CompletionConditionTester as CompletionConditionTesterContract;
-use BristolSU\Support\ModuleInstance\ModuleInstance;
-use Illuminate\Support\Facades\Log;
 
 /**
  * Test if a module instance is complete
@@ -18,7 +16,7 @@ class CompletionConditionTester implements CompletionConditionTesterContract
 {
     /**
      * Holds the completion condition repository
-     * 
+     *
      * @var CompletionConditionRepository
      */
     private $repository;
@@ -33,10 +31,10 @@ class CompletionConditionTester implements CompletionConditionTesterContract
 
     /**
      * Check if the completion condition is complete for the given activity instance
-     * 
+     *
      * @param ActivityInstance $activityInstance Activity instance to test
      * @param CompletionConditionInstance $completionConditionInstance Completion condition instance to test
-     * 
+     *
      * @return bool If the completion condition is complete
      */
     public function evaluate(ActivityInstance $activityInstance, CompletionConditionInstance $completionConditionInstance): bool
@@ -48,6 +46,22 @@ class CompletionConditionTester implements CompletionConditionTesterContract
             $completionConditionInstance->moduleInstance
         );
     }
-    
-    // TODO Test for percentage too
+
+    /**
+     * Check the completion condition completion percentage.
+     *
+     * @param ActivityInstance $activityInstance Activity instance to test
+     * @param CompletionConditionInstance $completionConditionInstance Completion condition instance to test
+     *
+     * @return int Percentage completion
+     */
+    public function evaluatePercentage(ActivityInstance $activityInstance, CompletionConditionInstance $completionConditionInstance): int
+    {
+        $completionCondition = $this->repository->getByAlias($completionConditionInstance->moduleInstance->alias(), $completionConditionInstance->alias());
+        return $completionCondition->percentage(
+            $completionConditionInstance->settings(),
+            $activityInstance,
+            $completionConditionInstance->moduleInstance
+        );
+    }
 }

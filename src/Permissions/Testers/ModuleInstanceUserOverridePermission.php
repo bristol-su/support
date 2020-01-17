@@ -13,7 +13,6 @@ use BristolSU\ControlDB\Contracts\Models\User;
 /**
  * Check if a module permission is owned by a user
  */
-// TODO Create a module instance logic override permission
 class ModuleInstanceUserOverridePermission extends Tester
 {
     

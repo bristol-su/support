@@ -1,6 +1,0 @@
-var namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts =
-[
-    [ "ActivityInstanceRepository", "interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceRepository.html", "interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceRepository" ],
-    [ "ActivityInstanceResolver", "interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceResolver.html", "interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceResolver" ],
-    [ "DefaultActivityInstanceGenerator", "interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1DefaultActivityInstanceGenerator.html", "interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1DefaultActivityInstanceGenerator" ]
-];

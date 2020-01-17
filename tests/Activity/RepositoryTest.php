@@ -272,4 +272,53 @@ class RepositoryTest extends TestCase
         $repository = new ActivityRepository();
         $repository->getById(100);
     }
+    
+    /** @test */
+    public function delete_deletes_an_activity(){
+        $activity = factory(Activity::class)->create();
+        $repository = new ActivityRepository();
+        
+        $this->assertDatabaseHas('activities', [
+            'id' => $activity->id,
+        ]);
+        
+        $repository->delete($activity->id);
+
+        $this->assertDatabaseMissing('activities', [
+            'id' => $activity->id,
+        ]);
+    }
+    
+    /** @test */
+    public function update_updates_an_activity(){
+        $attributesOld = [
+            'name' => 'activity name',
+            'description' => 'This is some activity here',
+            'activity_for' => 'user',
+            'type' => 'open',
+            'for_logic' => 1,
+            'admin_logic' => 2,
+            'start_date' => '2019-01-01 01:01:01',
+            'end_date' => '2020-01-01 01:01:01',
+        ];
+
+        $attributesNew = [
+            'name' => 'activity name New',
+            'description' => 'This is some activity here New',
+            'activity_for' => 'group',
+            'type' => 'completable',
+            'for_logic' => 3,
+            'admin_logic' => 4,
+            'start_date' => '2019-02-01 01:01:01',
+            'end_date' => '2020-02-01 01:01:01',
+        ];
+
+        $activity = factory(Activity::class)->create($attributesOld);
+        $this->assertDatabaseHas('activities', $attributesOld);
+        
+        $repository = new ActivityRepository;
+        $repository->update($activity->id, $attributesNew);
+        
+        $this->assertDatabaseHas('activities', $attributesNew);
+    }
 }

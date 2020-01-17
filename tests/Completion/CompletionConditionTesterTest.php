@@ -100,4 +100,32 @@ class CompletionConditionTesterTest extends TestCase
         );
     }
 
+    /** @test */
+    public function it_returns_the_percentage_given_by_the_condition()
+    {
+        $activityInstance = factory(ActivityInstance::class)->create();
+        $completionConditionInstance = factory(CompletionConditionInstance::class)->create([
+            'settings' => ['setting1' => 'val1'],
+            'alias' => 'ccalias1'
+        ]);
+        $moduleInstance = factory(ModuleInstance::class)->create([
+            'activity_id' => $activityInstance->activity_id,
+            'completion_condition_instance_id' => $completionConditionInstance->id
+        ]);
+
+        $completionCondition = $this->prophesize(CompletionCondition::class);
+        $completionCondition->percentage(['setting1' => 'val1'], Argument::that(function ($arg) use ($activityInstance) {
+            return $activityInstance->is($arg);
+        }), Argument::that(function ($arg) use ($moduleInstance) {
+            return $moduleInstance->is($arg);
+        }))->shouldBeCalled()->willReturn(40);
+
+        $repository = $this->prophesize(CompletionConditionRepository::class);
+        $repository->getByAlias($moduleInstance->alias, 'ccalias1')->willReturn($completionCondition->reveal());
+
+        $tester = new CompletionConditionTester($repository->reveal());
+        $this->assertEquals(40, 
+            $tester->evaluatePercentage($activityInstance, $completionConditionInstance)
+        );
+    }
 }

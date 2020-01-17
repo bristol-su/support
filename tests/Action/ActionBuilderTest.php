@@ -53,7 +53,6 @@ class ActionBuilderDummyAction implements Action
 
     public function handle()
     {
-        // TODO: Implement handle() method.
     }
 
     public function getFields(): array

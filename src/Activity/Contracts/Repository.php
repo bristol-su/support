@@ -88,6 +88,37 @@ interface Repository
      * @throws ModelNotFoundException
      */
     public function getById($id): Activity;
-    
-    // TODO Add additional CRUD functionality
+
+    /**
+     * Update an activity
+     * 
+     * Update an activity using the given attributes. The attributes can be taken from the following:
+     * [
+     *        'name' => 'Activity Name',
+     *        'description' => 'Activity Description',
+     *        'activity_for' => 'user',
+     *        'for_logic' => '1',
+     *        'admin_logic' => 2,
+     *        'start_date' => null,
+     *        'end_date' => null,
+     *        'slug' => 'activity-slug',
+     *        'type' => 'open'
+     * ]
+     * 
+     * @param $id
+     * @param $attributes
+     * @return Activity
+     * @throws ModelNotFoundException
+     */
+    public function update($id, $attributes);
+
+    /**
+     * Delete an activity by ID
+     * 
+     * @param int $id ID of the activity
+     * @return void
+     * 
+     * @throws ModelNotFoundException
+     */
+    public function delete($id);
 }

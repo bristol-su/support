@@ -39,11 +39,9 @@ class ActionDispatcher
      */
     public function handle(TriggerableEvent $event)
     {
-        // TODO Replace the database call with a repository class
-        
-        $actionInstances = ActionInstance::where('module_instance_id', app(ModuleInstance::class)->id)
-            ->where('event', get_class($event))
-            ->get();
+        $actionInstances = app(\BristolSU\Support\Action\Contracts\ActionInstanceRepository::class)->forEvent(
+            (int) app(ModuleInstance::class)->id, get_class($event)
+        );
         
         foreach ($actionInstances as $actionInstance) {
             $action = $this->builder->build($actionInstance, $event->getFields());

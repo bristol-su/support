@@ -56,5 +56,4 @@ interface ServiceRequest
      */
     public function getAllOptional();
     
-    // TODO Refactor the service request to include scopes
 }

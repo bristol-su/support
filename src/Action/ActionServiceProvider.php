@@ -6,6 +6,7 @@ namespace BristolSU\Support\Action;
 
 use BristolSU\Support\Action\Actions\Log;
 use BristolSU\Support\Action\Contracts\ActionBuilder as ActionBuilderContract;
+use BristolSU\Support\Action\Contracts\ActionInstanceRepository as ActionInstanceRepositoryContract;
 use BristolSU\Support\Action\Contracts\ActionManager as ActionManagerContract;
 use BristolSU\Support\Action\Contracts\ActionRepository as ActionRepositoryContract;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
@@ -32,6 +33,7 @@ class ActionServiceProvider extends ServiceProvider
         $this->app->bind(ActionRepositoryContract::class, ActionRepository::class);
         $this->app->singleton(ActionManagerContract::class, ActionManager::class);
         $this->app->bind(ActionBuilderContract::class, ActionBuilder::class);
+        $this->app->bind(ActionInstanceRepositoryContract::class, ActionInstanceRepository::class);
     }
 
     /**

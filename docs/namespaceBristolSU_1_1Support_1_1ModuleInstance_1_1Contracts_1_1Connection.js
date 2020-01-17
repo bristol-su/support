@@ -1,4 +1,0 @@
-var namespaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Connection =
-[
-    [ "ModuleInstanceServiceRepository", "interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Connection_1_1ModuleInstanceServiceRepository.html", "interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Connection_1_1ModuleInstanceServiceRepository" ]
-];

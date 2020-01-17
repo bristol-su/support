@@ -10,7 +10,6 @@ use BristolSU\Support\Action\Contracts\TriggerableEvent;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
 use Illuminate\Support\Facades\Bus;
-use Illuminate\Support\Facades\Queue;
 use Prophecy\Argument;
 
 class ActionDispatcherTest extends TestCase
@@ -82,17 +81,14 @@ class DispatcherDummyAction implements Action
 
     public function handle()
     {
-        // TODO: Implement handle() method.
     }
 
     public function getFields(): array
     {
-        // TODO: Implement getFields() method.
     }
 
     public static function getFieldMetaData(): array
     {
-        // TODO: Implement getFieldMetaData() method.
     }
 
     public function __construct(array $data)

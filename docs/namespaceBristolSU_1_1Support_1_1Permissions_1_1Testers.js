@@ -1,8 +1,0 @@
-var namespaceBristolSU_1_1Support_1_1Permissions_1_1Testers =
-[
-    [ "ModuleInstanceGroupOverridePermission", "classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1ModuleInstanceGroupOverridePermission.html", "classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1ModuleInstanceGroupOverridePermission" ],
-    [ "ModuleInstancePermissions", "classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1ModuleInstancePermissions.html", "classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1ModuleInstancePermissions" ],
-    [ "ModuleInstanceRoleOverridePermission", "classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1ModuleInstanceRoleOverridePermission.html", "classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1ModuleInstanceRoleOverridePermission" ],
-    [ "ModuleInstanceUserOverridePermission", "classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1ModuleInstanceUserOverridePermission.html", "classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1ModuleInstanceUserOverridePermission" ],
-    [ "SystemUserPermission", "classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1SystemUserPermission.html", "classBristolSU_1_1Support_1_1Permissions_1_1Testers_1_1SystemUserPermission" ]
-];

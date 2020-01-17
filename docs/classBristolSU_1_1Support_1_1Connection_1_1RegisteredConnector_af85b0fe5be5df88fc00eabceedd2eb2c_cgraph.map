@@ -1,8 +1,0 @@
-<map id="BristolSU\Support\Connection\RegisteredConnector\toJson" name="BristolSU\Support\Connection\RegisteredConnector\toJson">
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html#ac50e0e973725cf0fc98c88af22ff605d" title="BristolSU\\Support\\Connection\l\\RegisteredConnector\\toArray" alt="" coords="251,136,448,177"/>
-<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html#a189cf11a01b272f31290f9052447bb05" title="BristolSU\\Support\\Connection\l\\RegisteredConnector\\getAlias" alt="" coords="515,5,715,47"/>
-<area shape="rect" id="node4" href="$classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html#a62cd9e5e7dbd06261cbb57362dabb817" title="BristolSU\\Support\\Connection\l\\RegisteredConnector\\getConnector" alt="" coords="499,71,730,112"/>
-<area shape="rect" id="node5" href="$classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html#a413719fd1ade4d8de97eabda44131536" title="BristolSU\\Support\\Connection\l\\RegisteredConnector\\getDescription" alt="" coords="496,136,733,177"/>
-<area shape="rect" id="node6" href="$classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html#a4bfc545cc99ffd4433b145d0c1453275" title="BristolSU\\Support\\Connection\l\\RegisteredConnector\\getName" alt="" coords="511,201,718,243"/>
-<area shape="rect" id="node7" href="$classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html#a0d56d7e40939c915316529fb68244890" title="BristolSU\\Support\\Connection\l\\RegisteredConnector\\getService" alt="" coords="507,267,722,308"/>
-</map>

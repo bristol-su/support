@@ -40,7 +40,6 @@ class ModuleBuilder implements ModuleBuilderContract
      * 
      * @var Repository
      */
-    // TODO Register the name and description of the module in the service provider
     private $config;
 
     /**

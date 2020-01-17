@@ -13,7 +13,6 @@ use BristolSU\ControlDB\Contracts\Models\User;
 /**
  * Check if a global position is owned by the user
  */
-// TODO Create system group, role and logic testers
 class SystemUserPermission extends Tester
 {
 

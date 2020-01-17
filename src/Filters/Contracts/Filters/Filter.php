@@ -30,7 +30,6 @@ abstract class Filter implements Arrayable
      *
      * @return array Options
      */
-    // TODO Turn to FormSchema
     abstract public function options(): array;
 
     /**

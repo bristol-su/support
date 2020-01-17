@@ -108,7 +108,6 @@ class DummyFilter extends Filter {
      */
     public function options(): array
     {
-        // TODO: Implement options() method.
     }
 
     /**
@@ -116,7 +115,6 @@ class DummyFilter extends Filter {
      */
     public function hasModel(): bool
     {
-        // TODO: Implement hasModel() method.
     }
 
     /**
@@ -124,7 +122,6 @@ class DummyFilter extends Filter {
      */
     public function setModel($model)
     {
-        // TODO: Implement setModel() method.
     }
 
     /**
@@ -132,7 +129,6 @@ class DummyFilter extends Filter {
      */
     public function evaluate($settings): bool
     {
-        // TODO: Implement evaluate() method.
     }
 
     /**
@@ -140,7 +136,6 @@ class DummyFilter extends Filter {
      */
     public function name()
     {
-        // TODO: Implement name() method.
     }
 
     /**
@@ -148,7 +143,6 @@ class DummyFilter extends Filter {
      */
     public function description()
     {
-        // TODO: Implement description() method.
     }
 
     /**
@@ -156,7 +150,6 @@ class DummyFilter extends Filter {
      */
     public function alias()
     {
-        // TODO: Implement alias() method.
     }
 
     /**
@@ -164,6 +157,5 @@ class DummyFilter extends Filter {
      */
     public function model()
     {
-        // TODO: Implement model() method.
     }
 }

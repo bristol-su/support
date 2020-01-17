@@ -38,7 +38,6 @@ class InjectModuleInstance
      * 
      * @return mixed
      */
-    // TODO Inject as a string
     public function handle(Request $request, Closure $next)
     {
         $moduleInstance = $request->route('module_instance_slug');

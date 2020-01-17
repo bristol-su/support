@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Represents a setting value associated with a module instance
- * TODO Move to Settings directory
  */
 class ModuleInstanceSetting extends Model
 {

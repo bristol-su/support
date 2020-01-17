@@ -158,20 +158,20 @@ class LogicAudienceTest extends TestCase
         
         // Has a unique user #1
         $audience1 = $this->prophesize(AudienceMember::class);
-        $audience1->canBeUser()->shouldBeCalled()->willReturn(true);
+        $audience1->hasAudience()->shouldBeCalled()->willReturn(true);
         $audience1->user()->shouldBeCalled()->willReturn($user1);
 
         // Duplicate user #2 
         $audience2 = $this->prophesize(AudienceMember::class);
-        $audience2->canBeUser()->shouldBeCalled()->willReturn(true);
+        $audience2->hasAudience()->shouldBeCalled()->willReturn(true);
         $audience2->user()->shouldBeCalled()->willReturn($user2);
         $audience3 = $this->prophesize(AudienceMember::class);
-        $audience3->canBeUser()->shouldBeCalled()->willReturn(true);
+        $audience3->hasAudience()->shouldBeCalled()->willReturn(true);
         $audience3->user()->shouldBeCalled()->willReturn($user2);
 
         // Not in audience #3
         $audience4 = $this->prophesize(AudienceMember::class);
-        $audience4->canBeUser()->shouldBeCalled()->willReturn(false);
+        $audience4->hasAudience()->shouldBeCalled()->willReturn(false);
         $audience4->user()->shouldNotBeCalled();
         
         $logicAudience = new DummyLogicAudience();

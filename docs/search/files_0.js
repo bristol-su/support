@@ -6,6 +6,7 @@ var searchData=
   ['actiondispatcher_2ephp',['ActionDispatcher.php',['../ActionDispatcher_8php.html',1,'']]],
   ['actioninstance_2ephp',['ActionInstance.php',['../ActionInstance_8php.html',1,'']]],
   ['actioninstancefield_2ephp',['ActionInstanceField.php',['../ActionInstanceField_8php.html',1,'']]],
+  ['actioninstancerepository_2ephp',['ActionInstanceRepository.php',['../ActionInstanceRepository_8php.html',1,'(Global Namespace)'],['../Contracts_2ActionInstanceRepository_8php.html',1,'(Global Namespace)']]],
   ['actionmanager_2ephp',['ActionManager.php',['../ActionManager_8php.html',1,'(Global Namespace)'],['../Contracts_2ActionManager_8php.html',1,'(Global Namespace)'],['../Facade_2ActionManager_8php.html',1,'(Global Namespace)']]],
   ['actionrepository_2ephp',['ActionRepository.php',['../ActionRepository_8php.html',1,'(Global Namespace)'],['../Contracts_2ActionRepository_8php.html',1,'(Global Namespace)']]],
   ['actionserviceprovider_2ephp',['ActionServiceProvider.php',['../ActionServiceProvider_8php.html',1,'']]],

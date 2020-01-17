@@ -10,7 +10,6 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Represents a module instance permission
  */
-// TODO Migrate module instance permissions to model permissions
 class ModuleInstancePermission extends Model
 {
     /**

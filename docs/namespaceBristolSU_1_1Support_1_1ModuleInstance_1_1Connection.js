@@ -1,6 +1,0 @@
-var namespaceBristolSU_1_1Support_1_1ModuleInstance_1_1Connection =
-[
-    [ "ModuleInstanceService", "classBristolSU_1_1Support_1_1ModuleInstance_1_1Connection_1_1ModuleInstanceService.html", "classBristolSU_1_1Support_1_1ModuleInstance_1_1Connection_1_1ModuleInstanceService" ],
-    [ "ModuleInstanceServiceRepository", "classBristolSU_1_1Support_1_1ModuleInstance_1_1Connection_1_1ModuleInstanceServiceRepository.html", "classBristolSU_1_1Support_1_1ModuleInstance_1_1Connection_1_1ModuleInstanceServiceRepository" ],
-    [ "NoConnectionAvailable", "classBristolSU_1_1Support_1_1ModuleInstance_1_1Connection_1_1NoConnectionAvailable.html", "classBristolSU_1_1Support_1_1ModuleInstance_1_1Connection_1_1NoConnectionAvailable" ]
-];

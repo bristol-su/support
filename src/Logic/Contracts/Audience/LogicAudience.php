@@ -33,7 +33,7 @@ abstract class LogicAudience
     public function userAudience(Logic $logic)
     {
         return collect($this->audience($logic))->filter(function(AudienceMember $audienceMember) {
-            return $audienceMember->canBeUser(); // TODO Change to hasAudience?
+            return $audienceMember->hasAudience();
         })->map(function(AudienceMember $audienceMember) {
             return $audienceMember->user();
         })->flatten(1)->unique(function(User $user) {

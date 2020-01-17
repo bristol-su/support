@@ -1,7 +1,0 @@
-<map id="BristolSU\Support\Filters\Contracts\Filters\GroupFilter\model" name="BristolSU\Support\Filters\Contracts\Filters\GroupFilter\model">
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1GroupFilter.html#abf64b748e582669e96f1c792ed671c52" title="BristolSU\\Support\\Filters\l\\Contracts\\Filters\\GroupFilter\\group" alt="" coords="284,133,511,174"/>
-<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Group_1_1GroupNameIs.html#acaa7be48ae4ae1a4f1704df0c3ba726c" title="BristolSU\\Support\\Filters\l\\Filters\\Group\\GroupNameIs\l\\evaluate" alt="" coords="561,5,747,61"/>
-<area shape="rect" id="node4" href="$classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Group_1_1GroupTagged.html#ad687094e43c6b5eb074a4fd15420ab94" title="BristolSU\\Support\\Filters\l\\Filters\\Group\\GroupTagged\l\\evaluate" alt="" coords="563,85,745,141"/>
-<area shape="rect" id="node5" href="$classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1GroupFilter.html#ae3b9b0493f5c7002fc01c5a0c1d909ed" title="BristolSU\\Support\\Filters\l\\Contracts\\Filters\\GroupFilter\l\\hasModel" alt="" coords="559,165,749,221"/>
-<area shape="rect" id="node6" href="$classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1GroupFilter.html#ad1ebd3964156fa0b5fc831a72404e471" title="BristolSU\\Support\\Filters\l\\Contracts\\Filters\\GroupFilter\l\\setModel" alt="" coords="559,245,749,301"/>
-</map>

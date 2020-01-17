@@ -8,9 +8,6 @@ namespace BristolSU\Support\Connection\Contracts\Client;
 interface Client
 {
     
-    // TODO Add helper methods for manipulating requests
-    // TODO Standardise response type
-    
     /**
      * Make a request
      * 

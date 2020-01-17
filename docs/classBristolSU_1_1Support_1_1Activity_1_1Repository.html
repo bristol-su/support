@@ -100,6 +100,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9b6ff67a87d1fcd8bdd7552623dcc132"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3d462a1b1b9db93d94d6bca3da152729"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Repository.html#a3d462a1b1b9db93d94d6bca3da152729">getById</a> ($id)</td></tr>
 <tr class="separator:a3d462a1b1b9db93d94d6bca3da152729"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18501ef0d30220c68e096c1f651b8a2b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Repository.html#a18501ef0d30220c68e096c1f651b8a2b">update</a> ($id, $attributes)</td></tr>
+<tr class="separator:a18501ef0d30220c68e096c1f651b8a2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2c376772a393eaf1cce74628a92e8398"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Repository.html#a2c376772a393eaf1cce74628a92e8398">delete</a> ($id)</td></tr>
+<tr class="separator:a2c376772a393eaf1cce74628a92e8398"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> <a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Repository.html">Repository</a> implementation using Eloquent </p>
@@ -186,6 +190,44 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a2c376772a393eaf1cce74628a92e8398"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2c376772a393eaf1cce74628a92e8398">&#9670;&nbsp;</a></span>delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\Activity\Repository::delete </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Delete an activity by ID</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>ID of the activity </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Activity_1_1Contracts_1_1Repository.html#aaad3926f71ebb840e5058a227358ec6f">BristolSU\Support\Activity\Contracts\Repository</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="Repository_8php_source.html#l00160">160</a> of file <a class="el" href="Repository_8php_source.html">Repository.php</a>.</p>
+
+<p class="reference">References <a class="el" href="Repository_8php_source.html#l00118">BristolSU\Support\Activity\Repository\getById()</a>.</p>
+
+</div>
+</div>
 <a id="a3d462a1b1b9db93d94d6bca3da152729"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3d462a1b1b9db93d94d6bca3da152729">&#9670;&nbsp;</a></span>getById()</h2>
 
@@ -219,6 +261,8 @@ Public Member Functions</h2></td></tr>
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Activity_1_1Contracts_1_1Repository.html#aa7b81311baa741f9d965db9842439be1">BristolSU\Support\Activity\Contracts\Repository</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="Repository_8php_source.html#l00118">118</a> of file <a class="el" href="Repository_8php_source.html">Repository.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="Repository_8php_source.html#l00160">BristolSU\Support\Activity\Repository\delete()</a>, and <a class="el" href="Repository_8php_source.html#l00144">BristolSU\Support\Activity\Repository\update()</a>.</p>
 
 </div>
 </div>
@@ -324,13 +368,63 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a18501ef0d30220c68e096c1f651b8a2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18501ef0d30220c68e096c1f651b8a2b">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\Activity\Repository::update </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$attributes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Update an activity</p>
+<p>Update an activity using the given attributes. The attributes can be taken from the following: [ 'name' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> Name', 'description' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> Description', 'activity_for' =&gt; 'user', 'for_logic' =&gt; '1', 'admin_logic' =&gt; 2, 'start_date' =&gt; null, 'end_date' =&gt; null, 'slug' =&gt; 'activity-slug', 'type' =&gt; 'open' ]</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$id</td><td></td></tr>
+    <tr><td class="paramname">$attributes</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ModelNotFoundException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Activity_1_1Contracts_1_1Repository.html#a2545c602c4eb9e4847a6c10c17ef7e6d">BristolSU\Support\Activity\Contracts\Repository</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="Repository_8php_source.html#l00144">144</a> of file <a class="el" href="Repository_8php_source.html">Repository.php</a>.</p>
+
+<p class="reference">References <a class="el" href="Repository_8php_source.html#l00118">BristolSU\Support\Activity\Repository\getById()</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>src/Activity/<a class="el" href="Repository_8php_source.html">Repository.php</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 16 2020 22:05:41 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 17 2020 11:54:38 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

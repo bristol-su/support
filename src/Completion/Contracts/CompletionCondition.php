@@ -79,7 +79,6 @@ abstract class CompletionCondition
      * 
      * @return array
      */
-    // TODO Accept a Form schema object
     abstract public function options(): array;
 
     /**
@@ -101,6 +100,5 @@ abstract class CompletionCondition
      * 
      * @return string
      */
-    // TODO Do not register the alias in the class, only in the service provider
     abstract public function alias(): string;
 }

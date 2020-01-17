@@ -56,7 +56,6 @@ trait HandlesAuthentication
     public function beGroup(Group $group)
     {
         app()->make(Authentication::class)->setGroup($group);
-        // TODO Set API authentication automatically (pass it in the $request function)
     }
 
     /**
@@ -69,7 +68,6 @@ trait HandlesAuthentication
     public function beRole(Role $role)
     {
         app()->make(Authentication::class)->setRole($role);
-        // TODO Set API authentication automatically (pass it in the $request function)
     }
 
 
@@ -83,7 +81,6 @@ trait HandlesAuthentication
     public function beUser(User $user)
     {
         app()->make(Authentication::class)->setUser($user);
-        // TODO Set API authentication automatically (pass it in the $request function)
     }
 
 

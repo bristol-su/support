@@ -1,7 +1,0 @@
-<map id="BristolSU\Support\Logic\Audience\AudienceMember\toJson" name="BristolSU\Support\Logic\Audience\AudienceMember\toJson">
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMember.html#a55032cbe74d7969362305e759b72a5f5" title="BristolSU\\Support\\Logic\l\\Audience\\AudienceMember\l\\toArray" alt="" coords="239,119,424,175"/>
-<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMember.html#a58f6e4add741d3d8bdf3dbd27183d892" title="BristolSU\\Support\\Logic\l\\Audience\\AudienceMember\l\\canBeUser" alt="" coords="488,5,673,61"/>
-<area shape="rect" id="node4" href="$classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMember.html#a131ea8f66a516e79649c33b129a642b5" title="BristolSU\\Support\\Logic\l\\Audience\\AudienceMember\l\\groups" alt="" coords="488,85,673,141"/>
-<area shape="rect" id="node5" href="$classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMember.html#a22b007e2f2886c29259852ffc5e1ab07" title="BristolSU\\Support\\Logic\l\\Audience\\AudienceMember\\user" alt="" coords="737,158,952,199"/>
-<area shape="rect" id="node6" href="$classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMember.html#a88f69e9bbaeb9a4e37e70dad87aa945a" title="BristolSU\\Support\\Logic\l\\Audience\\AudienceMember\\roles" alt="" coords="472,217,689,258"/>
-</map>

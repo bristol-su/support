@@ -50,8 +50,6 @@ class ModelPermission extends Model
      * The related module instance
      * 
      * If the model permission belongs to a module instance, it is a module permission.
-     * TODO Create a type() method to return either global or module, and use this in support to test the type.
-     * TODO Create a permission method to use for 
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */

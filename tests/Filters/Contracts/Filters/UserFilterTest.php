@@ -63,7 +63,6 @@ class DummyUserFilter extends UserFilter
      */
     public function options(): array
     {
-        // TODO: Implement options() method.
     }
 
     /**
@@ -76,26 +75,21 @@ class DummyUserFilter extends UserFilter
      */
     public function evaluate($settings): bool
     {
-        // TODO: Implement evaluate() method.
     }
 
     public function name()
     {
-        // TODO: Implement name() method.
     }
 
     public function description()
     {
-        // TODO: Implement description() method.
     }
 
     public function alias()
     {
-        // TODO: Implement alias() method.
     }
 
     public function audience($settings)
     {
-        // TODO: Implement audience() method.
     }
 }

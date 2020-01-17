@@ -22,6 +22,5 @@ class AccessibleConnectionScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         $builder->where('user_id', app(UserAuthentication::class)->getUser()->control_id);
-        // TODO Build in adding open or shared connections
     }
 }

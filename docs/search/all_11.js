@@ -1,7 +1,6 @@
 var searchData=
 [
   ['schedule',['schedule',['../interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Scheduler_1_1CommandStore.html#ad3359b72c28ad3ed63f6786a14292384',1,'BristolSU\Support\ModuleInstance\Contracts\Scheduler\CommandStore\schedule()'],['../classBristolSU_1_1Support_1_1ModuleInstance_1_1Scheduler_1_1CommandStore.html#a3b082e86daf75c54454592fadb598a2c',1,'BristolSU\Support\ModuleInstance\Scheduler\CommandStore\schedule()']]],
-  ['scopeaccessible',['scopeAccessible',['../classBristolSU_1_1Support_1_1Connection_1_1Connection.html#a5e74e496b268c4fb5329ba2ce8ab6e20',1,'BristolSU::Support::Connection::Connection']]],
   ['scopeactive',['scopeActive',['../classBristolSU_1_1Support_1_1Activity_1_1Activity.html#a80c54a7ca796040b844b6dfd9999dec0',1,'BristolSU::Support::Activity::Activity']]],
   ['scopeformoduleinstance',['scopeForModuleInstance',['../classBristolSU_1_1Support_1_1Authentication_1_1HasResource.html#acd7c46cf7d515149dd7dd0efe076218f',1,'BristolSU::Support::Authentication::HasResource']]],
   ['scopeforresource',['scopeForResource',['../classBristolSU_1_1Support_1_1Authentication_1_1HasResource.html#abc013065a4d680685e7d3815442aeba5',1,'BristolSU::Support::Authentication::HasResource']]],

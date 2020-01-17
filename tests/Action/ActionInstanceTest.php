@@ -72,7 +72,6 @@ class ActionInstanceDummyAction implements Action
 
     public function handle()
     {
-        // TODO: Implement handle() method.
     }
 
     public function getFields(): array

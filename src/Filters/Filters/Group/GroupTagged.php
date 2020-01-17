@@ -59,7 +59,6 @@ class GroupTagged extends GroupFilter
      */
     public function options(): array
     {
-        // TODO Transform to a form schema
         $tags = $this->groupTagRepository->all();
         $options = ['tag' => []];
         foreach ($tags as $tag) {

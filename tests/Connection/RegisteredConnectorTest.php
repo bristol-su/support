@@ -91,7 +91,6 @@ class DummyConnector_RegisteredConnector extends Connector {
      */
     public function request($method, $uri, array $options = [])
     {
-        // TODO: Implement request() method.
     }
 
     /**
@@ -99,7 +98,6 @@ class DummyConnector_RegisteredConnector extends Connector {
      */
     public function test(): bool
     {
-        // TODO: Implement test() method.
     }
 
     /**

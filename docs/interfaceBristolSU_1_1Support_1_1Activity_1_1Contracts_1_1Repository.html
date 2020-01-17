@@ -92,6 +92,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a4b3ab6d3ce8f1d6f126c7ffe8b2c47a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa7b81311baa741f9d965db9842439be1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Activity_1_1Contracts_1_1Repository.html#aa7b81311baa741f9d965db9842439be1">getById</a> ($id)</td></tr>
 <tr class="separator:aa7b81311baa741f9d965db9842439be1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2545c602c4eb9e4847a6c10c17ef7e6d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Activity_1_1Contracts_1_1Repository.html#a2545c602c4eb9e4847a6c10c17ef7e6d">update</a> ($id, $attributes)</td></tr>
+<tr class="separator:a2545c602c4eb9e4847a6c10c17ef7e6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaad3926f71ebb840e5058a227358ec6f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Activity_1_1Contracts_1_1Repository.html#aaad3926f71ebb840e5058a227358ec6f">delete</a> ($id)</td></tr>
+<tr class="separator:aaad3926f71ebb840e5058a227358ec6f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p><a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> <a class="el" href="interfaceBristolSU_1_1Support_1_1Activity_1_1Contracts_1_1Repository.html">Repository</a>.</p>
@@ -168,6 +172,40 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Repository.html#a9b6ff67a87d1fcd8bdd7552623dcc132">BristolSU\Support\Activity\Repository</a>.</p>
+
+</div>
+</div>
+<a id="aaad3926f71ebb840e5058a227358ec6f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaad3926f71ebb840e5058a227358ec6f">&#9670;&nbsp;</a></span>delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\Activity\Contracts\Repository::delete </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Delete an activity by ID</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>ID of the activity </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ModelNotFoundException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Repository.html#a2c376772a393eaf1cce74628a92e8398">BristolSU\Support\Activity\Repository</a>.</p>
 
 </div>
 </div>
@@ -299,13 +337,59 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a2545c602c4eb9e4847a6c10c17ef7e6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2545c602c4eb9e4847a6c10c17ef7e6d">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\Activity\Contracts\Repository::update </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$attributes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Update an activity</p>
+<p>Update an activity using the given attributes. The attributes can be taken from the following: [ 'name' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> Name', 'description' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> Description', 'activity_for' =&gt; 'user', 'for_logic' =&gt; '1', 'admin_logic' =&gt; 2, 'start_date' =&gt; null, 'end_date' =&gt; null, 'slug' =&gt; 'activity-slug', 'type' =&gt; 'open' ]</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">$id</td><td></td></tr>
+    <tr><td class="paramname">$attributes</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ModelNotFoundException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Repository.html#a18501ef0d30220c68e096c1f651b8a2b">BristolSU\Support\Activity\Repository</a>.</p>
+
+</div>
+</div>
 <hr/>The documentation for this interface was generated from the following file:<ul>
 <li>src/Activity/Contracts/<a class="el" href="Contracts_2Repository_8php_source.html">Repository.php</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 16 2020 22:05:41 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Fri Jan 17 2020 11:54:38 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Represents the assignment of a service connection to a module instance
- * 
- * // TODO Move to connection package
  */
 class ModuleInstanceService extends Model
 {

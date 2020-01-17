@@ -1,7 +1,0 @@
-<map id="BristolSU\Support\SupportServiceProvider\register" name="BristolSU\Support\SupportServiceProvider\register">
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1SupportServiceProvider.html#a9cb4d25298726401f91ccff30170d5b7" title="BristolSU\\Support\\Support\lServiceProvider\\registerConfig" alt="" coords="241,5,439,47"/>
-<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1SupportServiceProvider.html#a9c2f9c834e91a4f56f77b8a5aa639eee" title="BristolSU\\Support\\Support\lServiceProvider\\registerMigrations" alt="" coords="229,71,451,112"/>
-<area shape="rect" id="node4" href="$classBristolSU_1_1Support_1_1SupportServiceProvider.html#a2cbfd2e99cf8a049e221c9af7403593a" title="BristolSU\\Support\\Support\lServiceProvider\\registerProviders" alt="" coords="232,136,448,177"/>
-<area shape="rect" id="node5" href="$classBristolSU_1_1Support_1_1SupportServiceProvider.html#a975111805ce479519c6fd616480d9e89" title="BristolSU\\Support\\Support\lServiceProvider\\registerRoutes" alt="" coords="239,201,441,243"/>
-<area shape="rect" id="node6" href="$classBristolSU_1_1Support_1_1SupportServiceProvider.html#a58259a322866788d5b92179c902361e6" title="BristolSU\\Support\\Support\lServiceProvider\\registerViews" alt="" coords="241,267,439,308"/>
-</map>

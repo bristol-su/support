@@ -43,7 +43,6 @@ class DummyConnector extends Connector {
      */
     public function request($method, $uri, array $options = [])
     {
-        // TODO: Implement request() method.
     }
 
     /**
@@ -51,7 +50,6 @@ class DummyConnector extends Connector {
      */
     public function test(): bool
     {
-        // TODO: Implement test() method.
     }
 
     /**
@@ -59,6 +57,5 @@ class DummyConnector extends Connector {
      */
     static public function settingsSchema(): Form
     {
-        // TODO: Implement settingsSchema() method.
     }
 }

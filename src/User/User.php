@@ -20,7 +20,6 @@ class User extends Authenticatable implements MustVerifyEmailContract
      *
      * @var array
      */
-    // TODO Remove Student ID
     protected $fillable = [
         'forename', 'surname', 'email', 'student_id', 'control_id'
     ];

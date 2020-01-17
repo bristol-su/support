@@ -1,5 +1,0 @@
-<map id="BristolSU\Support\Permissions\PermissionStore\register" name="BristolSU\Support\Permissions\PermissionStore\register">
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Permissions_1_1PermissionStore.html#a5a12f7bdd53903f9bd13d61cc6f5fbce" title="BristolSU\\Support\\Permissions\l\\PermissionStore\\registerModulePermission" alt="" coords="256,13,532,54"/>
-<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Permissions_1_1PermissionStore.html#a238bea45c1962c960cc69f6d5748dad6" title="BristolSU\\Support\\Permissions\l\\PermissionStore\\registerPermission" alt="" coords="580,13,815,54"/>
-<area shape="rect" id="node4" href="$interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1Models_1_1Permission.html#a428e6cb0632ede6da0abe072ce6f3997" title="BristolSU\\Support\\Permissions\l\\Contracts\\Models\\Permission\l\\getAbility" alt="" coords="863,5,1065,61"/>
-</map>

@@ -2,8 +2,10 @@ var searchData=
 [
   ['id',['id',['../interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html#a4bbb1a3313e8223a9b4cf8713ae024b7',1,'BristolSU\Support\ModuleInstance\Contracts\ModuleInstance\id()'],['../classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstance.html#a8b009e11aeac0ba84f57a6dafae96d47',1,'BristolSU\Support\ModuleInstance\ModuleInstance\id()']]],
   ['index',['index',['../classBristolSU_1_1Support_1_1Http_1_1Controllers_1_1ModuleInstanceRedirectController.html#a1fb141246dd8360e3d9f4cfb7565dbdc',1,'BristolSU::Support::Http::Controllers::ModuleInstanceRedirectController']]],
-  ['injectactivityinstance',['InjectActivityInstance',['../classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1InjectActivityInstance.html',1,'BristolSU\Support\ActivityInstance\Middleware\InjectActivityInstance'],['../classBristolSU_1_1Support_1_1Activity_1_1Middleware_1_1InjectActivityInstance.html',1,'BristolSU\Support\Activity\Middleware\InjectActivityInstance']]],
-  ['injectactivityinstance_2ephp',['InjectActivityInstance.php',['../Middleware_2InjectActivityInstance_8php.html',1,'(Global Namespace)'],['../nstance_2Middleware_2InjectActivityInstance_8php.html',1,'(Global Namespace)']]],
+  ['injectactivity',['InjectActivity',['../classBristolSU_1_1Support_1_1Activity_1_1Middleware_1_1InjectActivity.html',1,'BristolSU::Support::Activity::Middleware']]],
+  ['injectactivity_2ephp',['InjectActivity.php',['../InjectActivity_8php.html',1,'']]],
+  ['injectactivityinstance',['InjectActivityInstance',['../classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1InjectActivityInstance.html',1,'BristolSU::Support::ActivityInstance::Middleware']]],
+  ['injectactivityinstance_2ephp',['InjectActivityInstance.php',['../InjectActivityInstance_8php.html',1,'']]],
   ['injectjavascriptvariables',['InjectJavascriptVariables',['../classBristolSU_1_1Support_1_1Http_1_1Middleware_1_1InjectJavascriptVariables.html',1,'BristolSU::Support::Http::Middleware']]],
   ['injectjavascriptvariables_2ephp',['InjectJavascriptVariables.php',['../InjectJavascriptVariables_8php.html',1,'']]],
   ['injectmoduleinstance',['InjectModuleInstance',['../classBristolSU_1_1Support_1_1ModuleInstance_1_1Middleware_1_1InjectModuleInstance.html',1,'BristolSU::Support::ModuleInstance::Middleware']]],

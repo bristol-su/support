@@ -1,5 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceResolver.html" title="BristolSU\\Support\\Activity\lInstance\\Contracts\\ActivityInstance\lResolver" alt="" coords="5,35,236,91"/>
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1ActivityInstance_1_1ApiActivityInstanceResolver.html" title="BristolSU\\Support\\Activity\lInstance\\ApiActivityInstanceResolver" alt="" coords="284,5,525,47"/>
-<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1ActivityInstance_1_1LaravelAuthActivityInstanceResolver.html" title="BristolSU\\Support\\Activity\lInstance\\LaravelAuthActivityInstance\lResolver" alt="" coords="285,71,524,127"/>
+<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1ActivityInstance_1_1Contracts_1_1ActivityInstanceRepository.html" title="BristolSU\\Support\\Activity\lInstance\\Contracts\\ActivityInstance\lRepository" alt="" coords="5,5,236,61"/>
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstanceRepository.html" title="BristolSU\\Support\\Activity\lInstance\\ActivityInstanceRepository" alt="" coords="284,13,517,54"/>
 </map>
