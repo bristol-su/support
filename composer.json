@@ -1,56 +1,59 @@
 {
-  "name": "bristol-su/support",
-  "description": "",
-  "license": "MIT",
-  "prefer-stable": false,
-  "authors": [
-    {
-      "name": "Toby Twigger",
-      "email": "toby.twigger@bristol.ac.uk"
-    }
-  ],
-  "type": "library",
-  "require": {
-    "php": "^7.2",
-    "laravel/framework": "^6.0",
-    "nao-pon/flysystem-google-drive": "^1.1",
-    "twigger/unioncloud": "^1.0.2",
-    "laravel/passport": "^8.0",
-    "orchestra/testbench": "^4.0",
-    "brianium/paratest": "^3.0",
-    "laracasts/utilities": "^3.0",
-    "ext-json": "*",
-    "tobytwigger/form-schema-generator": "^1.1",
-    "bristol-su/control": "@dev"
-  },
-  "autoload": {
-    "files": [
-      "src/helpers/helpers.php"
+    "name": "bristol-su/support",
+    "description": "SDK for the Bristol SU Portal",
+    "license": "MIT",
+    "prefer-stable": false,
+    "keywords": [
+        "portal",
+        "sdk",
+        "bristol su"
     ],
-    "psr-4": {
-      "BristolSU\\Support\\": "src/"
+    "authors": [
+        {
+            "name": "Toby Twigger",
+            "email": "toby.twigger@bristol.ac.uk"
+        }
+    ],
+    "type": "library",
+    "require": {
+        "php": "^7.2",
+        "laravel/framework": "^6.0",
+        "laravel/passport": "^8.0",
+        "orchestra/testbench": "^4.0",
+        "laracasts/utilities": "^3.0",
+        "ext-json": "*",
+        "tobytwigger/form-schema-generator": "^1.1",
+        "bristol-su/control": "@dev"
     },
-    "classmap": [
-      "database/seeds/",
-      "database/factories/"
-    ]
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "BristolSU\\Support\\Tests\\": "tests/"
+    "require-dev": {
+        "phpstan/phpstan": "^0.12.3",
+        "brianium/paratest": "^3.0"
+    },
+    "autoload": {
+        "files": [
+            "src/helpers/helpers.php"
+        ],
+        "psr-4": {
+            "BristolSU\\Support\\": "src/"
+        },
+        "classmap": [
+            "database/seeds/",
+            "database/factories/"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "BristolSU\\Support\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "BristolSU\\Support\\SupportServiceProvider"
+            ],
+            "dont-discover": [
+                "laravel/passport"
+            ]
+        }
     }
-  },
-  "extra": {
-    "laravel": {
-      "providers": [
-        "BristolSU\\Support\\SupportServiceProvider"
-      ],
-      "dont-discover": [
-        "laravel/passport"
-      ]
-    }
-  },
-  "require-dev": {
-    "phpstan/phpstan": "^0.12.3"
-  }
 }

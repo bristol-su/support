@@ -1,5 +1,5 @@
 /vendor
-.idea
-coverage
+/.idea
+/coverage
 report.*
 .phpunit.result.cache
