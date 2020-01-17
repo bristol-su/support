@@ -33,7 +33,6 @@ var searchData=
   ['filters',['Filters',['../namespaceBristolSU_1_1Support_1_1Filters.html',1,'BristolSU\Support\Filters'],['../namespaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters.html',1,'BristolSU\Support\Filters\Contracts\Filters'],['../namespaceBristolSU_1_1Support_1_1Filters_1_1Filters.html',1,'BristolSU\Support\Filters\Filters']]],
   ['group',['Group',['../namespaceBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Group.html',1,'BristolSU::Support::Filters::Filters']]],
   ['http',['Http',['../namespaceBristolSU_1_1Support_1_1Http.html',1,'BristolSU::Support']]],
-  ['bristol_20su_20portal_20_2d_20support_20package',['Bristol SU Portal - Support Package',['../index.html',1,'']]],
   ['jobs',['Jobs',['../namespaceBristolSU_1_1Support_1_1Filters_1_1Jobs.html',1,'BristolSU::Support::Filters']]],
   ['logic',['Logic',['../namespaceBristolSU_1_1Support_1_1Logic.html',1,'BristolSU::Support']]],
   ['logictester',['LogicTester',['../namespaceBristolSU_1_1Support_1_1Testing_1_1LogicTester.html',1,'BristolSU::Support::Testing']]],
