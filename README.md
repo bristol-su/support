@@ -30,8 +30,8 @@
 
 [![Build][build-status-shield]][build-status-url]
 [![Code Quality][code-quality-shield]][code-quality-url]
+[![Coverage][coverage-shield]][coverage-url]
 [![Release][release-shield]][release-url]
-[![PHP][coverage-shield]][coverage-url]
 [![MIT License][license-shield]][license-url]
 
 [![Downloads][downloads-shield]][downloads-url]
