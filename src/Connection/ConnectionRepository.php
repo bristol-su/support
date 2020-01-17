@@ -89,10 +89,8 @@ class ConnectionRepository implements ConnectionRepositoryContract
     {
         $connection = $this->get($id);
         $connection->fill($attributes);
-        if($connection->save()) {
-            return $connection;
-        }
-        throw new \Exception('Could not save connection');
+        $connection->save();
+        return $connection;
     }
 
     /**
@@ -103,8 +101,8 @@ class ConnectionRepository implements ConnectionRepositoryContract
      */
     public function getAllForService(string $service)
     {
-        return collect(app(\BristolSU\Support\Connection\Contracts\ConnectorRepository::class)->forService($service))->map(function($connector) {
-            return $this->getAllForConnector($connector['alias']);
+        return collect(app(\BristolSU\Support\Connection\Contracts\ConnectorRepository::class)->forService($service))->map(function(RegisteredConnector $connector) {
+            return $this->getAllForConnector($connector->getAlias());
         })->flatten(1)->values();
     }
 

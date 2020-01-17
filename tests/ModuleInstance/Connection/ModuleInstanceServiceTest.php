@@ -6,6 +6,7 @@ use BristolSU\Support\Connection\Connection;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
+use BristolSU\Support\User\User;
 
 class ModuleInstanceServiceTest extends TestCase
 {
@@ -21,6 +22,10 @@ class ModuleInstanceServiceTest extends TestCase
     
     /** @test */
     public function it_belongs_to_a_connection(){
+        $user = $this->newUser();
+        $this->beUser($user);
+        $this->be(factory(User::class)->create(['control_id' => $user->id()]));
+        
         $connection = factory(Connection::class)->create();
         $moduleInstance = factory(ModuleInstance::class)->create();
         $moduleInstanceService = factory(ModuleInstanceService::class)->create([

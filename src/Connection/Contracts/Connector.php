@@ -24,7 +24,7 @@ abstract class Connector
      * 
      * @var array
      */
-    protected $settings;
+    protected $settings = [];
 
     /**
      * @param Client $client Client to make the request through

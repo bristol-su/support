@@ -90,11 +90,15 @@ Collaboration diagram for BristolSU\Support\Logic\Audience\AudienceMemberFactory
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a7518a1f57104f9a641250a3a848b848e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMemberFactory.html#a7518a1f57104f9a641250a3a848b848e">fromUser</a> (User $user)</td></tr>
 <tr class="separator:a7518a1f57104f9a641250a3a848b848e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a70079780995034af7eddee9ccb61741b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMemberFactory.html#a70079780995034af7eddee9ccb61741b">withAccessToResource</a> ($resource)</td></tr>
+<tr class="separator:a70079780995034af7eddee9ccb61741b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac5bf1b5c40f09555bf26d0445d67b501"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMemberFactory.html#ac5bf1b5c40f09555bf26d0445d67b501">withAccessToLogicGroupWithResource</a> ($resource, <a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Logic.html">Logic</a> $logic)</td></tr>
+<tr class="separator:ac5bf1b5c40f09555bf26d0445d67b501"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Creates an audience member </p>
 
-<p class="definition">Definition at line <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html#l00011">11</a> of file <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html">AudienceMemberFactory.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html#l00017">17</a> of file <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html">AudienceMemberFactory.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a7518a1f57104f9a641250a3a848b848e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7518a1f57104f9a641250a3a848b848e">&#9670;&nbsp;</a></span>fromUser()</h2>
@@ -122,7 +126,86 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1Audience_1_1AudienceMemberFactory.html#a68a2ef5713f90146a95daed6dc40b180">BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html#l00021">21</a> of file <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html">AudienceMemberFactory.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html#l00027">27</a> of file <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html">AudienceMemberFactory.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html#l00037">BristolSU\Support\Logic\Audience\AudienceMemberFactory\withAccessToResource()</a>.</p>
+
+</div>
+</div>
+<a id="ac5bf1b5c40f09555bf26d0445d67b501"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac5bf1b5c40f09555bf26d0445d67b501">&#9670;&nbsp;</a></span>withAccessToLogicGroupWithResource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\Logic\Audience\AudienceMemberFactory::withAccessToLogicGroupWithResource </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$resource</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Logic.html">Logic</a>&#160;</td>
+          <td class="paramname"><em>$logic</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><a class="el" href="namespaceBristolSU_1_1Support_1_1Logic_1_1Audience.html">Audience</a> members who have access to a logic group, with a certain resource.</p>
+<p>This function will return all audience members who have an audience in the logic group which uses a given resource. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a>&#160;|&#160;Group&#160;|&#160;Role</td><td class="paramname">$resource</td><td>Resource that must be in the logic group </td></tr>
+    <tr><td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Logic.html">Logic</a></td><td class="paramname">$logic</td><td><a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Logic.html">Logic</a> group the resource must be in for an audience member</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Collection </dd></dl>
+
+<p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1Audience_1_1AudienceMemberFactory.html#a8e66b1dde4ff1aca6c72135c12b3578c">BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html#l00070">70</a> of file <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html">AudienceMemberFactory.php</a>.</p>
+
+<p class="reference">References <a class="el" href="AudienceMember_8php_source.html#l00119">BristolSU\Support\Logic\Audience\AudienceMember\filterForLogic()</a>, <a class="el" href="AudienceMember_8php_source.html#l00063">BristolSU\Support\Logic\Audience\AudienceMember\groups()</a>, <a class="el" href="AudienceMember_8php_source.html#l00140">BristolSU\Support\Logic\Audience\AudienceMember\hasAudience()</a>, <a class="el" href="AudienceMember_8php_source.html#l00076">BristolSU\Support\Logic\Audience\AudienceMember\roles()</a>, and <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html#l00037">BristolSU\Support\Logic\Audience\AudienceMemberFactory\withAccessToResource()</a>.</p>
+
+</div>
+</div>
+<a id="a70079780995034af7eddee9ccb61741b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a70079780995034af7eddee9ccb61741b">&#9670;&nbsp;</a></span>withAccessToResource()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\Logic\Audience\AudienceMemberFactory::withAccessToResource </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$resource</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p><a class="el" href="namespaceBristolSU_1_1Support_1_1Logic_1_1Audience.html">Audience</a> members who have access to a given resource in some way.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a>&#160;|&#160;Group&#160;|&#160;Role</td><td class="paramname">$resource</td><td>Resource audience members must have access to </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Collection </dd></dl>
+
+<p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1Audience_1_1AudienceMemberFactory.html#ae26649d898d8ecc3ecb13288fdf49bbb">BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html#l00037">37</a> of file <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html">AudienceMemberFactory.php</a>.</p>
+
+<p class="reference">References <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html#l00027">BristolSU\Support\Logic\Audience\AudienceMemberFactory\fromUser()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="Audience_2AudienceMemberFactory_8php_source.html#l00070">BristolSU\Support\Logic\Audience\AudienceMemberFactory\withAccessToLogicGroupWithResource()</a>.</p>
 
 </div>
 </div>
@@ -132,7 +215,7 @@ Public Member Functions</h2></td></tr>
 </div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
-Generated on Thu Jan 16 2020 13:33:45 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
+Generated on Thu Jan 16 2020 22:05:41 for Bristol SU Support Package by &#160;<a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/>
 </a> 1.8.13
 </small></address>

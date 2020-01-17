@@ -3,7 +3,6 @@
 namespace BristolSU\Support\Connection;
 
 use BristolSU\Support\User\Contracts\UserAuthentication;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -65,18 +64,8 @@ class Connection extends Model
                 $model->user_id = app(UserAuthentication::class)->getUser()->control_id;
             }
         });
-        // TODO We should be using the global scope
-    }
-
-    /**
-     * Get all accessible connections. Copy of the AccessibleConnectionScope
-     * 
-     * @param Builder $builder
-     */
-    public function scopeAccessible(Builder $builder)
-    {
-        // TODO Should this scope be here?
-        $builder->where('user_id', app(UserAuthentication::class)->getUser()->control_id);
+        
+        static::addGlobalScope(new AccessibleConnectionScope);
     }
 
     /**
@@ -86,7 +75,7 @@ class Connection extends Model
      */
     public function getConnectorAttribute()
     {
-        return app(\BristolSU\Support\Connection\Contracts\ConnectorRepository::class)->get($this->alias);
+        return $this->connector();
     }
 
     /**
@@ -96,6 +85,6 @@ class Connection extends Model
      */
     public function connector()
     {
-        return $this->connector;
+        return app(\BristolSU\Support\Connection\Contracts\ConnectorRepository::class)->get($this->alias);
     }
 }

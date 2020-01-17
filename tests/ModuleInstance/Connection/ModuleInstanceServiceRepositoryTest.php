@@ -10,6 +10,7 @@ use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceServiceRepository;
 use BristolSU\Support\ModuleInstance\Connection\NoConnectionAvailable;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
+use BristolSU\Support\User\User;
 use Prophecy\Argument;
 
 class ModuleInstanceServiceRepositoryTest extends TestCase
@@ -17,6 +18,7 @@ class ModuleInstanceServiceRepositoryTest extends TestCase
 
     /** @test */
     public function getConnectorForService_throws_an_exception_if_no_service_found(){
+        
         $this->expectException(NoConnectionAvailable::class);
         $this->expectExceptionMessage('No connection has been found for test-service-alias');
 
@@ -26,6 +28,10 @@ class ModuleInstanceServiceRepositoryTest extends TestCase
     
     /** @test */
     public function getConnectorForService_creates_and_returns_a_connector_from_a_found_connection(){
+        $user = $this->newUser();
+        $this->beUser($user);
+        $this->be(factory(User::class)->create(['control_id' => $user->id()]));
+        
         $moduleInstance = factory(ModuleInstance::class)->create();
         $connection = factory(Connection::class)->create();
         $moduleInstanceService = factory(ModuleInstanceService::class)->create([

@@ -48,9 +48,9 @@ class ConnectorRepository implements ConnectorRepositoryContract
      */
     public function forService(string $service): array
     {
-        return collect($this->connectorStore->all())->filter(function(RegisteredConnector $connector) use ($service) {
+        return array_values(array_filter($this->connectorStore->all(), function(RegisteredConnector $connector) use ($service) {
             return $connector->getService() === $service;
-        })->values()->toArray();
+        }));
     }
 
     /**
