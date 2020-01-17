@@ -86,7 +86,7 @@ See `CONTRIBUTING` for more information.
 <!-- LICENSE -->
 ## License
 
-Distributed under the XYZ License. See `LICENSE` for more information.
+Distributed under the GPL-3.0 License. See `LICENSE` for more information.
 
 
 
