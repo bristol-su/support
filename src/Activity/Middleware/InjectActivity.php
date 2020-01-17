@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 /**
  * Inject the activity instance into the container.
  */
-class InjectActivityInstance
+class InjectActivity
 {
 
     /**
@@ -41,8 +41,6 @@ class InjectActivityInstance
      */
     public function handle(Request $request, \Closure $next)
     {
-        // TODO Should bind activity to the string 'activity', to avoid confusion when resolving
-        
         $activity = $request->route('activity_slug');
         $this->app->instance(Activity::class, $activity);
 

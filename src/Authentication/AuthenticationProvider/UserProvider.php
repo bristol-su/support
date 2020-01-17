@@ -56,7 +56,6 @@ class UserProvider implements BaseUserProvider
      */
     public function retrieveByToken($identifier, $token)
     {
-        // TODO Implement method
     }
 
     /**
@@ -67,7 +66,6 @@ class UserProvider implements BaseUserProvider
      */
     public function updateRememberToken(Authenticatable $user, $token)
     {
-        // TODO Implement method
     }
 
     /**
@@ -101,7 +99,6 @@ class UserProvider implements BaseUserProvider
      */
     public function validateCredentials(Authenticatable $user, array $credentials)
     {
-        // TODO Validate credentials using actual credentials
         if (isset($credentials['user_id'])) {
             try {
                 $user = $this->retrieveById($credentials['user_id']);

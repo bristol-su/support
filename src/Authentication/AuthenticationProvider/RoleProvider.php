@@ -57,7 +57,6 @@ class RoleProvider implements UserProvider
      */
     public function retrieveByToken($identifier, $token)
     {
-        // TODO Implement method
         return null;
     }
 
@@ -69,7 +68,6 @@ class RoleProvider implements UserProvider
      */
     public function updateRememberToken(Authenticatable $role, $token)
     {
-        // TODO Implement method
     }
 
     /**
@@ -103,7 +101,6 @@ class RoleProvider implements UserProvider
      */
     public function validateCredentials(Authenticatable $role, array $credentials)
     {
-        // TODO Validate credentials using actual credentials
         if (isset($credentials['role_id'])) {
             try {
                 $role = $this->retrieveById($credentials['role_id']);

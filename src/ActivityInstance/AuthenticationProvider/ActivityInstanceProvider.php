@@ -52,7 +52,6 @@ class ActivityInstanceProvider implements UserProvider
      */
     public function retrieveByToken($identifier, $token)
     {
-        // TODO Implement retrieveByToken method for Activity Instance
         return null;
     }
 
@@ -65,7 +64,6 @@ class ActivityInstanceProvider implements UserProvider
      */
     public function updateRememberToken(Authenticatable $activityInstance, $token)
     {
-        // TODO Implement updateRememberToken method for Activity Instance
         return null;
     }
 
@@ -82,8 +80,6 @@ class ActivityInstanceProvider implements UserProvider
      */
     public function retrieveByCredentials(array $credentials)
     {
-        // TODO Make this method take additional credentials for security (if necessary)
-        
         if (isset($credentials['activity_instance_id'])) {
             try {
                 return $this->retrieveById($credentials['activity_instance_id']);

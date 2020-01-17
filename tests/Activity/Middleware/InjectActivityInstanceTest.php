@@ -5,7 +5,7 @@ namespace BristolSU\Support\Tests\Activity\Middleware;
 
 
 use BristolSU\Support\Activity\Activity;
-use BristolSU\Support\Activity\Middleware\InjectActivityInstance;
+use BristolSU\Support\Activity\Middleware\InjectActivity;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
 use Prophecy\Argument;
@@ -25,7 +25,7 @@ class InjectActivityInstanceTest extends TestCase
             return $arg->id === $activity->id;
         }))->shouldBeCalled();
 
-        $middleware = new InjectActivityInstance($app->reveal());
+        $middleware = new InjectActivity($app->reveal());
         $middleware->handle($request->reveal(), function($request) {
 
         });

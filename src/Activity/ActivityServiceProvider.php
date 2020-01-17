@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Activity;
 
-use BristolSU\Support\Activity\Middleware\InjectActivityInstance;
+use BristolSU\Support\Activity\Middleware\InjectActivity;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 use BristolSU\Support\Activity\Contracts\Repository as ActivityRepositoryContract;
@@ -33,7 +33,7 @@ class ActivityServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app['router']->pushMiddlewareToGroup('activity', InjectActivityInstance::class);
+        $this->app['router']->pushMiddlewareToGroup('activity', InjectActivity::class);
 
         Route::bind('activity_slug', function ($slug) {
             return Activity::where(['slug' => $slug])->firstOrFail();

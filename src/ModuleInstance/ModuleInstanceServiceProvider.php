@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\ModuleInstance;
 
-use BristolSU\Support\Activity\Middleware\InjectActivityInstance;
+use BristolSU\Support\Activity\Middleware\InjectActivity;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceServiceRepository;
 use BristolSU\Support\ModuleInstance\Contracts\Connection\ModuleInstanceServiceRepository as ModuleInstanceServiceRepositoryContract;

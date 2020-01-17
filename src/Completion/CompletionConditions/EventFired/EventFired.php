@@ -78,7 +78,6 @@ class EventFired extends CompletionCondition
     /**
      * Is the condition satisfied?
      * 
-     * // TODO Implement this method
      * 
      * @param array $settings Settings 
      * @param ActivityInstance $activityInstance Activity instance to test

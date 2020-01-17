@@ -70,7 +70,6 @@ class ApiActivityInstanceResolver implements ActivityInstanceResolver
                 $this->request->input('activity_instance_id')
             );
         }
-        // TODO get the default activity instance if it's not a multi-completable activity. This will allow us to only enforce using activity_instance_id for a multi completable activity
         
         throw new NotInActivityInstanceException;
     }

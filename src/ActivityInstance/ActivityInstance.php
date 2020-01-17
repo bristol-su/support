@@ -147,7 +147,6 @@ class ActivityInstance extends Model implements Authenticatable
      */
     public function getAuthPassword()
     {
-        // TODO: Implement getAuthPassword() method.
     }
 
     /**
@@ -157,7 +156,6 @@ class ActivityInstance extends Model implements Authenticatable
      */
     public function getRememberToken()
     {
-        // TODO: Implement getRememberToken() method.
     }
 
     /**
@@ -168,7 +166,6 @@ class ActivityInstance extends Model implements Authenticatable
      */
     public function setRememberToken($value)
     {
-        // TODO: Implement setRememberToken() method.
     }
 
     /**
@@ -178,6 +175,5 @@ class ActivityInstance extends Model implements Authenticatable
      */
     public function getRememberTokenName()
     {
-        // TODO: Implement getRememberTokenName() method.
     }
 }

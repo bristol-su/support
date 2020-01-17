@@ -39,7 +39,6 @@ class LogoutOfExtras
      */
     public function handle(Request $request, \Closure $next)
     {
-        // TODO Do the same if we're going from one module to another.
         $this->authentication->reset();
         return $next($request);
     }

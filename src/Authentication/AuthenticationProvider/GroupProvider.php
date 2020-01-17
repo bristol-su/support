@@ -68,7 +68,6 @@ class GroupProvider implements UserProvider
      */
     public function updateRememberToken(Authenticatable $group, $token)
     {
-        //TODO Implement method
     }
 
     /**
@@ -105,7 +104,6 @@ class GroupProvider implements UserProvider
      */
     public function validateCredentials(Authenticatable $group, array $credentials)
     {
-        // TODO Validate credentials using actual credentials
         if (isset($credentials['group_id'])) {
             try {
                 $group = $this->retrieveById($credentials['group_id']);

@@ -50,7 +50,6 @@ class InjectActivityInstance
      */
     public function handle(Request $request, Closure $next)
     {
-        // TODO Bind to a string 'activity-instance' instead.
         $activityInstance = $this->activityInstanceResolver->getActivityInstance();
         $this->container->instance(ActivityInstance::class, $activityInstance);
 
