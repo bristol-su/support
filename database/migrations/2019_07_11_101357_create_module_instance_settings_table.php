@@ -16,7 +16,7 @@ class CreateModuleInstanceSettingsTable extends Migration
         Schema::create('module_instance_settings', function(Blueprint $table) {
             $table->increments('id');
             $table->string('key');
-            $table->text('value');
+            $table->text('value')->nullable();
             $table->unsignedBigInteger('module_instance_id');
             $table->boolean('encoded')->default(false);
             $table->timestamps();
