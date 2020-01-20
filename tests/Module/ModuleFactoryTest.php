@@ -25,8 +25,9 @@ class ModuleFactoryTest extends TestCase
         $builder->setCompletionConditions()->shouldBeCalled();
         $builder->setServices()->shouldBeCalled();
         $builder->getModule()->shouldBeCalled()->willReturn($module);
-    
-        $factory = new ModuleFactory($builder->reveal());
+        $this->instance(ModuleBuilder::class, $builder->reveal());
+        
+        $factory = new ModuleFactory();
         $builtModule = $factory->fromAlias('alias1');
         
         $this->assertEquals('alias1', $builtModule->getAlias());
