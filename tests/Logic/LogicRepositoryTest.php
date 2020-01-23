@@ -2,7 +2,6 @@
 
 namespace BristolSU\Support\Tests\Logic;
 
-use App\Packages\ControlDB\Models\GroupTag;
 use BristolSU\Support\Logic\Filters\GroupTagged;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Logic\LogicRepository;

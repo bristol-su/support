@@ -25,7 +25,7 @@ class ModuleInstanceService extends Model
      * @var array 
      */
     protected $fillable = [
-        'service'
+        'service', 'connection_id'
     ];
 
     /**
