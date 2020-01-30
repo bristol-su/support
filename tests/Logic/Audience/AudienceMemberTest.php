@@ -9,6 +9,7 @@ use BristolSU\ControlDB\Models\Position;
 use BristolSU\Support\Logic\Audience\AudienceMember;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Tests\TestCase;
+use Illuminate\Support\Collection;
 
 class AudienceMemberTest extends TestCase
 {
@@ -19,14 +20,15 @@ class AudienceMemberTest extends TestCase
         $group1 = $this->newGroup(['id' => 2]);
         $group2 = $this->newGroup(['id' => 3]);
         $groups = collect([$group1, $group2]);
-        
-        $groupRepository = $this->prophesize(GroupRepository::class);
-        $groupRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn($groups);
-        $this->app->instance(GroupRepository::class, $groupRepository->reveal());
+
+        $user->addGroup($group1);
+        $user->addGroup($group2);
         
         $audienceMember = new AudienceMember($user);
-        $this->assertEquals($groups, $audienceMember->groups());
-        $this->assertEquals($groups, $audienceMember->groups());
+        $this->assertInstanceOf(Collection::class, $audienceMember->groups());
+        $this->assertCount(2, $audienceMember->groups());
+        $this->assertModelEquals($group1, $audienceMember->groups()[0]);
+        $this->assertModelEquals($group2, $audienceMember->groups()[1]);
     }
     
     /** @test */
@@ -36,13 +38,14 @@ class AudienceMemberTest extends TestCase
         $role2 = $this->newRole(['id' => 3]);
         $roles = collect([$role1, $role2]);
 
-        $roleRepository = $this->prophesize(RoleRepository::class);
-        $roleRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn($roles);
-        $this->app->instance(RoleRepository::class, $roleRepository->reveal());
-
+        $user->addRole($role1);
+        $user->addRole($role2);
+        
         $audienceMember = new AudienceMember($user);
-        $this->assertEquals($roles, $audienceMember->roles());
-        $this->assertEquals($roles, $audienceMember->roles());
+        $this->assertInstanceOf(Collection::class, $audienceMember->roles());
+        $this->assertCount(2, $audienceMember->roles());
+        $this->assertModelEquals($role1, $audienceMember->roles()[0]);
+        $this->assertModelEquals($role2, $audienceMember->roles()[1]);
     }
     
     /** @test */
@@ -58,13 +61,6 @@ class AudienceMemberTest extends TestCase
         $logic = factory(Logic::class)->create();
         $user = $this->newUser(['id' => 1]);
         
-        $groupRepository = $this->prophesize(GroupRepository::class);
-        $roleRepository = $this->prophesize(RoleRepository::class);
-        $roleRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn(collect());
-        $groupRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn(collect());
-        $this->app->instance(GroupRepository::class, $groupRepository->reveal());
-        $this->app->instance(RoleRepository::class, $roleRepository->reveal());
-        
         $audienceMember = new AudienceMember($user);
         
         $this->logicTester()->forLogic($logic)->pass($user);
@@ -73,8 +69,11 @@ class AudienceMemberTest extends TestCase
         $audienceMember->filterForLogic($logic);
         
         $this->assertTrue($audienceMember->canBeUser());
-        $this->assertEquals(collect(), $audienceMember->groups());
-        $this->assertEquals(collect(), $audienceMember->roles());
+        $this->assertInstanceOf(Collection::class, $audienceMember->roles());
+        $this->assertCount(0, $audienceMember->roles());
+        $this->assertInstanceOf(Collection::class, $audienceMember->groups());
+        $this->assertCount(0, $audienceMember->groups());
+
     }
 
     /** @test */
@@ -85,13 +84,9 @@ class AudienceMemberTest extends TestCase
         $group2 = $this->newGroup(['id' => 3]);
         $groups = collect([$group1, $group2]);
 
-        $groupRepository = $this->prophesize(GroupRepository::class);
-        $roleRepository = $this->prophesize(RoleRepository::class);
-        $roleRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn(collect());
-        $groupRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn($groups);
-        $this->app->instance(GroupRepository::class, $groupRepository->reveal());
-        $this->app->instance(RoleRepository::class, $roleRepository->reveal());
-
+        $user->addGroup($group1);
+        $user->addGroup($group2);
+        
         $audienceMember = new AudienceMember($user);
 
         $this->logicTester()->forLogic($logic)->pass($user, $group1);
@@ -100,8 +95,12 @@ class AudienceMemberTest extends TestCase
         $audienceMember->filterForLogic($logic);
 
         $this->assertFalse($audienceMember->canBeUser());
-        $this->assertEquals(collect([$group1]), $audienceMember->groups());
-        $this->assertEquals(collect(), $audienceMember->roles());
+        $this->assertInstanceOf(Collection::class, $audienceMember->roles());
+        $this->assertCount(0, $audienceMember->roles());
+        $this->assertInstanceOf(Collection::class, $audienceMember->groups());
+        $this->assertCount(1, $audienceMember->groups());
+        $this->assertModelEquals($group1, $audienceMember->groups()[0]);
+
     }
 
     /** @test */
@@ -112,13 +111,9 @@ class AudienceMemberTest extends TestCase
         $role2 = $this->newRole(['id' => 5]);
         $roles = collect([$role1, $role2]);
 
-        $groupRepository = $this->prophesize(GroupRepository::class);
-        $roleRepository = $this->prophesize(RoleRepository::class);
-        $roleRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn($roles);
-        $groupRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn(collect());
-        $this->app->instance(GroupRepository::class, $groupRepository->reveal());
-        $this->app->instance(RoleRepository::class, $roleRepository->reveal());
-
+        $user->addRole($role1);
+        $user->addRole($role2);
+        
         $audienceMember = new AudienceMember($user);
 
         $this->logicTester()->forLogic($logic)->pass($user, $role1->group(), $role1);
@@ -128,8 +123,11 @@ class AudienceMemberTest extends TestCase
         $audienceMember->filterForLogic($logic);
 
         $this->assertFalse($audienceMember->canBeUser());
-        $this->assertEquals(collect(), $audienceMember->groups());
-        $this->assertEquals(collect([$role1]), $audienceMember->roles());
+        $this->assertInstanceOf(Collection::class, $audienceMember->groups());
+        $this->assertCount(0, $audienceMember->groups());
+        $this->assertInstanceOf(Collection::class, $audienceMember->roles());
+        $this->assertCount(1, $audienceMember->roles());
+        $this->assertModelEquals($role1, $audienceMember->roles()[0]);
     }
 
 
@@ -137,13 +135,6 @@ class AudienceMemberTest extends TestCase
     public function hasAudience_returns_true_if_a_user_can_act_as_themselves(){
         $logic = factory(Logic::class)->create();
         $user = $this->newUser(['id' => 1]);
-
-        $groupRepository = $this->prophesize(GroupRepository::class);
-        $roleRepository = $this->prophesize(RoleRepository::class);
-        $roleRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn(collect());
-        $groupRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn(collect());
-        $this->app->instance(GroupRepository::class, $groupRepository->reveal());
-        $this->app->instance(RoleRepository::class, $roleRepository->reveal());
 
         $audienceMember = new AudienceMember($user);
 
@@ -153,8 +144,10 @@ class AudienceMemberTest extends TestCase
         $audienceMember->filterForLogic($logic);
 
         $this->assertTrue($audienceMember->canBeUser());
-        $this->assertEquals(collect(), $audienceMember->groups());
-        $this->assertEquals(collect(), $audienceMember->roles());
+        $this->assertInstanceOf(Collection::class, $audienceMember->groups());
+        $this->assertCount(0, $audienceMember->groups());
+        $this->assertInstanceOf(Collection::class, $audienceMember->roles());
+        $this->assertCount(0, $audienceMember->roles());
         $this->assertTrue($audienceMember->hasAudience());
     }
 
@@ -164,15 +157,10 @@ class AudienceMemberTest extends TestCase
         $user = $this->newUser(['id' => 1]);
         $group1 = $this->newGroup(['id' => 2]);
         $group2 = $this->newGroup(['id' => 3]);
-        $groups = collect([$group1, $group2]);
 
-        $groupRepository = $this->prophesize(GroupRepository::class);
-        $roleRepository = $this->prophesize(RoleRepository::class);
-        $roleRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn(collect());
-        $groupRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn($groups);
-        $this->app->instance(GroupRepository::class, $groupRepository->reveal());
-        $this->app->instance(RoleRepository::class, $roleRepository->reveal());
-
+        $user->addGroup($group1);
+        $user->addGroup($group2);
+            
         $audienceMember = new AudienceMember($user);
 
         $this->logicTester()->forLogic($logic)->pass($user, $group1);
@@ -183,9 +171,11 @@ class AudienceMemberTest extends TestCase
         $audienceMember->filterForLogic($logic);
 
         $this->assertFalse($audienceMember->canBeUser());
-        $this->assertEquals(collect([$group1]), $audienceMember->groups());
-        $this->assertEquals(collect(), $audienceMember->roles());
-        $this->assertTrue($audienceMember->hasAudience());
+        $this->assertInstanceOf(Collection::class, $audienceMember->roles());
+        $this->assertCount(0, $audienceMember->roles());
+        $this->assertInstanceOf(Collection::class, $audienceMember->groups());
+        $this->assertCount(1, $audienceMember->groups());
+        $this->assertModelEquals($group1, $audienceMember->groups()[0]);
     }
 
     /** @test */
@@ -196,13 +186,9 @@ class AudienceMemberTest extends TestCase
         $role2 = $this->newRole(['id' => 5]);
         $roles = collect([$role1, $role2]);
 
-        $groupRepository = $this->prophesize(GroupRepository::class);
-        $roleRepository = $this->prophesize(RoleRepository::class);
-        $roleRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn($roles);
-        $groupRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn(collect());
-        $this->app->instance(GroupRepository::class, $groupRepository->reveal());
-        $this->app->instance(RoleRepository::class, $roleRepository->reveal());
-
+        $user->addRole($role1);
+        $user->addRole($role2);
+        
         $audienceMember = new AudienceMember($user);
 
         $this->logicTester()->forLogic($logic)->pass($user, $role1->group(), $role1);
@@ -212,8 +198,11 @@ class AudienceMemberTest extends TestCase
         $audienceMember->filterForLogic($logic);
 
         $this->assertFalse($audienceMember->canBeUser());
-        $this->assertEquals(collect(), $audienceMember->groups());
-        $this->assertEquals(collect([$role1]), $audienceMember->roles());
+        $this->assertInstanceOf(Collection::class, $audienceMember->groups());
+        $this->assertCount(0, $audienceMember->groups());
+        $this->assertInstanceOf(Collection::class, $audienceMember->roles());
+        $this->assertCount(1, $audienceMember->roles());
+        $this->assertModelEquals($role1, $audienceMember->roles()[0]);
         $this->assertTrue($audienceMember->hasAudience());
     }
 
@@ -228,13 +217,11 @@ class AudienceMemberTest extends TestCase
         $groups = collect([$group1, $group2]);
         $roles = collect([$role1, $role2]);
 
-        $groupRepository = $this->prophesize(GroupRepository::class);
-        $roleRepository = $this->prophesize(RoleRepository::class);
-        $roleRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn($roles);
-        $groupRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn($groups);
-        $this->app->instance(GroupRepository::class, $groupRepository->reveal());
-        $this->app->instance(RoleRepository::class, $roleRepository->reveal());
-
+        $user->addRole($role1);
+        $user->addRole($role2);
+        $user->addGroup($group1);
+        $user->addGroup($group2);
+        
         $audienceMember = new AudienceMember($user);
 
         $this->logicTester()->forLogic($logic)->alwaysFail();
@@ -243,8 +230,10 @@ class AudienceMemberTest extends TestCase
         $audienceMember->filterForLogic($logic);
 
         $this->assertFalse($audienceMember->canBeUser());
-        $this->assertEquals(collect(), $audienceMember->groups());
-        $this->assertEquals(collect(), $audienceMember->roles());
+        $this->assertInstanceOf(Collection::class, $audienceMember->groups());
+        $this->assertCount(0, $audienceMember->groups());
+        $this->assertInstanceOf(Collection::class, $audienceMember->roles());
+        $this->assertCount(0, $audienceMember->roles());
         $this->assertFalse($audienceMember->hasAudience());
     }
     
@@ -259,37 +248,28 @@ class AudienceMemberTest extends TestCase
         $groups = collect([$group1, $group2]);
         $roles = collect([$role1, $role2]);
 
-        $groupRepository = $this->prophesize(GroupRepository::class);
-        $positionRepository = $this->prophesize(PositionRepository::class);
-        $roleRepository = $this->prophesize(RoleRepository::class);
-        $roleRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn($roles);
-        $groupRepository->allThroughUser($user)->shouldBeCalledTimes(1)->willReturn($groups);
-        $this->app->instance(GroupRepository::class, $groupRepository->reveal());
-        $this->app->instance(RoleRepository::class, $roleRepository->reveal());
-        $this->app->instance(PositionRepository::class, $positionRepository->reveal());
+        $user->addRole($role1);
+        $user->addRole($role2);
+        $user->addGroup($group1);
+        $user->addGroup($group2);
 
         $audienceMember = new AudienceMember($user);
 
-        $this->assertEquals([
-            'user' => $user,
-            'can_be_user' => true,
-            'groups' => $groups,
-            'roles' => $roles
-        ], $audienceMember->toArray());
-
-        $this->assertEquals(json_encode([
-            'user' => $user,
-            'can_be_user' => true,
-            'groups' => $groups,
-            'roles' => $roles
-        ]), $audienceMember->toJson());
-
-        $this->assertEquals(json_encode([
-            'user' => $user,
-            'can_be_user' => true,
-            'groups' => $groups,
-            'roles' => $roles
-        ]), (string) $audienceMember);
+        $this->assertArrayHasKey('user', $audienceMember->toArray());
+        $this->assertArrayHasKey('can_be_user', $audienceMember->toArray());
+        $this->assertArrayHasKey('groups', $audienceMember->toArray());
+        $this->assertArrayHasKey('roles', $audienceMember->toArray());
+        $this->assertModelEquals($user, $audienceMember->toArray()['user']);
+        $this->assertTrue($audienceMember->toArray()['can_be_user']);
+        $this->assertInstanceOf(Collection::class, $audienceMember->toArray()['groups']);
+        $this->assertCount(2, $audienceMember->toArray()['groups']);
+        $this->assertModelEquals($group1, $audienceMember->toArray()['groups'][0]);
+        $this->assertModelEquals($group2, $audienceMember->toArray()['groups'][1]);
+        $this->assertInstanceOf(Collection::class, $audienceMember->toArray()['roles']);
+        $this->assertCount(2, $audienceMember->toArray()['roles']);
+        $this->assertModelEquals($role1, $audienceMember->toArray()['roles'][0]);
+        $this->assertModelEquals($role2, $audienceMember->toArray()['roles'][1]);
+        
         
     }
     
