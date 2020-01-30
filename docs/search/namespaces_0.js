@@ -6,7 +6,7 @@ var searchData=
   ['activityinstance',['ActivityInstance',['../namespaceBristolSU_1_1Support_1_1ActivityInstance.html',1,'BristolSU::Support']]],
   ['audience',['Audience',['../namespaceBristolSU_1_1Support_1_1Logic_1_1Audience.html',1,'BristolSU\Support\Logic\Audience'],['../namespaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1Audience.html',1,'BristolSU\Support\Logic\Contracts\Audience']]],
   ['authentication',['Authentication',['../namespaceBristolSU_1_1Support_1_1Authentication.html',1,'BristolSU::Support']]],
-  ['authenticationprovider',['AuthenticationProvider',['../namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider.html',1,'BristolSU\Support\ActivityInstance\AuthenticationProvider'],['../namespaceBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider.html',1,'BristolSU\Support\Authentication\AuthenticationProvider']]],
+  ['authenticationprovider',['AuthenticationProvider',['../namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider.html',1,'BristolSU::Support::ActivityInstance']]],
   ['authorization',['Authorization',['../namespaceBristolSU_1_1Support_1_1Authorization.html',1,'BristolSU::Support']]],
   ['bristolsu',['BristolSU',['../namespaceBristolSU.html',1,'']]],
   ['client',['Client',['../namespaceBristolSU_1_1Support_1_1Connection_1_1Client.html',1,'BristolSU\Support\Connection\Client'],['../namespaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Client.html',1,'BristolSU\Support\Connection\Contracts\Client']]],

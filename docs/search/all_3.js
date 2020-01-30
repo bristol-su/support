@@ -6,7 +6,7 @@ var searchData=
   ['activityinstance',['ActivityInstance',['../namespaceBristolSU_1_1Support_1_1ActivityInstance.html',1,'BristolSU::Support']]],
   ['audience',['Audience',['../namespaceBristolSU_1_1Support_1_1Logic_1_1Audience.html',1,'BristolSU\Support\Logic\Audience'],['../namespaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1Audience.html',1,'BristolSU\Support\Logic\Contracts\Audience']]],
   ['authentication',['Authentication',['../namespaceBristolSU_1_1Support_1_1Authentication.html',1,'BristolSU::Support']]],
-  ['authenticationprovider',['AuthenticationProvider',['../namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider.html',1,'BristolSU\Support\ActivityInstance\AuthenticationProvider'],['../namespaceBristolSU_1_1Support_1_1Authentication_1_1AuthenticationProvider.html',1,'BristolSU\Support\Authentication\AuthenticationProvider']]],
+  ['authenticationprovider',['AuthenticationProvider',['../namespaceBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider.html',1,'BristolSU::Support::ActivityInstance']]],
   ['authorization',['Authorization',['../namespaceBristolSU_1_1Support_1_1Authorization.html',1,'BristolSU::Support']]],
   ['basedirectory',['baseDirectory',['../namespacefunction.html#ab321ee73993a4d056dab6a844200b6cf',1,'function']]],
   ['begroup',['beGroup',['../classBristolSU_1_1Support_1_1Testing_1_1HandlesAuthentication.html#a284f846b5a67b06b97084da73abf8e69',1,'BristolSU::Support::Testing::HandlesAuthentication']]],
