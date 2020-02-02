@@ -11,12 +11,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Bumped the control dependency to version 1 (stable)
+- Allow Module Instance Setting values to be null
+- Refresh the module builder instance in the factory
 
 ### Added
 - Laravel Session Authentication
 
 ### Removed
 - Laravel Web Authentication
+
 
 
 ## [1.0.1] - (23/01/2020)
