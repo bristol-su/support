@@ -53,7 +53,7 @@ class GroupTaggedTest extends TestCase
         $groupTag2 = $this->prophesize(GroupTagModelContract::class);
         $groupTag2->fullReference()->shouldBeCalled()->willReturn('reference.ref2');
 
-        $groupTagRepository->allThroughGroup($group->reveal())->shouldBeCalled()->willReturn(collect([
+        $group->tags()->shouldBeCalled()->willReturn(collect([
             $groupTag1->reveal(),
             $groupTag2->reveal()
         ]));
@@ -75,7 +75,7 @@ class GroupTaggedTest extends TestCase
         $groupTag2 = $this->prophesize(GroupTagModelContract::class);
         $groupTag2->fullReference()->shouldBeCalled()->willReturn('reference.ref2');
 
-        $groupTagRepository->allThroughGroup($group->reveal())->shouldBeCalled()->willReturn(collect([
+        $group->tags()->shouldBeCalled()->willReturn(collect([
             $groupTag1->reveal(),
             $groupTag2->reveal()
         ]));
@@ -88,11 +88,12 @@ class GroupTaggedTest extends TestCase
 
     /** @test */
     public function evaluate_returns_false_if_the_group_tag_repository_throws_an_error(){
+        $group = $this->prophesize(Group::class);
         $groupTagRepository = $this->prophesize(GroupTagRepositoryContract::class);
-        $groupTagRepository->allThroughGroup(Argument::any())->shouldBeCalled()->willThrow(new \Exception());
+        $group->tags()->shouldBeCalled()->willThrow(new \Exception());
 
         $groupTagFilter = new GroupTagged($groupTagRepository->reveal());
-        $groupTagFilter->setModel($this->newGroup());
+        $groupTagFilter->setModel($group->reveal());
         $this->assertFalse($groupTagFilter->evaluate(['tag' => 'reference.ref3']));
     }
 

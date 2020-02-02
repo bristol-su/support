@@ -5,6 +5,7 @@ namespace BristolSU\Support\Tests\Filters\Filters\Role;
 
 
 use BristolSU\ControlDB\Contracts\Repositories\Position as PositionRepository;
+use BristolSU\ControlDB\Models\DataPosition;
 use BristolSU\ControlDB\Models\Position;
 use BristolSU\ControlDB\Models\Role;
 use BristolSU\Support\Filters\Filters\Role\RoleHasPosition;
@@ -17,8 +18,10 @@ class RoleHasPositionTest extends TestCase
     public function it_returns_a_list_of_possible_positions(){
         $positionRepository = $this->prophesize(PositionRepository::class);
 
-        $position1 = new Position(['id' => 1, 'name' => 'Position 1']);
-        $position2 = new Position(['id' => 2, 'name' => 'Position 2']);
+        $dataPosition1 = factory(DataPosition::class)->create(['name' => 'Position 1']);
+        $dataPosition2 = factory(DataPosition::class)->create(['name' => 'Position 2']);
+        $position1 = factory(Position::class)->create(['id' => 1, 'data_provider_id' => $dataPosition1->id()]);
+        $position2 = factory(Position::class)->create(['id' => 2, 'data_provider_id' => $dataPosition2->id()]);
 
         $positionRepository->all()->shouldBeCalled()->willReturn(collect([$position1, $position2]));
 

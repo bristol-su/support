@@ -270,8 +270,7 @@ class PermissionTesterTest extends TestCase
     /** @test */
     public function evaluate_finds_the_correct_user_from_the_database_user_if_no_user_in_authentication()
     {
-        
-        $user = new \BristolSU\ControlDB\Models\User(['id' => 1]);
+        $user = $this->newUser(['id' => 1]);
         $authentication = $this->prophesize(Authentication::class);
         $authentication->getUser()->shouldBeCalled()->willReturn(null);
         $authentication->getGroup()->shouldBeCalled()->willReturn(null);

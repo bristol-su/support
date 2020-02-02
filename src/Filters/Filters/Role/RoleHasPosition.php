@@ -52,7 +52,7 @@ class RoleHasPosition extends RoleFilter
         $positions = $this->positionRepository->all();
         $options = ['position' => []];
         foreach ($positions as $position) {
-            $options['position'][$position->id] = $position->name;
+            $options['position'][$position->id()] = $position->data()->name();
         }
         return $options;
     }

@@ -40,8 +40,8 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
             return collect([$this->fromUser($resource)]);
         }
         if ($resource instanceof Group) {
-            return app(UserRepository::class)->allThroughGroup($resource)->merge(
-                app(RoleRepository::class)->allThroughGroup($resource)->map(function(Role $role) {
+            return $resource->members()->merge(
+                $resource->roles()->map(function(Role $role) {
                     return $role->users();
                 })->values()->flatten(1)
             )->unique(function($user) {
@@ -51,7 +51,7 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
             });
         }
         if ($resource instanceof Role) {
-            return collect(app(UserRepository::class)->allThroughRole($resource))->map(function($user) {
+            return $resource->users()->map(function($user) {
                 return $this->fromUser($user);
             });
         }
