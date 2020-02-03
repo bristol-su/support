@@ -2,9 +2,11 @@
 
 namespace BristolSU\Support\Tests\User;
 
+use BristolSU\ControlDB\Models\DataUser;
 use BristolSU\Support\User\UserRepository;
 use BristolSU\Support\User\User;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use BristolSU\Support\Tests\TestCase;
@@ -12,53 +14,43 @@ use BristolSU\Support\Tests\TestCase;
 class UserRepositoryTest extends TestCase
 {
     
+   
     /** @test */
-    public function getWhereIdentity_gets_a_user_by_email()
+    public function getFromControlId_gets_the_user_with_the_control_id()
     {
         $user = factory(User::class)->create();
 
         $userRepository = new UserRepository;
-        $this->assertModelEquals($user,
-            $userRepository->getWhereIdentity($user->email)
-        );
+        $resolvedUser = $userRepository->getFromControlId($user->control_id);
+        $this->assertInstanceOf(User::class, $resolvedUser);
+        $this->assertModelEquals($user, $resolvedUser);
     }
 
     /** @test */
-    public function getWhereIdentity_gets_a_user_by_student_id()
+    public function getFromControlId_throws_an_exception_if_no_user_found()
     {
-        $user = factory(User::class)->create();
+        $this->expectException(ModelNotFoundException::class);
 
         $userRepository = new UserRepository;
-        $this->assertModelEquals($user,
-            $userRepository->getWhereIdentity($user->student_id)
-        );
-    }
-
-    /** @test */
-    public function getWhereEmail_gets_all_users_with_given_email()
-    {
-        $user = factory(User::class)->create();
-
-        $userRepository = new UserRepository;
-        $users = $userRepository->getWhereEmail($user->email);
-        $this->assertInstanceOf(Collection::class, $users);
-        $this->assertModelEquals($user, $users->first());
+        $resolvedUser = $userRepository->getFromControlId(6);
     }
 
     /** @test */
     public function create_creates_a_user()
     {
         $userParams = [
-            'forename' => 'firstname',
-            'surname' => 'lastname',
-            'email' => 'email',
+            'control_id' => 1,
+            'auth_provider' => 'facebook',
+            'auth_provider_id' => 5000
         ];
 
         $userRepository = new UserRepository;
         $user = $userRepository->create($userParams);
 
         $this->assertInstanceOf(User::class, $user);
-        $this->assertEquals('firstname', $user->forename);
+        $this->assertEquals(1, $user->controlId());
+        $this->assertEquals('facebook', $user->auth_provider);
+        $this->assertEquals(5000, $user->auth_provider_id);
 
         $this->assertDatabaseHas('users', $userParams);
     }
@@ -74,5 +66,45 @@ class UserRepositoryTest extends TestCase
         foreach($users as $user) {
             $this->assertModelEquals($user, $allUsers->shift());
         }
+    }
+
+    /** @test */
+    public function getWhereEmail_throws_an_exception_if_no_data_user_found(){
+        $this->expectException(ModelNotFoundException::class);
+
+        $userRepository = new UserRepository;
+        $resolvedUser = $userRepository->getWhereEmail('tobytwigger@example.com');
+    }
+
+    /** @test */
+    public function getWhereEmail_throws_an_exception_if_no_control_user_found(){
+        $this->expectException(ModelNotFoundException::class);
+
+        $dataUser = factory(DataUser::class)->create(['email' => 'tobytwigger@example.com']);
+
+        $userRepository = new UserRepository;
+        $resolvedUser = $userRepository->getWhereEmail('tobytwigger@example.com');
+    }
+
+    /** @test */
+    public function getWhereEmail_throws_an_exception_if_no_user_found(){
+        $this->expectException(ModelNotFoundException::class);
+
+        $dataUser = factory(DataUser::class)->create(['email' => 'tobytwigger@example.com']);
+        $controlUser = factory(\BristolSU\ControlDB\Models\User::class)->create(['data_provider_id' => $dataUser->id()]);
+
+        $userRepository = new UserRepository;
+        $resolvedUser = $userRepository->getWhereEmail('tobytwigger@example.com');
+    }
+
+    /** @test */
+    public function getWhereEmail_returns_a_user_with_a_given_email(){
+        $dataUser = factory(DataUser::class)->create(['email' => 'tobytwigger@example.com']);
+        $controlUser = factory(\BristolSU\ControlDB\Models\User::class)->create(['data_provider_id' => $dataUser->id()]);
+        $user = factory(User::class)->create(['control_id' => $controlUser->id()]);
+
+        $userRepository = new UserRepository;
+        $resolvedUser = $userRepository->getWhereEmail('tobytwigger@example.com');
+        $this->assertModelEquals($user, $resolvedUser);
     }
 }

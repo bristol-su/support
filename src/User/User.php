@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
      * @var array
      */
     protected $fillable = [
-        'forename', 'surname', 'email', 'student_id', 'control_id'
+        'control_id', 'auth_provider', 'auth_provider_id'
     ];
 
     /**
@@ -30,7 +30,16 @@ class User extends Authenticatable implements MustVerifyEmailContract
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 'auth_provider', 'auth_provider_id'
     ];
 
+    public function controlId()
+    {
+        return $this->control_id;
+    }
+
+    public function controlUser()
+    {
+        return app(\BristolSU\ControlDB\Contracts\Repositories\User::class)->getById($this->controlId());
+    }
 }

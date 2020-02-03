@@ -2,7 +2,9 @@
 
 namespace BristolSU\Support\User;
 
+use BristolSU\ControlDB\Contracts\Repositories\DataUser;
 use BristolSU\Support\User\Contracts\UserRepository as UserRepositoryContract;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
 /**
@@ -12,50 +14,6 @@ class UserRepository implements UserRepositoryContract
 {
 
     /**
-     * Get a user where their identity matches the argument. An identity can be qualified as a student ID or email
-     *
-     * @param string $identity Student ID or email address of the user
-     * @return User|null
-     */
-    public function getWhereIdentity($identity)
-    {
-        return User::where('email', $identity)
-            ->orWhere('student_id', $identity)
-            ->first();
-    }
-
-    /**
-     * Get a user matching the given email address
-     *
-     * @param string $email Email address of the user
-     * @return User|null
-     */
-    public function getWhereEmail($email)
-    {
-        return User::where('email', $email)->get();
-    }
-
-    /**
-     * Create a user.
-     *
-     * Attributes should be those in the database
-     * [
-     *      'forename' => 'Forename',
-     *      'surname' => 'Surname',
-     *      'email' => 'email@example.com',
-     *      'student_id' => 'student id',
-     *      'control_id' => 1 // ID of the control user model representing the user
-     * ]
-     *
-     * @param array $attributes Attributes to create the user with
-     * @return User
-     */
-    public function create(array $attributes)
-    {
-        return User::create($attributes);
-    }
-
-    /**
      * Get all users registered in the database
      *
      * @return User[]|Collection
@@ -63,5 +21,49 @@ class UserRepository implements UserRepositoryContract
     public function all()
     {
         return User::all();
+    }
+
+    /**
+     * Get a user matching the given control ID
+     *
+     * @param int $controlId Control ID of the user
+     * @return User
+     * @throws ModelNotFoundException
+     */
+    public function getFromControlId(int $controlId): User
+    {
+        return User::where('control_id', $controlId)->firstOrFail();
+    }
+
+    /**
+     * Create a user.
+     *
+     * Attributes should be those in the database
+     * [
+     *      'control_id' => 1, // ID of the control user model representing the user
+     *      'auth_provider' => 'facebook',
+     *      'auth_provider_id' => fjsdfs
+     * ];
+     *
+     * @param array $attributes Attributes to create the user with
+     * @return User
+     */
+    public function create(array $attributes): User
+    {
+        return User::create($attributes);
+    }
+
+    /**
+     * Get a user matching the given email address
+     *
+     * @param string $email Email address of the user
+     * @return User
+     * @throws ModelNotFoundException
+     */
+    public function getWhereEmail($email): User
+    {
+        $dataUser = app(DataUser::class)->getWhere(['email' => $email]);
+        $controlUser = app(\BristolSU\ControlDB\Contracts\Repositories\User::class)->getByDataProviderId($dataUser->id());
+        return $this->getFromControlId($controlUser->id());
     }
 }
