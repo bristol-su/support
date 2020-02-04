@@ -33,5 +33,18 @@ class UserWebAuthenticationTest extends TestCase
         $auth = resolve(UserWebAuthentication::class);
         $this->assertNull($auth->getUser());
     }
+
+    /** @test */
+    public function logout_logs_a_user_out()
+    {
+        $user = factory(User::class)->create();
+        $this->be($user);
+        $this->assertAuthenticatedAs($user, 'web');
+
+        $auth = resolve(UserWebAuthentication::class);
+        $auth->logout();
+
+        $this->assertGuest();
+    }
     
 }

@@ -48,5 +48,14 @@ class UserWebAuthentication implements UserAuthentication
     {
         $this->auth->guard('web')->login($user);
     }
-    
+
+    /**
+     * Log out of the current user
+     *
+     * @return void
+     */
+    public function logout(): void
+    {
+        $this->auth->guard('web')->logout();
+    }
 }
