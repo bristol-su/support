@@ -21,6 +21,7 @@ var searchData=
   ['logictesterresult_2ephp',['LogicTesterResult.php',['../LogicTesterResult_8php.html',1,'']]],
   ['logintoactivityinstance',['LogIntoActivityInstance',['../classBristolSU_1_1Support_1_1ActivityInstance_1_1Middleware_1_1LogIntoActivityInstance.html',1,'BristolSU::Support::ActivityInstance::Middleware']]],
   ['logintoactivityinstance_2ephp',['LogIntoActivityInstance.php',['../LogIntoActivityInstance_8php.html',1,'']]],
+  ['logout',['logout',['../interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserAuthentication.html#a75f8ce299a4d8f3d4d7d1ac6773919a3',1,'BristolSU\Support\User\Contracts\UserAuthentication\logout()'],['../classBristolSU_1_1Support_1_1User_1_1UserApiAuthentication.html#a024516f9cec5aa8106dbdc1ee87e8768',1,'BristolSU\Support\User\UserApiAuthentication\logout()'],['../classBristolSU_1_1Support_1_1User_1_1UserWebAuthentication.html#a127a6e239ae326d1447daf619f590c8f',1,'BristolSU\Support\User\UserWebAuthentication\logout()']]],
   ['logoutofextras',['LogoutOfExtras',['../classBristolSU_1_1Support_1_1Authorization_1_1Middleware_1_1LogoutOfExtras.html',1,'BristolSU::Support::Authorization::Middleware']]],
   ['logoutofextras_2ephp',['LogoutOfExtras.php',['../LogoutOfExtras_8php.html',1,'']]]
 ];
