@@ -21,7 +21,5 @@ $factory->define(User::class, function(Faker $faker) {
         'control_id' => function() {
             return factory(\BristolSU\ControlDB\Models\User::class)->create()->id();
         },
-        'auth_provider' => null,
-        'auth_provider_id' => null
     ];
 });

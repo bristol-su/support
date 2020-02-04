@@ -35,8 +35,6 @@ interface UserRepository
      * Attributes should be those in the database
      * [
      *      'control_id' => 1, // ID of the control user model representing the user
-     *      'auth_provider' => 'facebook',
-     *      'auth_provider_id' => fjsdfs
      * ];
      *
      * @param array $attributes Attributes to create the user with

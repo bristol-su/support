@@ -40,8 +40,6 @@ class UserRepositoryTest extends TestCase
     {
         $userParams = [
             'control_id' => 1,
-            'auth_provider' => 'facebook',
-            'auth_provider_id' => 5000
         ];
 
         $userRepository = new UserRepository;
@@ -49,8 +47,6 @@ class UserRepositoryTest extends TestCase
 
         $this->assertInstanceOf(User::class, $user);
         $this->assertEquals(1, $user->controlId());
-        $this->assertEquals('facebook', $user->auth_provider);
-        $this->assertEquals(5000, $user->auth_provider_id);
 
         $this->assertDatabaseHas('users', $userParams);
     }

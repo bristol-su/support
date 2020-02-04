@@ -21,7 +21,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
      * @var array
      */
     protected $fillable = [
-        'control_id', 'auth_provider', 'auth_provider_id'
+        'control_id'
     ];
 
     /**
@@ -30,7 +30,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token', 'auth_provider', 'auth_provider_id'
+        'password', 'remember_token'
     ];
 
     public function controlId()
