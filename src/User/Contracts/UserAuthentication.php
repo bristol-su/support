@@ -24,5 +24,12 @@ interface UserAuthentication
      * @return void
      */
     public function setUser(User $user);
+
+    /**
+     * Log out of the current user
+     * 
+     * @return void
+     */
+    public function logout(): void;
     
 }

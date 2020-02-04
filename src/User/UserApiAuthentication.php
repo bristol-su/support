@@ -49,4 +49,15 @@ class UserApiAuthentication implements UserAuthentication
     {
         throw new \Exception('Cannot set an API user');
     }
+
+    /**
+     * Log out of the current user
+     *
+     * @return void
+     * @throws \Exception
+     */
+    public function logout(): void
+    {
+        throw new \Exception('Cannot log out an API user');
+    }
 }

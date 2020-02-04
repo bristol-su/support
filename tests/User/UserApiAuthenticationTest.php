@@ -30,6 +30,7 @@ class UserApiAuthenticationTest extends TestCase
         $auth = new UserApiAuthentication($factory->reveal());
         $this->assertNull($auth->getUser());
     }
+
     /** @test */
     public function setUser_throws_an_exception(){
         $this->expectException(\Exception::class);
@@ -41,4 +42,13 @@ class UserApiAuthenticationTest extends TestCase
         $auth->setUser($user);
     }
 
+    /** @test */
+    public function logout_throws_an_exception(){
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Cannot log out an API user');
+
+        $auth = new UserApiAuthentication($this->prophesize(Factory::class)->reveal());
+        $auth->logout();
+    }
+    
 }

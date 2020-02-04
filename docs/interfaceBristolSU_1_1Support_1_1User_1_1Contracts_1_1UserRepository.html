@@ -80,19 +80,21 @@ Inheritance diagram for BristolSU\Support\User\Contracts\UserRepository:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a13c5b16f48414d29627313a88d250dac"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html#a13c5b16f48414d29627313a88d250dac">getWhereIdentity</a> ($identity)</td></tr>
-<tr class="separator:a13c5b16f48414d29627313a88d250dac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3af4fbc3bf9d1a183a24ab690ed0adde"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html#a3af4fbc3bf9d1a183a24ab690ed0adde">getWhereEmail</a> ($email)</td></tr>
 <tr class="separator:a3af4fbc3bf9d1a183a24ab690ed0adde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47e70481f3eeb587c5bd279d224b5c12"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html#a47e70481f3eeb587c5bd279d224b5c12">getFromControlId</a> (int $controlId)</td></tr>
+<tr class="separator:a47e70481f3eeb587c5bd279d224b5c12"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab8ed8959da9b1a0fae23ea77a11c4be1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html#ab8ed8959da9b1a0fae23ea77a11c4be1">create</a> (array $attributes)</td></tr>
 <tr class="separator:ab8ed8959da9b1a0fae23ea77a11c4be1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a983fa9f8a04589254e22ece925c19a8b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html#a983fa9f8a04589254e22ece925c19a8b">all</a> ()</td></tr>
 <tr class="separator:a983fa9f8a04589254e22ece925c19a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aaae4038d26dd53f8ba8eed32a1606b07"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html#aaae4038d26dd53f8ba8eed32a1606b07">getFromRememberToken</a> (string $token)</td></tr>
+<tr class="separator:aaae4038d26dd53f8ba8eed32a1606b07"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handle creating and retrieving users from the database </p>
 
-<p class="definition">Definition at line <a class="el" href="Contracts_2UserRepository_8php_source.html#l00013">13</a> of file <a class="el" href="Contracts_2UserRepository_8php_source.html">UserRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Contracts_2UserRepository_8php_source.html#l00012">12</a> of file <a class="el" href="Contracts_2UserRepository_8php_source.html">UserRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a983fa9f8a04589254e22ece925c19a8b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a983fa9f8a04589254e22ece925c19a8b">&#9670;&nbsp;</a></span>all()</h2>
@@ -131,7 +133,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Create a user.</p>
-<p>Attributes should be those in the database [ 'forename' =&gt; 'Forename', 'surname' =&gt; 'Surname', 'email' =&gt; '<a href="#" onclick="location.href='mai'+'lto:'+'ema'+'il'+'@ex'+'am'+'ple'+'.c'+'om'; return false;">email<span style="display: none;">.nosp@m.</span>@exa<span style="display: none;">.nosp@m.</span>mple.<span style="display: none;">.nosp@m.</span>com</a>', 'student_id' =&gt; 'student id', 'control_id' =&gt; 1 // ID of the control user model representing the user ]</p>
+<p>Attributes should be those in the database [ 'control_id' =&gt; 1, // ID of the control user model representing the user ];</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td>Attributes to create the user with </td></tr>
@@ -141,6 +143,68 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html">User</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserRepository.html#afbeface3ea520e9d51603dfe2c871a18">BristolSU\Support\User\UserRepository</a>.</p>
+
+</div>
+</div>
+<a id="a47e70481f3eeb587c5bd279d224b5c12"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47e70481f3eeb587c5bd279d224b5c12">&#9670;&nbsp;</a></span>getFromControlId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\User\Contracts\UserRepository::getFromControlId </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$controlId</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get a user matching the given control ID</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$controlId</td><td>Control ID of the user </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html">User</a> </dd></dl>
+
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserRepository.html#a93899cd9ffaa9b88376cac2b44cf22e9">BristolSU\Support\User\UserRepository</a>.</p>
+
+</div>
+</div>
+<a id="aaae4038d26dd53f8ba8eed32a1606b07"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aaae4038d26dd53f8ba8eed32a1606b07">&#9670;&nbsp;</a></span>getFromRememberToken()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\User\Contracts\UserRepository::getFromRememberToken </td>
+          <td>(</td>
+          <td class="paramtype">string&#160;</td>
+          <td class="paramname"><em>$token</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get a user by remember token</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$token</td><td>Remember token </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html">User</a> </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ModelNotFoundException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserRepository.html#a5a665189e19d1610717957a0d7fb94fd">BristolSU\Support\User\UserRepository</a>.</p>
 
 </div>
 </div>
@@ -159,44 +223,16 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Get a user matching the given email address</p>
+<p>Get a user matching the given email address.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$email</td><td>Email address of the user </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>User|null </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html">User</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserRepository.html#aad5fcd82f5db14bff393ecbd0cbf6313">BristolSU\Support\User\UserRepository</a>.</p>
-
-</div>
-</div>
-<a id="a13c5b16f48414d29627313a88d250dac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a13c5b16f48414d29627313a88d250dac">&#9670;&nbsp;</a></span>getWhereIdentity()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">BristolSU\Support\User\Contracts\UserRepository::getWhereIdentity </td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>$identity</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Get a user where their identity matches the argument. An identity can be qualified as a student ID or email</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$identity</td><td>Student ID or email address of the user </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>User|null </dd></dl>
-
-<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserRepository.html#ab347f7dbfceb5049768230a6720ae927">BristolSU\Support\User\UserRepository</a>.</p>
 
 </div>
 </div>

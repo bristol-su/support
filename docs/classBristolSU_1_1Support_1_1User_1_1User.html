@@ -63,6 +63,7 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="classBristolSU_1_1Support_1_1User_1_1User-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -80,6 +81,13 @@ Collaboration diagram for BristolSU\Support\User\User:</div>
 <div class="center"><img src="classBristolSU_1_1Support_1_1User_1_1User__coll__graph.png" border="0" usemap="#BristolSU_0CSupport_0CUser_0CUser_coll__map" alt="Collaboration graph"/></div>
 <center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a0405e00fe38e27a08aa2616a2542096d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html#a0405e00fe38e27a08aa2616a2542096d">controlId</a> ()</td></tr>
+<tr class="separator:a0405e00fe38e27a08aa2616a2542096d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3657148ec45d0e1ea89cf1729283f4a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html#aa3657148ec45d0e1ea89cf1729283f4a">controlUser</a> ()</td></tr>
+<tr class="separator:aa3657148ec45d0e1ea89cf1729283f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:a093fe4dd5827a3cca6d2b926b0006820"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html#a093fe4dd5827a3cca6d2b926b0006820">$fillable</a></td></tr>
@@ -91,7 +99,50 @@ Protected Attributes</h2></td></tr>
 <div class="textblock"><p>Represents a user in the database </p>
 
 <p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00014">14</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
+<a id="a0405e00fe38e27a08aa2616a2542096d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0405e00fe38e27a08aa2616a2542096d">&#9670;&nbsp;</a></span>controlId()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\User\User::controlId </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00036">36</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="User_8php_source.html#l00041">BristolSU\Support\User\User\controlUser()</a>.</p>
+
+</div>
+</div>
+<a id="aa3657148ec45d0e1ea89cf1729283f4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3657148ec45d0e1ea89cf1729283f4a">&#9670;&nbsp;</a></span>controlUser()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\User\User::controlUser </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00041">41</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
+
+<p class="reference">References <a class="el" href="User_8php_source.html#l00036">BristolSU\Support\User\User\controlId()</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
 <a id="a093fe4dd5827a3cca6d2b926b0006820"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a093fe4dd5827a3cca6d2b926b0006820">&#9670;&nbsp;</a></span>$fillable</h2>
 
@@ -111,7 +162,7 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= [</div><div class="line">        <span class="stringliteral">&#39;forename&#39;</span>, <span class="stringliteral">&#39;surname&#39;</span>, <span class="stringliteral">&#39;email&#39;</span>, <span class="stringliteral">&#39;student_id&#39;</span>, <span class="stringliteral">&#39;control_id&#39;</span></div><div class="line">    ]</div></div><!-- fragment -->
+<b>Initial value:</b><div class="fragment"><div class="line">= [</div><div class="line">        <span class="stringliteral">&#39;control_id&#39;</span></div><div class="line">    ]</div></div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00023">23</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
 
 </div>
@@ -135,7 +186,7 @@ Protected Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
-<b>Initial value:</b><div class="fragment"><div class="line">= [</div><div class="line">        <span class="stringliteral">&#39;password&#39;</span>, <span class="stringliteral">&#39;remember_token&#39;</span>,</div><div class="line">    ]</div></div><!-- fragment -->
+<b>Initial value:</b><div class="fragment"><div class="line">= [</div><div class="line">        <span class="stringliteral">&#39;password&#39;</span>, <span class="stringliteral">&#39;remember_token&#39;</span></div><div class="line">    ]</div></div><!-- fragment -->
 <p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00032">32</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
 
 </div>

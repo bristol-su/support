@@ -16,11 +16,10 @@ use Faker\Generator as Faker;
 
 $factory->define(User::class, function(Faker $faker) {
     return [
-        'forename' => $faker->firstName,
-        'surname' => $faker->lastName,
-        'email' => $faker->email,
         'email_verified_at' => now(),
-        'password' => '$2y$10$TKh8H1.PfQx37YgCzwiKb.KjNyWgaHb9cbcoQgdIVFlYg7B77UdFm', // secret
-        'control_id' => $faker->numberBetween(1, 10000000)
+        'password' => \Illuminate\Support\Facades\Hash::make('secret'),
+        'control_id' => function() {
+            return factory(\BristolSU\ControlDB\Models\User::class)->create()->id();
+        },
     ];
 });
