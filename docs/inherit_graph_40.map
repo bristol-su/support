@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Connector.html" title="BristolSU\\Support\\Connection\l\\Contracts\\Connector" alt="" coords="5,5,203,47"/>
+<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1ConnectorFactory.html" title="BristolSU\\Support\\Connection\l\\Contracts\\ConnectorFactory" alt="" coords="5,5,203,47"/>
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Connection_1_1ConnectorFactory.html" title="BristolSU\\Support\\Connection\l\\ConnectorFactory" alt="" coords="251,5,448,47"/>
 </map>

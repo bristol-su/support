@@ -1,5 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1Authentication_1_1Contracts_1_1Authentication.html" title="BristolSU\\Support\\Authentication\l\\Contracts\\Authentication" alt="" coords="5,39,220,80"/>
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Authentication_1_1ApiAuthentication.html" title="BristolSU\\Support\\Authentication\l\\ApiAuthentication" alt="" coords="268,5,483,47"/>
-<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Authentication_1_1WebAuthentication.html" title="BristolSU\\Support\\Authentication\l\\WebAuthentication" alt="" coords="268,71,483,112"/>
+<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1Authentication_1_1Contracts_1_1ResourceIdGenerator.html" title="BristolSU\\Support\\Authentication\l\\Contracts\\ResourceIdGenerator" alt="" coords="5,5,220,47"/>
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Authentication_1_1AuthenticationResourceIdGenerator.html" title="BristolSU\\Support\\Authentication\l\\AuthenticationResourceIdGenerator" alt="" coords="268,5,501,47"/>
 </map>
