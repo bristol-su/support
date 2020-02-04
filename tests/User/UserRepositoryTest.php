@@ -103,4 +103,24 @@ class UserRepositoryTest extends TestCase
         $resolvedUser = $userRepository->getWhereEmail('tobytwigger@example.com');
         $this->assertModelEquals($user, $resolvedUser);
     }
+
+    /** @test */
+    public function getFromRememberToken_gets_the_user_with_the_control_id()
+    {
+        $user = factory(User::class)->create(['remember_token' => 'abc123']);
+
+        $userRepository = new UserRepository;
+        $resolvedUser = $userRepository->getFromRememberToken('abc123');
+        $this->assertInstanceOf(User::class, $resolvedUser);
+        $this->assertModelEquals($user, $resolvedUser);
+    }
+
+    /** @test */
+    public function getFromRememberToken_throws_an_exception_if_no_user_found()
+    {
+        $this->expectException(ModelNotFoundException::class);
+
+        $userRepository = new UserRepository;
+        $resolvedUser = $userRepository->getFromrememberToken('abc1234');
+    }
 }

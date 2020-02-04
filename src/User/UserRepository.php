@@ -64,4 +64,16 @@ class UserRepository implements UserRepositoryContract
         $controlUser = app(\BristolSU\ControlDB\Contracts\Repositories\User::class)->getByDataProviderId($dataUser->id());
         return $this->getFromControlId($controlUser->id());
     }
+
+    /**
+     * Get a user by remember token
+     *
+     * @param string $token Remember token
+     * @return User
+     * @throws ModelNotFoundException
+     */
+    public function getFromRememberToken(string $token): User 
+    {
+        return User::where('remember_token', $token)->firstOrFail();
+    }
 }

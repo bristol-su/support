@@ -1,10 +1,9 @@
 <?php
 
-
 namespace BristolSU\Support\User\Contracts;
 
-
 use BristolSU\Support\User\User;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
 /**
@@ -14,13 +13,13 @@ interface UserRepository
 {
 
     /**
-     * Get a user matching the given email address
+     * Get a user matching the given email address.
      * 
      * @param string $email Email address of the user
      * @return User
      */
     public function getWhereEmail($email): User;
-
+    
     /**
      * Get a user matching the given control ID
      *
@@ -48,5 +47,14 @@ interface UserRepository
      * @return User[]|Collection
      */
     public function all();
+
+    /**
+     * Get a user by remember token
+     * 
+     * @param string $token Remember token
+     * @return User
+     * @throws ModelNotFoundException
+     */
+    public function getFromRememberToken(string $token): User;
 
 }
