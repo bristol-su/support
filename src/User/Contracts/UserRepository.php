@@ -57,4 +57,12 @@ interface UserRepository
      */
     public function getFromRememberToken(string $token): User;
 
+    /**
+     * Get a user by ID
+     * 
+     * @param int $id ID of the user
+     * @return User
+     * @throws ModelNotFoundException
+     */
+    public function getById(int $id): User;
 }

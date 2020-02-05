@@ -76,4 +76,12 @@ class UserRepository implements UserRepositoryContract
     {
         return User::where('remember_token', $token)->firstOrFail();
     }
+
+    /**
+     * @inheritDoc
+     */
+    public function getById(int $id): User
+    {
+        return User::findOrFail($id);
+    }
 }

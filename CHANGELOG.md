@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - .gitattributes file
+- \BristolSU\Support\User\UserRepository::getById method for retrieving a user by ID
 
 ## [2.0.1] - (05/02/2020)
 
