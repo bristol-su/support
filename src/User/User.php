@@ -55,6 +55,11 @@ class User extends Authenticatable implements MustVerifyEmailContract
         return app(\BristolSU\ControlDB\Contracts\Repositories\User::class)->getById($this->controlId());
     }
 
+    /**
+     * Get the user email to send a notification to
+     * 
+     * @return string|null
+     */
     public function routeNotificationForMail()
     {
         return $this->controlUser()->data()->email();
