@@ -87,6 +87,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a0405e00fe38e27a08aa2616a2542096d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa3657148ec45d0e1ea89cf1729283f4a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html#aa3657148ec45d0e1ea89cf1729283f4a">controlUser</a> ()</td></tr>
 <tr class="separator:aa3657148ec45d0e1ea89cf1729283f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ce4a3aecfc8b566a9134e3dbda408a4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html#a3ce4a3aecfc8b566a9134e3dbda408a4">routeNotificationForMail</a> ()</td></tr>
+<tr class="separator:a3ce4a3aecfc8b566a9134e3dbda408a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
@@ -98,7 +100,7 @@ Protected Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Represents a user in the database </p>
 
-<p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00014">14</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00016">16</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0405e00fe38e27a08aa2616a2542096d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0405e00fe38e27a08aa2616a2542096d">&#9670;&nbsp;</a></span>controlId()</h2>
@@ -114,10 +116,12 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the ID of the control</p>
+<dl class="section return"><dt>Returns</dt><dd>int </dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00036">36</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00043">43</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="User_8php_source.html#l00041">BristolSU\Support\User\User\controlUser()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="User_8php_source.html#l00053">BristolSU\Support\User\User\controlUser()</a>.</p>
 
 </div>
 </div>
@@ -135,10 +139,37 @@ Protected Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Get the control user attached to this database user</p>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
 
-<p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00041">41</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00053">53</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
 
-<p class="reference">References <a class="el" href="User_8php_source.html#l00036">BristolSU\Support\User\User\controlId()</a>.</p>
+<p class="reference">References <a class="el" href="User_8php_source.html#l00043">BristolSU\Support\User\User\controlId()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="User_8php_source.html#l00063">BristolSU\Support\User\User\routeNotificationForMail()</a>.</p>
+
+</div>
+</div>
+<a id="a3ce4a3aecfc8b566a9134e3dbda408a4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ce4a3aecfc8b566a9134e3dbda408a4">&#9670;&nbsp;</a></span>routeNotificationForMail()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\User\User::routeNotificationForMail </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get the user email to send a notification to</p>
+<dl class="section return"><dt>Returns</dt><dd>string|null </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00063">63</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
+
+<p class="reference">References <a class="el" href="User_8php_source.html#l00053">BristolSU\Support\User\User\controlUser()</a>.</p>
 
 </div>
 </div>
@@ -163,7 +194,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= [</div><div class="line">        <span class="stringliteral">&#39;control_id&#39;</span></div><div class="line">    ]</div></div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00023">23</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00025">25</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
 
 </div>
 </div>
@@ -187,7 +218,7 @@ Protected Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 <b>Initial value:</b><div class="fragment"><div class="line">= [</div><div class="line">        <span class="stringliteral">&#39;password&#39;</span>, <span class="stringliteral">&#39;remember_token&#39;</span></div><div class="line">    ]</div></div><!-- fragment -->
-<p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00032">32</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="User_8php_source.html#l00034">34</a> of file <a class="el" href="User_8php_source.html">User.php</a>.</p>
 
 </div>
 </div>

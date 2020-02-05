@@ -35,5 +35,6 @@ var searchData=
   ['retrievebytoken',['retrieveByToken',['../classBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider_1_1ActivityInstanceProvider.html#a49508f7cfce7ef7176f5600ad78fa64c',1,'BristolSU::Support::ActivityInstance::AuthenticationProvider::ActivityInstanceProvider']]],
   ['role',['role',['../classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1RoleFilter.html#a7ed9541d60cc41e7fd7397049317b99c',1,'BristolSU::Support::Filters::Contracts::Filters::RoleFilter']]],
   ['roleaudience',['roleAudience',['../classBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1Audience_1_1LogicAudience.html#ab40bc1b5cb5572ce2eaa3b7fe373698b',1,'BristolSU::Support::Logic::Contracts::Audience::LogicAudience']]],
-  ['roles',['roles',['../classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMember.html#a88f69e9bbaeb9a4e37e70dad87aa945a',1,'BristolSU::Support::Logic::Audience::AudienceMember']]]
+  ['roles',['roles',['../classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMember.html#a88f69e9bbaeb9a4e37e70dad87aa945a',1,'BristolSU::Support::Logic::Audience::AudienceMember']]],
+  ['routenotificationformail',['routeNotificationForMail',['../classBristolSU_1_1Support_1_1User_1_1User.html#a3ce4a3aecfc8b566a9134e3dbda408a4',1,'BristolSU::Support::User::User']]]
 ];
