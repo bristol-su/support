@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.1] - (05/02/2020)
+
+### Added
+- Integration to use a user as a notifiable in the laravel framework, for mail  
+
 ## [2.0] - (04/02/2020)
 
 ### Added
@@ -49,7 +54,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/support/compare/v2.0...HEAD
+[Unreleased]: https://github.com/bristol-su/support/compare/v2.0.1...HEAD
+[2.0.1]: https://github.com/bristol-su/support/compare/v2.0...v2.0.1
 [2.0]: https://github.com/bristol-su/support/compare/v1.1...v2.0
 [1.1]: https://github.com/bristol-su/support/compare/v1.0.1...v1.1
 [1.0.1]: https://github.com/bristol-su/support/compare/v1.0...v1.0.1

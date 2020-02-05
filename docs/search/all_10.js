@@ -48,5 +48,6 @@ var searchData=
   ['rolefilter_2ephp',['RoleFilter.php',['../RoleFilter_8php.html',1,'']]],
   ['rolehasposition',['RoleHasPosition',['../classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Role_1_1RoleHasPosition.html',1,'BristolSU::Support::Filters::Filters::Role']]],
   ['rolehasposition_2ephp',['RoleHasPosition.php',['../RoleHasPosition_8php.html',1,'']]],
-  ['roles',['roles',['../classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMember.html#a88f69e9bbaeb9a4e37e70dad87aa945a',1,'BristolSU::Support::Logic::Audience::AudienceMember']]]
+  ['roles',['roles',['../classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMember.html#a88f69e9bbaeb9a4e37e70dad87aa945a',1,'BristolSU::Support::Logic::Audience::AudienceMember']]],
+  ['routenotificationformail',['routeNotificationForMail',['../classBristolSU_1_1Support_1_1User_1_1User.html#a3ce4a3aecfc8b566a9134e3dbda408a4',1,'BristolSU::Support::User::User']]]
 ];
