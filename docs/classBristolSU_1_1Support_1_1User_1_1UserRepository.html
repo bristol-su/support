@@ -98,6 +98,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aad5fcd82f5db14bff393ecbd0cbf6313"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5a665189e19d1610717957a0d7fb94fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserRepository.html#a5a665189e19d1610717957a0d7fb94fd">getFromRememberToken</a> (string $token)</td></tr>
 <tr class="separator:a5a665189e19d1610717957a0d7fb94fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a080c4fa6cd8a14dd0000e4088539591f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserRepository.html#a080c4fa6cd8a14dd0000e4088539591f">getById</a> (int $id)</td></tr>
+<tr class="separator:a080c4fa6cd8a14dd0000e4088539591f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a688d68b6fbf0d4e16549ccf1fde94b71"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserRepository.html#a688d68b6fbf0d4e16549ccf1fde94b71">setRememberToken</a> (int $id, $token)</td></tr>
+<tr class="separator:a688d68b6fbf0d4e16549ccf1fde94b71"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handles retrieving and setting users. </p>
@@ -155,6 +159,30 @@ Public Member Functions</h2></td></tr>
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html#ab8ed8959da9b1a0fae23ea77a11c4be1">BristolSU\Support\User\Contracts\UserRepository</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="UserRepository_8php_source.html#l00049">49</a> of file <a class="el" href="UserRepository_8php_source.html">UserRepository.php</a>.</p>
+
+</div>
+</div>
+<a id="a080c4fa6cd8a14dd0000e4088539591f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a080c4fa6cd8a14dd0000e4088539591f">&#9670;&nbsp;</a></span>getById()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\User\UserRepository::getById </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html#a3a9fd5a5423251a9f21ebc9fd3964f75">BristolSU\Support\User\Contracts\UserRepository</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="UserRepository_8php_source.html#l00083">83</a> of file <a class="el" href="UserRepository_8php_source.html">UserRepository.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="UserRepository_8php_source.html#l00094">BristolSU\Support\User\UserRepository\setRememberToken()</a>.</p>
 
 </div>
 </div>
@@ -267,6 +295,48 @@ Public Member Functions</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="UserRepository_8php_source.html#l00061">61</a> of file <a class="el" href="UserRepository_8php_source.html">UserRepository.php</a>.</p>
 
 <p class="reference">References <a class="el" href="UserRepository_8php_source.html#l00033">BristolSU\Support\User\UserRepository\getFromControlId()</a>.</p>
+
+</div>
+</div>
+<a id="a688d68b6fbf0d4e16549ccf1fde94b71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a688d68b6fbf0d4e16549ccf1fde94b71">&#9670;&nbsp;</a></span>setRememberToken()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\User\UserRepository::setRememberToken </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$token</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the remember token of a user</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>ID of the user </td></tr>
+    <tr><td class="paramtype">mixed</td><td class="paramname">$token</td><td>New token for the user </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html#ac32f618fa10167e17e7aaa2dcbcf9c4f">BristolSU\Support\User\Contracts\UserRepository</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="UserRepository_8php_source.html#l00094">94</a> of file <a class="el" href="UserRepository_8php_source.html">UserRepository.php</a>.</p>
+
+<p class="reference">References <a class="el" href="UserRepository_8php_source.html#l00083">BristolSU\Support\User\UserRepository\getById()</a>.</p>
 
 </div>
 </div>
