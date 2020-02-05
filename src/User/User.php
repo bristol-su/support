@@ -6,6 +6,7 @@ use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 use Laravel\Passport\HasApiTokens;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 
@@ -52,5 +53,10 @@ class User extends Authenticatable implements MustVerifyEmailContract
     public function controlUser()
     {
         return app(\BristolSU\ControlDB\Contracts\Repositories\User::class)->getById($this->controlId());
+    }
+
+    public function routeNotificationForMail()
+    {
+        return $this->controlUser()->data()->email();
     }
 }
