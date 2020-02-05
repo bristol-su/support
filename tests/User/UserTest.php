@@ -54,5 +54,25 @@ class UserTest extends TestCase
     
         $user->getEmailForVerification();
     }
+
+    /** @test */
+    public function getEmailForPasswordReset_returns_the_user_email(){
+        $dataUser = factory(DataUser::class)->create(['email' => 'example@test.com']);
+        $controlUser = factory(\BristolSU\ControlDB\Models\User::class)->create(['data_provider_id' => $dataUser->id()]);
+        $user = factory(User::class)->create(['control_id' => $controlUser->id()]);
+
+        $this->assertEquals('example@test.com', $user->getEmailForPasswordReset());
+    }
+
+    /** @test */
+    public function getEmailForPasswordReset_throws_a_validation_exception_if_no_email_found(){
+        $this->expectException(ValidationException::class);
+
+        $dataUser = factory(DataUser::class)->create(['email' => null]);
+        $controlUser = factory(\BristolSU\ControlDB\Models\User::class)->create(['data_provider_id' => $dataUser->id()]);
+        $user = factory(User::class)->create(['control_id' => $controlUser->id()]);
+
+        $user->getEmailForPasswordReset();
+    }
     
 }

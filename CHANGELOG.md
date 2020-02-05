@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - \BristolSU\Support\User\UserRepository::getById method for retrieving a user by ID
 - \BristolSU\Support\User\UserRepository::setRememberToken to set a users remember token
 - \BristolSU\Support\User\User::getEmailForVerification to get the email to use for verification
+- \BristolSU\Support\User\User::getEmailForPasswordReset to get the email to use for password resets
 
 ## [2.0.1] - (05/02/2020)
 
