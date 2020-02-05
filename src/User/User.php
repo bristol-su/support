@@ -6,16 +6,15 @@ use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 use Laravel\Passport\HasApiTokens;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Represents a user in the database
  */
 class User extends Authenticatable implements MustVerifyEmailContract
 {
-    use Notifiable, HasApiTokens, MustVerifyEmail;
+    use Notifiable, HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
@@ -63,5 +62,39 @@ class User extends Authenticatable implements MustVerifyEmailContract
     public function routeNotificationForMail()
     {
         return $this->controlUser()->data()->email();
+    }
+
+    /**
+     * Get the email address that should be used for verification.
+     *
+     * @return string
+     * @throws ValidationException
+     */
+    public function getEmailForVerification()
+    {
+        $email = $this->controlUser()->data()->email();
+        if(!$email) {
+            throw ValidationException::withMessages([
+                'identifier' => 'Your email has not been set.'
+            ]);
+        }
+        return $email;
+    }
+
+    /**
+     * Get the email address that should be used for password resets.
+     *
+     * @return string
+     * @throws ValidationException
+     */
+    public function getEmailForPasswordReset()
+    {
+        $email = $this->controlUser()->data()->email();
+        if(!$email) {
+            throw ValidationException::withMessages([
+                'identifier' => 'Your email has not been set.'
+            ]);
+        }
+        return $email;
     }
 }

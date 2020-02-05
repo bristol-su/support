@@ -90,6 +90,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a983fa9f8a04589254e22ece925c19a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaae4038d26dd53f8ba8eed32a1606b07"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html#aaae4038d26dd53f8ba8eed32a1606b07">getFromRememberToken</a> (string $token)</td></tr>
 <tr class="separator:aaae4038d26dd53f8ba8eed32a1606b07"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3a9fd5a5423251a9f21ebc9fd3964f75"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html#a3a9fd5a5423251a9f21ebc9fd3964f75">getById</a> (int $id)</td></tr>
+<tr class="separator:a3a9fd5a5423251a9f21ebc9fd3964f75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac32f618fa10167e17e7aaa2dcbcf9c4f"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1User_1_1Contracts_1_1UserRepository.html#ac32f618fa10167e17e7aaa2dcbcf9c4f">setRememberToken</a> (int $id, $token)</td></tr>
+<tr class="separator:ac32f618fa10167e17e7aaa2dcbcf9c4f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handle creating and retrieving users from the database </p>
@@ -143,6 +147,40 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html">User</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserRepository.html#afbeface3ea520e9d51603dfe2c871a18">BristolSU\Support\User\UserRepository</a>.</p>
+
+</div>
+</div>
+<a id="a3a9fd5a5423251a9f21ebc9fd3964f75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a9fd5a5423251a9f21ebc9fd3964f75">&#9670;&nbsp;</a></span>getById()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\User\Contracts\UserRepository::getById </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get a user by ID</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>ID of the user </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html">User</a> </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ModelNotFoundException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserRepository.html#a080c4fa6cd8a14dd0000e4088539591f">BristolSU\Support\User\UserRepository</a>.</p>
 
 </div>
 </div>
@@ -233,6 +271,44 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1User_1_1User.html">User</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserRepository.html#aad5fcd82f5db14bff393ecbd0cbf6313">BristolSU\Support\User\UserRepository</a>.</p>
+
+</div>
+</div>
+<a id="ac32f618fa10167e17e7aaa2dcbcf9c4f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac32f618fa10167e17e7aaa2dcbcf9c4f">&#9670;&nbsp;</a></span>setRememberToken()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\User\Contracts\UserRepository::setRememberToken </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>$token</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the remember token of a user</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>ID of the user </td></tr>
+    <tr><td class="paramtype">mixed</td><td class="paramname">$token</td><td>New token for the user </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1User_1_1UserRepository.html#a688d68b6fbf0d4e16549ccf1fde94b71">BristolSU\Support\User\UserRepository</a>.</p>
 
 </div>
 </div>

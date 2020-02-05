@@ -5,10 +5,7 @@ namespace BristolSU\Support\Tests\User;
 use BristolSU\ControlDB\Models\DataUser;
 use BristolSU\Support\User\UserRepository;
 use BristolSU\Support\User\User;
-use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Collection;
-use Illuminate\Support\Str;
 use BristolSU\Support\Tests\TestCase;
 
 class UserRepositoryTest extends TestCase
@@ -122,5 +119,28 @@ class UserRepositoryTest extends TestCase
 
         $userRepository = new UserRepository;
         $resolvedUser = $userRepository->getFromrememberToken('abc1234');
+    }
+    
+    /** @test */
+    public function getById_returns_a_user_by_id(){
+        $user = factory(User::class)->create(['id' => 1]);
+
+        $userRepository = new UserRepository;
+        $resolvedUser = $userRepository->getById(1);
+        $this->assertInstanceOf(User::class, $resolvedUser);
+        $this->assertModelEquals($user, $resolvedUser);
+    }
+
+    /** @test */
+    public function setRememberToken_sets_the_remember_token_of_the_user()
+    {
+        $user = factory(User::class)->create(['remember_token' => 'abc123']);
+
+        $userRepository = new UserRepository;
+        $resolvedUser = $userRepository->setRememberToken($user->id, 'abc1234');
+        
+        $this->assertDatabaseHas('users', [
+            'id' => $user->id, 'remember_token' => 'abc1234'
+        ]);
     }
 }
