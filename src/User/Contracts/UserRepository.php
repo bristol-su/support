@@ -65,4 +65,12 @@ interface UserRepository
      * @throws ModelNotFoundException
      */
     public function getById(int $id): User;
+
+    /**
+     * Set the remember token of a user
+     * 
+     * @param int $id ID of the user
+     * @param mixed $token New token for the user
+     */
+    public function setRememberToken(int $id, $token): void;
 }

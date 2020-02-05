@@ -84,4 +84,19 @@ class UserRepository implements UserRepositoryContract
     {
         return User::findOrFail($id);
     }
+
+    /**
+     * Set the remember token of a user
+     *
+     * @param int $id ID of the user
+     * @param mixed $token New token for the user
+     */
+    public function setRememberToken(int $id, $token): void
+    {
+        $user = $this->getById($id);
+        $user->setRememberToken($token);
+        $user->save();
+    }
+
+
 }
