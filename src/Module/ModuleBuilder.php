@@ -234,14 +234,7 @@ class ModuleBuilder implements ModuleBuilderContract
     public function setCompletionConditions()
     {
         $this->module->setCompletionConditions(
-            collect($this->completionConditionRepository->getAllForModule($this->getAlias()))->map(function(CompletionCondition $condition) {
-                return [
-                    'name' => $condition->name(),
-                    'description' => $condition->description(),
-                    'options' => $condition->options(),
-                    'alias' => $condition->alias()
-                ];
-            })->toArray()
+            collect($this->completionConditionRepository->getAllForModule($this->getAlias()))->toArray()
         );
     }
 }

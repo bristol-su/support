@@ -12,6 +12,9 @@ When upgrading, you should upgrade one version at a time.
 
 If you have created any custom filters, you will need to convert the options() function to return a \FormSchema\Schema\Form class.
 
+### Completion Conditions
+
+If you have created any completion conditions, you must change the options() function to return a \FormSchema\Schema\Form class instead of an array.
 ## [v2.0]
 
 ### Database User

@@ -11,6 +11,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Filter::options() should now return a \FormSchema\Schema\Form class
 - Filter::toArray() converts the FormSchema to a Vue Form Generator schema
 - Updated all filters supplied by the SDK
+- CompletionCondition::options() should now return a \FormSchema\Schema\Form class
+- ModuleBuilder calls toArray on the completion condition as opposed to casting itself.
+
+### Added
+- Implement CompletionCondition::toArray and ::toJson for converting completion conditions to array/json representations.
 
 ## [2.1] - (05/02/2020)
 
