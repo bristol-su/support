@@ -28,13 +28,17 @@ class EventFiredTest extends TestCase
         ]);
         
         $condition = new EventFired('module1', $eventRepository->reveal());
+
         
+        
+        $this->assertEquals(1, count($condition->options()->fields()));
+        $this->assertEquals('event_type', $condition->options()->fields()[0]->model());
+        $this->assertEquals('select', $condition->options()->fields()[0]->type());
         $this->assertEquals([
-            'event_type' => [
-                'event1' => 'name1',
-                'event2' => 'name2'
-            ]
-        ], $condition->options());
+            ['id' => 'event1', 'name' => 'name1'],
+            ['id' => 'event2', 'name' => 'name2'],
+        ], $condition->options()->fields()[0]->values());
+        
     }
     
     /** @test */
