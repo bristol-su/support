@@ -44,9 +44,13 @@ class RoleHasPosition extends RoleFilter
     }
 
     /**
-     * Register the position option
-     * 
-     * @return array
+     * Get possible options as an array
+     *
+     * You should return a form schema which represents the available options for the filter
+     *
+     * @return Form Options
+     *
+     * @throws \Exception
      */
     public function options(): Form
     {
@@ -55,7 +59,7 @@ class RoleHasPosition extends RoleFilter
         foreach ($positions as $position)
         {
             $values[] = [
-                'id' => [$position->id()()],
+                'id' => $position->id(),
                 'name' => $position->data()->name(),
             ];
         }

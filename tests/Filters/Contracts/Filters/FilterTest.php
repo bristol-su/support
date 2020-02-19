@@ -17,7 +17,16 @@ class FilterTest extends TestCase
             'alias' => 'alias1',
             'name' => 'name1',
             'description' => 'description1',
-            'options' => []
+            'options' => [
+                'schema' => [
+                    'fields' => [],
+                    'groups' => []
+                ],
+                'model' => [],
+                'options' => [
+                    'validateDebounceTime' => 0
+                ]
+            ]
         ], $filter->toArray());
     }
     

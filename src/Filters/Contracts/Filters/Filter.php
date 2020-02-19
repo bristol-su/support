@@ -26,9 +26,8 @@ abstract class Filter implements Arrayable
 
     /**
      * Get possible options as an array
-     * 
-     * Array should be a key => value of the option key and the default value
-     * e.g. ['group_name' => 'Group Name Default']
+     *
+     * You should return a form schema which represents the available options for the filter
      *
      * @return FormSchema Options
      */

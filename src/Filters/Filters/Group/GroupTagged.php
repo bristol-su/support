@@ -52,9 +52,13 @@ class GroupTagged extends GroupFilter
     }
 
     /**
-     * Get all tags as options
-     * 
-     * @return array
+     * Get all group tags as a select list
+     *
+     * You should return a form schema which represents the available options for the filter
+     *
+     * @return Form Options
+     *
+     * @throws \Exception
      */
     public function options(): Form
     {
@@ -62,7 +66,7 @@ class GroupTagged extends GroupFilter
         $values = [];
         foreach ($tags as $tag) {
             $values[] = [
-                'id' => [$tag->fullReference()],
+                'id' => $tag->fullReference(),
                 'name' => sprintf('%s (%s)', $tag->name(), $tag->fullReference()),
                 'group' => $tag->category()->name()
             ];

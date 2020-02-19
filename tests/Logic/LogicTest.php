@@ -329,9 +329,9 @@ class DummyGroupFilter extends GroupFilter
     /**
      * @inheritDoc
      */
-    public function options(): array
+    public function options(): Form
     {
-        return [];
+        return new Form();
     }
 
     public function setResultTo($value)
@@ -378,9 +378,9 @@ class DummyRoleFilter extends RoleFilter
     /**
      * @inheritDoc
      */
-    public function options(): array
+    public function options(): Form
     {
-        return [];
+        return new Form();
     }
 
     public function setResultTo($value)

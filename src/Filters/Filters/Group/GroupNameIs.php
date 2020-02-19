@@ -16,7 +16,11 @@ class GroupNameIs extends GroupFilter
     /**
      * Get possible options as an array
      *
-     * @return array
+     * You should return a form schema which represents the available options for the filter
+     *
+     * @return Form Options
+     * 
+     * @throws \Exception
      */
     public function options(): Form
     {

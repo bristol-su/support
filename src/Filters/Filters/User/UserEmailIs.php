@@ -1,10 +1,7 @@
 <?php
 
-
 namespace BristolSU\Support\Filters\Filters\User;
 
-
-use BristolSU\ControlDB\Contracts\Repositories\DataUser as DataUserRepository;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use FormSchema\Generator\Field;
 use FormSchema\Schema\Form;
@@ -17,10 +14,12 @@ class UserEmailIs extends UserFilter
 
     /**
      * Get possible options as an array
-     * 
-     * Options are [ 'email' => 'emailaddress@example.com' ]
      *
-     * @return array
+     * You should return a form schema which represents the available options for the filter
+     *
+     * @return Form Options
+     *
+     * @throws \Exception
      */
     public function options(): Form
     {
