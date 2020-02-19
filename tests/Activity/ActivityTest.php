@@ -71,7 +71,26 @@ class ActivityTest extends TestCase
         $this->assertCount(0, $retrieved);
     }
 
+    /** @test */
+    public function enabled_does_not_retrieve_an_activity_if_it_is_not_enabled(){
+        $activity = factory(Activity::class)->create(['enabled' => false]);
+        
+        $retrieved = Activity::enabled()->get();
 
+        $this->assertCount(0, $retrieved);
+    }
+
+    /** @test */
+    public function enabled_retrieves_an_activity_if_it_is_enabled(){
+        $activity = factory(Activity::class)->create(['enabled' => true]);
+
+        $retrieved = Activity::enabled()->get();
+
+        $this->assertCount(1, $retrieved);
+        $this->assertModelEquals($activity, $retrieved->first());
+    }
+
+    
     /** @test */
     public function it_has_a_for_logic(){
         $activity = factory(Activity::class)->create();

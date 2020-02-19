@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\ModuleInstance\Contracts;
 
+use BristolSU\Support\Activity\Activity;
 use Illuminate\Support\Collection;
 
 /**
@@ -52,5 +53,22 @@ interface ModuleInstanceRepository
      * @return ModuleInstance[]|Collection
      */
     public function allWithAlias(string $alias = ''): Collection;
-    
+
+    /**
+     * Get all module instances that belong to a given activity
+     * 
+     * @param Activity $activity Activity to retrieve module instances through
+     * 
+     * @return Collection
+     */
+    public function allThroughActivity(Activity $activity): Collection;
+
+    /**
+     * Get all enabled module instances that belong to a given activity
+     * 
+     * @param Activity $activity Activity to retrieve enabled module instances through
+     * 
+     * @return Collection
+     */
+    public function allEnabledThroughActivity(Activity $activity): Collection;
 }

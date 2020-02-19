@@ -89,5 +89,47 @@ class ModuleInstanceRepositoryTest extends TestCase
             $this->assertModelEquals($moduleInstance, $foundModuleInstances->shift());
         }
     }
+    
+    /** @test */
+    public function it_retrieves_all_module_instances_through_an_activity(){
+        $activity = factory(Activity::class)->create();
+        $activity2 = factory(Activity::class)->create();
+        
+        $moduleInstances = factory(ModuleInstance::class, 10)->create(['activity_id' => $activity->id]);
+        $otherModuleInstances = factory(ModuleInstance::class, 4)->create(['activity_id' => $activity2->id]);
+        
+        $repository = new ModuleInstanceRepository();
+        $foundModuleInstances = $repository->allThroughActivity($activity);
+        $this->assertEquals(10, $foundModuleInstances->count());
+        
+        foreach($moduleInstances as $moduleInstance) {
+            $this->assertModelEquals($moduleInstance, $foundModuleInstances->shift());
+        }
+
+        $foundModuleInstances = $repository->allThroughActivity($activity2);
+        $this->assertEquals(4, $foundModuleInstances->count());
+
+        foreach($otherModuleInstances as $moduleInstance) {
+            $this->assertModelEquals($moduleInstance, $foundModuleInstances->shift());
+        }
+        
+    }
+
+    /** @test */
+    public function it_retrieves_all_enabled_module_instances_through_an_activity(){
+        $activity = factory(Activity::class)->create();
+
+        $moduleInstances = factory(ModuleInstance::class, 10)->create(['activity_id' => $activity->id, 'enabled' => true]);
+        $otherModuleInstances = factory(ModuleInstance::class, 4)->create(['activity_id' => $activity->id, 'enabled' => false]);
+
+        $repository = new ModuleInstanceRepository();
+        $foundModuleInstances = $repository->allEnabledThroughActivity($activity);
+        $this->assertEquals(10, $foundModuleInstances->count());
+
+        foreach($moduleInstances as $moduleInstance) {
+            $this->assertModelEquals($moduleInstance, $foundModuleInstances->shift());
+        }
+
+    }
 
 }

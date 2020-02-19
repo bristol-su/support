@@ -69,6 +69,11 @@ class Activity extends Model
         return $this->hasMany(ModuleInstance::class);
     }
 
+    public function scopeEnabled(Builder $query)
+    {
+        return $query->where('enabled', true);
+    }
+    
     /**
      * For logic relationship
      * 

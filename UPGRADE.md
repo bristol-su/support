@@ -15,6 +15,10 @@ If you have created any custom filters, you will need to convert the options() f
 ### Completion Conditions
 
 If you have created any completion conditions, you must change the options() function to return a \FormSchema\Schema\Form class instead of an array.
+
+### Module Instances
+Module Instances should now be retrieved using the Module Instance Repository
+
 ## [v2.0]
 
 ### Database User

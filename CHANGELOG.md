@@ -13,9 +13,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated all filters supplied by the SDK
 - CompletionCondition::options() should now return a \FormSchema\Schema\Form class
 - ModuleBuilder calls toArray on the completion condition as opposed to casting itself.
+- Activity Repository::active() now returns only activities that are enabled
 
 ### Added
 - Implement CompletionCondition::toArray and ::toJson for converting completion conditions to array/json representations.
+- enabled column to the activities and module_instances tables
+- enabled scope to an Activity model
+- enabled scope to a Module Instance model
+- \BristolSU\Support\ModuleInstance\ModuleInstanceRepository::allThroughActivity() to get all module instances for an activity
+- \BristolSU\Support\ModuleInstance\ModuleInstanceRepository::allEnabledThroughActivity() to get all enabled module instances for an activity
 
 ## [2.1] - (05/02/2020)
 
