@@ -6,6 +6,8 @@ namespace BristolSU\Support\Filters\Filters\User;
 
 use BristolSU\ControlDB\Contracts\Repositories\DataUser as DataUserRepository;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
+use FormSchema\Generator\Field;
+use FormSchema\Schema\Form;
 
 /**
  * Does the user have the given email?
@@ -20,11 +22,12 @@ class UserEmailIs extends UserFilter
      *
      * @return array
      */
-    public function options(): array
+    public function options(): Form
     {
-        return [
-            'email' => ''
-        ];
+        return \FormSchema\Generator\Form::make()->withField(
+            Field::input('email')->inputType('email')->label('User Email')
+                ->required(true)->placeholder('Email of the user')
+        )->getSchema();
     }
 
     /**

@@ -12,7 +12,11 @@ class GroupNameIsTest extends TestCase
     /** @test */
     public function options_returns_group_name_with_an_empty_string(){
         $filter = new GroupNameIs();
-        $this->assertEquals(['Group Name' => ''], $filter->options());
+        
+        $this->assertEquals(1, count($filter->options()->fields()));
+        $this->assertEquals('Group Name', $filter->options()->fields()[0]->model());
+        $this->assertEquals('text', $filter->options()->fields()[0]->inputType());
+        $this->assertEquals('Group Name', $filter->options()->fields()[0]->label());
     }
     
     /** @test */

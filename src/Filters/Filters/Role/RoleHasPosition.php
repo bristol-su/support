@@ -7,6 +7,7 @@ namespace BristolSU\Support\Filters\Filters\Role;
 use BristolSU\ControlDB\Contracts\Repositories\Position;
 use BristolSU\ControlDB\Contracts\Repositories\Position as PositionRepository;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
+use FormSchema\Schema\Form;
 
 /**
  * Does the role have the specified position?
@@ -47,14 +48,21 @@ class RoleHasPosition extends RoleFilter
      * 
      * @return array
      */
-    public function options(): array
+    public function options(): Form
     {
         $positions = $this->positionRepository->all();
-        $options = ['position' => []];
-        foreach ($positions as $position) {
-            $options['position'][$position->id()] = $position->data()->name();
+        $values = [];
+        foreach ($positions as $position)
+        {
+            $values[] = [
+                'id' => [$position->id()()],
+                'name' => $position->data()->name(),
+            ];
         }
-        return $options;
+        return \FormSchema\Generator\Form::make()->withField(
+            \FormSchema\Generator\Field::select('position')->values($values)->label('Position')
+                ->required(true)
+        )->getSchema();
     }
 
     /**

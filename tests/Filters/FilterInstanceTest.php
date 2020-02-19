@@ -15,6 +15,7 @@ use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Schema\Form;
 
 class FilterInstanceTest extends TestCase
 {
@@ -106,8 +107,9 @@ class DummyFilter extends Filter {
     /**
      * @inheritDoc
      */
-    public function options(): array
+    public function options(): Form
     {
+        return new Form();
     }
 
     /**

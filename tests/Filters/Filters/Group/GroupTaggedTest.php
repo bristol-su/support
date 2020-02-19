@@ -9,7 +9,6 @@ use BristolSU\ControlDB\Contracts\Repositories\Tags\GroupTag as GroupTagReposito
 use BristolSU\ControlDB\Models\Group;
 use BristolSU\Support\Filters\Filters\Group\GroupTagged;
 use BristolSU\Support\Tests\TestCase;
-use Prophecy\Argument;
 
 class GroupTaggedTest extends TestCase
 {
@@ -32,13 +31,16 @@ class GroupTaggedTest extends TestCase
         ]));
 
         $groupTagFilter = new GroupTagged($groupTagRepository->reveal());
-
+dd($groupTagFilter->options());
+        $this->assertEquals(2, count($groupTagFilter->options()->fields()));
+        $this->assertEquals('Group Name', $groupTagFilter->options()->fields()[0]->model());
+        $this->assertEquals('text', $groupTagFilter->options()->fields()[0]->inputType());
+        $this->assertEquals('Group Name', $groupTagFilter->options()->fields()[0]->label());
+        
         $this->assertEquals([
-            'tag' => [
-                'reference.ref1' => 'Name1',
-                'reference.ref2' => 'Name2'
-            ]
-            ], $groupTagFilter->options());
+            'reference.ref1' => 'Name1',
+            'reference.ref2' => 'Name2'
+        ], $groupTagFilter->options());
     }
     
     /** @test */
