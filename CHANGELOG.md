@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Filter::options() should now return a \FormSchema\Schema\Form class
+- Filter::toArray() converts the FormSchema to a Vue Form Generator schema
+- Updated all filters supplied by the SDK
+
 ## [2.1] - (05/02/2020)
 
 ### Added
