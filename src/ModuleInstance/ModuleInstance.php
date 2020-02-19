@@ -178,6 +178,13 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         }
     }
 
+    /**
+     * Return only enabled module instances
+     * 
+     * @param Builder $query
+     * 
+     * @return Builder
+     */
     public function scopeEnabled(Builder $query)
     {
         return $query->where('enabled', true);

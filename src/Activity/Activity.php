@@ -69,6 +69,12 @@ class Activity extends Model
         return $this->hasMany(ModuleInstance::class);
     }
 
+    /**
+     * Scope only enabled activities
+     * 
+     * @param Builder $query
+     * @return Builder
+     */
     public function scopeEnabled(Builder $query)
     {
         return $query->where('enabled', true);

@@ -63,7 +63,11 @@ class ModuleInstanceRepository implements ModuleInstanceRepositoryContract
     }
 
     /**
-     * @inheritDoc
+     * Get all module instances that belong to a given activity
+     *
+     * @param Activity $activity Activity to retrieve module instances through
+     *
+     * @return Collection
      */
     public function allThroughActivity(Activity $activity): Collection
     {
@@ -71,7 +75,11 @@ class ModuleInstanceRepository implements ModuleInstanceRepositoryContract
     }
 
     /**
-     * @inheritDoc
+     * Get all enabled module instances that belong to a given activity
+     *
+     * @param Activity $activity Activity to retrieve enabled module instances through
+     *
+     * @return Collection
      */
     public function allEnabledThroughActivity(Activity $activity): Collection
     {
