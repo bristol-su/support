@@ -35,7 +35,17 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         'active',
         'visible',
         'mandatory',
-        'completion_condition_instance_id'
+        'completion_condition_instance_id',
+        'enabled'
+    ];
+
+    /**
+     * Attributes to cast
+     * 
+     * @var array 
+     */
+    protected $casts = [
+        'enabled' => 'boolean'
     ];
 
     /**
