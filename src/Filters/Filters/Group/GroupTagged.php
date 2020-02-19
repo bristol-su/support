@@ -4,10 +4,9 @@
 namespace BristolSU\Support\Filters\Filters\Group;
 
 
-use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\ControlDB\Contracts\Repositories\Tags\GroupTag as GroupTagRepositoryContract;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
+use FormSchema\Schema\Form;
 
 /**
  * Is the group tagged with a tag?
@@ -53,18 +52,29 @@ class GroupTagged extends GroupFilter
     }
 
     /**
-     * Get all tags as options
-     * 
-     * @return array
+     * Get all group tags as a select list
+     *
+     * You should return a form schema which represents the available options for the filter
+     *
+     * @return Form Options
+     *
+     * @throws \Exception
      */
-    public function options(): array
+    public function options(): Form
     {
         $tags = $this->groupTagRepository->all();
-        $options = ['tag' => []];
+        $values = [];
         foreach ($tags as $tag) {
-            $options['tag'][$tag->fullReference()] = $tag->name();
+            $values[] = [
+                'id' => $tag->fullReference(),
+                'name' => sprintf('%s (%s)', $tag->name(), $tag->fullReference()),
+                'group' => $tag->category()->name()
+            ];
         }
-        return $options;
+        return \FormSchema\Generator\Form::make()->withField(
+            \FormSchema\Generator\Field::select('tag')->values($values)->label('Group Name')
+                ->required(true)
+        )->getSchema();
     }
 
     /**

@@ -15,8 +15,11 @@ class UserEmailIsTest extends TestCase
     /** @test */
     public function options_returns_a_blank_string_for_email(){
         $filter = new UserEmailIs();
-
-        $this->assertEquals(['email' => ''], $filter->options());
+        
+        $this->assertEquals(1, count($filter->options()->fields()));
+        $this->assertEquals('email', $filter->options()->fields()[0]->model());
+        $this->assertEquals('email', $filter->options()->fields()[0]->inputType());
+    
     }
 
     /** @test */

@@ -10,6 +10,7 @@ use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
+use FormSchema\Schema\Form;
 use Illuminate\Support\Collection;
 use BristolSU\Support\Tests\TestCase;
 
@@ -279,12 +280,9 @@ class DummyUserFilter extends UserFilter
 
     private $result = true;
 
-    /**
-     * @inheritDoc
-     */
-    public function options(): array
+    public function options(): Form
     {
-        return [];
+        return new Form();
     }
 
     public function setResultTo($value)
@@ -331,9 +329,9 @@ class DummyGroupFilter extends GroupFilter
     /**
      * @inheritDoc
      */
-    public function options(): array
+    public function options(): Form
     {
-        return [];
+        return new Form();
     }
 
     public function setResultTo($value)
@@ -380,9 +378,9 @@ class DummyRoleFilter extends RoleFilter
     /**
      * @inheritDoc
      */
-    public function options(): array
+    public function options(): Form
     {
-        return [];
+        return new Form();
     }
 
     public function setResultTo($value)

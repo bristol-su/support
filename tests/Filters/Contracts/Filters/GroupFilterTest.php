@@ -6,6 +6,7 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\ControlDB\Models\Group;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Schema\Form;
 
 class GroupFilterTest extends TestCase
 {
@@ -56,13 +57,9 @@ class GroupFilterTest extends TestCase
 class DummyGroupFilter extends GroupFilter
 {
 
-    /**
-     * Get possible options as an array
-     *
-     * @return array
-     */
-    public function options(): array
+    public function options(): Form
     {
+        return new Form();
     }
 
     /**

@@ -2,11 +2,9 @@
 
 namespace BristolSU\Support\Tests\Filters\Contracts\Filters;
 
-use BristolSU\ControlDB\Contracts\Models\Group;
-use BristolSU\ControlDB\Contracts\Models\Role;
-use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Filters\Contracts\Filters\Filter;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Schema\Form;
 
 class FilterTest extends TestCase
 {
@@ -19,7 +17,16 @@ class FilterTest extends TestCase
             'alias' => 'alias1',
             'name' => 'name1',
             'description' => 'description1',
-            'options' => ['option' => 'value1']
+            'options' => [
+                'schema' => [
+                    'fields' => [],
+                    'groups' => []
+                ],
+                'model' => [],
+                'options' => [
+                    'validateDebounceTime' => 0
+                ]
+            ]
         ], $filter->toArray());
     }
     
@@ -31,9 +38,9 @@ class DummyFilter extends Filter
     /**
      * @inheritDoc
      */
-    public function options(): array
+    public function options(): Form
     {
-        return ['option' => 'value1'];
+        return new Form();
     }
 
     /**

@@ -7,6 +7,8 @@ namespace BristolSU\Support\Filters\Contracts\Filters;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
+use FormSchema\Schema\Form as FormSchema;
+use FormSchema\Transformers\VFGTransformer;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
@@ -24,13 +26,12 @@ abstract class Filter implements Arrayable
 
     /**
      * Get possible options as an array
-     * 
-     * Array should be a key => value of the option key and the default value
-     * e.g. ['group_name' => 'Group Name Default']
      *
-     * @return array Options
+     * You should return a form schema which represents the available options for the filter
+     *
+     * @return FormSchema Options
      */
-    abstract public function options(): array;
+    abstract public function options(): FormSchema;
 
     /**
      * Does the filter have a model to test?
@@ -88,7 +89,7 @@ abstract class Filter implements Arrayable
             'alias' => $this->alias(),
             'name' => $this->name(),
             'description' => $this->description(),
-            'options' => $this->options()
+            'options' => (new VFGTransformer)->transformToArray($this->options())
         ];
     }
 

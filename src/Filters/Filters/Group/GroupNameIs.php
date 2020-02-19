@@ -3,6 +3,8 @@
 namespace BristolSU\Support\Filters\Filters\Group;
 
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
+use FormSchema\Generator\Field;
+use FormSchema\Schema\Form;
 
 /**
  * Test the group name matches
@@ -14,13 +16,18 @@ class GroupNameIs extends GroupFilter
     /**
      * Get possible options as an array
      *
-     * @return array
+     * You should return a form schema which represents the available options for the filter
+     *
+     * @return Form Options
+     * 
+     * @throws \Exception
      */
-    public function options(): array
+    public function options(): Form
     {
-        return [
-            'Group Name' => ''
-        ];
+        return \FormSchema\Generator\Form::make()->withField(
+            Field::input('Group Name')->inputType('text')->label('Group Name')
+                ->required(true)->placeholder('Full name of the group')
+        )->getSchema();
     }
 
     /**

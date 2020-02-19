@@ -5,6 +5,7 @@ namespace BristolSU\Support\Tests\Filters\Contracts\Filters;
 use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Schema\Form;
 
 class UserFilterTest extends TestCase
 {
@@ -56,13 +57,9 @@ class UserFilterTest extends TestCase
 class DummyUserFilter extends UserFilter
 {
 
-    /**
-     * Get possible options as an array
-     *
-     * @return array
-     */
-    public function options(): array
+    public function options(): Form
     {
+        return new Form();
     }
 
     /**

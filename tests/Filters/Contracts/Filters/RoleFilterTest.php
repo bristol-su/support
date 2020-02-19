@@ -5,6 +5,7 @@ namespace BristolSU\Support\Tests\Filters\Contracts\Filters;
 use BristolSU\ControlDB\Models\Role;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Schema\Form;
 
 class RoleFilterTest extends TestCase
 {
@@ -56,15 +57,10 @@ class RoleFilterTest extends TestCase
 class DummyRoleFilter extends RoleFilter
 {
 
-    /**
-     * Get possible options as an array
-     *
-     * @return array
-     */
-    public function options(): array
+    public function options(): Form
     {
+        return new Form();
     }
-
     /**
      * Test if the filter passes
      *
