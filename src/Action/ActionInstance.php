@@ -3,8 +3,10 @@
 namespace BristolSU\Support\Action;
 
 use BristolSU\ControlDB\Contracts\Repositories\User;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 /**
  * ActionInstance Model.
@@ -31,6 +33,23 @@ class ActionInstance extends Model
     protected $appends = [
         'event_fields', 'action_fields'
     ];
+
+    /**
+     * Initialise an Action Instance model.
+     *
+     * Save the ID of the current user on creation
+     *
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        self::creating(function($model) {
+            if($model->user_id === null && ($user = app(Authentication::class)->getUser()) !== null) {
+                $model->user_id = $user->id();
+            }
+        });
+    }
 
     /**
      * Action Instance field relationships
@@ -74,9 +93,13 @@ class ActionInstance extends Model
      * Get the user who created the action instance
      *
      * @return \BristolSU\ControlDB\Contracts\Models\User
+     * @throws \Exception If the user ID is null
      */
-    public function user()
+    public function user(): \BristolSU\ControlDB\Contracts\Models\User
     {
+        if($this->user_id === null) {
+            throw new \Exception(sprintf('Action Instance #%u is not owned by a user.', $this->id));
+        }
         return app(User::class)->getById($this->user_id);
     }
 }

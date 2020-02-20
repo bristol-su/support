@@ -4,9 +4,11 @@
 namespace BristolSU\Support\Tests\Module\ModuleInstance;
 
 
+use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Module\Tests\UploadFile\Integration\Http\Controllers\ParticipantPageControllerTest;
 use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
@@ -171,5 +173,54 @@ class ModuleInstanceTest extends TestCase
         foreach($enabledModuleInstances as $moduleInstance) {
             $this->assertModelEquals($moduleInstance, $foundModuleInstances->shift());
         }
+    }
+
+
+    /** @test */
+    public function user_returns_a_user_with_the_correct_id(){
+        $user = $this->newUser();
+        $userRepository = $this->prophesize(User::class);
+        $userRepository->getById($user->id())->shouldBeCalled()->willReturn($user);
+        $this->instance(User::class, $userRepository->reveal());
+
+        $moduleInstance = factory(ModuleInstance::class)->create(['user_id' => $user->id()]);
+        $this->assertInstanceOf(\BristolSU\ControlDB\Models\User::class, $moduleInstance->user());
+        $this->assertModelEquals($user, $moduleInstance->user());
+    }
+
+    /** @test */
+    public function user_throws_an_exception_if_user_id_is_null(){
+        $moduleInstance = factory(ModuleInstance::class)->create(['user_id' => null, 'id' => 2000]);
+
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Module Instance #2000 is not owned by a user');
+
+        $moduleInstance->user();
+    }
+
+    /** @test */
+    public function user_id_is_automatically_added_on_creation(){
+        $user = $this->newUser();
+        $authentication = $this->prophesize(Authentication::class);
+        $authentication->getUser()->shouldBeCalled()->willReturn($user);
+        $this->instance(Authentication::class, $authentication->reveal());
+
+        $logic = factory(Logic::class)->create();
+        $moduleInstance = factory(ModuleInstance::class)->create(['user_id' => null]);
+
+        $this->assertNotNull($moduleInstance->user_id);
+        $this->assertEquals($user->id(), $moduleInstance->user_id);
+    }
+
+    /** @test */
+    public function user_id_is_not_overridden_if_given(){
+        $user = $this->newUser();
+
+        $logic = factory(Logic::class)->create();
+        $moduleInstance = factory(ModuleInstance::class)->create(['user_id' => $user->id()]);
+
+
+        $this->assertNotNull($moduleInstance->user_id);
+        $this->assertEquals($user->id(), $moduleInstance->user_id);
     }
 }
