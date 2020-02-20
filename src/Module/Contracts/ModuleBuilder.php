@@ -70,6 +70,15 @@ interface ModuleBuilder
      * @return void
      */
     public function setServices();
+
+    /**
+     * Set what resource the module is for
+     * 
+     * This should be one of user, group or role
+     * 
+     * @return void
+     */
+    public function setFor();
         
     /**
      * Get the built module

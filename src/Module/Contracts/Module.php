@@ -157,4 +157,21 @@ interface Module extends Arrayable, Jsonable
      * @return array
      */
     public function getServices(): array;
+
+    /**
+     * Set what resource the module is for. One of user, group or role.
+     * 
+     * @param string $for One of user, group or role
+     * 
+     * @return void
+     */
+    public function setFor(string $for = 'user');
+
+    /**
+     * Get what resource the module is for. One of user, group or role.
+     *
+     * @return string One of user, group or role
+     */
+    public function getFor(): string;   
+    
 }

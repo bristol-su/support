@@ -206,6 +206,15 @@ class ModuleBuilderTest extends TestCase
             $this->serviceRequest->reveal());
         $this->assertEquals('alias1', $builder->testGetAlias());
     }
+
+    /** @test */
+    public function setFor_sets_the_for_in_the_module(){
+        $this->builder->create('alias1');
+        $this->config->get('alias1.for', 'user')->shouldBeCalled()->willReturn('role');
+        $this->module->setFor('role')->shouldBeCalled();
+        $this->builder->setFor();
+    }
+
 }
 
 class Trigger implements TriggerableEvent
