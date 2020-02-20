@@ -22,6 +22,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - enabled scope to a Module Instance model
 - \BristolSU\Support\ModuleInstance\ModuleInstanceRepository::allThroughActivity() to get all module instances for an activity
 - \BristolSU\Support\ModuleInstance\ModuleInstanceRepository::allEnabledThroughActivity() to get all enabled module instances for an activity
+- user_id column to an Activity, Module Instance, Action Instance and Logic Group
 
 ## [2.1] - (05/02/2020)
 

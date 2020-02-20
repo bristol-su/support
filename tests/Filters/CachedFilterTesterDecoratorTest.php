@@ -17,7 +17,7 @@ class CachedFilterTesterDecoratorTest extends TestCase
     /** @test */
     public function it_caches_and_returns_the_result_of_evaluate(){
         $filterInstance = factory(FilterInstance::class)->create();
-        $model = $this->newUser(['id' => 1]);
+        $model = $this->newUser();
 
         $realTester = $this->prophesize(FilterTester::class);
         $realTester->evaluate(Argument::that(function($arg) use ($filterInstance) {
@@ -37,7 +37,7 @@ class CachedFilterTesterDecoratorTest extends TestCase
     public function the_cache_key_changes_if_filter_instance_changes(){
         $filterInstance1 = factory(FilterInstance::class)->create();
         $filterInstance2 = factory(FilterInstance::class)->create();
-        $model = $this->newUser(['id' => 1]);
+        $model = $this->newUser();
         
         $realTester = $this->prophesize(FilterTester::class);
         $realTester->evaluate(Argument::that(function($arg) use ($filterInstance1) {
@@ -61,8 +61,8 @@ class CachedFilterTesterDecoratorTest extends TestCase
     /** @test */
     public function the_cache_key_changes_if_model_id_changes(){
         $filterInstance = factory(FilterInstance::class)->create();
-        $model1 = $this->newUser(['id' => 1]);
-        $model2 = $this->newUser(['id' => 2]);
+        $model1 = $this->newUser();
+        $model2 = $this->newUser();
 
         $realTester = $this->prophesize(FilterTester::class);
         $realTester->evaluate(Argument::that(function($arg) use ($filterInstance) {
@@ -86,8 +86,8 @@ class CachedFilterTesterDecoratorTest extends TestCase
     /** @test */
     public function the_cache_key_changes_if_model_type_changes(){
         $filterInstance = factory(FilterInstance::class)->create();
-        $model1 = $this->newUser(['id' => 1]);
-        $model2 = $this->newGroup(['id' => 1]);
+        $model1 = $this->newUser();
+        $model2 = $this->newGroup();
 
         $realTester = $this->prophesize(FilterTester::class);
         $realTester->evaluate(Argument::that(function($arg) use ($filterInstance) {

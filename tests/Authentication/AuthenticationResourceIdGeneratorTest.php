@@ -16,31 +16,31 @@ class AuthenticationResourceIdGeneratorTest extends TestCase
     /** @test */
     public function fromString_returns_the_user_id_if_user_given(){
         $authentication = $this->prophesize(Authentication::class);
-        $user = $this->newUser(['id' => 1]);
+        $user = $this->newUser();
         $authentication->getUser()->shouldBeCalled()->willReturn($user);
 
         $idGenerator = new AuthenticationResourceIdGenerator($authentication->reveal());
-        $this->assertEquals(1, $idGenerator->fromString('user'));
+        $this->assertEquals($user->id(), $idGenerator->fromString('user'));
     }
 
     /** @test */
     public function fromString_returns_the_group_id_if_group_given(){
         $authentication = $this->prophesize(Authentication::class);
-        $group = $this->newGroup(['id' => 1]);
+        $group = $this->newGroup();
         $authentication->getGroup()->shouldBeCalled()->willReturn($group);
 
         $idGenerator = new AuthenticationResourceIdGenerator($authentication->reveal());
-        $this->assertEquals(1, $idGenerator->fromString('group'));
+        $this->assertEquals($group->id(), $idGenerator->fromString('group'));
     }
 
     /** @test */
     public function fromString_returns_the_role_id_if_role_given(){
         $authentication = $this->prophesize(Authentication::class);
-        $role = $this->newRole(['id' => 1]);
+        $role = $this->newRole();
         $authentication->getRole()->shouldBeCalled()->willReturn($role);
 
         $idGenerator = new AuthenticationResourceIdGenerator($authentication->reveal());
-        $this->assertEquals(1, $idGenerator->fromString('role'));
+        $this->assertEquals($role->id(), $idGenerator->fromString('role'));
     }
 
     /** @test */

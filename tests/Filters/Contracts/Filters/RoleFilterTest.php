@@ -13,7 +13,7 @@ class RoleFilterTest extends TestCase
     /** @test */
     public function getModel_returns_the_set_model(){
         $filter = new DummyRoleFilter();
-        $role = $this->newRole(['id' => 1]);
+        $role = $this->newRole();
         $filter->setModel($role);
         $this->assertEquals($role, $filter->model());
     }
@@ -21,7 +21,7 @@ class RoleFilterTest extends TestCase
     /** @test */
     public function hasModel_returns_true_if_the_role_is_set(){
         $filter = new DummyRoleFilter();
-        $dummyRole = $this->newRole(['id' => 1]);
+        $dummyRole = $this->newRole();
         $filter->setModel($dummyRole);
 
         $this->assertTrue($filter->hasModel());
@@ -46,7 +46,7 @@ class RoleFilterTest extends TestCase
     /** @test */
     public function role_returns_the_role(){
         $filter = new DummyRoleFilter();
-        $role = $this->newRole(['id' => 1]);
+        $role = $this->newRole();
         $filter->setModel($role);
         $this->assertEquals($role, $filter->role());
     }

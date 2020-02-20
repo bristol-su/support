@@ -26,9 +26,9 @@ class CheckModuleInstanceActiveTest extends TestCase
         $request->route('module_instance_slug')->willReturn($moduleInstance);
         
         $authentication = $this->prophesize(Authentication::class);
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 5]);
-        $role = $this->newRole(['id' => 10]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
         $authentication->getUser()->willReturn($user);
         $authentication->getGroup()->willReturn($group);
         $authentication->getRole()->willReturn($role);
@@ -49,9 +49,9 @@ class CheckModuleInstanceActiveTest extends TestCase
         $request->route('test_callback_is_called')->shouldBeCalled()->willReturn(true);
 
         $authentication = $this->prophesize(Authentication::class);
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 5]);
-        $role = $this->newRole(['id' => 10]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
         $authentication->getUser()->willReturn($user);
         $authentication->getGroup()->willReturn($group);
         $authentication->getRole()->willReturn($role);

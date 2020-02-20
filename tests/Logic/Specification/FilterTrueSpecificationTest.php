@@ -16,9 +16,9 @@ class FilterTrueSpecificationTest extends TestCase
 
     /** @test */
     public function isSatisfied_returns_true_if_filter_true_when_a_user_filter_is_given(){
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 2]);
-        $role = $this->newRole(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $filter = $this->prophesize(FilterInstance::class);
         $filter->for()->shouldBeCalled()->willReturn('user');
@@ -36,9 +36,9 @@ class FilterTrueSpecificationTest extends TestCase
 
     /** @test */
     public function isSatisfied_returns_false_if_filter_false_when_a_user_filter_is_given(){
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 2]);
-        $role = $this->newRole(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $filter = $this->prophesize(FilterInstance::class);
         $filter->for()->shouldBeCalled()->willReturn('user');
@@ -56,9 +56,9 @@ class FilterTrueSpecificationTest extends TestCase
 
     /** @test */
     public function isSatisfied_returns_true_if_filter_true_when_a_group_filter_is_given(){
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 2]);
-        $role = $this->newRole(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $filter = $this->prophesize(FilterInstance::class);
         $filter->for()->shouldBeCalled()->willReturn('group');
@@ -76,9 +76,9 @@ class FilterTrueSpecificationTest extends TestCase
 
     /** @test */
     public function isSatisfied_returns_false_if_filter_false_when_a_group_filter_is_given(){
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 2]);
-        $role = $this->newRole(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $filter = $this->prophesize(FilterInstance::class);
         $filter->for()->shouldBeCalled()->willReturn('group');
@@ -96,9 +96,9 @@ class FilterTrueSpecificationTest extends TestCase
 
     /** @test */
     public function isSatisfied_returns_true_if_filter_true_when_a_role_filter_is_given(){
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 2]);
-        $role = $this->newRole(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $filter = $this->prophesize(FilterInstance::class);
         $filter->for()->shouldBeCalled()->willReturn('role');
@@ -116,9 +116,9 @@ class FilterTrueSpecificationTest extends TestCase
 
     /** @test */
     public function isSatisfied_returns_false_if_filter_false_when_a_role_filter_is_given(){
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 2]);
-        $role = $this->newRole(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $filter = $this->prophesize(FilterInstance::class);
         $filter->for()->shouldBeCalled()->willReturn('role');
@@ -136,9 +136,9 @@ class FilterTrueSpecificationTest extends TestCase
 
     /** @test */
     public function isSatisfied_returns_false_if_wrong_filter_type_given(){
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 2]);
-        $role = $this->newRole(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $filter = $this->prophesize(FilterInstance::class);
         $filter->for()->shouldBeCalled()->willReturn('notatype');
