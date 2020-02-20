@@ -19,7 +19,7 @@ class ActionInstance extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'event', 'action', 'module_instance_id'  
+        'name', 'description', 'event', 'action', 'module_instance_id'
     ];
 
     /**

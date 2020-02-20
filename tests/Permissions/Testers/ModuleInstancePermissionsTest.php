@@ -64,9 +64,9 @@ class ModuleInstancePermissionsTest extends TestCase
     /** @test */
     public function can_returns_true_if_the_logic_is_true()
     {
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 2]);
-        $role = $this->newRole(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $logic = factory(Logic::class)->create();
         $this->logicTester()->forLogic($logic)->pass($user, $group, $role);
@@ -86,9 +86,9 @@ class ModuleInstancePermissionsTest extends TestCase
     /** @test */
     public function can_returns_false_if_the_logic_is_false()
     {
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 2]);
-        $role = $this->newRole(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $logic = factory(Logic::class)->create();
         $this->logicTester()->forLogic($logic)->fail($user, $group, $role);

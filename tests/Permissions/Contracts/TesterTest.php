@@ -16,9 +16,9 @@ class TesterTest extends TestCase
     /** @test */
     public function handle_calls_can_and_passes_the_correct_parameters()
     {
-        $user = new \BristolSU\ControlDB\Models\User(['id' => 1]);
-        $group = new \BristolSU\ControlDB\Models\Group(['id' => 2]);
-        $role = new \BristolSU\ControlDB\Models\Role(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $tester = (new DummyTester())
             ->assertPermission(function ($arg) {
@@ -40,9 +40,9 @@ class TesterTest extends TestCase
     /** @test */
     public function handle_returns_true_if_can_is_true()
     {
-        $user = new \BristolSU\ControlDB\Models\User(['id' => 1]);
-        $group = new \BristolSU\ControlDB\Models\Group(['id' => 2]);
-        $role = new \BristolSU\ControlDB\Models\Role(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $tester = (new DummyTester())->return(true);
 
@@ -54,9 +54,9 @@ class TesterTest extends TestCase
     /** @test */
     public function handle_returns_false_if_can_is_false()
     {
-        $user = new \BristolSU\ControlDB\Models\User(['id' => 1]);
-        $group = new \BristolSU\ControlDB\Models\Group(['id' => 2]);
-        $role = new \BristolSU\ControlDB\Models\Role(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $tester = (new DummyTester())->return(false);
         $this->assertFalse(
@@ -68,9 +68,9 @@ class TesterTest extends TestCase
     public function handle_calls_handle_on_the_successor_if_the_result_is_null_and_a_successor_is_set()
     {
         $permission = new \BristolSU\Support\Permissions\Models\Permission('ability1');
-        $user = new \BristolSU\ControlDB\Models\User(['id' => 1]);
-        $group = new \BristolSU\ControlDB\Models\Group(['id' => 2]);
-        $role = new \BristolSU\ControlDB\Models\Role(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $successor = $this->prophesize(Tester::class);
         $successor->handle($permission, $user, $group, $role)->shouldBeCalled()->willReturn(true);
@@ -86,9 +86,9 @@ class TesterTest extends TestCase
     public function handle_returns_null_if_the_result_is_null_and_no_successor_is_set()
     {
         $permission = new \BristolSU\Support\Permissions\Models\Permission('ability1');
-        $user = new \BristolSU\ControlDB\Models\User(['id' => 1]);
-        $group = new \BristolSU\ControlDB\Models\Group(['id' => 2]);
-        $role = new \BristolSU\ControlDB\Models\Role(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $tester = (new DummyTester())->returnNull();
         $this->assertNull(

@@ -153,9 +153,9 @@ class PermissionTesterTest extends TestCase
     /** @test */
     public function evaluateFor_passes_the_models_through_to_the_tester()
     {
-        $user = new \BristolSU\ControlDB\Models\User(['id' => 1]);
-        $group = new \BristolSU\ControlDB\Models\Group(['id' => 2]);
-        $role = new \BristolSU\ControlDB\Models\Role(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $tester = (new DummyTester())
             ->assertPermission(function ($arg) {
@@ -236,9 +236,9 @@ class PermissionTesterTest extends TestCase
     public function evaluate_takes_user_information_from_authentication_by_default()
     {
 
-        $user = new \BristolSU\ControlDB\Models\User(['id' => 1]);
-        $group = new \BristolSU\ControlDB\Models\Group(['id' => 2]);
-        $role = new \BristolSU\ControlDB\Models\Role(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $authentication = $this->prophesize(Authentication::class);
         $authentication->getUser()->shouldBeCalled()->willReturn($user);
@@ -270,7 +270,7 @@ class PermissionTesterTest extends TestCase
     /** @test */
     public function evaluate_finds_the_correct_user_from_the_database_user_if_no_user_in_authentication()
     {
-        $user = $this->newUser(['id' => 1]);
+        $user = $this->newUser();
         $authentication = $this->prophesize(Authentication::class);
         $authentication->getUser()->shouldBeCalled()->willReturn(null);
         $authentication->getGroup()->shouldBeCalled()->willReturn(null);

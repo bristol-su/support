@@ -24,9 +24,9 @@ class ActivityInstanceEvaluatorTest extends TestCase
         $activity->moduleInstances()->saveMany($moduleInstances);
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
 
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 2]);
-        $role = $this->newRole(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
         
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
         $evaluation = $this->prophesize(Evaluation::class);
@@ -56,9 +56,9 @@ class ActivityInstanceEvaluatorTest extends TestCase
         $activity = factory(Activity::class)->create();
         $activity->moduleInstances()->saveMany($moduleInstances);
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 2]);
-        $role = $this->newRole(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
         $evaluation = $this->prophesize(Evaluation::class);
         foreach ($moduleInstances as $moduleInstance) {
