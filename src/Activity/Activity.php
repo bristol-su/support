@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Activity;
 
+use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
@@ -30,7 +31,8 @@ class Activity extends Model
         'end_date',
         'slug',
         'type',
-        'enabled'
+        'enabled',
+        'user_id'
     ];
 
     /**
@@ -138,5 +140,15 @@ class Activity extends Model
     public function activityInstances()
     {
         return $this->hasMany(ActivityInstance::class);
+    }
+
+    /**
+     * Get the user who created the activity
+     *
+     * @return \BristolSU\ControlDB\Contracts\Models\User
+     */
+    public function user()
+    {
+        return app(User::class)->getById($this->user_id);
     }
 }

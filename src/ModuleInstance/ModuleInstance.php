@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\ModuleInstance;
 
+use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Completion\CompletionConditionInstance;
@@ -36,7 +37,8 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         'visible',
         'mandatory',
         'completion_condition_instance_id',
-        'enabled'
+        'enabled',
+        'user_id'
     ];
 
     /**
@@ -198,5 +200,15 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     public function scopeEnabled(Builder $query)
     {
         return $query->where('enabled', true);
+    }
+
+    /**
+     * Get the user who created the module instance
+     * 
+     * @return \BristolSU\ControlDB\Contracts\Models\User
+     */
+    public function user()
+    {
+        return app(User::class)->getById($this->user_id);
     }
 }

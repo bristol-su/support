@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Logic;
 
+use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Filters\FilterInstance;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -19,6 +20,7 @@ class Logic extends Model
     protected $fillable = [
         'name',
         'description',
+        'user_id'
     ];
 
     /**
@@ -112,5 +114,15 @@ class Logic extends Model
             return 'user';
         }
         return 'none';
+    }
+
+    /**
+     * Get the user who created the logic
+     *
+     * @return \BristolSU\ControlDB\Contracts\Models\User
+     */
+    public function user()
+    {
+        return app(User::class)->getById($this->user_id);
     }
 }

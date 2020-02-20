@@ -4,6 +4,8 @@
 namespace BristolSU\Support\ModuleInstance\Contracts;
 
 
+use BristolSU\ControlDB\Contracts\Models\User;
+
 /**
  * Represents a module instance
  */
@@ -24,4 +26,10 @@ interface ModuleInstance
      */
     public function alias();
 
+    /**
+     * Get the user who created the module instance
+     * 
+     * @return User
+     */
+    public function user();
 }

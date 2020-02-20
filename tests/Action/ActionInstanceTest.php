@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Tests\Action;
 
+use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Action\ActionInstanceField;
 use BristolSU\Support\Action\Contracts\Action;
@@ -64,6 +65,17 @@ class ActionInstanceTest extends TestCase
         $this->assertInstanceOf(ModuleInstance::class, $actionInstance->moduleInstance);
         $this->assertModelEquals($moduleInstance, $actionInstance->moduleInstance);
         
+    }
+    
+    /** @test */
+    public function actionInstance_has_a_user_id(){
+        $user = $this->newUser();
+        $userRepository = $this->prophesize(User::class);
+        $userRepository->getById($user->id())->shouldBeCalled()->willReturn($user);
+        $this->instance(User::class, $userRepository->reveal());
+        
+        $actionInstance = factory(ActionInstance::class)->create(['user_id' => $user->id()]);
+        $this->assertModelEquals($user, $actionInstance->user());
     }
 }
 

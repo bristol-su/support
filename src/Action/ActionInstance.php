@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Action;
 
+use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Database\Eloquent\Model;
 
@@ -19,7 +20,7 @@ class ActionInstance extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'event', 'action', 'module_instance_id'
+        'name', 'description', 'event', 'action', 'module_instance_id', 'user_id'
     ];
 
     /**
@@ -68,5 +69,14 @@ class ActionInstance extends Model
     {
         return $this->belongsTo(ModuleInstance::class);
     }
-    
+
+    /**
+     * Get the user who created the action instance
+     *
+     * @return \BristolSU\ControlDB\Contracts\Models\User
+     */
+    public function user()
+    {
+        return app(User::class)->getById($this->user_id);
+    }
 }
