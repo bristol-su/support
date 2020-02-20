@@ -21,7 +21,7 @@ interface Repository
      * Retrieve all active activities.
      * 
      * This method should return all activities that're currently active. This currently just means they are within
-     * their active timeframe
+     * their active timeframe and enabled
      * 
      * @return Collection
      */

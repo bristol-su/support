@@ -10,6 +10,7 @@ use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance as ModuleInstanceContract;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;
@@ -34,7 +35,17 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         'active',
         'visible',
         'mandatory',
-        'completion_condition_instance_id'
+        'completion_condition_instance_id',
+        'enabled'
+    ];
+
+    /**
+     * Attributes to cast
+     * 
+     * @var array 
+     */
+    protected $casts = [
+        'enabled' => 'boolean'
     ];
 
     /**
@@ -175,5 +186,17 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         } catch (ModelNotFoundException $e) {
             return $default;
         }
+    }
+
+    /**
+     * Return only enabled module instances
+     * 
+     * @param Builder $query
+     * 
+     * @return Builder
+     */
+    public function scopeEnabled(Builder $query)
+    {
+        return $query->where('enabled', true);
     }
 }

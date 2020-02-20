@@ -29,7 +29,8 @@ class Activity extends Model
         'start_date',
         'end_date',
         'slug',
-        'type'
+        'type',
+        'enabled'
     ];
 
     /**
@@ -39,7 +40,8 @@ class Activity extends Model
      */
     protected $casts = [
         'start_date' => 'datetime',
-        'end_date' => 'datetime'
+        'end_date' => 'datetime',
+        'enabled' => 'boolean'
     ];
 
     /**
@@ -69,6 +71,17 @@ class Activity extends Model
         return $this->hasMany(ModuleInstance::class);
     }
 
+    /**
+     * Scope only enabled activities
+     * 
+     * @param Builder $query
+     * @return Builder
+     */
+    public function scopeEnabled(Builder $query)
+    {
+        return $query->where('enabled', true);
+    }
+    
     /**
      * For logic relationship
      * 

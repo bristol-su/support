@@ -160,4 +160,16 @@ class ModuleInstanceTest extends TestCase
         $this->assertEquals('thedefault', $moduleInstance->setting('setting1', 'thedefault'));
     }
     
+    /** @test */
+    public function enabled_only_returns_enabled_module_instances(){
+        $enabledModuleInstances = factory(ModuleInstance::class, 6)->create(['enabled' => true]);
+        $disabledModuleInstances = factory(ModuleInstance::class, 5)->create(['enabled' => false]);
+        
+        $foundModuleInstances = ModuleInstance::enabled()->get();
+        
+        $this->assertEquals(6, $foundModuleInstances->count());
+        foreach($enabledModuleInstances as $moduleInstance) {
+            $this->assertModelEquals($moduleInstance, $foundModuleInstances->shift());
+        }
+    }
 }

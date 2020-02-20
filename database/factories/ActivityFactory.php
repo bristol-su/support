@@ -29,6 +29,7 @@ $factory->define(Activity::class, function(Faker $faker) {
         'type' => 'open',
         'start_date' => $faker->dateTimeInInterval('-1 year', '-5 days'),
         'end_date' => $faker->dateTimeInInterval('+5 days', '+1 year'),
+        'enabled' => true
     ];
 });
 

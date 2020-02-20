@@ -4,6 +4,7 @@
 namespace BristolSU\Support\ModuleInstance;
 
 
+use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance as ModuleInstanceContract;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository as ModuleInstanceRepositoryContract;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -59,5 +60,30 @@ class ModuleInstanceRepository implements ModuleInstanceRepositoryContract
     public function allWithAlias(string $alias = ''): Collection
     {
         return ModuleInstance::where('alias', $alias)->get();
+    }
+
+    /**
+     * Get all module instances that belong to a given activity
+     *
+     * @param Activity $activity Activity to retrieve module instances through
+     *
+     * @return Collection
+     */
+    public function allThroughActivity(Activity $activity): Collection
+    {
+        return $activity->moduleInstances;
+    }
+
+    /**
+     * Get all enabled module instances that belong to a given activity
+     *
+     * @param Activity $activity Activity to retrieve enabled module instances through
+     *
+     * @return Collection
+     */
+    public function allEnabledThroughActivity(Activity $activity): Collection
+    {
+        return $activity->moduleInstances()->enabled()->get();
+
     }
 }

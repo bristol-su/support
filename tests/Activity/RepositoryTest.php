@@ -32,10 +32,14 @@ class RepositoryTest extends TestCase
             'start_date' => Carbon::now()->subDay(),
             'end_date' => Carbon::now()->addDay()
         ]));
+        $activeActivities->push(factory(Activity::class)->create(['enabled' => true, 'start_date' => null, 'end_date' => null]));
+
         $inactiveActivities = factory(Activity::class, 2)->create([
             'start_date' => Carbon::now()->addDay(),
             'end_date' => Carbon::now()->addWeek()
         ]);
+        
+        $inactiveActivities->push(factory(Activity::class)->create(['enabled' => false, 'start_date' => null, 'end_date' => null]));
 
         $activities = (new ActivityRepository)->active();
 

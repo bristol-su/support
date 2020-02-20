@@ -38,13 +38,13 @@ class Repository implements ActivityRepositoryContract
      * Retrieve all active activities.
      *
      * This method should return all activities that're currently active. This currently just means they are within
-     * their active timeframe
+     * their active timeframe and they're turned on,
      *
      * @return Collection
      */
     public function active(): Collection
     {
-        return Activity::active()->with([
+        return Activity::active()->enabled()->with([
             'moduleInstances',
             'forLogic',
             'adminLogic',
@@ -95,7 +95,8 @@ class Repository implements ActivityRepositoryContract
      *        'start_date' => null,
      *        'end_date' => null,
      *        'slug' => 'activity-slug',
-     *        'type' => 'open'
+     *        'type' => 'open',
+     *        'enabled' => true
      * ]
      *
      * @param array $attributes Array of attributes to create the activity with
@@ -133,7 +134,8 @@ class Repository implements ActivityRepositoryContract
      *        'start_date' => null,
      *        'end_date' => null,
      *        'slug' => 'activity-slug',
-     *        'type' => 'open'
+     *        'type' => 'open',
+     *        'enabled' => true
      * ]
      *
      * @param $id
