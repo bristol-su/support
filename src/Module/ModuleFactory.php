@@ -30,6 +30,7 @@ class ModuleFactory implements ModuleFactoryAlias
         $moduleBuilder->setTriggers();
         $moduleBuilder->setCompletionConditions();
         $moduleBuilder->setServices();
+        $moduleBuilder->setFor();
         return $moduleBuilder->getModule();
     }
 }
