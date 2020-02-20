@@ -24,9 +24,9 @@ class CheckActivityForTest extends TestCase
         $this->expectException(ActivityRequiresParticipant::class);
         
         $authentication = $this->prophesize(Authentication::class);
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 5]);
-        $role = $this->newRole(['id' => 10]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
         $authentication->getUser()->willReturn($user);
         $authentication->getGroup()->willReturn($group);
         $authentication->getRole()->willReturn($role);
@@ -50,9 +50,9 @@ class CheckActivityForTest extends TestCase
         $this->expectException(ActivityRequiresParticipant::class);
         
         $authentication = $this->prophesize(Authentication::class);
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 5]);
-        $role = $this->newRole(['id' => 10]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
         $authentication->getUser()->willReturn($user);
         $authentication->getGroup()->willReturn($group);
         $authentication->getRole()->willReturn($role);
@@ -76,9 +76,9 @@ class CheckActivityForTest extends TestCase
         $this->expectException(ActivityRequiresParticipant::class);
         
         $authentication = $this->prophesize(Authentication::class);
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 2]);
-        $role = $this->newRole(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
         $authentication->getUser()->willReturn($user);
         $authentication->getGroup()->willReturn($group);
         $authentication->getRole()->willReturn($role);
@@ -104,9 +104,9 @@ class CheckActivityForTest extends TestCase
         ]);
         
         $authentication = $this->prophesize(Authentication::class);
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 5]);
-        $role = $this->newRole(['id' => 10]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
         $authentication->getUser()->willReturn($user);
         $authentication->getGroup()->willReturn($group);
         $authentication->getRole()->willReturn($role);

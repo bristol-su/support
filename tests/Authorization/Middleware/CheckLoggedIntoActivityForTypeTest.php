@@ -71,9 +71,9 @@ class CheckLoggedIntoActivityForTypeTest extends TestCase
             'activity_for' => 'user'
         ]);
         $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->willReturn($this->newUser(['id' => 1]));
-        $authentication->getGroup()->willReturn($this->newGroup(['id' => 1]));
-        $authentication->getRole()->willReturn($this->newRole(['id' => 1]));
+        $authentication->getUser()->willReturn($this->newUser());
+        $authentication->getGroup()->willReturn($this->newGroup());
+        $authentication->getRole()->willReturn($this->newRole());
 
         $request = $this->prophesize(Request::class);
         $request->route('activity_slug')->willReturn($activity);

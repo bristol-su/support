@@ -2,8 +2,10 @@
 
 namespace BristolSU\Support\ModuleInstance;
 
+use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Completion\CompletionConditionInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
@@ -36,7 +38,8 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         'visible',
         'mandatory',
         'completion_condition_instance_id',
-        'enabled'
+        'enabled',
+        'user_id'
     ];
 
     /**
@@ -59,6 +62,9 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         self::creating(function($model) {
             if ($model->slug === null) {
                 $model->slug = Str::slug($model->name);
+            }
+            if($model->user_id === null && ($user = app(Authentication::class)->getUser()) !== null) {
+                $model->user_id = $user->id();
             }
         });
     }
@@ -198,5 +204,19 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     public function scopeEnabled(Builder $query)
     {
         return $query->where('enabled', true);
+    }
+
+    /**
+     * Get the user who created the module instance
+     *
+     * @return \BristolSU\ControlDB\Contracts\Models\User
+     * @throws \Exception If the user ID is null
+     */
+    public function user(): \BristolSU\ControlDB\Contracts\Models\User
+    {
+        if($this->user_id === null) {
+            throw new \Exception(sprintf('Module Instance #%u is not owned by a user.', $this->id));
+        }
+        return app(User::class)->getById($this->user_id);
     }
 }

@@ -13,7 +13,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function getModel_returns_the_set_model(){
         $filter = new DummyUserFilter();
-        $user = $this->newUser(['id' => 1]);
+        $user = $this->newUser();
         $filter->setModel($user);
         $this->assertEquals($user, $filter->model());
     }
@@ -21,7 +21,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function hasModel_returns_true_if_the_user_is_set(){
         $filter = new DummyUserFilter();
-        $dummyUser = $this->newUser(['id' => 1]);
+        $dummyUser = $this->newUser();
         $filter->setModel($dummyUser);
 
         $this->assertTrue($filter->hasModel());
@@ -46,7 +46,7 @@ class UserFilterTest extends TestCase
     /** @test */
     public function user_returns_the_user(){
         $filter = new DummyUserFilter();
-        $user = $this->newUser(['id' => 1]);
+        $user = $this->newUser();
         $filter->setModel($user);
         $this->assertEquals($user, $filter->user());
     }

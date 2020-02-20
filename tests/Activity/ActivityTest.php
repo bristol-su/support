@@ -4,8 +4,10 @@
 namespace BristolSU\Support\Tests\Activity;
 
 
+use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Carbon\Carbon;
@@ -151,5 +153,73 @@ class ActivityTest extends TestCase
 
         $this->assertModelEquals($activityInstance1, $activityInstances->offsetGet(0));
         $this->assertModelEquals($activityInstance2, $activityInstances->offsetGet(1));
+    }
+    
+    /** @test */
+    public function user_returns_a_user_with_the_correct_id(){
+        $user = $this->newUser();
+        $userRepository = $this->prophesize(User::class);
+        $userRepository->getById($user->id())->shouldBeCalled()->willReturn($user);
+        $this->instance(User::class, $userRepository->reveal());
+        
+        $activity = factory(Activity::class)->create(['user_id' => $user->id()]);
+        $this->assertInstanceOf(\BristolSU\ControlDB\Models\User::class, $activity->user());
+        $this->assertModelEquals($user, $activity->user());
+    }
+    
+    /** @test */
+    public function user_throws_an_exception_if_user_id_is_null(){
+        $activity = factory(Activity::class)->create(['user_id' => null, 'id' => 2000]);
+        
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Activity #2000 is not owned by a user');
+     
+        $activity->user();
+    }
+    
+    /** @test */
+    public function user_id_is_automatically_added_on_creation(){
+        $user = $this->newUser();
+        $authentication = $this->prophesize(Authentication::class);
+        $authentication->getUser()->shouldBeCalled()->willReturn($user);
+        $this->instance(Authentication::class, $authentication->reveal());
+        
+        $logic = factory(Logic::class)->create();
+        $activity = Activity::create([
+            'name' => 'name1',
+            'description' => 'desc1',
+            'activity_for' => 'user',
+            'for_logic' => $logic->id,
+            'admin_logic' => $logic->id,
+            'type' => 'open',
+            'start_date' => null,
+            'end_date' => null,
+            'enabled' => true
+        ]);
+
+        $this->assertNotNull($activity->user_id);
+        $this->assertEquals($user->id(), $activity->user_id);
+    }
+    
+    /** @test */
+    public function user_id_is_not_overridden_if_given(){
+        $user = $this->newUser();
+
+        $logic = factory(Logic::class)->create();
+        $activity = Activity::create([
+            'name' => 'name1',
+            'description' => 'desc1',
+            'activity_for' => 'user',
+            'for_logic' => $logic->id,
+            'admin_logic' => $logic->id,
+            'type' => 'open',
+            'start_date' => null,
+            'end_date' => null,
+            'enabled' => true,
+            'user_id' => $user->id()
+        ]);
+
+        $this->assertNotNull($activity->user_id);
+        $this->assertEquals($user->id(), $activity->user_id);
     }
 }

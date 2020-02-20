@@ -2,6 +2,8 @@
 
 namespace BristolSU\Support\Logic;
 
+use BristolSU\ControlDB\Contracts\Repositories\User;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Filters\FilterInstance;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -19,6 +21,7 @@ class Logic extends Model
     protected $fillable = [
         'name',
         'description',
+        'user_id'
     ];
 
     /**
@@ -34,6 +37,24 @@ class Logic extends Model
     protected $appends = [
         'lowest_resource'
     ];
+
+
+    /**
+     * Initialise a Logic model.
+     *
+     * Save the ID of the current user on creation
+     *
+     * @param array $attributes
+     */
+    public function __construct(array $attributes = [])
+    {
+        parent::__construct($attributes);
+        self::creating(function($model) {
+            if($model->user_id === null && ($user = app(Authentication::class)->getUser()) !== null) {
+                $model->user_id = $user->id();
+            }
+        });
+    }
     
     /**
      * Filter relationship
@@ -112,5 +133,19 @@ class Logic extends Model
             return 'user';
         }
         return 'none';
+    }
+
+    /**
+     * Get the user who created the logic
+     *
+     * @return \BristolSU\ControlDB\Contracts\Models\User
+     * @throws \Exception If the user ID is null
+     */
+    public function user(): \BristolSU\ControlDB\Contracts\Models\User
+    {
+        if($this->user_id === null) {
+            throw new \Exception(sprintf('Logic #%u is not owned by a user.', $this->id));
+        }
+        return app(User::class)->getById($this->user_id);
     }
 }

@@ -19,6 +19,11 @@ If you have created any completion conditions, you must change the options() fun
 ### Module Instances
 Module Instances should now be retrieved using the Module Instance Repository
 
+### User IDs
+In version 3, we introduce user IDs to the Activity, Action Instance, Logic and Module Instance models. Although this column is nullable, a null user ID will throw an exception when retrieved.
+
+To upgrade, ensure there are no null user IDs in the four tables. We recommend running a query to convert all null columns to contain your user ID.
+
 ## [v2.0]
 
 ### Database User

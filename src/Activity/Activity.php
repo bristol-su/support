@@ -2,7 +2,9 @@
 
 namespace BristolSU\Support\Activity;
 
+use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Carbon\Carbon;
@@ -30,7 +32,8 @@ class Activity extends Model
         'end_date',
         'slug',
         'type',
-        'enabled'
+        'enabled',
+        'user_id'
     ];
 
     /**
@@ -48,6 +51,7 @@ class Activity extends Model
      * Initialise an Activity model. 
      * 
      * Set up creating event to set the slug automatically
+     * Save the User ID of the current user on creation
      * 
      * @param array $attributes
      */
@@ -57,6 +61,9 @@ class Activity extends Model
         self::creating(function($model) {
             if ($model->slug === null) {
                 $model->slug = Str::slug($model->name);
+            }
+            if($model->user_id === null && ($user = app(Authentication::class)->getUser()) !== null) {
+                $model->user_id = $user->id();
             }
         });
     }
@@ -138,5 +145,19 @@ class Activity extends Model
     public function activityInstances()
     {
         return $this->hasMany(ActivityInstance::class);
+    }
+
+    /**
+     * Get the user who created the activity
+     *
+     * @return \BristolSU\ControlDB\Contracts\Models\User
+     * @throws \Exception If the user ID is null
+     */
+    public function user(): \BristolSU\ControlDB\Contracts\Models\User
+    {
+        if($this->user_id === null) {
+            throw new \Exception(sprintf('Activity #%u is not owned by a user.', $this->id));
+        }
+        return app(User::class)->getById($this->user_id);
     }
 }

@@ -18,5 +18,8 @@ $factory->define(Logic::class, function(Faker $faker) {
     return [
         'name' => $faker->word,
         'description' => $faker->text,
+        'user_id' => function() {
+            return factory(\BristolSU\ControlDB\Models\User::class)->create()->id();
+        }
     ];
 });
