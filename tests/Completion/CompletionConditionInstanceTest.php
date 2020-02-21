@@ -34,5 +34,23 @@ class CompletionConditionInstanceTest extends TestCase
 
         $this->assertModelEquals($moduleInstance, $cCI->moduleInstance);
     }
+
+    /** @test */
+    public function revisions_are_saved(){
+        $user = $this->newUser();
+        $this->beUser($user);
+
+        $completionConditionInstance = factory(CompletionConditionInstance::class)->create(['name' => 'OldName']);
+
+        $completionConditionInstance->name = 'NewName';
+        $completionConditionInstance->save();
+
+        $this->assertEquals(1, $completionConditionInstance->revisionHistory->count());
+        $this->assertEquals($completionConditionInstance->id, $completionConditionInstance->revisionHistory->first()->revisionable_id);
+        $this->assertEquals(CompletionConditionInstance::class, $completionConditionInstance->revisionHistory->first()->revisionable_type);
+        $this->assertEquals('name', $completionConditionInstance->revisionHistory->first()->key);
+        $this->assertEquals('OldName', $completionConditionInstance->revisionHistory->first()->old_value);
+        $this->assertEquals('NewName', $completionConditionInstance->revisionHistory->first()->new_value);
+    }
     
 }

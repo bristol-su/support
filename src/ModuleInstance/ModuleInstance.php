@@ -12,6 +12,7 @@ use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance as ModuleInstanceContract;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
+use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -22,7 +23,8 @@ use Illuminate\Support\Str;
  */
 class ModuleInstance extends Model implements ModuleInstanceContract
 {
-
+    use HasRevisions;
+    
     /**
      * Fillable attributes 
      * 

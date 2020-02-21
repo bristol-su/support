@@ -54,6 +54,9 @@
         <testsuite name="Permissions">
             <directory suffix="Test.php">./tests/Permissions</directory>
         </testsuite>
+        <testsuite name="Revision">
+            <directory suffix="Test.php">./tests/Revision</directory>
+        </testsuite>
         <testsuite name="Testing">
             <directory suffix="Test.php">./tests/Testing</directory>
         </testsuite>

@@ -35,5 +35,24 @@ class ModuleInstanceServiceTest extends TestCase
         $this->assertInstanceOf(Connection::class, $moduleInstanceService->connection);
         $this->assertModelEquals($connection, $moduleInstanceService->connection);
     }
+
+    /** @test */
+    public function revisions_are_saved()
+    {
+        $user = $this->newUser();
+        $this->beUser($user);
+
+        $moduleInstanceService = factory(ModuleInstanceService::class)->create(['service' => 'OldService']);
+
+        $moduleInstanceService->service = 'NewService';
+        $moduleInstanceService->save();
+
+        $this->assertEquals(1, $moduleInstanceService->revisionHistory->count());
+        $this->assertEquals($moduleInstanceService->id, $moduleInstanceService->revisionHistory->first()->revisionable_id);
+        $this->assertEquals(ModuleInstanceService::class, $moduleInstanceService->revisionHistory->first()->revisionable_type);
+        $this->assertEquals('service', $moduleInstanceService->revisionHistory->first()->key);
+        $this->assertEquals('OldService', $moduleInstanceService->revisionHistory->first()->old_value);
+        $this->assertEquals('NewService', $moduleInstanceService->revisionHistory->first()->new_value);
+    }
     
 }

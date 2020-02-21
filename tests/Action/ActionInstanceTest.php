@@ -116,6 +116,24 @@ class ActionInstanceTest extends TestCase
         $this->assertNotNull($actionInstance->user_id);
         $this->assertEquals($user->id(), $actionInstance->user_id);
     }
+    
+    /** @test */
+    public function revisions_are_saved(){
+        $user = $this->newUser();
+        $this->beUser($user);
+        
+        $actionInstance = factory(ActionInstance::class)->create(['name' => 'OldName']);
+
+        $actionInstance->name = 'NewName';
+        $actionInstance->save();
+
+        $this->assertEquals(1, $actionInstance->revisionHistory->count());
+        $this->assertEquals($actionInstance->id, $actionInstance->revisionHistory->first()->revisionable_id);
+        $this->assertEquals(ActionInstance::class, $actionInstance->revisionHistory->first()->revisionable_type);
+        $this->assertEquals('name', $actionInstance->revisionHistory->first()->key);
+        $this->assertEquals('OldName', $actionInstance->revisionHistory->first()->old_value);
+        $this->assertEquals('NewName', $actionInstance->revisionHistory->first()->new_value);
+    }
 }
 
 class ActionInstanceDummyAction implements Action
