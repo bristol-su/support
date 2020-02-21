@@ -223,4 +223,24 @@ class ModuleInstanceTest extends TestCase
         $this->assertNotNull($moduleInstance->user_id);
         $this->assertEquals($user->id(), $moduleInstance->user_id);
     }
+
+    /** @test */
+    public function revisions_are_saved()
+    {
+        $user = $this->newUser();
+        $this->beUser($user);
+
+        $moduleInstance = factory(ModuleInstance::class)->create(['name' => 'OldName']);
+
+        $moduleInstance->name = 'NewName';
+        $moduleInstance->save();
+
+        $this->assertEquals(1, $moduleInstance->revisionHistory->count());
+        $this->assertEquals($moduleInstance->id, $moduleInstance->revisionHistory->first()->revisionable_id);
+        $this->assertEquals(ModuleInstance::class, $moduleInstance->revisionHistory->first()->revisionable_type);
+        $this->assertEquals('name', $moduleInstance->revisionHistory->first()->key);
+        $this->assertEquals('OldName', $moduleInstance->revisionHistory->first()->old_value);
+        $this->assertEquals('NewName', $moduleInstance->revisionHistory->first()->new_value);
+    }
+    
 }

@@ -217,4 +217,23 @@ class ModelPermissionTest extends TestCase
         
         $this->assertModelEquals($moduleInstance, $permission->moduleInstance);
     }
+
+    /** @test */
+    public function revisions_are_saved()
+    {
+        $user = $this->newUser();
+        $this->beUser($user);
+
+        $modelPermission = factory(ModelPermission::class)->create(['ability' => 'OldAbility']);
+
+        $modelPermission->ability = 'NewAbility';
+        $modelPermission->save();
+
+        $this->assertEquals(1, $modelPermission->revisionHistory->count());
+        $this->assertEquals($modelPermission->id, $modelPermission->revisionHistory->first()->revisionable_id);
+        $this->assertEquals(ModelPermission::class, $modelPermission->revisionHistory->first()->revisionable_type);
+        $this->assertEquals('ability', $modelPermission->revisionHistory->first()->key);
+        $this->assertEquals('OldAbility', $modelPermission->revisionHistory->first()->old_value);
+        $this->assertEquals('NewAbility', $modelPermission->revisionHistory->first()->new_value);
+    }
 }

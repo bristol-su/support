@@ -8,7 +8,7 @@ use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
 
-class ModuleInstanceSettingsTest extends TestCase
+class ModuleInstanceSettingTest extends TestCase
 {
 
     /** @test */
@@ -87,4 +87,23 @@ class ModuleInstanceSettingsTest extends TestCase
         $this->assertEquals(['test', 'test2'], $setting->value);
     }
 
+    /** @test */
+    public function revisions_are_saved()
+    {
+        $user = $this->newUser();
+        $this->beUser($user);
+
+        $moduleInstanceSetting = factory(ModuleInstanceSetting::class)->create(['key' => 'OldKey']);
+
+        $moduleInstanceSetting->key = 'NewKey';
+        $moduleInstanceSetting->save();
+
+        $this->assertEquals(1, $moduleInstanceSetting->revisionHistory->count());
+        $this->assertEquals($moduleInstanceSetting->id, $moduleInstanceSetting->revisionHistory->first()->revisionable_id);
+        $this->assertEquals(ModuleInstanceSetting::class, $moduleInstanceSetting->revisionHistory->first()->revisionable_type);
+        $this->assertEquals('key', $moduleInstanceSetting->revisionHistory->first()->key);
+        $this->assertEquals('OldKey', $moduleInstanceSetting->revisionHistory->first()->old_value);
+        $this->assertEquals('NewKey', $moduleInstanceSetting->revisionHistory->first()->new_value);
+    }
+    
 }

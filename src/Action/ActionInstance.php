@@ -5,6 +5,7 @@ namespace BristolSU\Support\Action;
 use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -15,7 +16,8 @@ use Illuminate\Support\Str;
  */
 class ActionInstance extends Model
 {
-
+    use HasRevisions;
+    
     /**
      * Fillable properties
      * 

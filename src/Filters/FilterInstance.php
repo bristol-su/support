@@ -10,6 +10,7 @@ use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Logic\Logic;
+use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -18,7 +19,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class FilterInstance extends Model implements FilterInstanceContract
 {
-
+    use HasRevisions;
+    
     /**
      * Fillable attributes
      * 

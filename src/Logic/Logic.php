@@ -5,6 +5,7 @@ namespace BristolSU\Support\Logic;
 use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Filters\FilterInstance;
+use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -13,6 +14,8 @@ use Illuminate\Support\Collection;
  */
 class Logic extends Model
 {
+    use HasRevisions;
+    
     /**
      * Fillable properties
      * 

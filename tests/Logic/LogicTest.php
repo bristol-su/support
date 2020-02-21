@@ -322,7 +322,24 @@ class LogicTest extends TestCase
         $this->assertEquals($user->id(), $logic->user_id);
     }
 
+    /** @test */
+    public function revisions_are_saved()
+    {
+        $user = $this->newUser();
+        $this->beUser($user);
 
+        $logic = factory(Logic::class)->create(['name' => 'OldName']);
+
+        $logic->name = 'NewName';
+        $logic->save();
+
+        $this->assertEquals(1, $logic->revisionHistory->count());
+        $this->assertEquals($logic->id, $logic->revisionHistory->first()->revisionable_id);
+        $this->assertEquals(Logic::class, $logic->revisionHistory->first()->revisionable_type);
+        $this->assertEquals('name', $logic->revisionHistory->first()->key);
+        $this->assertEquals('OldName', $logic->revisionHistory->first()->old_value);
+        $this->assertEquals('NewName', $logic->revisionHistory->first()->new_value);
+    }
 }
 
 class DummyUserFilter extends UserFilter

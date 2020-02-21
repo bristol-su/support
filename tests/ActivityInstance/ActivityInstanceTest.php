@@ -164,4 +164,22 @@ class ActivityInstanceTest extends TestCase
         $activityInstance = factory(ActivityInstance::class)->create();
         $this->assertNull($activityInstance->setRememberToken('token'));
     }
+
+    /** @test */
+    public function revisions_are_saved(){
+        $user = $this->newUser();
+        $this->beUser($user);
+
+        $activityInstance = factory(ActivityInstance::class)->create(['name' => 'OldName']);
+
+        $activityInstance->name = 'NewName';
+        $activityInstance->save();
+
+        $this->assertEquals(1, $activityInstance->revisionHistory->count());
+        $this->assertEquals($activityInstance->id, $activityInstance->revisionHistory->first()->revisionable_id);
+        $this->assertEquals(ActivityInstance::class, $activityInstance->revisionHistory->first()->revisionable_type);
+        $this->assertEquals('name', $activityInstance->revisionHistory->first()->key);
+        $this->assertEquals('OldName', $activityInstance->revisionHistory->first()->old_value);
+        $this->assertEquals('NewName', $activityInstance->revisionHistory->first()->new_value);
+    }
 }

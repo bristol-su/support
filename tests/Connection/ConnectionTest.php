@@ -63,5 +63,24 @@ class ConnectionTest extends TestCase
         $this->assertTrue($connection->exists());
         $this->assertEquals($user1->id(), $connection->user_id);
     }
+
+    /** @test */
+    public function revisions_are_saved()
+    {
+        $user = $this->newUser();
+        $this->beUser($user);
+
+        $connection = factory(Connection::class)->create(['name' => 'OldName']);
+
+        $connection->name = 'NewName';
+        $connection->save();
+
+        $this->assertEquals(1, $connection->revisionHistory->count());
+        $this->assertEquals($connection->id, $connection->revisionHistory->first()->revisionable_id);
+        $this->assertEquals(Connection::class, $connection->revisionHistory->first()->revisionable_type);
+        $this->assertEquals('name', $connection->revisionHistory->first()->key);
+        $this->assertEquals('OldName', $connection->revisionHistory->first()->old_value);
+        $this->assertEquals('NewName', $connection->revisionHistory->first()->new_value);
+    }
     
 }

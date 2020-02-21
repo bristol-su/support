@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Action;
 
+use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -9,7 +10,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ActionInstanceField extends Model
 {
-
+    use HasRevisions;
+    
     /**
      * Fillable Properties
      * 

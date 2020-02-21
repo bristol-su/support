@@ -4,6 +4,7 @@ namespace BristolSU\Support\ModuleInstance\Connection;
 
 use BristolSU\Support\Connection\Connection;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,7 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ModuleInstanceService extends Model
 {
-
+    use HasRevisions;
+    
     /**
      * Table to store data in
      * 
