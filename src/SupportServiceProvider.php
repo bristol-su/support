@@ -16,6 +16,7 @@ use BristolSU\Support\Logic\LogicServiceProvider;
 use BristolSU\Support\Module\ModuleFrameworkServiceProvider;
 use BristolSU\Support\ModuleInstance\ModuleInstanceServiceProvider;
 use BristolSU\Support\Permissions\PermissionServiceProvider;
+use BristolSU\Support\Revision\RevisionServiceProvider;
 use BristolSU\Support\User\UserServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -45,7 +46,8 @@ class SupportServiceProvider extends ServiceProvider
         ModuleFrameworkServiceProvider::class,
         ModuleInstanceServiceProvider::class,
         UserServiceProvider::class,
-        HttpServiceProvider::class
+        HttpServiceProvider::class,
+        RevisionServiceProvider::class
     ];
 
     public function register()
