@@ -88,11 +88,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a61a56fa9db8557a001ce3fa362263f79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac69270835d60605c71e50bfe4984685d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstanceRepository.html#ac69270835d60605c71e50bfe4984685d">allWithAlias</a> (string $alias='')</td></tr>
 <tr class="separator:ac69270835d60605c71e50bfe4984685d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2e0f3a5c3fb19e51abcca865c9103c44"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstanceRepository.html#a2e0f3a5c3fb19e51abcca865c9103c44">allThroughActivity</a> (<a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> $activity)</td></tr>
+<tr class="separator:a2e0f3a5c3fb19e51abcca865c9103c44"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab60d03fe0c058bb2cb6586f4c9851186"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstanceRepository.html#ab60d03fe0c058bb2cb6586f4c9851186">allEnabledThroughActivity</a> (<a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> $activity)</td></tr>
+<tr class="separator:ab60d03fe0c058bb2cb6586f4c9851186"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Handle interacting with module instances </p>
 
-<p class="definition">Definition at line <a class="el" href="Contracts_2ModuleInstanceRepository_8php_source.html#l00010">10</a> of file <a class="el" href="Contracts_2ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Contracts_2ModuleInstanceRepository_8php_source.html#l00011">11</a> of file <a class="el" href="Contracts_2ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a61a56fa9db8557a001ce3fa362263f79"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a61a56fa9db8557a001ce3fa362263f79">&#9670;&nbsp;</a></span>all()</h2>
@@ -112,6 +116,62 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstance.html">ModuleInstance</a>[]|Collection </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstanceRepository.html#af5297bc16b9fa719050f24cd2adc696c">BristolSU\Support\ModuleInstance\ModuleInstanceRepository</a>.</p>
+
+</div>
+</div>
+<a id="ab60d03fe0c058bb2cb6586f4c9851186"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab60d03fe0c058bb2cb6586f4c9851186">&#9670;&nbsp;</a></span>allEnabledThroughActivity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository::allEnabledThroughActivity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a>&#160;</td>
+          <td class="paramname"><em>$activity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get all enabled module instances that belong to a given activity</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a></td><td class="paramname">$activity</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> to retrieve enabled module instances through</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Collection </dd></dl>
+
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstanceRepository.html#a503ab081c499949c032b971259224b16">BristolSU\Support\ModuleInstance\ModuleInstanceRepository</a>.</p>
+
+</div>
+</div>
+<a id="a2e0f3a5c3fb19e51abcca865c9103c44"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e0f3a5c3fb19e51abcca865c9103c44">&#9670;&nbsp;</a></span>allThroughActivity()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository::allThroughActivity </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a>&#160;</td>
+          <td class="paramname"><em>$activity</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get all module instances that belong to a given activity</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a></td><td class="paramname">$activity</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> to retrieve module instances through</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Collection </dd></dl>
+
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstanceRepository.html#a79277ce68703ccafe63e6e5e35d5541a">BristolSU\Support\ModuleInstance\ModuleInstanceRepository</a>.</p>
 
 </div>
 </div>

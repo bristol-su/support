@@ -6,7 +6,7 @@ If you are upgrading a major version, you should always refer to this document t
 
 When upgrading, you should upgrade one version at a time.
 
-## [v3.0]
+## v3.0
 
 ### Filters
 
@@ -24,7 +24,7 @@ In version 3, we introduce user IDs to the Activity, Action Instance, Logic and 
 
 To upgrade, ensure there are no null user IDs in the four tables. We recommend running a query to convert all null columns to contain your user ID.
 
-## [v2.0]
+## v2.0
 
 ### Database User
 
