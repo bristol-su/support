@@ -270,6 +270,34 @@ class AudienceMemberTest extends TestCase
         $this->assertModelEquals($role1, $audienceMember->toArray()['roles'][0]);
         $this->assertModelEquals($role2, $audienceMember->toArray()['roles'][1]);
         
+        $this->assertJson($audienceMember->toJson());
+        $this->assertArrayHasKey('user', json_decode($audienceMember->toJson(), true));
+        $this->assertArrayHasKey('can_be_user', json_decode($audienceMember->toJson(), true));
+        $this->assertArrayHasKey('groups', json_decode($audienceMember->toJson(), true));
+        $this->assertArrayHasKey('roles', json_decode($audienceMember->toJson(), true));
+        $this->assertEquals($user->id(), json_decode($audienceMember->toJson(), true)['user']['id']);
+        $this->assertTrue(json_decode($audienceMember->toJson(), true)['can_be_user']);
+        $this->assertCount(2, json_decode($audienceMember->toJson(), true)['groups']);
+        $this->assertEquals($group1->id(), json_decode($audienceMember->toJson(), true)['groups'][0]['id']);
+        $this->assertEquals($group2->id(), json_decode($audienceMember->toJson(), true)['groups'][1]['id']);
+        $this->assertCount(2, json_decode($audienceMember->toJson(), true)['roles']);
+        $this->assertEquals($role1->id(), json_decode($audienceMember->toJson(), true)['roles'][0]['id']);
+        $this->assertEquals($role2->id(), json_decode($audienceMember->toJson(), true)['roles'][1]['id']);
+        
+        $this->assertJson((string) $audienceMember);
+        $this->assertArrayHasKey('user', json_decode((string) $audienceMember, true));
+        $this->assertArrayHasKey('can_be_user', json_decode((string) $audienceMember, true));
+        $this->assertArrayHasKey('groups', json_decode((string) $audienceMember, true));
+        $this->assertArrayHasKey('roles', json_decode((string) $audienceMember, true));
+        $this->assertEquals($user->id(), json_decode((string) $audienceMember, true)['user']['id']);
+        $this->assertTrue(json_decode((string) $audienceMember, true)['can_be_user']);
+        $this->assertCount(2, json_decode((string) $audienceMember, true)['groups']);
+        $this->assertEquals($group1->id(), json_decode((string) $audienceMember, true)['groups'][0]['id']);
+        $this->assertEquals($group2->id(), json_decode((string) $audienceMember, true)['groups'][1]['id']);
+        $this->assertCount(2, json_decode((string) $audienceMember, true)['roles']);
+        $this->assertEquals($role1->id(), json_decode((string) $audienceMember, true)['roles'][0]['id']);
+        $this->assertEquals($role2->id(), json_decode((string) $audienceMember, true)['roles'][1]['id']);
+        
         
     }
     

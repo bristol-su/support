@@ -25,6 +25,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - user_id column to an Activity, Module Instance, Action Instance and Logic Group
 - 'For' property to a Module model. This property is either user, group or role and allows modules to, e.g., require a group to be logged in to use the module.
 - HasRevision trait for tracking model revisions in the SDK
+- \BristolSU\Support\Completion\Contracts\CompletionConditionTester::evaluatePercentage method added for getting the percentage complete of a completion condition
 
 ## [2.1] - (05/02/2020)
 
