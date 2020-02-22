@@ -33,9 +33,9 @@ class ModelPermissionTest extends TestCase
 
     /** @test */
     public function user_can_select_by_user_id_and_ability(){
-        $user1 = $this->newUser(['id' => 1]);
-        $user2 = $this->newUser(['id' => 2]);
-        $user4 = $this->newUser(['id' => 3]);
+        $user1 = $this->newUser();
+        $user2 = $this->newUser();
+        $user4 = $this->newUser();
         $userPermission1 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission1', 'model_id' => $user1->id]);
         $userPermission2 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission2', 'model_id' => $user2->id]);
         $userPermission3 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission3', 'model_id' => $user1->id]);
@@ -49,9 +49,9 @@ class ModelPermissionTest extends TestCase
 
     /** @test */
     public function group_can_select_by_group_id_and_ability(){
-        $group1 = $this->newGroup(['id' => 1]);
-        $group2 = $this->newGroup(['id' => 2]);
-        $group4 = $this->newGroup(['id' => 3]);
+        $group1 = $this->newGroup();
+        $group2 = $this->newGroup();
+        $group4 = $this->newGroup();
         $groupPermission1 = factory(ModelPermission::class)->state('group')->create(['ability' => 'permission1', 'model_id' => $group1->id]);
         $groupPermission2 = factory(ModelPermission::class)->state('group')->create(['ability' => 'permission2', 'model_id' => $group2->id]);
         $groupPermission3 = factory(ModelPermission::class)->state('group')->create(['ability' => 'permission3', 'model_id' => $group1->id]);
@@ -81,9 +81,9 @@ class ModelPermissionTest extends TestCase
 
     /** @test */
     public function role_can_select_by_role_id_and_ability(){
-        $role1 = $this->newRole(['id' => 1]);
-        $role2 = $this->newRole(['id' => 2]);
-        $role4 = $this->newRole(['id' => 3]);
+        $role1 = $this->newRole();
+        $role2 = $this->newRole();
+        $role4 = $this->newRole();
         $rolePermission1 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission1', 'model_id' => $role1->id]);
         $rolePermission2 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission2', 'model_id' => $role2->id]);
         $rolePermission3 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission3', 'model_id' => $role1->id]);
@@ -163,9 +163,9 @@ class ModelPermissionTest extends TestCase
 
     /** @test */
     public function user_can_select_by_user_id_and_ability_and_module_instance(){
-        $user1 = $this->newUser(['id' => 1]);
-        $user2 = $this->newUser(['id' => 2]);
-        $user4 = $this->newUser(['id' => 3]);
+        $user1 = $this->newUser();
+        $user2 = $this->newUser();
+        $user4 = $this->newUser();
         $userPermission1 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission1', 'model_id' => $user1->id, 'module_instance_id' => 1]);
         $userPermission2 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission2', 'model_id' => $user2->id]);
         $userPermission3 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission1', 'model_id' => $user1->id, 'module_instance_id' => 2]);
@@ -179,9 +179,9 @@ class ModelPermissionTest extends TestCase
 
     /** @test */
     public function group_can_select_by_group_id_and_ability_and_module_instance(){
-        $group1 = $this->newGroup(['id' => 1]);
-        $group2 = $this->newGroup(['id' => 2]);
-        $group4 = $this->newGroup(['id' => 3]);
+        $group1 = $this->newGroup();
+        $group2 = $this->newGroup();
+        $group4 = $this->newGroup();
         $groupPermission1 = factory(ModelPermission::class)->state('group')->create(['ability' => 'permission1', 'model_id' => $group1->id, 'module_instance_id' => 1]);
         $groupPermission2 = factory(ModelPermission::class)->state('group')->create(['ability' => 'permission2', 'model_id' => $group2->id]);
         $groupPermission3 = factory(ModelPermission::class)->state('group')->create(['ability' => 'permission1', 'model_id' => $group1->id, 'module_instance_id' => 2]);
@@ -195,9 +195,9 @@ class ModelPermissionTest extends TestCase
 
     /** @test */
     public function role_can_select_by_role_id_and_ability_and_module_instance(){
-        $role1 = $this->newRole(['id' => 1]);
-        $role2 = $this->newRole(['id' => 2]);
-        $role4 = $this->newRole(['id' => 3]);
+        $role1 = $this->newRole();
+        $role2 = $this->newRole();
+        $role4 = $this->newRole();
         $rolePermission1 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission1', 'model_id' => $role1->id, 'module_instance_id' => 1]);
         $rolePermission2 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission2', 'model_id' => $role2->id]);
         $rolePermission3 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission1', 'model_id' => $role1->id, 'module_instance_id' => 2]);
@@ -211,10 +211,29 @@ class ModelPermissionTest extends TestCase
 
     /** @test */
     public function moduleInstance_returns_the_module_instance(){
-        $role1 = $this->newRole(['id' => 1]);
+        $role1 = $this->newRole();
         $moduleInstance = factory(ModuleInstance::class)->create();
         $permission = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission1', 'model_id' => $role1->id, 'module_instance_id' => $moduleInstance->id]);
         
         $this->assertModelEquals($moduleInstance, $permission->moduleInstance);
+    }
+
+    /** @test */
+    public function revisions_are_saved()
+    {
+        $user = $this->newUser();
+        $this->beUser($user);
+
+        $modelPermission = factory(ModelPermission::class)->create(['ability' => 'OldAbility']);
+
+        $modelPermission->ability = 'NewAbility';
+        $modelPermission->save();
+
+        $this->assertEquals(1, $modelPermission->revisionHistory->count());
+        $this->assertEquals($modelPermission->id, $modelPermission->revisionHistory->first()->revisionable_id);
+        $this->assertEquals(ModelPermission::class, $modelPermission->revisionHistory->first()->revisionable_type);
+        $this->assertEquals('ability', $modelPermission->revisionHistory->first()->key);
+        $this->assertEquals('OldAbility', $modelPermission->revisionHistory->first()->old_value);
+        $this->assertEquals('NewAbility', $modelPermission->revisionHistory->first()->new_value);
     }
 }

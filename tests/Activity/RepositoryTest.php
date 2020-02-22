@@ -32,10 +32,14 @@ class RepositoryTest extends TestCase
             'start_date' => Carbon::now()->subDay(),
             'end_date' => Carbon::now()->addDay()
         ]));
+        $activeActivities->push(factory(Activity::class)->create(['enabled' => true, 'start_date' => null, 'end_date' => null]));
+
         $inactiveActivities = factory(Activity::class, 2)->create([
             'start_date' => Carbon::now()->addDay(),
             'end_date' => Carbon::now()->addWeek()
         ]);
+        
+        $inactiveActivities->push(factory(Activity::class)->create(['enabled' => false, 'start_date' => null, 'end_date' => null]));
 
         $activities = (new ActivityRepository)->active();
 
@@ -146,7 +150,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function getForAdministrator_passes_a_user_to_the_logic_tester(){
         $activity = factory(Activity::class)->create();
-        $user = $this->newUser(['id' => 1]);
+        $user = $this->newUser();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
             return $arg->id === $activity->adminLogic->id;
@@ -162,7 +166,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function getForAdministrator_passes_a_group_to_the_logic_tester(){
         $activity = factory(Activity::class)->create();
-        $group = $this->newGroup(['id' => 1]);
+        $group = $this->newGroup();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
             return $arg->id === $activity->adminLogic->id;
@@ -176,7 +180,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function getForAdministrator_passes_a_role_to_the_logic_tester(){
         $activity = factory(Activity::class)->create();
-        $role = $this->newRole(['id' => 1]);
+        $role = $this->newRole();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
             return $arg->id === $activity->adminLogic->id;
@@ -204,7 +208,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function getForParticipant_passes_a_user_to_the_logic_tester(){
         $activity = factory(Activity::class)->create();
-        $user = $this->newUser(['id' => 2]);
+        $user = $this->newUser();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
             return $arg->id === $activity->forLogic->id;
@@ -220,7 +224,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function getForParticipant_passes_a_group_to_the_logic_tester(){
         $activity = factory(Activity::class)->create();
-        $group = $this->newGroup(['id' => 1]);
+        $group = $this->newGroup();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
             return $arg->id === $activity->forLogic->id;
@@ -234,7 +238,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function getForParticipant_passes_a_role_to_the_logic_tester(){
         $activity = factory(Activity::class)->create();
-        $role = $this->newRole(['id' => 1]);
+        $role = $this->newRole();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function($arg) use ($activity) {
             return $arg->id === $activity->forLogic->id;

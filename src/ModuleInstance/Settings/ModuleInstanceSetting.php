@@ -3,6 +3,7 @@
 namespace BristolSU\Support\ModuleInstance\Settings;
 
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,7 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ModuleInstanceSetting extends Model
 {
-
+    use HasRevisions;
+    
     /**
      * Fillable attributes for mass assignment
      * 

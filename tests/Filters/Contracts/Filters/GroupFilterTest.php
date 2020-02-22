@@ -6,6 +6,7 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\ControlDB\Models\Group;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Schema\Form;
 
 class GroupFilterTest extends TestCase
 {
@@ -13,7 +14,7 @@ class GroupFilterTest extends TestCase
     /** @test */
     public function getModel_returns_the_set_model(){
         $filter = new DummyGroupFilter();
-        $group = $this->newGroup(['id' => 1]);
+        $group = $this->newGroup();
         $filter->setModel($group);
         $this->assertEquals($group, $filter->model());
     }
@@ -21,7 +22,7 @@ class GroupFilterTest extends TestCase
     /** @test */
     public function hasModel_returns_true_if_the_group_is_set(){
         $filter = new DummyGroupFilter();
-        $dummyGroup = $this->newGroup(['id' => 1]);
+        $dummyGroup = $this->newGroup();
         $filter->setModel($dummyGroup);
 
         $this->assertTrue($filter->hasModel());
@@ -46,7 +47,7 @@ class GroupFilterTest extends TestCase
     /** @test */
     public function group_returns_the_group(){
         $filter = new DummyGroupFilter();
-        $group = $this->newGroup(['id' => 1]);
+        $group = $this->newGroup();
         $filter->setModel($group);
         $this->assertEquals($group, $filter->group());
     }
@@ -56,13 +57,9 @@ class GroupFilterTest extends TestCase
 class DummyGroupFilter extends GroupFilter
 {
 
-    /**
-     * Get possible options as an array
-     *
-     * @return array
-     */
-    public function options(): array
+    public function options(): Form
     {
+        return new Form();
     }
 
     /**

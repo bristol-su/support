@@ -6,6 +6,7 @@ namespace BristolSU\Support\Completion;
 
 use BristolSU\Support\Completion\Contracts\CompletionConditionInstance as CompletionConditionInstanceContract;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,7 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CompletionConditionInstance extends Model implements CompletionConditionInstanceContract
 {
-
+    use HasRevisions;
+    
     /**
      * Fillable properties
      * 

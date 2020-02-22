@@ -3,6 +3,7 @@
 namespace BristolSU\Support\Permissions\Models;
 
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
@@ -16,7 +17,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ModelPermission extends Model
 {
-
+    use HasRevisions;
+    
     /**
      * The table to use in the database
      * 

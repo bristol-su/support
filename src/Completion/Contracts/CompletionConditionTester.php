@@ -19,4 +19,14 @@ interface CompletionConditionTester
      */
     public function evaluate(ActivityInstance $activityInstance, CompletionConditionInstance $completionConditionInstance): bool;
 
+    /**
+     * Check the completion condition completion percentage.
+     *
+     * @param ActivityInstance $activityInstance Activity instance to test
+     * @param CompletionConditionInstance $completionConditionInstance Completion condition instance to test
+     *
+     * @return int Percentage completion
+     */
+    public function evaluatePercentage(ActivityInstance $activityInstance, CompletionConditionInstance $completionConditionInstance): int;
+    
 }

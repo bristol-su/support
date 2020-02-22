@@ -54,5 +54,23 @@ class ModuleInstancePermissionTest extends TestCase
 
         $this->assertEquals('module', $moduleInstancePermission->type);
     }
-    
+
+    /** @test */
+    public function revisions_are_saved()
+    {
+        $user = $this->newUser();
+        $this->beUser($user);
+
+        $moduleInstancePermission = factory(ModuleInstancePermission::class)->create(['ability' => 'OldAbility']);
+
+        $moduleInstancePermission->ability = 'NewAbility';
+        $moduleInstancePermission->save();
+
+        $this->assertEquals(1, $moduleInstancePermission->revisionHistory->count());
+        $this->assertEquals($moduleInstancePermission->id, $moduleInstancePermission->revisionHistory->first()->revisionable_id);
+        $this->assertEquals(ModuleInstancePermission::class, $moduleInstancePermission->revisionHistory->first()->revisionable_type);
+        $this->assertEquals('ability', $moduleInstancePermission->revisionHistory->first()->key);
+        $this->assertEquals('OldAbility', $moduleInstancePermission->revisionHistory->first()->old_value);
+        $this->assertEquals('NewAbility', $moduleInstancePermission->revisionHistory->first()->new_value);
+    }
 }

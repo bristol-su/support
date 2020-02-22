@@ -217,6 +217,18 @@ class ModuleBuilder implements ModuleBuilderContract
     }
 
     /**
+     * Set what resource the module requires.
+     * 
+     * @throws Exception If no alias is known by the builder
+     */
+    public function setFor()
+    {
+        $this->module->setFor(
+            $this->config->get($this->getAlias().'.for', 'user')
+        );
+    }
+    
+    /**
      * Get the built module
      * 
      * @return ModuleContract Initialised module
@@ -234,14 +246,7 @@ class ModuleBuilder implements ModuleBuilderContract
     public function setCompletionConditions()
     {
         $this->module->setCompletionConditions(
-            collect($this->completionConditionRepository->getAllForModule($this->getAlias()))->map(function(CompletionCondition $condition) {
-                return [
-                    'name' => $condition->name(),
-                    'description' => $condition->description(),
-                    'options' => $condition->options(),
-                    'alias' => $condition->alias()
-                ];
-            })->toArray()
+            collect($this->completionConditionRepository->getAllForModule($this->getAlias()))->toArray()
         );
     }
 }

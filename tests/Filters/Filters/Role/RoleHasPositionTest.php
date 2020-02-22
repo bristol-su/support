@@ -27,12 +27,13 @@ class RoleHasPositionTest extends TestCase
 
         $roleHasPositionFilter = new RoleHasPosition($positionRepository->reveal());
 
+        $this->assertEquals(1, count($roleHasPositionFilter->options()->fields()));
+        $this->assertEquals('position', $roleHasPositionFilter->options()->fields()[0]->model());
+        $this->assertEquals('select', $roleHasPositionFilter->options()->fields()[0]->type());
         $this->assertEquals([
-            'position' => [
-                1 => 'Position 1',
-                2 => 'Position 2'
-            ]
-            ], $roleHasPositionFilter->options());
+            ['id' => 1, 'name' => 'Position 1'],
+            ['id' => 2, 'name' => 'Position 2'],
+        ], $roleHasPositionFilter->options()->fields()[0]->values());
     }
 
     /** @test */
@@ -50,7 +51,7 @@ class RoleHasPositionTest extends TestCase
     /** @test */
     public function it_evaluates_to_false_if_role_does_not_have_position(){
         $roleHasPositionFilter = new RoleHasPosition($this->prophesize(PositionRepository::class)->reveal());
-        $role = $this->newRole(['id' => 1, 'position_id' => 2]);
+        $role = $this->newRole(['position_id' => 2]);
         $roleHasPositionFilter->setModel($role);
         $this->assertFalse($roleHasPositionFilter->evaluate(['position' => '1']));
     }

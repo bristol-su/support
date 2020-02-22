@@ -15,6 +15,7 @@ use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Schema\Form;
 
 class FilterInstanceTest extends TestCase
 {
@@ -98,6 +99,24 @@ class FilterInstanceTest extends TestCase
         $this->assertEquals('role', factory(FilterInstance::class)->create(['alias' => 'alias1'])->for);
     }
 
+    /** @test */
+    public function revisions_are_saved(){
+        $user = $this->newUser();
+        $this->beUser($user);
+
+        $filterInstance = factory(FilterInstance::class)->create(['name' => 'OldName']);
+
+        $filterInstance->name = 'NewName';
+        $filterInstance->save();
+
+        $this->assertEquals(1, $filterInstance->revisionHistory->count());
+        $this->assertEquals($filterInstance->id, $filterInstance->revisionHistory->first()->revisionable_id);
+        $this->assertEquals(FilterInstance::class, $filterInstance->revisionHistory->first()->revisionable_type);
+        $this->assertEquals('name', $filterInstance->revisionHistory->first()->key);
+        $this->assertEquals('OldName', $filterInstance->revisionHistory->first()->old_value);
+        $this->assertEquals('NewName', $filterInstance->revisionHistory->first()->new_value);
+    }
+    
 }
 
 
@@ -106,8 +125,9 @@ class DummyFilter extends Filter {
     /**
      * @inheritDoc
      */
-    public function options(): array
+    public function options(): Form
     {
+        return new Form();
     }
 
     /**

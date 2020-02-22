@@ -77,9 +77,9 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $evaluation->setActive(false)->shouldBeCalled();
         $evaluation->setComplete(true)->shouldBeCalled();
         $this->app->instance(Evaluation::class, $evaluation->reveal());
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 2]);
-        $role = $this->newRole(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $this->logicTester()->forLogic($moduleInstance->visibleLogic)->pass($user, $group, $role);
         $this->logicTester()->forLogic($moduleInstance->mandatoryLogic)->pass($user, $group, $role);
@@ -111,9 +111,9 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $evaluation->setComplete(false)->shouldBeCalled();
         $this->app->instance(Evaluation::class, $evaluation->reveal());
 
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 2]);
-        $role = $this->newRole(['id' => 3]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
 
         $this->logicTester()->forLogic($moduleInstance->visibleLogic)->pass($user, $group, $role);
         $this->logicTester()->forLogic($moduleInstance->activeLogic)->fail($user, $group, $role);
@@ -131,9 +131,9 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $activityInstance->activity->moduleInstances()->save($moduleInstance);
         $evaluation = $this->prophesize(Evaluation::class);
 
-        $user = $this->newUser(['id' => 1]);
-        $group = $this->newGroup(['id' => 1]);
-        $role = $this->newRole(['id' => 2]);
+        $user = $this->newUser();
+        $group = $this->newGroup();
+        $role = $this->newRole();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function ($arg) use ($moduleInstance) {
             return $moduleInstance->visibleLogic->is($arg);

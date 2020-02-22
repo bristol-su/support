@@ -4,12 +4,15 @@
 namespace BristolSU\Support\Tests\Activity;
 
 
+use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Carbon\Carbon;
 use BristolSU\Support\Tests\TestCase;
+use Exception;
 
 class ActivityTest extends TestCase
 {
@@ -71,16 +74,39 @@ class ActivityTest extends TestCase
         $this->assertCount(0, $retrieved);
     }
 
+    /** @test */
+    public function enabled_does_not_retrieve_an_activity_if_it_is_not_enabled()
+    {
+        $activity = factory(Activity::class)->create(['enabled' => false]);
+
+        $retrieved = Activity::enabled()->get();
+
+        $this->assertCount(0, $retrieved);
+    }
 
     /** @test */
-    public function it_has_a_for_logic(){
+    public function enabled_retrieves_an_activity_if_it_is_enabled()
+    {
+        $activity = factory(Activity::class)->create(['enabled' => true]);
+
+        $retrieved = Activity::enabled()->get();
+
+        $this->assertCount(1, $retrieved);
+        $this->assertModelEquals($activity, $retrieved->first());
+    }
+
+
+    /** @test */
+    public function it_has_a_for_logic()
+    {
         $activity = factory(Activity::class)->create();
         $this->assertInstanceOf(Logic::class, $activity->forLogic);
         $this->assertEquals($activity->for_logic, $activity->forLogic->id);
     }
 
     /** @test */
-    public function it_has_an_admin_logic(){
+    public function it_has_an_admin_logic()
+    {
         $activity = factory(Activity::class)->create();
         $this->assertInstanceOf(Logic::class, $activity->adminLogic);
         $this->assertEquals($activity->admin_logic, $activity->adminLogic->id);
@@ -103,27 +129,31 @@ class ActivityTest extends TestCase
         $activity->save();
         $this->assertEquals($activity->slug, 'a-sluggable-name-two');
     }
-    
+
     /** @test */
-    public function isCompletable_returns_true_if_the_activity_is_a_multicompletable_activity(){
+    public function isCompletable_returns_true_if_the_activity_is_a_multicompletable_activity()
+    {
         $activity = factory(Activity::class)->create(['type' => 'multi-completable']);
         $this->assertTrue($activity->isCompletable());
     }
 
     /** @test */
-    public function isCompletable_returns_true_if_the_activity_is_a_completable_activity(){
+    public function isCompletable_returns_true_if_the_activity_is_a_completable_activity()
+    {
         $activity = factory(Activity::class)->create(['type' => 'completable']);
         $this->assertTrue($activity->isCompletable());
     }
 
     /** @test */
-    public function isCompletable_returns_false_if_the_activity_is_an_open_activity(){
+    public function isCompletable_returns_false_if_the_activity_is_an_open_activity()
+    {
         $activity = factory(Activity::class)->create(['type' => 'open']);
         $this->assertFalse($activity->isCompletable());
     }
-    
+
     /** @test */
-    public function it_has_many_activity_instances(){
+    public function it_has_many_activity_instances()
+    {
         $activity = factory(Activity::class)->create();
         $activityInstance1 = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
         $activityInstance2 = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
@@ -132,5 +162,96 @@ class ActivityTest extends TestCase
 
         $this->assertModelEquals($activityInstance1, $activityInstances->offsetGet(0));
         $this->assertModelEquals($activityInstance2, $activityInstances->offsetGet(1));
+    }
+
+    /** @test */
+    public function user_returns_a_user_with_the_correct_id()
+    {
+        $user = $this->newUser();
+        $userRepository = $this->prophesize(User::class);
+        $userRepository->getById($user->id())->shouldBeCalled()->willReturn($user);
+        $this->instance(User::class, $userRepository->reveal());
+
+        $activity = factory(Activity::class)->create(['user_id' => $user->id()]);
+        $this->assertInstanceOf(\BristolSU\ControlDB\Models\User::class, $activity->user());
+        $this->assertModelEquals($user, $activity->user());
+    }
+
+    /** @test */
+    public function user_throws_an_exception_if_user_id_is_null()
+    {
+        $activity = factory(Activity::class)->create(['user_id' => null, 'id' => 2000]);
+
+        $this->expectException(Exception::class);
+        $this->expectExceptionMessage('Activity #2000 is not owned by a user');
+
+        $activity->user();
+    }
+
+    /** @test */
+    public function user_id_is_automatically_added_on_creation()
+    {
+        $user = $this->newUser();
+        $authentication = $this->prophesize(Authentication::class);
+        $authentication->getUser()->shouldBeCalled()->willReturn($user);
+        $this->instance(Authentication::class, $authentication->reveal());
+
+        $logic = factory(Logic::class)->create();
+        $activity = Activity::create([
+            'name' => 'name1',
+            'description' => 'desc1',
+            'activity_for' => 'user',
+            'for_logic' => $logic->id,
+            'admin_logic' => $logic->id,
+            'type' => 'open',
+            'start_date' => null,
+            'end_date' => null,
+            'enabled' => true
+        ]);
+
+        $this->assertNotNull($activity->user_id);
+        $this->assertEquals($user->id(), $activity->user_id);
+    }
+
+    /** @test */
+    public function user_id_is_not_overridden_if_given()
+    {
+        $user = $this->newUser();
+
+        $logic = factory(Logic::class)->create();
+        $activity = Activity::create([
+            'name' => 'name1',
+            'description' => 'desc1',
+            'activity_for' => 'user',
+            'for_logic' => $logic->id,
+            'admin_logic' => $logic->id,
+            'type' => 'open',
+            'start_date' => null,
+            'end_date' => null,
+            'enabled' => true,
+            'user_id' => $user->id()
+        ]);
+
+        $this->assertNotNull($activity->user_id);
+        $this->assertEquals($user->id(), $activity->user_id);
+    }
+
+    /** @test */
+    public function revisions_are_saved()
+    {
+        $user = $this->newUser();
+        $this->beUser($user);
+
+        $activity = factory(Activity::class)->create(['name' => 'OldName']);
+
+        $activity->name = 'NewName';
+        $activity->save();
+
+        $this->assertEquals(1, $activity->revisionHistory->count());
+        $this->assertEquals($activity->id, $activity->revisionHistory->first()->revisionable_id);
+        $this->assertEquals(Activity::class, $activity->revisionHistory->first()->revisionable_type);
+        $this->assertEquals('name', $activity->revisionHistory->first()->key);
+        $this->assertEquals('OldName', $activity->revisionHistory->first()->old_value);
+        $this->assertEquals('NewName', $activity->revisionHistory->first()->new_value);
     }
 }

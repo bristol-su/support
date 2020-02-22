@@ -82,12 +82,12 @@ class ActivityInstanceTest extends TestCase
 
     /** @test */
     public function getParticipantAttribute_returns_a_user_if_resource_type_is_a_user(){
-        $user = $this->newUser(['id' => 3]);
+        $user = $this->newUser();
         $userRepository = $this->prophesize(UserRepository::class);
-        $userRepository->getById(3)->shouldBeCalledTimes(3)->willReturn($user);
+        $userRepository->getById($user->id())->shouldBeCalledTimes(3)->willReturn($user);
         $this->app->instance(UserRepository::class, $userRepository->reveal());
         
-        $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'user', 'resource_id' => 3]);
+        $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'user', 'resource_id' => $user->id()]);
         $this->assertEquals($user, $activityInstance->getParticipantAttribute());
         $this->assertEquals($user, $activityInstance->participant);
         $this->assertEquals($user, $activityInstance->participant());
@@ -95,12 +95,12 @@ class ActivityInstanceTest extends TestCase
 
     /** @test */
     public function getParticipantAttribute_returns_a_group_if_resource_type_is_a_group(){
-        $group = $this->newGroup(['id' => 3]);
+        $group = $this->newGroup();
         $groupRepository = $this->prophesize(GroupRepository::class);
-        $groupRepository->getById(3)->shouldBeCalledTimes(3)->willReturn($group);
+        $groupRepository->getById($group->id())->shouldBeCalledTimes(3)->willReturn($group);
         $this->app->instance(GroupRepository::class, $groupRepository->reveal());
 
-        $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'group', 'resource_id' => 3]);
+        $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'group', 'resource_id' => $group->id()]);
         $this->assertEquals($group, $activityInstance->getParticipantAttribute());
         $this->assertEquals($group, $activityInstance->participant);
         $this->assertEquals($group, $activityInstance->participant());
@@ -108,12 +108,12 @@ class ActivityInstanceTest extends TestCase
 
     /** @test */
     public function getParticipantAttribute_returns_a_role_if_resource_type_is_a_role(){
-        $role = $this->newRole(['id' => 3]);
+        $role = $this->newRole();
         $roleRepository = $this->prophesize(RoleRepository::class);
-        $roleRepository->getById(3)->shouldBeCalledTimes(3)->willReturn($role);
+        $roleRepository->getById($role->id())->shouldBeCalledTimes(3)->willReturn($role);
         $this->app->instance(RoleRepository::class, $roleRepository->reveal());
 
-        $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'role', 'resource_id' => 3]);
+        $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'role', 'resource_id' => $role->id()]);
         $this->assertEquals($role, $activityInstance->getParticipantAttribute());
         $this->assertEquals($role, $activityInstance->participant);
         $this->assertEquals($role, $activityInstance->participant());
@@ -163,5 +163,23 @@ class ActivityInstanceTest extends TestCase
     public function setRememberTokenName_returns_null(){
         $activityInstance = factory(ActivityInstance::class)->create();
         $this->assertNull($activityInstance->setRememberToken('token'));
+    }
+
+    /** @test */
+    public function revisions_are_saved(){
+        $user = $this->newUser();
+        $this->beUser($user);
+
+        $activityInstance = factory(ActivityInstance::class)->create(['name' => 'OldName']);
+
+        $activityInstance->name = 'NewName';
+        $activityInstance->save();
+
+        $this->assertEquals(1, $activityInstance->revisionHistory->count());
+        $this->assertEquals($activityInstance->id, $activityInstance->revisionHistory->first()->revisionable_id);
+        $this->assertEquals(ActivityInstance::class, $activityInstance->revisionHistory->first()->revisionable_type);
+        $this->assertEquals('name', $activityInstance->revisionHistory->first()->key);
+        $this->assertEquals('OldName', $activityInstance->revisionHistory->first()->old_value);
+        $this->assertEquals('NewName', $activityInstance->revisionHistory->first()->new_value);
     }
 }

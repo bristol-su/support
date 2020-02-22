@@ -7,6 +7,8 @@ var searchData=
   ['hasmodel',['hasModel',['../classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1Filter.html#a1dc842f6644f409d4d08b24ae8df85b8',1,'BristolSU\Support\Filters\Contracts\Filters\Filter\hasModel()'],['../classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1GroupFilter.html#ae3b9b0493f5c7002fc01c5a0c1d909ed',1,'BristolSU\Support\Filters\Contracts\Filters\GroupFilter\hasModel()'],['../classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1RoleFilter.html#a4f86f4fb5c85ff5e7581c6598dc315ea',1,'BristolSU\Support\Filters\Contracts\Filters\RoleFilter\hasModel()'],['../classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1UserFilter.html#a7fd643e823eadf6447ede665530a84bd',1,'BristolSU\Support\Filters\Contracts\Filters\UserFilter\hasModel()']]],
   ['hasresource',['HasResource',['../classBristolSU_1_1Support_1_1Authentication_1_1HasResource.html',1,'BristolSU::Support::Authentication']]],
   ['hasresource_2ephp',['HasResource.php',['../HasResource_8php.html',1,'']]],
+  ['hasrevisions',['HasRevisions',['../classBristolSU_1_1Support_1_1Revision_1_1HasRevisions.html',1,'BristolSU::Support::Revision']]],
+  ['hasrevisions_2ephp',['HasRevisions.php',['../HasRevisions_8php.html',1,'']]],
   ['helpers_2ephp',['helpers.php',['../helpers_8php.html',1,'']]],
   ['httpserviceprovider',['HttpServiceProvider',['../classBristolSU_1_1Support_1_1Http_1_1HttpServiceProvider.html',1,'BristolSU::Support::Http']]],
   ['httpserviceprovider_2ephp',['HttpServiceProvider.php',['../HttpServiceProvider_8php.html',1,'']]]

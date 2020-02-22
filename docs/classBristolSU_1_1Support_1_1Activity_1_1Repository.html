@@ -125,7 +125,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Retrieve all active activities.</p>
-<p>This method should return all activities that're currently active. This currently just means they are within their active timeframe</p>
+<p>This method should return all activities that're currently active. This currently just means they are within their active timeframe and they're turned on,</p>
 <dl class="section return"><dt>Returns</dt><dd>Collection </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Activity_1_1Contracts_1_1Repository.html#a0ec7ebd28eb946af2b0d6409b6927041">BristolSU\Support\Activity\Contracts\Repository</a>.</p>
@@ -175,7 +175,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Create an activity</p>
-<p>Create an activity using the given attributes. The attributes can be taken from the following: [ 'name' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> Name', 'description' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> Description', 'activity_for' =&gt; 'user', 'for_logic' =&gt; '1', 'admin_logic' =&gt; 2, 'start_date' =&gt; null, 'end_date' =&gt; null, 'slug' =&gt; 'activity-slug', 'type' =&gt; 'open' ]</p>
+<p>Create an activity using the given attributes. The attributes can be taken from the following: [ 'name' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> Name', 'description' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> Description', 'activity_for' =&gt; 'user', 'for_logic' =&gt; '1', 'admin_logic' =&gt; 2, 'start_date' =&gt; null, 'end_date' =&gt; null, 'slug' =&gt; 'activity-slug', 'type' =&gt; 'open', 'enabled' =&gt; true ]</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td>Array of attributes to create the activity with </td></tr>
@@ -186,7 +186,7 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Activity_1_1Contracts_1_1Repository.html#a4b3ab6d3ce8f1d6f126c7ffe8b2c47a5">BristolSU\Support\Activity\Contracts\Repository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Repository_8php_source.html#l00104">104</a> of file <a class="el" href="Repository_8php_source.html">Repository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Repository_8php_source.html#l00105">105</a> of file <a class="el" href="Repository_8php_source.html">Repository.php</a>.</p>
 
 </div>
 </div>
@@ -222,9 +222,9 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Activity_1_1Contracts_1_1Repository.html#aaad3926f71ebb840e5058a227358ec6f">BristolSU\Support\Activity\Contracts\Repository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Repository_8php_source.html#l00160">160</a> of file <a class="el" href="Repository_8php_source.html">Repository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Repository_8php_source.html#l00162">162</a> of file <a class="el" href="Repository_8php_source.html">Repository.php</a>.</p>
 
-<p class="reference">References <a class="el" href="Repository_8php_source.html#l00118">BristolSU\Support\Activity\Repository\getById()</a>.</p>
+<p class="reference">References <a class="el" href="Repository_8php_source.html#l00119">BristolSU\Support\Activity\Repository\getById()</a>.</p>
 
 </div>
 </div>
@@ -260,9 +260,9 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Activity_1_1Contracts_1_1Repository.html#aa7b81311baa741f9d965db9842439be1">BristolSU\Support\Activity\Contracts\Repository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Repository_8php_source.html#l00118">118</a> of file <a class="el" href="Repository_8php_source.html">Repository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Repository_8php_source.html#l00119">119</a> of file <a class="el" href="Repository_8php_source.html">Repository.php</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Repository_8php_source.html#l00160">BristolSU\Support\Activity\Repository\delete()</a>, and <a class="el" href="Repository_8php_source.html#l00144">BristolSU\Support\Activity\Repository\update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Repository_8php_source.html#l00162">BristolSU\Support\Activity\Repository\delete()</a>, and <a class="el" href="Repository_8php_source.html#l00146">BristolSU\Support\Activity\Repository\update()</a>.</p>
 
 </div>
 </div>
@@ -394,7 +394,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Update an activity</p>
-<p>Update an activity using the given attributes. The attributes can be taken from the following: [ 'name' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> Name', 'description' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> Description', 'activity_for' =&gt; 'user', 'for_logic' =&gt; '1', 'admin_logic' =&gt; 2, 'start_date' =&gt; null, 'end_date' =&gt; null, 'slug' =&gt; 'activity-slug', 'type' =&gt; 'open' ]</p>
+<p>Update an activity using the given attributes. The attributes can be taken from the following: [ 'name' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> Name', 'description' =&gt; '<a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> Description', 'activity_for' =&gt; 'user', 'for_logic' =&gt; '1', 'admin_logic' =&gt; 2, 'start_date' =&gt; null, 'end_date' =&gt; null, 'slug' =&gt; 'activity-slug', 'type' =&gt; 'open', 'enabled' =&gt; true ]</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">$id</td><td></td></tr>
@@ -412,9 +412,9 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Activity_1_1Contracts_1_1Repository.html#a2545c602c4eb9e4847a6c10c17ef7e6d">BristolSU\Support\Activity\Contracts\Repository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Repository_8php_source.html#l00144">144</a> of file <a class="el" href="Repository_8php_source.html">Repository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Repository_8php_source.html#l00146">146</a> of file <a class="el" href="Repository_8php_source.html">Repository.php</a>.</p>
 
-<p class="reference">References <a class="el" href="Repository_8php_source.html#l00118">BristolSU\Support\Activity\Repository\getById()</a>.</p>
+<p class="reference">References <a class="el" href="Repository_8php_source.html#l00119">BristolSU\Support\Activity\Repository\getById()</a>.</p>
 
 </div>
 </div>

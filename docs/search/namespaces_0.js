@@ -33,6 +33,7 @@ var searchData=
   ['module',['Module',['../namespaceBristolSU_1_1Support_1_1Module.html',1,'BristolSU::Support']]],
   ['moduleinstance',['ModuleInstance',['../namespaceBristolSU_1_1Support_1_1ModuleInstance.html',1,'BristolSU::Support']]],
   ['permissions',['Permissions',['../namespaceBristolSU_1_1Support_1_1Permissions.html',1,'BristolSU::Support']]],
+  ['revision',['Revision',['../namespaceBristolSU_1_1Support_1_1Revision.html',1,'BristolSU::Support']]],
   ['role',['Role',['../namespaceBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Role.html',1,'BristolSU::Support::Filters::Filters']]],
   ['scheduler',['Scheduler',['../namespaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Scheduler.html',1,'BristolSU\Support\ModuleInstance\Contracts\Scheduler'],['../namespaceBristolSU_1_1Support_1_1ModuleInstance_1_1Scheduler.html',1,'BristolSU\Support\ModuleInstance\Scheduler']]],
   ['settings',['Settings',['../namespaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Settings.html',1,'BristolSU\Support\ModuleInstance\Contracts\Settings'],['../namespaceBristolSU_1_1Support_1_1ModuleInstance_1_1Settings.html',1,'BristolSU\Support\ModuleInstance\Settings']]],

@@ -123,15 +123,13 @@ class ModuleBuilderTest extends TestCase
         $this->builder->create('alias1');
         
         $completionCondition1 = $this->prophesize(CompletionCondition::class);
-        $completionCondition1->name()->shouldBeCalled()->willReturn('name1');
-        $completionCondition1->description()->shouldBeCalled()->willReturn('desc1');
-        $completionCondition1->options()->shouldBeCalled()->willReturn(['option1' => 'val1']);
-        $completionCondition1->alias()->shouldBeCalled()->willReturn('ccalias1');
+        $completionCondition1->toArray()->shouldBeCalled()->willReturn([
+            'name' => 'name1', 'description' => 'desc1', 'options' => ['option1' => 'val1'], 'alias' => 'ccalias1'
+        ]);
         $completionCondition2 = $this->prophesize(CompletionCondition::class);
-        $completionCondition2->name()->shouldBeCalled()->willReturn('name2');
-        $completionCondition2->description()->shouldBeCalled()->willReturn('desc2');
-        $completionCondition2->options()->shouldBeCalled()->willReturn(['option2' => 'val2']);
-        $completionCondition2->alias()->shouldBeCalled()->willReturn('ccalias2');
+        $completionCondition2->toArray()->shouldBeCalled()->willReturn([
+            'name' => 'name2', 'description' => 'desc2', 'options' => ['option2' => 'val2'], 'alias' => 'ccalias2'
+        ]);
         
         $this->completionRepository->getAllForModule('alias1')->shouldBeCalled()->willReturn([$completionCondition1->reveal(), $completionCondition2->reveal()]);
         $this->module->setCompletionConditions([
@@ -208,6 +206,15 @@ class ModuleBuilderTest extends TestCase
             $this->serviceRequest->reveal());
         $this->assertEquals('alias1', $builder->testGetAlias());
     }
+
+    /** @test */
+    public function setFor_sets_the_for_in_the_module(){
+        $this->builder->create('alias1');
+        $this->config->get('alias1.for', 'user')->shouldBeCalled()->willReturn('role');
+        $this->module->setFor('role')->shouldBeCalled();
+        $this->builder->setFor();
+    }
+
 }
 
 class Trigger implements TriggerableEvent

@@ -5,6 +5,7 @@ namespace BristolSU\Support\Permissions\Models;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository;
+use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -12,6 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ModuleInstancePermission extends Model
 {
+    use HasRevisions;
+    
     /**
      * Fillable attributes
      * 

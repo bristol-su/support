@@ -12,7 +12,7 @@ class  AudienceMemberFactoryTest extends TestCase
     
     /** @test */
     public function fromUser_creates_an_audience_member_from_a_given_user(){
-        $user = $this->newUser(['id' => 1]);
+        $user = $this->newUser();
         $factory = new AudienceMemberFactory;
         $audienceMember = $factory->fromUser($user);
 

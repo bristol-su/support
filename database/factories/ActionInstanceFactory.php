@@ -26,5 +26,8 @@ $factory->define(ActionInstance::class, function(Faker $faker) {
         'module_instance_id' => function() {
             return factory(ModuleInstance::class)->create()->id;
         },
+        'user_id' => function() {
+            return factory(\BristolSU\ControlDB\Models\User::class)->create()->id();
+        }
     ];
 });

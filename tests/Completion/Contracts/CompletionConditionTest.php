@@ -6,6 +6,7 @@ use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Completion\Contracts\CompletionCondition;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Schema\Form;
 
 class CompletionConditionTest extends TestCase
 {
@@ -38,6 +39,51 @@ class CompletionConditionTest extends TestCase
         $this->assertEquals(0, $condition->percentage([], $activityInstance, $moduleInstance));
     }
     
+    /** @test */
+    public function toArray_returns_an_array_representation_of_the_condition(){
+        $condition = new DummyCondition('alias1');
+        
+        $array = $condition->toArray();
+
+        $this->assertArrayHasKey('name', $array);
+        $this->assertEquals('Name1', $array['name']);
+        
+        $this->assertArrayHasKey('description', $array);
+        $this->assertEquals('Desc1', $array['description']);
+
+        $this->assertArrayHasKey('alias', $array);
+        $this->assertEquals('alias1', $array['alias']);
+        
+        $this->assertArrayHasKey('options', $array);
+        $this->assertIsArray($array['options']);
+        $this->assertArrayHasKey('schema', $array['options']);
+    
+    }
+    
+    /** @test */
+    public function toJson_returns_a_json_representation_of_the_condition(){
+        $condition = new DummyCondition('alias1');
+
+        $json = $condition->toJson();
+
+        $this->assertJson($json);
+        
+        $arrayable = json_decode($json, true);
+
+        $this->assertArrayHasKey('name', $arrayable);
+        $this->assertEquals('Name1', $arrayable['name']);
+
+        $this->assertArrayHasKey('description', $arrayable);
+        $this->assertEquals('Desc1', $arrayable['description']);
+
+        $this->assertArrayHasKey('alias', $arrayable);
+        $this->assertEquals('alias1', $arrayable['alias']);
+
+        $this->assertArrayHasKey('options', $arrayable);
+        $this->assertIsArray($arrayable['options']);
+        $this->assertArrayHasKey('schema', $arrayable['options']);
+
+    }
 }
 
 class DummyCondition extends CompletionCondition {
@@ -54,19 +100,23 @@ class DummyCondition extends CompletionCondition {
         return $this->complete;
     }
 
-    public function options(): array
+    public function options(): Form
     {
+        return new Form();
     }
 
     public function name(): string
     {
+        return 'Name1';
     }
 
     public function description(): string
     {
+        return 'Desc1';
     }
 
     public function alias(): string
     {
+        return 'alias1';
     }
 }

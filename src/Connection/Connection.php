@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Connection;
 
+use BristolSU\Support\Revision\HasRevisions;
 use BristolSU\Support\User\Contracts\UserAuthentication;
 use Illuminate\Database\Eloquent\Model;
 
@@ -10,7 +11,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Connection extends Model
 {
-
+    use HasRevisions;
+    
     /**
      * The table the data is stored in
      * 

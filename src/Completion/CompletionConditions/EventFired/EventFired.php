@@ -6,6 +6,8 @@ use BristolSU\Support\Events\Contracts\EventRepository;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Completion\Contracts\CompletionCondition;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
+use FormSchema\Generator\Field;
+use FormSchema\Schema\Form;
 
 /**
  * Has an event been fired
@@ -32,17 +34,19 @@ class EventFired extends CompletionCondition
 
     /**
      * Get all events for the module instance
-     * 
-     * @return array
+     *
+     * @return Form
+     * @throws \Exception
      */
-    public function options(): array
+    public function options(): Form
     {
-        $options = ['event_type' => []];
-        $events = $this->eventRepository->allForModule($this->moduleAlias());
-        foreach ($events as $event) {
-            $options['event_type'][$event['event']] = $event['name'];
-        }
-        return $options;
+        return \FormSchema\Generator\Form::make()->withField(
+            Field::select('event_type')->label('Event')->required(true)->hint('What event should be fired to mark this as complete?')
+                ->help('Select an event which occurs within the module. When this event is fired, the module will be marked as complete. This cannot be undone.')
+                ->values(collect($this->eventRepository->allForModule($this->moduleAlias()))->map(function($event) {
+                    return ['id' => $event['event'], 'name' => $event['name']];
+                })->toArray())->selectOptions(['noneSelectedText' => 'Please Select an Event', 'hideNoneSelectedText' => false])
+        )->getSchema();
     }
 
     /**

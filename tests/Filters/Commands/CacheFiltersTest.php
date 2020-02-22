@@ -31,9 +31,9 @@ class CacheFiltersTest extends TestCase
         }
 
         $users = [
-            $this->newUser(['id' => 1]),
-            $this->newUser(['id' => 2]),
-            $this->newUser(['id' => 3]),
+            $this->newUser(),
+            $this->newUser(),
+            $this->newUser(),
         ];
 
         $filterInstanceRepository = $this->prophesize(FilterInstanceRepository::class);
@@ -75,9 +75,9 @@ class CacheFiltersTest extends TestCase
         }
 
         $groups = [
-            $this->newGroup(['id' => 1]),
-            $this->newGroup(['id' => 2]),
-            $this->newGroup(['id' => 3]),
+            $this->newGroup(),
+            $this->newGroup(),
+            $this->newGroup(),
         ];
 
         $filterInstanceRepository = $this->prophesize(FilterInstanceRepository::class);
@@ -119,9 +119,9 @@ class CacheFiltersTest extends TestCase
         }
 
         $roles = [
-            $this->newRole(['id' => 1]),
-            $this->newRole(['id' => 2]),
-            $this->newRole(['id' => 3]),
+            $this->newRole(),
+            $this->newRole(),
+            $this->newRole(),
         ];
 
         $filterInstanceRepository = $this->prophesize(FilterInstanceRepository::class);

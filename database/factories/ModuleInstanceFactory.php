@@ -35,6 +35,10 @@ $factory->define(ModuleInstance::class, function(Faker $faker) {
         'mandatory' => function() {
             return factory(Logic::class)->create()->id;
         },
-        'completion_condition_instance_id' => null
+        'completion_condition_instance_id' => null,
+        'enabled' => true,
+        'user_id' => function() {
+            return factory(\BristolSU\ControlDB\Models\User::class)->create()->id();
+        }
     ];
 });

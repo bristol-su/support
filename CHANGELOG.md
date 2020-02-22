@@ -7,6 +7,28 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0] - (22/02/2020)
+
+### Changed
+- Filter::options() should now return a \FormSchema\Schema\Form class
+- Filter::toArray() converts the FormSchema to a Vue Form Generator schema
+- Updated all filters supplied by the SDK
+- CompletionCondition::options() should now return a \FormSchema\Schema\Form class
+- ModuleBuilder calls toArray on the completion condition as opposed to casting itself.
+- Activity Repository::active() now returns only activities that are enabled
+
+### Added
+- Implement CompletionCondition::toArray and ::toJson for converting completion conditions to array/json representations.
+- enabled column to the activities and module_instances tables
+- enabled scope to an Activity model
+- enabled scope to a Module Instance model
+- \BristolSU\Support\ModuleInstance\ModuleInstanceRepository::allThroughActivity() to get all module instances for an activity
+- \BristolSU\Support\ModuleInstance\ModuleInstanceRepository::allEnabledThroughActivity() to get all enabled module instances for an activity
+- user_id column to an Activity, Module Instance, Action Instance and Logic Group
+- 'For' property to a Module model. This property is either user, group or role and allows modules to, e.g., require a group to be logged in to use the module.
+- HasRevision trait for tracking model revisions in the SDK
+- \BristolSU\Support\Completion\Contracts\CompletionConditionTester::evaluatePercentage method added for getting the percentage complete of a completion condition
+
 ## [2.1] - (05/02/2020)
 
 ### Added
@@ -63,7 +85,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/support/compare/v2.1...HEAD
+[Unreleased]: https://github.com/bristol-su/support/compare/v3.0...HEAD
+[3.0]: https://github.com/bristol-su/support/compare/v2.1...v3.0
 [2.1]: https://github.com/bristol-su/support/compare/v2.0.1...v2.1
 [2.0.1]: https://github.com/bristol-su/support/compare/v2.0...v2.0.1
 [2.0]: https://github.com/bristol-su/support/compare/v1.1...v2.0

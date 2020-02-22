@@ -4,11 +4,15 @@ namespace BristolSU\Support\Completion\Contracts;
 
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
+use FormSchema\Schema\Form;
+use FormSchema\Transformers\VFGTransformer;
+use Illuminate\Contracts\Support\Arrayable;
+use Illuminate\Contracts\Support\Jsonable;
 
 /**
- * Completion Conditon class
+ * Completion Condition class
  */
-abstract class CompletionCondition
+abstract class CompletionCondition implements Arrayable, Jsonable
 {
     /**
      * The alias of the module the completion condition belongs to.
@@ -72,14 +76,12 @@ abstract class CompletionCondition
      * 
      * This allows for you to get user input to modify the behaviour of this class. For example, you could give an 
      * option of a 'number of files' to be approved before the condition is complete.
-     * [
-     *      'number_of_files' => 1
-     * ]
+     *
      * Any settings requested in here will be passed into the percentage or isComplete methods.
      * 
-     * @return array
+     * @return Form
      */
-    abstract public function options(): array;
+    abstract public function options(): Form;
 
     /**
      * A name for the completion condition
@@ -101,4 +103,19 @@ abstract class CompletionCondition
      * @return string
      */
     abstract public function alias(): string;
+
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
+    }
+    
+    public function toArray()
+    {
+        return [
+            'name' => $this->name(),
+            'description' => $this->description(),
+            'options' => (new VFGTransformer())->transformToArray($this->options()),
+            'alias' => $this->alias()
+        ];
+    }
 }
