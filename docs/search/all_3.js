@@ -17,6 +17,7 @@ var searchData=
   ['boothasresource',['bootHasResource',['../classBristolSU_1_1Support_1_1Authentication_1_1HasResource.html#a9c17d1610b0c20040f778a22b584bf70',1,'BristolSU::Support::Authentication::HasResource']]],
   ['bristolsu',['BristolSU',['../namespaceBristolSU.html',1,'']]],
   ['build',['build',['../classBristolSU_1_1Support_1_1Action_1_1ActionBuilder.html#ae570e20d29fc9baae45dc572c563e3e4',1,'BristolSU\Support\Action\ActionBuilder\build()'],['../interfaceBristolSU_1_1Support_1_1Action_1_1Contracts_1_1ActionBuilder.html#a6ce26ee1c1dad5168611a4fa16102849',1,'BristolSU\Support\Action\Contracts\ActionBuilder\build()']]],
+  ['bypassauthorization',['bypassAuthorization',['../classBristolSU_1_1Support_1_1Testing_1_1HandlesAuthorization.html#a074fac83c3d0591ec288a7aa19629693',1,'BristolSU::Support::Testing::HandlesAuthorization']]],
   ['client',['Client',['../namespaceBristolSU_1_1Support_1_1Connection_1_1Client.html',1,'BristolSU\Support\Connection\Client'],['../namespaceBristolSU_1_1Support_1_1Connection_1_1Contracts_1_1Client.html',1,'BristolSU\Support\Connection\Contracts\Client']]],
   ['commands',['Commands',['../namespaceBristolSU_1_1Support_1_1Filters_1_1Commands.html',1,'BristolSU::Support::Filters']]],
   ['completion',['Completion',['../namespaceBristolSU_1_1Support_1_1Completion.html',1,'BristolSU::Support']]],
