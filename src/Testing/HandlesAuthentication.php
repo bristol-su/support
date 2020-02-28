@@ -82,34 +82,5 @@ trait HandlesAuthentication
     {
         app()->make(Authentication::class)->setUser($user);
     }
-
-
-
-//    /**
-//     * @param $method
-//     * @param $route
-//     * @param null $ability
-//     * @param array $parameters
-//     */
-//    public function assertRequiresAuthorization($method, $route, $ability = null, $parameters = [])
-//    {
-//        $this->beUser($this->user);
-//        $this->beGroup($this->group);
-//        $this->beRole($this->role);
-//        $this->be($this->databaseUser, 'web');
-//        $this->be($this->databaseUser, 'api');
-//        $response = $this->call($method, $route, $parameters);
-//        $response->assertStatus(403, 'User allowed past authorization without permission. Is there an \'authorize\' statement?');
-//
-//        $permissionTester = $this->prophesize(PermissionTester::class);
-//        $permissionTester->evaluate($this->alias() . '.' . $ability)->shouldBeCalled()->willReturn(true);
-//        $this->instance(PermissionTester::class, $permissionTester->reveal());
-//
-//        $response = $this->call($method, $route, $parameters);
-//        $this->assertTrue(
-//            $response->isSuccessful(),
-//            sprintf('User not allowed past authorization with permission. Status code %s', $response->getStatusCode())
-//        );
-//
-//    }
+    
 }

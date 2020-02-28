@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.0.1] - (28/02/2020)
+
+### Added
+BristolSU\Support\Testing\HandlesAuthorization to help with testing modules with permissions
+
 ## [3.0] - (22/02/2020)
 
 ### Changed
@@ -85,7 +90,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/support/compare/v3.0...HEAD
+[Unreleased]: https://github.com/bristol-su/support/compare/v3.0.1...HEAD
+[3.0.1]: https://github.com/bristol-su/support/compare/v3.0...v3.0.1
 [3.0]: https://github.com/bristol-su/support/compare/v2.1...v3.0
 [2.1]: https://github.com/bristol-su/support/compare/v2.0.1...v2.1
 [2.0.1]: https://github.com/bristol-su/support/compare/v2.0...v2.0.1

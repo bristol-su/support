@@ -6,6 +6,8 @@ use BristolSU\ControlDB\Models\Group;
 use BristolSU\ControlDB\Models\Role;
 use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Authentication\Contracts\Authentication;
+use BristolSU\Support\Permissions\Contracts\PermissionTester;
+use BristolSU\Support\Permissions\Facade\Permission;
 use BristolSU\Support\Testing\HandlesAuthentication;
 use BristolSU\Support\Tests\TestCase;
 use Prophecy\Argument;
