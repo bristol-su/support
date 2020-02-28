@@ -8,7 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Added
-BristolSU\Support\Testing\HandlesAuthentication::bypassAuthorization method to bypass any authorization checks
+BristolSU\Support\Testing\HandlesAuthorization to help with testing modules with permissions
 
 ## [3.0] - (22/02/2020)
 

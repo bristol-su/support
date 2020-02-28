@@ -97,12 +97,4 @@ class HandlesAuthenticationTest extends TestCase
 
         $this->beRole($role);
     }
-    
-    /** @test */
-    public function bypassAuthorization_ensures_the_permission_tester_always_returns_true(){
-        Permission::register('some-ability', 'Name', 'Description', 'alias1', false);
-        $this->assertFalse(app(PermissionTester::class)->evaluate('some-ability'));
-        $this->bypassAuthorization();
-        $this->assertTrue(app(PermissionTester::class)->evaluate('some-ability'));
-    }
 }
