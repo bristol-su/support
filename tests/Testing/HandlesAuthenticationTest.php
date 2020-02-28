@@ -6,6 +6,8 @@ use BristolSU\ControlDB\Models\Group;
 use BristolSU\ControlDB\Models\Role;
 use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Authentication\Contracts\Authentication;
+use BristolSU\Support\Permissions\Contracts\PermissionTester;
+use BristolSU\Support\Permissions\Facade\Permission;
 use BristolSU\Support\Testing\HandlesAuthentication;
 use BristolSU\Support\Tests\TestCase;
 use Prophecy\Argument;
@@ -94,5 +96,13 @@ class HandlesAuthenticationTest extends TestCase
         $this->app->instance(Authentication::class, $authentication->reveal());
 
         $this->beRole($role);
+    }
+    
+    /** @test */
+    public function bypassAuthorization_ensures_the_permission_tester_always_returns_true(){
+        Permission::register('some-ability', 'Name', 'Description', 'alias1', false);
+        $this->assertFalse(app(PermissionTester::class)->evaluate('some-ability'));
+        $this->bypassAuthorization();
+        $this->assertTrue(app(PermissionTester::class)->evaluate('some-ability'));
     }
 }

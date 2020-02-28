@@ -6,6 +6,8 @@ use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Authentication\Contracts\Authentication;
+use BristolSU\Support\Permissions\Contracts\PermissionTester;
+use Prophecy\Argument;
 
 /**
  * Trait for aiding interactions with the user/group/role system
@@ -81,6 +83,20 @@ trait HandlesAuthentication
     public function beUser(User $user)
     {
         app()->make(Authentication::class)->setUser($user);
+    }
+
+    /**
+     * Bypass any authorization checks made in controllers.
+     * 
+     * This will simply ensure any call to the permission tester 'evaluate' method returns true.
+     * 
+     * @return void
+     */
+    public function bypassAuthorization()
+    {
+        $permissionTester = $this->prophesize(PermissionTester::class);
+        $permissionTester->evaluate(Argument::any())->willReturn(true);
+        $this->instance(PermissionTester::class, $permissionTester->reveal());
     }
 
 
