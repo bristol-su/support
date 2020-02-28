@@ -44,6 +44,7 @@ var searchData=
   ['retrievebytoken',['retrieveByToken',['../classBristolSU_1_1Support_1_1ActivityInstance_1_1AuthenticationProvider_1_1ActivityInstanceProvider.html#a49508f7cfce7ef7176f5600ad78fa64c',1,'BristolSU::Support::ActivityInstance::AuthenticationProvider::ActivityInstanceProvider']]],
   ['revisionserviceprovider',['RevisionServiceProvider',['../classBristolSU_1_1Support_1_1Revision_1_1RevisionServiceProvider.html',1,'BristolSU::Support::Revision']]],
   ['revisionserviceprovider_2ephp',['RevisionServiceProvider.php',['../RevisionServiceProvider_8php.html',1,'']]],
+  ['revokepermissionto',['revokePermissionTo',['../classBristolSU_1_1Support_1_1Testing_1_1HandlesAuthorization.html#aceca1101b3802d065632b9ba75b710bf',1,'BristolSU::Support::Testing::HandlesAuthorization']]],
   ['role',['role',['../classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1RoleFilter.html#a7ed9541d60cc41e7fd7397049317b99c',1,'BristolSU::Support::Filters::Contracts::Filters::RoleFilter']]],
   ['roleaudience',['roleAudience',['../classBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1Audience_1_1LogicAudience.html#ab40bc1b5cb5572ce2eaa3b7fe373698b',1,'BristolSU::Support::Logic::Contracts::Audience::LogicAudience']]],
   ['rolefilter',['RoleFilter',['../classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1RoleFilter.html',1,'BristolSU::Support::Filters::Contracts::Filters']]],

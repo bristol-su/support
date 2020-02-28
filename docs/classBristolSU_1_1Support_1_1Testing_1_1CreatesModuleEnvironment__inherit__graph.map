@@ -1,3 +1,4 @@
 <map id="BristolSU\Support\Testing\CreatesModuleEnvironment" name="BristolSU\Support\Testing\CreatesModuleEnvironment">
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Testing_1_1HandlesAuthentication.html" title="BristolSU\\Support\\Testing\l\\HandlesAuthentication" alt="" coords="11,5,186,47"/>
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Testing_1_1HandlesAuthentication.html" title="BristolSU\\Support\\Testing\l\\HandlesAuthentication" alt="" coords="5,5,180,47"/>
+<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Testing_1_1HandlesAuthorization.html" title="BristolSU\\Support\\Testing\l\\HandlesAuthorization" alt="" coords="5,71,180,112"/>
 </map>
