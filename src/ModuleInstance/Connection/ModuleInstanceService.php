@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\ModuleInstance\Connection;
 
+use BristolSU\Support\Connection\AccessibleConnectionScope;
 use BristolSU\Support\Connection\Connection;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
@@ -47,7 +48,7 @@ class ModuleInstanceService extends Model
      */
     public function connection()
     {
-        return $this->belongsTo(Connection::class);
+        return $this->belongsTo(Connection::class)->withoutGlobalScope(AccessibleConnectionScope::class);
     }
     
 }

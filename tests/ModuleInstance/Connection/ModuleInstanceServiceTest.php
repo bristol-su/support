@@ -37,6 +37,23 @@ class ModuleInstanceServiceTest extends TestCase
     }
 
     /** @test */
+    public function the_connection_relationship_does_not_need_the_accessible_connection_scope(){
+        $user = $this->newUser();
+        $user2 = $this->newUser();
+        $this->beUser($user);
+        $this->be(factory(User::class)->create(['control_id' => $user->id()]));
+
+        $connection = factory(Connection::class)->create(['user_id' => $user2->id()]);
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstanceService = factory(ModuleInstanceService::class)->create([
+            'module_instance_id' => $moduleInstance->id, 'connection_id' => $connection->id
+        ]);
+
+        $this->assertInstanceOf(Connection::class, $moduleInstanceService->connection);
+        $this->assertModelEquals($connection, $moduleInstanceService->connection);
+    }
+
+    /** @test */
     public function revisions_are_saved()
     {
         $user = $this->newUser();
