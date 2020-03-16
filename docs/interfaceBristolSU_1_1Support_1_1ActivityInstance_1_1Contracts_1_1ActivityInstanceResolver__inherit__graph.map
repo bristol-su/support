@@ -1,4 +1,5 @@
 <map id="BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver" name="BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver">
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1ActivityInstance_1_1ApiActivityInstanceResolver.html" title="BristolSU\\Support\\Activity\lInstance\\ApiActivityInstanceResolver" alt="" coords="284,5,525,47"/>
-<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1ActivityInstance_1_1LaravelAuthActivityInstanceResolver.html" title="BristolSU\\Support\\Activity\lInstance\\LaravelAuthActivityInstance\lResolver" alt="" coords="285,71,524,127"/>
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1ActivityInstance_1_1ApiActivityInstanceResolver.html" title="BristolSU\\Support\\Activity\lInstance\\ApiActivityInstanceResolver" alt="" coords="287,5,528,47"/>
+<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1ActivityInstance_1_1WebRequestActivityInstanceResolver.html" title="BristolSU\\Support\\Activity\lInstance\\WebRequestActivityInstance\lResolver" alt="" coords="284,71,531,127"/>
+<area shape="rect" id="node4" href="$classBristolSU_1_1Support_1_1Testing_1_1ActivityInstance_1_1LaravelAuthActivityInstanceResolver.html" title="BristolSU\\Support\\Testing\l\\ActivityInstance\\LaravelAuthActivity\lInstanceResolver" alt="" coords="289,151,526,207"/>
 </map>
