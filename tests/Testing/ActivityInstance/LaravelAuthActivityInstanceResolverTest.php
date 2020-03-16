@@ -1,10 +1,10 @@
 <?php
 
-namespace BristolSU\Support\Tests\ActivityInstance;
+namespace BristolSU\Support\Tests\Testing\ActivityInstance;
 
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ActivityInstance\Exceptions\NotInActivityInstanceException;
-use BristolSU\Support\ActivityInstance\LaravelAuthActivityInstanceResolver;
+use BristolSU\Support\Testing\ActivityInstance\LaravelAuthActivityInstanceResolver;
 use BristolSU\Support\Tests\TestCase;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Auth\StatefulGuard;

@@ -3,7 +3,11 @@
 namespace BristolSU\Support\Testing;
 
 use BristolSU\ControlDB\ControlDBServiceProvider;
+use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\SupportServiceProvider;
+use BristolSU\Support\Testing\ActivityInstance\LaravelAuthActivityInstanceResolver;
+use BristolSU\Support\Testing\Authentication\SessionAuthentication;
 use Illuminate\Foundation\Application;
 use Laracasts\Utilities\JavaScript\JavaScriptServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
@@ -47,6 +51,8 @@ class TestCase extends BaseTestCase
         ]);
         $app['config']->set('app.key', 'base64:UTyp33UhGolgzCK5CJmT+hNHcA+dJyp3+oINtX+VoPI=');
         $this->createSdkEnvironment($app);
+        $app->bind(Authentication::class, SessionAuthentication::class);
+        $app->bind(ActivityInstanceResolver::class, LaravelAuthActivityInstanceResolver::class);
     }
 
     /**

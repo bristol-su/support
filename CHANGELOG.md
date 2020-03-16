@@ -7,10 +7,31 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1] - (16/03/2020)
+
+### Changed
+- Activity Instance related middleware now only runs on participant routes
+
+### Added
+- Middleware to check the user in Authentication belongs to the database user
+- Middleware to check the logged in group and role are valid
+- Middleware to check the Activity Instance is owned by the logged in credentials
+- Use the request query parameters to save authentication information, as opposed to the session
+- Use request query parameters to get activity instance information, as opposed to the session
+
+### Removed
+- LaravelAuthActivityInstanceResolver class
+- WebSessionAuthentication class
+- LogIntoActivityInstance Middleware
+
 ## [3.0.2] - (11/03/2020)
 
 ### Changed
 - Removed Global Scope from the relationship between a connection and a module instance service
+
+### Removed
+- Remove BristolSU\Support\ModuleInstance\Contracts\Evaluator\ActivityInstanceEvaluator::evaluateAdministrator function
+- Remove BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator::evaluateAdministrator activity instance parameter
 
 ## [3.0.1] - (28/02/2020)
 
@@ -95,7 +116,8 @@ BristolSU\Support\Testing\HandlesAuthorization to help with testing modules with
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/support/compare/v3.0.2...HEAD
+[Unreleased]: https://github.com/bristol-su/support/compare/v3.1...HEAD
+[3.0.2]: https://github.com/bristol-su/support/compare/v3.0.2...v3.1
 [3.0.2]: https://github.com/bristol-su/support/compare/v3.0.1...v3.0.2
 [3.0.1]: https://github.com/bristol-su/support/compare/v3.0...v3.0.1
 [3.0]: https://github.com/bristol-su/support/compare/v2.1...v3.0

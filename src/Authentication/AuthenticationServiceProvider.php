@@ -2,14 +2,12 @@
 
 namespace BristolSU\Support\Authentication;
 
+use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
+use BristolSU\Support\ActivityInstance\Exceptions\NotInActivityInstanceException;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Authentication\Contracts\ResourceIdGenerator;
-use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
-use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -37,13 +35,32 @@ class AuthenticationServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        UrlGenerator::macro('getAuthQueryArray', function() {
+            $query = [];
+            if(app(Authentication::class)->getUser() !== null) {
+                $query['u'] = app(Authentication::class)->getUser()->id();
+            }
+            if(app(Authentication::class)->getGroup() !== null) {
+                $query['g'] = app(Authentication::class)->getGroup()->id();
+            }
+            if(app(Authentication::class)->getRole() !== null) {
+                $query['r'] = app(Authentication::class)->getRole()->id();
+            }
+            try {
+                $query['a'] = app(ActivityInstanceResolver::class)->getActivityInstance()->id;
+            } catch (NotInActivityInstanceException $e) {}
+            return $query;
+        });
+        UrlGenerator::macro('getAuthQueryString', function() {
+            return http_build_query(UrlGenerator::getAuthQueryArray(), '', '&', PHP_QUERY_RFC3986);
+        });
     }
 
     public function registerAuthentication(Request $request)
     {
         $this->app->bind(Authentication::class, function($app) use ($request) {
             return ($request->is('api/*') ?
-                $app->make(ApiAuthentication::class) : $app->make(WebSessionAuthentication::class));
+                $app->make(ApiAuthentication::class) : $app->make(WebRequestAuthentication::class));
         });
 
     }

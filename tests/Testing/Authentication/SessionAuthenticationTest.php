@@ -1,18 +1,13 @@
 <?php
 
+namespace BristolSU\Support\Tests\Testing\Authentication;
 
-namespace BristolSU\Support\Tests\Authentication;
-
-
-use BristolSU\Support\User\Contracts\UserAuthentication;
-use BristolSU\Support\Authentication\WebSessionAuthentication;
-use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\ControlDB\Models\Group;
+use BristolSU\Support\Testing\Authentication\SessionAuthentication;
 use BristolSU\Support\Tests\TestCase;
 use Illuminate\Support\Facades\Session;
 
-class WebSessionAuthenticationTest extends TestCase
+class SessionAuthenticationTest extends TestCase
 {
 
     /** @test */
@@ -22,7 +17,7 @@ class WebSessionAuthenticationTest extends TestCase
             'id' => 2
         ]);
         $this->beGroup($group);
-        $authentication = resolve(WebSessionAuthentication::class);
+        $authentication = resolve(SessionAuthentication::class);
 
         $this->assertEquals(2, $authentication->getGroup()->id);
     }
@@ -33,7 +28,7 @@ class WebSessionAuthenticationTest extends TestCase
         $role = $this->newRole(['group_id' => $group->id()]);
         $this->beRole($role);
 
-        $authentication = resolve(WebSessionAuthentication::class);
+        $authentication = resolve(SessionAuthentication::class);
         $authGroup = $authentication->getGroup();
         $this->assertInstanceOf(Group::class, $authGroup);
         $this->assertModelEquals($group, $authGroup);
@@ -42,7 +37,7 @@ class WebSessionAuthenticationTest extends TestCase
     /** @test */
     public function get_group_returns_null_if_not_logged_into_a_group_or_role()
     {
-        $authentication = resolve(WebSessionAuthentication::class);
+        $authentication = resolve(SessionAuthentication::class);
         $this->assertNull($authentication->getGroup());
     }
 
@@ -53,14 +48,14 @@ class WebSessionAuthenticationTest extends TestCase
         $role = $this->newRole();
         $this->beRole($role);
         
-        $authentication = resolve(WebSessionAuthentication::class);
+        $authentication = resolve(SessionAuthentication::class);
         $this->assertEquals($role->id(), $authentication->getRole()->id);
     }
 
     /** @test */
     public function get_role_returns_null_if_not_logged_into_role()
     {
-        $authentication = resolve(WebSessionAuthentication::class);
+        $authentication = resolve(SessionAuthentication::class);
         $this->assertNull($authentication->getRole());
     }
 
@@ -70,14 +65,14 @@ class WebSessionAuthenticationTest extends TestCase
     {
         $user = $this->newUser();
         $this->beUser($user);
-        $authentication = resolve(WebSessionAuthentication::class);
+        $authentication = resolve(SessionAuthentication::class);
         $this->assertEquals($user->id(), $authentication->getUser()->id());
     }
 
     /** @test */
     public function get_user_returns_null_if_not_logged_into_a_user()
     {
-        $authentication = resolve(WebSessionAuthentication::class);
+        $authentication = resolve(SessionAuthentication::class);
         $this->assertNull($authentication->getUser());
     }
 
@@ -86,7 +81,7 @@ class WebSessionAuthenticationTest extends TestCase
     public function set_user_sets_the_user()
     {
         $user = $this->newUser();
-        $authentication = resolve(WebSessionAuthentication::class);
+        $authentication = resolve(SessionAuthentication::class);
         $authentication->setUser($user);
         $this->assertTrue(Session::has('user_id'));
         $this->assertEquals($user->id(), Session::get('user_id'));
@@ -96,7 +91,7 @@ class WebSessionAuthenticationTest extends TestCase
     public function set_group_sets_the_group()
     {
         $group = $this->newGroup();
-        $authentication = resolve(WebSessionAuthentication::class);
+        $authentication = resolve(SessionAuthentication::class);
         $authentication->setGroup($group);
         $this->assertTrue(Session::has('group_id'));
         $this->assertEquals($group->id(), Session::get('group_id'));
@@ -106,7 +101,7 @@ class WebSessionAuthenticationTest extends TestCase
     public function set_role_sets_the_role()
     {
         $role = $this->newRole();
-        $authentication = resolve(WebSessionAuthentication::class);
+        $authentication = resolve(SessionAuthentication::class);
         $authentication->setRole($role);
         $this->assertTrue(Session::has('role_id'));
         $this->assertEquals($role->id(), Session::get('role_id'));    }
@@ -121,7 +116,7 @@ class WebSessionAuthenticationTest extends TestCase
         $this->assertEquals(2, Session::get('group_id'));
         $this->assertEquals(3, Session::get('role_id'));
         
-        $authentication = resolve(WebSessionAuthentication::class);
+        $authentication = resolve(SessionAuthentication::class);
         $authentication->reset();
 
         $this->assertFalse(Session::has('user_id'));
