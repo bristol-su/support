@@ -1,5 +1,6 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1Authentication_1_1Contracts_1_1Authentication.html" title="BristolSU\\Support\\Authentication\l\\Contracts\\Authentication" alt="" coords="5,39,220,80"/>
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Authentication_1_1ApiAuthentication.html" title="BristolSU\\Support\\Authentication\l\\ApiAuthentication" alt="" coords="268,5,483,47"/>
-<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Authentication_1_1WebSessionAuthentication.html" title="BristolSU\\Support\\Authentication\l\\WebSessionAuthentication" alt="" coords="268,71,483,112"/>
+<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1Authentication_1_1Contracts_1_1Authentication.html" title="BristolSU\\Support\\Authentication\l\\Contracts\\Authentication" alt="" coords="5,71,220,112"/>
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Authentication_1_1ApiAuthentication.html" title="BristolSU\\Support\\Authentication\l\\ApiAuthentication" alt="" coords="282,5,497,47"/>
+<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Authentication_1_1WebRequestAuthentication.html" title="BristolSU\\Support\\Authentication\l\\WebRequestAuthentication" alt="" coords="282,71,497,112"/>
+<area shape="rect" id="node4" href="$classBristolSU_1_1Support_1_1Testing_1_1Authentication_1_1SessionAuthentication.html" title="BristolSU\\Support\\Testing\l\\Authentication\\SessionAuthentication" alt="" coords="268,136,511,177"/>
 </map>

@@ -1,3 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classBristolSU_1_1Support_1_1Http_1_1Middleware_1_1InjectJavascriptVariables.html" title="BristolSU\\Support\\Http\l\\Middleware\\InjectJavascript\lVariables" alt="" coords="5,5,193,61"/>
+<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterRepository.html" title="BristolSU\\Support\\Filters\l\\Contracts\\FilterRepository" alt="" coords="5,5,184,47"/>
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Filters_1_1FilterRepository.html" title="BristolSU\\Support\\Filters\l\\FilterRepository" alt="" coords="232,5,399,47"/>
 </map>

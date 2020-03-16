@@ -1,4 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1Audience_1_1AudienceMemberFactory.html" title="BristolSU\\Support\\Logic\l\\Contracts\\Audience\\Audience\lMemberFactory" alt="" coords="5,5,204,61"/>
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMemberFactory.html" title="BristolSU\\Support\\Logic\l\\Audience\\AudienceMemberFactory" alt="" coords="252,13,481,54"/>
+<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterTester.html" title="BristolSU\\Support\\Filters\l\\Contracts\\FilterTester" alt="" coords="5,39,172,80"/>
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Filters_1_1CachedFilterTesterDecorator.html" title="BristolSU\\Support\\Filters\l\\CachedFilterTesterDecorator" alt="" coords="220,5,415,47"/>
+<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Filters_1_1FilterTester.html" title="BristolSU\\Support\\Filters\l\\FilterTester" alt="" coords="234,71,401,112"/>
 </map>

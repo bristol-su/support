@@ -91,8 +91,6 @@ Collaboration diagram for BristolSU\Support\ModuleInstance\Evaluator\ActivityIns
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab02efd6ec84f6b77b103adab16a5d37a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ActivityInstanceEvaluator.html#ab02efd6ec84f6b77b103adab16a5d37a">__construct</a> (ModuleInstanceEvaluatorContract $moduleInstanceEvaluator)</td></tr>
 <tr class="separator:ab02efd6ec84f6b77b103adab16a5d37a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a10cb666664fbbc72dfba710498eca037"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ActivityInstanceEvaluator.html#a10cb666664fbbc72dfba710498eca037">evaluateAdministrator</a> (<a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">ActivityInstance</a> $activityInstance, ?User $user=null, ?Group $group=null, ?Role $role=null)</td></tr>
-<tr class="separator:a10cb666664fbbc72dfba710498eca037"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6cd9f625e89d5d82dcbbd320e9b6b7ab"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ActivityInstanceEvaluator.html#a6cd9f625e89d5d82dcbbd320e9b6b7ab">evaluateParticipant</a> (<a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">ActivityInstance</a> $activityInstance, ?User $user=null, ?Group $group=null, ?Role $role=null)</td></tr>
 <tr class="separator:a6cd9f625e89d5d82dcbbd320e9b6b7ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a37fc0d59299675fb0d4e5cba14bc69a1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ActivityInstanceEvaluator.html#a37fc0d59299675fb0d4e5cba14bc69a1">evaluateResource</a> (<a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">ActivityInstance</a> $activityInstance)</td></tr>
@@ -137,63 +135,6 @@ Private Attributes</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a10cb666664fbbc72dfba710498eca037"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a10cb666664fbbc72dfba710498eca037">&#9670;&nbsp;</a></span>evaluateAdministrator()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">BristolSU\Support\ModuleInstance\Evaluator\ActivityInstanceEvaluator::evaluateAdministrator </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstance.html">ActivityInstance</a>&#160;</td>
-          <td class="paramname"><em>$activityInstance</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">?User&#160;</td>
-          <td class="paramname"><em>$user</em> = <code>null</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">?Group&#160;</td>
-          <td class="paramname"><em>$group</em> = <code>null</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">?Role&#160;</td>
-          <td class="paramname"><em>$role</em> = <code>null</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-<p>Evaluate an activity instance for an administrator</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1ActivityInstance.html">ActivityInstance</a></td><td class="paramname">$activityInstance</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1Activity.html">Activity</a> instance to evaluate </td></tr>
-    <tr><td class="paramtype"><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a>&#160;|&#160;null</td><td class="paramname">$user</td><td><a class="el" href="namespaceBristolSU_1_1Support_1_1User.html">User</a> to evaluate for </td></tr>
-    <tr><td class="paramtype">Group&#160;|&#160;null</td><td class="paramname">$group</td><td>Group to evaluate for </td></tr>
-    <tr><td class="paramtype">Role&#160;|&#160;null</td><td class="paramname">$role</td><td>Role to evaluate for</td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>EvaluationContract[] Array of evaluations with the module instance id as the index </dd></dl>
-
-<p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Evaluator_1_1ActivityInstanceEvaluator.html#a6f3f193a723cab0c71076563be31d3dd">BristolSU\Support\ModuleInstance\Contracts\Evaluator\ActivityInstanceEvaluator</a>.</p>
-
-<p class="definition">Definition at line <a class="el" href="Evaluator_2ActivityInstanceEvaluator_8php_source.html#l00047">47</a> of file <a class="el" href="Evaluator_2ActivityInstanceEvaluator_8php_source.html">ActivityInstanceEvaluator.php</a>.</p>
-
-<p class="reference">References <a class="el" href="ActivityInstance_8php_source.html#l00120">BristolSU\Support\ActivityInstance\ActivityInstance\activity()</a>.</p>
-
-</div>
-</div>
 <a id="a6cd9f625e89d5d82dcbbd320e9b6b7ab"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6cd9f625e89d5d82dcbbd320e9b6b7ab">&#9670;&nbsp;</a></span>evaluateParticipant()</h2>
 
@@ -245,7 +186,7 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Evaluator_1_1ActivityInstanceEvaluator.html#a8eda7984ba9fd52be198ba22f3bc11a9">BristolSU\Support\ModuleInstance\Contracts\Evaluator\ActivityInstanceEvaluator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Evaluator_2ActivityInstanceEvaluator_8php_source.html#l00065">65</a> of file <a class="el" href="Evaluator_2ActivityInstanceEvaluator_8php_source.html">ActivityInstanceEvaluator.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Evaluator_2ActivityInstanceEvaluator_8php_source.html#l00047">47</a> of file <a class="el" href="Evaluator_2ActivityInstanceEvaluator_8php_source.html">ActivityInstanceEvaluator.php</a>.</p>
 
 <p class="reference">References <a class="el" href="ActivityInstance_8php_source.html#l00120">BristolSU\Support\ActivityInstance\ActivityInstance\activity()</a>.</p>
 
@@ -278,7 +219,7 @@ Private Attributes</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Evaluator_1_1ActivityInstanceEvaluator.html#a13794432fd1edab183348c0823e13991">BristolSU\Support\ModuleInstance\Contracts\Evaluator\ActivityInstanceEvaluator</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="Evaluator_2ActivityInstanceEvaluator_8php_source.html#l00082">82</a> of file <a class="el" href="Evaluator_2ActivityInstanceEvaluator_8php_source.html">ActivityInstanceEvaluator.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Evaluator_2ActivityInstanceEvaluator_8php_source.html#l00064">64</a> of file <a class="el" href="Evaluator_2ActivityInstanceEvaluator_8php_source.html">ActivityInstanceEvaluator.php</a>.</p>
 
 <p class="reference">References <a class="el" href="ActivityInstance_8php_source.html#l00120">BristolSU\Support\ActivityInstance\ActivityInstance\activity()</a>.</p>
 
