@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Removed
 - Remove BristolSU\Support\ModuleInstance\Contracts\Evaluator\ActivityInstanceEvaluator::evaluateAdministrator function
 - Remove BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator::evaluateAdministrator activity instance parameter
+
 ## [3.0.1] - (28/02/2020)
 
 ### Added
