@@ -6,6 +6,7 @@ use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Authentication\Contracts\Authentication;
+use BristolSU\Support\Testing\Authentication\SessionAuthentication;
 
 /**
  * Trait for aiding interactions with the user/group/role system

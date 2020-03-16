@@ -6,6 +6,7 @@ use BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstancePr
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository as ActivityInstanceRepositoryContract;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use BristolSU\Support\ActivityInstance\Contracts\DefaultActivityInstanceGenerator as DefaultActivityInstanceGeneratorContract;
+use BristolSU\Support\ActivityInstance\Middleware\CheckActivityInstanceAccessible;
 use BristolSU\Support\ActivityInstance\Middleware\CheckActivityInstanceForActivity;
 use BristolSU\Support\ActivityInstance\Middleware\CheckLoggedIntoActivityInstance;
 use BristolSU\Support\ActivityInstance\Middleware\ClearActivityInstance;
@@ -44,10 +45,10 @@ class ActivityInstanceServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $this->app['router']->pushMiddlewareToGroup('activity', LogIntoActivityInstance::class);
-        $this->app['router']->pushMiddlewareToGroup('activity', CheckLoggedIntoActivityInstance::class);
-        $this->app['router']->pushMiddlewareToGroup('activity', CheckActivityInstanceForActivity::class);
-        $this->app['router']->pushMiddlewareToGroup('activity', InjectActivityInstance::class);
+        $this->app['router']->pushMiddlewareToGroup('participant', CheckLoggedIntoActivityInstance::class);
+        $this->app['router']->pushMiddlewareToGroup('participant', CheckActivityInstanceForActivity::class);
+        $this->app['router']->pushMiddlewareToGroup('participant', CheckActivityInstanceAccessible::class);
+        $this->app['router']->pushMiddlewareToGroup('participant', InjectActivityInstance::class);
         $this->app['router']->pushMiddlewareToGroup('nonmodule', ClearActivityInstance::class);
 
         Auth::provider('activity-instance-provider', function(Container $app, array $config) {
@@ -66,7 +67,7 @@ class ActivityInstanceServiceProvider extends ServiceProvider
     {
         $this->app->bind(ActivityInstanceResolver::class, function($app) use ($request) {
             return ($request->is('api/*') ?
-                $app->make(ApiActivityInstanceResolver::class) : $app->make(LaravelAuthActivityInstanceResolver::class));
+                $app->make(ApiActivityInstanceResolver::class) : $app->make(WebRequestActivityInstanceResolver::class));
         });
     }
 

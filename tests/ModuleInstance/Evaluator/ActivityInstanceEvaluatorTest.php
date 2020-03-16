@@ -49,37 +49,6 @@ class ActivityInstanceEvaluatorTest extends TestCase
     }
 
     /** @test */
-    public
-    function administrator_evaluates_each_module_instance()
-    {
-        $moduleInstances = factory(ModuleInstance::class, 3)->make();
-        $activity = factory(Activity::class)->create();
-        $activity->moduleInstances()->saveMany($moduleInstances);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-        $user = $this->newUser();
-        $group = $this->newGroup();
-        $role = $this->newRole();
-        $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
-        $evaluation = $this->prophesize(Evaluation::class);
-        foreach ($moduleInstances as $moduleInstance) {
-            $moduleInstanceEvaluator->evaluateAdministrator(Argument::that(function ($givenActInst) use ($activityInstance) {
-                return $activityInstance->is($givenActInst);
-            }), Argument::that(function ($givenModuleInstance) use ($moduleInstance) {
-                return $givenModuleInstance->id == $moduleInstance->id;
-            }), $user, $group, $role)->shouldBeCalled()->willReturn($evaluation);
-        }
-
-        $activityEvaluator = new ActivityInstanceEvaluator($moduleInstanceEvaluator->reveal());
-        $evaluations = $activityEvaluator->evaluateAdministrator($activityInstance, $user, $group, $role);
-
-        $this->assertCount($moduleInstances->count(), $evaluations);
-        foreach ($evaluations as $id => $evaluation) {
-            $this->assertInstanceOf(Evaluation::class, $evaluation);
-            $this->assertEquals($id, $moduleInstances->shift()->id);
-        }
-    }
-
-    /** @test */
     public function resource_evaluates_each_module_instance(){
         $moduleInstances = factory(ModuleInstance::class, 3)->make();
         $activity = factory(Activity::class)->create();

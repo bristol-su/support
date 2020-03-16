@@ -25,14 +25,11 @@ class ModuleInstanceEvaluatorTest extends TestCase
 
     /** @test */
     public function admin_returns_an_evaluation_instance(){
-        $activityInstance = factory(ActivityInstance::class)->create();
         $moduleInstance = factory(ModuleInstance::class)->make();
-        $activityInstance->activity->moduleInstances()->save($moduleInstance);
-        
         $evaluation = $this->prophesize(Evaluation::class);
 
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
-        $this->assertInstanceOf(Evaluation::class, $moduleInstanceEvaluator->evaluateAdministrator($activityInstance, $moduleInstance));
+        $this->assertInstanceOf(Evaluation::class, $moduleInstanceEvaluator->evaluateAdministrator($moduleInstance));
     }
 
 
@@ -50,9 +47,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
 
     /** @test */
     public function admin_passes_the_correct_data_to_an_evaluation(){
-        $activityInstance = factory(ActivityInstance::class)->create();
         $moduleInstance = factory(ModuleInstance::class)->make();
-        $activityInstance->activity->moduleInstances()->save($moduleInstance);
         $evaluation = $this->prophesize(Evaluation::class);
         $evaluation->setVisible(true)->shouldBeCalled();
         $evaluation->setMandatory(false)->shouldBeCalled();
@@ -61,7 +56,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $this->app->instance(Evaluation::class, $evaluation->reveal());
 
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
-        $moduleInstanceEvaluator->evaluateAdministrator($activityInstance, $moduleInstance);
+        $moduleInstanceEvaluator->evaluateAdministrator($moduleInstance);
     }
 
     /** @test */

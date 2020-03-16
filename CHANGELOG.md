@@ -7,11 +7,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Activity Instance related middleware now only runs on participant routes
+
+### Added
+- Middleware to check the user in Authentication belongs to the database user
+- Middleware to check the logged in group and role are valid
+- Middleware to check the Activity Instance is owned by the logged in credentials
+- Use the request query parameters to save authentication information, as opposed to the session
+- Use request query parameters to get activity instance information, as opposed to the session
+
+### Removed
+- LaravelAuthActivityInstanceResolver class
+- WebSessionAuthentication class
+- LogIntoActivityInstance Middleware
+
 ## [3.0.2] - (11/03/2020)
 
 ### Changed
 - Removed Global Scope from the relationship between a connection and a module instance service
 
+### Removed
+- Remove BristolSU\Support\ModuleInstance\Contracts\Evaluator\ActivityInstanceEvaluator::evaluateAdministrator function
+- Remove BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator::evaluateAdministrator activity instance parameter
 ## [3.0.1] - (28/02/2020)
 
 ### Added

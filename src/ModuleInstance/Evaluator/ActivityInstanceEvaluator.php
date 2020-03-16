@@ -35,24 +35,6 @@ class ActivityInstanceEvaluator implements ActivityEvaluatorContract
     }
 
     /**
-     * Evaluate an activity instance for an administrator
-     *
-     * @param ActivityInstance $activityInstance Activity instance to evaluate
-     * @param User|null $user User to evaluate for
-     * @param Group|null $group Group to evaluate for
-     * @param Role|null $role Role to evaluate for
-     *
-     * @return EvaluationContract[] Array of evaluations with the module instance id as the index
-     */
-    public function evaluateAdministrator(ActivityInstance $activityInstance, ?User $user = null, ?Group $group = null, ?Role $role = null) {
-        $evaluated = [];
-        foreach ($activityInstance->activity->moduleInstances as $moduleInstance) {
-            $evaluated[$moduleInstance->id] = clone $this->moduleInstanceEvaluator->evaluateAdministrator($activityInstance, $moduleInstance, $user, $group, $role);
-        }
-        return $evaluated;
-    }
-
-    /**
      * Evaluate an activity instance for a participant
      *
      * @param ActivityInstance $activityInstance Activity instance to evaluate

@@ -32,14 +32,13 @@ interface ModuleInstanceEvaluator
     /**
      * Evaluate a module instance for a given administrator
      *
-     * @param ActivityInstance $activityInstance Activity instance to evaluate
      * @param ModuleInstance $moduleInstance Module instance to evaluate
      * @param User|null $user User to evaluate for
      * @param Group|null $group Group to evaluate for
      * @param Role|null $role Role to evaluate for
      * @return EvaluationContract
      */
-    public function evaluateAdministrator(ActivityInstance $activityInstance, ModuleInstance $moduleInstance, ?User $user = null, ?Group $group = null, ?Role $role = null): EvaluationContract;
+    public function evaluateAdministrator(ModuleInstance $moduleInstance, ?User $user = null, ?Group $group = null, ?Role $role = null): EvaluationContract;
 
     /**
      * Evaluate the module instance for all participants of the activity instance.

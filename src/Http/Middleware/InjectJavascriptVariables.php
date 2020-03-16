@@ -48,6 +48,11 @@ class InjectJavascriptVariables
      */
     public function handle(Request $request, \Closure $next)
     {
+        try {
+            $activityInstance = $this->activityInstanceResolver->getActivityInstance();
+        } catch(NotInActivityInstanceException $e) {
+            $activityInstance = null;
+        }
         JavaScriptFacade::put([
             'ALIAS' => $request->route('module_instance_slug')->alias,
             'ACTIVITY_SLUG' => $request->route('activity_slug')->slug,
@@ -56,7 +61,7 @@ class InjectJavascriptVariables
             'user' => $this->authentication->getUser(),
             'group' => $this->authentication->getGroup(),
             'role' => $this->authentication->getRole(),
-            'activityinstance' => $this->activityInstanceResolver->getActivityInstance(),
+            'activityinstance' => $activityInstance,
             'moduleinstance' => $request->route('module_instance_slug'),
             'data_user' => ($this->authentication->getUser() === null ?null:$this->authentication->getUser()->data())
         ]);

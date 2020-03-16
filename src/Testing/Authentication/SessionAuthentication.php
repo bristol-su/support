@@ -1,8 +1,6 @@
 <?php
 
-
-namespace BristolSU\Support\Authentication;
-
+namespace BristolSU\Support\Testing\Authentication;
 
 use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\Support\Authentication\Contracts\Authentication as AuthenticationContract;
@@ -12,39 +10,38 @@ use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
 use \BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
-use Illuminate\Contracts\Auth\Factory as AuthFactory;
 use Illuminate\Contracts\Session\Session;
 
 /**
  * Authentication for getting a user, group or role from the session
  */
-class WebSessionAuthentication implements AuthenticationContract
+class SessionAuthentication implements AuthenticationContract
 {
 
     /**
      * Holds a reference to the session object
-     * 
+     *
      * @var Session
      */
     private $session;
-    
+
     /**
      * Group repository
-     * 
+     *
      * @var GroupRepository
      */
-    
+
     private $groupRepository;
     /**
      * User Repository
-     * 
+     *
      * @var UserRepository
      */
     private $userRepository;
-    
+
     /**
      * Role Repository
-     * 
+     *
      * @var RoleRepository
      */
     private $roleRepository;
@@ -56,7 +53,7 @@ class WebSessionAuthentication implements AuthenticationContract
      * @param Session $session Session
      * @param GroupRepository $groupRepository Group Repository
      * @param UserRepository $userRepository User Repository
-     * @param UserAuthentication $userAuthentication Database User Authentication 
+     * @param UserAuthentication $userAuthentication Database User Authentication
      */
     public function __construct(Session $session, GroupRepository $groupRepository, UserRepository $userRepository, RoleRepository $roleRepository)
     {
@@ -68,9 +65,9 @@ class WebSessionAuthentication implements AuthenticationContract
 
     /**
      * Get the group
-     * 
+     *
      * Returns the group belonging to a role if logged into a role, otherwise the group logged in
-     * 
+     *
      * @return Group|null
      */
     public function getGroup()
@@ -84,13 +81,13 @@ class WebSessionAuthentication implements AuthenticationContract
                 $this->session->get('group_id')
             );
         }
-        
+
         return null;
     }
 
     /**
      * Get the role
-     * 
+     *
      * @return Role|null
      */
     public function getRole()
@@ -106,7 +103,7 @@ class WebSessionAuthentication implements AuthenticationContract
 
     /**
      * Get the user
-     * 
+     *
      * @return User|null
      */
     public function getUser()
@@ -122,7 +119,7 @@ class WebSessionAuthentication implements AuthenticationContract
 
     /**
      * Set the group
-     * 
+     *
      * @param Group $group
      * @return void
      */
@@ -133,7 +130,7 @@ class WebSessionAuthentication implements AuthenticationContract
 
     /**
      * Set the role
-     * 
+     *
      * @param Role $role
      * @return void
      */
@@ -144,7 +141,7 @@ class WebSessionAuthentication implements AuthenticationContract
 
     /**
      * Set the user
-     * 
+     *
      * @param User $user
      * @return void
      */
@@ -155,7 +152,7 @@ class WebSessionAuthentication implements AuthenticationContract
 
     /**
      * Unset the user, group and role
-     * 
+     *
      * @return void
      */
     public function reset(): void
