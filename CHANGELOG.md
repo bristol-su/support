@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Middleware to throw an ActivityDisabled exception if the activity is disabled
+- Middleware to throw a ModuleInstanceDisabled exception if the module instance is disabled
+
 ## [3.1] - (16/03/2020)
 
 ### Changed
