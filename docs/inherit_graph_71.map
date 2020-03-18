@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Scheduler_1_1CommandStore.html" title="BristolSU\\Support\\Module\lInstance\\Contracts\\Scheduler\l\\CommandStore" alt="" coords="5,5,200,61"/>
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1ModuleInstance_1_1Scheduler_1_1CommandStore.html" title="BristolSU\\Support\\Module\lInstance\\Scheduler\\CommandStore" alt="" coords="248,13,477,54"/>
+<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1Evaluator_1_1ModuleInstanceEvaluator.html" title="BristolSU\\Support\\Module\lInstance\\Contracts\\Evaluator\l\\ModuleInstanceEvaluator" alt="" coords="5,5,197,61"/>
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1ModuleInstance_1_1Evaluator_1_1ModuleInstanceEvaluator.html" title="BristolSU\\Support\\Module\lInstance\\Evaluator\\ModuleInstance\lEvaluator" alt="" coords="245,5,472,61"/>
 </map>
