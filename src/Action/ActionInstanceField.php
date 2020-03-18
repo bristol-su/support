@@ -18,7 +18,7 @@ class ActionInstanceField extends Model
      * @var array
      */
     protected $fillable = [
-        'event_field', 'action_field', 'action_instance_id'
+        'action_value', 'action_field', 'action_instance_id'
     ];
 
     /**

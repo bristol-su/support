@@ -9,6 +9,7 @@ use BristolSU\Support\Action\Contracts\ActionBuilder;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Schema\Form;
 use Illuminate\Support\Facades\Bus;
 use Prophecy\Argument;
 
@@ -83,12 +84,12 @@ class DispatcherDummyAction implements Action
     {
     }
 
-    public function getFields(): array
+    /**
+     * @inheritDoc
+     */
+    public static function options(): Form
     {
-    }
-
-    public static function getFieldMetaData(): array
-    {
+        return new Form();
     }
 
     public function __construct(array $data)

@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Action Instances, Activities, Module Instances and Logics retrieve the user ID from UserAuthentication not Authentication
+- Changed event_field in action_instance_fields table to action_value
+- Allow text to be entered into the action value, replace any {{event:field}} with the event 'field' value
+- Added static Action::options() method to return a form schema
+- ActionInstance::action_schema property
+
+### Removed
+- getFields and getFieldMetaData from Action contract
+- ActionInstance::action_fields property
+
 ## [3.1.2] - (18/03/2020)
 
 ### Fixed

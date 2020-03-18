@@ -4,29 +4,12 @@ namespace BristolSU\Support\Tests\Action\Actions;
 
 use BristolSU\Support\Action\Actions\Log;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Schema\Form;
 use Psr\Log\LoggerInterface;
 
 class LogTest extends TestCase
 {
 
-    /** @test */
-    public function getFields_returns_all_fields(){
-        $log = new Log(['text' => '']);
-        $this->assertArrayHasKey('text', $log->getFields());
-    }
-    
-    /** @test */
-    public function getFieldMetaData_returns_field_metadata(){
-        $this->assertArrayHasKey('text', Log::getFieldMetaData());
-    }
-    
-    /** @test */
-    public function data_passed_into_the_action_is_initialised_as_fields(){
-        $log = new Log(['text' => 'testtext']);
-        $this->assertArrayHasKey('text', $log->getFields());
-        $this->assertEquals('testtext', $log->getFields()['text']);
-    }
-    
     /** @test */
     public function handle_logs_the_given_text(){
         $logFake = $this->prophesize(LoggerInterface::class);
@@ -35,6 +18,11 @@ class LogTest extends TestCase
         
         $log = new Log(['text' => 'Log Me']);
         $log->handle();
+    }
+
+    public function options_returns_a_form_schema()
+    {
+        $this->assertInstanceOf(Form::class, Log::options());
     }
     
 }

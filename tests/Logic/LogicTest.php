@@ -12,6 +12,7 @@ use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
+use BristolSU\Support\User\Contracts\UserAuthentication;
 use FormSchema\Schema\Form;
 use Illuminate\Support\Collection;
 use BristolSU\Support\Tests\TestCase;
@@ -299,9 +300,10 @@ class LogicTest extends TestCase
     /** @test */
     public function user_id_is_automatically_added_on_creation(){
         $user = $this->newUser();
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn($user);
-        $this->instance(Authentication::class, $authentication->reveal());
+        $dbUser = factory(\BristolSU\Support\User\User::class)->create(['control_id' => $user->id()]);
+        $authentication = $this->prophesize(UserAuthentication::class);
+        $authentication->getUser()->shouldBeCalled()->willReturn($dbUser);
+        $this->instance(UserAuthentication::class, $authentication->reveal());
 
         $logic = factory(Logic::class)->create();
         $logic = factory(Logic::class)->create(['user_id' => null]);

@@ -8,6 +8,7 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
+use BristolSU\Support\User\Contracts\UserAuthentication;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
@@ -65,8 +66,8 @@ class Activity extends Model
             if ($model->slug === null) {
                 $model->slug = Str::slug($model->name);
             }
-            if($model->user_id === null && ($user = app(Authentication::class)->getUser()) !== null) {
-                $model->user_id = $user->id();
+            if($model->user_id === null && ($user = app(UserAuthentication::class)->getUser()) !== null) {
+                $model->user_id = $user->controlId();
             }
         });
     }

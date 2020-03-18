@@ -6,6 +6,7 @@ namespace BristolSU\Support\Action;
 use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Action\Contracts\ActionBuilder as ActionBuilderContract;
 use Illuminate\Contracts\Container\Container;
+use Illuminate\Support\Str;
 
 /**
  * Builds an action class using the Laravel container.
@@ -59,7 +60,11 @@ class ActionBuilder implements ActionBuilderContract
     {
         $actionFields = [];
         foreach ($fields as $field) {
-            $actionFields[$field->action_field] = $data[$field->event_field];
+            $actionValue = $field->action_value;
+            foreach($data as $key => $value) {
+                $actionValue = str_replace(sprintf('{{event:%s}}', $key), $value, $actionValue);
+            }
+            $actionFields[$field->action_field] = $actionValue;
         }
         return $actionFields;
     }

@@ -6,6 +6,14 @@ If you are upgrading a major version, you should always refer to this document t
 
 When upgrading, you should upgrade one version at a time.
 
+## v4.0
+
+Version 4 reformats the Action framework to be much more flexible. If you have created any actions, the options() function
+must be implemented to return a \FormSchema\Schema\Form class, and the getFields and getFieldMetaData functions may be removed.
+
+Additionally, the ActionInstance class no longer contains an action_fields property. It instead contains an action_schema
+property which will return a transformed FormSchema as an array for use with a form generator.
+
 ## v3.0
 
 ### Filters

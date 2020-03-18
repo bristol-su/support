@@ -10,6 +10,7 @@ use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\User\Contracts\UserAuthentication;
 use Carbon\Carbon;
 use BristolSU\Support\Tests\TestCase;
 use Exception;
@@ -192,9 +193,10 @@ class ActivityTest extends TestCase
     public function user_id_is_automatically_added_on_creation()
     {
         $user = $this->newUser();
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn($user);
-        $this->instance(Authentication::class, $authentication->reveal());
+        $dbUser = factory(\BristolSU\Support\User\User::class)->create(['control_id' => $user->id()]);
+        $authentication = $this->prophesize(UserAuthentication::class);
+        $authentication->getUser()->shouldBeCalled()->willReturn($dbUser);
+        $this->instance(UserAuthentication::class, $authentication->reveal());
 
         $logic = factory(Logic::class)->create();
         $activity = Activity::create([
