@@ -1,4 +1,4 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1PermissionTester.html" title="BristolSU\\Support\\Permissions\l\\Contracts\\PermissionTester" alt="" coords="5,5,208,47"/>
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Permissions_1_1PermissionTester.html" title="BristolSU\\Support\\Permissions\l\\PermissionTester" alt="" coords="256,5,459,47"/>
+<area shape="rect" id="node1" href="$interfaceBristolSU_1_1Support_1_1Permissions_1_1Contracts_1_1PermissionRepository.html" title="BristolSU\\Support\\Permissions\l\\Contracts\\PermissionRepository" alt="" coords="5,5,220,47"/>
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Permissions_1_1PermissionRepository.html" title="BristolSU\\Support\\Permissions\l\\PermissionRepository" alt="" coords="268,5,471,47"/>
 </map>
