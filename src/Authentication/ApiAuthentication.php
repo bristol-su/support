@@ -76,9 +76,9 @@ class ApiAuthentication implements Authentication
             return $role->group();
         }
         
-        if ($this->request !== null && $this->request->has('group_id')) {
+        if ($this->request !== null && $this->request->query->has('group_id')) {
             try {
-                return $this->groupRepository->getById($this->request->query('group_id'));
+                return $this->groupRepository->getById($this->request->query->get('group_id'));
             } catch (Exception $e) {
             }
         }
@@ -92,9 +92,9 @@ class ApiAuthentication implements Authentication
      */
     public function getRole()
     {
-        if ($this->request !== null && $this->request->has('role_id')) {
+        if ($this->request !== null && $this->request->query->has('role_id')) {
             try {
-                return $this->roleRepository->getById($this->request->query('role_id'));
+                return $this->roleRepository->getById($this->request->query->get('role_id'));
             } catch (Exception $e) {
             }
         }
@@ -108,9 +108,9 @@ class ApiAuthentication implements Authentication
      */    
     public function getUser()
     {
-        if ($this->request !== null && $this->request->has('user_id')) {
+        if ($this->request !== null && $this->request->query->has('user_id')) {
             try {
-                return $this->userRepository->getById($this->request->query('user_id'));
+                return $this->userRepository->getById($this->request->query->get('user_id'));
             } catch (Exception $e) {
             }
         }

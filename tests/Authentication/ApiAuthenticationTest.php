@@ -31,10 +31,13 @@ class ApiAuthenticationTest extends TestCase
         $groupRepository->getById($group->id())->shouldBeCalled()->willReturn($group);
         $this->app->instance(GroupRepository::class, $groupRepository->reveal());
         
+        $query = $this->prophesize(ParameterBag::class);
+        $query->has('role_id')->shouldBeCalled()->willReturn(false);
+        $query->has('group_id')->shouldBeCalled()->willReturn(true);
+        $query->get('group_id')->shouldBeCalled()->willReturn($group->id());
+        
         $request = $this->prophesize(Request::class);
-        $request->has('role_id')->shouldBeCalled()->willReturn(false);
-        $request->has('group_id')->shouldBeCalled()->willReturn(true);
-        $request->query('group_id')->shouldBeCalled()->willReturn($group->id());
+        $request->query = $query->reveal();
         $this->app->instance(Request::class, $request->reveal());
 
         $authentication = resolve(ApiAuthentication::class);
@@ -51,10 +54,13 @@ class ApiAuthenticationTest extends TestCase
         $roleRepository = $this->prophesize(RoleRepository::class);
         $roleRepository->getById($role->id())->shouldBeCalled()->willReturn($role);
         $this->app->instance(RoleRepository::class, $roleRepository->reveal());
+
+        $query = $this->prophesize(ParameterBag::class);
+        $query->has('role_id')->shouldBeCalled()->willReturn(true);
+        $query->get('role_id')->shouldBeCalled()->willReturn($role->id());
         
         $request = $this->prophesize(Request::class);
-        $request->has('role_id')->shouldBeCalled()->willReturn(true);
-        $request->query('role_id')->shouldBeCalled()->willReturn($role->id());
+        $request->query = $query->reveal();
         $this->app->instance(Request::class, $request->reveal());
 
         $authentication = resolve(ApiAuthentication::class);
@@ -77,10 +83,13 @@ class ApiAuthenticationTest extends TestCase
         $roleRepository = $this->prophesize(RoleRepository::class);
         $roleRepository->getById($role->id())->shouldBeCalled()->willReturn($role);
         $this->app->instance(RoleRepository::class, $roleRepository->reveal());
-        
+
+        $query = $this->prophesize(ParameterBag::class);
+        $query->has('role_id')->shouldBeCalled()->willReturn(true);
+        $query->get('role_id')->shouldBeCalled()->willReturn($role->id());
+
         $request = $this->prophesize(Request::class);
-        $request->has('role_id')->shouldBeCalled()->willReturn(true);
-        $request->query('role_id')->shouldBeCalled()->willReturn($role->id());
+        $request->query = $query->reveal();
         $this->app->instance(Request::class, $request->reveal());
         
         $authentication = resolve(ApiAuthentication::class);
@@ -102,10 +111,13 @@ class ApiAuthenticationTest extends TestCase
         $userRepository = $this->prophesize(UserRepository::class);
         $userRepository->getById($user->id())->shouldBeCalled()->willReturn($user);
         $this->app->instance(UserRepository::class, $userRepository->reveal());
-        
+
+        $query = $this->prophesize(ParameterBag::class);
+        $query->has('user_id')->shouldBeCalled()->willReturn(true);
+        $query->get('user_id')->shouldBeCalled()->willReturn($user->id());
+
         $request = $this->prophesize(Request::class);
-        $request->has('user_id')->shouldBeCalled()->willReturn(true);
-        $request->query('user_id')->shouldBeCalled()->willReturn($user->id());
+        $request->query = $query->reveal();
         $this->app->instance(Request::class, $request->reveal());
         
         $authentication = resolve(ApiAuthentication::class);
@@ -160,11 +172,14 @@ class ApiAuthenticationTest extends TestCase
     
     /** @test */
     public function getGroup_returns_null_if_exception_thrown_in_repository(){
-        $request = $this->prophesize(Request::class);
-        $request->has('role_id')->shouldBeCalled()->willReturn(false);
-        $request->has('group_id')->shouldBeCalled()->willReturn(true);
-        $request->query('group_id')->shouldBeCalled()->willReturn(1);
+        $query = $this->prophesize(ParameterBag::class);
+        $query->has('role_id')->shouldBeCalled()->willReturn(false);
+        $query->has('group_id')->shouldBeCalled()->willReturn(true);
+        $query->get('group_id')->shouldBeCalled()->willReturn(1);
 
+        $request = $this->prophesize(Request::class);
+        $request->query = $query->reveal();
+        
         $groupRepository = $this->prophesize(GroupRepository::class);
         $userRepository = $this->prophesize(UserRepository::class);
         $roleRepository = $this->prophesize(RoleRepository::class);
@@ -177,9 +192,12 @@ class ApiAuthenticationTest extends TestCase
 
     /** @test */
     public function getRole_returns_null_if_exception_thrown_in_repository(){
+        $query = $this->prophesize(ParameterBag::class);
+        $query->has('role_id')->shouldBeCalled()->willReturn(true);
+        $query->get('role_id')->shouldBeCalled()->willReturn(1);
+        
         $request = $this->prophesize(Request::class);
-        $request->has('role_id')->shouldBeCalled()->willReturn(true);
-        $request->query('role_id')->shouldBeCalled()->willReturn(1);
+        $request->query = $query->reveal();
 
         $groupRepository = $this->prophesize(GroupRepository::class);
         $userRepository = $this->prophesize(UserRepository::class);
@@ -193,9 +211,12 @@ class ApiAuthenticationTest extends TestCase
 
     /** @test */
     public function getUser_returns_null_if_exception_thrown_in_repository(){
+        $query = $this->prophesize(ParameterBag::class);
+        $query->has('user_id')->shouldBeCalled()->willReturn(true);
+        $query->get('user_id')->shouldBeCalled()->willReturn(1);
+
         $request = $this->prophesize(Request::class);
-        $request->has('user_id')->shouldBeCalled()->willReturn(true);
-        $request->query('user_id')->shouldBeCalled()->willReturn(1);
+        $request->query = $query->reveal();
 
         $groupRepository = $this->prophesize(GroupRepository::class);
         $userRepository = $this->prophesize(UserRepository::class);
@@ -214,7 +235,7 @@ class ApiAuthenticationTest extends TestCase
         $query->set('user_id', null)->shouldBeCalled();
         $query->set('group_id', null)->shouldBeCalled();
         $query->set('role_id', null)->shouldBeCalled();
-        $request->query = $query;
+        $request->query = $query->reveal();
         
         $groupRepository = $this->prophesize(GroupRepository::class);
         $userRepository = $this->prophesize(UserRepository::class);
