@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [3.1.2] - (18/03/2020)
+
+### Fixed
+- Fix bug with ApiAuthentication implementation picking up a request body as a query string
+
 ## [3.1.1] - (18/03/2020)
 
 ### Added
