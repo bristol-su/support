@@ -13,6 +13,7 @@ use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance as ModuleInstanceC
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\Revision\HasRevisions;
+use BristolSU\Support\User\Contracts\UserAuthentication;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -65,8 +66,8 @@ class ModuleInstance extends Model implements ModuleInstanceContract
             if ($model->slug === null) {
                 $model->slug = Str::slug($model->name);
             }
-            if($model->user_id === null && ($user = app(Authentication::class)->getUser()) !== null) {
-                $model->user_id = $user->id();
+            if($model->user_id === null && ($user = app(UserAuthentication::class)->getUser()) !== null) {
+                $model->user_id = $user->controlId();
             }
         });
     }

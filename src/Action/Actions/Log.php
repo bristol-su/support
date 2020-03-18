@@ -3,6 +3,8 @@
 namespace BristolSU\Support\Action\Actions;
 
 use BristolSU\Support\Action\Contracts\Action;
+use FormSchema\Generator\Field;
+use FormSchema\Schema\Form;
 
 /**
  * Logging Action.
@@ -38,29 +40,14 @@ class Log implements Action
     }
 
     /**
-     * Returns the log attributes needed.
-     * 
-     * @return array
+     * @inheritDoc
      */
-    public function getFields(): array
+    public static function options(): Form
     {
-        return [
-            'text' => $this->text
-        ];
-    }
-
-    /**
-     * Returns the log attribute meta data
-     * 
-     * @return array
-     */
-    public static function getFieldMetaData(): array
-    {
-        return [
-            'text' => [
-                'label' => 'Message',
-                'helptext' => 'The message to save to the log'
-            ]
-        ];
+        return \FormSchema\Generator\Form::make()->withField(
+            \FormSchema\Generator\Field::input('text')->inputType('text')->label('Message')
+                ->required(true)->default('')->hint('The message to save to the log')
+                ->help('When triggered, this message will be saved to the php logs')
+        )->getSchema();
     }
 }

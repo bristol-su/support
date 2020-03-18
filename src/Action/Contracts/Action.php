@@ -2,6 +2,8 @@
 
 namespace BristolSU\Support\Action\Contracts;
 
+use FormSchema\Schema\Form;
+
 /**
  * Implementing this interface will create an Action.
  */
@@ -21,31 +23,12 @@ interface Action
     public function handle();
 
     /**
-     * Get the fields that the action needs.
+     * A form schema describing the settings the actions need
      * 
-     * If the action needs any settings, such as a message, you should return them here along with a default.
-     * e.g. [
-     *      'to' => 'example@example.com',
-     *      'subject' => 'Default Subject',
-     *      'message' => 'Default message'
-     * ]
-     * @return array
-     */
-    public function getFields(): array;
-
-    /**
-     * Register metadata about the fields the action needs.
+     * Any options here will be shown to the user on setup. The results will be passed into the construct of this class.
      * 
-     * For each action field requested in getFields, pass in a label and a helptext.
-     * e.g. [
-     *      'to' => [
-     *          'label' => 'To',
-     *          'helptext' => 'Email address of the recipient'
-     *          ], 
-     *      ...
-     * ]
-     * @return array
+     * @return Form
      */
-    public static function getFieldMetaData(): array;
+    public static function options(): Form;
     
 }

@@ -6,6 +6,7 @@ use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Revision\HasRevisions;
+use BristolSU\Support\User\Contracts\UserAuthentication;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -53,8 +54,8 @@ class Logic extends Model
     {
         parent::__construct($attributes);
         self::creating(function($model) {
-            if($model->user_id === null && ($user = app(Authentication::class)->getUser()) !== null) {
-                $model->user_id = $user->id();
+            if($model->user_id === null && ($user = app(UserAuthentication::class)->getUser()) !== null) {
+                $model->user_id = $user->controlId();
             }
         });
     }

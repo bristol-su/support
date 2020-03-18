@@ -6,6 +6,8 @@ use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
+use BristolSU\Support\User\Contracts\UserAuthentication;
+use FormSchema\Transformers\VFGTransformer;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -33,7 +35,7 @@ class ActionInstance extends Model
      * @var array
      */
     protected $appends = [
-        'event_fields', 'action_fields'
+        'event_fields', 'action_schema'
     ];
 
     /**
@@ -47,8 +49,8 @@ class ActionInstance extends Model
     {
         parent::__construct($attributes);
         self::creating(function($model) {
-            if($model->user_id === null && ($user = app(Authentication::class)->getUser()) !== null) {
-                $model->user_id = $user->id();
+            if($model->user_id === null && ($user = app(UserAuthentication::class)->getUser()) !== null) {
+                $model->user_id = $user->controlId();
             }
         });
     }
@@ -76,9 +78,9 @@ class ActionInstance extends Model
      * 
      * @return mixed
      */
-    public function getActionFieldsAttribute()
+    public function getActionSchemaAttribute()
     {
-        return $this->action::getFieldMetaData();
+        return (new VFGTransformer())->transformToArray($this->action::options());
     }
 
     /**

@@ -11,6 +11,8 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
+use BristolSU\Support\User\Contracts\UserAuthentication;
+use FormSchema\Schema\Form;
 
 class ActionInstanceTest extends TestCase
 {
@@ -44,17 +46,18 @@ class ActionInstanceTest extends TestCase
     }
     
     /** @test */
-    public function actionInstance_has_an_action_fields_attribute(){
+    public function actionInstance_has_an_action_schema_attribute(){
         $actionInstance = factory(ActionInstance::class)->create([
             'event' => ActionInstanceDummyEvent::class,
             'action' => ActionInstanceDummyAction::class
         ]);
 
-        $this->assertEquals([
-            'actionfield1' => [
-                'label' => 'Action Field 1'
-            ]
-        ], $actionInstance->action_fields);
+        $this->assertIsArray($actionInstance->action_schema);
+        $this->assertArrayHasKey('schema', $actionInstance->action_schema);
+        $this->assertArrayHasKey('fields', $actionInstance->action_schema['schema']);
+        $this->assertArrayHasKey('groups', $actionInstance->action_schema['schema']);
+        $this->assertEquals([], $actionInstance->action_schema['schema']['fields']);
+        $this->assertEquals([], $actionInstance->action_schema['schema']['groups']);
     }
     
     /** @test */
@@ -94,9 +97,10 @@ class ActionInstanceTest extends TestCase
     /** @test */
     public function user_id_is_automatically_added_on_creation(){
         $user = $this->newUser();
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn($user);
-        $this->instance(Authentication::class, $authentication->reveal());
+        $dbUser = factory(\BristolSU\Support\User\User::class)->create(['control_id' => $user->id()]);
+        $authentication = $this->prophesize(UserAuthentication::class);
+        $authentication->getUser()->shouldBeCalled()->willReturn($dbUser);
+        $this->instance(UserAuthentication::class, $authentication->reveal());
 
         $logic = factory(Logic::class)->create();
         $actionInstance = factory(ActionInstance::class)->create(['user_id' => null]);
@@ -143,20 +147,12 @@ class ActionInstanceDummyAction implements Action
     {
     }
 
-    public function getFields(): array
+    /**
+     * @inheritDoc
+     */
+    public static function options(): Form
     {
-        return [
-            'actionfield1' => 'ActionFieldValue'
-        ];
-    }
-
-    public static function getFieldMetaData(): array
-    {
-        return [
-            'actionfield1' => [
-                'label' => 'Action Field 1'
-            ]
-        ];
+        return new Form();
     }
 
     public function __construct(array $data)
