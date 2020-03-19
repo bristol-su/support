@@ -2,6 +2,8 @@
 
 namespace BristolSU\Support\Action\Contracts;
 
+use BristolSU\Support\Action\ActionInstance;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
 interface ActionInstanceRepository
@@ -16,5 +18,50 @@ interface ActionInstanceRepository
      * @return Collection
      */
     public function forEvent(int $moduleInstanceId, string $event): Collection;
+
+    /**
+     * Get all action instances for a given module instance
+     * 
+     * @param int $moduleInstanceId ID of the module instance to get the action instances from
+     * @return Collection
+     */
+    public function forModuleInstance(int $moduleInstanceId): Collection;
+    
+    /**
+     * Get an action instance by ID
+     * 
+     * @param int $id
+     * @return ActionInstance
+     * 
+     * @throws ModelNotFoundException
+     */
+    public function getById(int $id): ActionInstance;
+
+    /**
+     * Get all action instances registered
+     * @return Collection
+     */
+    public function all(): Collection;
+
+    /**
+     * Update an action instance
+     * 
+     * @param int $id
+     * @param array $attributes
+     * @return ActionInstance
+     * 
+     * @throws ModelNotFoundException
+     */
+    public function update(int $id, array $attributes): ActionInstance;
+
+    /**
+     * Delete an action instance
+     * 
+     * @param int $id
+     * @return void
+     * 
+     * @throws ModelNotFoundException
+     */
+    public function delete(int $id);
     
 }

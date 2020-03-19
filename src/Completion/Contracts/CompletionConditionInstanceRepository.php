@@ -4,6 +4,9 @@
 namespace BristolSU\Support\Completion\Contracts;
 
 
+use BristolSU\Support\Completion\Contracts\CompletionConditionInstance;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+
 /**
  * Class to interact with completion condition instances.
  */
@@ -32,4 +35,27 @@ interface CompletionConditionInstanceRepository
      * @return CompletionConditionInstance[]
      */
     public function all();
+
+    /**
+     * Get a completion condition instance by ID
+     *
+     * @param int $id
+     * @return CompletionConditionInstance
+     *
+     * @throws ModelNotFoundException If the completion condition instance was not found
+     */
+    public function getById(int $id): CompletionConditionInstance;
+
+    /**
+     * Update a completion condition instance
+     *
+     * Any number of parameters may be passed to be updated. The possible attributes are alias, name, description and settings
+     *
+     * @param int $id
+     * @param array $attributes
+     * @return CompletionConditionInstance
+     *
+     * @throws ModelNotFoundException If the completion condition instance was not found
+     */
+    public function update(int $id, array $attributes): CompletionConditionInstance;
 }

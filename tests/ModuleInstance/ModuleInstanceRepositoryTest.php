@@ -37,15 +37,19 @@ class ModuleInstanceRepositoryTest extends TestCase
     public function it_creates_a_module_instance(){
         $repository = new ModuleInstanceRepository;
         $activity = factory(Activity::class)->create();
+        
         $instance = $repository->create([
             'alias' => 'alias',
             'activity_id' => $activity->id,
             'name' => 'name',
             'description' => 'description',
+            'slug' => 'slug1',
             'active' => 1,
             'visible' => 2,
             'mandatory' => 3,
-            'complete' => 'complete',
+            'completion_condition_instance_id' => 4,
+            'enabled' => true,
+            'user_id' => 5
         ]);
 
         $this->assertDatabaseHas('module_instances', [
@@ -53,10 +57,13 @@ class ModuleInstanceRepositoryTest extends TestCase
             'activity_id' => $activity->id,
             'name' => 'name',
             'description' => 'description',
+            'slug' => 'slug1',
             'active' => 1,
             'visible' => 2,
             'mandatory' => 3,
-            'complete' => 'complete',
+            'completion_condition_instance_id' => 4,
+            'enabled' => 1,
+            'user_id' => 5
         ]);
     }
     
@@ -132,4 +139,91 @@ class ModuleInstanceRepositoryTest extends TestCase
 
     }
 
+    /** @test */
+    public function it_updates_a_module_instance(){
+        $repository = new ModuleInstanceRepository;
+
+        $instance = factory(ModuleInstance::class)->create([
+            'alias' => 'alias',
+            'activity_id' => 1,
+            'name' => 'name',
+            'description' => 'description',
+            'slug' => 'slug1',
+            'active' => 2,
+            'visible' => 3,
+            'mandatory' => 4,
+            'completion_condition_instance_id' => 5,
+            'enabled' => true,
+            'user_id' => 6
+        ]);
+
+        $this->assertDatabaseHas('module_instances', [
+            'alias' => 'alias',
+            'activity_id' => 1,
+            'name' => 'name',
+            'description' => 'description',
+            'slug' => 'slug1',
+            'active' => 2,
+            'visible' => 3,
+            'mandatory' => 4,
+            'completion_condition_instance_id' => 5,
+            'enabled' => true,
+            'user_id' => 6
+        ]);
+
+        $newInstance = $repository->update($instance->id, [
+            'alias' => 'aliasNew',
+            'activity_id' => 7,
+            'name' => 'nameNew',
+            'description' => 'descriptionNew',
+            'slug' => 'slug1New',
+            'active' => 8,
+            'visible' => 9,
+            'mandatory' => 10,
+            'completion_condition_instance_id' => 11,
+            'enabled' => false,
+            'user_id' => 12
+        ]);
+
+        $this->assertDatabaseHas('module_instances', [
+            'alias' => 'aliasNew',
+            'activity_id' => 7,
+            'name' => 'nameNew',
+            'description' => 'descriptionNew',
+            'slug' => 'slug1New',
+            'active' => 8,
+            'visible' => 9,
+            'mandatory' => 10,
+            'completion_condition_instance_id' => 11,
+            'enabled' => 0,
+            'user_id' => 12
+        ]);
+
+        $this->assertEquals($instance->id, $newInstance->id);
+        $this->assertEquals('aliasNew', $newInstance->alias);
+        $this->assertEquals(7, $newInstance->activity_id);
+        $this->assertEquals('nameNew', $newInstance->name);
+        $this->assertEquals('descriptionNew', $newInstance->description);
+        $this->assertEquals('slug1New', $newInstance->slug);
+        $this->assertEquals(8, $newInstance->active);
+        $this->assertEquals(9, $newInstance->visible);
+        $this->assertEquals(10, $newInstance->mandatory);
+        $this->assertEquals(11, $newInstance->completion_condition_instance_id);
+        $this->assertEquals(false, $newInstance->enabled);
+        $this->assertEquals(12, $newInstance->user_id);
+
+
+    }
+    
+    /** @test */
+    public function it_deletes_a_module_instance(){
+        $instance = factory(ModuleInstance::class)->create();
+        $repository = new ModuleInstanceRepository();
+        
+        $this->assertDatabaseHas('module_instances', ['id' => $instance->id]);
+        
+        $repository->delete($instance->id);
+        $this->assertDatabaseMissing('module_instances', ['id' => $instance->id]);
+
+    }
 }

@@ -3,6 +3,7 @@
 namespace BristolSU\Support\ModuleInstance\Contracts;
 
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance as ModuleInstanceContract;
 use Illuminate\Support\Collection;
 
 /**
@@ -71,4 +72,25 @@ interface ModuleInstanceRepository
      * @return Collection
      */
     public function allEnabledThroughActivity(Activity $activity): Collection;
+
+    /**
+     * Update a module instance
+     *
+     * Parameters should be of the form ['key' => 'newValue']. Multiple values may be updated at the same time.
+     * Available keys are alias, activity_id, name, description, slug, active, visible, mandatory, completion_condition_instance_id, enabled, user_id
+     *
+     * @param int $id ID of the module instance
+     * @param array $attributes Attributes to be updated
+     *
+     * @return ModuleInstanceContract The updated module instance
+     */
+    public function update(int $id, array $attributes = []): ModuleInstanceContract;
+
+    /**
+     * Delete a module instance
+     * 
+     * @param int $id
+     * @return void
+     */
+    public function delete(int $id);
 }

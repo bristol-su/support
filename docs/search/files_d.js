@@ -7,5 +7,6 @@ var searchData=
   ['resourceidgenerator_2ephp',['ResourceIdGenerator.php',['../ResourceIdGenerator_8php.html',1,'']]],
   ['revisionserviceprovider_2ephp',['RevisionServiceProvider.php',['../RevisionServiceProvider_8php.html',1,'']]],
   ['rolefilter_2ephp',['RoleFilter.php',['../RoleFilter_8php.html',1,'']]],
-  ['rolehasposition_2ephp',['RoleHasPosition.php',['../RoleHasPosition_8php.html',1,'']]]
+  ['rolehasposition_2ephp',['RoleHasPosition.php',['../RoleHasPosition_8php.html',1,'']]],
+  ['roletagged_2ephp',['RoleTagged.php',['../RoleTagged_8php.html',1,'']]]
 ];

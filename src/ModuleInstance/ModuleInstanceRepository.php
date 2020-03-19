@@ -86,4 +86,37 @@ class ModuleInstanceRepository implements ModuleInstanceRepositoryContract
         return $activity->moduleInstances()->enabled()->get();
 
     }
+
+    /**
+     * Update a module instance
+     * 
+     * Parameters should be of the form ['key' => 'newValue']. Multiple values may be updated at the same time. 
+     * Available keys are alias, activity_id, name, description, slug, active, visible, mandatory, completion_condition_instance_id, enabled, user_id
+     * 
+     * @param int $id ID of the module instance
+     * @param array $attributes Attributes to be updated
+     * 
+     * @return ModuleInstanceContract The updated module instance
+     */
+    public function update(int $id, array $attributes = []): ModuleInstanceContract
+    {
+        $moduleInstance = $this->getById($id);
+        $moduleInstance->fill($attributes);
+        $moduleInstance->save();
+        return $moduleInstance;
+    }
+
+    /**
+     * Delete a module instance
+     *
+     * @param int $id
+     * @return void
+     */
+    public function delete(int $id)
+    {
+        $moduleInstance = $this->getById($id);
+        $moduleInstance->delete();
+    }
+
+
 }

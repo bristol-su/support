@@ -1,9 +1,11 @@
 <map id="BristolSU\Support\Filters\Contracts\Filters\Filter" name="BristolSU\Support\Filters\Contracts\Filters\Filter">
 <area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1GroupFilter.html" title="BristolSU\\Support\\Filters\l\\Contracts\\Filters\\GroupFilter" alt="" coords="345,71,536,112"/>
-<area shape="rect" id="node6" href="$classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1RoleFilter.html" title="BristolSU\\Support\\Filters\l\\Contracts\\Filters\\RoleFilter" alt="" coords="349,136,532,177"/>
-<area shape="rect" id="node8" href="$classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1UserFilter.html" title="BristolSU\\Support\\Filters\l\\Contracts\\Filters\\UserFilter" alt="" coords="349,201,533,243"/>
+<area shape="rect" id="node6" href="$classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1RoleFilter.html" title="BristolSU\\Support\\Filters\l\\Contracts\\Filters\\RoleFilter" alt="" coords="349,168,532,209"/>
+<area shape="rect" id="node9" href="$classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1UserFilter.html" title="BristolSU\\Support\\Filters\l\\Contracts\\Filters\\UserFilter" alt="" coords="349,267,533,308"/>
 <area shape="rect" id="node4" href="$classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Group_1_1GroupNameIs.html" title="BristolSU\\Support\\Filters\l\\Filters\\Group\\GroupNameIs" alt="" coords="588,5,775,47"/>
 <area shape="rect" id="node5" href="$classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Group_1_1GroupTagged.html" title="BristolSU\\Support\\Filters\l\\Filters\\Group\\GroupTagged" alt="" coords="590,71,773,112"/>
 <area shape="rect" id="node7" href="$classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Role_1_1RoleHasPosition.html" title="BristolSU\\Support\\Filters\l\\Filters\\Role\\RoleHasPosition" alt="" coords="584,136,779,177"/>
-<area shape="rect" id="node9" href="$classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1User_1_1UserEmailIs.html" title="BristolSU\\Support\\Filters\l\\Filters\\User\\UserEmailIs" alt="" coords="596,201,767,243"/>
+<area shape="rect" id="node8" href="$classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Role_1_1RoleTagged.html" title="BristolSU\\Support\\Filters\l\\Filters\\Role\\RoleTagged" alt="" coords="598,201,765,243"/>
+<area shape="rect" id="node10" href="$classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1User_1_1UserEmailIs.html" title="BristolSU\\Support\\Filters\l\\Filters\\User\\UserEmailIs" alt="" coords="596,267,767,308"/>
+<area shape="rect" id="node11" href="$classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1User_1_1UserTagged.html" title="BristolSU\\Support\\Filters\l\\Filters\\User\\UserTagged" alt="" coords="597,332,766,373"/>
 </map>

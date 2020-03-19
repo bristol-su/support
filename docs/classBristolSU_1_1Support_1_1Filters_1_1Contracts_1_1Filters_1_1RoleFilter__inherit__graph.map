@@ -1,4 +1,5 @@
 <map id="BristolSU\Support\Filters\Contracts\Filters\RoleFilter" name="BristolSU\Support\Filters\Contracts\Filters\RoleFilter">
-<area shape="rect" id="node4" href="$classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Role_1_1RoleHasPosition.html" title="BristolSU\\Support\\Filters\l\\Filters\\Role\\RoleHasPosition" alt="" coords="5,259,200,300"/>
-<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1Filter.html" title="BristolSU\\Support\\Filters\l\\Contracts\\Filters\\Filter" alt="" coords="19,80,186,121"/>
+<area shape="rect" id="node4" href="$classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Role_1_1RoleHasPosition.html" title="BristolSU\\Support\\Filters\l\\Filters\\Role\\RoleHasPosition" alt="" coords="576,5,771,47"/>
+<area shape="rect" id="node5" href="$classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Role_1_1RoleTagged.html" title="BristolSU\\Support\\Filters\l\\Filters\\Role\\RoleTagged" alt="" coords="590,71,757,112"/>
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1Filter.html" title="BristolSU\\Support\\Filters\l\\Contracts\\Filters\\Filter" alt="" coords="131,39,297,80"/>
 </map>

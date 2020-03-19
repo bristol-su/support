@@ -3,6 +3,7 @@
 namespace BristolSU\Support\Logic\Contracts;
 
 use BristolSU\Support\Logic\Logic;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Retrieve logic groups
@@ -30,4 +31,32 @@ interface LogicRepository
      * @return Logic[]
      */
     public function all();
+
+    /**
+     * Get a logic group by ID
+     * 
+     * @param int $id
+     * @return Logic
+     * @throws ModelNotFoundException
+     */
+    public function getById(int $id): Logic;
+
+    /**
+     * Update a logic group
+     * 
+     * @param int $id ID of the logic group
+     * @param array $attributes
+     * @return Logic
+     * @throws ModelNotFoundException
+     */
+    public function update(int $id, array $attributes): Logic;
+
+    /**
+     * Delete a logic group
+     * 
+     * @param int $id
+     * @return void
+     * @throws ModelNotFoundException
+     */
+    public function delete(int $id);
 }
