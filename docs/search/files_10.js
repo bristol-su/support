@@ -7,5 +7,6 @@ var searchData=
   ['userfilter_2ephp',['UserFilter.php',['../UserFilter_8php.html',1,'']]],
   ['userrepository_2ephp',['UserRepository.php',['../Contracts_2UserRepository_8php.html',1,'(Global Namespace)'],['../UserRepository_8php.html',1,'(Global Namespace)']]],
   ['userserviceprovider_2ephp',['UserServiceProvider.php',['../UserServiceProvider_8php.html',1,'']]],
+  ['usertagged_2ephp',['UserTagged.php',['../UserTagged_8php.html',1,'']]],
   ['userwebauthentication_2ephp',['UserWebAuthentication.php',['../UserWebAuthentication_8php.html',1,'']]]
 ];

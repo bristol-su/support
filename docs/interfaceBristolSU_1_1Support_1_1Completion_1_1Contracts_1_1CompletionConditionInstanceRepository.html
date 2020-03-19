@@ -84,11 +84,15 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a95437650b717f1290e405e9276c8faea"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb07107449e6a6010d67e4d807745096"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionConditionInstanceRepository.html#acb07107449e6a6010d67e4d807745096">all</a> ()</td></tr>
 <tr class="separator:acb07107449e6a6010d67e4d807745096"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad252abd22c0a6d82b7975460cace1366"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionConditionInstanceRepository.html#ad252abd22c0a6d82b7975460cace1366">getById</a> (int $id)</td></tr>
+<tr class="separator:ad252abd22c0a6d82b7975460cace1366"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a022c30e140c376a6b4b4a6dae1f8fc49"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionConditionInstanceRepository.html#a022c30e140c376a6b4b4a6dae1f8fc49">update</a> (int $id, array $attributes)</td></tr>
+<tr class="separator:a022c30e140c376a6b4b4a6dae1f8fc49"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class to interact with completion condition instances. </p>
 
-<p class="definition">Definition at line <a class="el" href="Contracts_2CompletionConditionInstanceRepository_8php_source.html#l00010">10</a> of file <a class="el" href="Contracts_2CompletionConditionInstanceRepository_8php_source.html">CompletionConditionInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Contracts_2CompletionConditionInstanceRepository_8php_source.html#l00013">13</a> of file <a class="el" href="Contracts_2CompletionConditionInstanceRepository_8php_source.html">CompletionConditionInstanceRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="acb07107449e6a6010d67e4d807745096"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acb07107449e6a6010d67e4d807745096">&#9670;&nbsp;</a></span>all()</h2>
@@ -136,6 +140,86 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="interfaceBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionConditionInstance.html">CompletionConditionInstance</a> </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionInstanceRepository.html#a189695a3029ad46a0594e2f691887457">BristolSU\Support\Completion\CompletionConditionInstanceRepository</a>.</p>
+
+</div>
+</div>
+<a id="ad252abd22c0a6d82b7975460cace1366"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad252abd22c0a6d82b7975460cace1366">&#9670;&nbsp;</a></span>getById()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\Completion\Contracts\CompletionConditionInstanceRepository::getById </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get a completion condition instance by ID</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="interfaceBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionConditionInstance.html">CompletionConditionInstance</a></dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ModelNotFoundException</td><td>If the completion condition instance was not found </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionInstanceRepository.html#aa15f5c515a5dad0c19b1bee640e1cb20">BristolSU\Support\Completion\CompletionConditionInstanceRepository</a>.</p>
+
+</div>
+</div>
+<a id="a022c30e140c376a6b4b4a6dae1f8fc49"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a022c30e140c376a6b4b4a6dae1f8fc49">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\Completion\Contracts\CompletionConditionInstanceRepository::update </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array&#160;</td>
+          <td class="paramname"><em>$attributes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Update a completion condition instance</p>
+<p>Any number of parameters may be passed to be updated. The possible attributes are alias, name, description and settings</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="interfaceBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionConditionInstance.html">CompletionConditionInstance</a></dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ModelNotFoundException</td><td>If the completion condition instance was not found </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionInstanceRepository.html#a010161587aa10dc1911fd2e26473639a">BristolSU\Support\Completion\CompletionConditionInstanceRepository</a>.</p>
 
 </div>
 </div>

@@ -84,11 +84,17 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aa045daae3cfab410529f038e8a606074"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a068ce53e75aab7b8521e45381e74c0f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1LogicRepository.html#a068ce53e75aab7b8521e45381e74c0f8">all</a> ()</td></tr>
 <tr class="separator:a068ce53e75aab7b8521e45381e74c0f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa139fce8c1b9bcf1fb0b85e9a4b0d6bb"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1LogicRepository.html#aa139fce8c1b9bcf1fb0b85e9a4b0d6bb">getById</a> (int $id)</td></tr>
+<tr class="separator:aa139fce8c1b9bcf1fb0b85e9a4b0d6bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aadb8cc62a3164ffd7220e1131d3ae0ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1LogicRepository.html#aadb8cc62a3164ffd7220e1131d3ae0ad">update</a> (int $id, array $attributes)</td></tr>
+<tr class="separator:aadb8cc62a3164ffd7220e1131d3ae0ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3cfa38ee432c3e7e2a91791d01c15a22"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfaceBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1LogicRepository.html#a3cfa38ee432c3e7e2a91791d01c15a22">delete</a> (int $id)</td></tr>
+<tr class="separator:a3cfa38ee432c3e7e2a91791d01c15a22"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Retrieve logic groups </p>
 
-<p class="definition">Definition at line <a class="el" href="Contracts_2LogicRepository_8php_source.html#l00010">10</a> of file <a class="el" href="Contracts_2LogicRepository_8php_source.html">LogicRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Contracts_2LogicRepository_8php_source.html#l00011">11</a> of file <a class="el" href="Contracts_2LogicRepository_8php_source.html">LogicRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a068ce53e75aab7b8521e45381e74c0f8"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a068ce53e75aab7b8521e45381e74c0f8">&#9670;&nbsp;</a></span>all()</h2>
@@ -137,6 +143,119 @@ Public Member Functions</h2></td></tr>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Logic.html">Logic</a> Created logic group </dd></dl>
 
 <p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1LogicRepository.html#a6f304d41b93cd3ece96f083a5f42cf62">BristolSU\Support\Logic\LogicRepository</a>.</p>
+
+</div>
+</div>
+<a id="a3cfa38ee432c3e7e2a91791d01c15a22"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3cfa38ee432c3e7e2a91791d01c15a22">&#9670;&nbsp;</a></span>delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\Logic\Contracts\LogicRepository::delete </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Delete a logic group</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ModelNotFoundException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1LogicRepository.html#a172b1bfa35b47bfd02d4df6a895b98a8">BristolSU\Support\Logic\LogicRepository</a>.</p>
+
+</div>
+</div>
+<a id="aa139fce8c1b9bcf1fb0b85e9a4b0d6bb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa139fce8c1b9bcf1fb0b85e9a4b0d6bb">&#9670;&nbsp;</a></span>getById()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\Logic\Contracts\LogicRepository::getById </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get a logic group by ID</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Logic.html">Logic</a> </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ModelNotFoundException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1LogicRepository.html#aa7c3e1ccab53314bb9fd88648269bc3b">BristolSU\Support\Logic\LogicRepository</a>.</p>
+
+</div>
+</div>
+<a id="aadb8cc62a3164ffd7220e1131d3ae0ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aadb8cc62a3164ffd7220e1131d3ae0ad">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\Logic\Contracts\LogicRepository::update </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array&#160;</td>
+          <td class="paramname"><em>$attributes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Update a logic group</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>ID of the logic group </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1Logic.html">Logic</a> </dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ModelNotFoundException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implemented in <a class="el" href="classBristolSU_1_1Support_1_1Logic_1_1LogicRepository.html#a8f15a6fdbc9c1b705ecbc6f1d6c7bb1b">BristolSU\Support\Logic\LogicRepository</a>.</p>
 
 </div>
 </div>
