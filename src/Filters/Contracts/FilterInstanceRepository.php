@@ -2,6 +2,9 @@
 
 namespace BristolSU\Support\Filters\Contracts;
 
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
+
 /**
  * Repository for retrieving and updating filter instances
  */
@@ -28,7 +31,39 @@ interface FilterInstanceRepository
     /**
      * Get all filter instances
      * 
-     * @return FilterInstance[]
+     * @return FilterInstance[]|Collection
      */
-    public function all();
+    public function all(): Collection;
+
+    /**
+     * Get a filter instance by ID
+     * 
+     * @param int $id
+     * @return FilterInstance
+     * 
+     * @throws ModelNotFoundException
+     */
+    public function getById(int $id): FilterInstance;
+
+    /**
+     * Update a filter instance 
+     * 
+     * @param int $id
+     * @param array $attributes
+     * 
+     * @return FilterInstance
+     * @throws ModelNotFoundException
+     */
+    public function update(int $id, array $attributes): FilterInstance;
+
+    /**
+     * Delete a module instance
+     * 
+     * @param int $id
+     * @return void
+     * 
+     * @throws ModelNotFoundException
+     */
+    public function delete(int $id);
+
 }

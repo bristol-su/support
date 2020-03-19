@@ -4,6 +4,8 @@ namespace BristolSU\Support\Filters;
 
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Filters\Contracts\FilterInstanceRepository as FilterInstanceRepositoryContract;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Support\Collection;
 
 /**
  * Repository for retrieving and updating filter instances
@@ -34,10 +36,56 @@ class FilterInstanceRepository implements FilterInstanceRepositoryContract
     /**
      * Get all filter instances
      *
-     * @return FilterInstance[]
+     * @return FilterInstance[]|Collection
      */
-    public function all()
+    public function all(): Collection
     {
         return FilterInstance::all();
     }
+
+    /**
+     * Get a filter instance by ID
+     *
+     * @param int $id
+     * @return \BristolSU\Support\Filters\Contracts\FilterInstance
+     *
+     * @throws ModelNotFoundException
+     */
+    public function getById(int $id): \BristolSU\Support\Filters\Contracts\FilterInstance
+    {
+        return FilterInstance::findOrFail($id);
+    }
+
+    /**
+     * Update a filter instance
+     *
+     * @param int $id
+     * @param array $attributes
+     *
+     * @return \BristolSU\Support\Filters\Contracts\FilterInstance
+     * @throws ModelNotFoundException
+     */
+    public function update(int $id, array $attributes): \BristolSU\Support\Filters\Contracts\FilterInstance
+    {
+        $filterInstance = $this->getById($id);
+        $filterInstance->fill($attributes);
+        $filterInstance->save();
+        return $filterInstance;
+    }
+
+    /**
+     * Delete a module instance
+     *
+     * @param int $id
+     * @return void
+     *
+     * @throws ModelNotFoundException
+     */
+    public function delete(int $id)
+    {
+        $filterInstance = $this->getById($id);
+        $filterInstance->delete();
+    }
+
+
 }

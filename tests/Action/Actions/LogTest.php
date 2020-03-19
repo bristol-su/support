@@ -20,6 +20,7 @@ class LogTest extends TestCase
         $log->handle();
     }
 
+    /** @test */
     public function options_returns_a_form_schema()
     {
         $this->assertInstanceOf(Form::class, Log::options());

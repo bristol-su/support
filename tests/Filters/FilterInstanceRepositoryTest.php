@@ -42,4 +42,51 @@ class FilterInstanceRepositoryTest extends TestCase
 
     }
 
+    /** @test */
+    public function getById_returns_a_filter_instance_by_id(){
+        $filterInstance = factory(FilterInstance::class)->create();
+        factory(FilterInstance::class, 5)->create();
+
+        $repository = new FilterInstanceRepository;
+        $resolvedFilterInstance = $repository->getById($filterInstance->id);
+        
+        $this->assertInstanceOf(FilterInstance::class, $resolvedFilterInstance);
+        $this->assertModelEquals($filterInstance, $resolvedFilterInstance);
+    }
+    
+    /** @test */
+    public function delete_deletes_the_filter_instance(){
+        $filterInstance = factory(FilterInstance::class)->create();
+        factory(FilterInstance::class, 5)->create();
+
+        $this->assertDatabaseHas('filter_instances', ['id' => $filterInstance->id]);
+        
+        $repository = new FilterInstanceRepository;
+        $repository->delete($filterInstance->id);
+        
+        $this->assertDatabaseMissing('filter_instances', ['id' => $filterInstance->id]);
+    }
+    
+    /** @test */
+    public function update_updates_a_filter_instance(){
+        $filterInstance = factory(FilterInstance::class)->create([
+            'alias' => 'OldAlias', 'name' => 'OldName', 'settings' => ['val' => 'OldVal']
+        ]);
+        factory(FilterInstance::class, 5)->create();
+
+        $this->assertDatabaseHas('filter_instances', [
+            'id' => $filterInstance->id, 'alias' => 'OldAlias', 'name' => 'OldName', 'settings' => json_encode(['val' => 'OldVal'])
+        ]);
+
+        $repository = new FilterInstanceRepository;
+        $repository->update($filterInstance->id, [
+            'alias' => 'NewAlias', 'name' => 'NewName', 'settings' => ['val' => 'NewVal']
+        ]);
+
+        $this->assertDatabaseHas('filter_instances', [
+            'id' => $filterInstance->id, 'alias' => 'NewAlias', 'name' => 'NewName', 'settings' => json_encode(['val' => 'NewVal'])
+        ]);
+        
+    }
+    
 }

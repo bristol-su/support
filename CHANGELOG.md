@@ -9,6 +9,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - UserTagged and RoleTagged filters
+- \BristolSU\Support\Action\ActionInstanceRepository::forModuleInstance method
+- \BristolSU\Support\Action\ActionInstanceRepository::getById method
+- \BristolSU\Support\Action\ActionInstanceRepository::update method
+- \BristolSU\Support\Action\ActionInstanceRepository::delete method
+- \BristolSU\Support\Action\ActionInstanceRepository::all method
+- \BristolSU\Support\Completion\CompletionConditionInstanceRepository::getById method
+- \BristolSU\Support\Completion\CompletionConditionInstanceRepository::update method
+- \BristolSU\Support\Filters\FilterInstanceRepository::getById method
+- \BristolSU\Support\Filters\FilterInstanceRepository::update method
+- \BristolSU\Support\Filters\FilterInstanceRepository::delete method
+- \BristolSU\Support\Logic\LogicRepository::getById method
+- \BristolSU\Support\Logic\LogicRepository::update method
+- \BristolSU\Support\Logic\LogicRepository::delete method
+- \BristolSU\Support\ModuleInstance\ModuleInstanceRepository::update method
+- \BristolSU\Support\ModuleInstance\ModuleInstanceRepository::delete method
 
 ## [4.0] - (18/03/2020)
 
