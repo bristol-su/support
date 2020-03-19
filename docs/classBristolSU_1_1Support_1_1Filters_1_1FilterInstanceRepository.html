@@ -92,11 +92,17 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a84d9353e6aea44a1b41334e53317709c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8bb48ba434605df204673338e3902ffa"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstanceRepository.html#a8bb48ba434605df204673338e3902ffa">all</a> ()</td></tr>
 <tr class="separator:a8bb48ba434605df204673338e3902ffa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a759b2fb2c23ecba142379fe801a855e7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstanceRepository.html#a759b2fb2c23ecba142379fe801a855e7">getById</a> (int $id)</td></tr>
+<tr class="separator:a759b2fb2c23ecba142379fe801a855e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58ce8aaee49cedbffee628dd8510499c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstanceRepository.html#a58ce8aaee49cedbffee628dd8510499c">update</a> (int $id, array $attributes)</td></tr>
+<tr class="separator:a58ce8aaee49cedbffee628dd8510499c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a93024396a39ba71efb50ae8608069364"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstanceRepository.html#a93024396a39ba71efb50ae8608069364">delete</a> (int $id)</td></tr>
+<tr class="separator:a93024396a39ba71efb50ae8608069364"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Repository for retrieving and updating filter instances </p>
 
-<p class="definition">Definition at line <a class="el" href="FilterInstanceRepository_8php_source.html#l00011">11</a> of file <a class="el" href="FilterInstanceRepository_8php_source.html">FilterInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterInstanceRepository_8php_source.html#l00013">13</a> of file <a class="el" href="FilterInstanceRepository_8php_source.html">FilterInstanceRepository.php</a>.</p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="a8bb48ba434605df204673338e3902ffa"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a8bb48ba434605df204673338e3902ffa">&#9670;&nbsp;</a></span>all()</h2>
@@ -113,11 +119,11 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Get all filter instances</p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstance.html">FilterInstance</a>[] </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="classBristolSU_1_1Support_1_1Filters_1_1FilterInstance.html">FilterInstance</a>[]|Collection </dd></dl>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterInstanceRepository.html#a71ec3ff2b765a5ca21d5263dc354a41e">BristolSU\Support\Filters\Contracts\FilterInstanceRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="FilterInstanceRepository_8php_source.html#l00039">39</a> of file <a class="el" href="FilterInstanceRepository_8php_source.html">FilterInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterInstanceRepository_8php_source.html#l00041">41</a> of file <a class="el" href="FilterInstanceRepository_8php_source.html">FilterInstanceRepository.php</a>.</p>
 
 </div>
 </div>
@@ -148,7 +154,132 @@ Public Member Functions</h2></td></tr>
 
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterInstanceRepository.html#aba9e6c176373fb48c9d35817fa64339c">BristolSU\Support\Filters\Contracts\FilterInstanceRepository</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="FilterInstanceRepository_8php_source.html#l00029">29</a> of file <a class="el" href="FilterInstanceRepository_8php_source.html">FilterInstanceRepository.php</a>.</p>
+<p class="definition">Definition at line <a class="el" href="FilterInstanceRepository_8php_source.html#l00031">31</a> of file <a class="el" href="FilterInstanceRepository_8php_source.html">FilterInstanceRepository.php</a>.</p>
+
+</div>
+</div>
+<a id="a93024396a39ba71efb50ae8608069364"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a93024396a39ba71efb50ae8608069364">&#9670;&nbsp;</a></span>delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\Filters\FilterInstanceRepository::delete </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Delete a module instance</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void</dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ModelNotFoundException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterInstanceRepository.html#adfe5b4d4574d4702f00189daeb6508d5">BristolSU\Support\Filters\Contracts\FilterInstanceRepository</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="FilterInstanceRepository_8php_source.html#l00084">84</a> of file <a class="el" href="FilterInstanceRepository_8php_source.html">FilterInstanceRepository.php</a>.</p>
+
+<p class="reference">References <a class="el" href="FilterInstanceRepository_8php_source.html#l00054">BristolSU\Support\Filters\FilterInstanceRepository\getById()</a>.</p>
+
+</div>
+</div>
+<a id="a759b2fb2c23ecba142379fe801a855e7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a759b2fb2c23ecba142379fe801a855e7">&#9670;&nbsp;</a></span>getById()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\Filters\FilterInstanceRepository::getById </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Get a filter instance by ID</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ModelNotFoundException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterInstanceRepository.html#a42b84c07723ac44eabcc8a7f5ad39a21">BristolSU\Support\Filters\Contracts\FilterInstanceRepository</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="FilterInstanceRepository_8php_source.html#l00054">54</a> of file <a class="el" href="FilterInstanceRepository_8php_source.html">FilterInstanceRepository.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="FilterInstanceRepository_8php_source.html#l00084">BristolSU\Support\Filters\FilterInstanceRepository\delete()</a>, and <a class="el" href="FilterInstanceRepository_8php_source.html#l00068">BristolSU\Support\Filters\FilterInstanceRepository\update()</a>.</p>
+
+</div>
+</div>
+<a id="a58ce8aaee49cedbffee628dd8510499c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a58ce8aaee49cedbffee628dd8510499c">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\Filters\FilterInstanceRepository::update </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array&#160;</td>
+          <td class="paramname"><em>$attributes</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Update a filter instance</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd></dd></dl>
+<dl class="exception"><dt>Exceptions</dt><dd>
+  <table class="exception">
+    <tr><td class="paramname">ModelNotFoundException</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1FilterInstanceRepository.html#a28c311e3ce914e5c4b11fb490c3808b7">BristolSU\Support\Filters\Contracts\FilterInstanceRepository</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="FilterInstanceRepository_8php_source.html#l00068">68</a> of file <a class="el" href="FilterInstanceRepository_8php_source.html">FilterInstanceRepository.php</a>.</p>
+
+<p class="reference">References <a class="el" href="FilterInstanceRepository_8php_source.html#l00054">BristolSU\Support\Filters\FilterInstanceRepository\getById()</a>.</p>
 
 </div>
 </div>

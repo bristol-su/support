@@ -100,6 +100,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a79277ce68703ccafe63e6e5e35d5541a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a503ab081c499949c032b971259224b16"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstanceRepository.html#a503ab081c499949c032b971259224b16">allEnabledThroughActivity</a> (<a class="el" href="classBristolSU_1_1Support_1_1Activity_1_1Activity.html">Activity</a> $activity)</td></tr>
 <tr class="separator:a503ab081c499949c032b971259224b16"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a47ccb34b5919d610c964b3d66a92a7cd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstanceRepository.html#a47ccb34b5919d610c964b3d66a92a7cd">update</a> (int $id, array $attributes=[])</td></tr>
+<tr class="separator:a47ccb34b5919d610c964b3d66a92a7cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a318176d3d372879aca5c78f448093bf7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstanceRepository.html#a318176d3d372879aca5c78f448093bf7">delete</a> (int $id)</td></tr>
+<tr class="separator:a318176d3d372879aca5c78f448093bf7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Class to interact with module instances through </p>
@@ -244,6 +248,38 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a318176d3d372879aca5c78f448093bf7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a318176d3d372879aca5c78f448093bf7">&#9670;&nbsp;</a></span>delete()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\ModuleInstance\ModuleInstanceRepository::delete </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$id</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Delete a module instance</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+<p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstanceRepository.html#af3823fe3208944cc68b4935858f6aeae">BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="ModuleInstanceRepository_8php_source.html#l00115">115</a> of file <a class="el" href="ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
+
+<p class="reference">References <a class="el" href="ModuleInstanceRepository_8php_source.html#l00027">BristolSU\Support\ModuleInstance\ModuleInstanceRepository\getById()</a>.</p>
+
+</div>
+</div>
 <a id="a6a4a81df8539d1e98b1abaf061ebefdf"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6a4a81df8539d1e98b1abaf061ebefdf">&#9670;&nbsp;</a></span>getById()</h2>
 
@@ -277,6 +313,52 @@ Public Member Functions</h2></td></tr>
 <p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstanceRepository.html#a08c657237fdd7d4786af59dfd280f9ed">BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository</a>.</p>
 
 <p class="definition">Definition at line <a class="el" href="ModuleInstanceRepository_8php_source.html#l00027">27</a> of file <a class="el" href="ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="ModuleInstanceRepository_8php_source.html#l00115">BristolSU\Support\ModuleInstance\ModuleInstanceRepository\delete()</a>, and <a class="el" href="ModuleInstanceRepository_8php_source.html#l00101">BristolSU\Support\ModuleInstance\ModuleInstanceRepository\update()</a>.</p>
+
+</div>
+</div>
+<a id="a47ccb34b5919d610c964b3d66a92a7cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a47ccb34b5919d610c964b3d66a92a7cd">&#9670;&nbsp;</a></span>update()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">BristolSU\Support\ModuleInstance\ModuleInstanceRepository::update </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>$id</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array&#160;</td>
+          <td class="paramname"><em>$attributes</em> = <code>[]</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Update a module instance</p>
+<p>Parameters should be of the form ['key' =&gt; 'newValue']. Multiple values may be updated at the same time. Available keys are alias, activity_id, name, description, slug, active, visible, mandatory, completion_condition_instance_id, enabled, user_id</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>ID of the module instance </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$attributes</td><td>Attributes to be updated</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>ModuleInstanceContract The updated module instance </dd></dl>
+
+<p>Implements <a class="el" href="interfaceBristolSU_1_1Support_1_1ModuleInstance_1_1Contracts_1_1ModuleInstanceRepository.html#a25b104f2a87e441481a8e9081ca3f872">BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository</a>.</p>
+
+<p class="definition">Definition at line <a class="el" href="ModuleInstanceRepository_8php_source.html#l00101">101</a> of file <a class="el" href="ModuleInstanceRepository_8php_source.html">ModuleInstanceRepository.php</a>.</p>
+
+<p class="reference">References <a class="el" href="ModuleInstanceRepository_8php_source.html#l00027">BristolSU\Support\ModuleInstance\ModuleInstanceRepository\getById()</a>.</p>
 
 </div>
 </div>

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.1] - (19/03/2020)
+
 ### Added
 - UserTagged and RoleTagged filters
 - \BristolSU\Support\Action\ActionInstanceRepository::forModuleInstance method
@@ -158,7 +160,8 @@ BristolSU\Support\Testing\HandlesAuthorization to help with testing modules with
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/support/compare/v4.0...HEAD
+[Unreleased]: https://github.com/bristol-su/support/compare/v4.1...HEAD
+[4.1]: https://github.com/bristol-su/support-compare/v4.0...v4.1
 [4.0]: https://github.com/bristol-su/support/compare/v3.1.1...v4.0
 [3.1.1]: https://github.com/bristol-su/support/compare/v3.1...v3.1.1
 [3.1]: https://github.com/bristol-su/support/compare/v3.0.2...v3.1

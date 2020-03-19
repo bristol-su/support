@@ -16,6 +16,7 @@ var searchData=
   ['registerevent',['registerEvent',['../interfaceBristolSU_1_1Support_1_1Events_1_1Contracts_1_1EventManager.html#a553a4c8d5c08520ceacaf32d802d9d92',1,'BristolSU\Support\Events\Contracts\EventManager\registerEvent()'],['../classBristolSU_1_1Support_1_1Events_1_1EventManager.html#a88649184e0113dcf1742632f2e88412a',1,'BristolSU\Support\Events\EventManager\registerEvent()']]],
   ['registerevents',['registerEvents',['../classBristolSU_1_1Support_1_1Module_1_1ModuleServiceProvider.html#a8f14ec60ada18579f400ad5f84fe016c',1,'BristolSU::Support::Module::ModuleServiceProvider']]],
   ['registerfactories',['registerFactories',['../classBristolSU_1_1Support_1_1Module_1_1ModuleServiceProvider.html#a8b2146aeac0acbfeb7f832629c06e8b8',1,'BristolSU::Support::Module::ModuleServiceProvider']]],
+  ['registerfilters',['registerFilters',['../classBristolSU_1_1Support_1_1Filters_1_1FilterServiceProvider.html#a78901cf86fdadf4087808eae709c77d4',1,'BristolSU::Support::Filters::FilterServiceProvider']]],
   ['registerglobalcondition',['registerGlobalCondition',['../classBristolSU_1_1Support_1_1Completion_1_1CompletionConditionManager.html#a4f585e30701c3410d308ed27bd16c3c4',1,'BristolSU\Support\Completion\CompletionConditionManager\registerGlobalCondition()'],['../interfaceBristolSU_1_1Support_1_1Completion_1_1Contracts_1_1CompletionConditionManager.html#a0596d6b1d61643654037e07666f6a76a',1,'BristolSU\Support\Completion\Contracts\CompletionConditionManager\registerGlobalCondition()']]],
   ['registerglobalscript',['registerGlobalScript',['../namespacefunction.html#a024c20893e83963a926b424c75babc45',1,'function']]],
   ['registermigrations',['registerMigrations',['../classBristolSU_1_1Support_1_1SupportServiceProvider.html#a9c2f9c834e91a4f56f77b8a5aa639eee',1,'BristolSU::Support::SupportServiceProvider']]],
@@ -52,5 +53,7 @@ var searchData=
   ['rolehasposition',['RoleHasPosition',['../classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Role_1_1RoleHasPosition.html',1,'BristolSU::Support::Filters::Filters::Role']]],
   ['rolehasposition_2ephp',['RoleHasPosition.php',['../RoleHasPosition_8php.html',1,'']]],
   ['roles',['roles',['../classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMember.html#a88f69e9bbaeb9a4e37e70dad87aa945a',1,'BristolSU::Support::Logic::Audience::AudienceMember']]],
+  ['roletagged',['RoleTagged',['../classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Role_1_1RoleTagged.html',1,'BristolSU::Support::Filters::Filters::Role']]],
+  ['roletagged_2ephp',['RoleTagged.php',['../RoleTagged_8php.html',1,'']]],
   ['routenotificationformail',['routeNotificationForMail',['../classBristolSU_1_1Support_1_1User_1_1User.html#a3ce4a3aecfc8b566a9134e3dbda408a4',1,'BristolSU::Support::User::User']]]
 ];
