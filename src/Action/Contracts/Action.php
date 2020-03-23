@@ -54,12 +54,24 @@ abstract class Action implements ShouldQueue, RecordsHistory
         }
     }
 
+    /**
+     * Get the response as given by the action after running
+     * 
+     * @return ActionResponse|null
+     */
     public function getResponse(): ?ActionResponse
     {
         return $this->response;
     }
 
-    public function option($key, $default = null)
+    /**
+     * Get a piece of information from the settings
+     * 
+     * @param string $key
+     * @param null $default
+     * @return mixed|null
+     */
+    public function option(string $key, $default = null)
     {
         if (array_key_exists($key, $this->data)) {
             return $this->data[$key];
@@ -67,11 +79,21 @@ abstract class Action implements ShouldQueue, RecordsHistory
         return $default;
     }
 
+    /**
+     * Get all setting values
+     * 
+     * @return array
+     */
     public function getData(): array
     {
         return $this->data;
     }
 
+    /**
+     * Run the action
+     * 
+     * @return ActionResponse
+     */
     abstract public function run(): ActionResponse;
 
 }

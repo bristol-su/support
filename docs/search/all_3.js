@@ -33,6 +33,7 @@ var searchData=
   ['facade',['Facade',['../namespaceBristolSU_1_1Support_1_1Action_1_1Facade.html',1,'BristolSU\Support\Action\Facade'],['../namespaceBristolSU_1_1Support_1_1Logic_1_1Facade.html',1,'BristolSU\Support\Logic\Facade'],['../namespaceBristolSU_1_1Support_1_1ModuleInstance_1_1Facade.html',1,'BristolSU\Support\ModuleInstance\Facade'],['../namespaceBristolSU_1_1Support_1_1Permissions_1_1Facade.html',1,'BristolSU\Support\Permissions\Facade']]],
   ['filters',['Filters',['../namespaceBristolSU_1_1Support_1_1Filters.html',1,'BristolSU\Support\Filters'],['../namespaceBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters.html',1,'BristolSU\Support\Filters\Contracts\Filters'],['../namespaceBristolSU_1_1Support_1_1Filters_1_1Filters.html',1,'BristolSU\Support\Filters\Filters']]],
   ['group',['Group',['../namespaceBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Group.html',1,'BristolSU::Support::Filters::Filters']]],
+  ['history',['History',['../namespaceBristolSU_1_1Support_1_1Action_1_1History.html',1,'BristolSU::Support::Action']]],
   ['http',['Http',['../namespaceBristolSU_1_1Support_1_1Http.html',1,'BristolSU::Support']]],
   ['jobs',['Jobs',['../namespaceBristolSU_1_1Support_1_1Filters_1_1Jobs.html',1,'BristolSU::Support::Filters']]],
   ['logic',['Logic',['../namespaceBristolSU_1_1Support_1_1Logic.html',1,'BristolSU::Support']]],

@@ -1,6 +1,7 @@
 var searchData=
 [
   ['fail',['fail',['../classBristolSU_1_1Support_1_1Testing_1_1LogicTester_1_1LogicTesterResult.html#a26d86fa985e51d76eea897a194f4a5c7',1,'BristolSU::Support::Testing::LogicTester::LogicTesterResult']]],
+  ['failure',['failure',['../classBristolSU_1_1Support_1_1Action_1_1ActionResponse.html#a86496c6c024d7c5c4adb66f06ea44bcf',1,'BristolSU::Support::Action::ActionResponse']]],
   ['fakeslogictesters',['FakesLogicTesters',['../classBristolSU_1_1Support_1_1Testing_1_1FakesLogicTesters.html',1,'BristolSU::Support::Testing']]],
   ['fakeslogictesters_2ephp',['FakesLogicTesters.php',['../FakesLogicTesters_8php.html',1,'']]],
   ['filter',['Filter',['../classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1Filter.html',1,'BristolSU::Support::Filters::Contracts::Filters']]],
