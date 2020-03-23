@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Action is now an abstract class not an interface
+- All actions must return an ActionResponse class instance
+- All actions must define a 'run' method instead of a 'handle' method
+
+### Added
+- Created action history table
+- HasHistory trait for actions
+- Get all history through an action instance
+
 ## [4.1] - (19/03/2020)
 
 ### Added

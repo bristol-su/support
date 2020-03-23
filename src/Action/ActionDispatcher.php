@@ -5,6 +5,7 @@ namespace BristolSU\Support\Action;
 use BristolSU\Support\Action\Contracts\ActionBuilder as ActionBuilderContract;
 use BristolSU\Support\Action\Contracts\ActionRepository as ActionRepositoryContract;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
+use BristolSU\Support\Action\History\RecordsHistory;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 
 /**

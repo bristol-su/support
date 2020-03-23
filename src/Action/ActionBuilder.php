@@ -5,6 +5,7 @@ namespace BristolSU\Support\Action;
 
 use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Action\Contracts\ActionBuilder as ActionBuilderContract;
+use BristolSU\Support\Action\History\RecordsHistory;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Support\Str;
 
@@ -43,9 +44,18 @@ class ActionBuilder implements ActionBuilderContract
      */
     public function build(ActionInstance $actionInstance, array $data = []): Action
     {
-        return $this->app->make($actionInstance->action, [
-            'data' => $this->mapFields($actionInstance->actionInstanceFields, $data)
+        $mappedFields = $this->mapFields($actionInstance->actionInstanceFields, $data);
+        $action = $this->app->make($actionInstance->action, [
+            'data' => $mappedFields
         ]);
+
+        if($action instanceof RecordsHistory) {
+            $action->setActionInstanceId($actionInstance->id);
+            $action->setEventFields($data);
+            $action->setSettings($mappedFields);
+        }
+        
+        return $action;
     }
 
     /**

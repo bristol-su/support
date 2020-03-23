@@ -7,6 +7,7 @@ use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Action\Contracts\ActionBuilder;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
+use BristolSU\Support\Action\ActionResponse;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Schema\Form;
@@ -57,6 +58,7 @@ class ActionDispatcherTest extends TestCase
         Bus::assertDispatched(DispatcherDummyAction::class, $actionInstances->count());
     }
     
+
     
 }
 class DispatcherDummyEvent implements TriggerableEvent
@@ -77,11 +79,12 @@ class DispatcherDummyEvent implements TriggerableEvent
     }
 }
 
-class DispatcherDummyAction implements Action
+class DispatcherDummyAction extends Action
 {
 
-    public function handle()
+    public function run(): ActionResponse
     {
+        return ActionResponse::success();
     }
 
     /**
@@ -94,5 +97,6 @@ class DispatcherDummyAction implements Action
 
     public function __construct(array $data)
     {
+        $this->setActionInstanceId(1);
     }
 }

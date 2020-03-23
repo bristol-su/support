@@ -3,6 +3,7 @@
 namespace BristolSU\Support\Action;
 
 use BristolSU\ControlDB\Contracts\Repositories\User;
+use BristolSU\Support\Action\History\ActionHistory;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
@@ -105,5 +106,10 @@ class ActionInstance extends Model
             throw new \Exception(sprintf('Action Instance #%u is not owned by a user.', $this->id));
         }
         return app(User::class)->getById($this->user_id);
+    }
+
+    public function history()
+    {
+        return $this->hasMany(ActionHistory::class);
     }
 }
