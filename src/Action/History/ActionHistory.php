@@ -5,6 +5,9 @@ namespace BristolSU\Support\Action\History;
 use BristolSU\Support\Action\ActionInstance;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Represents the action history
+ */
 class ActionHistory extends Model
 {
 

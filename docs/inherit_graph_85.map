@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classBristolSU_1_1Support_1_1Testing_1_1LogicTester_1_1LogicTesterResult.html" title="BristolSU\\Support\\Testing\l\\LogicTester\\LogicTesterResult" alt="" coords="5,5,209,47"/>
+<area shape="rect" id="node1" href="$classBristolSU_1_1Support_1_1Testing_1_1HandlesAuthentication.html" title="BristolSU\\Support\\Testing\l\\HandlesAuthentication" alt="" coords="5,5,180,47"/>
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Testing_1_1CreatesModuleEnvironment.html" title="BristolSU\\Support\\Testing\l\\CreatesModuleEnvironment" alt="" coords="228,39,415,80"/>
+<area shape="rect" id="node3" href="$classBristolSU_1_1Support_1_1Testing_1_1HandlesAuthorization.html" title="BristolSU\\Support\\Testing\l\\HandlesAuthorization" alt="" coords="5,71,180,112"/>
 </map>

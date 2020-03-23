@@ -1,6 +1,7 @@
 var searchData=
 [
   ['fail',['fail',['../classBristolSU_1_1Support_1_1Testing_1_1LogicTester_1_1LogicTesterResult.html#a26d86fa985e51d76eea897a194f4a5c7',1,'BristolSU::Support::Testing::LogicTester::LogicTesterResult']]],
+  ['failure',['failure',['../classBristolSU_1_1Support_1_1Action_1_1ActionResponse.html#a86496c6c024d7c5c4adb66f06ea44bcf',1,'BristolSU::Support::Action::ActionResponse']]],
   ['filterforlogic',['filterForLogic',['../classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMember.html#a8c749def9ff8a824a226277ebafe75b8',1,'BristolSU::Support::Logic::Audience::AudienceMember']]],
   ['filterinstance',['filterInstance',['../classBristolSU_1_1Support_1_1Filters_1_1Jobs_1_1CacheFilter.html#ab171905a4d561a99aa35e410a313d50e',1,'BristolSU::Support::Filters::Jobs::CacheFilter']]],
   ['filters',['filters',['../classBristolSU_1_1Support_1_1Logic_1_1Logic.html#aa8c7a191a6106b7eb32c7c10de738350',1,'BristolSU::Support::Logic::Logic']]],

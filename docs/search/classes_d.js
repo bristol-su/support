@@ -1,5 +1,6 @@
 var searchData=
 [
+  ['recordshistory',['RecordsHistory',['../interfaceBristolSU_1_1Support_1_1Action_1_1History_1_1RecordsHistory.html',1,'BristolSU::Support::Action::History']]],
   ['registeredaction',['RegisteredAction',['../classBristolSU_1_1Support_1_1Action_1_1RegisteredAction.html',1,'BristolSU\Support\Action\RegisteredAction'],['../interfaceBristolSU_1_1Support_1_1Action_1_1Contracts_1_1RegisteredAction.html',1,'BristolSU\Support\Action\Contracts\RegisteredAction']]],
   ['registeredconnector',['RegisteredConnector',['../classBristolSU_1_1Support_1_1Connection_1_1RegisteredConnector.html',1,'BristolSU::Support::Connection']]],
   ['repository',['Repository',['../interfaceBristolSU_1_1Support_1_1Activity_1_1Contracts_1_1Repository.html',1,'BristolSU\Support\Activity\Contracts\Repository'],['../classBristolSU_1_1Support_1_1Activity_1_1Repository.html',1,'BristolSU\Support\Activity\Repository']]],
