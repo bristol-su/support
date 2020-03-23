@@ -1,3 +1,4 @@
 <map id="BristolSU\Support\Action\Actions\Log" name="BristolSU\Support\Action\Actions\Log">
-<area shape="rect" id="node2" href="$interfaceBristolSU_1_1Support_1_1Action_1_1Contracts_1_1Action.html" title="BristolSU\\Support\\Action\l\\Contracts\\Action" alt="" coords="5,5,173,47"/>
+<area shape="rect" id="node2" href="$classBristolSU_1_1Support_1_1Action_1_1Contracts_1_1Action.html" title="BristolSU\\Support\\Action\l\\Contracts\\Action" alt="" coords="50,95,218,136"/>
+<area shape="rect" id="node4" href="$interfaceBristolSU_1_1Support_1_1Action_1_1History_1_1RecordsHistory.html" title="BristolSU\\Support\\Action\l\\History\\RecordsHistory" alt="" coords="130,5,298,47"/>
 </map>

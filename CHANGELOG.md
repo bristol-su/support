@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.2] - (23/03/2020)
+
+### Changed
+- Action is now an abstract class not an interface
+- All actions must return an ActionResponse class instance
+- All actions must define a 'run' method instead of a 'handle' method
+
+### Added
+- Created action history table
+- HasHistory trait for actions
+- Get all history through an action instance
+
 ## [4.1] - (19/03/2020)
 
 ### Added
@@ -160,7 +172,8 @@ BristolSU\Support\Testing\HandlesAuthorization to help with testing modules with
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/support/compare/v4.1...HEAD
+[Unreleased]: https://github.com/bristol-su/support/compare/v4.2...HEAD
+[4.2]: https://github.com/bristol-su/support-compare/v4.1...v4.2
 [4.1]: https://github.com/bristol-su/support-compare/v4.0...v4.1
 [4.0]: https://github.com/bristol-su/support/compare/v3.1.1...v4.0
 [3.1.1]: https://github.com/bristol-su/support/compare/v3.1...v3.1.1

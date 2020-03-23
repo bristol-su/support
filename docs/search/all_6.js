@@ -12,7 +12,7 @@ var searchData=
   ['eventfired_2ephp',['EventFired.php',['../EventFired_8php.html',1,'']]],
   ['eventmanager',['EventManager',['../interfaceBristolSU_1_1Support_1_1Events_1_1Contracts_1_1EventManager.html',1,'BristolSU\Support\Events\Contracts\EventManager'],['../classBristolSU_1_1Support_1_1Events_1_1EventManager.html',1,'BristolSU\Support\Events\EventManager']]],
   ['eventmanager_2ephp',['EventManager.php',['../Contracts_2EventManager_8php.html',1,'(Global Namespace)'],['../EventManager_8php.html',1,'(Global Namespace)']]],
-  ['eventrepository',['EventRepository',['../interfaceBristolSU_1_1Support_1_1Events_1_1Contracts_1_1EventRepository.html',1,'BristolSU\Support\Events\Contracts\EventRepository'],['../classBristolSU_1_1Support_1_1Events_1_1EventRepository.html',1,'BristolSU\Support\Events\EventRepository']]],
+  ['eventrepository',['EventRepository',['../classBristolSU_1_1Support_1_1Events_1_1EventRepository.html',1,'BristolSU\Support\Events\EventRepository'],['../interfaceBristolSU_1_1Support_1_1Events_1_1Contracts_1_1EventRepository.html',1,'BristolSU\Support\Events\Contracts\EventRepository']]],
   ['eventrepository_2ephp',['EventRepository.php',['../Contracts_2EventRepository_8php.html',1,'(Global Namespace)'],['../EventRepository_8php.html',1,'(Global Namespace)']]],
   ['eventsserviceprovider',['EventsServiceProvider',['../classBristolSU_1_1Support_1_1Events_1_1EventsServiceProvider.html',1,'BristolSU::Support::Events']]],
   ['eventsserviceprovider_2ephp',['EventsServiceProvider.php',['../EventsServiceProvider_8php.html',1,'']]],

@@ -7,19 +7,22 @@ use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Action\ActionInstanceField;
 use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
+use BristolSU\Support\Action\ActionResponse;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Schema\Form;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Foundation\Application;
+use Prophecy\Argument;
 
 class ActionBuilderTest extends TestCase
 {
 
     /** @test */
-    public function build_resolves_the_class_from_the_container(){
+    public function build_resolves_the_class_from_the_container()
+    {
         $app = $this->prophesize(Application::class);
         $app->make(ActionBuilderDummyAction::class, ['data' => []])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction([]));
-        
+
         $actionInstance = factory(ActionInstance::class)->create([
             'action' => ActionBuilderDummyAction::class,
             'event' => ActionBuilderDummyEvent::class
@@ -27,9 +30,10 @@ class ActionBuilderTest extends TestCase
         $builder = new ActionBuilder($app->reveal());
         $builder->build($actionInstance, []);
     }
-    
+
     /** @test */
-    public function build_maps_action_fields_to_action_values(){
+    public function build_maps_action_fields_to_action_values()
+    {
         $app = $this->prophesize(Application::class);
         $app->make(ActionBuilderDummyAction::class, ['data' => ['action1' => 'field1value']])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction([]));
 
@@ -37,19 +41,20 @@ class ActionBuilderTest extends TestCase
             'action' => ActionBuilderDummyAction::class,
             'event' => ActionBuilderDummyEvent::class
         ]);
-        
+
         $actionInstanceField = factory(ActionInstanceField::class)->create([
             'action_value' => 'field1value',
             'action_field' => 'action1',
             'action_instance_id' => $actionInstance->id
         ]);
-        
+
         $builder = new ActionBuilder($app->reveal());
         $builder->build($actionInstance, (new ActionBuilderDummyEvent())->getFields());
     }
-    
+
     /** @test */
-    public function build_replaces_event_fields_with_the_correct_value(){
+    public function build_replaces_event_fields_with_the_correct_value()
+    {
         $app = $this->prophesize(Application::class);
         $app->make(ActionBuilderDummyAction::class, ['data' => ['action1' => 'field1value with an event field of field1valueFromEvent']])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction([]));
 
@@ -70,7 +75,8 @@ class ActionBuilderTest extends TestCase
 
 
     /** @test */
-    public function build_replaces_all_event_fields_with_the_correct_value(){
+    public function build_replaces_all_event_fields_with_the_correct_value()
+    {
         $app = $this->prophesize(Application::class);
         $app->make(ActionBuilderDummyAction::class, ['data' => ['action1' => 'field1value with field1valueFromEvent an event field of field1valueFromEvent']])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction([]));
 
@@ -90,7 +96,8 @@ class ActionBuilderTest extends TestCase
     }
 
     /** @test */
-    public function build_can_replace_multiple_event_fields(){
+    public function build_can_replace_multiple_event_fields()
+    {
         $app = $this->prophesize(Application::class);
         $app->make(ActionBuilderDummyAction::class, ['data' => ['action1' => 'field1value with field2valueFromEvent an event field of field1valueFromEvent field1valueFromEvent']])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction([]));
 
@@ -110,7 +117,8 @@ class ActionBuilderTest extends TestCase
     }
 
     /** @test */
-    public function build_can_replace_multiple_event_fields_and_multiple_actions(){
+    public function build_can_replace_multiple_event_fields_and_multiple_actions()
+    {
         $app = $this->prophesize(Application::class);
         $app->make(ActionBuilderDummyActionMultiple::class, ['data' => [
             'action1' => 'field1value with field2valueFromEvent an event field of field1valueFromEvent field1valueFromEvent',
@@ -137,15 +145,32 @@ class ActionBuilderTest extends TestCase
         $builder->build($actionInstance, (new ActionBuilderDummyEvent())->getFields());
     }
 
+    /** @test */
+    public function it_sets_the_correct_information_for_history()
+    {
+        $actionInstance = factory(ActionInstance::class)->create([
+            'action' => ActionBuilderDummyAction::class,
+            'event' => ActionBuilderDummyEvent::class
+        ]);
+        
+        $action = $this->prophesize(Action::class);
+        $action->setActionInstanceId($actionInstance->id)->shouldBeCalled();
+        $action->setEventFields(['key' => 'val1'])->shouldBeCalled();
+        $action->setSettings([])->shouldBeCalled();
+        
+        $app = $this->prophesize(Application::class);
+        $app->make(ActionBuilderDummyAction::class, ['data' => []])->shouldBeCalled()->willReturn($action->reveal());
+        
+        $builder = new ActionBuilder($app->reveal());
+        $action = $builder->build($actionInstance, ['key' => 'val1']);
+
+    }
+
 }
 
-class ActionBuilderDummyAction implements Action
+class ActionBuilderDummyAction extends Action
 {
 
-    public function handle()
-    {
-    }
-    
     public function __construct(array $data)
     {
     }
@@ -157,12 +182,17 @@ class ActionBuilderDummyAction implements Action
     {
         return new Form();
     }
+
+    public function run(): ActionResponse
+    {
+        return ActionResponse::success();
+    }
 }
 
-class ActionBuilderDummyActionMultiple implements Action
+class ActionBuilderDummyActionMultiple extends Action
 {
 
-    public function handle()
+    public function __construct(array $data)
     {
     }
 
@@ -174,18 +204,14 @@ class ActionBuilderDummyActionMultiple implements Action
         return new Form();
     }
 
-    public function __construct(array $data)
+    public function run(): ActionResponse
     {
+        return ActionResponse::success();
     }
 }
 
 class ActionBuilderDummyEvent implements TriggerableEvent
 {
-
-    public function getFields(): array
-    {
-        return ['field1' => 'field1valueFromEvent', 'field2' => 'field2valueFromEvent'];
-    }
 
     public static function getFieldMetaData(): array
     {
@@ -197,5 +223,10 @@ class ActionBuilderDummyEvent implements TriggerableEvent
                 'label' => 'Field 2'
             ]
         ];
+    }
+
+    public function getFields(): array
+    {
+        return ['field1' => 'field1valueFromEvent', 'field2' => 'field2valueFromEvent'];
     }
 }

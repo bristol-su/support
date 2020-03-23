@@ -7,12 +7,15 @@ use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Action\ActionInstanceField;
 use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
+use BristolSU\Support\Action\ActionResponse;
+use BristolSU\Support\Action\History\ActionHistory;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
 use BristolSU\Support\User\Contracts\UserAuthentication;
 use FormSchema\Schema\Form;
+use Illuminate\Support\Collection;
 
 class ActionInstanceTest extends TestCase
 {
@@ -138,13 +141,30 @@ class ActionInstanceTest extends TestCase
         $this->assertEquals('OldName', $actionInstance->revisionHistory->first()->old_value);
         $this->assertEquals('NewName', $actionInstance->revisionHistory->first()->new_value);
     }
+    
+    /** @test */
+    public function it_has_history(){
+        $actionInstance = factory(ActionInstance::class)->create();
+        $histories = factory(ActionHistory::class, 10)->create([
+            'action_instance_id' => $actionInstance->id
+        ]);
+        factory(ActionHistory::class, 5)->create();
+        
+        $resolvedHistory = $actionInstance->history;
+        $this->assertInstanceOf(Collection::class, $resolvedHistory);
+        $this->assertContainsOnlyInstancesOf(ActionHistory::class, $resolvedHistory);
+        foreach($histories as $history) {
+            $this->assertModelEquals($history, $resolvedHistory->shift());
+        }
+    }
 }
 
-class ActionInstanceDummyAction implements Action
+class ActionInstanceDummyAction extends Action
 {
 
-    public function handle()
+    public function run(): ActionResponse
     {
+        return ActionResponse::success();
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace BristolSU\Support\Action\Actions;
 
 use BristolSU\Support\Action\Contracts\Action;
+use BristolSU\Support\Action\ActionResponse;
 use FormSchema\Generator\Field;
 use FormSchema\Schema\Form;
 
@@ -11,32 +12,20 @@ use FormSchema\Schema\Form;
  * 
  * Logs a message to the PHP log.
  */
-class Log implements Action
+class Log extends Action
 {
-
-    /**
-     * Message to be written to the log
-     * 
-     * @var mixed|string
-     */
-    private $text = 'This will be written to the log';
-
-    /**
-     * Initialise the Log action with the text
-     * 
-     * @param array $data
-     */
-    public function __construct(array $data = [])
-    {
-        $this->text = $data['text'];
-    }
 
     /**
      * Handle logging the message to the log
      */
-    public function handle()
+    public function run(): ActionResponse
     {
-        \Illuminate\Support\Facades\Log::info($this->text);
+        try {
+            \Illuminate\Support\Facades\Log::info($this->option('text'));
+        } catch (\Exception $e) {
+            return ActionResponse::failure(($e->getMessage() === '' ? 'Could not log the text' : $e->getMessage()));
+        }
+        return ActionResponse::success('Text saved to the log file');
     }
 
     /**
@@ -45,7 +34,7 @@ class Log implements Action
     public static function options(): Form
     {
         return \FormSchema\Generator\Form::make()->withField(
-            \FormSchema\Generator\Field::input('text')->inputType('text')->label('Message')
+            Field::input('text')->inputType('text')->label('Message')
                 ->required(true)->default('')->hint('The message to save to the log')
                 ->help('When triggered, this message will be saved to the php logs')
         )->getSchema();
