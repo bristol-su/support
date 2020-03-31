@@ -27,7 +27,7 @@ class ActionInstance extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'event', 'action', 'module_instance_id', 'user_id'
+        'name', 'description', 'event', 'action', 'module_instance_id', 'user_id', 'should_queue'
     ];
 
     /**
@@ -37,6 +37,15 @@ class ActionInstance extends Model
      */
     protected $appends = [
         'event_fields', 'action_schema'
+    ];
+
+    /**
+    * Properties to automatically cast
+    * 
+    * @var array
+    */
+    protected $casts = [
+        'should_queue' => 'boolean'
     ];
 
     /**

@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.3] - (23/03/3030)
+
+### Added
+- should_queue column to action instances
+- If should_queue is false, the action is dispatched immediately
+
 ## [4.2] - (23/03/2020)
 
 ### Changed
@@ -172,7 +178,8 @@ BristolSU\Support\Testing\HandlesAuthorization to help with testing modules with
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/support/compare/v4.2...HEAD
+[Unreleased]: https://github.com/bristol-su/support/compare/v4.3...HEAD
+[4.3]: https://github.com/bristol-su/support-compare/v4.2...v4.3
 [4.2]: https://github.com/bristol-su/support-compare/v4.1...v4.2
 [4.1]: https://github.com/bristol-su/support-compare/v4.0...v4.1
 [4.0]: https://github.com/bristol-su/support/compare/v3.1.1...v4.0
