@@ -40,6 +40,15 @@ class ActionInstance extends Model
     ];
 
     /**
+    * Properties to automatically cast
+    * 
+    * @var array
+    */
+    protected $casts = [
+        'should_queue' => 'boolean'
+    ];
+
+    /**
      * Initialise an Action Instance model.
      *
      * Save the ID of the current user on creation
