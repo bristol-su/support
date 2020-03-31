@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- should_queue column to action instances
+- If should_queue is false, the action is dispatched immediately
+
 ## [4.2] - (23/03/2020)
 
 ### Changed

@@ -46,7 +46,11 @@ class ActionDispatcher
         
         foreach ($actionInstances as $actionInstance) {
             $action = $this->builder->build($actionInstance, $event->getFields());
-            dispatch($action);
+            if($actionInstance->should_queue) {
+                dispatch($action);
+            } else {
+                dispatch_now($action);
+            }
         }
     }
     
