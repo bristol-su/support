@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- Script tag id for google analytics takes from config
+
 ## [4.3] - (23/03/3030)
 
 ### Added
