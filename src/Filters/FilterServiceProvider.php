@@ -40,10 +40,7 @@ class FilterServiceProvider extends ServiceProvider
         $this->app->bind(FilterInstanceContract::class, FilterInstance::class);
         $this->app->bind(FilterInstanceRepositoryContract::class, FilterInstanceRepository::class);
         $this->app->singleton(FilterManagerContract::class, FilterManager::class);
-
-        $this->app->extend(FilterTesterContract::class, function(FilterTesterContract $filterTester) {
-            return new CachedFilterTesterDecorator($filterTester, $this->app->make(Cache::class));
-        });
+        
     }
 
     /**
@@ -54,6 +51,12 @@ class FilterServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if($this->app['config']->get('support.caching.filters.enabled', true)) {
+            $this->app->extend(FilterTesterContract::class, function(FilterTesterContract $filterTester) {
+                return new CachedFilterTesterDecorator($filterTester, $this->app->make(Cache::class));
+            });
+        }
+        
         $this->app->call([$this, 'registerFilters']);
         $this->commands([CacheFilters::class]);
     }
