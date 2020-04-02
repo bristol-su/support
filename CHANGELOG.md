@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.3.1] - (02/04/2020)
+
+### Added
+- Ability to control caching of filters through config
+
 ### Fixed
 - Script tag id for google analytics takes from config
 
