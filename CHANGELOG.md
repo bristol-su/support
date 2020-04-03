@@ -191,7 +191,9 @@ BristolSU\Support\Testing\HandlesAuthorization to help with testing modules with
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/support/compare/v4.3...HEAD
+[Unreleased]: https://github.com/bristol-su/support/compare/v4.3.2...HEAD
+[4.3.2]: https://github.com/bristol-su/support-compare/v4.3.1...v4.3.2
+[4.3.1]: https://github.com/bristol-su/support-compare/v4.3...v4.3.1
 [4.3]: https://github.com/bristol-su/support-compare/v4.2...v4.3
 [4.2]: https://github.com/bristol-su/support-compare/v4.1...v4.2
 [4.1]: https://github.com/bristol-su/support-compare/v4.0...v4.1
