@@ -294,7 +294,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function mapParticipantRoutes()
     {
         Route::prefix('/p/{activity_slug}/{module_instance_slug}/'.$this->alias())
-            ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'participant'])
+            ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
             ->namespace($this->namespace())
             ->group($this->baseDirectory().'/routes/participant/web.php');
     }
@@ -316,7 +316,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function mapParticipantApiRoutes()
     {
         Route::prefix('/api/p/{activity_slug}/{module_instance_slug}/'.$this->alias())
-            ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'participant'])
+            ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
             ->namespace($this->namespace())
             ->group($this->baseDirectory().'/routes/participant/api.php');
     }
