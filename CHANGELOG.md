@@ -10,7 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [4.3.2] - (03/04/2020)
 
 ### Changed
-- Module instance checks against being disabled or not active are only made for participants
+- Module instance checks against being disabled or not active are only made for a module
+
+### Added
+- moduleparticipant middleware group to mark the participant side of a module
 
 ## [4.3.1] - (02/04/2020)
 
