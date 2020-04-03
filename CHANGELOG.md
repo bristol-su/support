@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.3.2] - (03/04/2020)
+
+### Changed
+- Module instance checks against being disabled or not active are only made for participants
+
 ## [4.3.1] - (02/04/2020)
 
 ### Added
