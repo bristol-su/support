@@ -22,7 +22,7 @@
         "laracasts/utilities": "^3.0",
         "ext-json": "*",
         "tobytwigger/form-schema-generator": "^1.1",
-        "bristol-su/control": "^1.0",
+        "bristol-su/control": "^2.0",
         "doctrine/dbal": "^2.10",
         "venturecraft/revisionable": "^1.33"
     },
