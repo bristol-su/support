@@ -9,6 +9,7 @@ var searchData=
   ['moduleinstance_2ephp',['ModuleInstance.php',['../Contracts_2ModuleInstance_8php.html',1,'(Global Namespace)'],['../ModuleInstance_8php.html',1,'(Global Namespace)']]],
   ['moduleinstancedisabled_2ephp',['ModuleInstanceDisabled.php',['../ModuleInstanceDisabled_8php.html',1,'']]],
   ['moduleinstanceevaluator_2ephp',['ModuleInstanceEvaluator.php',['../Contracts_2Evaluator_2ModuleInstanceEvaluator_8php.html',1,'(Global Namespace)'],['../Evaluator_2ModuleInstanceEvaluator_8php.html',1,'(Global Namespace)'],['../Facade_2ModuleInstanceEvaluator_8php.html',1,'(Global Namespace)']]],
+  ['moduleinstancegrouping_2ephp',['ModuleInstanceGrouping.php',['../ModuleInstanceGrouping_8php.html',1,'']]],
   ['moduleinstancegroupoverridepermission_2ephp',['ModuleInstanceGroupOverridePermission.php',['../ModuleInstanceGroupOverridePermission_8php.html',1,'']]],
   ['moduleinstancepermission_2ephp',['ModuleInstancePermission.php',['../ModuleInstancePermission_8php.html',1,'']]],
   ['moduleinstancepermissions_2ephp',['ModuleInstancePermissions.php',['../ModuleInstancePermissions_8php.html',1,'']]],

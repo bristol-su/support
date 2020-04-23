@@ -84,6 +84,7 @@ var searchData=
   ['groupaudience',['groupAudience',['../classBristolSU_1_1Support_1_1Logic_1_1Contracts_1_1Audience_1_1LogicAudience.html#a3ef19efa96a937744305f18f8415b839',1,'BristolSU::Support::Logic::Contracts::Audience::LogicAudience']]],
   ['groupfilter',['GroupFilter',['../classBristolSU_1_1Support_1_1Filters_1_1Contracts_1_1Filters_1_1GroupFilter.html',1,'BristolSU::Support::Filters::Contracts::Filters']]],
   ['groupfilter_2ephp',['GroupFilter.php',['../GroupFilter_8php.html',1,'']]],
+  ['grouping',['grouping',['../classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstance.html#aa463e3a1fb6fba831e940bf32a381d41',1,'BristolSU::Support::ModuleInstance::ModuleInstance']]],
   ['groupnameis',['GroupNameIs',['../classBristolSU_1_1Support_1_1Filters_1_1Filters_1_1Group_1_1GroupNameIs.html',1,'BristolSU::Support::Filters::Filters::Group']]],
   ['groupnameis_2ephp',['GroupNameIs.php',['../GroupNameIs_8php.html',1,'']]],
   ['groups',['groups',['../classBristolSU_1_1Support_1_1Logic_1_1Audience_1_1AudienceMember.html#a131ea8f66a516e79649c33b129a642b5',1,'BristolSU::Support::Logic::Audience::AudienceMember']]],

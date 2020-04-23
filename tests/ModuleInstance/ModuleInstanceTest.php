@@ -12,6 +12,7 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\ModuleInstance\ModuleInstanceGrouping;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\User\Contracts\UserAuthentication;
@@ -245,4 +246,29 @@ class ModuleInstanceTest extends TestCase
         $this->assertEquals('NewName', $moduleInstance->revisionHistory->first()->new_value);
     }
     
+    /** @test */
+    public function grouping_returns_the_group(){
+        $moduleInstanceGrouping = factory(ModuleInstanceGrouping::class)->create();
+        $moduleInstance = factory(ModuleInstance::class)->create(['grouping_id' => $moduleInstanceGrouping]);
+        
+        $groupingFromModuleInstance = $moduleInstance->grouping;
+        
+        $this->assertInstanceOf(ModuleInstanceGrouping::class, $groupingFromModuleInstance);
+        $this->assertTrue($moduleInstanceGrouping->is($groupingFromModuleInstance));
+    }
+    
+    /** @test */
+    public function grouping_returns_null_if_module_instance_has_no_grouping(){
+        $moduleInstance = factory(ModuleInstance::class)->create(['grouping_id' => null]);
+        $this->assertNull($moduleInstance->grouping);
+    }
+    
+    /** @test */
+    public function the_order_is_accessible_through_the_module_instance_array(){
+        $moduleInstance = factory(ModuleInstance::class)->create(['order' => 5]);
+        $array = $moduleInstance->toArray();
+        
+        $this->assertArrayHasKey('order', $array);
+        $this->assertEquals(5, $array['order']);
+    }
 }

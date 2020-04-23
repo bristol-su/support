@@ -14,6 +14,7 @@ var searchData=
   ['hasrevisions',['HasRevisions',['../classBristolSU_1_1Support_1_1Revision_1_1HasRevisions.html',1,'BristolSU::Support::Revision']]],
   ['hasrevisions_2ephp',['HasRevisions.php',['../HasRevisions_8php.html',1,'']]],
   ['hasusers',['hasUsers',['../classBristolSU_1_1Support_1_1Authorization_1_1Middleware_1_1CheckDatabaseUserOwnsControlUser.html#a071c63cf03066abaad20efa29e2f99b9',1,'BristolSU::Support::Authorization::Middleware::CheckDatabaseUserOwnsControlUser']]],
+  ['heading',['heading',['../classBristolSU_1_1Support_1_1ModuleInstance_1_1ModuleInstanceGrouping.html#a8684102b497483c042d65096e4bb469a',1,'BristolSU::Support::ModuleInstance::ModuleInstanceGrouping']]],
   ['helpers_2ephp',['helpers.php',['../helpers_8php.html',1,'']]],
   ['history',['history',['../classBristolSU_1_1Support_1_1Action_1_1ActionInstance.html#a48ff26e6c09260f8a82e8f15011f0bc2',1,'BristolSU::Support::Action::ActionInstance']]],
   ['httpserviceprovider',['HttpServiceProvider',['../classBristolSU_1_1Support_1_1Http_1_1HttpServiceProvider.html',1,'BristolSU::Support::Http']]],

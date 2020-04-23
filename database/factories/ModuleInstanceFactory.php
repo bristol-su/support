@@ -39,6 +39,10 @@ $factory->define(ModuleInstance::class, function(Faker $faker) {
         'enabled' => true,
         'user_id' => function() {
             return factory(\BristolSU\ControlDB\Models\User::class)->create()->id();
+        },
+        'order' => 1,
+        'grouping_id' => function() {
+            return factory(\BristolSU\Support\ModuleInstance\ModuleInstanceGrouping::class)->create()->id;
         }
     ];
 });

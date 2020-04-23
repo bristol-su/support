@@ -42,7 +42,9 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         'mandatory',
         'completion_condition_instance_id',
         'enabled',
-        'user_id'
+        'user_id',
+        'order',
+        'grouping_id'
     ];
 
     /**
@@ -221,5 +223,10 @@ class ModuleInstance extends Model implements ModuleInstanceContract
             throw new \Exception(sprintf('Module Instance #%u is not owned by a user.', $this->id));
         }
         return app(User::class)->getById($this->user_id);
+    }
+
+    public function grouping()
+    {
+        return $this->belongsTo(ModuleInstanceGrouping::class);
     }
 }
