@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4] - (23/04/2020)
+
+### Added
+- Module instance groupings table
+- grouping_id and order columns on module_instance
+- ModuleInstance::grouping relationship
+
 ## [4.3.3] - (22/04/2020)
 
 ### Changed
@@ -199,7 +206,8 @@ BristolSU\Support\Testing\HandlesAuthorization to help with testing modules with
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/support/compare/v4.3.3...HEAD
+[Unreleased]: https://github.com/bristol-su/support/compare/v4.4...HEAD
+[4.4]: https://github.com/bristol-su/support-compare/v4.3.3...v4.4
 [4.3.3]: https://github.com/bristol-su/support-compare/v4.3.2...v4.3.3
 [4.3.2]: https://github.com/bristol-su/support-compare/v4.3.1...v4.3.2
 [4.3.1]: https://github.com/bristol-su/support-compare/v4.3...v4.3.1
