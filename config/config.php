@@ -12,7 +12,8 @@ return [
     ],
     'caching' => [
         'filters' => [
-            'enabled' => env('FILTER_CACHING_ENABLED', true)
+            'enabled' => env('FILTER_CACHING_ENABLED', true),
+            'duration' => env('FILTER_CACHING_DURATION', 900)
         ]
     ]
 ];

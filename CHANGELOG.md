@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.1] - (27/04/2020)
+
+### Changed
+- Update dependencies
+- Set filter caching to 15 minutes
+- Allow filter caching duration to be set through the environment variables
+
 ## [4.4] - (23/04/2020)
 
 ### Added
@@ -206,7 +213,8 @@ BristolSU\Support\Testing\HandlesAuthorization to help with testing modules with
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/support/compare/v4.4...HEAD
+[Unreleased]: https://github.com/bristol-su/support/compare/v4.4.1...HEAD
+[4.4.1]: https://github.com/bristol-su/support-compare/v4.4...v4.4.1
 [4.4]: https://github.com/bristol-su/support-compare/v4.3.3...v4.4
 [4.3.3]: https://github.com/bristol-su/support-compare/v4.3.2...v4.3.3
 [4.3.2]: https://github.com/bristol-su/support-compare/v4.3.1...v4.3.2
