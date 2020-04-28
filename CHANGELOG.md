@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.4.1] - (27/04/2020)
+
+### Changed
+- Update dependencies
+- Set filter caching to 15 minutes
+- Allow filter caching duration to be set through the environment variables
+
 ## [4.4] - (23/04/2020)
 
 ### Added
