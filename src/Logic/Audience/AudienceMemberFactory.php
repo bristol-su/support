@@ -84,4 +84,18 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
         })->values();
     }
 
+    /**
+     * Create an audience member from a user and filter it down to the given logic
+     *
+     * @param User $user User to create the audience member from
+     *
+     * @param Logic $logic
+     * @return AudienceMember
+     */
+    public function fromUserInLogic(User $user, Logic $logic)
+    {
+        $audienceMember = $this->fromUser($user);
+        $audienceMember->filterForLogic($logic);
+        return $audienceMember;
+    }
 }
