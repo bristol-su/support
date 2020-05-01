@@ -50,8 +50,8 @@ class LogicAudience extends LogicAudienceContract
     public function audience(Logic $logic)
     {
         $audienceMembers = [];
-        foreach ($this->possibleAudience() as $audienceMember) {
-            $audienceMember->filterForLogic($logic);
+        foreach ($this->possibleAudience($logic) as $audienceMember) {
+//            $audienceMember->filterForLogic($logic);
             if ($audienceMember->hasAudience()) {
                 $audienceMembers[] = $audienceMember;
             }
@@ -61,15 +61,16 @@ class LogicAudience extends LogicAudienceContract
 
     /**
      * Get the possible audience
-     * 
-     * Returns all users of the portal as AudienceMembers. 
-     * 
+     *
+     * Returns all users of the portal as AudienceMembers.
+     *
+     * @param Logic $logic
      * @return \Generator Used as an array, eases memory constraints at runtime
      */
-    private function possibleAudience()
+    private function possibleAudience(Logic $logic)
     {
         foreach ($this->userRepository->all() as $user) {
-            yield $this->audienceMemberFactory->fromUser($user);
+            yield $this->audienceMemberFactory->fromUserInLogic($user, $logic);
         }
     }
 

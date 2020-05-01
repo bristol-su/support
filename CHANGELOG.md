@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- AudienceMemberFactory::fromUserInLogic to get an audience member of a user filtered to a logic group
+- CachedAudienceMemberFactory to cache audience member results
+
 ## [4.4.1] - (27/04/2020)
 
 ### Changed
