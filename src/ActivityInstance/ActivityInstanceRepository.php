@@ -62,6 +62,22 @@ class ActivityInstanceRepository implements ActivityInstanceRepositoryContract
     }
 
     /**
+     * Get all activity instances for the given resource
+     *
+     * @param string $resourceType Resource (owner) type. One of user, group or role.
+     * @param int $resourceId Resource (owner) id. ID of the model in resource type.
+     *
+     * @return Collection
+     */
+    public function allForResource(string $resourceType, int $resourceId): Collection
+    {
+        return ActivityInstance::where([
+            'resource_type' => $resourceType,
+            'resource_id' => $resourceId
+        ])->get();
+    }
+    
+    /**
      * Get all activity instances with the given parameters
      *
      * @param int $activityId ID of the activity to which the activity instances should belong

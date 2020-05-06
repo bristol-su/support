@@ -92,4 +92,22 @@ class ActivityInstanceRepositoryTest extends TestCase
         $this->assertModelEquals($activityInstance2, $instances->offsetGet(1));
         $this->assertModelEquals($activityInstance3, $instances->offsetGet(2));
     }
+    
+    /** @test */
+    public function allForResource_returns_all_activity_instances_for_a_resource(){
+        $group = $this->newGroup();
+        $group2 = $this->newGroup();
+        $activityInstance1 = factory(ActivityInstance::class)->create(['resource_type' => 'group', 'resource_id' => $group->id()]);
+        $activityInstance2 = factory(ActivityInstance::class)->create(['resource_type' => 'group', 'resource_id' => $group->id()]);
+        $activityInstance3 = factory(ActivityInstance::class)->create(['resource_type' => 'group', 'resource_id' => $group->id()]);
+        
+        $activityInstance4 = factory(ActivityInstance::class)->create(['resource_type' => 'user', 'resource_id' => $group->id()]);
+        $activityInstance5 = factory(ActivityInstance::class)->create(['resource_type' => 'group', 'resource_id' => $group2->id()]);
+
+        $instances = $this->repository->allForResource('group', $group->id());
+        $this->assertCount(3, $instances);
+        $this->assertModelEquals($activityInstance1, $instances->offsetGet(0));
+        $this->assertModelEquals($activityInstance2, $instances->offsetGet(1));
+        $this->assertModelEquals($activityInstance3, $instances->offsetGet(2));
+    }
 }

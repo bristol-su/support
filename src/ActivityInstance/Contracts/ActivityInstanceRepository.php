@@ -62,4 +62,13 @@ interface ActivityInstanceRepository
      */
     public function allForActivity(int $activityId): Collection;
 
+    /**
+     * Get all activity instances for the given resource
+     *
+     * @param string $resourceType Resource (owner) type. One of user, group or role.
+     * @param int $resourceId Resource (owner) id. ID of the model in resource type.
+     *
+     * @return Collection
+     */
+    public function allForResource(string $resourceType, int $resourceId): Collection;
 }
