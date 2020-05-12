@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.5] = (12/05/2020)
+
 ### Added
 - AudienceMemberFactory::fromUserInLogic to get an audience member of a user filtered to a logic group
 - CachedAudienceMemberFactory to cache audience member results
@@ -222,7 +224,8 @@ BristolSU\Support\Testing\HandlesAuthorization to help with testing modules with
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/support/compare/v4.4.1...HEAD
+[Unreleased]: https://github.com/bristol-su/support/compare/v4.5...HEAD
+[4.5]: https://github.com/bristol-su/support-compare/v4.4.1...v4.5
 [4.4.1]: https://github.com/bristol-su/support-compare/v4.4...v4.4.1
 [4.4]: https://github.com/bristol-su/support-compare/v4.3.3...v4.4
 [4.3.3]: https://github.com/bristol-su/support-compare/v4.3.2...v4.3.3
