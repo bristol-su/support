@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [4.5] = (12/05/2020)
+## [4.5] - (12/05/2020)
 
 ### Added
 - AudienceMemberFactory::fromUserInLogic to get an audience member of a user filtered to a logic group
