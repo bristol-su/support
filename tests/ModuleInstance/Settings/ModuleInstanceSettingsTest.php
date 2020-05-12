@@ -8,7 +8,7 @@ use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
 
-class ModuleInstanceSettingTest extends TestCase
+class ModuleInstanceSettingsTest extends TestCase
 {
 
     /** @test */

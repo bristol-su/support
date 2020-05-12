@@ -31,9 +31,15 @@ class LogicAudienceTest extends TestCase
         $userRepository->all()->shouldBeCalled()->willReturn($users);
         
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
-        $audienceMemberFactory->fromUser($user1)->shouldBeCalled()->willReturn($audienceMember1->reveal());
-        $audienceMemberFactory->fromUser($user2)->shouldBeCalled()->willReturn($audienceMember2->reveal());
-        $audienceMemberFactory->fromUser($user3)->shouldBeCalled()->willReturn($audienceMember3->reveal());
+        $audienceMemberFactory->fromUserInLogic($user1, Argument::that(function($arg) use ($logic) {
+            return $arg->id === $logic->id;
+        }))->shouldBeCalled()->willReturn($audienceMember1->reveal());
+        $audienceMemberFactory->fromUserInLogic($user2, Argument::that(function($arg) use ($logic) {
+            return $arg->id === $logic->id;
+        }))->shouldBeCalled()->willReturn($audienceMember2->reveal());
+        $audienceMemberFactory->fromUserInLogic($user3, Argument::that(function($arg) use ($logic) {
+            return $arg->id === $logic->id;
+        }))->shouldBeCalled()->willReturn($audienceMember3->reveal());
         
         $logicAudience = new LogicAudience($userRepository->reveal(), $audienceMemberFactory->reveal());
         $logicAudience->audience($logic);
@@ -49,15 +55,6 @@ class LogicAudienceTest extends TestCase
         $audienceMember1 = $this->prophesize(AudienceMember::class);
         $audienceMember2 = $this->prophesize(AudienceMember::class);
         $audienceMember3 = $this->prophesize(AudienceMember::class);
-        $audienceMember1->filterForLogic(Argument::that(function($arg) use ($logic) {
-            return $arg->id === $logic->id;
-        }))->shouldBeCalledOnce();
-        $audienceMember2->filterForLogic(Argument::that(function($arg) use ($logic) {
-            return $arg->id === $logic->id;
-        }))->shouldBeCalledOnce();
-        $audienceMember3->filterForLogic(Argument::that(function($arg) use ($logic) {
-            return $arg->id === $logic->id;
-        }))->shouldBeCalledOnce();
 
         $audienceMember1->hasAudience()->shouldBeCalled()->willReturn(false);
         $audienceMember2->hasAudience()->shouldBeCalled()->willReturn(false);
@@ -68,9 +65,15 @@ class LogicAudienceTest extends TestCase
         $userRepository->all()->shouldBeCalled()->willReturn($users);
 
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
-        $audienceMemberFactory->fromUser($user1)->shouldBeCalled()->willReturn($audienceMember1->reveal());
-        $audienceMemberFactory->fromUser($user2)->shouldBeCalled()->willReturn($audienceMember2->reveal());
-        $audienceMemberFactory->fromUser($user3)->shouldBeCalled()->willReturn($audienceMember3->reveal());
+        $audienceMemberFactory->fromUserInLogic($user1, Argument::that(function($arg) use ($logic) {
+            return $arg->id === $logic->id;
+        }))->shouldBeCalled()->willReturn($audienceMember1->reveal());
+        $audienceMemberFactory->fromUserInLogic($user2, Argument::that(function($arg) use ($logic) {
+            return $arg->id === $logic->id;
+        }))->shouldBeCalled()->willReturn($audienceMember2->reveal());
+        $audienceMemberFactory->fromUserInLogic($user3, Argument::that(function($arg) use ($logic) {
+            return $arg->id === $logic->id;
+        }))->shouldBeCalled()->willReturn($audienceMember3->reveal());
 
         $logicAudience = new LogicAudience($userRepository->reveal(), $audienceMemberFactory->reveal());
         $logicAudience->audience($logic);
@@ -86,15 +89,6 @@ class LogicAudienceTest extends TestCase
         $audienceMember1 = $this->prophesize(AudienceMember::class);
         $audienceMember2 = $this->prophesize(AudienceMember::class);
         $audienceMember3 = $this->prophesize(AudienceMember::class);
-        $audienceMember1->filterForLogic(Argument::that(function($arg) use ($logic) {
-            return $arg->id === $logic->id;
-        }))->shouldBeCalledOnce();
-        $audienceMember2->filterForLogic(Argument::that(function($arg) use ($logic) {
-            return $arg->id === $logic->id;
-        }))->shouldBeCalledOnce();
-        $audienceMember3->filterForLogic(Argument::that(function($arg) use ($logic) {
-            return $arg->id === $logic->id;
-        }))->shouldBeCalledOnce();
 
         $audienceMember1->hasAudience()->shouldBeCalled()->willReturn(false);
         $audienceMember2->hasAudience()->shouldBeCalled()->willReturn(true);
@@ -105,9 +99,15 @@ class LogicAudienceTest extends TestCase
         $userRepository->all()->shouldBeCalled()->willReturn($users);
 
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
-        $audienceMemberFactory->fromUser($user1)->shouldBeCalled()->willReturn($audienceMember1->reveal());
-        $audienceMemberFactory->fromUser($user2)->shouldBeCalled()->willReturn($audienceMember2->reveal());
-        $audienceMemberFactory->fromUser($user3)->shouldBeCalled()->willReturn($audienceMember3->reveal());
+        $audienceMemberFactory->fromUserInLogic($user1, Argument::that(function($arg) use ($logic) {
+            return $arg->id === $logic->id;
+        }))->shouldBeCalled()->willReturn($audienceMember1->reveal());
+        $audienceMemberFactory->fromUserInLogic($user2, Argument::that(function($arg) use ($logic) {
+            return $arg->id === $logic->id;
+        }))->shouldBeCalled()->willReturn($audienceMember2->reveal());
+        $audienceMemberFactory->fromUserInLogic($user3, Argument::that(function($arg) use ($logic) {
+            return $arg->id === $logic->id;
+        }))->shouldBeCalled()->willReturn($audienceMember3->reveal());
 
         $logicAudience = new LogicAudience($userRepository->reveal(), $audienceMemberFactory->reveal());
         $this->assertEquals([$audienceMember2->reveal(), $audienceMember3->reveal()], $logicAudience->audience($logic));
@@ -123,15 +123,6 @@ class LogicAudienceTest extends TestCase
         $audienceMember1 = $this->prophesize(AudienceMember::class);
         $audienceMember2 = $this->prophesize(AudienceMember::class);
         $audienceMember3 = $this->prophesize(AudienceMember::class);
-        $audienceMember1->filterForLogic(Argument::that(function($arg) use ($logic) {
-            return $arg->id === $logic->id;
-        }))->shouldBeCalledOnce();
-        $audienceMember2->filterForLogic(Argument::that(function($arg) use ($logic) {
-            return $arg->id === $logic->id;
-        }))->shouldBeCalledOnce();
-        $audienceMember3->filterForLogic(Argument::that(function($arg) use ($logic) {
-            return $arg->id === $logic->id;
-        }))->shouldBeCalledOnce();
 
         $audienceMember1->hasAudience()->shouldBeCalled()->willReturn(false);
         $audienceMember2->hasAudience()->shouldBeCalled()->willReturn(false);
@@ -142,9 +133,15 @@ class LogicAudienceTest extends TestCase
         $userRepository->all()->shouldBeCalled()->willReturn($users);
 
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
-        $audienceMemberFactory->fromUser($user1)->shouldBeCalled()->willReturn($audienceMember1->reveal());
-        $audienceMemberFactory->fromUser($user2)->shouldBeCalled()->willReturn($audienceMember2->reveal());
-        $audienceMemberFactory->fromUser($user3)->shouldBeCalled()->willReturn($audienceMember3->reveal());
+        $audienceMemberFactory->fromUserInLogic($user1, Argument::that(function($arg) use ($logic) {
+            return $arg->id === $logic->id;
+        }))->shouldBeCalled()->willReturn($audienceMember1->reveal());
+        $audienceMemberFactory->fromUserInLogic($user2, Argument::that(function($arg) use ($logic) {
+            return $arg->id === $logic->id;
+        }))->shouldBeCalled()->willReturn($audienceMember2->reveal());
+        $audienceMemberFactory->fromUserInLogic($user3, Argument::that(function($arg) use ($logic) {
+            return $arg->id === $logic->id;
+        }))->shouldBeCalled()->willReturn($audienceMember3->reveal());
 
         $logicAudience = new LogicAudience($userRepository->reveal(), $audienceMemberFactory->reveal());
         $this->assertEquals([], $logicAudience->audience($logic));

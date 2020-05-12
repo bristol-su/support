@@ -25,6 +25,16 @@ interface AudienceMemberFactory
     public function fromUser(User $user);
 
     /**
+     * Create an audience member from a user and filter it down to the given logic
+     *
+     * @param User $user User to create the audience member from
+     *
+     * @param Logic $logic
+     * @return AudienceMember
+     */
+    public function fromUserInLogic(User $user, Logic $logic);
+
+    /**
      * Audience members who have access to a given resource in some way.
      *
      * This function should return a collection of AudienceMember classes. Each of the audience members
