@@ -11,7 +11,6 @@ use BristolSU\Support\Testing\Authentication\SessionAuthentication;
 use Illuminate\Foundation\Application;
 use Laracasts\Utilities\JavaScript\JavaScriptServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 /**
  * Test Case
@@ -20,7 +19,7 @@ use Prophecy\PhpUnit\ProphecyTrait;
  */
 class TestCase extends BaseTestCase
 {
-    use CreatesSdkEnvironment, ProphecyTrait;
+    use CreatesSdkEnvironment;
 
     /**
      * Initialise the test case.
