@@ -2,6 +2,8 @@
 
 namespace BristolSU\Support\Tests\Logic\Audience;
 
+use BristolSU\ControlDB\Contracts\Repositories\Pivots\UserGroup;
+use BristolSU\ControlDB\Contracts\Repositories\Pivots\UserRole;
 use BristolSU\Support\Logic\Audience\AudienceMember;
 use BristolSU\Support\Logic\Audience\AudienceMemberFactory;
 use BristolSU\Support\Logic\Logic;
@@ -165,6 +167,37 @@ class  AudienceMemberFactoryTest extends TestCase
         $factory = new AudienceMemberFactory();
         $audienceMembers = $factory->withAccessToResource($resource);
         $this->assertEquals(collect(), $audienceMembers);
+    }
+    
+    /** @test */
+    public function fromUserInLogic(){
+        $user = $this->newUser();
+        $group1 = $this->newGroup();
+        $group2 = $this->newGroup();
+        $role1 = $this->newRole();
+        $role2 = $this->newRole();
+        app(UserGroup::class)->addUserToGroup($user, $group1);
+        app(UserGroup::class)->addUserToGroup($user, $group2);
+        app(UserRole::class)->addUserToRole($user, $role1);
+        app(UserRole::class)->addUserToRole($user, $role2);
+
+        $logic = factory(Logic::class)->create();
+        $this->logicTester()->forLogic($logic)->pass($user)->shouldBeCalled($user);
+        $this->logicTester()->forLogic($logic)->pass($user, $group1)->shouldBeCalled($user, $group1);
+        $this->logicTester()->forLogic($logic)->pass($user, $group2)->shouldBeCalled($user, $group2);
+        $this->logicTester()->forLogic($logic)->pass($user, $role1->group(), $role1)->shouldBeCalled($user, $role1->group(), $role1);
+        $this->logicTester()->forLogic($logic)->pass($user, $role2->group(), $role2)->shouldBeCalled($user, $role2->group(), $role2);
+        $this->logicTester()->bind();
+        
+        $factory = new AudienceMemberFactory();
+        $audienceMember = $factory->fromUserInLogic($user, $logic);
+        $this->assertCount(2, $audienceMember->groups());
+        $this->assertCount(2, $audienceMember->roles());
+        $this->assertTrue($audienceMember->canBeUser());
+        $this->assertModelEquals($group1, $audienceMember->groups()[0]);
+        $this->assertModelEquals($group2, $audienceMember->groups()[1]);
+        $this->assertModelEquals($role1, $audienceMember->roles()[0]);
+        $this->assertModelEquals($role2, $audienceMember->roles()[1]);
     }
     
 }

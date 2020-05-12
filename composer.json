@@ -16,7 +16,7 @@
     ],
     "type": "library",
     "require": {
-        "php": "^7.2",
+        "php": "^7.3",
         "laravel/framework": "^6.0",
         "laravel/passport": "^8.0",
         "laracasts/utilities": "^3.0",
@@ -29,7 +29,8 @@
     "require-dev": {
         "orchestra/testbench": "^4.0",
         "phpstan/phpstan": "^0.12.3",
-        "brianium/paratest": "^3.0"
+        "brianium/paratest": "^4.0",
+        "phpspec/prophecy-phpunit": "^2.0"
     },
     "autoload": {
         "files": [

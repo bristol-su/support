@@ -28,7 +28,7 @@ class Repository implements ActivityRepositoryContract
      */
     public function getForAdministrator(?User $user = null, ?Group $group = null, ?Role $role = null): Collection
     {
-        return $this->active()->filter(function($activity) use ($user, $group, $role) {
+        return $this->all()->filter(function($activity) use ($user, $group, $role) {
             $logicTester = app()->make(LogicTester::class);
             return $logicTester->evaluate($activity->adminLogic, $user, $group, $role);
         })->values();

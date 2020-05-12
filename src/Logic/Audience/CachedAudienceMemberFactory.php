@@ -81,7 +81,7 @@ class CachedAudienceMemberFactory implements AudienceMemberFactoryContract
     public function fromUserInLogic(User $user, Logic $logic)
     {
         return $this->cache->remember(
-            static::class . '@fromUserInLogic:' . ':' . $user->id() . ':' . $logic->id,
+            static::class . '@fromUserInLogic' . ':' . $user->id() . ':' . $logic->id,
             86400,
             function() use ($user, $logic) {
                 return $this->audienceMemberFactory->fromUserInLogic($user, $logic);

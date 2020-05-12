@@ -325,4 +325,45 @@ class RepositoryTest extends TestCase
         
         $this->assertDatabaseHas('activities', $attributesNew);
     }
+
+
+    /**
+     * @test
+     */
+    public function get_for_participant_returns_only_active_activities(){
+        $participantActivity = factory(Activity::class)->create();
+        $disabledActivity = factory(Activity::class)->create(['enabled' => false]);
+        $outOfTimeActivity = factory(Activity::class)->create(['start_date' => Carbon::now()->subYear(), 'end_date' => Carbon::now()->subMonth()]);
+
+        $this->logicTester()->forLogic($participantActivity->forLogic)->alwaysPass();
+        $this->logicTester()->forLogic($disabledActivity->forLogic)->alwaysPass();
+        $this->logicTester()->forLogic($outOfTimeActivity->forLogic)->alwaysPass();
+        $this->logicTester()->bind();
+
+        $activitiesForUser = (new ActivityRepository)->getForParticipant();
+        $this->assertCount(1, $activitiesForUser);
+        $this->assertModelEquals($participantActivity, $activitiesForUser->first());
+    }
+
+    /**
+     * @test
+     */
+    public function get_for_administrator_returns_activities_including_enabled_and_out_of_time(){
+        $adminActivity = factory(Activity::class)->create();
+        $disabledActivity = factory(Activity::class)->create(['enabled' => false]);
+        $outOfTimeActivity = factory(Activity::class)->create(['start_date' => Carbon::now()->subYear(), 'end_date' => Carbon::now()->subMonth()]);
+
+
+        $this->logicTester()->forLogic($adminActivity->adminLogic)->alwaysPass();
+        $this->logicTester()->forLogic($disabledActivity->adminLogic)->alwaysPass();
+        $this->logicTester()->forLogic($outOfTimeActivity->adminLogic)->alwaysPass();
+        $this->logicTester()->bind();
+
+        $activitiesForAdmin = (new ActivityRepository)->getForAdministrator();
+        $this->assertCount(3, $activitiesForAdmin);
+        $this->assertModelEquals($adminActivity, $activitiesForAdmin->shift());
+        $this->assertModelEquals($disabledActivity, $activitiesForAdmin->shift());
+        $this->assertModelEquals($outOfTimeActivity, $activitiesForAdmin->shift());
+    }
+    
 }

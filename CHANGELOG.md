@@ -13,6 +13,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Use AudienceMemberFactory::fromUserInLogic in LogicAudience
 - ActivityInstanceRepository::allForResource
 
+### Changed
+- ActivityRepository::allForAdministrator returns inactive and disabled activities too
+
 ## [4.4.1] - (27/04/2020)
 
 ### Changed
