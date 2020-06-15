@@ -70,4 +70,18 @@ interface Evaluation extends Arrayable, Jsonable
      * @return bool
      */
     public function complete(): bool;
+
+    /**
+     * Get the percentage completion of the module
+     * 
+     * @return float
+     */
+    public function percentage(): float;
+
+    /**
+     * Set the percentage completion of the module
+     * 
+     * @param float $percentage
+     */
+    public function setPercentage(float $percentage);
 }

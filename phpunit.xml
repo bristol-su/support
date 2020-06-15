@@ -63,6 +63,9 @@
         <testsuite name="User">
             <directory suffix="Test.php">./tests/User</directory>
         </testsuite>
+        <testsuite name="Progress">
+            <directory suffix="Test.php">./tests/Progress</directory>
+        </testsuite>
 
     </testsuites>
 
