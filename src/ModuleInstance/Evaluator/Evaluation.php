@@ -38,6 +38,13 @@ class Evaluation implements EvaluationContract
      * @var bool
      */
     private $complete = false;
+
+    /**
+     * The percentage completion of the module instance
+     * 
+     * @var int 
+     */
+    private $percentage = 0;
     
     /**
      * Is the module instance active?
@@ -124,6 +131,27 @@ class Evaluation implements EvaluationContract
     }
 
     /**
+     * Get the percentage completion of the module
+     *
+     * @return float
+     */
+    public function percentage(): float
+    {
+        return $this->percentage;
+    }
+
+    /**
+     * Set the percentage completion of the module
+     *
+     * @param float $percentage
+     */
+    public function setPercentage(float $percentage)
+    {
+        $this->percentage = $percentage;
+    }
+
+
+    /**
      * Cast the representation to an array
      * 
      * @return array
@@ -134,7 +162,8 @@ class Evaluation implements EvaluationContract
             'active' => $this->active(),
             'visible' => $this->visible(),
             'mandatory' => $this->mandatory(),
-            'complete' => $this->complete()
+            'complete' => $this->complete(),
+            'percentage' => $this->percentage()
         ];
     }
 

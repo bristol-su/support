@@ -16,6 +16,7 @@ use BristolSU\Support\Logic\LogicServiceProvider;
 use BristolSU\Support\Module\ModuleFrameworkServiceProvider;
 use BristolSU\Support\ModuleInstance\ModuleInstanceServiceProvider;
 use BristolSU\Support\Permissions\PermissionServiceProvider;
+use BristolSU\Support\Progress\ProgressServiceProvider;
 use BristolSU\Support\Revision\RevisionServiceProvider;
 use BristolSU\Support\User\UserServiceProvider;
 use Illuminate\Support\Facades\Route;
@@ -41,6 +42,7 @@ class SupportServiceProvider extends ServiceProvider
         ConnectionServiceProvider::class,
         FilterServiceProvider::class,
         LogicServiceProvider::class,
+        ProgressServiceProvider::class,
         PermissionServiceProvider::class,
         AuthenticationServiceProvider::class,
         ModuleFrameworkServiceProvider::class,

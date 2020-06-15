@@ -39,6 +39,7 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
         $evaluation->setMandatory(false);
         $evaluation->setActive(true);
         $evaluation->setComplete(false);
+        $evaluation->setPercentage(0);
 
         return $evaluation;
     }
@@ -60,6 +61,7 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
         $evaluation->setMandatory($activityInstance->activity->isCompletable() ? LogicTester::evaluate($moduleInstance->mandatoryLogic, $user, $group, $role) : false);
         $evaluation->setActive(LogicTester::evaluate($moduleInstance->activeLogic, $user, $group, $role));
         $evaluation->setComplete($this->isComplete($activityInstance, $moduleInstance));
+        $evaluation->setPercentage($this->getPercentage($activityInstance, $moduleInstance));
 
         return $evaluation;
     }
@@ -90,7 +92,8 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
             $evaluation->setMandatory(false);
         }
         $evaluation->setComplete($this->isComplete($activityInstance, $moduleInstance));
-
+        $evaluation->setPercentage($this->getPercentage($activityInstance, $moduleInstance));
+        
         return $evaluation;
     }
 
@@ -105,6 +108,20 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
     {
         return ($activityInstance->activity->isCompletable() ?
             app(CompletionConditionTester::class)->evaluate($activityInstance, $moduleInstance->completionConditionInstance) : false);
+    }
+
+    /**
+     * Get the percentage of how complete the module is for the given activity instance
+     * 
+     * @param ActivityInstance $activityInstance
+     * @param ModuleInstance $moduleInstance
+     * 
+     * @return float
+     */
+    private function getPercentage(ActivityInstance $activityInstance, ModuleInstance $moduleInstance): float
+    {
+        return (float) ($activityInstance->activity->isCompletable() ?
+            app(CompletionConditionTester::class)->evaluatePercentage($activityInstance, $moduleInstance->completionConditionInstance) : 0);
     }
 
 }

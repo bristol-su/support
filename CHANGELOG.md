@@ -7,6 +7,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.6.0] - (15/06/2020)
+
+### Added
+- Progress framework for taking snapshots and exporting the progress
+- participantName method to the Activity Instance 
+
+### Changed
+- ModuleInstance Evaluator now returns the percentage.
+
 ## [4.5.1] - (12/05/2020)
 
 ### Changed

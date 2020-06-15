@@ -51,12 +51,23 @@ class EvaluationTest extends TestCase
     }
 
     /** @test */
-    public function all_properties_are_false_by_default(){
+    public function the_percentage_can_be_set(){
+        $evaluation = new Evaluation;
+        $evaluation->setPercentage(5.99);
+        $this->assertEquals(5.99, $evaluation->percentage());
+
+        $evaluation->setPercentage(45.9);
+        $this->assertEquals(45.9, $evaluation->percentage());
+    }
+
+    /** @test */
+    public function all_properties_are_false_or_0_by_default(){
         $evaluation = new Evaluation;
         $this->assertFalse($evaluation->active());
         $this->assertFalse($evaluation->visible());
         $this->assertFalse($evaluation->mandatory());
         $this->assertFalse($evaluation->complete());
+        $this->assertEquals(0, $evaluation->percentage());
     }
     
     /** @test */
@@ -66,8 +77,9 @@ class EvaluationTest extends TestCase
         $evaluation->setVisible(true);
         $evaluation->setMandatory(true);
         $evaluation->setComplete(true);
+        $evaluation->setPercentage(4.55);
         $this->assertEquals([
-            'active' => true, 'visible' => true, 'mandatory' => true, 'complete' => true
+            'active' => true, 'visible' => true, 'mandatory' => true, 'complete' => true, 'percentage' => 4.55
         ], $evaluation->toArray());
 
 
@@ -75,8 +87,9 @@ class EvaluationTest extends TestCase
         $evaluation->setVisible(false);
         $evaluation->setMandatory(false);
         $evaluation->setComplete(false);
+        $evaluation->setPercentage(89);
         $this->assertEquals([
-            'active' => false, 'visible' => false, 'mandatory' => false, 'complete' => false
+            'active' => false, 'visible' => false, 'mandatory' => false, 'complete' => false, 'percentage' => 89
         ], $evaluation->toArray());
     }
 
@@ -87,11 +100,12 @@ class EvaluationTest extends TestCase
         $evaluation->setVisible(true);
         $evaluation->setMandatory(true);
         $evaluation->setComplete(true);
+        $evaluation->setPercentage(4.55);
         $this->assertEquals(json_encode([
-            'active' => true, 'visible' => true, 'mandatory' => true, 'complete' => true
+            'active' => true, 'visible' => true, 'mandatory' => true, 'complete' => true, 'percentage' => 4.55
         ]), $evaluation->toJson());
         $this->assertEquals(json_encode([
-            'active' => true, 'visible' => true, 'mandatory' => true, 'complete' => true
+            'active' => true, 'visible' => true, 'mandatory' => true, 'complete' => true, 'percentage' => 4.55
         ]), (string) $evaluation);
 
 
@@ -99,11 +113,12 @@ class EvaluationTest extends TestCase
         $evaluation->setVisible(false);
         $evaluation->setMandatory(false);
         $evaluation->setComplete(false);
+        $evaluation->setPercentage(89);
         $this->assertEquals(json_encode([
-            'active' => false, 'visible' => false, 'mandatory' => false, 'complete' => false
+            'active' => false, 'visible' => false, 'mandatory' => false, 'complete' => false, 'percentage' => 89
         ]), $evaluation->toJson());
         $this->assertEquals(json_encode([
-            'active' => false, 'visible' => false, 'mandatory' => false, 'complete' => false
+            'active' => false, 'visible' => false, 'mandatory' => false, 'complete' => false, 'percentage' => 89
         ]), (string) $evaluation);
     }
 
