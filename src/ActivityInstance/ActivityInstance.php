@@ -29,7 +29,7 @@ class ActivityInstance extends Model implements Authenticatable
      * 
      * @var array 
      */
-    protected $appends = ['run_number', 'participant'];
+    protected $appends = ['run_number', 'participant', 'participant_name'];
 
     /**
      * Fillable properties
@@ -65,6 +65,17 @@ class ActivityInstance extends Model implements Authenticatable
         return 1;
     }
 
+    /**
+     * Retrieve the name of the participant to show to users
+     * 
+     * @return string|null
+     * @throws \Exception
+     */
+    public function getParticipantNameAttribute()
+    {
+        return $this->participantName();
+    }
+    
     /**
      * Get the model from the current resource as a Laravel attribute.
      *
@@ -177,5 +188,19 @@ class ActivityInstance extends Model implements Authenticatable
      */
     public function getRememberTokenName()
     {
+    }
+
+    public function participantName()
+    {
+        if($this->resource_type === 'user') {
+            return $this->participant()->data()->preferredName();
+        }
+        if($this->resource_type === 'group') {
+            return $this->participant()->data()->name();
+        }
+        if($this->resource_type === 'role') {
+            return $this->participant()->data()->roleName();
+        }
+        throw new \Exception;
     }
 }

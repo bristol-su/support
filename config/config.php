@@ -15,5 +15,19 @@ return [
             'enabled' => env('FILTER_CACHING_ENABLED', true),
             'duration' => env('FILTER_CACHING_DURATION', 900)
         ]
+    ],
+    'progress' => [
+        'default' => 'database',
+        'export' => [
+            'database' => [
+                'driver' => 'database'
+            ],
+            'airtable' => [
+                'driver' => 'airtable',
+                'baseId' => env('AIRTABLE_BASE_ID'),
+                'tableName' => env('AIRTABLE_TABLE_NAME'),
+                'apiKey' => env('AIRTABLE_API_KEY')
+            ]
+        ]
     ]
 ];
