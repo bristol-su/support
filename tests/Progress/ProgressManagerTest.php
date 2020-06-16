@@ -125,6 +125,7 @@ class ProgressManagerTest extends TestCase
         $this->assertInstanceOf(DatabaseHandler::class, $driver);
     }
 
+
 }
 
 class TestProgressManager extends ProgressManager
