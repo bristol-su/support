@@ -53,6 +53,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $evaluation->setMandatory(false)->shouldBeCalled();
         $evaluation->setActive(true)->shouldBeCalled();
         $evaluation->setComplete(false)->shouldBeCalled();
+        $evaluation->setPercentage(0)->shouldBeCalled();
         $this->app->instance(Evaluation::class, $evaluation->reveal());
 
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
@@ -71,6 +72,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $evaluation->setMandatory(true)->shouldBeCalled();
         $evaluation->setActive(false)->shouldBeCalled();
         $evaluation->setComplete(true)->shouldBeCalled();
+        $evaluation->setPercentage(100)->shouldBeCalled();
         $this->app->instance(Evaluation::class, $evaluation->reveal());
         $user = $this->newUser();
         $group = $this->newGroup();
@@ -87,6 +89,11 @@ class ModuleInstanceEvaluatorTest extends TestCase
         }), Argument::that(function($arg) use ($completionConditionInstance) {
             return $completionConditionInstance->is($arg);
         }))->shouldBeCalled()->willReturn(true);
+        $completionTester->evaluatePercentage(Argument::that(function($actInst) use ($activityInstance) {
+            return $activityInstance->is($actInst);
+        }), Argument::that(function($arg) use ($completionConditionInstance) {
+            return $completionConditionInstance->is($arg);
+        }))->shouldBeCalled()->willReturn(100);
         $this->app->instance(CompletionConditionTester::class, $completionTester->reveal());
         
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
@@ -104,6 +111,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $evaluation->setMandatory(false)->shouldBeCalled();
         $evaluation->setActive(false)->shouldBeCalled();
         $evaluation->setComplete(false)->shouldBeCalled();
+        $evaluation->setPercentage(0)->shouldBeCalled();
         $this->app->instance(Evaluation::class, $evaluation->reveal());
 
         $user = $this->newUser();
@@ -165,7 +173,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
     }
     
     /** @test */
-    public function evaluateResource_sets_visible_mandatory_active_complete_attributes_to_true_if_audience_members_returned(){
+    public function evaluateResource_sets_visible_mandatory_active_complete_percentage_attributes_to_true_if_audience_members_returned(){
         $user = $this->newUser();
         $completionCondition = factory(CompletionConditionInstance::class)->create();
         $activity = factory(Activity::class)->create(['type' => 'completable']);
@@ -201,6 +209,11 @@ class ModuleInstanceEvaluatorTest extends TestCase
         }), Argument::that(function($arg) use($completionCondition) {
             return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
         }))->shouldBeCalled()->willReturn(true);
+        $completionTester->evaluatePercentage(Argument::that(function($arg) use($activityInstance) {
+            return $arg instanceof ActivityInstance && $activityInstance->id === $arg->id;
+        }), Argument::that(function($arg) use($completionCondition) {
+            return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
+        }))->shouldBeCalled()->willReturn(100);
         $this->instance(CompletionConditionTester::class, $completionTester->reveal());
         
         $evaluation = $this->prophesize(Evaluation::class);
@@ -208,6 +221,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $evaluation->setActive(true)->shouldBeCalled();
         $evaluation->setMandatory(true)->shouldBeCalled();
         $evaluation->setComplete(true)->shouldBeCalled();
+        $evaluation->setPercentage(100)->shouldBeCalled();
         $this->app->instance(Evaluation::class, $evaluation->reveal());
 
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
@@ -216,7 +230,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
     }
 
     /** @test */
-    public function evaluateResource_sets_visible_mandatory_active_complete_attributes_to_false_if_audience_members_not_returned(){
+    public function evaluateResource_sets_visible_mandatory_active_complete_percentage_attributes_to_false_if_audience_members_not_returned(){
         $user = $this->newUser();
         $completionCondition = factory(CompletionConditionInstance::class)->create();
         $activity = factory(Activity::class)->create(['type' => 'completable']);
@@ -252,6 +266,11 @@ class ModuleInstanceEvaluatorTest extends TestCase
         }), Argument::that(function($arg) use($completionCondition) {
             return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
         }))->shouldBeCalled()->willReturn(false);
+        $completionTester->evaluatePercentage(Argument::that(function($arg) use($activityInstance) {
+            return $arg instanceof ActivityInstance && $activityInstance->id === $arg->id;
+        }), Argument::that(function($arg) use($completionCondition) {
+            return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
+        }))->shouldBeCalled()->willReturn(40.4);
         $this->instance(CompletionConditionTester::class, $completionTester->reveal());
 
         $evaluation = $this->prophesize(Evaluation::class);
@@ -259,6 +278,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $evaluation->setActive(false)->shouldBeCalled();
         $evaluation->setMandatory(false)->shouldBeCalled();
         $evaluation->setComplete(false)->shouldBeCalled();
+        $evaluation->setPercentage(40)->shouldBeCalled();
         $this->app->instance(Evaluation::class, $evaluation->reveal());
 
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
@@ -303,6 +323,11 @@ class ModuleInstanceEvaluatorTest extends TestCase
         }), Argument::that(function($arg) use($completionCondition) {
             return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
         }))->shouldNotBeCalled();
+        $completionTester->evaluatePercentage(Argument::that(function($arg) use($activityInstance) {
+            return $arg instanceof ActivityInstance && $activityInstance->id === $arg->id;
+        }), Argument::that(function($arg) use($completionCondition) {
+            return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
+        }))->shouldNotBeCalled();
         $this->instance(CompletionConditionTester::class, $completionTester->reveal());
 
         $evaluation = $this->prophesize(Evaluation::class);
@@ -310,6 +335,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $evaluation->setActive(false)->shouldBeCalled();
         $evaluation->setMandatory(false)->shouldBeCalled();
         $evaluation->setComplete(false)->shouldBeCalled();
+        $evaluation->setPercentage(0)->shouldBeCalled();
         $this->app->instance(Evaluation::class, $evaluation->reveal());
 
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
