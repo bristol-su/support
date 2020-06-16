@@ -125,64 +125,6 @@ class ProgressManagerTest extends TestCase
         $this->assertInstanceOf(DatabaseHandler::class, $driver);
     }
 
-    /** @test */
-    public function it_can_create_an_airtable_driver(){
-        $this->app['config']->set('support.progress.export.test-setup', [
-            'driver' => 'airtable',
-            'baseId' => '1234',
-            'tableName' => 'Table 1',
-            'apiKey' => 'abc123'
-        ]);
-
-        $exportManager = new ProgressManager($this->app);
-        $driver = $exportManager->driver('test-setup');
-        $this->assertInstanceOf(AirtableHandler::class, $driver);
-    }
-    
-    /** @test */
-    public function the_airtable_driver_throws_an_exception_if_the_base_id_is_not_given(){
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('The [baseId] field must be given');
-        $this->app['config']->set('support.progress.export.test-setup', [
-            'driver' => 'airtable',
-            'tableName' => 'Table 1',
-            'apiKey' => 'abc123'
-        ]);
-
-        $exportManager = new ProgressManager($this->app);
-        $driver = $exportManager->driver('test-setup');
-        $this->assertInstanceOf(AirtableHandler::class, $driver);
-    }
-
-    /** @test */
-    public function the_airtable_driver_throws_an_exception_if_the_table_name_is_not_given(){
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('The [tableName] field must be given');
-        $this->app['config']->set('support.progress.export.test-setup', [
-            'driver' => 'airtable',
-            'baseId' => '1234',
-            'apiKey' => 'abc123'
-        ]);
-
-        $exportManager = new ProgressManager($this->app);
-        $driver = $exportManager->driver('test-setup');
-        $this->assertInstanceOf(AirtableHandler::class, $driver);
-    }
-
-    /** @test */
-    public function the_airtable_driver_throws_an_exception_if_the_api_key_is_not_given(){
-        $this->expectException(Exception::class);
-        $this->expectExceptionMessage('The [apiKey] field must be given');
-        $this->app['config']->set('support.progress.export.test-setup', [
-            'driver' => 'airtable',
-            'baseId' => '1234',
-            'tableName' => 'Table 1',
-        ]);
-
-        $exportManager = new ProgressManager($this->app);
-        $driver = $exportManager->driver('test-setup');
-        $this->assertInstanceOf(AirtableHandler::class, $driver);
-    }
 
 }
 

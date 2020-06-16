@@ -149,32 +149,4 @@ class ProgressManager
         return new DatabaseHandler();
     }
 
-    /**
-     * @param $config
-     *
-     * @return AirtableHandler
-     */
-    public function createAirtableDriver($config)
-    {
-        $missingKey = null;
-        if(!array_key_exists('apiKey', $config)) {
-            $missingKey = 'apiKey';
-        }
-        if(!array_key_exists('tableName', $config)) {
-            $missingKey = 'tableName';
-        }
-        if(!array_key_exists('baseId', $config)) {
-            $missingKey = 'baseId';
-        }
-        if($missingKey !== null) {
-            throw new \Exception(sprintf('The [%s] field must be given', $missingKey));
-        }
-        
-        return new AirtableHandler(
-            $config['baseId'],
-            $config['tableName'],
-            $config['apiKey']
-        );
-    }
-
 }
