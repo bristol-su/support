@@ -1,0 +1,84 @@
+= Creating an API
+
+Having created your frontend using Blade, you may want to set up an API
+for your module.
+
+As normal, the SDK sets up your API routes. This includes injecting the
+correct module instance and activity into the controllers, since the API
+exists for a staged module as opposed to the module in general. This may
+be easier to understand with an example. Say you're creating a module to
+upload a file, and you want to create an API to get all files.
+
+If the API was created just for the module, not for the specific module
+instance, when we retrieved all files we would get all files ever
+uploaded through the portal. If we had two services, an expense claim
+service and a risk assessment service, our API would return both expense
+claim submissions and risk assessment submissions, which is not ideal.
+
+Instead, your API will just return files specific to a single module
+instance, so either the expense claim service or the risk assessment
+service. Your 'get all files' route will exist as
+
+* GET /api/expense-claims/evidence/upload-file/file
+* GET /api/risk-assessment/new/upload-file/file
+
+Notice the activity and the module slugs change and the results of the
+API change depending on the module or activity in use.
+
+In general, you should find that you don't need to think about this too
+much since the SDK takes care of most the complications. However, it is
+good to have it in mind when developing a module.
+
+To go about creating an API, we follow the Laravel way: add the route to
+the 'api.php' file in either admin or participant, then create the
+controller in 'app/Http/Controllers/Api'.
+
+routes/admin/api.php:
+
+....
+Route::namespace('Api')->group(function() {
+    Route::get('/file', 'FileController@index');
+    Route::get('/file/{staticpage_file}', 'FileController@show');
+
+    OR
+
+    Route::apiResource('file', 'FileController');
+});
+....
+
+app/Http/Controllers/Api/FileController:
+
+....
+class FileController extends Controller {
+    public function index() {
+        //
+    }
+
+    public function show(File $file) {
+        return $file;
+    }
+}
+....
+
+Notice we have used route model binding to load the file requested.
+Unlike normal, we require that route model bindings are prefixed with
+the module alias, to limit any clashes. We could set up the file route
+model binding as so:
+
+ModuleServiceProvider.php
+
+....
+public function boot() {
+    parent::boot();
+
+    Route::model('staticpage_file', BristolSU\Module\StaticPage\Model\File::class);
+}
+....
+
+The above will resolve a file when the key 'staticpage_file' is
+referenced in a URL. If you want to change the resolution logic too, you
+can use
+https://laravel.com/docs/5.4/routing#explicit-binding[Route::bind()]
+instead.
+
+Tools you can use in the API will be covered in the backend section.

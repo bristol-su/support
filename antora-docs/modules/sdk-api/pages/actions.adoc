@@ -1,0 +1,60 @@
+= Actions
+
+Actions are the counterparts to events, and allow for something to
+happen when an event is fired. Examples of 'global' actions are things
+like send an email, add a task to a task manager like Asana or give
+someone a permission on Azure AD. However, modules can register their
+own actions. For example, a file upload module may register an action
+'Upload a File', which takes a file url and uploads it to a specific
+module instance with a specific activity instance.
+
+An action can be built by implementing the Action interface:
+`+\BristolSU\Support\Action\Contracts\Action+`. Similarly to the
+triggerable events, actions have fields which need to be fulfilled. For
+example, you could have an 'email address', 'subject line' and 'content'
+fields for a 'Send an Email' action.
+
+The actions require an options function, which should return a normal
+Form Schema, and a handle method. The handle method should make use of
+the data passed through the construct.
+
+In the 'Send an Email' case, this data may look something like:
+
+....
+$data = [
+  'email_address' => 'tobytwigger1@gmail.com',
+  'subject' => 'Your file has been uploaded',
+  'content' => 'Hi Toby! Just to let you know, you\'re file has been successfully uploaded...'
+];
+....
+
+This should be saved in a property in your action. Having created a new
+instance of your action initialised with the data it needs, we call the
+handle method. This is where you can actually carry out the action.
+Using the data given in the construct, we have enough information to
+send an email with the given parameters.
+
+Some modules may find they don't have a need for an action, which is
+fine! Generally, actions will be global ones such as sending an email.
+
+Don't forget, you could always create a package with just an action in
+if you think the portal is missing a useful action!
+
+Having created an action, it needs to be registered in a service
+provider so the portal knows it exists and can use it. To do this, put
+the following line in a boot method in your service provider:
+
+....
+public function boot()
+{
+    parent::boot();
+    BristolSU\Support\Action\Facade\ActionManager::registerAction(ActionClass::class, 'Action Name', 'A description for the action to help the user understand');
+}
+....
+
+
+== History
+
+To keep track of action history, you should use the trait
+`+\BristolSU\Support\Action\History\HasHistory+` in your action.
+r

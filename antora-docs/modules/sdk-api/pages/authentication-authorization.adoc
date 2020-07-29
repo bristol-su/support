@@ -1,0 +1,368 @@
+= Authentication & Authorization
+
+Whilst developing a module, you will never need to worry about
+authentication. The SDK ensures that anyone landing on your module is
+logged in. This means they are logged into a database user and a control
+user, and possibly a group and/or role.
+
+
+== Module Type
+
+All modules must be able to work with just a user. If your module relies
+on the user being logged into a group, you need to let the portal know
+your module can only be used in a group or role activity. If your module
+relies on the user being logged into a role, you must let the portal
+know your module can only be used in a role activity. If your module
+needs a group or a role (we assume by default it is a user so you don't
+need to do anything special), you must add a 'for' key to your config.
+
+....
+<?php
+
+return [
+    'name' => '...',
+    'description' => '...',
+    'for' => 'group' // Could also be 'role', defaults to 'user'
+];
+....
+
+
+== Accessing the Database User
+
+To access the database user, although you shouldn't need to do this, you
+should resolve the UserAuthentication contract:
+
+`+$databaseUser = app()->make(\BristolSU\Support\User\Contracts\UserAuthentication::class)->getUser()+`
+
+This will either return null or a database user
+(`+\BristolSU\Support\User\User+`).
+
+
+== Accessing Control Models
+
+More often, you'll want to get the current control models. These are
+accessible through the 'Authentication' contract.
+
+`+$controlUser = app()->make(\BristolSU\Support\Authentication\Contracts\Authentication)->getUser();+`
+
+`+$controlGroup = app()->make(\BristolSU\Support\Authentication\Contracts\Authentication)->getGroup();+`
+
+`+$controlRole = app()->make(\BristolSU\Support\Authentication\Contracts\Authentication)->getRole();+`
+
+Again, these will either return the relevent control models, or null if
+the model is not logged in.
+
+
+== Assign data to users
+
+More generally, you will only be concerned about the current
+user/group/role to check they have permissions to carry out the
+requested action in your module and to save an ID against any data (e.g.
+who uploaded the file).
+
+Assigning IDs to data is, to a very basic level, saving the user ID in a
+database row so that when the user requests all their files in a module
+instance, we know which are theirs. The portal takes this idea and
+introduces something called an activity instance. Since activities can
+be completed by people in a group or role working together as well as by
+individuals (depending on how the activity was set up), we need a way of
+standardising the IDs we save.
+
+The activity instance is, as the name suggests, an instance of an
+activity. When a resource (user/group/role) starts an activity, an
+instance is created. Normally, a single user/group/role will only have
+one activity instance, but some activities will allow for multiple to
+provide multiple run throughs of the same activity which are treated as
+seperate submissions. In a table used by a module, we therefore save the
+activity instance ID and module instance ID. With this, we can identify
+the activity instance and module instance the data is for, and from the
+activity instance we can work out what the username, group name or role
+name is to display to admins.
+
+To make this work, we need to add the following to our migrations:
+
+....
+$table->unsignedInteger('module_instance_id');
+$table->unsignedInteger('activity_instance_id');
+....
+
+If this doesn't make sense, it shouldn't matter. The SDK provides a
+trait to simplify all this to a few scopes. Simply use the
+`+\BristolSU\Support\Authentication\HasResource+` trait on any eloquent
+model to initialise the framework. When a new model is saved, we will
+automatically resolve the module iinstance and activity instance and
+save their IDs in the correct column.
+
+You can then retrieve data from the database using scopes. On the
+participant side, you will only want to retrieve rows that're for the
+correct module instance AND activity instance. Use the ::forResource()
+scope to do this. It will apply a where constraint to the query to only
+retrieve relevant files. You can also override the module instance ID or
+activity instance ID being used by passing them in as parameters, which
+will then replace the resolved parameters.
+
+On the admin side, you generally will want to retrieve all data for the
+module instance, regardless of the corresponding activity instance. This
+way, we can list, e.g., all files uploaded to a module and display the
+resource that uploaded them. To achieve this, we use the
+forModuleInstance scope, which uses the current module instance or the
+given module instance ID to retrieve the correct rows.
+
+Although this handles the basic retrieval of data, we will sometimes
+want to know who uploaded something as opposed to which resource it is
+for. If you have a file upload module in a group activity, the activity
+instance will be relevant for the group only. However, we may want to
+know that Jane uploaded the file as opposed to Joe, which is information
+that will be lost during the upload as we essentially only save the
+group. Therefore, we strongly recommend always adding a user_id column
+to your tables and manually resolving the user from Authentication and
+saving their ID in here.
+
+This may become a core part of the framework at some point
+
+Here is an example of the migrations and controllers for an Upload File
+module, where a file can be uploaded and retrieved by a user and viewed
+by an admin. If an admin needed to upload a file, they'd have to select
+the activity instance and this would need to be saved into the model
+manually as opposed to using the trait, as admins aren't logged into
+activity instances by default.
+
+migration:
+
+....
+Schema::create('uploadfile_files', function(Blueprint $table) {
+    $table->bigIncrements('id');
+    $table->string('title');
+    $table->text('description')->nullable();
+    ...
+    $table->unsignedInteger('uploaded_by');
+    $table->unsignedInteger('module_instance_id');
+    $table->unsignedInteger('activity_instance_id');
+    $table->timestamps();
+    $table->softDeletes();
+});
+....
+
+Upload Controller:
+
+This will save the module instance ID and activity ID automatically,
+since the File model uses HasResource
+
+....
+File::create([
+    'title' => $request->get('title'),
+    'description' => $request->get('description'),
+    ...
+    'uploaded_by' => app(\BristolSU\Support\Authentication\Contracts\Authentication::class)->getUser()->id()
+]);
+....
+
+View Controller for Participants:
+
+This will return all files for the current participant.
+
+....
+return File::forResource()->get();
+....
+
+View controller for admins:
+
+....
+return File::forModuleInstance()->get();
+....
+
+Upload Controller for Admins:
+
+....
+File::create([
+    'title' => $request->get('title'),
+    'description' => $request->get('description'),
+    ...
+    'uploaded_by' => app(\BristolSU\Support\Authentication\Contracts\Authentication::class)->getUser()->id(),
+    'activity_instance_id' => $request->get('activity_instance_id') // Must be passed through manually
+]);
+....
+
+Using these tools, we can now save and access data in the database in a
+way that works with the flexible user control system of the portal.
+
+
+== Permissions
+
+Finally, we want to allow users of the portal to define who can do
+specific things within a module. Of course, this isn't something you as
+a developer can define - it all depends on how the module is used in a
+specific case.
+
+The SDK defines a flexible permission framework for assigning
+permissions. See the SDK documentation for more information.
+
+From a module point of view, all you need to do is let the SDK know what
+permissions are available to assign for your module, and check the
+permissions in the correct places. Say we wanted to assign a permission
+for viewing the participant page. This means that anyone with this
+permission should be able to see the participant page, but if you don't
+have it you'll be presented with a 403 error.
+
+To let the module know about your permissions, you should register them
+in the $permissions array in the service provider. The key should be the
+key for the permission, and the content should be an array with a name,
+description and admin element. For example, the following permission
+would register a 'view-page' permission that is NOT an admin permission.
+
+....
+'view-page' => [
+  'name' => 'View Participant Page',
+  'description' => 'View the main page of the module.',
+  'admin' => false
+]
+....
+
+If admin was true, users of the portal will see that this permission is
+for the admin side. For example, you could have an admin permission to
+view the admin page.
+
+....
+'admin.view-page' => [
+  'name' => 'View Admin Page',
+  'description' => 'View the administrator page of the module.',
+  'admin' => true
+]
+....
+
+Although only admins can access the activity anyway, this is a further
+level of protection. You may notice we also prefix the permission with
+'admin.' when an admin permission is registered, so we don't have any
+permissions which are registered twice.
+
+It is also worth noting that, by registering the permissions in a
+$permissions array, the SDK automatically adds your alias to the start
+of the permission string. So, in reality, the 'View Participant Page'
+permission is actually referred to as, e.g., 'my-alias.view-page'.
+
+Having registered permissions, the portal will take care of ensuring
+they are assigned. You now need to check that someone has a permission
+when they try and carry out an action.
+
+To do this, we recommend overriding the default 'authorize' function in
+your controller to add your alias to the ability. If you don't want to
+do this, make sure to refer to the permission in its full form with your
+alias at the start.
+
+....
+class Controller
+{
+    use AuthorizesRequests {
+        authorize as baseAuthorize;
+    }
+
+    use DispatchesJobs, ValidatesRequests;
+
+    public function authorize($ability, $arguments = [])
+    {
+        return $this->baseAuthorize(
+            'my-alias.' . $ability,
+            $arguments
+        );
+    }
+}
+....
+
+We can now authorize the user. In the participant page controller, we
+just have to put the following line at the start of the method to
+automatically check the user has the permissions, and throw an error if
+they don't
+
+`+$this->authorize('view-page');+`
+
+Wasn't that easy!
+
+Of course, this is a general permission check to make sure a user can do
+something. There are additional checks that need to be made to secure
+your module. These checks revolve around particular models. For example,
+you need to check a model actually belongs to the correct module
+instance. You also may need to check a model belongs to the correct
+activity instance, or the user is allowed to perform an action on this
+model.
+
+In the future, this framework will be revised. For now, we recommend the
+following:
+
+
+=== Checking for module instance ownership
+
+Let's take an example of a file. We need to check the file belongs to
+the module instance, so that it can only be accessed through a single
+page. To do this, we tend to use route model binding. This has the
+additional benefit of ensuring our route model binding doesn't clash
+with any other modules.
+
+In your module service provider boot method, you can bind a model as
+follows:
+
+....
+Route::bind('uploadfile_file', function($id) {
+    $file = File::findOrFail($id);
+    if(request()->route('module_instance_slug') && (int) $file->module_instance_id === request()->route('module_instance_slug')->id()) {
+        return $file;
+    }
+    throw (new \Illuminate\Database\Eloquent\ModelNotFoundException)->setModel(File::class);
+});
+....
+
+Notice we use a key which includes the alias at the start, and and only
+return the file if the module instance ID matches the current module
+instance.
+
+
+=== Checking for activity instance ownership
+
+This is the portals way of checking the user has access to the file.
+This should only really be done on the participant side, since the
+admins can access all activity instances in the module instance. On the
+participant side, in the controller, we tend to put the following:
+
+....
+if((int) $file->activity_instance_id !== (int) app(\BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver::class)->getActivityInstance()->id) {
+    throw new \Illuminate\Auth\Access\AuthorizationException;
+}
+....
+
+This will return a 403 error if the file does not belong to the activity
+instance. Therefore, if we had a group activity, anyone in the group
+would be able to access the file but anyone outside the group wouldn't
+be able to.
+
+
+=== Checking for model ownership
+
+This may only apply for a few of your routes. If you want to limit, for
+example, a files deletion to only the person who initially uploaded it
+(as opposed to the group or role that it was uploaded for), you can add
+an additional check against the current user control model, ensuring the
+ID is the same as the user id you have saved on the model.
+
+
+== Testing for permission ownership
+
+You won't always want to throw an error if a permission is not owned
+though. For example, you may want to show a button if a user has the
+'upload-file' permission. To check if the button should be shown, we can
+use the SDK PermissionTester. An example method call for checking if the
+currently authenticated user has the given permission would look like
+
+`+\BristolSU\Support\Permissions\Facade\PermissionTester::evaluate('upload-file');+`
+
+This will either return true or false depending on if the user has the
+permission or not. The SDK hijacks the Laravel permission framework and
+forces all permission tests through this method, meaning you can use any
+normal Laravel permission tool (e.g. @can('my-alias.upload-file') in
+blade templates) to check permissions. This permission checking will all
+be done on the currently authenticated user. To check a given user, use
+the evaluateFor method, which additionally accepts a user, group and/or
+role.
+
+Finally, as a shortcut to using the PermissionTester, we have created a
+helper function 'hasPermission' which will call the PermissionTester and
+return the result. Pass in just the ability to check the current user,
+or pass in a user/group/role to check the given user/group/role instead.

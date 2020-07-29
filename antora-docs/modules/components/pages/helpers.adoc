@@ -1,0 +1,23 @@
+= Helpers
+
+helpers defines a few useful functions. These tend to be based around
+resolving classes from the container and calling methods, and should be
+thought of as helpers to keep clean code, as opposed to the only way to
+do the function.
+
+settings($key, $default)
+
+Retrieves a setting value for a module. To be used in a module instance,
+it resolves the module instance and finds the setting with the given
+key. If the key doesn't exist, we return the default value (null by
+default).
+
+alias()
+
+Get the alias of the currently injected Module Instance.
+
+hasPermission($ability, $user, $group, $role)
+
+Tests to see if the user/group/role has the permission with the ability
+$ability. Leave $user, $group and $role blank to test the currently
+authenticated user.

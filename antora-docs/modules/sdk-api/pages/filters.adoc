@@ -1,0 +1,91 @@
+= Filters
+
+Part of what makes the SDK and the portal so flexible is logic groups.
+These are groups of users/groups/roles who meet a set of conditions.
+Since these are used everywhere, from assigning permissions to being
+used as module settings, it is useful to be able to create your own
+filters. A filter is one condition based around a user, group or role,
+which can be used in a logic group. For example, you may have a filter
+called 'Group Name Is'. This filter would accept a group and a name, and
+return true if the group's name is the same as the given name, or false
+otherwise. By creating any number of filters we can control exactly what
+individuals can see and do on the portal.
+
+Filters can of course use third party APIs. For example, we could create
+a filter such as 'Has committed on github in the last week'. This will
+be dynamically calculated, and could check any user's account and if
+they have committed in the last week.
+
+A filter must extend one of UserFilter, GroupFilter or RoleFilter. It
+must then implement all the abstract methods.
+
+* Alias: The alias for the filter. Must be unique to the portal.
+* Name: A name for the filter
+* Description: A description for the filter
+* Options
+* Evaluate
+
+Options is a method that should return an array of options needed by the
+filter. Maybe you need the name of a group? Or the email of a user?
+Anything returned here will be asked of from the user. For example, if
+we were making the GroupNameIs filter we'd want the user to give us the
+group name. This would look like:
+
+....
+public function options(): \FormSchema\Schema\Form
+{
+  return \FormSchema\Generator\Form::make()->withField(
+    ...
+  )->getSchema();
+}
+....
+
+As normal, the SDK and portal take care of asking the user for the
+information and saving it in the database. The final method
+implementation is in charge of testing if the filter is met. It is
+passed an array of settings, which have the same keys as the 'options'
+array. It can access the group through `+$this->group()+` (the role and
+user filters have corresponding role() and user() methods, and all
+implement a 'model' method which returns the correct model), and so can
+test the group name against the settings and return a boolean to
+represent the result.
+
+It is worth noting that logic groups allow for multiple filters to be
+tested at a time, in different ways. We can set filters up as 'all must
+be true', 'any must be true', 'all must be false' and 'any must be
+false'. The given user/group/role must match these as well as the
+filters. So, if we wanted a logic group with all groups other that one
+called 'Group1', we don't need to make a 'Group name is not' filter. We
+can instead use the 'Group Name Is', pass it 'Group1', and when
+attaching it to the logic group make it a 'All/Any must be false'
+filter. In this way, if the filter returns false, the user/group/role
+would actually be put into the logic group! If this doesn't make sense,
+it won't matter, just remember that you don't need to create an extra
+filter for the reverse operation.
+
+When created, a filter should be registered in the service provider
+using the following method in the boot method:
+
+`+$this->app->make(FilterManagerContract::class)->register('group_tagged', GroupTagged::class)+`
+
+We pass in the filter alias as the first parameter, and the class name
+of the filter as the second parameter. The portal will then know about
+your filter and how to use it!
+
+Don't go over the top with creating Filters. In particular, it's often
+worth considering if you need to ask for a module instance to make it
+work. For example, take a Static Page which records views. You could
+create a filter called 'Has a user viewed the page', for which you
+select a page and it passes any user who has viewed the page.
+
+Although this would be ok, if the module instance is deleted or changed
+you lose the information about who has viewed the page. A much better
+way to handle this would be for the user of your module (when setting it
+up) to bind a 'Tag a User' to any time the user views the page. This
+way, the module instance selection is built in and if the module is
+changed or deleted in the future the users will still be tagged.
+
+Of course there are exceptions to this general idea, but consider if you
+actually need a filter. Examples of good filters can retrieve the
+information without using a module instance. For example, has a user
+committed on Github, does a user have an account on another website etc.

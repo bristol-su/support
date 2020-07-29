@@ -1,0 +1,105 @@
+= Actions
+
+All actions inherit an interface Action.
+
+Events using interface TriggerableEvent must implement methods
+
+getFields -> returns all fields in the event and their value. e.g., for
+a 'file uploaded event', we could return
+
+....
+[
+    'file_name' => 'Uploaded File Name',
+    'file_size' => 60087,
+    'uploaded_at' => 01/01/2020 10:00:00
+];
+....
+
+getFieldMetaData ->
+
+Returns information about the field in a human readable form. Must
+return an array with the field key as the index, and the value as:
+
+....
+[
+    'label' => 'Human Readable Label',
+    'helptext' => 'A description of the value'
+];
+....
+
+We associate specific actions with events, then execute the action when
+the event fires.
+
+Registering actions
+
+To register an action, we use the ActionManagerFacade or the
+ActionManager class from the container.
+
+....
+ActionManagerFacade::registerAction(ActionClass::class, 'Name of the action', 'A description of the action');​
+....
+
+....
+$this->app->make(\BristolSU\Support\Action\ActionManager::class)->registerAction(ActionClass::class, 'Name of the action', 'A description of the action');
+....
+
+The action manager is a singleton, and stores the actions in a property
+for the duration of the request lifetime. If directly retrieved, an
+action will be represented by an array as follows
+
+....
+[
+    'name' => 'Name of the action,
+    'class' => ActionClass::class,
+    'description' => 'Description of the action'
+]
+....
+
+Therefore, it is recommended to use the ActionRepository, which converts
+this into a RegisteredAction class, which is a simple class that
+provides helper methods for getting the meta data (name and description)
+and class name without using array indices. The fromClass method
+retrieves an action by the class of the action, such as
+ActionClass::class.
+
+To associate an action with an event and persist this information, we
+use Action Instances, which hold a reference to the event and the
+action, and the field mapping. The ActionInstance class is a Laravel
+model which holds this information. When we associate an event with an
+action, we create a new ActionInstance row, which holds the following
+information:
+
+* Name and description for identifying the action instance. E.g. 'Send
+an email when a new document is uploaded'.
+* Event. Holds the class name of the event
+* Action: Holds the class name of the action
+* Module instance ID
+
+Because the ActionInstance is attached to a specific module instance
+(you only want to send an email when a document is uploaded to one
+module, not any upload file module!), we need to store the module
+instance. When the event is fired, we resolve the module instance out of
+the container to determine the module instance that caused the event to
+be fired.
+
+The ActionDispatcher triggers for every event that implements
+TriggerableEvent. It searches for action instances in the database
+associated with the module instance, and where the event is the event
+that has been fired, then uses the builder to build the action.
+
+The builder (ActionBuilder) creates a new Action class of the type given
+by the action instance, and passes it the simple field mapping. For
+example, if an event had a 'file_name' key, and the action had a
+'message' field for a message to log, the action_instance_field would
+contain
+
+....
+[
+    'event_field' => 'file_name',
+    'action_field' => 'message',
+    'action_instance_id' => 1
+];
+....
+
+Finally, the dispatcher dispatches the action, holding the correct
+parameters, and the queue will work it in the background.

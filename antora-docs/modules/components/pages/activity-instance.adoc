@@ -1,0 +1,108 @@
+= Activity Instance
+
+An Activity can be thought of as a blueprint. In order to allow multiple
+runs of the same activity, and keep track of which resource the current
+activity is related to, we use an Activity Instance. For example, we may
+have a simple activity containing a single upload file module instance.
+We'll assume this is a group activity, although the same principle holds
+for a user or role activity too.
+
+Any file uploaded to the module instance will be tied to the group the
+user is currently acting in. If I'm in the activity as Group A, then
+uploading a file will be visible to others in Group A, but not to Group
+B. We save the group ID in an activity instance. This way, in the module
+we just save the activity instance and module instance to the file table
+when uploaded, and the activity instance belongs to the correct group.
+
+Because of this, an activity can have multiple activity instances. A new
+activity instance will be created for each group who starts the activity
+(or user or role, depending on the activity type). Additionally,
+multiple activity instances may be created for each group (or
+user/role), creating separated instances of the activity for a specific
+group and so allowing for 'multiple run throughs'. For example, an
+activity for submitting expense claims should be restarted for each
+expense claim. With multiple activity instances, we can start a new
+activity instance per expense claim and so treat each expense claim
+differently and only design the activity for a single expense claim,
+knowing that it can actually handle multiple claims.
+
+An activity instance is a row in the database with the following fields.
+
+* Name: A name for the activity instance. e.g. Expense Claim 1
+* Description: A description for the activity instance. e.g. Purchase
+for ...
+* Activity ID: The ID of the activity to which the Activity Instance
+represents.
+* Resource Type: User, group or role.
+* Resource ID: ID of the user, group or role
+
+We use the resource type and resource ID fields to determine which
+activity instance to save information against in an activity. When using
+the portal, to access an activity the portal needs to know which
+activity instance you are using. Since it knows your user (and
+optionally group and role), it can find your activity instance.
+
+Additionally, when retrieved, the Activity Instance has two additional
+properties:
+
+* Run Number: An incrementing id (1, 2, 3...). The increments are done
+between activity instances with the same resource and activity
+information. This happens if there are multiple run throughs of the
+activity, so the run number numbers these run throughs.
+* Participant: Gets the model for the resource associated with the
+activity instance. For example, if the resource_type was group, and the
+resource_id was 1, participant would contain the group with an ID of 1.
+
+To retrieve Activity Instances in a framework agnostic way, we use the
+activity instance repository. These methods are documented in the
+https://bristol-su.github.io/support/classBristolSU_1_1Support_1_1ActivityInstance_1_1ActivityInstanceRepository.html[class
+reference]. Parameters, where referenced, correspond to their above
+meaning.
+
+We can log into an Activity Instance to persist which Activity Instance
+a user is using. When the activity is resolved, the
+ActivityInstanceResolver contract is resolved out of the container,
+meaning any class extending this contract can be used. By default,
+support provides two resolvers, an API and a Web resolver. The API
+resolver is used when the url contains '/api/', i.e. the request was
+made to an API. Otherwise, the web resolver is used.
+
+Through these resolvers, we can set and get an activity instance.
+
+The API resolver does not register a set or clear method, since the
+activity instance must be passed in through the query string for every
+request. The web resolver uses the laravel authentication framework,
+provided by an Authentication Provider, which in turn uses the session.
+These can be changed in the portal config.
+
+If the getActivityInstance method is called, but no activity instance
+has been set or found, a NotInActivityInstanceException will be thrown.
+
+For a nice user experience, we don't want to have to choose an activity
+instance manually. Instead, the DefaultActivityInstanceGenerator class
+can be used to create an activity instance. The generate function
+receives the activity and resource information, and either returns the
+first activity instance for the given parameters or creates one with the
+given parameters if none are found.
+
+The portal makes use of this by catching the NotInActivityException when
+thrown by middleware, logging into the default activity instance and
+trying again to make for a seamless log in process.
+
+The middleware the activity instance package provides is:
+
+* LogIntoActivityInstance: Logs into an activity instance. *
+* CheckLoggedIntoActivityInstance: Throws a
+NotInActivityInstanceException if the activity instance cannot be
+resolved
+* CheckActivityInstanceForActivity: Checks the activity instance belongs
+to the activity being accessed.
+* InjectActivityInstance : Injects the current activity instance into
+the container.
+* ClearActivityInstance: Logs out of the current activity instance
+
+* By default, the portal logs us into the default activity instance.
+Although this handles open and completable activities perfectly, it
+means we cannot change between activity instances for multi-completable
+activities. To sort this, if an 'aiid' parameter is passed in the
+request, we will log into that Activity Instance.

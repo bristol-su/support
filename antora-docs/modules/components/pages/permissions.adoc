@@ -1,0 +1,138 @@
+= Permissions
+
+The permissions package provides the permission framework for the portal
+and associated modules. There are different types of permission, the two
+main types being a module permission (both participant and admin) and a
+portal permission.
+
+Module Permissions:
+
+Module permissions are permissions that a module uses to manage access
+to module tools. For example, an Upload File module may have a
+permission for being able to upload a new file. To assign the
+permission, we are able to assign a logic group. Anyone in this logic
+group will have the permission specified.
+
+Portal Permissions:
+
+Portal permissions are similar to module permissions, but are specific
+permissions as opposed to permissions for a module instance
+
+All permissions must be registered before use with the PermissionStore.
+This is a singleton, and allows us to register a permission by giving a
+name, description, and ability string. An ability string is a unique
+string which represents the ability. For example, an upload file module
+may define a permission for downloading a file from the user side, and
+one for defining the permission from the admin side. These ability
+strings could be represented as uploadfile.download and
+uploadfile.admin.download. Site permissions are also registerable
+through this class. The only difference in parameters is that a module
+permission must give the module alias when registering. A facade for the
+PermissionStore is also given, and called Facade\Permission.
+
+Permissions are stored as a Permission class. This is a very simple data
+class that allows us to set and retrieve information about the
+permission, and get an arrayable or jsonable representation.
+
+Once stored, the permission repository may be used to retrieve
+permissions. This allows us to get specific permissions by ability, all
+permissions for a module or all permissions.
+
+Having registered all permissions available, we need to retrieve and
+assign the permissions to individuals or module instances. When creating
+a module instance, we can assign module instance permissions to logic
+groups. In practice, this creates a row in the
+module_instance_permissions table, made of
+
+* Ability: The ability string of the permission
+* Logic ID: A logic group to give the permission to
+* Module Instance ID: The ID of the module instance
+
+We can then retrieve all permissions through a module instance with a
+given ability, and ensure the person trying to carry out the action is
+in the given logic group.
+
+The Module Instance Permission table and the Model Permission table will
+soon be merging
+
+For system permissions, we instead create a row in model_permissions.
+This is a database row with the fields:
+
+* Ability: The ability string of the permission
+* Model: The model type. This can be one of [user, group, role, logic]
+* Model ID: The ID of the model of type given in the 'model' column.
+* Module Instance ID: Module instance the permission is associated to,
+if any
+* Result: 1 if the model has the permission, 0 if they do not.
+
+When checking a system permission, we can look for a permission for the
+given model with the ability string, and if found return the result
+column. The reason for the result column is that it allows us to both
+give the permission to someone or revoke it. Of course, for system
+permissions, the default is not to have the permission unless a row
+exists in the model_permission table, but having the result column makes
+this more flexible for module instance permissions.
+
+Although module instance permissions are set as previously specified,
+this is the default permission. There may be instances where an override
+is needed - for example, a permission should be given to or taken away
+from a specific role, group, user or logic group. So we don't have to
+change the entire logic group to take into account the exception, this
+table can be used. By putting in a module instance, before we check the
+normal module instance permissions table we can check this
+model_permission table to see if there's been an override.
+
+Having created and assigned permissions, we can now test the
+permissions. To do this, we use a chain of responsibility pattern. The
+PermissionTester class exists to test a permission, and return whether
+or not the specified resource has the permission.
+
+There are two evaluate functions in the permission tester. evaluate will
+evaluate the permission for the currently logged in user. evaluateFor
+allows us to pass in the user/group/role combination to check the
+permissions against.
+
+The permission checks are handled in classes called 'Testers'. These are
+registered in the permission tester, which is a singleton, and each time
+a permission check is requested each of the classes is tested in turn.
+If the class returns a boolean, that is taken as the value of the
+permission check. If it returns null, then the next tester is checked.
+The support package provides several testers by default.
+
+A tester is any class which implements the Tester contract. This
+requires a 'can' method, which accepts a permission model,then a
+nullable user, group or role.
+
+[cols=",",]
+|===
+|Class |Description
+
+|SystemUserPermission |Check if the given user has the system
+permission.
+
+|ModuleInstanceUserOverridePermission |Check if the given user has an
+override for a module instance permission
+
+|ModuleInstanceGroupOverridePermission |Check if the given group has an
+override for a module instance permission
+
+|ModuleInstanceRoleOverridePermission |Check if the given role has an
+override for a module instance permission
+
+|ModuleInstancePermissions |Check if the given user/group/role is in the
+logic group specified by the module instance permission table.
+|===
+
+More testers need to be added. Namely, the Mod Inst logic override, and
+the Group/Role/Logic system permission check.
+
+Theoretically, permission ability strings can be anything. To keep a
+standardised format, however, we recommend system permissions are a
+single word, or multiple words separated with hyphens. Module
+permissions should always start with the module alias, then a full stop.
+The actual permission string should follow. For an admin permission, the
+word 'admin' should be inserted.
+
+* System Permission: view-settings, create-activity
+* Module participant permission: uploadfile.download-file
+* Module admin permission: uploadfile.admin.download-file

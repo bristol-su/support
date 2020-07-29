@@ -1,0 +1,5 @@
+= Databaase
+
+The SDK provides a handy method to keep track of revisions on models. If
+you expect models to change, and want a log of all changes, simply add
+the `+\BristolSU\Support\Revision\HasRevision+` trait to any model!

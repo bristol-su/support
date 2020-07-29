@@ -1,0 +1,27 @@
+= Setup
+Toby Twigger <tobytwigger1@gmail.com>
+:description: A guide to creating a new module
+:keywords: setup, new module, create
+
+Although you can start creating a module from an existing Laravel app,
+or start from scratch, we provide a template to get started from. To
+install this template, run
+
+[source,shell script]
+----
+composer create-project bristol-su/template my-module
+----
+
+Each module must be assigned a unique alias, which is the unique ID to refer to the module as. Since each module has their own alias, you must change the template alias to set up your own module.
+
+TIP: You should remove the vendor and node_modules folder before following the below steps.
+
+[%interactive]
+* [ ] Find and replace the namespace `+BristolSU\Module\Template+` to `+MyName\ModuleName+` or similar.
+* [ ] Rename the view namespaces, element IDs and asset links. Find and replace `+template+` to `+my-module+`, excluding the package.json dependencies and the Vue ExampleComponent.
+* [ ] Edit the config to represent your module
+* [ ] Find and replace the test namespace `+BristolSU\Module\Tests\Template+` to `+MyName\Tests\ModuleName+` or similar.
+* [ ] Change composer.json to represent your module
+** [ ] Author, name and description
+** [ ] Autoloading namespaces to match your namespaces
+* [ ] Install the project dependencies with `+npm install+`, `+npm run dev+` and `+composer install+`

@@ -1,0 +1,47 @@
+= Middleware
+
+The SDK provides a set of middleware groups to apply to different
+routes, allowing for easy reuse of security features and access
+restriction.
+
+[cols=",,",]
+|===
+|Group |Middleware |Description
+
+|participant |CheckLoggedIntoActivityForType |Check the participant is
+logged into the correct resource
+
+| |LogIntoActivityInstance |Log into an activity instance if given in
+the url
+
+| |CheckLoggedIntoActivityInstance |Check logged into the activity
+instance, or throw an exception if not
+
+| |CheckActivityInstanceForActivity |Check the activity instance is
+valid for the current activity
+
+| |InjectActivityInstance |Inject an activity instance
+
+| |CheckActivityFor |Check the user is in the for logic group
+
+| |CheckActivityInstanceAccessible |Check the activity instance is
+accessible to the logged in user/group/role
+
+|administrator |CheckAdminActivityFor |Check the user is in the admin
+for logic group
+
+|module |CheckModuleInstanceActive |Check the module instance is active
+(according to the behaviour)
+
+| |InjectJavascriptVariables |Inject the javascript variables
+
+| |InjectModuleInstance |Inject the module instance
+
+|activity |InjectActivity |Inject the activity into the container
+
+| |CheckDatabaseUserOwnsControlUser |Check the database user, if logged
+in, owns the control user in the authentication
+
+| |CheckAdditionalCredentialsOwnedByUser |Check the group and role, if
+logged in, are owned by the current user
+|===

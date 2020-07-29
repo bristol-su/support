@@ -1,0 +1,36 @@
+= HTTP
+
+The Http package helps with a few web based things.
+
+Since all registered routes must be unique, else they will be
+overwritten, each module must define their own unique route. This is
+particularly annoying because ideally all routes will simply be
+/activity-slug/module-instance-slug. However, this would lead to only
+the module registered having its routes loaded, as they would overwrite
+most other routes.
+
+To get around this, modules by default register their routes as
+/activity-slug/module-instance-slug/module-alias. Naturally, we want to
+keep the original URL and redirect to the URL with the alias appended
+on, meaning the module instance can still be accessed from the nice url,
+but all modules are able to register their routes. The Http package
+registers the route to allow us to do this. It registers the
+/\{activity_slug}/\{module_instance_slug} route, and redirects to the
+same url with the alias appended to the end.
+
+Additionally, this package pushes middleware to the module middleware
+group. This middleware injects various useful information into the
+Javascript facade, which makes the information available for Javascript
+in a global variable.
+
+* ALIAS: Alias of the module
+* ACTIVITY_SLUG: Slug of the activity in use
+* MODULE_INSTANCE_SLUG: Slug of the module instance in use
+* A_OR_P: A if an admin, P if a participant.
+* user: The current control user
+* group: The current control group
+* role: The current control role
+* activityinstance: The current activity instance
+* moduleinstance: The current module instance.
+* data_user: The data user model containing identifiable information
+about the current users

@@ -1,0 +1,64 @@
+= Completion Conditions
+
+If a user creates an activity that is completable or multi-completable,
+the portal needs a way to work out if a module instance is complete or
+not. A user will choose a completion condition and give it any settings
+it needs when setting up a new module instance. The portal will then be
+able to check the completion condition for any given activity instance
+to see how complete the activity is.
+
+To create a completion condition, you should extend the abstract
+CompletionCondition class
+(`+\BristolSU\Support\Completion\Contracts\CompletionCondition+`) and
+implement the abstract methods.
+
+The name, description and alias are needed to display information about
+the completion condition. The alias should be unique, and start with
+your module alias.
+
+The options should be an array of options your completion condition
+needs. For example, if you were making a completion condition for a
+number of files uploaded:
+
+....
+public function options(): array
+{
+    return [
+        'number_of_files' => 1
+    ];
+}
+....
+
+This function will soon be changed to a Form Schema
+
+The isComplete function receives the settings from the user, the
+activity instance and the module instance and must return a boolean;
+true if the activity instance has completed the module instance, and
+false if the activity instance has not completed the module instance.
+These arguments allow you to use the forResource() method, so the file
+upload may look something like:
+
+....
+public function isComplete($settings, ActivityInstance $activityInstance, ModuleInstance $moduleInstance): bool
+{
+    return File::forResource($activityInstance->id, $moduleInstance->id)->count() >= ( $settings['number_of_files'] ?? 1);
+}
+....
+
+Having created a completion condition, you'll need to register it so the
+portal knows it exists. To do this, put the following in your service
+provider boot method:
+
+....
+public function boot()
+{
+    parent::boot();
+    app(\BristolSU\Support\Completion\Contracts\CompletionConditionManager::class)->register('module-alias', 'condition-alias', Condition::class);
+}
+....
+
+You need to pass your module alias, the alias of the condition and the
+class name of the condition to register it successfully.
+
+This will soon be extracted to the base service provider, but will be
+backwards compatible.

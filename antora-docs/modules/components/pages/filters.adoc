@@ -1,0 +1,61 @@
+= Filters
+
+A filter does much as the name suggests - it filters objects.
+Specifically, they can be used to filter users, groups or roles. For
+example, we could have a filter called 'Group Name Is'. This would
+return true if a group had the given group name, and false otherwise.
+
+Filters are one of the two integral parts to the flexibility of the
+portal. They're dynamically calculated, and so to a basic level allow us
+to customise the portal for any user, group or role by applying
+different filters. By grouping filters in Logic groups, we can easily
+customise the portal.
+
+A filter is either a User filter, Group filter or Role filter. A filter
+must extend one of GroupFilter, RoleFilter or UserFilter. These in turn
+extend a base filter class.
+
+The base filter class defines methods that the filter must implement,
+and methods to handle the related model. It also defines how to convert
+a filter to an array. The Group/User/RoleFilter classes implement the
+methods around handling the model. These are a setModel, hasModel and
+model functions, for setting, testing and getting the model
+respectively. Each class also defines an alias for model(), in the form
+of group(), user() or role() (depending on the type of filter). The main
+function implemented by the filter is the evaluate() function, which
+takes in settings and returns either true or false, having tested the
+filter against the model.
+
+Filters are registered through a FilterManager, and also retrieved. A
+filter is made of an alias (unique to the filter) and a class (the class
+of the filter). It is saved and retrieved in the form ['filter_alias' =>
+'FilterClass'].
+
+A filter repository is in charge of retrieving information from the
+manager. It allows us to get all filters or get a specific filter by
+alias, and before returning the data creates an instance of the filter,
+using the factory. The FilterFactory just resolves the filter from the
+laravel container.
+
+To create an instance of a filter, we create a FilterInstance. This is a
+database row with the fields
+
+* Name: Name for the filter instance
+* Settings: Settings to pass to the filter
+* Alias: Alias of the filter
+
+We can then retrieve the filter instance from the database when needed,
+get the filter using the repository, pass it the model then call
+evaluate, passing in the settings. Of course, this is a long-winded
+process, so the FilterTester class makes it easier. The filter tester
+does exactly this, and returns the filter result. It is given a filter
+instance and a model to test.
+
+Additionally to filter testing, this package registers filter caching as
+well. By using a cached filter tester, we can cache results in the
+laravel cache to speed up filter testing, since tests will often involve
+API calls or database queries. It also provides a command for caching
+the filters, which dispatches the relevant jobs to cache the filter in
+the queue. This aims to allow filters to always be retrieving from the
+cache, with the long-running API calls and database queries running on
+the queue.

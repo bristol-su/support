@@ -1,0 +1,7 @@
+.Creating a Module
+* xref:index.adoc[Introduction]
+* xref:setup.adoc[Setup]
+* xref:module-layout.adoc[Module Layout]
+* xref:service-provider.adoc[Service Provider]
+* xref:developing.adoc[Developing a Module]
+* xref:releasing.adoc[Releasing a Module]

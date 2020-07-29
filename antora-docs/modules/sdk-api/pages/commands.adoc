@@ -1,0 +1,32 @@
+= Commands
+
+A integral part of Laravel is being able to use the command line to
+interact with your app (i.e. the portal). When developing a module, you
+may decide that your module would benefit from having commands. These
+shouldn't be essential parts of your app unless you provide an entry
+point through the web, since users of the portal may not have direct
+access to the console.
+
+Commands should be created using the default Laravel command structure:
+https://laravel.com/docs/6.x/artisan#command-structure
+
+Once you've written your command, it can be registered by putting the
+class name into the $commands array in your service provider.
+
+Laravel provides no framework for registering scheduled commands outside
+the main app. These are commands that are run at specific times as
+opposed to being called by name through the console. The SDK does
+provide a method for registering scheduled commands from packages.
+Having created a normal command, put it in the 'scheduledCommands' array
+along with a cron string. This may look something like
+
+....
+protected $scheduledCommands = [
+    CommandOne::class => '* * * * *',
+    CommandTwo::class => '* /5 * * * *'
+]
+....
+
+These commands will be executed at the given times. Commands in
+scheduled commands need to be registered in $commands as well, or
+Laravel won't know they exist.

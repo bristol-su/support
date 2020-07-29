@@ -1,0 +1,8 @@
+= Storage
+
+Any SDK implementation will use the default Laravel storage framework,
+built on FlySystem, to upload files and assets. Make sure to always put
+any assets or files you upload into a folder with your alias in it. For
+example, upload a file called file.txt as
+
+'my-alias/file.txt'.

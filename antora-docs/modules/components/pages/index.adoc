@@ -1,0 +1,87 @@
+= Introduction
+
+The sdk package, found at https://github.com/bristol-su/support,
+contains all the inner workings of the portal. This demotes the portal
+to a frontend realisation of the portal, whilst storing the core in a
+reusable package. This means that all the code that makes the portal
+work is in a reusable package, whilst the portal just uses this code and
+adds a frontend and API.
+
+For the portal model to work, this support package is essential.
+Although the support package could be a part of the main portal site,
+this would make the creation of modules much less flexible. As is, any
+Laravel app which extends the module service provider and pulls in the
+support package can be integrated with the portal.
+
+Without this package, modules would have to be developed within the
+portal. The support package holds the core sharable functionality to
+allow modules to be developed outside the portal framework. It also
+enables things like the module playground to work, which is simply a
+different realisation of the portal.
+
+The support package has been split into features, some of which rely on
+others and some of which are standalone. This book aims to give an
+overview of the working and usage of each feature, to help you make the
+most of the power of the portal when developing modules, or creating new
+features for the portal.
+
+A class reference can be found here:
+https://bristol-su.github.io/support
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/action[Action]:*
+The 'trigger' system to allow for actions to be carried out based on
+events. When events in Laravel are fired, an action that was set up by a
+user can be triggered.
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/activity[Activity]:*
+Allows for sets of module instances to be grouped to make a process. An
+activity can be thought of as a service delivered through the portal.
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/activity-instance[Activity
+Instance]:* A method of associating users completing an activity to the
+activity.
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/authentication[Authentication]:*
+Handles authenticating users, and controls the group/role/user logins
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/authorization[Authorization]:*
+Provides middleware to restrict access to modules and activities
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/completion[Completion]:*
+Handles testing if module instances have been completed by users
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/connection[Connection]:*
+Handles connections to any third party sites that modules need access to
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/data-platform[DataPlatform]:*
+Set of models and repositories to interact with the data platform.
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/events[Events]:*
+Integrate events that may be fired into the framework
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/filters[Filters]:*
+Handles creating, registering and testing filters against models
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/helpers[Helpers]:*
+Helper functions to speed up building within the portal ecosystem
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/http[Http]:*
+Register routes and frontend based middleware
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/logic[Logic]:*
+Handles sets of filters to make groups of users/groups/roles
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/module[Module]:*
+Handles the creation and registration of a module
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/moduleinstance[ModuleInstance]:*
+Handles creating an instance of a module to use in an activity
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/permissions[Permissions]:*
+Handles permissions for the site and for modules
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/testing[Testing]:*
+Helpers for module tests
+
+*https://docs.bristolsustaging.co.uk/books/portal-support-package/page/user[User]:*
+Handles anything to do with the database user

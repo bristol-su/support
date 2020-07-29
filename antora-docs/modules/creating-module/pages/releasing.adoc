@@ -1,0 +1,12 @@
+= Releasing
+Toby Twigger <tobytwigger1@gmail.com>
+:description: How to go about releasing a module
+:keywords: release, finished module, publish
+
+Releasing your module...
+
+== Documentation
+
+To make your module as easy to use as possible, we strongly recommend documenting your work. To have your documentation included on the Bristol SU Documentation site, you must use antora.
+
+

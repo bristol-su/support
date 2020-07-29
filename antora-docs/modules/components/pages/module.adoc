@@ -1,0 +1,95 @@
+= Module
+
+The module package handles the registration and retrieval of modules. It
+aims to transform a module framed as a composer package into a single
+class which can be accessed and rendered by the rest of the system.
+
+The Module Service provider must be extended by your module in order to
+register your module. This provides all the necessary booting code to
+initialise your module.
+
+Although the table below specifies locations to store certain aspects of
+the module in, and we encourage you to follow this standard (since it
+matches the Laravel standard), you are always welcome to override any
+methods in the service provider, or manually register everything
+yourself.
+
+[cols=",",]
+|===
+|Module Service Provider Function |Description
+
+|Register Translations |Register any translation files the module
+specifies. Translation files should be stored in resources/lang
+
+|Register Configuration |Register the configuration file. These should
+be stored config/config.php, and can be accessed through the module
+alias key.
+
+|Register the module |Register the module with the ModuleManager
+
+|Register module permissions |Register permissions with the permission
+store given by the $permissions array
+
+|Register module events |Register events with the event store given by
+the $events array
+
+|Register views |Register views. These should be stored in
+resources/views
+
+|Register factories |Register factories stored in database/factories for
+use in tests.
+
+|Register migrations |Register migrations stored in database/migrations
+
+|Register commands |Register any commands the module specifies in the
+$commands array
+
+|Register assets |Register any assets (js/css) your module specifies.
+Although these are normally built in resources/js or resources/sass,
+these should be compiled and stored in public/modules/module-alias/js
+etc.
+
+|Register routes |Register routes for the module. This needs four route
+files, in routes/admin/web.php, routes/admin/api.php,
+routes/participant/web.php and routes/participant/api.php
+
+|Register settings |Register settings defined in the settings function
+for the module
+
+|Register setting listeners |Register listeners for the settings in the
+$settingListeners array
+
+|Register scheduled commands |Register any scheduled commands from the
+$scheduledCommands array
+|===
+
+Amongst other registration things, the service provider registers the
+module using the module manager. The module manager is a singleton which
+is used to store and retrieve the aliases of all modules bound into the
+framework.
+
+When retrieving modules, just the alias isn't very helpful. The
+ModuleFactory class provides a method to create a Module class from a
+module alias. This factory uses the module builder and calls all the
+build functions on the model. Namely, it
+
+* Creates an instance of the Module class to represent the module
+* Sets the name
+* Sets the description
+* Sets the permissions
+* Sets the settings
+* Sets the triggers
+* Sets the completion conditions
+* Sets the services
+
+The builder implements all these functions, and retrieves the
+information from various registration methods in the framework. For
+example, permissions are retrieved from the permission repository and
+attached to the module.
+
+To avoid manually using the factory, the ModuleRepository class will do
+this for you. It provides helper functions to retrieve a module/modules,
+and always returns built Module classes.
+
+Finally, the module class is used as a simple data class, with methods
+to cast to an array or json.

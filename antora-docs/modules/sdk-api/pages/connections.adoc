@@ -1,0 +1,88 @@
+= Connections
+
+One of the main uses of the portal is reducing the reliance on third
+parties. For example, by embedding a form in the portal, you can easily
+swap Typeform for Google Forms, JotForm for Microsoft Forms etc, without
+changing the url/location of the form.
+
+For this to work, the third parties need their own module. It is highly
+likely the module will need to use the API. Each module instance may
+need to connect to a different account each time it is used, since forms
+may be stored in different places.
+
+Therefore, you can let the portal know you need to, for example, connect
+to Typeform to work.
+
+
+== Creating a Third Party Connection
+
+Third party connections should be pulled into their own package if they
+may be used in more than one place. A connector extends the
+`+BristolSU\Support\Connection\Contracts\Connector+` class. The
+connector should then define:
+
+* A method to make a request. You should add any authentication
+headers/parameters etc, then call the underlying request method on the
+client (`+$this->client->request(..)+`).
+* Test should use the request method to make an API call, and return
+true if the authentication worked or false otherwise.
+* settingsSchema: A form schema representing the settings the connector
+needs. You're welcome to use custom fields here!
+
+It also provides a `+getSetting($key, $default)+` to get the filled in
+value in the request and test methods.
+
+
+== Register a Third Party Connection
+
+To register a third party connection, you should call the below
+function.
+
+....
+app(ConnectorStore::class)->register(
+  'Name of the connector',
+  'A description of the connector and the method (oauth/api key) if multiple methods are available',
+  'the_alias_of_the_connector',
+  'the_service_the_connector_belongs_to',
+  ConnectorClass::class
+);
+....
+
+Some third parties provide multiple ways of authenticating a user, such
+as OAuth and an API Key. To allow the end user of the portal to use both
+methods, we not only register an alias for the specific connector, but
+also an alias for the service. For example, typeform allows oauth and an
+api key, so we'd register the aliases 'typeform_oauth' and
+'typeform_api_key' both with the service of 'typeform'.
+
+A module then registers its need or want for a 'typeform' connection.
+Both the typeform_oauth and typeform_api_key can be used to satisfy this
+requirement.
+
+
+== Using a Third Party Connection
+
+For a module to use a third party connection, it needs to let the portal
+know it wants to use it. To do this, the boot method should contain:
+
+....
+public function boot()
+{
+    parent::boot();
+    app(ServiceRequest::class)->required('module_alias', ['typeform']);
+}
+....
+
+You can pass in any services you want. The portal will make sure the
+services have been given to the module instance before use.
+
+This will be abstracted into the base service provider soon.
+
+To then use the connector during runtime, resolve the connector from the
+service repository. This will be put into a helper function soon.
+
+`+$connector = app(ModuleInstanceServiceRepository::class)->getConnectorForService('typeform', $moduleInstance->id)+`
+
+This will resolve the connector for typeform which the module instance
+is allowed to use. You can then use the request method to make an API
+call and retrieve the responses.

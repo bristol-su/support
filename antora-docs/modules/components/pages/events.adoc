@@ -1,0 +1,40 @@
+= Events
+
+Events refer to events fired through the Laravel event system. Modules
+are able to fire events at any point, and the portal has a few tools to
+integrate with these events. Namely, actions and completion conditions.
+Actions can be executed when events fire, and this behaviour can be
+managed through the portal. There is also a completion condition called
+'Event Fired' (coming soon), which will manage the completion based on
+events being fired.
+
+Events are likely to become a core part of any logging on the portal, so
+we recommend using events where appropriate even if you don't use them
+within the module.
+
+An event can be a normal PHP class, with the methods and properties
+required by the Laravel documentation. By implementing different
+interfaces, the events can be used for different things. You can
+implement multiple interfaces.
+
+TriggerableEvent: This event can act as a trigger for an action
+
+More coming soon!
+
+Events are managed by the event manager. This is a singleton which
+registers and returns events in the form
+
+....
+[
+    'name' => 'Name of the event',    //e.g. Document Uploaded
+    'description' => 'Description of the event',
+    'event' => 'EventClass'
+]
+....
+
+It can also return all events for a specific module. To access these
+events, we use the EventRepository, which closely mirrors the event
+manager.
+
+The events framework will be upgraded soon, but this will only affect
+event registration

@@ -1,0 +1,151 @@
+= Setup Pages
+
+First, we will look at how modules are able to use the Blade templating
+engine. We will explore the blade heirarchy, how the SDK extends the
+templating engine and how we can set up pages.
+
+As mentioned in the introduction, modules have two main entry points;
+the administrator page and the participant page. The routes for these
+pages are included in the template module, and use the standard Laravel
+routing system. However, the SDK takes care of the module prefixes and
+namespacing, so you just have to refer to the root url. For example, to
+set up the route for the participant page
+
+`+Route::get('/', 'ParticipantPageController@index);+`
+
+The 'ParticipantPageController' is stored in app/Http/Controllers, and
+simply returns a view
+
+....
+class ParticipantPageController extends Controller
+{
+    public function index()
+    {
+        return view('static-page::participant');
+    }
+}
+....
+
+Notice we use blade namespacing to ensure modules never have clashing
+view template names. We always use the unique alias of the module before
+the view template. In the above example, 'participant.blade.php' is
+stored in 'resources/views'. The SDK takes care of loading the view
+templates with the correct namespace.
+
+Taking a look at participant.blade.php will reveal that this extends
+'static-page::layouts.app', which is your modules parent layout. It is
+also allowed to use the following tools/sections/stacks to build up a
+frontend layout.
+
+* @section('title', 'My Title') to change the title of the page
+* @section('module-content') for the main content of your page.
+* @push('meta-tags') for any meta tags to put on the page
+* @push('fonts') for any fonts for the page
+* @push('styles') for any styles in the page
+* @push('scripts') for any scripts in the page.
+
+Although you may use these however you want to build up your module, we
+recommend following the template layout and putting most things in your
+'layouts/app.blade.php' file.
+
+This file extends 'bristolsu::base', which is the base blade template
+for the portal and is found in the SDK. This blade template is built to
+integrate with any frontend, so that the portal/playground etc may
+define exactly what a page should look like, but within a set of given
+parameters which the modules can also use (listed above).
+
+Your app.blade.php file should look something like:
+
+....
+@extends('bristolsu::base')
+
+@section('content')
+    <div id="static-page-root">
+        @yield('module-content')
+    </div>
+@endsection
+
+@push('styles')
+    <link href="{{ asset('modules/static-page/css/module.css') }}" rel="stylesheet">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('modules/static-page/js/module.js') }}"></script>
+@endpush
+....
+
+We extend the SDK layout. We then define our page content. To do this,
+we yield the 'module-content' section which is defined by individual
+pages. We wrap this in a div tag with an ID which we use for mounting
+Vue (covered later).
+
+We then push the css and js files from your public directory to be
+loaded when the page is loaded. By putting this here, we only need to
+include the files once and they will appear on every page of our module.
+
+This is only the suggested way of setting up your module frontend. Since
+it is based on Laravel, and does not apply any more restrictions than
+are absolutely necessary, you are welcome to set this up in any way you
+want.
+
+Most the modules we develop have only two web routes. We then utilise
+Vue and the API to provide all module functionality. The API
+automatically takes into account user credentials, but the web routes
+don't. This means that, if you link to another page in your module, you
+need to include the query parameters.
+
+If in a blade template, this is easily done by appending the query
+string onto the end of the url. To get the query string, you can call
+`+url()->getAuthQueryString()+`, which should then be appended to the
+href with a question mark
+
+....
+<a href="download?{{url()->getAuthQueryString()}}">Download</a>
+....
+
+You can also retrieve the query string as an array using the
+`+getAuthQueryArray()+` method.
+
+....
+$array = url()->getAuthQueryArray()
+
+var_dump($array)
+
+/*
+* [
+*  "u" => 1,
+*  "g" => 3,
+*  "r" => null,
+*  "a" => 44
+*/
+....
+
+If you're working in Vue, we suggest putting the following in your
+module.js file:
+
+....
+Vue.prototype.$url = portal.APP_URL + '/' + portal.A_OR_P + '/' + portal.ACTIVITY_SLUG + '/' + portal.MODULE_INSTANCE_SLUG + '/' + portal.ALIAS;
+....
+
+These portal. variables are all available and sent by the SDK, so your
+hyperlink could then, by passing the getAuthQueryString() through the
+components from the blade tempate, read
+
+....
+<template>
+  <a :href="downloadUrl">Download</a>
+</template>
+
+<script>
+  export default {
+    props: {
+      queryString: {type: String}
+    },
+    computed: {
+      downloadUrl() {
+        return this.$url + '/download?' + this.queryString;
+      }
+    }
+  }
+</script>
+....

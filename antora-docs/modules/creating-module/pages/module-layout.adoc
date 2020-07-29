@@ -1,0 +1,119 @@
+= Module Layout
+Toby Twigger <tobytwigger1@gmail.com>
+:description: A guide to the module structure
+:keywords: layout, structure
+
+A module should look almost identical to a Laravel app. We'll run through
+each directory and its contents, and highlight any changes from the
+normal Laravel app structure.
+
+== composer.json
+
+This file defines information about how your module is referenced during
+installation. You should have a 'name' property, set to the installation
+name as usable through Composer.
+
+`+"name": "bristol-su/my-module+`
+
+Your composer file also defines any dependencies. In order to create a
+module, you will need to require the support package. This is already done for you if you start from the template.
+
+`+composer require bristol-su/support+`
+
+[source,json]
+----
+{
+    "require": {
+      "bristol-su/support": "^2.0"
+    }
+}
+----
+
+It must also provide namespacing. You will need to decide on a namespace
+for your module. We will use the example `+\BristolSU\Module\Typeform+`
+
+....
+"autoload": {
+    "psr-4": {
+      "BristolSU\\Module\\Typeform\\": "app/"
+    }
+  },
+....
+
+== app
+
+This is where the core of your module sits, and has exactly the same
+directory structure as a laravel app.
+
+== config
+
+Configuration for your module is held in this folder. By default, we
+register the 'config.php' file in this folder as your configuration,
+accessible with the helper function `+config('modulealias.key');+`. This
+works very similarly to the default Laravel configuration.
+
+****
+If you have a key in the config.php file, allowed_files, this can be accessed using the Laravel config 'module-alias.allowed_files'.
+
+[source,php]
+----
+    $allowedFiles = config('module-alias.allowed_files');
+----
+****
+
+== database
+
+Your migrations, factories and seeds can be held here. Migrations work
+as normal, but tables should be prefixed with your module alias to avoid having any naming conflicts.
+
+== public
+
+Your resource files (compiles sass and js) should be held in the folder
+`+public/modules/modulealias/css+` or `+js+`. From here, they will be
+published to the portal when your package is installed.
+
+TIP: If you use webpack (as the template does), your js and css will be automatically compiled and published to this directory.
+
+== resources
+
+=== translations (lang)
+
+This is where you can keep all your translation files.
+
+We will be introducing a much better language framework in the future
+
+=== js
+
+This is where your javascript file and Vue components will be.
+
+=== sass
+
+This is where any sass files can be stored
+
+=== views
+
+Your blade files should be kept here. It is recommended to keep the same layout as the template - have a base view which the admin and participant views extend. You're welcome to use any structure you want though.
+
+== routes
+
+Your routes folder is where your routes are stored. It should look like
+
+....
+- routes
+    - admin
+        - web.php // Web Admin Routes
+        - api.php // API Admin Routes
+    - participant
+        - web.php // Web Participant Routes
+        - api.php // API Participant Routes
+....
+
+The service provider takes care of loading these routes correctly, so
+each can assume it is the root. This means that all url's can be built
+from '/' and will not clash. For the main participant page, you'd register `+/+`. The portal will convert this to an instantiated service.
+
+== tests
+
+Tests use phpunit and should be stored in the tests folder. They should
+extend the SDK testcase (`+\BristolSU\Support\Testing\TestCase+`) which
+will provide access to testing tools.

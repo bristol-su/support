@@ -1,0 +1,106 @@
+= Events
+
+The SDK event framework is essentially the default Laravel event system.
+This means that you can create events as normal, fire them in any way
+Laravel allows, and bind listeners to events as normal.
+
+However, events also take on a new role in the portal. They are of
+course used to specify when something has happened in the system, which
+opens the door to many handy features.
+
+
+== Triggerable Events
+
+The portal allows users, through the UI, to set up something like 'When
+a file is uploaded, send them an email'. This statement is made of two
+parts, the trigger and the action. The trigger is a file being uploaded,
+and this is represented by a normal event being fired. The action is
+sending an email. Actions are covered later, but essentially it allows
+the user to write an email, merge data from the event, and deploy to
+automatically send an email when a file is uploaded.
+
+To allow your module to be used in this way, your events need to
+implement the TriggerableEvent interface
+(\BristolSU\Support\Action\Contracts\TriggerableEvent). This defines two
+methods which are used by the SDK to understand what data the event
+holds.
+
+The getFieldMetaData function should return a description of each bit of
+information available in the event. For example, say we created an event
+which fires when a file is uploaded and contains information about the
+file. Our getFieldMetaData could look something like (although in
+reality it should register more information):
+
+....
+public function getFieldMetaData(): array
+{
+  return [
+     'user_id' => [
+        'label' => 'User ID',
+        'helptext' => 'The ID of the user who uploaded the file'
+     ]
+     'file_name' => [
+        'label' => 'File Name',
+        'helptext' => 'The name of the file'
+     ],
+     'file_mimetype' => [
+        'label' => 'File MimeType',
+        'helptext' => 'The mimetype of the uploaded file'
+     ],
+     ...
+  ]
+}
+....
+
+The portal can now understand the event and the information it contains.
+Users can map these fields to action fields (think, in the case of 'Send
+an Email', the email address, subject line, message etc) to create their
+own dynamic listeners through the UI!
+
+Of course, when the event is fired and the action triggered, we need to
+get values for the user id, file name and file mimetype. This is made
+more difficult by the fact that the event only stores a file object,
+which has different keys to those we defined for the event.
+
+To allow us to retrieve and map the data, we implement the getFields
+method. This should return the actual value of each item of data, so
+that an event can be transformed to an array with the keys given in
+getFieldMetaData(). An example follows:
+
+....
+public function getFields(): array
+{
+    return [
+        'user_id' => $this->file->uploaded_by,
+        'file_name' => $this->file->name,
+        'file_mimetype' => $this->file->mimetype
+    ];
+}
+....
+
+Events will be used for much more in the future. It is likely that any
+activity logging framework that is set up will be based around logging
+events fired. There will also be things like completion conditions based
+around events having been fired supplied by the SDK. To make sure your
+module stays fully integrated with the portal, it is a good idea to fire
+more events than you necessarily feel is needed right now.
+
+Having created and fired your events, you need to let the portal know
+the events exist! To do this, put each one in the $events array in your
+service provider. For an event with a class name FileUploaded::class, we
+would add
+
+....
+protected $events = [
+    FileUploaded::class => [
+        'name' => 'File Uploaded',
+        'description' => 'When a new file is uploaded'
+    ],
+    ...
+]
+....
+
+If an event is not registered in this way, the portal won't know it
+exists. You can still use it within your module to manually bind
+listeners etc, but your module won't benefit from the event tools the
+portal supplies.

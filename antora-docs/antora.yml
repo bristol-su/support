@@ -1,0 +1,12 @@
+name: support
+title: SDK (Support)
+version: develop
+asciidoc:
+ attributes:
+  page-repo-url: https://github.com/bristol-su/support
+start_page: creating-module:index.adoc
+nav:
+ - modules/creating-module/nav.adoc
+ - modules/frontend/nav.adoc
+ - modules/sdk-api/nav.adoc
+ - modules/components/nav.adoc
