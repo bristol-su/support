@@ -10,6 +10,8 @@ Once your module is ready to go, and you've written all the necessary tests, you
 To be accepted by the portal, your repository needs to meet community standards. This means you'll need to ensure your repository has the following files:
 
 - CHANGELOG.md - A changelog to keep track of the changes between releases of your module. This should look something like...
+.Example `+CHANGELOG.md+` file
+****
 [source,markdown]
 ----
 # Changelog
@@ -45,11 +47,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 [1.0.1]: https://github.com/username/repository/compare/v1.0...v1.0.1
 [1.0]: https://github.com/username/repository/releases/tag/v1.0
 ----
+****
 - CODE_OF_CONDUCT.md. Feel free to write your own, but link:{attachmentsdir}/CODE_OF_CONDUCT.md[here] is the one we use for all our projects.
 - CONTRIBUTING.md. A description of how to contribute to the project. Ours can be found link:{attachmentsdir}/CONTRIBUTING.md[here].
 - LICENCE.md. The licence for your project. This will nearly always be the GNU General Public License v3.0, found https://www.gnu.org/licenses/gpl-3.0.txt[here].
 - README.md. A description of your module. A template can be found link:{attachmentsdir}/README.md[here].
+- composer.json. You will probably already have this file in your module, but you need to make sure the name matches the name you want, and the description matches your module. Try and avoid using 'bristol-su' - use your own name or company name instead!
 - .gitattributes. This specifies (amongst other things) the files that aren't needed for your code to run, and helps keep your module small when installed in the portal.
+.Example `+.gitattributes+` file
+****
 [source,gitignore]
 ----
 * text=auto
@@ -64,6 +70,7 @@ CODE_OF_CONDUCT.md export-ignore
 CONTRIBUTING.md export-ignore
 /docs export-ignore
 ----
+****
 
 == Documentation
 
@@ -95,7 +102,7 @@ The general structure of the `+docs+` folder should be as follows:
 <3> The navigation file. This defines the layout of the section. Each folder has one of these files. An example is given below.
 <4> An example page. Again, an example is given below.
 <5> The admin documentation. This should focus on how to use the admin side of the module
-<6> THe setup documentation. This should focus on what each setting does, what the permissions do, etc. It should make the setup process using your module as easy as possible.
+<6> The setup documentation. This should focus on what each setting does, what the permissions do, what completion conditions are available etc. It should make creating a module instance using your module as easy as possible.
 <7> The developer documentation (optional). Contains any documentation you think may help future developers, or yourself.
 
 === Example Files
@@ -157,10 +164,72 @@ Toby Twigger <tobytwigger1@gmail.com>
 ----
 ****
 
+== Releasing a version of your module
+
+Once your module is in a state to be released, you should release a version. This includes:
+
+1. Updating your changelog to represent any changes made
+2. Clicking on 'Create a new release' on github
+3. Creating a tag (e.g. v1.0.1). The release title should also be the name of the tag, and the description should be similar to your changelog. We use the following template for the description
+
+[source,markdown]
+----
+# [v1.0.1 - 16/06/2020]
+
+### Added
+- Describe changes here
+### Removed
+- These changes should be the same as your changelog
+
+[v1.0.1 - 16/06/2020]: https://github.com/username/repo/compare/v1.0.0...v1.0.1
+----
+
+
 == Making your module downloadable
 
-Use packagist
+In order to allow others to use your module, it must be published on a platform such as github then pulled through to a package management platform. We use https://packagist.org. Having created an account, submit your repository on the website. This will allow others to run 'composer require' to pull in your module.
 
 == Pull requests
 
-To portal and docs
+At this point, you're ready to go! All that's left is to let other portal users know your module exists. To do this, you should submit a pull request to both the portal repository and the documentation repository.
+
+=== Portal repository
+
+The point of this pull request is to automatically include your module in all fresh installs of the portal. This is by far the best way to deploy your module - any users of the portal will be able to use your module.
+
+1. Create a fork of the portal repository by clicking 'Fork' https://github.com/bristol-su/portal[here].
+2. Add your module using `+composer require+`.
+3. Push your changes to your forked repository on Github.
+4. Create a https://github.com/bristol-su/portal/compare[pull request], keeping the default base branch and changing the compare branch to your forked branch. You should see two files changed - `+composer.json+` and `+composer.lock+`.
+5. Create the pull request. Set the title to be *New Module: Module Name*, and use the following template for the description
+[source,markdown]
+----
+# Module Name
+My Module
+
+# What does this module do?
+A brief description of what your module does
+
+# Is your module up to our community standards?
+- [x] I've written tests for the module
+- [ ] I've written documentation for the module
+----
+
+=== Documentation Repository
+
+Having written documentation, you can merge it into our documentation site.
+
+1. Create a fork of the documentation site by clicking 'Fork' https://github.com/bristol-su/docs[here].
+2. Edit the `+antora-playbook.yml+` and add the following under the module section in the content -> sources attribute. 
+[source,yaml]
+----
+ - url: https://github.com/username/module-repository
+   start_path: docs
+   branches: [master]
+   tags: v*
+----
+3. Push your changes to your forked repository on Github
+4. Create a https://github.com/bristol-su/docs/compare[pull request], keeping the default base branch and changing the compare branch to your forked branch. You should see one file changed - `+antora-playbook.yaml+`.
+5. Create the pull request. Set the title to be *Module Documentation: Module Name*. You may leave the title blank.
+
+Once we approve the request, it may take up to two hours to merge your documentation in with the documentation site. If you ever make changes to your documentation, they may also take up to two hours to propagate. You will only ever have to push the changes to your repository though - the documentation will pick up on changes itself.
