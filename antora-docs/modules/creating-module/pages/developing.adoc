@@ -106,3 +106,16 @@ detected. You can put this into an alias by editing your .bashrc file:
 ....
 alias onchange-module="source /path/to/venv/bin/activate && " when-changed -r /path/to/module/public/modules -c php /path/to/playground/artisan vendor:publish --force --provider="Your\Provider\Namespace\ModuleServiceProvider"
 ....
+
+== What your module should contain
+
+The following chapters of this documentation will go through this in much more detail, but this aims to give an overview of what a module should/could consist of.
+
+* Participant Page
+** A way for users of the portal to interact with your module
+* Admin Page
+** A way for portal admins to interact with your module.
+* Settings
+* Permissions
+* Events
+* Completion Conditions
