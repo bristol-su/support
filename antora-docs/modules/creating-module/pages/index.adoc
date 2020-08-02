@@ -35,6 +35,33 @@ and can be pulled into any portal to be used.
 
 To further understand how a module is used in the portal to provide functionality to users, check out the portal documentation.
 
+=== Module Instances
+
+To allow users to use your module multiple times, we create instances of your module. Say you're creating a module to
+upload a file, and you want to create an API route to get all files.
+
+If the API was created just for the module, not for the specific module
+instance, when we retrieved all files we would get all files ever
+uploaded through your module. If we had two services which used your module (an expense claim
+service and a risk assessment service), our API would return both expense
+claim submissions and risk assessment submissions from either module instance, which is not ideal.
+
+Instead, your API should just return files specific to a single module
+instance, so either the expense claim service or the risk assessment
+service. Your 'get all files' route will exist as
+
+* GET /api/expense-claims/evidence/upload-file/file
+* GET /api/risk-assessment/new/upload-file/file
+
+Notice the activity and the module slugs change and the results of the
+API change depending on the module or activity in use. 
+
+When we create a new module instance, it is assigned a slug. When this slug is accessed, we can load your module page and pass it the settings for the module instance, load permissions etc.
+
+In general, you should find that you don't need to think about this too
+much since the SDK takes care of most the complications. However, it is
+good to have it in mind when developing a module.
+
 == How does a module integrate?
 
 So we've got a couple of pages which allow us to do something like

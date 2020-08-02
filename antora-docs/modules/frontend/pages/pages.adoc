@@ -1,22 +1,23 @@
-= Setup Pages
+= Creating Pages
 
 First, we will look at how modules are able to use the Blade templating
 engine. We will explore the blade heirarchy, how the SDK extends the
-templating engine and how we can set up pages.
+templating engine and how we can create new pages.
 
-As mentioned in the introduction, modules have two main entry points;
-the administrator page and the participant page. The routes for these
-pages are included in the template module, and use the standard Laravel
-routing system. However, the SDK takes care of the module prefixes and
-namespacing, so you just have to refer to the root url. For example, to
-set up the route for the participant page
+== Routing 
 
+A module should have two main entry points for users of the portal - the user side and the admin side. The routes for these points should be defined in the `+routes/admin/web.php+` and `+routes/participants/web.php+`. By default, the template module gives you a single route for each.
+
+.Participant Route
+****
+The default route for a participant.
+
+[source,php]
+----
+// routes/participants/web.php
 `+Route::get('/', 'ParticipantPageController@index);+`
 
-The 'ParticipantPageController' is stored in app/Http/Controllers, and
-simply returns a view
-
-....
+// app/Http/Controllers/ParticipantPageController.php
 class ParticipantPageController extends Controller
 {
     public function index()
@@ -24,75 +25,59 @@ class ParticipantPageController extends Controller
         return view('static-page::participant');
     }
 }
-....
+----
+****
 
-Notice we use blade namespacing to ensure modules never have clashing
-view template names. We always use the unique alias of the module before
-the view template. In the above example, 'participant.blade.php' is
-stored in 'resources/views'. The SDK takes care of loading the view
-templates with the correct namespace.
+The portal takes care of namespacing and file locations. It will automatically load any routes from the correct locations, and prefix them to work with the portal. Your controller base namespace is specified in your service provider. Namespacing for your views are set up automatically, meaning your blade template in `+resources/views/participant.blade.php+` can be referred to as `+'static-page::participant'+`.
+
+== Blade Templates
 
 Taking a look at participant.blade.php will reveal that this extends
-'static-page::layouts.app', which is your modules parent layout. It is
-also allowed to use the following tools/sections/stacks to build up a
-frontend layout.
+'static-page::layouts.app', which is your modules parent layout. This file registers your assets, creates a container component for loading vue, and extends the Bristol SU template to add things like a header/footer etc to your page. This template must always be extended.
 
-* @section('title', 'My Title') to change the title of the page
-* @section('module-content') for the main content of your page.
-* @push('meta-tags') for any meta tags to put on the page
-* @push('fonts') for any fonts for the page
-* @push('styles') for any styles in the page
-* @push('scripts') for any scripts in the page.
-
-Although you may use these however you want to build up your module, we
-recommend following the template layout and putting most things in your
-'layouts/app.blade.php' file.
-
-This file extends 'bristolsu::base', which is the base blade template
-for the portal and is found in the SDK. This blade template is built to
-integrate with any frontend, so that the portal/playground etc may
-define exactly what a page should look like, but within a set of given
-parameters which the modules can also use (listed above).
-
-Your app.blade.php file should look something like:
-
-....
+.Base blade template
+****
+An example `+app.blade.php+` file.
+[source,blade]
+----
 @extends('bristolsu::base')
 
 @section('content')
-    <div id="static-page-root">
+    <div id="my-module-root">
         @yield('module-content')
     </div>
 @endsection
 
 @push('styles')
-    <link href="{{ asset('modules/static-page/css/module.css') }}" rel="stylesheet">
+    <link href="{{ asset('modules/my-module/css/module.css') }}" rel="stylesheet">
 @endpush
 
 @push('scripts')
-    <script src="{{ asset('modules/static-page/js/module.js') }}"></script>
+    <script src="{{ asset('modules/my-module/js/module.js') }}"></script>
 @endpush
-....
+----
+****
 
-We extend the SDK layout. We then define our page content. To do this,
-we yield the 'module-content' section which is defined by individual
-pages. We wrap this in a div tag with an ID which we use for mounting
-Vue (covered later).
+You may also notice a number of blade sections/stacks you can use. The full list is below:
 
-We then push the css and js files from your public directory to be
-loaded when the page is loaded. By putting this here, we only need to
-include the files once and they will appear on every page of our module.
+* `+@section('title', 'My Title')+` to change the title of the page
+* `+@section('module-content')+` for the main content of your page.
+* `+@push('meta-tags')+` for any meta tags to put on the page
+* `+@push('fonts')+` for any fonts for the page
+* `+@push('styles')+` for any styles in the page
+* `+@push('scripts')+` for any scripts in the page.
 
-This is only the suggested way of setting up your module frontend. Since
-it is based on Laravel, and does not apply any more restrictions than
-are absolutely necessary, you are welcome to set this up in any way you
-want.
+== Assets
+
+Your assets are generally compiled by webpack and moved to the correct directory (covered later on). This means they can be loaded as above by referencing them in your base template.
+
+== Should you consume your own API?
 
 Most the modules we develop have only two web routes. We then utilise
-Vue and the API to provide all module functionality. The API
-automatically takes into account user credentials, but the web routes
-don't. This means that, if you link to another page in your module, you
-need to include the query parameters.
+Vue and the API to provide all module functionality. The alternative is to use normal POST requests through a form, but we've found ourselves creating APIs anyway, so why not save ourselves the duplication of form submissions?
+    
+When using the API, the portal automatically passes up user/group/role credentials. See the components section for more information on this. In summary, it tells the portal which group/role you're currently acting as, allowing us to determine things like your permissions and settings.
+Web routes, however, don't have this luxury. This means that if you want to link to another route in your module, you need to manually include query parameters. An example of this may be something like a download button to link to a url.
 
 If in a blade template, this is easily done by appending the query
 string onto the end of the url. To get the query string, you can call
@@ -127,7 +112,7 @@ module.js file:
 Vue.prototype.$url = portal.APP_URL + '/' + portal.A_OR_P + '/' + portal.ACTIVITY_SLUG + '/' + portal.MODULE_INSTANCE_SLUG + '/' + portal.ALIAS;
 ....
 
-These portal. variables are all available and sent by the SDK, so your
+These portal variables are all available and sent by the SDK, so your
 hyperlink could then, by passing the getAuthQueryString() through the
 components from the blade tempate, read
 
