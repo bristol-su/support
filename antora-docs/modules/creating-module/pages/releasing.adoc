@@ -234,6 +234,6 @@ Having written documentation, you can merge it into our documentation site.
 +
 3. Push your changes to your forked repository on Github
 4. Create a https://github.com/bristol-su/docs/compare[pull request], keeping the default base branch and changing the compare branch to your forked branch. You should see one file changed - `+antora-playbook.yaml+`.
-5. Create the pull request. Set the title to be *Module Documentation: Module Name*. You may leave the title blank.
+5. Create the pull request. Set the title to be *Module Documentation: Module Name*. You may leave the description blank.
 
 Once we approve the request, it may take up to two hours to merge your documentation in with the documentation site. If you ever make changes to your documentation, they may also take up to two hours to propagate. You will only ever have to push the changes to your repository though - the documentation will pick up on changes itself.
