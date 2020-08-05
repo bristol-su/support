@@ -1,15 +1,19 @@
 .SDK API
 
 * xref:index.adoc[Introduction]
-* xref:authentication-authorization.adoc[Authentication & Authorization]
-* xref:storage.adoc[Storage]
-* xref:events.adoc[Events]
-* xref:connections.adoc[Connections]
-* xref:settings.adoc[Settings]
-* xref:actions.adoc[Actions]
-* xref:filters.adoc[Filters]
-* xref:commands.adoc[Commands]
-* xref:completion-conditions.adoc[Completion Conditions]
-* xref:testing.adoc[Testing]
-* xref:database.adoc[Database]
-* xref:control.adoc[Control]
+* Basics
+** xref:authentication-authorization.adoc[Authentication & Authorization]
+** xref:database.adoc[Database]
+** xref:control.adoc[Control]
+** xref:storage.adoc[Storage]
+* Extra Features
+** Helping your module
+*** xref:settings.adoc[Settings]
+*** xref:testing.adoc[Testing]
+*** xref:events.adoc[Events]
+** xref:stand-alone.adoc[Stand-alone features]
+*** xref:filters.adoc[Filters]
+*** xref:commands.adoc[Commands]
+*** xref:connections.adoc[Connections]
+*** xref:actions.adoc[Actions]
+*** xref:completion-conditions.adoc[Completion Conditions]

@@ -69,8 +69,10 @@ CHANGELOG.md export-ignore
 CODE_OF_CONDUCT.md export-ignore
 CONTRIBUTING.md export-ignore
 /docs export-ignore
+/.github export-ignore
 ----
 ****
+- .github. This folder contains all meta related files for your github repository. By default, we give you issue templates and a workflow to automatically compile your javascript and sass on push. This means you don't need to worry about running npm before pushing, as github will do this for you automatically! You may want to change the email/name in the workflow file though.
 
 == Documentation
 
@@ -220,7 +222,8 @@ A brief description of what your module does
 Having written documentation, you can merge it into our documentation site.
 
 1. Create a fork of the documentation site by clicking 'Fork' https://github.com/bristol-su/docs[here].
-2. Edit the `+antora-playbook.yml+` and add the following under the module section in the content -> sources attribute. 
+2. Edit the `+antora-playbook.yml+` and add the following under the module section in the content -> sources attribute.
++
 [source,yaml]
 ----
  - url: https://github.com/username/module-repository
@@ -228,6 +231,7 @@ Having written documentation, you can merge it into our documentation site.
    branches: [master]
    tags: v*
 ----
++
 3. Push your changes to your forked repository on Github
 4. Create a https://github.com/bristol-su/docs/compare[pull request], keeping the default base branch and changing the compare branch to your forked branch. You should see one file changed - `+antora-playbook.yaml+`.
 5. Create the pull request. Set the title to be *Module Documentation: Module Name*. You may leave the title blank.

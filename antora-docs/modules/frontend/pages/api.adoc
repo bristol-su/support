@@ -1,4 +1,7 @@
 = Creating an API
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Creating an API
+:keywords: api,routing,route model binding
 
 Having created your frontend using Blade, you may want to set up an API
 for your module.

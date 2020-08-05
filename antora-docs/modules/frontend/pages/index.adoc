@@ -1,4 +1,7 @@
 = Introduction
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Frontend
+:keywords: frontend
 
 Although a module consists of a lot of behind the scenes work, one of the most used parts is the frontend. That is, the actual pages that users of the portal will utilise.
 

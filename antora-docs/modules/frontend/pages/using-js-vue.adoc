@@ -1,4 +1,7 @@
 = Using Javascript and Vue
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Using JS and Vue
+:keywords: javascript,vue,http client,client,notifications,window
 
 At this point, you should know enough to have created a simple blade
 frontend and a corresponding API (although the business logic is still

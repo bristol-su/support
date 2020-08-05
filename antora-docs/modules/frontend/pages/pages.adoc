@@ -1,4 +1,7 @@
 = Creating Pages
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Creating a page for a module
+:keywords: page,frontend,routing,blade,templates,assets,compiling
 
 First, we will look at how modules are able to use the Blade templating
 engine. We will explore the blade heirarchy, how the SDK extends the

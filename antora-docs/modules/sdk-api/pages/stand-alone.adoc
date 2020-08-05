@@ -1,0 +1,8 @@
+= Stand-alone features
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Stand alone feature descriptions
+:keywords: features,standalone,sdk,single
+
+These are features of the portal, generally in the form of a class or set of classes, which bind into the container to form functionality.
+
+An example of this is the completion condition. It's a single class with methods to tell if a module is complete. This is different to the previous section in that these classes are standalone. You won't use them yourself within your module, but they allow the portal to provide additional functionality around your module.
