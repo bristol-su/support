@@ -15,7 +15,7 @@ We use these two users to abstract the login process away from control. Control 
 
 You generally won't need to access the database user, since nearly everything a module does will be through the control user. If you ever find yourself needing to though, you can resolve the `+\BristolSU\Support\User\Contracts\UserAuthentication+` contract from the container.
 
-[soource,php]
+[source,php]
 ----
 `+$databaseUser = app()->make(\BristolSU\Support\User\Contracts\UserAuthentication::class)->getUser()+`
 ----
