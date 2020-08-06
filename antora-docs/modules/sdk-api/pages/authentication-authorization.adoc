@@ -17,7 +17,8 @@ You generally won't need to access the database user, since nearly everything a 
 
 [source,php]
 ----
-`+$databaseUser = app()->make(\BristolSU\Support\User\Contracts\UserAuthentication::class)->getUser()+`
+$userAuthentication = app(\BristolSU\Support\User\Contracts\UserAuthentication::class);
+$databaseUser = $userAuthentication->getUser();
 ----
 
 This function returns `+null+` if no user is logged in, or an instance of `+\BristolSU\Support\User\User+`.
@@ -201,68 +202,70 @@ Using these tools, we can now save and access data in the database in a way that
 == Permissions
 
 Finally, we want to allow users of the portal to define who can do
-specific things within a module. Of course, this isn't something you as
-a developer can define - it all depends on how the module is used in a
-specific case.
+specific things within a module. Back to our example of a file upload module, some users may be able to upload a new file and others just see uploaded files.
 
 The SDK defines a flexible permission framework for assigning
-permissions. See the SDK documentation for more information.
+permissions. All we need to do is let the SDK know what permissions your module needs, and check the permissions in the correct places.
+
+=== What permissions to use
+
+Although the permissions you will need will depend on your module, these generalisations will help to guide the permissions you need.
+
+* Each participant page should have a permission.
+* Each participant API route should have a permission.
+* Each admin page should have a permission.
+* Each admin API route should have a permission.
 
 === Registering permissions
 
-From a module point of view, all you need to do is let the SDK know what
-permissions are available to assign for your module, and check the
-permissions in the correct places. Say we wanted to assign a permission
-for viewing the participant page. This means that anyone with this
-permission should be able to see the participant page, but if you don't
-have it you'll be presented with a 403 error.
-
-To let the module know about your permissions, you should register them
-in the $permissions array in the service provider. The key should be the
-key for the permission, and the content should be an array with a name,
-description and admin element. For example, the following permission
-would register a 'view-page' permission that is NOT an admin permission.
+Each permission consists of a key, which is a string. These *must* start with your module alias, but it's up to you what you use after that. We recommend creating your permission from a string separated by full stops. If the permission is for an admin, put this in the second position. The third position could then be `+view-page+` or similar, or if you have a REST api the resource should go here with the action fourth. Here are some examples:
 
 ....
-'view-page' => [
-  'name' => 'View Participant Page',
-  'description' => 'View the main page of the module.',
-  'admin' => false
-]
+module-alias.admin.view-page // View admin page
+module-alias.view-page // View page
+module-alias.admin.file.download // Download for an admin
+module-alias.file.download // Download for a participant
 ....
 
-If admin was true, users of the portal will see that this permission is
-for the admin side. For example, you could have an admin permission to
-view the admin page.
+A permission also consists of a name and description.
 
-....
-'admin.view-page' => [
-  'name' => 'View Admin Page',
-  'description' => 'View the administrator page of the module.',
-  'admin' => true
-]
-....
+There are two ways to register permissions with the SDK. The easiest one is to register each permission in the array in the service provider, and the other is to use the interface directly.
 
-Although only admins can access the activity anyway, this is a further
-level of protection. You may notice we also prefix the permission with
-'admin.' when an admin permission is registered, so we don't have any
-permissions which are registered twice.
+==== Service Provider
 
-It is also worth noting that, by registering the permissions in a
-$permissions array, the SDK automatically adds your alias to the start
-of the permission string. So, in reality, the 'View Participant Page'
-permission is actually referred to as, e.g., 'my-alias.view-page'.
+For each permission, you can use the `+$permissions+` array in your module service provider. The key should be the key for the permission as described above, and the content should be an array with a name, description and admin element (a boolean which specifies if the permission is for an admin or not).
 
-Having registered permissions, the portal will take care of ensuring
-they are assigned. 
+[source,php]
+----
+protected $permissions = [
+    'view-page' => [
+      'name' => 'View Participant Page',
+      'description' => 'View the main page of the module.',
+      'admin' => false
+    ]
+];
+----
+
+You may notice your module alias isn't at the start of the array key. The SDK automatically appends your module alias to the start.
+
+==== Directly with the interface
+
+You can also use the permission store interface directly.
+
+[source,php]
+----
+\BristolSU\Support\Permissions\Facade\Permission::register('module-alias.permission-key', 'Permission Name', 'Permission Description', 'module-alias', $isAdmin);
+----
 
 === Authorizing (Checking Permissions)
 
 You now need to check that someone has a permission
-when they try and carry out an action.
+when they try and carry out an action. If the user doesn't have a permission, we should return a 403 error to the user.
 
 To do this, we recommend overriding the default 'authorize' function in
-your controller to add your alias to the ability. If you don't want to
+your base controller to add your alias to the ability. This will allow you to refer to the permission as `+'view-page'+` not `+'module-alias.view-page'+`.
+
+If you don't want to
 do this, make sure to refer to the permission in its full form with your
 alias at the start.
 
@@ -288,11 +291,9 @@ class Controller
 We can now authorize the user. In the participant page controller, we
 just have to put the following line at the start of the method to
 automatically check the user has the permissions, and throw an error if
-they don't
+they don't.
 
 `+$this->authorize('view-page');+`
-
-Wasn't that easy!
 
 Of course, this is a general permission check to make sure a user can do
 something. There are additional checks that need to be made to secure
@@ -304,19 +305,19 @@ model.
 
 ==== Checking Module Instance Access
 
-In the future, this framework will be revised. For now, we recommend the
-following:
-
 Let's take an example of a file. We need to check the file belongs to
 the module instance, so that it can only be accessed through a single
-page. To do this, we tend to use route model binding. This has the
+page. If we have two different file upload modules, e.g. a constitution and a risk assessment, we only want to see consitutions in the consitution module and vice versa.
+
+To do this, we tend to use route model binding. This has the
 additional benefit of ensuring our route model binding doesn't clash
-with any other modules.
+with any other modules as long as we bind using our module instance
 
 In your module service provider boot method, you can bind a model as
-follows:
+follows.
 
-....
+[source,php]
+----
 Route::bind('uploadfile_file', function($id) {
     $file = File::findOrFail($id);
     if(request()->route('module_instance_slug') && (int) $file->module_instance_id === request()->route('module_instance_slug')->id()) {
@@ -324,25 +325,24 @@ Route::bind('uploadfile_file', function($id) {
     }
     throw (new \Illuminate\Database\Eloquent\ModelNotFoundException)->setModel(File::class);
 });
-....
+----
 
-Notice we use a key which includes the alias at the start, and and only
-return the file if the module instance ID matches the current module
-instance.
+We can then use `+{uploadfile_file}+` in our route as a parameter to require a file ID and have it injected into the controller. If the module instance ID of the file is different to the current module instance ID, we throw a 404 error.
 
 
 ==== Checking Activity Instance Access
 
 This is the portals way of checking the user has access to the file.
 This should only really be done on the participant side, since the
-admins can access all activity instances in the module instance. On the
+admins can access all activity instances , or more specifically all models, in the module instance. On the
 participant side, in the controller, we tend to put the following:
 
-....
+[source,php]
+----
 if((int) $file->activity_instance_id !== (int) app(\BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver::class)->getActivityInstance()->id) {
     throw new \Illuminate\Auth\Access\AuthorizationException;
 }
-....
+----
 
 This will return a 403 error if the file does not belong to the activity
 instance. Therefore, if we had a group activity, anyone in the group
@@ -356,7 +356,7 @@ This may only apply for a few of your routes. If you want to limit, for
 example, a files deletion to only the person who initially uploaded it
 (as opposed to the group or role that it was uploaded for), you can add
 an additional check against the current user control model, ensuring the
-ID is the same as the user id you have saved on the model.
+ID is the same as the user id you have saved on the model. Throwing an `+AuthorizationException+` as above will take care of formatting the error for you.
 
 
 === Checking Permission Access
@@ -367,18 +367,18 @@ though. For example, you may want to show a button if a user has the
 use the SDK PermissionTester. An example method call for checking if the
 currently authenticated user has the given permission would look like
 
-`+\BristolSU\Support\Permissions\Facade\PermissionTester::evaluate('upload-file');+`
+`+\BristolSU\Support\Permissions\Facade\PermissionTester::evaluate('upload-file.view-page');+`
 
 This will either return true or false depending on if the user has the
 permission or not. The SDK hijacks the Laravel permission framework and
 forces all permission tests through this method, meaning you can use any
-normal Laravel permission tool (e.g. @can('my-alias.upload-file') in
+normal Laravel permission tool (e.g. `+@can('my-alias.upload-file')+` in
 blade templates) to check permissions. This permission checking will all
 be done on the currently authenticated user. To check a given user, use
 the evaluateFor method, which additionally accepts a user, group and/or
 role.
 
 Finally, as a shortcut to using the PermissionTester, we have created a
-helper function 'hasPermission' which will call the PermissionTester and
+helper function `+hasPermission($ability (e.g. 'mymodule.view-file'))+` that can be called from anywhere, which will call the PermissionTester and
 return the result. Pass in just the ability to check the current user,
 or pass in a user/group/role to check the given user/group/role instead.
