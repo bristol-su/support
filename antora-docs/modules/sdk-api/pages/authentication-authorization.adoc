@@ -1,25 +1,66 @@
 = Authentication & Authorization
 Toby Twigger <tobytwigger1@gmail.com>
 :description: Using the authentication and authorization framework
-:keywords: authentication,authorization,permissions,control,users
+:keywords: authentication,authorization,permissions,control,users,activity instance,module instance
 
-Whilst developing a module, you will never need to worry about
-authentication. The SDK ensures that anyone landing on your module is
-logged in. This means they are logged into a database user and a control
-user, and possibly a group and/or role.
+When you create a normal website, you usually have to consider how users will login and how you will securely store that information. Fortunately, when creating a module, you don't need to think about any of that! Anyone using your module will be logged in.
+
+== Types of Users
+
+There are two different types of users in the portal, database users and control users. A database user is generally used to log in. It may have a password and email verification assigned to it, and possibly social media provider IDs. The control user is the actual user, which contains information about the user and is in groups and roles.
+
+We use these two users to abstract the login process away from control. Control can be purely focussed on the user, and therefore can be substituted for any other user management system. The database users will stay the same and allow for the same login process no matter where the user data is stored.
+
+=== Database User
+
+You generally won't need to access the database user, since nearly everything a module does will be through the control user. If you ever find yourself needing to though, you can resolve the `+\BristolSU\Support\User\Contracts\UserAuthentication+` contract from the container.
+
+[soource,php]
+----
+`+$databaseUser = app()->make(\BristolSU\Support\User\Contracts\UserAuthentication::class)->getUser()+`
+----
+
+This function returns `+null+` if no user is logged in, or an instance of `+\BristolSU\Support\User\User+`.
 
 
-== Module Type
+=== Control Models
 
-All modules must be able to work with just a user. If your module relies
-on the user being logged into a group, you need to let the portal know
-your module can only be used in a group or role activity. If your module
-relies on the user being logged into a role, you must let the portal
-know your module can only be used in a role activity. If your module
-needs a group or a role (we assume by default it is a user so you don't
-need to do anything special), you must add a 'for' key to your config.
+These are generally the models you will work with. When accessing your module, you will always have access to the control user. In some cases, your module may also be used in the context of a group membership or a group role, meaning you'll have access to the control group and the control role.
 
-....
+This may be sounding worrying in terms of how many bits of information you need to consider, but later on in this page we simplify this to make module development a lot easier. It is always worth bearing in mind though, especially if your module directly uses one of these models.
+
+==== Retrieving the model
+
+The `+\BristolSU\Support\Authentication\Contracts\Authentication+` class is the way to retrieve information about the current control user. This works on both the web and the API, as long as it is resolved out of the container. This means you can type hint it into your controller methods, or resolve it directly from the container.
+
+====
+[source,php]
+----
+$authentication = app(\BristolSU\Support\Authentication\Contracts\Authentication::class);
+
+// Returns an instance of \BristolSU\ControlDB\Contracts\Models\User
+$controlUser = $authentication->getUser();
+
+// Returns an instance of \BristolSU\ControlDB\Contracts\Models\Group or null
+$controlGroup = $authentication->getGroup();
+
+// Returns an instance of \BristolSU\ControlDB\Contracts\Models\Role or null
+$controlRole = $authentication->getRole();
+----
+====
+
+==== Requiring a control model
+
+Most of the time, a module will be able to work with any combination of control models. Whether or not a group/role is logged in shouldn't matter to the module, generally it will only affect things like permissions and settings which are defined by the user when setting up a module.
+
+Occasionally, however, a module will need to have a specific model. For example, we have a module which is used to assign roles to a group. Since this then depends on having a group in the module to assign the roles too, this module can *only* be used when a group is logged in.
+
+To tell the portal this is the case, you can put a `+'for'+` key in your config. This takes one of `+'user', 'group' or 'role'+`, and defaults to user. If it is user, then as long as a user is logged in the module can be used. If it is group, then both a user and group will be accessible to the module. If the module is defined as for a role, a user, group and role will always be accessible to the module. In this way, you can create modules based around control models without worrying that a given model won't be availabl.
+
+
+====
+[source,php]
+----
 <?php
 
 return [
@@ -27,101 +68,54 @@ return [
     'description' => '...',
     'for' => 'group' // Could also be 'role', defaults to 'user'
 ];
-....
+----
+====
 
+== Referencing users, groups and roles
 
-== Accessing the Database User
+Having users, groups and roles adds a lot of flexibility to the way the portal works, but it also adds a significant amount of complexity in terms of referencing the user/group/role. In our module, we generally won't care if just a user is logged in, or a user/group/role combination are, until it comes to saving data.
 
-To access the database user, although you shouldn't need to do this, you
-should resolve the UserAuthentication contract:
+Say we're creating an upload file module. If the module has been put in the context of a role by the admin of the portal, anyone in the same role should be able to access the same files. If, however, the module is in the context of a user then only the user should see the files. When saving a file in the database, we then need to reference not only the ID as normal, but also the type of the model. At the most basic level, this would just be the user ID, but this could be the Role ID and the model type `+role+`, or the same for a group.
 
-`+$databaseUser = app()->make(\BristolSU\Support\User\Contracts\UserAuthentication::class)->getUser()+`
+=== The Activity Instance
 
-This will either return null or a database user
-(`+\BristolSU\Support\User\User+`).
+The SDK aims to eliminate this added complexity and return to the idea of a single ID using the idea of an Activity Instance. An Activity Instance is a unified ID for any user/group/role. Modules no longer need to consider each of the user/group/role situations unless relevant to the module operation, and instead just think about the single ID Activity Instance ID.
 
+When a user starts an activity in any context, they will create a new activity instance. By saving the file (or any other data) against the activity instance ID, and the module instance ID, you can ensure you always pass the correct information to the user. The activity instance ID contains information about the user/group/role accessing the data, and the module instance ID contains information about which data to retrieve.
 
-== Accessing Control Models
+==== Database Setup
 
-More often, you'll want to get the current control models. These are
-accessible through the 'Authentication' contract.
+Rather than using the normal `+user_id+` column in your module, you will need to have the following columns on any tables you may need to retrieve for a user. For example, we'd have this on a 'files' table, but not on a 'file comments' table since they are attached to a file.
 
-`+$controlUser = app()->make(\BristolSU\Support\Authentication\Contracts\Authentication)->getUser();+`
-
-`+$controlGroup = app()->make(\BristolSU\Support\Authentication\Contracts\Authentication)->getGroup();+`
-
-`+$controlRole = app()->make(\BristolSU\Support\Authentication\Contracts\Authentication)->getRole();+`
-
-Again, these will either return the relevent control models, or null if
-the model is not logged in.
-
-
-== Assign data to users
-
-More generally, you will only be concerned about the current
-user/group/role to check they have permissions to carry out the
-requested action in your module and to save an ID against any data (e.g.
-who uploaded the file).
-
-Assigning IDs to data is, to a very basic level, saving the user ID in a
-database row so that when the user requests all their files in a module
-instance, we know which are theirs. The portal takes this idea and
-introduces something called an activity instance. Since activities can
-be completed by people in a group or role working together as well as by
-individuals (depending on how the activity was set up), we need a way of
-standardising the IDs we save.
-
-The activity instance is, as the name suggests, an instance of an
-activity. When a resource (user/group/role) starts an activity, an
-instance is created. Normally, a single user/group/role will only have
-one activity instance, but some activities will allow for multiple to
-provide multiple run throughs of the same activity which are treated as
-seperate submissions. In a table used by a module, we therefore save the
-activity instance ID and module instance ID. With this, we can identify
-the activity instance and module instance the data is for, and from the
-activity instance we can work out what the username, group name or role
-name is to display to admins.
-
-To make this work, we need to add the following to our migrations:
-
-....
+[source,php]
+----
 $table->unsignedInteger('module_instance_id');
 $table->unsignedInteger('activity_instance_id');
-....
+----
 
-If this doesn't make sense, it shouldn't matter. The SDK provides a
-trait to simplify all this to a few scopes. Simply use the
-`+\BristolSU\Support\Authentication\HasResource+` trait on any eloquent
-model to initialise the framework. When a new model is saved, we will
-automatically resolve the module iinstance and activity instance and
-save their IDs in the correct column.
+==== Accessing Data
 
-You can then retrieve data from the database using scopes. On the
-participant side, you will only want to retrieve rows that're for the
-correct module instance AND activity instance. Use the ::forResource()
-scope to do this. It will apply a where constraint to the query to only
-retrieve relevant files. You can also override the module instance ID or
-activity instance ID being used by passing them in as parameters, which
-will then replace the resolved parameters.
+To even further simplify the user system for you, we provide traits/scopes to help you carry out common queries. All you need to do is add the `+\BristolSU\Support\Authentication\HasResource+` trait to any eloquent model which uses the module instance and activity instance pattern.
+
+When a new model is created, the module instance ID and activity instance ID are automatically resolved and saved if not given. When creating models for a user, this is good enough. When creating a new model as an admin, who themselves doesn't have an activity instance ID, we will need them to select one to save the model against. In this case, we will have to pass the activity instance ID to the model on creation, and the trait will fill in the module instance ID for us.
+
+To retrieve data for a specific user/group/role (activity instance), we can use the `+forResource($activityInstanceId = null, $moduleInstanceId = null)+` scope. This is used on the participant side, and will apply a where contraint to the query builder to only retrieve rows for the given activity instance and module instance. If no activity instance or module instance are given, it will use the current ones. Therefore, to retrieve all files for the current user, we'd use 
+
+[source,php]
+----
+$files = \My\Namespace\File::forResource()->get();
+----
+
 
 On the admin side, you generally will want to retrieve all data for the
-module instance, regardless of the corresponding activity instance. This
-way, we can list, e.g., all files uploaded to a module and display the
-resource that uploaded them. To achieve this, we use the
-forModuleInstance scope, which uses the current module instance or the
-given module instance ID to retrieve the correct rows.
+module instance, regardless of the corresponding activity instance. This is equivalent to showing all files from all users for the specific module instance in a file upload module, which is what would usually be expected on an admin side. For this, a `+forModuleInstance($moduleInstanceId = null)+` scope is provided. If the Module Instance ID is null or not given, it will search for all rows with the current module instance ID.
 
-Although this handles the basic retrieval of data, we will sometimes
-want to know who uploaded something as opposed to which resource it is
-for. If you have a file upload module in a group activity, the activity
-instance will be relevant for the group only. However, we may want to
-know that Jane uploaded the file as opposed to Joe, which is information
-that will be lost during the upload as we essentially only save the
-group. Therefore, we strongly recommend always adding a user_id column
-to your tables and manually resolving the user from Authentication and
-saving their ID in here.
 
-This may become a core part of the framework at some point
+==== Using User IDs
+
+Although this handles the basic retrieval of data, we will sometimes want to know who uploaded something as opposed to which resource it is for. If you have a file upload module in a group activity, the activity instance will be relevant for the group only. This means that we know the file belongs to Group 1, but nothing more about it.
+
+We may want to know that Jane uploaded the file as opposed to Joe, which is information that will be lost during the upload as we essentially only save the group. Therefore, we strongly recommend always adding a `+user_id+` column to your tables and manually resolving the control user from Authentication and saving their ID in here.
 
 Here is an example of the migrations and controllers for an Upload File
 module, where a file can be uploaded and retrieved by a user and viewed
@@ -130,9 +124,12 @@ the activity instance and this would need to be saved into the model
 manually as opposed to using the trait, as admins aren't logged into
 activity instances by default.
 
-migration:
+****
 
-....
+Database Migration
+
+[source,php]
+----
 Schema::create('uploadfile_files', function(Blueprint $table) {
     $table->bigIncrements('id');
     $table->string('title');
@@ -144,50 +141,61 @@ Schema::create('uploadfile_files', function(Blueprint $table) {
     $table->timestamps();
     $table->softDeletes();
 });
-....
+----
 
-Upload Controller:
+Participant Controller
 
-This will save the module instance ID and activity ID automatically,
-since the File model uses HasResource
+[source,php]
+----
+class ParticipantFileController
+{
 
-....
-File::create([
-    'title' => $request->get('title'),
-    'description' => $request->get('description'),
-    ...
-    'uploaded_by' => app(\BristolSU\Support\Authentication\Contracts\Authentication::class)->getUser()->id()
-]);
-....
+    public function store(\BristolSU\Support\Authentication\Contracts\Authentication $authentication)
+    {
+        returm File::create([
+            'title' => $request->get('title'),
+            'description' => $request->get('description'),
+            ...
+            'uploaded_by' => $authentication->getUser()->id(), // Get the User ID
+        ]);
+    }
+    
+    public function index()
+    {
+        return File::forResource()->get();
+    }
 
-View Controller for Participants:
+}
+----
 
-This will return all files for the current participant.
+Admin Controller:
 
-....
-return File::forResource()->get();
-....
+[source,php]
+----
+class AdminFileController
+{
 
-View controller for admins:
+    public function store(\BristolSU\Support\Authentication\Contracts\Authentication $authentication)
+    {
+        returm File::create([
+            'title' => $request->get('title'),
+            'description' => $request->get('description'),
+            ...
+            'uploaded_by' => $authentication->getUser()->id(), // Get the admins User ID
+            'activity_instance_id' => $request->get('activity_instance_id') // Must be passed through the API manually
+        ]);
+    }
+    
+    public function index()
+    {
+        return File::forModuleInstance()->get();
+    }
 
-....
-return File::forModuleInstance()->get();
-....
+}
+----
+****
 
-Upload Controller for Admins:
-
-....
-File::create([
-    'title' => $request->get('title'),
-    'description' => $request->get('description'),
-    ...
-    'uploaded_by' => app(\BristolSU\Support\Authentication\Contracts\Authentication::class)->getUser()->id(),
-    'activity_instance_id' => $request->get('activity_instance_id') // Must be passed through manually
-]);
-....
-
-Using these tools, we can now save and access data in the database in a
-way that works with the flexible user control system of the portal.
+Using these tools, we can now save and access data in the database in a way that works with the flexible user control system of the portal.
 
 
 == Permissions
@@ -199,6 +207,8 @@ specific case.
 
 The SDK defines a flexible permission framework for assigning
 permissions. See the SDK documentation for more information.
+
+=== Registering permissions
 
 From a module point of view, all you need to do is let the SDK know what
 permissions are available to assign for your module, and check the
@@ -244,7 +254,11 @@ of the permission string. So, in reality, the 'View Participant Page'
 permission is actually referred to as, e.g., 'my-alias.view-page'.
 
 Having registered permissions, the portal will take care of ensuring
-they are assigned. You now need to check that someone has a permission
+they are assigned. 
+
+=== Authorizing (Checking Permissions)
+
+You now need to check that someone has a permission
 when they try and carry out an action.
 
 To do this, we recommend overriding the default 'authorize' function in
@@ -288,11 +302,10 @@ instance. You also may need to check a model belongs to the correct
 activity instance, or the user is allowed to perform an action on this
 model.
 
+==== Checking Module Instance Access
+
 In the future, this framework will be revised. For now, we recommend the
 following:
-
-
-=== Checking for module instance ownership
 
 Let's take an example of a file. We need to check the file belongs to
 the module instance, so that it can only be accessed through a single
@@ -318,7 +331,7 @@ return the file if the module instance ID matches the current module
 instance.
 
 
-=== Checking for activity instance ownership
+==== Checking Activity Instance Access
 
 This is the portals way of checking the user has access to the file.
 This should only really be done on the participant side, since the
@@ -337,7 +350,7 @@ would be able to access the file but anyone outside the group wouldn't
 be able to.
 
 
-=== Checking for model ownership
+==== Checking for model ownership
 
 This may only apply for a few of your routes. If you want to limit, for
 example, a files deletion to only the person who initially uploaded it
@@ -346,7 +359,7 @@ an additional check against the current user control model, ensuring the
 ID is the same as the user id you have saved on the model.
 
 
-== Testing for permission ownership
+=== Checking Permission Access
 
 You won't always want to throw an error if a permission is not owned
 though. For example, you may want to show a button if a user has the
