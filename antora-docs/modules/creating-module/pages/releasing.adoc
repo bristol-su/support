@@ -86,6 +86,7 @@ TIP: The template module includes the documentation framework.
 
 The general structure of the `+docs+` folder should be as follows:
 
+[source,]
 ----
 - /docs
     - antora.yml <1>
@@ -204,6 +205,7 @@ The point of this pull request is to automatically include your module in all fr
 3. Push your changes to your forked repository on Github.
 4. Create a https://github.com/bristol-su/portal/compare[pull request], keeping the default base branch and changing the compare branch to your forked branch. You should see two files changed - `+composer.json+` and `+composer.lock+`.
 5. Create the pull request. Set the title to be *New Module: Module Name*, and use the following template for the description
+
 [source,markdown]
 ----
 # Module Name

@@ -16,7 +16,8 @@ you usually would in a service provider.
 Generally, the ModuleServiceProvider class should be placed in your app
 directory, and be loaded in composer.json
 
-....
+[source,json]
+----
 "extra": {
     "laravel": {
       "providers": [
@@ -24,7 +25,7 @@ directory, and be loaded in composer.json
       ]
     }
   }
-....
+----
 
 == Creating a Service provider
 
@@ -33,7 +34,9 @@ To register your module, you must extend the
 methods. An example implementation, which should be good enough for most
 modules (having changed the alias and namespace) is provided below
 
-....
+====
+[source,php]
+----
 // Alias of the module
 public function alias(): string {
     return 'my-alias';
@@ -48,7 +51,8 @@ public function namespace() {
 public function baseDirectory() {
     return __DIR__ . '/..';
 }
-....
+----
+====
 
 - The *alias* is the unique identifier of your module, and will be used
 throughout the portal so should not be changed.

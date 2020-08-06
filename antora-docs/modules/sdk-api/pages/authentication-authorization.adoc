@@ -1,4 +1,7 @@
 = Authentication & Authorization
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Using the authentication and authorization framework
+:keywords: authentication,authorization,permissions,control,users
 
 Whilst developing a module, you will never need to worry about
 authentication. The SDK ensures that anyone landing on your module is

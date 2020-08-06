@@ -34,7 +34,8 @@ As is, the module would still need to be published so it can be pulled into the 
 
 Assuming the directory structure is as follows;
 
-....
+[source,]
+----
 - modules
     - my-module
         - composer.json
@@ -42,12 +43,13 @@ Assuming the directory structure is as follows;
 - playground
     -composer.json
     - ...
-....
+----
 
 we can paste the following into the playground composer.json to make composer aware of
 the module.
 
-....
+[source,json]
+----
 "autoload-dev": {
     ...
 },
@@ -60,7 +62,7 @@ the module.
 "extra": {
     ...
 }
-....
+----
 
 Now composer will be able to search your module folder and find your module composer.json file. We can then require our module via composer:
 `+composer require bristol-su/my-module @dev+`
@@ -96,16 +98,18 @@ the following
 . Install when-changed: `+pip install when-changed+`
 . Run
 
-....
+[source,shell script]
+----
 when-changed -r /path/to/module/public/modules -c php /path/to/playground/artisan vendor:publish --force --provider="Your\Provider\Namespace\ModuleServiceProvider"
-....
+----
 
 This will watch your assets, and publish them when any changes are
 detected. You can put this into an alias by editing your .bashrc file:
 
-....
+[source,shell script]
+----
 alias onchange-module="source /path/to/venv/bin/activate && " when-changed -r /path/to/module/public/modules -c php /path/to/playground/artisan vendor:publish --force --provider="Your\Provider\Namespace\ModuleServiceProvider"
-....
+----
 
 == What your module should contain
 

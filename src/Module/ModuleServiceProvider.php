@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Module;
 
+use BristolSU\Support\Action\Facade\ActionManager;
 use BristolSU\Support\Events\Contracts\EventManager;
 use BristolSU\Support\Module\Contracts\ModuleManager;
 use BristolSU\Support\ModuleInstance\Contracts\Scheduler\CommandStore;
@@ -19,7 +20,7 @@ use Illuminate\Support\ServiceProvider;
 
 /**
  * Module Service Provider.
- * 
+ *
  * Extend this service provider to register a module
  */
 abstract class ModuleServiceProvider extends ServiceProvider
@@ -27,14 +28,14 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     /**
      * Should the module registration be deferred?
-     * 
+     *
      * @var bool
      */
     protected $defer = false;
 
     /**
      * Permissions to register.
-     * 
+     *
      * All permissions your module uses should be registered here (or directly) so the framework knows about them.
      * Permissions should be entered in the following form
      * [
@@ -50,7 +51,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      *      ], ...
      * ]
      * Do not add the module alias to the start of the permission. This will be done automatically.
-     * 
+     *
      * @var array
      */
     protected $permissions = [
@@ -58,7 +59,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     /**
      * Register any events the module fires.
-     * 
+     *
      * Register events in the following form. All events fired by your module should be registered.
      * [
      *      EventClass::class => [
@@ -66,58 +67,58 @@ abstract class ModuleServiceProvider extends ServiceProvider
      *          'description' => 'Description of the event'
      *      ], ...
      * ]
-     * 
+     *
      * @var array
      */
     protected $events = [];
 
     /**
      * Commands the module registers.
-     * 
+     *
      * An array of command class names
      * [
      *      CommandOne::class,
      *      CommandTwo::class
      * ]
      * See the laravel documentation for more information about commands.
-     * 
+     *
      * @var array
      */
     protected $commands = [];
 
     /**
      * Any listeners which should be triggered on specific settings being changed.
-     * 
+     *
      * Register an array of listeners which extend the SettingListener abstract class.
      * [
      *      TitleSettingListener::class,
      *      BackgroundColourSettingListener::class
      * ]
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $settingListeners = [];
 
     /**
      * Commands to run at scheduled times.
-     * 
+     *
      * Register any scheduled commands here. The commands must have been registered in the $commands array already,
      * but putting them here allows us to run commands at specific times in the background.
      * Commands should be registered with the index as the class name, and the value as a cron string representing
      * when to run the command.
-     * 
+     *
      * [
      *      CommandOne::class => '* * * * *', // Run every minute
      *      CommandTwo::class => '* /5 * * * *' // Run every five minutes
      * ]
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $scheduledCommands = [];
 
     /**
      * Boot
-     * 
+     *
      * - Register translations
      * - Register configuration
      * - Register the module
@@ -132,7 +133,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      * - Register settings
      * - Register setting listeners
      * - Register scheduled commands
-     * 
+     *
      * @throws BindingResolutionException
      */
     public function boot()
@@ -155,7 +156,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     /**
      * Register setting listeners
-     * 
+     *
      * Register listeners to be fired when settings are changed.
      */
     public function registerSettingListeners()
@@ -167,9 +168,9 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     /**
      * Register scheduled commands
-     * 
+     *
      * Register commands to run at scheduled times.
-     * 
+     *
      * @throws BindingResolutionException
      */
     public function registerScheduledCommands()
@@ -185,7 +186,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function registerRoutes()
     {
-        
+
         $this->mapParticipantRoutes();
         $this->mapAdminRoutes();
         $this->mapParticipantApiRoutes();
@@ -194,7 +195,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     /**
      * Register the module
-     * 
+     *
      * @throws BindingResolutionException
      */
     public function registerModule()
@@ -204,7 +205,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     /**
      * Register permissions the module uses
-     * 
+     *
      * @throws Exception
      */
     public function registerPermissions()
@@ -222,7 +223,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     /**
      * Register events the module fires
-     * 
+     *
      * @throws BindingResolutionException
      */
     public function registerEvents()
@@ -250,7 +251,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     protected function registerConfig()
     {
         $this->publishes([$this->baseDirectory().'/config/config.php' => config_path($this->alias().'.php'),
-        ], 'config');
+        ], ['module', 'module-config', 'config']);
         $this->mergeConfigFrom(
             $this->baseDirectory().'/config/config.php', $this->alias()
         );
@@ -263,14 +264,14 @@ abstract class ModuleServiceProvider extends ServiceProvider
     {
         $this->publishes([
             $this->baseDirectory().'/resources/views' => resource_path('views/vendor/'.$this->alias()),
-        ], 'views');
+        ], ['module', 'module-views', 'views']);
 
         $this->loadViewsFrom($this->baseDirectory().'/resources/views', $this->alias());
     }
 
     /**
      * Register factories in a non-production environment
-     * 
+     *
      * @throws BindingResolutionException
      */
     public function registerFactories()
@@ -347,45 +348,47 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function registerAssets()
     {
-        $this->publishes([$this->baseDirectory().'/public/modules/'.$this->alias() => public_path('modules/'.$this->alias())]);
+        $this->publishes([
+          $this->baseDirectory().'/public/modules/'.$this->alias() => public_path('modules/'.$this->alias())
+        ], ['module', 'module-assets', 'assets']);
     }
 
     /**
      * Base namespace of the controllers.
-     * 
+     *
      * Routes will use this namespace to prevent you from having to give the fully qualified name of the controller in the
      * routes file. Will look something like \App\Http\Controllers
-     * 
+     *
      * @return string
      */
     abstract public function namespace();
 
     /**
-     * Return the path to the base directory (where the composer.json file is). 
-     * 
+     * Return the path to the base directory (where the composer.json file is).
+     *
      * Used for registering files, will often look something like __DIR__ . '/..'
-     * 
+     *
      * @return string
      */
     abstract public function baseDirectory();
 
     /**
      * Return the alias of the module
-     * 
+     *
      * @return string Module alias
      */
     abstract public function alias(): string;
 
     /**
      * Return settings required by the module
-     * 
+     *
      * @return Form
      */
     abstract public function settings(): Form;
 
     /**
      * Register settings for the module
-     * 
+     *
      * @throws BindingResolutionException
      */
     public function registerSettings()
@@ -395,10 +398,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     /**
      * Register a js file to be loaded on every request.
-     * 
+     *
      * This is useful for registering custom components. If you want to register a custom component to use in a form,
      * pass in a js file path which registers the component.
-     * 
+     *
      * @param string $path build path e.g. 'modules/module-alias/js/components.js'
      */
     public function registerGlobalScript(string $path) {
@@ -409,4 +412,15 @@ abstract class ModuleServiceProvider extends ServiceProvider
         });
     }
 
+    /**
+     * Register an action with the portal
+     *
+     * @param string $class The fully qualified class name of the action class
+     * @param string $name A name for your action
+     * @param string $description A longer description for your action
+     */
+    public function registerAction(string $class, string $name, string $description): void
+    {
+        ActionManager::registerAction($class, $name, $description);
+    }
 }

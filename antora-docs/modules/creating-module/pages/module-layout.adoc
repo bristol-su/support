@@ -32,13 +32,14 @@ module, you will need to require the support package. This is already done for y
 It must also provide namespacing. You will need to decide on a namespace
 for your module. We will use the example `+\BristolSU\Module\Typeform+`
 
-....
+[source,json]
+----
 "autoload": {
     "psr-4": {
       "BristolSU\\Module\\Typeform\\": "app/"
     }
   },
-....
+----
 
 == app
 
@@ -98,7 +99,8 @@ Your blade files should be kept here. It is recommended to keep the same layout 
 
 Your routes folder is where your routes are stored. It should look like
 
-....
+[source,]
+----
 - routes
     - admin
         - web.php // Web Admin Routes
@@ -106,7 +108,7 @@ Your routes folder is where your routes are stored. It should look like
     - participant
         - web.php // Web Participant Routes
         - api.php // API Participant Routes
-....
+----
 
 The service provider takes care of loading these routes correctly, so
 each can assume it is the root. This means that all url's can be built

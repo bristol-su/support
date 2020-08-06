@@ -18,10 +18,11 @@ instance mounted to the base component defined in
 'resources/views/layout/app.blade.php'. This file is then loaded in the
 same blade file.
 
-****
+====
 Example `+module.js+` file
 
-....
+[source,javascript]
+----
 import Vue from 'vue';
 import BootstrapVue from 'bootstrap-vue';
 import http from 'http-client';
@@ -40,8 +41,8 @@ let vue = new Vue({
         ExampleComponent
     }
 });
-....
-****
+----
+====
 
 NOTE: This is set up for you if you're using the template module!
 
@@ -50,7 +51,7 @@ import Vue and BootstrapVue (a set of Vue components built around
 Bootstrap). We also import a http-client and notifications, as well as a
 component.
 
-WARNING: We're still in the process of deciding which frontend framework to use, and are considering Vuetify. 
+WARNING: We're still in the process of deciding which frontend framework to use, and are considering Vuetify.
 
 We can initialise BootstrapVue by calling `+Vue.use(BootstrapVue)+`,
 which will let us use any of the components anywhere we want. We then
@@ -75,7 +76,8 @@ and still let you use the normal .then() .catch() .then() promises.
 To simplify this further, we assign the client to the Vue prototype.
 This means that, in your Vue components, you can simply use
 
-....
+[source,vuejs]
+----
 export default {
     name: "MyComponent",
 
@@ -93,7 +95,7 @@ export default {
         }
     }
 }
-....
+----
 
 This will load all files and save them to the 'files' data attribute, or
 show an error if something went wrong. Notice we can use 'this.$http',
@@ -144,12 +146,13 @@ Package]. You can follow their documentation, but generally you will
 just need to put the following in your middleware or service provider
 boot function:
 
-....
+[source,php]
+----
 Laracasts\Utilities\JavaScript\JavaScriptFacade::put([
   'key' => 'value',
   'typeform_client_id' => config('typeform-alias.client_id')
 ]);
-....
+----
 
 These will now be accessible through 'window.portal.key' or
 'window.portal.typeform_client_id'.

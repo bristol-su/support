@@ -10,9 +10,11 @@ To go about creating an API, we follow the Laravel way: add the route to
 the 'api.php' file in either admin or participant, then create the
 controller in 'app/Http/Controllers/Api'.
 
+====
 routes/admin/api.php:
 
-....
+[source,php]
+----
 Route::namespace('Api')->group(function() {
     Route::get('/file', 'FileController@index');
     Route::get('/file/{staticpage_file}', 'FileController@show');
@@ -21,11 +23,12 @@ Route::namespace('Api')->group(function() {
 
     Route::apiResource('file', 'FileController');
 });
-....
+----
 
 app/Http/Controllers/Api/FileController:
 
-....
+[source,php]
+----
 class FileController extends Controller {
     public function index() {
         //
@@ -35,7 +38,8 @@ class FileController extends Controller {
         return $file;
     }
 }
-....
+----
+====
 
 == Route Model Binding
 
@@ -44,15 +48,18 @@ Unlike normal, we require that route model bindings are prefixed with
 the module alias, to limit any conflicts. We could set up the file route
 model binding as so:
 
+====
 ModuleServiceProvider.php
 
-....
+[source,php]
+----
 public function boot() {
     parent::boot();
 
     Route::model('staticpage_file', BristolSU\Module\StaticPage\Model\File::class);
 }
-....
+----
+====
 
 The above will resolve a file when the key 'staticpage_file' is
 referenced in a URL. If you want to change the resolution logic too, you

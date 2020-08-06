@@ -1,60 +1,119 @@
 = Actions
+Toby Twigger <tobytwigger1@gmail.com>
+:description: How to create actions
+:keywords: actions,action,sdk action,event listener,listener
+
+== What are actions?
 
 Actions are the counterparts to events, and allow for something to
-happen when an event is fired. Examples of 'global' actions are things
-like send an email, add a task to a task manager like Asana or give
-someone a permission on Azure AD. However, modules can register their
-own actions. For example, a file upload module may register an action
-'Upload a File', which takes a file url and uploads it to a specific
-module instance with a specific activity instance.
+happen when an event is fired. As a developer, you may be used to calling these Event Listeners.
 
-An action can be built by implementing the Action interface:
-`+\BristolSU\Support\Action\Contracts\Action+`. Similarly to the
-triggerable events, actions have fields which need to be fulfilled. For
-example, you could have an 'email address', 'subject line' and 'content'
-fields for a 'Send an Email' action.
+Examples of actions are normally things sending an email, adding a task to a task manager like Asana or giving a permission on Azure AD. With the portal, a user can bind one of these actions to any event to automate tasks. For example, we could automatically send an email to someone who submits a form through the portal.
 
-The actions require an options function, which should return a normal
-Form Schema, and a handle method. The handle method should make use of
-the data passed through the construct.
+Individual modules may also provide actions for the rest of the portal to use. For example, a file upload module may register an action 'Upload a File'. This would take a file URL and module instance/activity instance and upload the file. This would be very useful if you wanted a user to attach a file to a form but also wanted the file to be held separately. The 'Upload a File' action could be bound to a 'Form Submitted' event, get the file URL and upload it!
 
-In the 'Send an Email' case, this data may look something like:
+Packages may also just include actions if they want. We have a few integration packages that don't supply a module, but rather integrations such as actions for a given third party.
 
-....
-$data = [
-  'email_address' => 'tobytwigger1@gmail.com',
-  'subject' => 'Your file has been uploaded',
-  'content' => 'Hi Toby! Just to let you know, you\'re file has been successfully uploaded...'
-];
-....
+== How to build an action
 
-This should be saved in a property in your action. Having created a new
-instance of your action initialised with the data it needs, we call the
-handle method. This is where you can actually carry out the action.
-Using the data given in the construct, we have enough information to
-send an email with the given parameters.
+An action is simply a class that extends the Action class:
+`+\BristolSU\Support\Action\Contracts\Action+`. 
 
-Some modules may find they don't have a need for an action, which is
-fine! Generally, actions will be global ones such as sending an email.
+=== Accepting Settings
 
-Don't forget, you could always create a package with just an action in
-if you think the portal is missing a useful action!
+To make actions as useful as possible, they may accept any number of settings. In the above examples, such as uploading a file, settings would be a file URL, module instance id and activity instance id. For uploading a task to Asana, settings may be a Connection ID, the task contents and a due date. For sending an email, you'd have an email address, subject line and content field.
+ 
+To ask for settings, you need to use the `+options+` function to return a FormSchema.
 
-Having created an action, it needs to be registered in a service
-provider so the portal knows it exists and can use it. To do this, put
-the following line in a boot method in your service provider:
+====
+[source,php]
+----
+public static function options(): FormSchema\Schema\Form
+{
+    return \FormSchema\Generator\Form::make()
+        ->withField(
+            Field::input('email_address')->inputType('email')->label('Email 
+        )
+        ->withField(...)
+        ->getSchema();
+}
+----
+====
 
-....
+=== Executing the Action
+
+When an action is to be executed, the `+run+` method will be called. In this method, you may do anything you want to execute the action. In our email example, this would be sending an email using the Laravel framework.
+
+To access settings you asked for in the 'options' function, we use the `+option+` function. This takes a key, such as 'email_address', and a default for if the value is not given.
+
+=== Returning a Response
+
+It's useful to keep a log of all actions, as well as alerting users when actions have failed. To do this, all we need to do is return a specific kind of response.
+
+==== Successful Response
+
+If the action succeeded, and we sent the email, we return a success response. We can do this using the `+\BristolSU\Support\Action\ActionResponse+` class.
+
+[source,php]
+----
+return \BristolSU\Support\Action\ActionResponse::success(sprintf('The email was sent successfully to %s.', $this->option('email_address'))
+----
+
+When an action returns a success response, a user can see all the event fields, the settings available to the action and the message in the success response. This allows for debugging of actions by users of the portal.
+
+==== Failed Response
+
+When an action fails, there are several ways we can log this information
+
+===== Throwing an Exception
+
+If the `+run+` method throws an exception, we will automatically log the failed response using the exception message as the log message. This allows you to use cleaner code in your method whilst still making use of the logging framework.
+
+===== Returning a Failed Response
+
+As you'd expect, the success method has a failed counterpart. Return this from the `+run+` method to let the action handler know that the action has failed. 
+
+[source,php]
+----
+return \BristolSU\Support\Action\ActionResponse::failure(sprintf('The email could not be sent to %s.', $this->option('email_address'))
+----
+
+== Registering an Action
+
+Having created an action, it needs to be registered into the portal so users can use it. To do this, you need to register it in the `+boot+` function of a service provider.
+
+If you are creating a module, your service provider will extend `+\BristolSU\Support\Module\ModuleServiceProvider+`. In this case, you can use the method `+registerAction+` to register any number of actions in your boot.
+
+====
+[source,php]
+----
 public function boot()
 {
     parent::boot();
-    BristolSU\Support\Action\Facade\ActionManager::registerAction(ActionClass::class, 'Action Name', 'A description for the action to help the user understand');
+    $this->registerAction(
+        \MyName\Space\MyAction::class, <1>
+        'My Action Name' <2>
+        'A longer description for my action' <3>
+    );
 }
-....
+----
+<1> The fully qualified class name of your action.
+<2> A name for your action
+<3> A description for your action
+====
 
+If you aren't creating a module, you can still register your action with the portal. You need to use the action manager directly.
 
-== History
-
-To keep track of action history, you should use the trait
-`+\BristolSU\Support\Action\History\HasHistory+` in your action.
-r
+====
+[source,php]
+----
+public function boot()
+{
+    \BristolSU\Support\Action\Facade\ActionManager::registerAction(
+        \MyName\Space\MyAction::class,
+        'My Action Name'
+        'A longer description for my action'
+    );
+}
+----
+====
