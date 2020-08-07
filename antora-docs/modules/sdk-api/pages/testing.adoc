@@ -1,25 +1,25 @@
 = Testing
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Testing a module
+:keywords: testing,module testing,phpunit
 
-To make sure your module works as expected, we highly recommend testing
-your module fully. We've set you up with a TestCase through the template
-module. This extends the SDK TestCase from
-`+\BristolSU\Support\Testing\TestCase+`, which in turn extends Orchestra
-TestBench. This means you can use PHPUnit with all the testing tools
-Laravel provides, and benefit from the SDK Testing Tools.
+To make sure your module works as expected, we highly recommend testing your module fully. You should use PHPUnit, and write tests for all features in your module.
 
-The SDK TestCase loads the SDK, sets up a testing database and an app
-key, and sets up necessary authentication configuration. In your
-TestCase (this is done for you in the template module), you should load
-your service provider by copying the following:
+== Set up the environment
 
-....
+We've set you up with a TestCase through the template module. This extends the SDK TestCase from `+\BristolSU\Support\Testing\TestCase+`, which in turn extends Orchestra TestBench. This means you can use PHPUnit with all the testing tools Laravel provides, and benefit from the SDK Testing Tools.
+
+The SDK TestCase loads the SDK, sets up a testing database and an app key, and sets up necessary authentication configuration. In your TestCase (this is done for you in the template module), you should load your service provider by copying the following:
+
+[source,php]
+----
 protected function getPackageProviders($app)
 {
   return array_merge(parent::getPackageProviders($app), [
     \My\Alias\ModuleServiceProvider::class
   ]);
 }
-....
+----
 
 You can also use a number of useful traits to make testing even easier.
 
@@ -95,9 +95,6 @@ This contains a helper method for asserting eloquent models are equal:
 
 == CreatesModuleEnvironment
 
-
-==
-
 This trait sets up the environment for testing a module whilst framed as
 a module. For example, it will create a module instance, an activity,
 and logs into authentication credentials.
@@ -128,6 +125,8 @@ retrieve the value. If previously set before calling
 createModuleEnvironment, they will return the values that were set.
 Otherwise, it will return newly created values.
 
+=== Urls
+
 Finally, the following functions manipulate data about the activity to
 provide helpful shortcuts. For example, creating a URL for the module to
 send requests to.
@@ -138,17 +137,18 @@ module. Give a path to navigate to this page instead (e.g. '/files').
 * `+adminApiUrl($path = '')+`: Return the url to the admin API
 * `+userApiUrl($path = '')+`: Return the url to the participant API
 
-In a future update, we will provide fluent tools for mocking settings.
-Currently, you can set the value of a setting in your module during
-testing using the following line:
+=== Settings
 
-....
+You can change the value of the settings by using the following snippet
+
+[source,php]
+----
 \BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting::create([
   'module_instance_id' => $this->getModuleInstance->id(),
   'key' => 'setting_key',
   'value' => false
 ]);
-....
+----
 
 Value accepts any variable type, and will handle casting to a format for
 the database automatically.

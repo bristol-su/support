@@ -4,7 +4,10 @@ namespace BristolSU\Support\Module;
 
 use BristolSU\Support\Action\Facade\ActionManager;
 use BristolSU\Support\Completion\Contracts\CompletionConditionManager;
+use BristolSU\Support\Connection\Contracts\ConnectorStore;
+use BristolSU\Support\Connection\ServiceRequest;
 use BristolSU\Support\Events\Contracts\EventManager;
+use BristolSU\Support\Filters\Contracts\FilterManager;
 use BristolSU\Support\Module\Contracts\ModuleManager;
 use BristolSU\Support\ModuleInstance\Contracts\Scheduler\CommandStore;
 use BristolSU\Support\ModuleInstance\Contracts\Settings\ModuleSettingsStore;
@@ -128,6 +131,27 @@ abstract class ModuleServiceProvider extends ServiceProvider
     protected $completionConditions = [];
 
     /**
+     * A list of service aliases required by the module
+     *
+     * @var array
+     */
+    protected $requiredServices = [];
+
+    /**
+     * A list of service aliases that may be passed to the module, but don't have to be.
+     *
+     * @var array
+     */
+    protected $optionalServices = [];
+
+    /**
+     * An array of filters your module registers, with the key being the filter alias
+     *
+     * @var array
+     */
+    protected $filters = [];
+
+    /**
      * Boot
      *
      * - Register translations
@@ -164,6 +188,8 @@ abstract class ModuleServiceProvider extends ServiceProvider
         $this->registerSettingListeners();
         $this->registerScheduledCommands();
         $this->registerCompletionConditions();
+        $this->registerServices();
+        $this->registerFilters();
     }
 
     /**
@@ -450,6 +476,48 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function registerAction(string $class, string $name, string $description): void
     {
         ActionManager::registerAction($class, $name, $description);
+    }
+
+    /**
+     * Register a third party connection
+     *
+     * @param string $name
+     * @param string $description
+     * @param string $alias
+     * @param string $service
+     * @param string $class
+     * @throws BindingResolutionException
+     */
+    public function registerConnection(string $name, string $description, string $alias, string $service, string $class): void
+    {
+        $connectorStore = $this->app->make(ConnectorStore::class);
+        $connectorStore->register(
+          $name,
+          $description,
+          $alias,
+          $service,
+          $class
+        );
+    }
+
+    /**
+     * Registers services the module asks for with the SDK
+     *
+     * @throws BindingResolutionException
+     */
+    public function registerServices()
+    {
+        $serviceRequest = $this->app->make(ServiceRequest::class);
+        $serviceRequest->required('my-module-alias', $this->requiredServices);
+        $serviceRequest->optional('my-module-alias', $this->optionalServices);
+    }
+
+    private function registerFilters()
+    {
+        $filterManager = $this->app->make(FilterManager::class);
+        foreach($this->filters as $alias => $filter) {
+            $filterManager->register($alias, $filter);
+        }
     }
 
 }

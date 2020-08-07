@@ -1,88 +1,180 @@
 = Connections
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Using third party connections
+:keywords: api,third party,client,external data,external client,connector,connection,request
 
 One of the main uses of the portal is reducing the reliance on third
-parties. For example, by embedding a form in the portal, you can easily
-swap Typeform for Google Forms, JotForm for Microsoft Forms etc, without
-changing the url/location of the form.
+parties. If each possible third party has its own module, the module can be swapped with any other to provide the same functionality without changing the location or look of the portal.
 
 For this to work, the third parties need their own module. It is highly
-likely the module will need to use the API. Each module instance may
+likely the module will need to use an API to connect to the third party. Each module instance may
 need to connect to a different account each time it is used, since forms
-may be stored in different places.
+may be stored in different places. In the case of a form platform, user 1 may set up an activity using a form they have created. User 2 also wants to use a form module, but their form resides on their form account. Therefore, we can't have a single API connection defined in a `+.env+` file as normal, rather the credentials have to be manually specified.
 
-Therefore, you can let the portal know you need to, for example, connect
-to Typeform to work.
-
+Fortunately, the SDK makes this easy for you. it allows you to define how to connect to a third party, and makes sure users are connected before they start using your module. Therefore, as a developer, you never need to worry about authenticating with a third party.
 
 == Creating a Third Party Connection
 
-Third party connections should be pulled into their own package if they
-may be used in more than one place. A connector extends the
-`+BristolSU\Support\Connection\Contracts\Connector+` class. The
-connector should then define:
+A third party connection is nothing more than a class which extends the `+BristolSU\Support\Connection\Contracts\Connector+` class. We call this class a connector, since it allows the SDK and a third party to communicate. 
 
-* A method to make a request. You should add any authentication
-headers/parameters etc, then call the underlying request method on the
-client (`+$this->client->request(..)+`).
-* Test should use the request method to make an API call, and return
-true if the authentication worked or false otherwise.
-* settingsSchema: A form schema representing the settings the connector
-needs. You're welcome to use custom fields here!
+The connector should then implement all abstract functions. These include a `+request+` function for making a request, a `+test+` function for testing a connection, and a `+settingsSchema+` for defining the settings needed by the connector.
 
-It also provides a `+getSetting($key, $default)+` to get the filled in
-value in the request and test methods.
+=== Defining Settings
 
+To define settings, you will need to use the normal Form Schema within the `+settingsSchema+` function. This may be as simple as needing a text field to take an API token. It may also be a lot more complex, for example in the case of OAuth logins.
+
+For an OAuth login, we recommend creating a custom field which allows connections to be selected, and a login button. The login button will go through the normal oauth flow, and additional routes must be registered to collect the output of this and save the access token securely. Where there is a need to create endpoints to authorize against, you should define the endpoints in the config and have the default set as something like `+/_connector/my-service+`.
+
+An example OAuth login can be found in our https://github.com/bristol-su/typeform-service[Typeform Service].
+
+=== Making a Request
+
+Having defined the settings, your connector needs to be able to make requests. The request client (such as GuzzleHttp) can be accessed in your connectors `+request+` method through the `+$client+` property. To make a request with no authentication, you could use
+
+[source,php]
+----
+public function request($method, $uri, array $options = [])
+{
+    return $this->client->request($method, $uri, $options);
+}
+----
+
+You will usually want to add a token or similar to the request. To do this, you should edit the `+$options+` array before passing it to the client. To access the value of any settings you defined in the `+settingsSchema+` you can use the `+getSetting()+` method, which takes the setting key and an optional default. The options array will take the same options as GuzzleHttp does.
+
+====
+[source,php]
+----
+public function request($method, $uri, array $options = [])
+{
+    $options['base_uri'] = config('typeform_service.base_uri');
+    
+    // Merge the headers from options if given.
+    $headers = ((isset($options['headers']) && is_array($options['headers']))?$options['headers']:[]);
+    $headers['Authorization'] = 'Bearer ' . $this->getSetting('api_key');
+    $options['headers'] = $headers;
+    return $this->client->request($method, $uri, $options);
+}
+----
+====
+
+=== Testing connectors
+
+To allow users to test their connection, you must also provide a `+test+` function. This is allowed to make use of the `+getSetting+` method, and should use your `+request+` method to make a call and check if it was successful or not. This will often be a `+/user+` or `+/me+` endpoint, but may be anything your API allows. This method should return true if the connection was made and the connector is ready to use, or false if the credentials were wrong.
 
 == Register a Third Party Connection
 
-To register a third party connection, you should call the below
-function.
+In order to use your third party connection, you must register it in your service provider. This can be done by calling the `+registerConnector+` class, or using the interface directly.
 
-....
-app(ConnectorStore::class)->register(
-  'Name of the connector',
-  'A description of the connector and the method (oauth/api key) if multiple methods are available',
-  'the_alias_of_the_connector',
-  'the_service_the_connector_belongs_to',
-  ConnectorClass::class
-);
-....
+The `+registerConnector+` method takes
 
-Some third parties provide multiple ways of authenticating a user, such
-as OAuth and an API Key. To allow the end user of the portal to use both
-methods, we not only register an alias for the specific connector, but
-also an alias for the service. For example, typeform allows oauth and an
-api key, so we'd register the aliases 'typeform_oauth' and
-'typeform_api_key' both with the service of 'typeform'.
+* The name of the connector to show to users.
+* A description for the connector.
+* The alias of the connector. This should start with your service alias, and be unique to the connector.
+* The service the connector connects to (e.g. typeform, facebook)
+* The class name of the connector
 
-A module then registers its need or want for a 'typeform' connection.
-Both the typeform_oauth and typeform_api_key can be used to satisfy this
-requirement.
+The alias is the normal unique reference to the connector. Since APIs often have multiple ways to authenticate (e.g. through OAuth and an API key), you may want to accept either as a valid connector. Therefore, your module will just require a connection to, e.g., typeform and not care about the method of connecting, or the exact connector.
 
+In a lot of cases, especially if the API only has one way to connect, you may not have a need for the service alias. It should still be given though, to ensure alternative authentication methods can be added in the future.
+
+You may also use the interface directly. This takes the same arguments as the method.
+
+====
+[source,php]
+----
+public function boot() {
+    parent::boot();
+    
+    // Using the helper
+    $this->registerConnector(
+        'Typeform OAuth (recommended)',
+        'Connect to Typeform using the OAuth flow',
+        'typeform-oauth',
+        'typeform',
+        \My\Namespace\Typeform\OAuthConnector::class
+    );
+    
+    // Manually
+    $connectorStore = $this->app->make(\BristolSU\Support\Connection\Contracts\ConnectorStore::class);
+    $connectorStore->register(
+        'Typeform API Key',
+        'Connect to Typeform using an API Key',
+        'typeform-api-key',
+        'typeform',
+        \My\Namespace\Typeform\ApiKeyConnector::class
+    );
+}
+----
+====
+
+It is common to find connectors in their own packages. In this case, as long as the package has pulled in the SDK, you can use the second method without registering a module to create a new connector. By using a separate package for a connector, you can use the same connector in multiple modules without them relying on one another.
 
 == Using a Third Party Connection
 
-For a module to use a third party connection, it needs to let the portal
-know it wants to use it. To do this, the boot method should contain:
+=== Asking for a connection
+
+Having created and registered a way to use a third party connection, or pulled in a package which registers a third party connection, your module needs to let the portal know it wants to use the connector. There are two different types of request here, either a required or optional request. A required request will require the user to log into the third party in order to use your module. The optional request can be used to add additional functionality, such as posting to Facebook if you have logged in.
+
+For either way, you should register the services you want in the `+$requiredServices+` and `+$optionalServices+` arrays in your service provider. Make sure you ask for the service, not for the connector alias. For example, ask for `+'typeform'+` not `+'typeform-api-key'+`
+
+====
+[source,php]
+----
+protected $requiredServices = [
+    'typeform', 'google-forms'
+];
+
+protected $optionalServices = [
+    'facebook', 'twitter'
+];
+----
+====
+
+You can also request these services manually in your service provider, by using the `+ServiceRequest+` class. You should only call each method once, or previous calls will be overridden.
 
 ....
 public function boot()
 {
     parent::boot();
-    app(ServiceRequest::class)->required('module_alias', ['typeform']);
+    $serviceRequest = $this->app->make(\BristolSU\Support\Connection\ServiceRequest::class);
+    $serviceRequest->required('my-module-alias', ['typeform', 'google-forms']);
+    $serviceRequest->optional('my-module-alias', ['facebook', 'twitter']);
 }
 ....
 
-You can pass in any services you want. The portal will make sure the
-services have been given to the module instance before use.
+=== Using the connection
 
-This will be abstracted into the base service provider soon.
-
-To then use the connector during runtime, resolve the connector from the
-service repository. This will be put into a helper function soon.
+Having requested a service, the portal will ensure/ask for a connection to be made before your module is used. To retrieve the service with the connection made, you will need to use the following line
 
 `+$connector = app(ModuleInstanceServiceRepository::class)->getConnectorForService('typeform', $moduleInstance->id)+`
 
-This will resolve the connector for typeform which the module instance
-is allowed to use. You can then use the request method to make an API
-call and retrieve the responses.
+This will retrieve the `+typeform+` service for the given module instance. If the connection has not been made for any reason, we will throw a `+\BristolSU\Support\ModuleInstance\Connection\NoConnectionAvailable+` exception. If you require the connection, you may let this exception bubble through to show the user an error and log the error. If you requested an optional module, you need to be aware that this may happen if the user has not created the connection. In this case, you should catch the exception to handle it gracefully.
+
+====
+[source,php]
+----
+function hasFacebookConnection()
+{
+    try {
+        $connector = app(ModuleInstanceServiceRepository::class)->getConnectorForService('typeform', $moduleInstance->id)
+        return true;
+    } catch (\BristolSU\Support\ModuleInstance\Connection\NoConnectionAvailable $e) {
+        return false;
+    }
+}
+----
+====
+
+You may now call the `+request+` method on the connector to make an API call, passing a method, url and an array of Guzzle options.
+
+====
+[source,php]
+----
+public function index(ModuleInstance $moduleInstance)
+{
+    $connector = app(ModuleInstanceServiceRepository::class)->getConnectorForService('typeform', $moduleInstance->id)
+    $users = $connector->request('GET', '/users', []);
+    ...
+}
+----
+====

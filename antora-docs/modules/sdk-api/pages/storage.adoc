@@ -1,8 +1,8 @@
 = Storage
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Storage
+:keywords: file,storage,s3,filesystem,upload
 
-Any SDK implementation will use the default Laravel storage framework,
-built on FlySystem, to upload files and assets. Make sure to always put
-any assets or files you upload into a folder with your alias in it. For
-example, upload a file called file.txt as
+Any SDK implementation will use the default Laravel storage framework, built on FlySystem, to upload files and assets. Make sure to always put any assets or files you upload into a folder with your module alias in it. For example, upload a file called file.txt with a name `'my-alias/file.txt'`
 
-'my-alias/file.txt'.
+This will allow us to tell different module assets apart in storage.

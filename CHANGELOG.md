@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [4.7.0] - (06/08/2020)
+## [4.7.0] - (07/08/2020)
 
 ### Changed
 - Laravel Passport upgraded to v9
@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - registerAction method in Service Provider to register an action.
 - Completion Condition array in service provider
+- Registering services extracted to base service provider
+- Registering filters in array in the service provider
 - First draft of documentation
 
 ## [4.6.1] - (16/06/2020)

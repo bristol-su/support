@@ -9,4 +9,4 @@ nav:
  - modules/creating-module/nav.adoc
  - modules/frontend/nav.adoc
  - modules/sdk-api/nav.adoc
- - modules/components/nav.adoc
+ #- modules/components/nav.adoc
