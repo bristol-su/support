@@ -9,12 +9,13 @@ use BristolSU\Support\SupportServiceProvider;
 use BristolSU\Support\Testing\ActivityInstance\LaravelAuthActivityInstanceResolver;
 use BristolSU\Support\Testing\Authentication\SessionAuthentication;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\DB;
 use Laracasts\Utilities\JavaScript\JavaScriptServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 /**
  * Test Case
- * 
+ *
  * Sets up a Laravel testing environment for any project using the sdk.
  */
 class TestCase extends BaseTestCase
@@ -23,7 +24,7 @@ class TestCase extends BaseTestCase
 
     /**
      * Initialise the test case.
-     * 
+     *
      * Loads migrations and factories for the sdk
      */
     public function setUp(): void
@@ -35,15 +36,16 @@ class TestCase extends BaseTestCase
 
     /**
      * Set up the Orchestra Environment
-     * 
+     *
      * - Set up the memory database connection
      * - Set up the Sdk environment
-     * 
+     *
      * @param Application $app Application to set up
      */
     public function getEnvironmentSetUp($app)
     {
         $app['config']->set('database.default', 'testing');
+        $app['config']->set('passport.storage.database.connection', 'testing');
         $app['config']->set('database.connections.testing', [
             'driver' => 'sqlite',
             'database' => ':memory:',
@@ -53,11 +55,12 @@ class TestCase extends BaseTestCase
         $this->createSdkEnvironment($app);
         $app->bind(Authentication::class, SessionAuthentication::class);
         $app->bind(ActivityInstanceResolver::class, LaravelAuthActivityInstanceResolver::class);
+
     }
 
     /**
      * Get the service providers the sdk registers and requires.
-     * 
+     *
      * @param Application $app
      * @return array
      */
