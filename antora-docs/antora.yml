@@ -1,6 +1,7 @@
 name: support
 title: SDK (Support)
 version: master
+prerelease: prerelease
 asciidoc:
  attributes:
   page-repo-url: https://github.com/bristol-su/support
