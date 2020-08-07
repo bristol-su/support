@@ -117,7 +117,7 @@ The general structure of the `+docs+` folder should be as follows:
 ----
 name: module-mymodule <1>
 title: My Module <2>
-version: v1.2.3 <3>
+version: v1.0 <3>
 asciidoc:
  attributes:
   page-repo-url: https://github.com/bristol-su/support <4>
@@ -167,6 +167,18 @@ Toby Twigger <tobytwigger1@gmail.com>
 ----
 ****
 
+=== Releasing Documentation
+
+You should use branches to keep track of your documentation versions. The following is a recommendation, but you may use other methods of tracking documentation versions.
+
+Documentation should be written/updated along with the rest of your code on the `+develop+` branch. You may also use feature branches from the `+develop+` branch. 
+
+Work should then be merged into the master branch when ready. From here, it can be tagged with a release version.
+
+A documentation branch should be made from the develop branch. A documentation branch should be called `+docs/v1.x+`, `+docs/v2.x+` etc, and we should only have a branch for major versions. For each new feature, we should update the docs on develop and merge it into the corresponding docs branch. 
+
+If we need to update old documentation for an older version, this can be done by editing the docs branch directly.
+
 == Releasing a version of your module
 
 Once your module is in a state to be released, you should release a version. This includes:
@@ -186,7 +198,6 @@ Once your module is in a state to be released, you should release a version. Thi
 
 [v1.0.1 - 16/06/2020]: https://github.com/username/repo/compare/v1.0.0...v1.0.1
 ----
-
 
 == Making your module downloadable
 
@@ -230,8 +241,7 @@ Having written documentation, you can merge it into our documentation site.
 ----
  - url: https://github.com/username/module-repository
    start_path: docs
-   branches: [master]
-   tags: v*
+   branches: [master, docs/*]
 ----
 +
 3. Push your changes to your forked repository on Github
