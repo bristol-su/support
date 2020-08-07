@@ -3,6 +3,7 @@
 namespace BristolSU\Support\Module;
 
 use BristolSU\Support\Action\Facade\ActionManager;
+use BristolSU\Support\Completion\Contracts\CompletionConditionManager;
 use BristolSU\Support\Events\Contracts\EventManager;
 use BristolSU\Support\Module\Contracts\ModuleManager;
 use BristolSU\Support\ModuleInstance\Contracts\Scheduler\CommandStore;
@@ -117,6 +118,16 @@ abstract class ModuleServiceProvider extends ServiceProvider
     protected $scheduledCommands = [];
 
     /**
+     * Completion Conditions the module registers.
+     *
+     * For each completion condition, we need a new eleent in the array. The key should be the module alias,
+     * and the value should be the class of the completion condition.
+     *
+     * @var array
+     */
+    protected $completionConditions = [];
+
+    /**
      * Boot
      *
      * - Register translations
@@ -152,6 +163,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
         $this->registerSettings();
         $this->registerSettingListeners();
         $this->registerScheduledCommands();
+        $this->registerCompletionConditions();
     }
 
     /**
@@ -162,7 +174,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function registerSettingListeners()
     {
         foreach ($this->settingListeners as $listener) {
-            Event::listen('eloquent.*: '.ModuleInstanceSetting::class, $listener);
+            Event::listen('eloquent.*: ' . ModuleInstanceSetting::class, $listener);
         }
     }
 
@@ -217,7 +229,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
             if (!array_key_exists('admin', $permission)) {
                 $permission['admin'] = false;
             }
-            Permission::register($this->alias().'.'.$ability, $permission['name'], $permission['description'], $this->alias(), $permission['admin']);
+            Permission::register($this->alias() . '.' . $ability, $permission['name'], $permission['description'], $this->alias(), $permission['admin']);
         }
     }
 
@@ -242,7 +254,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $this->loadTranslationsFrom($this->baseDirectory().'/resources/lang', $this->alias());
+        $this->loadTranslationsFrom($this->baseDirectory() . '/resources/lang', $this->alias());
     }
 
     /**
@@ -250,10 +262,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     protected function registerConfig()
     {
-        $this->publishes([$this->baseDirectory().'/config/config.php' => config_path($this->alias().'.php'),
+        $this->publishes([$this->baseDirectory() . '/config/config.php' => config_path($this->alias() . '.php'),
         ], ['module', 'module-config', 'config']);
         $this->mergeConfigFrom(
-            $this->baseDirectory().'/config/config.php', $this->alias()
+          $this->baseDirectory() . '/config/config.php', $this->alias()
         );
     }
 
@@ -263,10 +275,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function registerViews()
     {
         $this->publishes([
-            $this->baseDirectory().'/resources/views' => resource_path('views/vendor/'.$this->alias()),
+          $this->baseDirectory() . '/resources/views' => resource_path('views/vendor/' . $this->alias()),
         ], ['module', 'module-views', 'views']);
 
-        $this->loadViewsFrom($this->baseDirectory().'/resources/views', $this->alias());
+        $this->loadViewsFrom($this->baseDirectory() . '/resources/views', $this->alias());
     }
 
     /**
@@ -277,7 +289,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function registerFactories()
     {
         if (!app()->environment('production')) {
-            $this->app->make(Factory::class)->load($this->baseDirectory().'/database/factories');
+            $this->app->make(Factory::class)->load($this->baseDirectory() . '/database/factories');
         }
     }
 
@@ -286,7 +298,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function loadMigrations()
     {
-        $this->loadMigrationsFrom($this->baseDirectory().'/database/migrations');
+        $this->loadMigrationsFrom($this->baseDirectory() . '/database/migrations');
     }
 
     /**
@@ -294,10 +306,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function mapParticipantRoutes()
     {
-        Route::prefix('/p/{activity_slug}/{module_instance_slug}/'.$this->alias())
-            ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
-            ->namespace($this->namespace())
-            ->group($this->baseDirectory().'/routes/participant/web.php');
+        Route::prefix('/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
+          ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
+          ->namespace($this->namespace())
+          ->group($this->baseDirectory() . '/routes/participant/web.php');
     }
 
     /**
@@ -305,10 +317,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function mapAdminRoutes()
     {
-        Route::prefix('/a/{activity_slug}/{module_instance_slug}/'.$this->alias())
-            ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'administrator'])
-            ->namespace($this->namespace())
-            ->group($this->baseDirectory().'/routes/admin/web.php');
+        Route::prefix('/a/{activity_slug}/{module_instance_slug}/' . $this->alias())
+          ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'administrator'])
+          ->namespace($this->namespace())
+          ->group($this->baseDirectory() . '/routes/admin/web.php');
     }
 
     /**
@@ -316,10 +328,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function mapParticipantApiRoutes()
     {
-        Route::prefix('/api/p/{activity_slug}/{module_instance_slug}/'.$this->alias())
-            ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
-            ->namespace($this->namespace())
-            ->group($this->baseDirectory().'/routes/participant/api.php');
+        Route::prefix('/api/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
+          ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
+          ->namespace($this->namespace())
+          ->group($this->baseDirectory() . '/routes/participant/api.php');
     }
 
     /**
@@ -327,10 +339,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function mapAdminApiRoutes()
     {
-        Route::prefix('/api/a/{activity_slug}/{module_instance_slug}/'.$this->alias())
-            ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'administrator'])
-            ->namespace($this->namespace())
-            ->group($this->baseDirectory().'/routes/admin/api.php');
+        Route::prefix('/api/a/{activity_slug}/{module_instance_slug}/' . $this->alias())
+          ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'administrator'])
+          ->namespace($this->namespace())
+          ->group($this->baseDirectory() . '/routes/admin/api.php');
     }
 
     /**
@@ -349,8 +361,23 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function registerAssets()
     {
         $this->publishes([
-          $this->baseDirectory().'/public/modules/'.$this->alias() => public_path('modules/'.$this->alias())
+          $this->baseDirectory() . '/public/modules/' . $this->alias() => public_path('modules/' . $this->alias())
         ], ['module', 'module-assets', 'assets']);
+    }
+
+    /**
+     * Register completion conditions for the module.
+     */
+    public function registerCompletionConditions()
+    {
+        $completionConditionManager = $this->app->make(CompletionConditionManager::class);
+        foreach ($this->completionConditions as $alias => $class) {
+            $completionConditionManager->register(
+              $this->alias(),
+              $alias,
+              $class
+            );
+        }
     }
 
     /**
@@ -404,8 +431,9 @@ abstract class ModuleServiceProvider extends ServiceProvider
      *
      * @param string $path build path e.g. 'modules/module-alias/js/components.js'
      */
-    public function registerGlobalScript(string $path) {
-        View::composer('bristolsu::base', function(\Illuminate\View\View $view) use ($path) {
+    public function registerGlobalScript(string $path)
+    {
+        View::composer('bristolsu::base', function (\Illuminate\View\View $view) use ($path) {
             $scripts = ($view->offsetExists('globalScripts') ? $view->offsetGet('globalScripts') : []);
             $scripts[] = asset($path);
             $view->with('globalScripts', $scripts);
@@ -423,4 +451,5 @@ abstract class ModuleServiceProvider extends ServiceProvider
     {
         ActionManager::registerAction($class, $name, $description);
     }
+
 }

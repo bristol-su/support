@@ -2,3 +2,5 @@
 Toby Twigger <tobytwigger1@gmail.com>
 :description: The introduction to the sdk api
 :keywords: sdk,api,introduction
+
+The reason a module is different to a normal Laravel app is that it has access to all the tools the SDK provides. This section will run through the most common tools you will find yourself using when developing a module.

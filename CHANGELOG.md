@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - registerAction method in Service Provider to register an action.
+- Completion Condition array in service provider
 - First draft of documentation
 
 ## [4.6.1] - (16/06/2020)

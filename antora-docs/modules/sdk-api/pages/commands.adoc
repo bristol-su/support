@@ -1,32 +1,54 @@
 = Commands
+Toby Twigger <tobytwigger1@gmail.com>
+:description: How to run scheduled commands
+:keywords: commands,scheduled commands,artisan
 
 A integral part of Laravel is being able to use the command line to
-interact with your app (i.e. the portal). When developing a module, you
-may decide that your module would benefit from having commands. These
-shouldn't be essential parts of your app unless you provide an entry
-point through the web, since users of the portal may not have direct
-access to the console.
+interact with an app. This is no different for modules - you may decide that your module would benefit from having commands. These shouldn't be essential parts of your app unless you provide an entry point through the web, since users of the portal may not have direct access to the console.
 
-Commands should be created using the default Laravel command structure:
-https://laravel.com/docs/6.x/artisan#command-structure
+An example may be a command to clear up old entries in a database. Your module doesn't rely on it, but it allows you to provide a simple way to use the functionality, and it can later be used via the web/api.
 
-Once you've written your command, it can be registered by putting the
-class name into the $commands array in your service provider.
+Commands should be created using the default Laravel https://laravel.com/docs/master/artisan#command-structure[command structure].
 
-Laravel provides no framework for registering scheduled commands outside
-the main app. These are commands that are run at specific times as
-opposed to being called by name through the console. The SDK does
-provide a method for registering scheduled commands from packages.
-Having created a normal command, put it in the 'scheduledCommands' array
-along with a cron string. This may look something like
+== Registering Commands
 
-....
+Having written a command, you will need to register the command so the portal knows it exists. If you don't do this, your command will not be accessible outside your module.
+
+The easiest way to register it is to put the class name into the `+$commands+` array in the service provider
+
+[source,php]
+----
+protected $commands = [
+    \My\Namespace\CommandOne::class,
+    \My\Namespace\CommandTwo::class,
+];
+----
+
+You may also use the `+commands()+` method, which takes an array of command class names.
+
+== Scheduling Commands
+
+You may decide your command to clear up old database entries should be run every so often automatically. To do this, we would normally enter an entry into the console Kernel in the portal/playground, but this would require additional setup for each module. Therefore, the SDK provides a way to run scheduled commands using cron.
+
+To run a command automatically, you can add the command to the `+$scheduledCommands+` array in the service provider. Each command must also be registered as above, and each command must have an associated cron string.
+
+[source,php]
+----
 protected $scheduledCommands = [
-    CommandOne::class => '* * * * *',
-    CommandTwo::class => '* /5 * * * *'
-]
-....
+    \My\Namespace\CommandOne::class => '* * * * *',
+    ...
+];
+----
 
-These commands will be executed at the given times. Commands in
-scheduled commands need to be registered in $commands as well, or
-Laravel won't know they exist.
+You may also use th `+CommandStore+` interface directly in your service provider. To do this, resolve `+\BristolSU\Support\ModuleInstance\Contracts\Scheduler\CommandStore+` from the container, and use the `+schedule+` method, passing it your module alias, command class name and the cron string.
+
+[source,php]
+----
+public function boot()
+{
+    $commandStore = $this->app->make(\BristolSU\Support\ModuleInstance\Contracts\Scheduler\CommandStore::class);
+    $commandStore->schedule('my-module-alias', \My\Namespace\CommandOne::class, '* * * * *');
+}
+----
+
+The SDK will make sure these commands are now run at the specified times according to the cron string. It is recommended not to run the command too often where possible, as it can make your module expensive to run for the user.
