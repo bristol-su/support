@@ -1,0 +1,154 @@
+= Testing
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Testing a module
+:keywords: testing,module testing,phpunit
+
+To make sure your module works as expected, we highly recommend testing your module fully. You should use PHPUnit, and write tests for all features in your module.
+
+== Set up the environment
+
+We've set you up with a TestCase through the template module. This extends the SDK TestCase from `+\BristolSU\Support\Testing\TestCase+`, which in turn extends Orchestra TestBench. This means you can use PHPUnit with all the testing tools Laravel provides, and benefit from the SDK Testing Tools.
+
+The SDK TestCase loads the SDK, sets up a testing database and an app key, and sets up necessary authentication configuration. In your TestCase (this is done for you in the template module), you should load your service provider by copying the following:
+
+[source,php]
+----
+protected function getPackageProviders($app)
+{
+  return array_merge(parent::getPackageProviders($app), [
+    \My\Alias\ModuleServiceProvider::class
+  ]);
+}
+----
+
+You can also use a number of useful traits to make testing even easier.
+
+
+== HandlesAuthentication
+
+This is included with the `+CreatesModuleEnvironment+` trait. You can
+create new users, groups and roles by using `+$this->newUser()+`,
+`+$this->newGroup()+` and `+$this->newRole()+`. You can pass an array
+like `+['data_provider_id' => 1]+` to this function.
+
+You can also set the current user/group/role with
+`+$this->beUser($user)+`, `+$this->beGroup($group)+`,
+`+$this->beRole($role)+`.
+
+
+== HandlesAuthorization
+
+This is included with the `+CreatesModuleEnvironment+` trait. It
+provides a set of helper methods to make testing with authorization much
+easier.
+
+`+$this->bypassAuthorization();+` - Any permission tests will always
+return true
+
+`+$this->givePermissionTo('ability');+` - The current user will be given
+the ability
+
+`+$this->revokePermissionTo('ability');+` - The current user will not be
+given the ability
+
+
+== FakesLogicTesters
+
+This allows you to create a logic tester. A logic tester accepts a logic
+group and a user/group/role and checks if the models are in the logic
+group. You may use a logic tester in your module - if you were letting
+users be assigned to groups and wanted a logic group to get users from,
+you'd use the logic tester.
+
+To mock this behaviour, so you don't have to set up the logic group
+accurately, you can use the 'FakesLogicTesters' trait.
+
+The following example shows the setup of a logic tester. This logic
+tester will return true if `+$logic+` is tested against
+`+$user, $group, $role+` , false if the logic is tested against
+`+$user1, $group1, $role1+`, and false otherwise.
+
+....
+$this->logicTester()
+    ->forLogic($logic) // Let the logic tester know what logic the following applies to
+    ->pass($user, $group, $role) // If the given user/group/role (any can be null) match those being evaluated, will return true
+    ->fail($user2, $group2, $role2) // If the given user/group/role (any can be null) match those being evaluated, will return false
+    ->otherwise(false) // Default to return if no match found. Defaults to false.
+....
+
+To then use the logic tester, or determine results for other logics, you
+can repeat the same process. Just calling `+$this->logicTester()+` will
+return the logic tester ready to use.
+
+Of course, often the logic tester should be bound to the container to be
+used throughout the sdk, module or portal. Instead of doing this
+manually, you can call `+$this->logicTester()->bind()+` to instantly
+bind the logic tester into the container.
+
+
+== AssertsEloquentModels
+
+This contains a helper method for asserting eloquent models are equal:
+
+`+$this->assertModelEquals($expectedModel, $actualModel, $message)+`
+
+
+== CreatesModuleEnvironment
+
+This trait sets up the environment for testing a module whilst framed as
+a module. For example, it will create a module instance, an activity,
+and logs into authentication credentials.
+
+It also provides helper functions to get urls from this information, for
+making requests to your module during testing.
+
+To initialise the trait, call `+createModuleEnvironment($alias)+` in
+your setUp method. You must pass in your module alias for the setup to
+work. Before calling this method, you can customise the module
+environment
+
+* `+setModuleIsFor($for)+`: Specifies who the module is for (a 'user', a
+'group' or a 'role'). Defaults to 'user'
+* `+setActivity($activity)+`: Specify the activity to use
+* `+setModuleInstance($moduleInstance)+`: Specify the module instance to
+use
+* `+setActivityInstance($activityInstance)+`: Specify the activity to
+use
+* `+setControlUser($user)+`: Sets the control user to use for testing.
+* `+setControlGroup($group)+`: Sets the control group to use for
+testing.
+* `+setControlRole($role)+`: Sets the control role to use for testing.
+* `+setDatabaseUser($user)+`: Sets the database user to use
+
+With all these customisations, get functions are also defined to
+retrieve the value. If previously set before calling
+createModuleEnvironment, they will return the values that were set.
+Otherwise, it will return newly created values.
+
+=== Urls
+
+Finally, the following functions manipulate data about the activity to
+provide helpful shortcuts. For example, creating a URL for the module to
+send requests to.
+
+* `+adminUrl($path = '')+`: Returns the url to the admin side of a
+module. Give a path to navigate to this page instead (e.g. '/files').
+* `+userUrl($path = '')+`: Return the url to the user side.
+* `+adminApiUrl($path = '')+`: Return the url to the admin API
+* `+userApiUrl($path = '')+`: Return the url to the participant API
+
+=== Settings
+
+You can change the value of the settings by using the following snippet
+
+[source,php]
+----
+\BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting::create([
+  'module_instance_id' => $this->getModuleInstance->id(),
+  'key' => 'setting_key',
+  'value' => false
+]);
+----
+
+Value accepts any variable type, and will handle casting to a format for
+the database automatically.

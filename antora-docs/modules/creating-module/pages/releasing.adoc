@@ -1,0 +1,241 @@
+= Releasing
+Toby Twigger <tobytwigger1@gmail.com>
+:description: How to go about releasing a module
+:keywords: release, finished module, publish
+
+Once your module is ready to go, and you've written all the necessary tests, you want to open it to the world. This page will take you through the necessary steps to make sure your module can be used by others.
+
+== Meta files in the repository
+
+To be accepted by the portal, your repository needs to meet community standards. This means you'll need to ensure your repository has the following files:
+
+- CHANGELOG.md - A changelog to keep track of the changes between releases of your module. This should look something like...
+.Example `+CHANGELOG.md+` file
+****
+[source,markdown]
+----
+# Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+## [1.0.1] - (18/03/2020)
+
+### Added
+- Use me for new features.
+### Changed
+- Use me for changes in existing functionality.
+### Deprecated
+- Use me for soon-to-be removed features.
+### Removed
+- Use me for now removed features.
+### Fixed
+- Use me for any bug fixes.
+### Security
+- Use me in case of vulnerabilities.
+
+## [1.0] - (28/02/2020)
+
+### Added
+- Initial Release
+
+[Unreleased]: https://github.com/username/repository/compare/v1.0.1...HEAD
+[1.0.1]: https://github.com/username/repository/compare/v1.0...v1.0.1
+[1.0]: https://github.com/username/repository/releases/tag/v1.0
+----
+****
+- CODE_OF_CONDUCT.md. Feel free to write your own, but link:{attachmentsdir}/CODE_OF_CONDUCT.md[here] is the one we use for all our projects.
+- CONTRIBUTING.md. A description of how to contribute to the project. Ours can be found link:{attachmentsdir}/CONTRIBUTING.md[here].
+- LICENCE.md. The licence for your project. This will nearly always be the GNU General Public License v3.0, found https://www.gnu.org/licenses/gpl-3.0.txt[here].
+- README.md. A description of your module. A template can be found link:{attachmentsdir}/README.md[here].
+- composer.json. You will probably already have this file in your module, but you need to make sure the name matches the name you want, and the description matches your module. Try and avoid using 'bristol-su' - use your own name or company name instead!
+- .gitattributes. This specifies (amongst other things) the files that aren't needed for your code to run, and helps keep your module small when installed in the portal.
+.Example `+.gitattributes+` file
+****
+[source,gitignore]
+----
+* text=auto
+/tests export-ignore
+composer.lock export-ignore
+.gitignore export-ignore
+.gitattributes export-ignore
+package-lock.json export-ignore
+phpunit.xml export-ignore
+CHANGELOG.md export-ignore
+CODE_OF_CONDUCT.md export-ignore
+CONTRIBUTING.md export-ignore
+/docs export-ignore
+/.github export-ignore
+----
+****
+- .github. This folder contains all meta related files for your github repository. By default, we give you issue templates and a workflow to automatically compile your javascript and sass on push. This means you don't need to worry about running npm before pushing, as github will do this for you automatically! You may want to change the email/name in the workflow file though.
+
+== Documentation
+
+To make your module as easy to use as possible, we strongly recommend documenting your work. To have your documentation included on the Bristol SU Documentation site, you must use antora.
+
+This may sound scary, but it's really simple to get started! We see documentation as being just as important as the code, and therefore should be kept in the same place. Generally this should be a `+/docs+` folder.
+
+TIP: The template module includes the documentation framework.
+
+=== Structure
+
+The general structure of the `+docs+` folder should be as follows:
+
+[source,]
+----
+- /docs
+    - antora.yml <1>
+    - /modules
+        - /users <2>
+            - nav.adoc <3>
+            - /pages
+                - dummy-page.adoc <4>
+            - /images
+        - /admins <5>
+        - /setup <6>
+        - /developers <7>
+----
+<1> The `+antora.yml+` file describes your documentation, giving it a version and a name. An example `+antora.yml+` file can be found below.
+<2> Where your user documentation lives. This should focus on how to use your module as a user
+<3> The navigation file. This defines the layout of the section. Each folder has one of these files. An example is given below.
+<4> An example page. Again, an example is given below.
+<5> The admin documentation. This should focus on how to use the admin side of the module
+<6> The setup documentation. This should focus on what each setting does, what the permissions do, what completion conditions are available etc. It should make creating a module instance using your module as easy as possible.
+<7> The developer documentation (optional). Contains any documentation you think may help future developers, or yourself.
+
+=== Example Files
+
+.Example `+antora.yml+` file
+****
+
+[source,yaml]
+----
+name: module-mymodule <1>
+title: My Module <2>
+version: v1.2.3 <3>
+asciidoc:
+ attributes:
+  page-repo-url: https://github.com/bristol-su/support <4>
+start_page: users:index.adoc <5>
+nav: <6>
+ - modules/users/nav.adoc
+ - modules/admins/nav.adoc
+ - modules/developers/nav.adoc
+----
+<1> The alias of your module prefixed with 'module-'. This is very important, else the module won't show up in the documentation.
+<2> The title of your module
+<3> The version of your module. This should be kept up to date each time you release a new version.
+<4> The repository URL of your project (optional)
+<5> The initial page.
+<6> The list of navigations within your documentation.
+
+
+****
+
+
+.Example `+nav.adoc+` file
+****
+
+[source,asciidoc]
+----
+.Users <1>
+* xref:dummy-page.adoc[Dummy Page] <2>
+----
+<1> The section of the documentation.
+<2> A link to the page of your module. In reality, you can have as many of these as you want. See the https://docs.antora.org/antora/2.3/navigation/files-and-lists/[Antora documentation] for more information.
+****
+
+
+
+.Example `+dummy-page.adoc+` file
+****
+
+[source,asciidoc]
+----
+= The title of my page
+Toby Twigger <tobytwigger1@gmail.com>
+:description: A description of this page
+:keywords: A comma separated, list of, keywords
+
+...
+
+----
+****
+
+== Releasing a version of your module
+
+Once your module is in a state to be released, you should release a version. This includes:
+
+1. Updating your changelog to represent any changes made
+2. Clicking on 'Create a new release' on github
+3. Creating a tag (e.g. v1.0.1). The release title should also be the name of the tag, and the description should be similar to your changelog. We use the following template for the description
+
+[source,markdown]
+----
+# [v1.0.1 - 16/06/2020]
+
+### Added
+- Describe changes here
+### Removed
+- These changes should be the same as your changelog
+
+[v1.0.1 - 16/06/2020]: https://github.com/username/repo/compare/v1.0.0...v1.0.1
+----
+
+
+== Making your module downloadable
+
+In order to allow others to use your module, it must be published on a platform such as github then pulled through to a package management platform. We use https://packagist.org. Having created an account, submit your repository on the website. This will allow others to run 'composer require' to pull in your module.
+
+== Pull requests
+
+At this point, you're ready to go! All that's left is to let other portal users know your module exists. To do this, you should submit a pull request to both the portal repository and the documentation repository.
+
+=== Portal repository
+
+The point of this pull request is to automatically include your module in all fresh installs of the portal. This is by far the best way to deploy your module - any users of the portal will be able to use your module.
+
+1. Create a fork of the portal repository by clicking 'Fork' https://github.com/bristol-su/portal[here].
+2. Add your module using `+composer require+`.
+3. Push your changes to your forked repository on Github.
+4. Create a https://github.com/bristol-su/portal/compare[pull request], keeping the default base branch and changing the compare branch to your forked branch. You should see two files changed - `+composer.json+` and `+composer.lock+`.
+5. Create the pull request. Set the title to be *New Module: Module Name*, and use the following template for the description
+
+[source,markdown]
+----
+# Module Name
+My Module
+
+# What does this module do?
+A brief description of what your module does
+
+# Is your module up to our community standards?
+- [x] I've written tests for the module
+- [ ] I've written documentation for the module
+----
+
+=== Documentation Repository
+
+Having written documentation, you can merge it into our documentation site.
+
+1. Create a fork of the documentation site by clicking 'Fork' https://github.com/bristol-su/docs[here].
+2. Edit the `+antora-playbook.yml+` and add the following under the module section in the content -> sources attribute.
++
+[source,yaml]
+----
+ - url: https://github.com/username/module-repository
+   start_path: docs
+   branches: [master]
+   tags: v*
+----
++
+3. Push your changes to your forked repository on Github
+4. Create a https://github.com/bristol-su/docs/compare[pull request], keeping the default base branch and changing the compare branch to your forked branch. You should see one file changed - `+antora-playbook.yaml+`.
+5. Create the pull request. Set the title to be *Module Documentation: Module Name*. You may leave the description blank.
+
+Once we approve the request, it may take up to two hours to merge your documentation in with the documentation site. If you ever make changes to your documentation, they may also take up to two hours to propagate. You will only ever have to push the changes to your repository though - the documentation will pick up on changes itself.

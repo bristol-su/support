@@ -1,0 +1,128 @@
+= Testing
+
+This package provides a set of helper traits to aid testing within the
+sdk environment.
+
+In general, you should create a TestCase class in your tests directory,
+which should extend the `+BristolSU\Support\Testing\TestCase+` class.
+This will allow you to use orchestra, and will take care of the sdk
+environmental setup.
+
+You can then add traits to this class, such as database migrations. By
+default, testing will be done in memory with an sqlite database. You can
+also add the following traits to extend PHPUnit for use with the portal
+sdk tools.
+
+* https://docs.bristolsustaging.co.uk/link/100#bkmrk-%C2%A0-2[*HandlesAuthentication*]:
+Help with handling authenticating as a user/group/role.
+* https://docs.bristolsustaging.co.uk/link/100#bkmrk-logic-testing[*FakesLogicTesters*]:
+Help with faking logic testers for your tests.
+* https://docs.bristolsustaging.co.uk/link/100#bkmrk-eloquent-model-testi[*AssertsEloquentModels*]:
+Help with asserting properties about eloquent models.
+* https://docs.bristolsustaging.co.uk/link/100#bkmrk-%C2%A0-3[*CreatesSdkEnvironment*]:
+Already included. Sets up the needed laravel authentication providers.
+* https://docs.bristolsustaging.co.uk/link/100#bkmrk-createsmoduleenviron[*CreatesModuleEnvironment*]:
+Sets up the environment for module testing.
+
+
+== Authentication
+
+To help deal with and test the complex user management system, control,
+the HandlesAuthentication trait provides some useful tools for
+authenticating and authorizing users.
+
+First up, we provide a beUser, beGroup and beRole function, which set
+the current user, group or role. We also provide the newGroup, new Role
+and new User functions to create new users, groups and roles.
+
+
+== Logic Testing
+
+Commonly when writing tests, you'll find yourself using the logic
+testing system. For example, you could be testing if someone has the
+permissions to do something, and in doing so check they're in a logic
+group. To mock this behaviour, you can use the 'FakesLogicTesters'
+trait.
+
+The following example shows the setup of a logic tester. This logic
+tester will return true if `+$logic+` is tested against
+`+$user, $group, $role+` , false if the logic is tested against
+`+$user1, $group1, $role1+`, and false otherwise.
+
+....
+$this->logicTester()
+    ->forLogic($logic) // Let the logic tester know what logic the following applies to
+    ->pass($user, $group, $role) // If the given user/group/role (any can be null) match those being evaluated, will return true
+    ->fail($user2, $group2, $role2) // If the given user/group/role (any can be null) match those being evaluated, will return false
+    ->otherwise(false) // Default to return if no match found. Defaults to false.
+....
+
+To then use the logic tester, or determine results for other logics, you
+can repeat the same process. Just calling `+$this->logicTester()+` will
+return the logic tester ready to use.
+
+Of course, often the logic tester should be bound to the container to be
+used throughout the sdk, module or portal. Instead of doing this
+manually, you can call `+$this->logicTester()->bind()+` to instantly
+bind the logic tester into the container.
+
+
+== Eloquent Model testing
+
+Since most the models you handle in the sdk (by default) are eloquent
+based, we provide some helper functions for asserting properties about
+eloquent models
+
+* assertModelEquals($expected, $actual, $message): Check if two models
+are equal.
+
+
+== CreatesSdkEnvironment
+
+Sets up the authentication providers for Laravel to manage
+authentication of users, groups, roles and activity instances. This
+function may do anything else necessary in the future too, so should
+always be called before running a test.
+
+You'll need to call `+createSdkEnvironment(Application $app)+` in your
+`+setup+` or `+getEnvironmentSetUp+` function.
+
+
+== CreatesModuleEnvironment
+
+This trait sets up the environment for testing a module whilst framed as
+a module. For example, it will create a module instance, an activity,
+and logs into authentication credentials.
+
+It also provides helper functions to get urls from this information, for
+making requests to your module during testing.
+
+To initialise the trait, call `+createModuleEnvironment($alias)+` in
+your setUp method. You must pass in your module alias for the setup to
+work. Before calling this method, you can customise the module
+environment
+
+* setModuleIsFor($for): Specifies who the module is for (a 'user', a
+'group' or a 'role'). Defaults to 'user'
+* setActivity($activity): Specify the activity to use
+* setModuleInstance($moduleInstance) Specify the module instance to use
+* setActivityInstance($activityInstance): Specify the activity to use
+* setControlUser($user): Sets the control user to use for testing.
+* setControlGroup($group): Sets the control group to use for testing.
+* setControlRole($role): Sets the control role to use for testing.
+* setDatabaseUser($user): Sets the database user to use
+
+With all these customisations, get functions are also defined to
+retrieve the value. If previously set before calling
+createModuleEnvironment, they will return the values that were set.
+Otherwise, it will return newly created values.
+
+Finally, the following functions manipulate data about the activity to
+provide helpful shortcuts. For example, creating a URL for the module to
+send requests to.
+
+* adminUrl($path = ''): Returns the url to the admin side of a module.
+Give a path to navigate to this page instead (e.g. '/files').s
+* userUrl($path = ''): Return the url to the user side.
+* adminApiUrl($path = ''): Return the url to the admin API
+* userApiUrl($path = ''): Return the url to the participant API

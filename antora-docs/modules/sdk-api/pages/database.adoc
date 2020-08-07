@@ -1,0 +1,10 @@
+= Database
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Using the database
+:keywords: database,storage,eloquent,migration
+
+You have access to the same database tools Laravel gives you. Any migrations in `+/database/migrations+` will be published and migrated when your module is published to the portal, and your models can work using the Eloquent base model as normal. The only thing you need to be aware of is making sure you start your table name with your module alias, to limit conflicts. Also see the Authentication/Authorization documentation for more information about the Activity Instance.
+
+== Revision Information
+
+The SDK provides a handy method to keep track of revisions on models. If you expect models to change, and want a log of all changes, simply add the `+\BristolSU\Support\Revision\HasRevision+` trait to any model!

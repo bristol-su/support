@@ -1,0 +1,88 @@
+= Authorization
+
+The Authorisation package handles accessing module instances, or
+stopping access if the user doesn't have access to the module.
+
+The middleware it provides is below:
+
+Middleware Group
+
+Middleware
+
+Description
+
+Exceptions
+
+participant
+
+CheckLoggedIntoActivityForType
+
+Throws an exception if the activity requires a resource which is not
+logged in.
+
+ActivityRequiresUser
+
+ActivityRequiresGroup
+
+ActivityRequiresRole
+
+CheckActivityFor
+
+Check the user is in the activity forLogic group
+
+ActivityRequiresParticipant
+
+module
+
+CheckModuleInstanceActive
+
+Checks the user is in the active logic group
+
+ModuleInactive
+
+administrator
+
+CheckAdminActivityFor
+
+Check the user is in the adminLogic logic group
+
+ActivityRequiresAdmin
+
+nonmodule
+
+LogoutOfExtras
+
+Log out of the user, group and role.
+
+N/A
+
+Exceptions:
+
+[cols=",",]
+|===
+|Exception |Description
+
+|ActivityRequiresAdmin |The user is not in the adminLogic group
+
+|ActivityRequiresParticipant |The user is not in the forLogic group.
+
+|ModuleInactive |A module that was accessed is inactive (i.e. the user
+is in the active logic group)
+
+|ActivityRequiresGroup |The activity requires a group, and a group
+wasn't logged in
+
+|ActivityRequiresUser |The activity requires a user, and a user wasn't
+logged in
+
+|ActivityRequiresRole |The activity requires a role, and a role wasn't
+logged in
+|===
+
+It also overrides the passport service provider. When a model is logged
+out of the laravel authentication framework, it will log out the
+passport JWT cookie that is used to authenticate a user over the API.
+This is expected behaviour for the database user, but the same happens
+for the user, group, role and activity instance models. The new service
+provider overrides this functionality and checks the model is an
+instance of the database user.

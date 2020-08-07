@@ -1,0 +1,40 @@
+= Authentication
+
+The portal uses three main types of authentication - Users, Groups and
+Roles.
+
+User is not the same as the database user. It's a user registered in the
+'control' package. The control documentation will have more information,
+but in summary a user can belong to a group (be a member of a group), or
+have a role in the group. A role is a link between a position and a
+group. By using groups and roles in different ways, users can be part of
+many groups and/or roles, and see different services for each one.
+
+Activities have a 'forLogic' column, containing a logic group. By
+testing the user in their groups and roles in turn for each activity, we
+can show all services for a user in any group or position. We can then
+log them in as they click the service.
+
+The control package supplies user, group and role models, as well as
+repositories to retrieve them from.
+
+Support registers three of Laravels Authentication Providers, one for
+each of User, Group and Role. These allow us to use the Laravel Auth
+framework for saving and retrieving models. Instead of using laravel
+auth directly, we provide an 'Authentication' interface which can be
+resolved from the container. This has methods to set and get users,
+groups and roles, and is the recommended way to retrieve user
+information.
+
+The support package provides an API and a Web implementation. The API
+authentication is used when the url contains '/api/', i.e. the request
+was made to an API. Otherwise, the web authentication is used.
+
+The API authentication retrieves the user, group and/or role from a
+query string (user_id, group_id and role_id). If the role ID is passed,
+the group ID is extracted from the role.
+
+To ease handling data in the database, we've created a HasResource trait
+for models. This will automatically set the activity instance ID and the
+module instance ID on saving a model, and allows you to use the
+::forResource() method to filter by resource.

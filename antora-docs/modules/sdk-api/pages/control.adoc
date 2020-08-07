@@ -1,0 +1,53 @@
+= Control
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Using Control within your module
+:keywords: control,users,models,access control,group,role
+
+When developing a module, you have access to the whole user management
+system to use how you need. For example, we use Control in our https://github.com/bristol-su/assign-roles['Assign
+Roles' module] to retrieve a list of roles for a group.
+
+== Accessing Data
+
+One of the difficulties faced when accessing control is that we don't know how a specific instance of the portal accesses the data. For example, at Bristol SU we get all our user data and memberships on UnionCloud, but in development we want all data to be held in the database. To solve this problem, we *always* resolve the repositories from the container.
+
+What do we mean by this? Let's say we want to get a user by ID. To do this, we use the UserRepository contract/interface. To resolve this class, we can typehint in a controller or resolve it directly from the container anywhere using the `+app()+` function.
+
+====
+[source,php]
+----
+$userRepository = app(\BristolSU\ControlDB\Contracts\Repositories\User::class);
+$user = $userRepository->getById(1);
+
+// Or in a controller
+public function index(\BristolSU\ControlDB\Contracts\Repositories\User $userRepository)
+{
+     $user = $userRepository->getById(1);
+}
+----
+====
+
+Follow this pattern for all repositories in the Repositories namespace
+(https://github.com/bristol-su/control/tree/master/src/Contracts/Repositories).
+The Pivots folder contains contracts to get related models (e.g. get
+memberships of a user), though these can mostly be retrieved through the
+model directly. The contracts also spell out the methods available to
+you.
+
+== Using the Models
+
+So you've got the model - what next? Each model has a set of methods to
+retrieve information, as well as control (add/remove/get) related
+models. You may notice that the users, groups, roles and positions don't
+have any actual information. All the 'meta' information, such as names,
+emails etc, are held in 'data' classes. To get this information, call
+e.g. `+$user->data()+`. This will give you a UserData concretion, with
+methods to retrieve and set information (such as first and last name,
+email etc.). See the model directory
+(https://github.com/bristol-su/control/tree/master/src/Contracts/Models)
+for more information on the methods available.
+
+By resolving repositories, you can forget about how the information is
+retrieved and just use it! 
+
+More information about control can be found in the control documentation

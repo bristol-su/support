@@ -1,0 +1,125 @@
+= Developing your module
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Developing a module with the playground
+:keywords: developing, environment, playground
+
+The flexibility of the SDK means we can wrap a new frontend around the
+package to produce a totally different set of features. We've done just
+this, and came up with the *playground*. The playground uses the SDK to
+instantly frame any module in a development environment, allowing you to
+change settings, permissions and third party connections without having
+to set up a new activity.
+
+NOTE: You don't have to use the playground - the portal will do the same job. However, the playground requires a lot less configuration when creating new module instances.
+
+== Playground Setup
+
+It's easiest to develop with the playground locally, so that changes are instantly reflected.
+
+. `+git clone https://github.com/bristol-su/playground playground+`
+to clone the playground project
+. `+composer install && npm install && npm run dev+` to install
+dependencies
+. Edit the .env file. At least fill in the database connection section.
+. Generate a secret key: `+php artisan key:generate && php artisan passport:keys+`
+. Run the migrations: `+php artisan migrate+`
+
+You can now run `+php artisan serve+` and access the playground at http://localhost:8000!
+
+TIP: You can set up a local web server to serve the playground through a URL such as 'https://playground.local' rather than using the php server.
+
+== Pulling in your module
+
+As is, the module would still need to be published so it can be pulled into the playground. To circumvent this, we need to set up a local composer repository to symlink the module. The following has been tested on Linux, but should work on Windows/Mac too.
+
+Assuming the directory structure is as follows;
+
+[source,]
+----
+- modules
+    - my-module
+        - composer.json
+        - ...
+- playground
+    -composer.json
+    - ...
+----
+
+we can paste the following into the playground composer.json to make composer aware of
+the module.
+
+[source,json]
+----
+"autoload-dev": {
+    ...
+},
+"repositories": [
+    {
+        "type": "path",
+        "url": "../modules/my-module"
+    }
+],
+"extra": {
+    ...
+}
+----
+
+Now composer will be able to search your module folder and find your module composer.json file. We can then require our module via composer:
+`+composer require bristol-su/my-module @dev+`
+
+Requiring @dev will install the version on your filesystem. You can also use any other composer constraint, but @dev should work for most situations.
+
+=== Troubleshooting
+
+If your module does not appear in the playground, you may need to delete
+'bootstrap/cache/packages.php' and 'bootstrap/cache/services.php'. Your
+module should now appear, and you should be able to click into it and
+start developing!
+
+When you first open your module in the playground, you may not see the
+example Vue component. This is because your JS and CSS files have not
+been published. Nor have your config files, or migrations, but these are
+merged into the portal at boot. Your js and css files (compiled)
+however, must be published each time there is a change.
+
+== Compiling on change
+
+Although we are working on an easier solution, we recommend using
+https://github.com/joh/when-changed[when-changed] (if you use linux) to
+manage this updating. This is a command you can run to automatically
+publish your assets when a change is detected. To set this up, follow
+the following
+
+. Set up a python virtual environment (in e.g.
+/home/toby/dev/when-changed):
+`+python3 -m venv /home/toby/dev/when-changed/venv+`
+. Source the environment:
+`+source /home/toby/dev/when-changed/venv/bin/activate+`
+. Install when-changed: `+pip install when-changed+`
+. Run
+
+[source,shell script]
+----
+when-changed -r /path/to/module/public/modules -c php /path/to/playground/artisan vendor:publish --force --provider="Your\Provider\Namespace\ModuleServiceProvider"
+----
+
+This will watch your assets, and publish them when any changes are
+detected. You can put this into an alias by editing your .bashrc file:
+
+[source,shell script]
+----
+alias onchange-module="source /path/to/venv/bin/activate && " when-changed -r /path/to/module/public/modules -c php /path/to/playground/artisan vendor:publish --force --provider="Your\Provider\Namespace\ModuleServiceProvider"
+----
+
+== What your module should contain
+
+The following chapters of this documentation will go through this in much more detail, but this aims to give an overview of what a module should/could consist of.
+
+* Participant Page
+** A way for users of the portal to interact with your module
+* Admin Page
+** A way for portal admins to interact with your module.
+* Settings
+* Permissions
+* Events
+* Completion Conditions

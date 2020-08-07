@@ -1,0 +1,187 @@
+= Using Javascript and Vue
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Using JS and Vue
+:keywords: javascript,vue,http client,client,notifications,window
+
+At this point, you should know enough to have created a simple blade
+frontend and a corresponding API (although the business logic is still
+to come). However, to take your module to the next level we recommend
+using the Vue.js framework to provide an interactive, responsive
+frontend. We don't enforce the use of Vue, but the template module has
+the scaffolding to use Vue out the box.
+
+== Javascript Architecture
+
+Your JavaScript entry point is the module.js file in /resources/js. This
+file should import your global dependencies and create a new Vue
+instance mounted to the base component defined in
+'resources/views/layout/app.blade.php'. This file is then loaded in the
+same blade file.
+
+====
+Example `+module.js+` file
+
+[source,javascript]
+----
+import Vue from 'vue';
+import BootstrapVue from 'bootstrap-vue';
+import http from 'http-client';
+import AWN from "awesome-notifications";
+
+import ExampleComponent from './components/ExampleComponent';
+
+Vue.prototype.$http = http;
+Vue.prototype.$notify = new AWN({position: 'top-right'});
+Vue.use(BootstrapVue);
+
+let vue = new Vue({
+    el: '#static-page-root',
+
+    components: {
+        ExampleComponent
+    }
+});
+----
+====
+
+NOTE: This is set up for you if you're using the template module!
+
+The above is an example of a module.js file, taken from the template. We
+import Vue and BootstrapVue (a set of Vue components built around
+Bootstrap). We also import a http-client and notifications, as well as a
+component.
+
+WARNING: We're still in the process of deciding which frontend framework to use, and are considering Vuetify.
+
+We can initialise BootstrapVue by calling `+Vue.use(BootstrapVue)+`,
+which will let us use any of the components anywhere we want. We then
+create a new Vue instance, attached to the root element by ID. In the
+'components' section, we can load any custom components we create and
+want to use in the blade template. We often create a single base
+component per page and import it here.
+
+== HTTP Client
+
+The http client can be installed by adding
+`+"http-client": "github:bristol-su/http-client"+` to your dependencies
+in package.json. You may be asking why we use this instead of something
+called axios. This http client is a basic wrapper around axios, and
+understands the SDK authentication and authorization schema for an API
+call. It sets up the base url, CSRF token and the
+user/group/role/activity instance IDs. This reduces consuming an API
+from your frontend to just calling http-client.get('/file'). This will
+send an API request to the correct URL, let the SDK know who the user is
+and still let you use the normal .then() .catch() .then() promises.
+
+To simplify this further, we assign the client to the Vue prototype.
+This means that, in your Vue components, you can simply use
+
+[source,vuejs]
+----
+export default {
+    name: "MyComponent",
+
+    data() {
+        return {
+            files: []
+        }
+    }
+
+    methods: {
+        loadFiles() {
+            this.$http.get('file')
+                .then(response => this.files = response.data)
+                .catch(error => this.$notify.alert('Could not load files: ' + error.message);
+        }
+    }
+}
+----
+
+This will load all files and save them to the 'files' data attribute, or
+show an error if something went wrong. Notice we can use 'this.$http',
+which is the custom http client we provide. This means we only need to
+define how to make an API request in one place.
+
+To further add to the usefullness of the http client, it will
+automatically detect whether to use the admin or participant API so you
+don't need to specify!
+
+== Notifications
+
+You may have seen we also used this.$notify. This is so that the
+notification framework can easily be changed at any point. Again, this
+is assigned to the Vue prototype in the module.js file.
+
+== Window variables
+
+The portal doesn't stop there, however. It
+also provides an object, accessible through 'window.portal', which holds
+information about the current environment. This is used by the http
+client to work out who the user is, as well as information about the
+current module etc.
+
+On a side note, we don't just take the user referenced here as the truth
+because anyone could change this information. Therefore, it shouldn't be
+relied on. The portal uses passport to securely log a user into the API
+and provide a JWT token for authentication on each request. This
+securely retrieves the database user, at which stage we can check the
+control user/group/role passed by the http-client from the window.portal
+object is owned and accessible by the given database user. In short, only load information from the back-end! If you need to access a third party, do it through the back-end rather than directly from the frontend.
+
+You can also add your own information to this object. For example, you
+may need to access the client ID of a third party on the frontend. This
+then allows you to use the Laravel config and .env file to define your
+configuration, and then dynamically pass it to the frontend. You have
+one of two options, depending on the visibility of the parameter.
+
+You can either define it in the service provider or in middleware, which
+is then attached to your routes. If you define it in the service
+provider, it will be defined on every page of the portal, not just your
+modules. If you define it in middleware, it will only be defined when a
+route with the correct middleware is loaded.
+
+To define a variable, we use the
+https://github.com/laracasts/PHP-Vars-To-Js-Transformer[Laracasts JS
+Package]. You can follow their documentation, but generally you will
+just need to put the following in your middleware or service provider
+boot function:
+
+[source,php]
+----
+Laracasts\Utilities\JavaScript\JavaScriptFacade::put([
+  'key' => 'value',
+  'typeform_client_id' => config('typeform-alias.client_id')
+]);
+----
+
+These will now be accessible through 'window.portal.key' or
+'window.portal.typeform_client_id'.
+
+The variables that the portal defines itself are (all with a base of
+window.portal.):
+
+* APP_URL: Url of the portal. This is not defined by the SDK, so *must*
+be defined by the sdk implementation, i.e. the portal or playground. The
+portal defines it with a View composer, and the playground defines it in
+the service provider boot function.
+* API_URL: URL of the API, generally the APP_URL with /api at the end.
+As above, this is defined by the portal not the SDK.
+* ALIAS: Alias of the module instance. Will be removed in a future
+update.
+* ACTIVITY_SLUG: Slug of the activity instance.
+* MODULE_INSTANCE_SLUG: Slug of the module instance
+* A_OR_P: 'a' if the page is an admin page, 'p' if it is a participant
+page
+* user: The control user and data user currently logged in, or null if
+no user logged in
+* group: The control group and data group currently logged in, or null
+if no group logged in
+* role: The control role and data role currently logged in, or null if
+no role logged in
+* activityinstance: The activity instance being used
+* moduleinstance: The module instance being used
+* data_user: The data user. Will be removed in a future update.
+
+Using these along with the Vue framework and API calls should allow you
+to build your module exactly how you want, whilst keeping it integrated
+with the SDK and in turn the portal and playground.

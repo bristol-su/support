@@ -1,0 +1,83 @@
+= Completion
+
+Completion is the way the portal manages completable or
+multi-completable activities. When a module instance is set up, if it's
+in a completable activity, a completion condition instance can be
+assigned to the module instance. This specifies whether the module is
+complete or not. For example, an upload file module may have 'A document
+has been approved' as a condition, so the module will be marked as
+complete when a document has been approved. By also assigning who the
+module is mandatory for, this allows us to mark the activity itself as
+complete.
+
+We will soon be working on tools to allow individuals to have this
+property overridden.
+
+In a similar fashion to actions, completion conditions are classes which
+extend the CompletionCondition abstract class. These are registered in a
+manager, retrieved using a repository, and we can create instances to
+assign to module instances.
+
+The Options method will be changing soon to accept a Form schema
+
+The Completion Condition abstract class, when extended, will lead to a
+completion condition. When developing for the portal, extending this
+class and implementing the abstract methods is sufficient to create
+completion conditions. The completion condition registers the following
+abstract methods:
+
+* Name: The name of the completion condition
+* Description: A description for the completion condition
+* Alias: A unique alias for the completion condition
+* Options: An array of options needed by the completion condition.
+* isComplete: Returns true if the condition is satisfied fully, or false
+otherwise
+* percentage: Returns 0 if the condition is not complete, or 100 if it
+is. Can be overridden to provide more granular percentage settings
+
+Having created a completion condition, it needs to be registered. To
+register a completion condition, we use the CompletionConditionManager,
+a singleton which holds references to the completion conditions. We can
+either register normal completion conditions, associated to a single
+module, or a 'global' completion condition which is available to all
+modules. Both have similar signatures, but the normal completion
+condition accepts a module instance as the first argument.
+
+We can then retrieve the registered completion conditions using the
+getForModule(module alias) or getClassFromAlias(moduleAlias, condition
+alias) methods. getForModule will return all conditions the module
+registers, plus global conditions, and the getClassFromAlias method will
+return the completion condition with the given alias, or throw an
+exception if not found.
+
+In reality, the class name is pretty useless when testing completion
+conditions. The CompletionConditionRepository instead builds each of the
+completion conditions, to return an instance of the referenced
+completion condition. For example, calling getAllForModule($moduleAlias)
+will return an array of completion condition objects. The repository
+uses the CompletionConditionFactory to create the completion condition,
+which simply resolves the class out of the container and passes it the
+correct module instance.
+
+As with Actions, we need a way to assign a completion condition to a
+completable activity. We do this by creating a Completion Condition
+Instance, which is a database row with the following fields
+
+* Name: Name for the completion condition instance
+* Description: Description for the completion condition instance
+* Alias: Alias of the completion condition.
+* Settings: Settings to pass into the completion condition when testing.
+
+The completion condition instance id is associated with the module
+instance in the 'completion condition instance id' column. In this way,
+we can create/resolve the completion condition class and test the
+condition for any given module instance and activity instance. To handle
+completion condition instances, a simple repository has been provided.
+
+Of course, this leads to a lot of steps to check if a module instance is
+complete. The CompletionConditionTester solves this by providing a
+single method to test the completion. This is the 'evaluate' method, and
+will return true if completed or false otherwise. Behind the scenes,
+this method accepts an activity instance to test for, and the completion
+condition instance to test. It resolves the completion condition from
+the manager and calls the isComplete method.

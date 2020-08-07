@@ -1,0 +1,100 @@
+= Connection
+
+One of the major benefits of the portal is that it can act as an
+abstraction layer over third party software. This gives the freedom of
+choice for third party software, and minimises repercussions of changing
+third party providers or having many different providers.
+
+Most third party providers will be interacted with using an API. Most
+APIs require authentication, but the authentication to use should be
+decided on a module instance basis. For example, if using the form
+platform Typeform, different users should be able to create connections
+to this third party, and then choose the connection they want to use
+when setting up a new module instance.
+
+The idea behind this architecture is to provide a ready-made 'Client' to
+any module. This client will add all relevant headers/query strings etc
+to provide authentication, and the portal will handle the creation of
+the client. In this way, any module wanting to use a third party API can
+express its requirement, and know it can retrieve a client (a class with
+a 'request' function) without having to worry about authentication.
+
+To start, the connection package provides a client. This is a basic
+authentication-less class which contains a request function for making
+API requests, and will soon contain helper functions for manipulating
+requests (i.e. adding authentication). We also provide an implementation
+of this client, using GuzzleHttp, and a cached client decorator for
+caching requests.
+
+A connector is a class extending the Connector class, which also
+registers a request method. This is the class which a module will
+regularly use. A new connector is needed for each third party required
+by the portal, and they can be registered and retrieved as normal.
+Additionally, two other functions must be implemented. A 'test' function
+will return a boolean as to whether the connector is valid or not, and
+the 'settingsSchema' will return a FormSchema class representing the
+settings needed by the connector for authentication. This could be
+something basic like an API key, and can be manipulated in any way
+before a request is made. A connector can make use of the getSetting
+method, which (in the test and request methods) will always return the
+setting as set by the user. In this way, a connector may be made of any
+settings, and manipulate the request in any way to provide an
+authenticated third party client.
+
+Having created a connector, it needs to be registered. As normal, there
+is a ConnectorStore (a singleton) which can be used to register or
+retrieve connectors. It stores these as 'RegisteredConnector's, which is
+a simple class for storing the metadata of a connector and providing
+elegant casting to arrays or strings. This class contains a name and
+description of the connector, the service name, the alias of the
+connector and the class name of the connector.
+
+The ConnectorRepository can be used to retrieve RegisteredConnectors at
+any point. Either all available connectors can be returned, a single
+connector by alias, or any connector for a service. This is because some
+third party services may have multiple connectors, i.e. multiple ways of
+connecting. We can create multiple connectors, i.e. an API key and an
+oAuth login for Typeform, and by requesting a 'typeform' service the
+portal will provide either connector as a valid connector for typeform.
+
+Given connectors can now be created or used, we need to create some
+connections. Connections are specific instances of a connector, and can
+be thought of as a connector with a valid connection. A connection is a
+row in the database, made of the following columns.
+
+* Name and description for the connection
+* User ID: Who created the connection
+* Alias: Alias of the connector
+* Settings: Settings to pass to the connector.
+
+When a module needs a third party connection, during set up, the user is
+prompted to choose the connection to use. They will be given a list of
+connections to choose from. The module instance and connection are then
+associated (see Module Instance), allowing for the connection to be
+retrieved later by the module.
+
+We provide a repository to help handle connections. This has a number of
+helper methods to CRUD connections and retrieve all connections for a
+given service (possibly multiple connectors). We also attach a global
+scope to the connection, to ensure only connections which the user owns
+can be accessed.
+
+NOTE: This will soon be changed to connections a user owns OR has access to
+
+Although we can retrieve the connection, and from it the connector, the
+creation of the connector is handled by the package. We provide a
+ConnectorFactory class to create a connector from a connection. This
+handles populating the connection with the correct settings and returns
+a connector ready to use, which in turn uses the Client to actually make
+the request.
+
+Finally, the Connection package provides a ServiceRequest. This allows
+modules to request the third party services they need.
+
+This will probably change in the near future to allow for scopes etc.
+
+To make a service request, a module resolves the 'Service Request' class
+out of the container. This class holds information on all modules, and
+the services they either require or optionally can accept. In this way,
+we can work out which services a module needs and so ensure the module
+is associated with the correct connections.

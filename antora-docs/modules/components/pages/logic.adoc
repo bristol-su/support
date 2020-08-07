@@ -1,0 +1,110 @@
+= Logic
+
+Although filters provide some flexibility in grouping users, groups or
+roles, logic groups allow us to create dynamic groups of individuals to
+provide a custom experience for users of the portal.
+
+In general, a logic group constructed using a set of filters. By testing
+user, group and/or role against each filter in turn, we can build custom
+groups of people. In fact, this is more complex than normal groups of
+users. Each user of the portal can be thought of as having multiple
+'users'. By this, I mean they themselves are a user. Additionally, any
+memberships they have can also be users, as can any roles. In this way,
+the logic group is a group of users, memberships and roles as opposed to
+just memberships.
+
+This is reconciliated on the Portal through showing a users memberships
+and roles, and showing different services in each one depending if that
+thing is in the logic group. By clicking through to a service, you are
+acting as that resource, and so all logic group testing will be done on
+that set of models.
+
+In terms of the database structure, a logic is simply made of a name and
+a description. This allows us to hide the filters in the inner workings
+of the portal, so standard users of the portal will just see a list of
+groups such as 'Committee Member', 'President', 'Staff Member' etc and
+won't need to worry about how to make logic groups.
+
+Filters are attached to logic groups by editing the filter instance
+model. Filter instances have a logic_id, which references the logic to
+which the filter belongs, and a logic_type, which is one of all_true,
+any_true, all_false, any_false. When resolved and tested, Logic Type
+determines how the filters are tested. If all the filters are in
+all_true, for example, all the filters must be true in order for the
+resource to be in the logic group. If a logic group has multiple types
+of filters, all the types must be true for the resource to be in the
+logic group.
+
+We can resolve the filters attached to a logic group using the logic
+group relationship methods. We use the LogicRepository to retrieve logic
+groups from the database, and create new groups.
+
+To speed up testing logic groups, the logic package provides a
+LogicTester. This accepts a logic model, and a user, group and role (all
+null by default). It uses the specification pattern to efficiently test
+the logic groups. The filter specifications are classes which accept a
+filter, and a user, group and role. They then resolve the filter tester
+and return the result of the filter for the given model. The
+FilterTrueSpecification returns true if the filter tester is true, and
+the FilterFalseSpecification returns false if the filter is true.
+
+Having constructed arrays of filter specifications, we then need to
+check if all these are true. To do this, we use an AndSpecification and
+OrSpecification. The AndSpecification returns true if all the given
+specifications are true, and the OrSpecification returns true if any of
+the given specifications are true. By wrapping the whole lot in an
+AndSpecification, and returning the result, we test all specifications
+match the logic group requirements, and return the result as to whether
+the given resources are in the logic group.
+
+The logic tester registers a facade, for easy access without having to
+resolve the logic tester from the container manually.
+
+Although we can now test Logic groups, we also want to get the
+'Audience' of a logic group. That is, we want to be able to retrieve all
+the combinations of users, their memberships and their roles which are
+in the logic group. The LogicAudience class provides this functionality.
+It has an audience() function, which when given a logic group will
+return an array of AudienceMember classes. These classes are constructed
+using the AudienceMemberFactory, which simply creates a new
+AudienceMember for a given user. We do this for all users of the portal,
+then use the 'filterForLogic' method on the AudienceMember to filter
+down the memberships to the logic group to only those in the logic
+group.
+
+The AudienceMember class provides functions to get the groups and roles
+of a user, and a 'canBeUser' function to see if the user as themselves
+(without any memberships or roles) is in the logic group. In order to
+tell the AudienceMember class we want to only retrieve
+memberships/roles/canBeUser for a given logic group, as opposed to all
+groups and roles, we use the 'filterForLogic' method to internally
+filter the groups and roles to only those in the logic group. Then, by
+casting the audience member to an array, we get the following.
+
+....
+[
+    'user' => \BristolSU\ControlDB\Models\User(),
+    'can_be_user' => true/false, // Does just the user belong in the logic group?
+    'groups' => [ // All groups for which the user has a membership that belongs in the logic group
+        \BristolSU\ControlDB\Models\Group(),
+        ...
+    ],
+    'roles' => [ // All roles for which the user belongs to and is in the logic group
+        \BristolSU\ControlDB\Models\Role()
+    ]
+]
+....
+
+We can also create an array of audience members using the
+AudienceMemberFactory. You can create all with access to a resource,
+meaning in some way (either as the user, in a membership, or in a role
+in a group) you can be the resource. If the resource is a user, this is
+the same as calling fromUser(). If the resource is a group, the audience
+member must be a member of that group, or have a role in that group. If
+the resource is a role, the audience member must have a role in that
+group. To do this, call the withAccessToResource method.
+
+Additionally, we can use withAccessToLogicGroupWithResource() method to
+limit the results of withAccessToResource to only those that, when
+filtered in the logic group, have a way of being an audience (i.e. as
+themselves, in a membership or in a role) that involves the resource.

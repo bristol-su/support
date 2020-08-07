@@ -1,0 +1,46 @@
+= Activity
+
+An activity is a collection of modules, and can be thought of as the
+services the portal delivers. Each service is an activity, and module
+instances are housed in this activity.
+
+An activity is a database row with the following fields:
+
+* name: The name of the activity
+* description: The description of the activity
+* activity_for: Who the activity is for. One of user, group or role. *
+* for_logic: ID of the logic group who the activity is for
+* admin_logic: ID of the logic group of people who can be admins for the
+activity
+* start_date: The date at which the activity appears. Can be null to
+always be active.
+* end_date: The date at which the activity disappears. Can be null to
+never deactivate.
+* slug: The slug of the activity. This will be used to construct the
+URL. Will be automatically set of the name if null.
+* type: Open, completable or multi-completable **
+
+* This is the activity instance we use to load the activity. In other
+words, it's the ID that gets saved against data saved in a module. If a
+file is uploaded, we tie it to one of the current user, group or role
+id. Which ID we choose depends on the activity_for.
+
+** The type of activity. An open activity cannot be completed. Any data
+uploaded to it will always be there. A completable activity can be
+completed once. By setting when each module is completed, and which ones
+are mandatory, we mark the activity as complete when it has been
+completed. A multi-completable is similar, but each service can be
+restarted many times, and previous times can still be accessed.
+
+To interact with activities, the repository used. Amongst the standard
+crud methods, we also have
+
+getForParticipant: Pass in a user, group and/or role. Any activities for
+which these three are in the forLogic group for the activity will be
+returned.
+
+getForAdmin: Pass in a user, group and/or role. Any activities for which
+these three are in the adminLogic group for the activity will be
+returned.
+
+active: Returns all activities which are currently active and useable

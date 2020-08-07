@@ -1,0 +1,143 @@
+= Module Instance
+
+The Module Instance package is predominantly responsible for creating
+and managing module instances. A module instance is an instance of a
+module registered with the portal. It can be thought of as a step in a
+process (activity).
+
+The module instance package includes tools for integrating with
+connections and settings. These may soon be moved to their own packages.
+
+A module instance is represented as a database row with the following
+attributes:
+
+* Alias: Alias of the module to use for the module instance
+* Activity ID: The ID of the activity to which the module instance
+belongs
+* Name: Name of the module instance
+* Slug: The slug on which to access the module instance
+* Description: A description of the module instance
+* Active: An ID of a logic group. Anyone in this logic group will be
+able to use the module instance, but it will be grayed out and
+inaccessible for anyone outside the logic group
+* Visible: An ID of a logic group. Anyone in this logic group will be
+able to see the module instance, but it will be hidden for anyone
+outside the logic group
+* Mandatory: Only needed if the activity is completable. Specifies a
+logic group ID. Anyone in this logic group must complete this module
+instance before the activity can be thought of as complete.
+* Completion Condition Instance ID: The ID of a completion condition
+instance representing when the module can be counted as complete.
+
+By creating a module instance, an activity will show a button
+corresponding to the instance when a user is completing the activity. We
+can retrieve or create module instances through the ModuleInstance
+Repository.
+
+Modules may require or request services, and the link between a
+connection (See the connection documentation, an authenticated client
+for making http requests) and a module instance is managed by the
+Connection directory. This includes a database row for the
+module_instance_services table, which includes the following attributes:
+
+* Service: Name of the service e.g. facebook, typeform
+* Module Instance ID: ID of the module instance this service is for
+* Connection ID: ID of the connection the module instance is allowed to
+use to make requests.
+
+We also provide a repository to interact with this database row. This
+currently allows us to get all module instance connections, or get a
+connector from a service name. This function takes a service name and a
+module instance ID, and either throws an exception if the service has
+not been assigned to the module instance, or returns the connector ready
+to be used.
+
+Modules also register settings. When a module registers their settings,
+it gets passed to the Settings store, which is responsible for storing
+and retrieving the setting schema for a module.
+
+When a user assigns a value to one of these settings, or more
+specifically sets the setting value of a specific module instance, a row
+in module_instance_settings is created. This row contains the following:
+
+* Key: The key of the setting, as specified by the module in the
+settings schema
+* Value: The value of the setting, as assigned by a user
+* Module Instance ID: The ID of the module instance to which the setting
+belongs
+* Encoded: Is the value in the 'value' column encoded? If true, the
+value will be decoded before being returned. This is useful for storing
+arrays in the table.
+
+Finally, the settings directory provides a 'Settings Listener'. The idea
+of this is to allow modules to bind onto setting changes. When any
+setting is changed, an event is fired. A settings listener registered in
+the service provider catches this event and can execute module defined
+actions depending on the event. To create a settings listener, extend
+the SettingsListener class and add methods to handle different events:
+
+....
+<?php
+
+// Save a row each time the name is changed for a revision history
+class NameSettingListener extends \BristolSU\Support\ModuleInstance\Settings\SettingListener
+{
+    protected $key = 'name'; // Key of the setting to trigger on
+
+    public function onSaved(ModuleInstanceSetting $setting)
+    {
+        // Handle the setting change
+    }
+}
+....
+
+Middleware is also provided to inject the current module instance into
+the container.
+
+The Scheduler exists to register and retrieve commands that should be
+scheduled. Laravel requires that any scheduled commands are hard coded
+into the Console Kernel. To bypass this restriction, we dynamically
+register any scheduled commands that a module requires before the kernel
+is initialised. Any commands registered in the CommandStore by a module
+are registered as a scheduled command in the kernel each time the kernel
+is requested.
+
+Finally, the Module Instance package provides an 'evaluator'. This is a
+shortcut for dynamically determining attributes for a module instance.
+It is fundamentally constructed to return an Evaluation class for a
+module instance. This has properties active, visible, mandatory and
+complete, and returns a boolean for each property. It also provides
+casting methods, allowing us to easily pass this information to the
+frontend to be rendered.
+
+The module instance evaluator class is responsible for taking a module
+instance (for a specific activity instance), and evaluating the four
+properties based on a set of credentials. To better understand this, an
+example is provided. Say we want to evaluate a module for an activity
+instance, i.e. get the evaluation of a module for a specific
+group/user/role completing the activity. From this, we can say if the
+module is complete or not by testing the module instance completion
+condition. To determine if the module instance is active, we need to
+know the current user/group/role. These are passed into the function, so
+we can just find the active logic group and see if the user/group/role
+are part of this group. The same theory holds for the mandatory and
+visible logic group, however mandatory will always be false if the
+activity is not completable.
+
+This class also provides the same functions to evaluate a module
+instance for an admistrator, however this just sets visible and active
+to true, and mandatory and complete to false.
+
+It also provides an evaluateResource function. Unlike the admin or
+participant evaluations, this method does not accept a user/group/role.
+Instead, it provides an evaluation of the activity instance/module
+instance as a whole. For example, it will return mandatory if anyone who
+can access the activity instance has an evaluation of mandatory. It will
+return visible if the module instance is available for ANYONE who is
+working in the same activity instance.
+
+The module instance package also provides an activity instance
+evaluator. This should be used to test multiple module instances at
+once, as is the case for loading an activity instance page, and simply
+evaluates each module instance in the activity and returns an array of
+evaluator objects, with the key as the module instance ID.

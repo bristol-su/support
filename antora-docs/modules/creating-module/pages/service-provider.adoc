@@ -1,0 +1,67 @@
+= Service Provider
+Toby Twigger <tobytwigger1@gmail.com>
+:description: How to use the service provider
+:keywords: service provider, composer, provider, bind
+
+The service provider is the central place to integrate your module with
+the portal. It is where you let the portal framework know about all the
+features of your module and how to load them.
+
+This page runs through registering all features used through the service
+provider. You may also use this to add bindings to the container, register singletons etc, as
+you usually would in a service provider.
+
+== Loading the Service Provider
+
+Generally, the ModuleServiceProvider class should be placed in your app
+directory, and be loaded in composer.json
+
+[source,json]
+----
+"extra": {
+    "laravel": {
+      "providers": [
+        "BristolSU\\Module\\Typeform\\ModuleServiceProvider"
+      ]
+    }
+  }
+----
+
+== Creating a Service provider
+
+To register your module, you must extend the
+`+\BristolSU\Support\Module\ModuleServiceProvider+` and implement the
+methods. An example implementation, which should be good enough for most
+modules (having changed the alias and namespace) is provided below
+
+====
+[source,php]
+----
+// Alias of the module
+public function alias(): string {
+    return 'my-alias';
+}
+
+// Controller namespace for the module
+public function namespace() {
+    return '\BristolSU\Module\MyModule\Http\Controllers';
+}
+
+// Path to the base of the module (location of the composer.json file)
+public function baseDirectory() {
+    return __DIR__ . '/..';
+}
+----
+====
+
+- The *alias* is the unique identifier of your module, and will be used
+throughout the portal so should not be changed.
+
+- The *namespace* is the namespace of your controllers, and is used to call the correct controller when routes are loaded.
+
+The *baseDirectory* is a reference to the directory where composer.json
+is, and is used by the module service provider to load things like
+config and migrations when in the default locations.
+
+The service provider also gives us a space to register any other SDK
+tools that're used, such as permissions, events, completion conditions etc. These will be referred to in the SDK API section.

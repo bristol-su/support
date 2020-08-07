@@ -1,0 +1,31 @@
+= User
+
+Although the majority of the portal works with a user/group/role basis
+from Control, we also provide a Database User. This user references the
+user from Control, but also stores a password, email verification
+details etc. In this way, the functional user to manage logging in etc
+can be kept separate from the Control user.
+
+The User package has a few tools for creating, retrieving and resolving
+users. A user is a database row with the following information:
+
+* ID: Unique ID of the user
+* Control ID: ID of the control user model for the user
+* Email Verified At: When was the email address verified?
+* Password: bcrypted password
+* Remember Token
+* Created at / Updated at
+
+To handle users, we use the UserRepository. This has several functions
+to get a user, which are explained in their comments.
+
+To log into a user, or retrieve a logged in user, we use the
+UserAuthentication contract. Resolving this will give us an
+implementation which is able to retrieve the logged in user. Similarly
+to the Authentication package, the UserAuthentication has two
+implementations provided by default. An API Authentication class can get
+a user from Passport authentication through the API (i.e. a JWT Token),
+and the Web Authentication uses the standard Laravel auth with a session
+to log in or retrieve a user. These are automatically bound during boot
+in the service provider, using the API Authentication if the request
+route contains /api/, or the Web Authentication otherwise.

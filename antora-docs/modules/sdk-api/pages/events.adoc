@@ -1,0 +1,86 @@
+= Events
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Using events in a module
+:keywords: events,listeners,trigger,actions,
+
+The SDK event framework is essentially the default Laravel event system.
+This means that you can create events as normal, fire them in any way
+Laravel allows, and bind listeners to events as normal.
+
+== What are events used for in the portal
+
+The portal introduces an event -> action concept, which is a way of allowing users to set up their own event listeners. It allows users to, for example, send an email to someone when a document is submitted. The sending of the email is handled by actions, and an event causes the email to be sent by firing when a document is submitted.
+
+Furthermore, events can hold information. We register this information in a uniform way to allow actions to use it, so users can map information from an event to an action to create a powerful response framework for automating common tasks.
+
+
+== Creating an Event
+
+All events that want to be used for the event framework, which will be nearly all of your events (the more you have, the more things a user can use your module for), must implement the `+\BristolSU\Support\Action\Contracts\TriggerableEvent+` interface. This requires every event to implement two methods - one to return each of the available fields, and one to return the meta data for each of these fields.
+
+=== Event Data
+
+To allow you total control over what information your event contains, you can return an array of data accessible to the event. This will generally use information/models passed to the event through the constructor, and format it using uniform keys. You should always try and include things like the module instance ID and activity instance ID, as well as data custom to you.
+
+====
+[source,php]
+----
+public function getFields(): array
+{
+    return [
+        'user_id' => $this->file->uploaded_by,
+        'file_name' => $this->file->name,
+        'file_mimetype' => $this->file->mimetype,
+        'module_instance_id' => $this->file->module_instance_id,
+        'activity_instance_id' => $this->file->activity_instance_id
+    ];
+}
+----
+====
+
+=== Event MetaData
+
+We can then give each key of data a more informative name and a description. This will be used to help the user match the correct information to each action field.
+
+====
+[source,php]
+----
+public function getFieldMetaData(): array
+{
+  return [
+     'user_id' => [
+        'label' => 'User ID',
+        'helptext' => 'The ID of the user who uploaded the file'
+     ]
+     'file_name' => [
+        'label' => 'File Name',
+        'helptext' => 'The name of the file'
+     ],
+     'file_mimetype' => [
+        'label' => 'File MimeType',
+        'helptext' => 'The mimetype of the uploaded file'
+     ],
+     ...
+  ]
+}
+----
+====
+
+== Registering your event
+
+Having created and fired your events, you need to let the portal know the events exist, so it can listen out for them and allow users to attach listeners to them. To do this, put each event in the `+$events+` array in your service provider. For an event with a class name FileUploaded::class, we would add
+
+[source,php]
+----
+protected $events = [
+    FileUploaded::class => [
+        'name' => 'File Uploaded',
+        'description' => 'When a new file is uploaded'
+    ],
+    ...
+]
+----
+
+The name should be a brief name to refer to the event, and the description should complete the sentence 'This event fires...'.
+
+If an event is not registered in this way, the portal won't know it exists. You can still use it within your module to manually bind listeners as you would for a normal Laravel app, but your module won't benefit from the event tools the portal supplies, and users won't be able to use it to create automated workflows.

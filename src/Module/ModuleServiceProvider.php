@@ -2,7 +2,12 @@
 
 namespace BristolSU\Support\Module;
 
+use BristolSU\Support\Action\Facade\ActionManager;
+use BristolSU\Support\Completion\Contracts\CompletionConditionManager;
+use BristolSU\Support\Connection\Contracts\ConnectorStore;
+use BristolSU\Support\Connection\ServiceRequest;
 use BristolSU\Support\Events\Contracts\EventManager;
+use BristolSU\Support\Filters\Contracts\FilterManager;
 use BristolSU\Support\Module\Contracts\ModuleManager;
 use BristolSU\Support\ModuleInstance\Contracts\Scheduler\CommandStore;
 use BristolSU\Support\ModuleInstance\Contracts\Settings\ModuleSettingsStore;
@@ -19,7 +24,7 @@ use Illuminate\Support\ServiceProvider;
 
 /**
  * Module Service Provider.
- * 
+ *
  * Extend this service provider to register a module
  */
 abstract class ModuleServiceProvider extends ServiceProvider
@@ -27,14 +32,14 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     /**
      * Should the module registration be deferred?
-     * 
+     *
      * @var bool
      */
     protected $defer = false;
 
     /**
      * Permissions to register.
-     * 
+     *
      * All permissions your module uses should be registered here (or directly) so the framework knows about them.
      * Permissions should be entered in the following form
      * [
@@ -50,7 +55,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      *      ], ...
      * ]
      * Do not add the module alias to the start of the permission. This will be done automatically.
-     * 
+     *
      * @var array
      */
     protected $permissions = [
@@ -58,7 +63,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     /**
      * Register any events the module fires.
-     * 
+     *
      * Register events in the following form. All events fired by your module should be registered.
      * [
      *      EventClass::class => [
@@ -66,58 +71,89 @@ abstract class ModuleServiceProvider extends ServiceProvider
      *          'description' => 'Description of the event'
      *      ], ...
      * ]
-     * 
+     *
      * @var array
      */
     protected $events = [];
 
     /**
      * Commands the module registers.
-     * 
+     *
      * An array of command class names
      * [
      *      CommandOne::class,
      *      CommandTwo::class
      * ]
      * See the laravel documentation for more information about commands.
-     * 
+     *
      * @var array
      */
     protected $commands = [];
 
     /**
      * Any listeners which should be triggered on specific settings being changed.
-     * 
+     *
      * Register an array of listeners which extend the SettingListener abstract class.
      * [
      *      TitleSettingListener::class,
      *      BackgroundColourSettingListener::class
      * ]
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $settingListeners = [];
 
     /**
      * Commands to run at scheduled times.
-     * 
+     *
      * Register any scheduled commands here. The commands must have been registered in the $commands array already,
      * but putting them here allows us to run commands at specific times in the background.
      * Commands should be registered with the index as the class name, and the value as a cron string representing
      * when to run the command.
-     * 
+     *
      * [
      *      CommandOne::class => '* * * * *', // Run every minute
      *      CommandTwo::class => '* /5 * * * *' // Run every five minutes
      * ]
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $scheduledCommands = [];
 
     /**
+     * Completion Conditions the module registers.
+     *
+     * For each completion condition, we need a new eleent in the array. The key should be the module alias,
+     * and the value should be the class of the completion condition.
+     *
+     * @var array
+     */
+    protected $completionConditions = [];
+
+    /**
+     * A list of service aliases required by the module
+     *
+     * @var array
+     */
+    protected $requiredServices = [];
+
+    /**
+     * A list of service aliases that may be passed to the module, but don't have to be.
+     *
+     * @var array
+     */
+    protected $optionalServices = [];
+
+    /**
+     * An array of filters your module registers, with the key being the filter alias
+     *
+     * @var array
+     */
+    protected $filters = [];
+
+    /**
      * Boot
-     * 
+     *
      * - Register translations
      * - Register configuration
      * - Register the module
@@ -132,7 +168,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      * - Register settings
      * - Register setting listeners
      * - Register scheduled commands
-     * 
+     *
      * @throws BindingResolutionException
      */
     public function boot()
@@ -151,25 +187,28 @@ abstract class ModuleServiceProvider extends ServiceProvider
         $this->registerSettings();
         $this->registerSettingListeners();
         $this->registerScheduledCommands();
+        $this->registerCompletionConditions();
+        $this->registerServices();
+        $this->registerFilters();
     }
 
     /**
      * Register setting listeners
-     * 
+     *
      * Register listeners to be fired when settings are changed.
      */
     public function registerSettingListeners()
     {
         foreach ($this->settingListeners as $listener) {
-            Event::listen('eloquent.*: '.ModuleInstanceSetting::class, $listener);
+            Event::listen('eloquent.*: ' . ModuleInstanceSetting::class, $listener);
         }
     }
 
     /**
      * Register scheduled commands
-     * 
+     *
      * Register commands to run at scheduled times.
-     * 
+     *
      * @throws BindingResolutionException
      */
     public function registerScheduledCommands()
@@ -185,7 +224,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function registerRoutes()
     {
-        
+
         $this->mapParticipantRoutes();
         $this->mapAdminRoutes();
         $this->mapParticipantApiRoutes();
@@ -194,7 +233,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     /**
      * Register the module
-     * 
+     *
      * @throws BindingResolutionException
      */
     public function registerModule()
@@ -204,7 +243,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     /**
      * Register permissions the module uses
-     * 
+     *
      * @throws Exception
      */
     public function registerPermissions()
@@ -216,13 +255,13 @@ abstract class ModuleServiceProvider extends ServiceProvider
             if (!array_key_exists('admin', $permission)) {
                 $permission['admin'] = false;
             }
-            Permission::register($this->alias().'.'.$ability, $permission['name'], $permission['description'], $this->alias(), $permission['admin']);
+            Permission::register($this->alias() . '.' . $ability, $permission['name'], $permission['description'], $this->alias(), $permission['admin']);
         }
     }
 
     /**
      * Register events the module fires
-     * 
+     *
      * @throws BindingResolutionException
      */
     public function registerEvents()
@@ -241,7 +280,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function registerTranslations()
     {
-        $this->loadTranslationsFrom($this->baseDirectory().'/resources/lang', $this->alias());
+        $this->loadTranslationsFrom($this->baseDirectory() . '/resources/lang', $this->alias());
     }
 
     /**
@@ -249,10 +288,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     protected function registerConfig()
     {
-        $this->publishes([$this->baseDirectory().'/config/config.php' => config_path($this->alias().'.php'),
-        ], 'config');
+        $this->publishes([$this->baseDirectory() . '/config/config.php' => config_path($this->alias() . '.php'),
+        ], ['module', 'module-config', 'config']);
         $this->mergeConfigFrom(
-            $this->baseDirectory().'/config/config.php', $this->alias()
+          $this->baseDirectory() . '/config/config.php', $this->alias()
         );
     }
 
@@ -262,21 +301,21 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function registerViews()
     {
         $this->publishes([
-            $this->baseDirectory().'/resources/views' => resource_path('views/vendor/'.$this->alias()),
-        ], 'views');
+          $this->baseDirectory() . '/resources/views' => resource_path('views/vendor/' . $this->alias()),
+        ], ['module', 'module-views', 'views']);
 
-        $this->loadViewsFrom($this->baseDirectory().'/resources/views', $this->alias());
+        $this->loadViewsFrom($this->baseDirectory() . '/resources/views', $this->alias());
     }
 
     /**
      * Register factories in a non-production environment
-     * 
+     *
      * @throws BindingResolutionException
      */
     public function registerFactories()
     {
         if (!app()->environment('production')) {
-            $this->app->make(Factory::class)->load($this->baseDirectory().'/database/factories');
+            $this->app->make(Factory::class)->load($this->baseDirectory() . '/database/factories');
         }
     }
 
@@ -285,7 +324,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function loadMigrations()
     {
-        $this->loadMigrationsFrom($this->baseDirectory().'/database/migrations');
+        $this->loadMigrationsFrom($this->baseDirectory() . '/database/migrations');
     }
 
     /**
@@ -293,10 +332,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function mapParticipantRoutes()
     {
-        Route::prefix('/p/{activity_slug}/{module_instance_slug}/'.$this->alias())
-            ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
-            ->namespace($this->namespace())
-            ->group($this->baseDirectory().'/routes/participant/web.php');
+        Route::prefix('/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
+          ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
+          ->namespace($this->namespace())
+          ->group($this->baseDirectory() . '/routes/participant/web.php');
     }
 
     /**
@@ -304,10 +343,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function mapAdminRoutes()
     {
-        Route::prefix('/a/{activity_slug}/{module_instance_slug}/'.$this->alias())
-            ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'administrator'])
-            ->namespace($this->namespace())
-            ->group($this->baseDirectory().'/routes/admin/web.php');
+        Route::prefix('/a/{activity_slug}/{module_instance_slug}/' . $this->alias())
+          ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'administrator'])
+          ->namespace($this->namespace())
+          ->group($this->baseDirectory() . '/routes/admin/web.php');
     }
 
     /**
@@ -315,10 +354,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function mapParticipantApiRoutes()
     {
-        Route::prefix('/api/p/{activity_slug}/{module_instance_slug}/'.$this->alias())
-            ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
-            ->namespace($this->namespace())
-            ->group($this->baseDirectory().'/routes/participant/api.php');
+        Route::prefix('/api/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
+          ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
+          ->namespace($this->namespace())
+          ->group($this->baseDirectory() . '/routes/participant/api.php');
     }
 
     /**
@@ -326,10 +365,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function mapAdminApiRoutes()
     {
-        Route::prefix('/api/a/{activity_slug}/{module_instance_slug}/'.$this->alias())
-            ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'administrator'])
-            ->namespace($this->namespace())
-            ->group($this->baseDirectory().'/routes/admin/api.php');
+        Route::prefix('/api/a/{activity_slug}/{module_instance_slug}/' . $this->alias())
+          ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'administrator'])
+          ->namespace($this->namespace())
+          ->group($this->baseDirectory() . '/routes/admin/api.php');
     }
 
     /**
@@ -347,45 +386,62 @@ abstract class ModuleServiceProvider extends ServiceProvider
      */
     public function registerAssets()
     {
-        $this->publishes([$this->baseDirectory().'/public/modules/'.$this->alias() => public_path('modules/'.$this->alias())]);
+        $this->publishes([
+          $this->baseDirectory() . '/public/modules/' . $this->alias() => public_path('modules/' . $this->alias())
+        ], ['module', 'module-assets', 'assets']);
+    }
+
+    /**
+     * Register completion conditions for the module.
+     */
+    public function registerCompletionConditions()
+    {
+        $completionConditionManager = $this->app->make(CompletionConditionManager::class);
+        foreach ($this->completionConditions as $alias => $class) {
+            $completionConditionManager->register(
+              $this->alias(),
+              $alias,
+              $class
+            );
+        }
     }
 
     /**
      * Base namespace of the controllers.
-     * 
+     *
      * Routes will use this namespace to prevent you from having to give the fully qualified name of the controller in the
      * routes file. Will look something like \App\Http\Controllers
-     * 
+     *
      * @return string
      */
     abstract public function namespace();
 
     /**
-     * Return the path to the base directory (where the composer.json file is). 
-     * 
+     * Return the path to the base directory (where the composer.json file is).
+     *
      * Used for registering files, will often look something like __DIR__ . '/..'
-     * 
+     *
      * @return string
      */
     abstract public function baseDirectory();
 
     /**
      * Return the alias of the module
-     * 
+     *
      * @return string Module alias
      */
     abstract public function alias(): string;
 
     /**
      * Return settings required by the module
-     * 
+     *
      * @return Form
      */
     abstract public function settings(): Form;
 
     /**
      * Register settings for the module
-     * 
+     *
      * @throws BindingResolutionException
      */
     public function registerSettings()
@@ -395,18 +451,73 @@ abstract class ModuleServiceProvider extends ServiceProvider
 
     /**
      * Register a js file to be loaded on every request.
-     * 
+     *
      * This is useful for registering custom components. If you want to register a custom component to use in a form,
      * pass in a js file path which registers the component.
-     * 
+     *
      * @param string $path build path e.g. 'modules/module-alias/js/components.js'
      */
-    public function registerGlobalScript(string $path) {
-        View::composer('bristolsu::base', function(\Illuminate\View\View $view) use ($path) {
+    public function registerGlobalScript(string $path)
+    {
+        View::composer('bristolsu::base', function (\Illuminate\View\View $view) use ($path) {
             $scripts = ($view->offsetExists('globalScripts') ? $view->offsetGet('globalScripts') : []);
             $scripts[] = asset($path);
             $view->with('globalScripts', $scripts);
         });
+    }
+
+    /**
+     * Register an action with the portal
+     *
+     * @param string $class The fully qualified class name of the action class
+     * @param string $name A name for your action
+     * @param string $description A longer description for your action
+     */
+    public function registerAction(string $class, string $name, string $description): void
+    {
+        ActionManager::registerAction($class, $name, $description);
+    }
+
+    /**
+     * Register a third party connection
+     *
+     * @param string $name
+     * @param string $description
+     * @param string $alias
+     * @param string $service
+     * @param string $class
+     * @throws BindingResolutionException
+     */
+    public function registerConnection(string $name, string $description, string $alias, string $service, string $class): void
+    {
+        $connectorStore = $this->app->make(ConnectorStore::class);
+        $connectorStore->register(
+          $name,
+          $description,
+          $alias,
+          $service,
+          $class
+        );
+    }
+
+    /**
+     * Registers services the module asks for with the SDK
+     *
+     * @throws BindingResolutionException
+     */
+    public function registerServices()
+    {
+        $serviceRequest = $this->app->make(ServiceRequest::class);
+        $serviceRequest->required('my-module-alias', $this->requiredServices);
+        $serviceRequest->optional('my-module-alias', $this->optionalServices);
+    }
+
+    private function registerFilters()
+    {
+        $filterManager = $this->app->make(FilterManager::class);
+        foreach($this->filters as $alias => $filter) {
+            $filterManager->register($alias, $filter);
+        }
     }
 
 }

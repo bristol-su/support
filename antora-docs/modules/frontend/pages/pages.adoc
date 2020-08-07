@@ -1,0 +1,143 @@
+= Creating Pages
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Creating a page for a module
+:keywords: page,frontend,routing,blade,templates,assets,compiling
+
+First, we will look at how modules are able to use the Blade templating
+engine. We will explore the blade heirarchy, how the SDK extends the
+templating engine and how we can create new pages.
+
+== Routing 
+
+A module should have two main entry points for users of the portal - the user side and the admin side. The routes for these points should be defined in the `+routes/admin/web.php+` and `+routes/participants/web.php+`. By default, the template module gives you a single route for each.
+
+.Participant Route
+====
+The default route for a participant.
+
+[source,php]
+----
+// routes/participants/web.php
+`+Route::get('/', 'ParticipantPageController@index);+`
+
+// app/Http/Controllers/ParticipantPageController.php
+class ParticipantPageController extends Controller
+{
+    public function index()
+    {
+        return view('static-page::participant');
+    }
+}
+----
+====
+
+The portal takes care of namespacing and file locations. It will automatically load any routes from the correct locations, and prefix them to work with the portal. Your controller base namespace is specified in your service provider. Namespacing for your views are set up automatically, meaning your blade template in `+resources/views/participant.blade.php+` can be referred to as `+'static-page::participant'+`.
+
+== Blade Templates
+
+Taking a look at participant.blade.php will reveal that this extends
+'static-page::layouts.app', which is your modules parent layout. This file registers your assets, creates a container component for loading vue, and extends the Bristol SU template to add things like a header/footer etc to your page. This template must always be extended.
+
+.Base blade template
+====
+An example `+app.blade.php+` file.
+[source,blade]
+----
+@extends('bristolsu::base')
+
+@section('content')
+    <div id="my-module-root">
+        @yield('module-content')
+    </div>
+@endsection
+
+@push('styles')
+    <link href="{{ asset('modules/my-module/css/module.css') }}" rel="stylesheet">
+@endpush
+
+@push('scripts')
+    <script src="{{ asset('modules/my-module/js/module.js') }}"></script>
+@endpush
+----
+====
+
+You may also notice a number of blade sections/stacks you can use. The full list is below:
+
+* `+@section('title', 'My Title')+` to change the title of the page
+* `+@section('module-content')+` for the main content of your page.
+* `+@push('meta-tags')+` for any meta tags to put on the page
+* `+@push('fonts')+` for any fonts for the page
+* `+@push('styles')+` for any styles in the page
+* `+@push('scripts')+` for any scripts in the page.
+
+== Assets
+
+Your assets are generally compiled by webpack and moved to the correct directory (covered later on). This means they can be loaded as above by referencing them in your base template.
+
+== Should you consume your own API?
+
+Most the modules we develop have only two web routes. We then utilise
+Vue and the API to provide all module functionality. The alternative is to use normal POST requests through a form, but we've found ourselves creating APIs anyway, so why not save ourselves the duplication of form submissions?
+    
+When using the API, the portal automatically passes up user/group/role credentials. See the components section for more information on this. In summary, it tells the portal which group/role you're currently acting as, allowing us to determine things like your permissions and settings.
+Web routes, however, don't have this luxury. This means that if you want to link to another route in your module, you need to manually include query parameters. An example of this may be something like a download button to link to a url.
+
+If in a blade template, this is easily done by appending the query
+string onto the end of the url. To get the query string, you can call
+`+url()->getAuthQueryString()+`, which should then be appended to the
+href with a question mark
+
+[source,php]
+----
+<a href="download?{{url()->getAuthQueryString()}}">Download</a>
+----
+
+You can also retrieve the query string as an array using the
+`+getAuthQueryArray()+` method.
+
+[source,php]
+----
+$array = url()->getAuthQueryArray()
+
+var_dump($array)
+
+/*
+* [
+*  "u" => 1,
+*  "g" => 3,
+*  "r" => null,
+*  "a" => 44
+*/
+----
+
+If you're working in Vue, we suggest putting the following in your
+module.js file:
+
+[source,javascript]
+----
+Vue.prototype.$url = portal.APP_URL + '/' + portal.A_OR_P + '/' + portal.ACTIVITY_SLUG + '/' + portal.MODULE_INSTANCE_SLUG + '/' + portal.ALIAS;
+----
+
+These portal variables are all available and sent by the SDK, so your
+hyperlink could then, by passing the getAuthQueryString() through the
+components from the blade tempate, read
+
+[source,vue]
+----
+<template>
+  <a :href="downloadUrl">Download</a>
+</template>
+
+<script>
+  export default {
+    props: {
+      queryString: {type: String}
+    },
+    computed: {
+      downloadUrl() {
+        return this.$url + '/download?' + this.queryString;
+      }
+    }
+  }
+</script>
+----

@@ -1,0 +1,114 @@
+= Completion Conditions
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Creating Completion Conditions
+:keywords: complete,completion,completion conditions,module finished,finishing,progress
+
+Completion Conditions are just that, conditions under which your module may be marked as complete. For example, a File Upload module may be completed after a file is uploaded, approved or downloaded. When setting up your module, an admin will decide which condition they want to use. The portal will take care of testing completion, so the condition simply needs to specify if the condition has been met or not.
+
+== Creating a Completion Condition
+
+To create a completion condition, you simply need to extend the abstract CompletionCondition class
+(`+\BristolSU\Support\Completion\Contracts\CompletionCondition+`) and
+implement the abstract methods.
+
+=== Meta Information
+
+The name, description and alias are needed to display information about the completion condition. The alias should be unique to the completion condition, and start with your module alias. Here are some examples:
+
+`+upload-file_number_of_files_submitted+`
+`+static-page_page_viewed+`
+
+=== Settings
+
+To allow your completion conditions additional flexibility, you can request settings from the user. These could be things like a number of files submitted, a type of status for the file to be marked as complete, or anything else you can think of.
+
+As normal, we use the FormSchema to define the options.
+
+====
+[source,php]
+----
+public function options(): \FormSchema\Schema\Form
+{
+    return \FormSchema\Generator\Form::make()
+        ->withField(
+            \FormSchema\Generator\Field::input('number_of_files')->inputType('number')->label('Number of Files')
+                ->required(true)->default(1)->hint('The number of files that must be submitted')
+                ->help('The number of documents that need to be submitted for the module to be marked as complete.')
+        )
+        ->getSchema(); 
+}
+----
+====
+
+=== Testing for Completion
+
+The isComplete function receives the settings from the user, the
+activity instance and the module instance and must return a boolean;
+true if the activity instance has completed the module instance, and
+false if the activity instance has not completed the module instance.
+
+Because you are given both the activity and module instance, you are able to use the `+forResource+` scope of a model easily by passing in these arguments. 
+
+====
+This function will return true if the number of files given by the settings have been uploaded for the given activity instance and module instance. If the setting is not given, it will default to 1.
+
+[source,php]
+----
+public function isComplete($settings, ActivityInstance $activityInstance, ModuleInstance $moduleInstance): bool
+{
+    return File::forResource($activityInstance->id, $moduleInstance->id)->count() >= ( $settings['number_of_files'] ?? 1);
+}
+----
+====
+
+==== Percentages
+
+As well  as being able to say whether or not a module has been completed, it is useful to let people know the percentage completion of a module. If, for example, we required 2 files to be uploaded but only one had been, we can let the users know they are 50% complete.
+
+Therefore, we should also override the percentage function. By default, this will return 0 if the module is not coomplete or 100 if it is, but you can refine this logic.
+
+====
+[source,php]
+----
+public function percentage($settings, ActivityInstance $activityInstance, ModuleInstance $moduleInstance): int
+{
+    // Number of files uploaded
+    $count = File::forResource($activityInstance->id, $moduleInstance->id)->count();
+    
+    // Number of files needed
+    $needed = ( $settings['number_of_files'] ?? 1);
+
+    // Get the percentage of files, rounded to the nearest integer since we can only return an integer.
+    $percentage = (int) round(($count/$needed) * 100, 0);
+
+    // If more files have been uploaded than required, still only return 100%
+    if($percentage > 100) {
+        return 100;
+    }
+    return $percentage;
+
+----
+====
+
+
+== Registering a Completion Condition
+
+As usual, having created a completion condition we will need to register it with the SDK. The easiest way to do this is to use the `+$completionConditions+` array in your service provider. The key of the array should be the condition alias, and the value the completion condition class.
+
+[source,php]
+----
+protected $completionConditions = [
+    'upload-file_number_of_files' => \My\Namespace\MyCompletionCondition::class
+];
+----
+
+You may also use the completion condition manager directly.
+
+[source,php]
+----
+public function boot()
+{
+    parent::boot();
+    app(\BristolSU\Support\Completion\Contracts\CompletionConditionManager::class)->register('module-alias', 'condition-alias', Condition::class);
+}
+----

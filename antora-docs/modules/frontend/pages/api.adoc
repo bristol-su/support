@@ -1,0 +1,70 @@
+= Creating an API
+Toby Twigger <tobytwigger1@gmail.com>
+:description: Creating an API
+:keywords: api,routing,route model binding
+
+Having created your frontend using Blade, you may want to set up an API
+for your module.
+
+To go about creating an API, we follow the Laravel way: add the route to
+the 'api.php' file in either admin or participant, then create the
+controller in 'app/Http/Controllers/Api'.
+
+====
+routes/admin/api.php:
+
+[source,php]
+----
+Route::namespace('Api')->group(function() {
+    Route::get('/file', 'FileController@index');
+    Route::get('/file/{staticpage_file}', 'FileController@show');
+
+    OR
+
+    Route::apiResource('file', 'FileController');
+});
+----
+
+app/Http/Controllers/Api/FileController:
+
+[source,php]
+----
+class FileController extends Controller {
+    public function index() {
+        //
+    }
+
+    public function show(File $file) {
+        return $file;
+    }
+}
+----
+====
+
+== Route Model Binding
+
+Notice we have used route model binding to load the file requested.
+Unlike normal, we require that route model bindings are prefixed with
+the module alias, to limit any conflicts. We could set up the file route
+model binding as so:
+
+====
+ModuleServiceProvider.php
+
+[source,php]
+----
+public function boot() {
+    parent::boot();
+
+    Route::model('staticpage_file', BristolSU\Module\StaticPage\Model\File::class);
+}
+----
+====
+
+The above will resolve a file when the key 'staticpage_file' is
+referenced in a URL. If you want to change the resolution logic too, you
+can use
+https://laravel.com/docs/5.4/routing#explicit-binding[Route::bind()]
+instead.
+
+Tools you can use in the API will be covered in the backend section.

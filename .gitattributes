@@ -2,6 +2,7 @@
 
 /.github export-ignore
 /docs export-ignore
+/antora-docs export-ignore
 /tests export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore
