@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Relationship between the activity instance and progress models
+- Relationship between the module instance and module instance progress models
 
 ## [4.7.0] - (07/08/2020)
 

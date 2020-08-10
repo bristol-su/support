@@ -8,6 +8,7 @@ use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Module\Tests\UploadFile\Integration\Http\Controllers\ParticipantPageControllerTest;
 use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
@@ -15,6 +16,8 @@ use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\ModuleInstance\ModuleInstanceGrouping;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
+use BristolSU\Support\Progress\Handlers\Database\Models\ModuleInstanceProgress;
+use BristolSU\Support\Progress\Handlers\Database\Models\Progress;
 use BristolSU\Support\User\Contracts\UserAuthentication;
 use Illuminate\Support\Facades\DB;
 use BristolSU\Support\Tests\TestCase;
@@ -122,14 +125,14 @@ class ModuleInstanceTest extends TestCase
         $moduleInstance->save();
         $this->assertEquals($moduleInstance->slug, 'a-sluggable-name-two');
     }
-    
+
     /** @test */
     public function it_has_actions_associated_with_it(){
         $moduleInstance = factory(ModuleInstance::class)->create();
         $actions = factory(ActionInstance::class, 5)->create(['module_instance_id' => $moduleInstance->id]);
-        
+
         $moduleInstanceActions = $moduleInstance->actionInstances;
-        
+
         foreach($actions as $action) {
             $this->assertModelEquals($action, $moduleInstanceActions->shift());
         }
@@ -139,16 +142,16 @@ class ModuleInstanceTest extends TestCase
     public function it_has_many_module_instance_services(){
         $moduleInstance = factory(ModuleInstance::class)->create();
         $moduleInstanceServices = factory(ModuleInstanceService::class, 7)->create(['module_instance_id' => $moduleInstance->id]);
-        
+
         $foundModuleInstanceServices = $moduleInstance->moduleInstanceServices;
-        
+
         $this->assertEquals(7, $foundModuleInstanceServices->count());
         $this->assertContainsOnlyInstancesOf(ModuleInstanceService::class, $foundModuleInstanceServices);
         foreach($moduleInstanceServices as $service) {
             $this->assertModelEquals($service, $foundModuleInstanceServices->shift());
         }
     }
-    
+
     /** @test */
     public function setting_returns_a_setting_if_found(){
         $moduleInstance = factory(ModuleInstance::class)->create();
@@ -163,14 +166,14 @@ class ModuleInstanceTest extends TestCase
 
         $this->assertEquals('thedefault', $moduleInstance->setting('setting1', 'thedefault'));
     }
-    
+
     /** @test */
     public function enabled_only_returns_enabled_module_instances(){
         $enabledModuleInstances = factory(ModuleInstance::class, 6)->create(['enabled' => true]);
         $disabledModuleInstances = factory(ModuleInstance::class, 5)->create(['enabled' => false]);
-        
+
         $foundModuleInstances = ModuleInstance::enabled()->get();
-        
+
         $this->assertEquals(6, $foundModuleInstances->count());
         foreach($enabledModuleInstances as $moduleInstance) {
             $this->assertModelEquals($moduleInstance, $foundModuleInstances->shift());
@@ -245,30 +248,43 @@ class ModuleInstanceTest extends TestCase
         $this->assertEquals('OldName', $moduleInstance->revisionHistory->first()->old_value);
         $this->assertEquals('NewName', $moduleInstance->revisionHistory->first()->new_value);
     }
-    
+
     /** @test */
     public function grouping_returns_the_group(){
         $moduleInstanceGrouping = factory(ModuleInstanceGrouping::class)->create();
         $moduleInstance = factory(ModuleInstance::class)->create(['grouping_id' => $moduleInstanceGrouping]);
-        
+
         $groupingFromModuleInstance = $moduleInstance->grouping;
-        
+
         $this->assertInstanceOf(ModuleInstanceGrouping::class, $groupingFromModuleInstance);
         $this->assertTrue($moduleInstanceGrouping->is($groupingFromModuleInstance));
     }
-    
+
     /** @test */
     public function grouping_returns_null_if_module_instance_has_no_grouping(){
         $moduleInstance = factory(ModuleInstance::class)->create(['grouping_id' => null]);
         $this->assertNull($moduleInstance->grouping);
     }
-    
+
     /** @test */
     public function the_order_is_accessible_through_the_module_instance_array(){
         $moduleInstance = factory(ModuleInstance::class)->create(['order' => 5]);
         $array = $moduleInstance->toArray();
-        
+
         $this->assertArrayHasKey('order', $array);
         $this->assertEquals(5, $array['order']);
+    }
+
+    /** @test */
+    public function it_has_many_progresses(){
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        factory(ModuleInstanceProgress::class, 5)->create();
+        $progresses = factory(ModuleInstanceProgress::class, 2)->create(['module_instance_id' => $moduleInstance->id]);
+        factory(ModuleInstanceProgress::class, 5)->create();
+
+        $retrievedProgresses = $moduleInstance->moduleInstanceProgress;
+        $this->assertCount(2, $retrievedProgresses);
+        $this->assertModelEquals($progresses[0], $retrievedProgresses[0]);
+        $this->assertModelEquals($progresses[1], $retrievedProgresses[1]);
     }
 }

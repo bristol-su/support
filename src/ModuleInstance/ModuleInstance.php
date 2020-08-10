@@ -12,6 +12,7 @@ use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance as ModuleInstanceContract;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
+use BristolSU\Support\Progress\Handlers\Database\Models\ModuleInstanceProgress;
 use BristolSU\Support\Revision\HasRevisions;
 use BristolSU\Support\User\Contracts\UserAuthentication;
 use Illuminate\Database\Eloquent\Builder;
@@ -25,10 +26,10 @@ use Illuminate\Support\Str;
 class ModuleInstance extends Model implements ModuleInstanceContract
 {
     use HasRevisions;
-    
+
     /**
-     * Fillable attributes 
-     * 
+     * Fillable attributes
+     *
      * @var array
      */
     protected $fillable = [
@@ -49,8 +50,8 @@ class ModuleInstance extends Model implements ModuleInstanceContract
 
     /**
      * Attributes to cast
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $casts = [
         'enabled' => 'boolean'
@@ -58,7 +59,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
 
     /**
      * When the model is saved, the slug will be dynamically set if not given
-     * 
+     *
      * @param array $attributes Attributes for the model
      */
     public function __construct(array $attributes = [])
@@ -76,7 +77,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
 
     /**
      * Get the alias of the module
-     * 
+     *
      * @return string
      */
     public function alias()
@@ -86,7 +87,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
 
     /**
      * Get the ID of the module
-     * 
+     *
      * @return int
      */
     public function id()
@@ -96,7 +97,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
 
     /**
      * Activity relationship
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function activity()
@@ -106,7 +107,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
 
     /**
      * Settings relationship
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function moduleInstanceSettings()
@@ -116,7 +117,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
 
     /**
      * Permissions relationship
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function moduleInstancePermissions()
@@ -126,7 +127,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
 
     /**
      * Completion condition relationship
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function completionConditionInstance()
@@ -136,7 +137,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
 
     /**
      * Active logic relationship
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function activeLogic()
@@ -146,7 +147,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
 
     /**
      * Visible logic relationship
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function visibleLogic()
@@ -156,7 +157,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
 
     /**
      * Mandatory logic relationship
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function mandatoryLogic()
@@ -175,7 +176,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
 
     /**
      * Services relationship
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function moduleInstanceServices()
@@ -185,7 +186,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
 
     /**
      * Get a setting from the module instance
-     * 
+     *
      * @param string $key Key of the setting
      * @param mixed|null $default Default value if the setting is not found
      * @return mixed|null
@@ -201,9 +202,9 @@ class ModuleInstance extends Model implements ModuleInstanceContract
 
     /**
      * Return only enabled module instances
-     * 
+     *
      * @param Builder $query
-     * 
+     *
      * @return Builder
      */
     public function scopeEnabled(Builder $query)
@@ -228,5 +229,10 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     public function grouping()
     {
         return $this->belongsTo(ModuleInstanceGrouping::class);
+    }
+
+    public function moduleInstanceProgress()
+    {
+        return $this->hasMany(ModuleInstanceProgress::class);
     }
 }
