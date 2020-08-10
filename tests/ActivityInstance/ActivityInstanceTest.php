@@ -14,6 +14,7 @@ use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\Progress\Handlers\Database\Models\Progress;
 use BristolSU\Support\Tests\TestCase;
 use Carbon\Carbon;
 
@@ -46,7 +47,7 @@ class ActivityInstanceTest extends TestCase
         $activityInstance3 = factory(ActivityInstance::class)->create(['activity_id' => 1, 'resource_type' => 'user', 'resource_id' => 1, 'created_at' => Carbon::now()->addSeconds(2)]);
         $this->assertEquals(3, $activityInstance3->run_number);
     }
-    
+
     /** @test */
     public function runNumber_only_looks_at_similar_activity_instances(){
         $activityInstance1 = factory(ActivityInstance::class)->create(['activity_id' => 1, 'resource_type' => 'user', 'resource_id' => 1, 'created_at' => Carbon::now()]);
@@ -57,15 +58,15 @@ class ActivityInstanceTest extends TestCase
         $activityInstancefake3 = factory(ActivityInstance::class)->create(['activity_id' => 1, 'resource_type' => 'user', 'resource_id' => 2, 'created_at' => Carbon::now()]);
         $this->assertEquals(3, $activityInstance3->run_number);
     }
-    
+
     /** @test */
     public function it_belongs_to_an_activity(){
         $activity = factory(Activity::class)->create();
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-        
+
         $this->assertModelEquals($activity, $activityInstance->activity);
     }
-    
+
     /** @test */
     public function it_has_module_instances_through_an_activity(){
         $activityFake = factory(Activity::class)->create();
@@ -76,7 +77,7 @@ class ActivityInstanceTest extends TestCase
         $moduleInstance1 = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
         $moduleInstance2 = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-        
+
         $moduleInstances = $activityInstance->moduleInstances;
 
         $this->assertModelEquals($moduleInstance1, $moduleInstances->offsetGet(0));
@@ -89,7 +90,7 @@ class ActivityInstanceTest extends TestCase
         $userRepository = $this->prophesize(UserRepository::class);
         $userRepository->getById($user->id())->shouldBeCalledTimes(3)->willReturn($user);
         $this->app->instance(UserRepository::class, $userRepository->reveal());
-        
+
         $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'user', 'resource_id' => $user->id()]);
         $this->assertEquals($user, $activityInstance->getParticipantAttribute());
         $this->assertEquals($user, $activityInstance->participant);
@@ -121,17 +122,17 @@ class ActivityInstanceTest extends TestCase
         $this->assertEquals($role, $activityInstance->participant);
         $this->assertEquals($role, $activityInstance->participant());
     }
-    
+
     /** @test */
     public function getParticipantAttribute_throws_an_exception_if_the_resource_type_is_not_one_of_user_group_or_role(){
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Resource type is not valid');
-        
+
         $activityInstance = factory(ActivityInstance::class)->make();
         $activityInstance->resource_type = 'notvalid';
         $activityInstance->getParticipantAttribute();
     }
-    
+
     /** @test */
     public function getAuthIdentifierName_returns_id(){
         $activityInstance = factory(ActivityInstance::class)->create();
@@ -185,12 +186,12 @@ class ActivityInstanceTest extends TestCase
         $this->assertEquals('OldName', $activityInstance->revisionHistory->first()->old_value);
         $this->assertEquals('NewName', $activityInstance->revisionHistory->first()->new_value);
     }
-    
+
     /** @test */
     public function participantName_returns_the_group_name_if_the_activity_instance_is_for_a_group(){
         $dataGroup = factory(DataGroup::class)->create(['name' => 'Group Name 1']);
         $group = $this->newGroup(['data_provider_id' => $dataGroup->id()]);
-        
+
         $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'group', 'resource_id' => $group->id()]);
         $this->assertEquals('Group Name 1', $activityInstance->participantName());
     }
@@ -216,9 +217,22 @@ class ActivityInstanceTest extends TestCase
     /** @test */
     public function participantName_throws_an_exception_if_the_type_is_not_one_of_user_group_or_role(){
         $this->expectException(\Exception::class);
-        
+
         $activityInstance = new ActivityInstance();
         $activityInstance->participantName();
-    }    
-    
+    }
+
+    /** @test */
+    public function it_has_many_progresses(){
+        $activityInstance = factory(ActivityInstance::class)->create();
+        factory(Progress::class, 5)->create();
+        $progresses = factory(Progress::class, 2)->create(['activity_instance_id' => $activityInstance->id]);
+        factory(Progress::class, 5)->create();
+
+        $retrievedProgresses = $activityInstance->progress;
+        $this->assertCount(2, $retrievedProgresses);
+        $this->assertModelEquals($progresses[0], $retrievedProgresses[0]);
+        $this->assertModelEquals($progresses[1], $retrievedProgresses[1]);
+    }
+
 }

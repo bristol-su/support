@@ -10,6 +10,7 @@ use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\Progress\Handlers\Database\Models\Progress;
 use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
@@ -23,18 +24,18 @@ class ActivityInstance extends Model implements Authenticatable
 
     /**
      * Additional attributes to add to the model.
-     * 
+     *
      * Run number is an incrementing ID to represent multiple activity instances for the same resource/activity.
      * Participant is the resource model
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $appends = ['run_number', 'participant', 'participant_name'];
 
     /**
      * Fillable properties
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $fillable = [
         'name', 'description', 'activity_id', 'resource_type', 'resource_id'
@@ -42,9 +43,9 @@ class ActivityInstance extends Model implements Authenticatable
 
     /**
      * Get the run number of the activity instance as a Laravel attribute.
-     * 
+     *
      * If there are multiple run throughs of an activity, this ID will number them from oldest to newest.
-     * 
+     *
      * @return int
      */
     public function getRunNumberAttribute()
@@ -67,7 +68,7 @@ class ActivityInstance extends Model implements Authenticatable
 
     /**
      * Retrieve the name of the participant to show to users
-     * 
+     *
      * @return string|null
      * @throws \Exception
      */
@@ -75,16 +76,16 @@ class ActivityInstance extends Model implements Authenticatable
     {
         return $this->participantName();
     }
-    
+
     /**
      * Get the model from the current resource as a Laravel attribute.
      *
      * If the resource_type is user, returns the user with the id 'resource_id'
      * If the resource_type is group, returns the group with the id 'resource_id'
      * If the resource_type is role, returns the role with the id 'resource_id'
-     * 
+     *
      * @return User|Group|Role The model for the resource of the activity instance.
-     * 
+     *
      * @throws \Exception If the resource type is not one of user, group or role
      */
     public function getParticipantAttribute()
@@ -103,7 +104,7 @@ class ActivityInstance extends Model implements Authenticatable
 
     /**
      * Get the model from the current resource.
-     * 
+     *
      * Function for retrieving the user, group or role associated with the activity instance.
      *
      * @return User|Group|Role The model for the resource of the activity instance.
@@ -115,7 +116,7 @@ class ActivityInstance extends Model implements Authenticatable
 
     /**
      * Module Instance relationship
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
     public function moduleInstances()
@@ -125,7 +126,7 @@ class ActivityInstance extends Model implements Authenticatable
 
     /**
      * Activity relationship
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function activity()
@@ -202,5 +203,10 @@ class ActivityInstance extends Model implements Authenticatable
             return $this->participant()->data()->roleName();
         }
         throw new \Exception;
+    }
+
+    public function progress()
+    {
+        return $this->hasMany(Progress::class);
     }
 }
