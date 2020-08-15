@@ -19,6 +19,7 @@ class ProgressRepository
     public function recentIds(): array
     {
         return Progress::orderBy('activity_instance_id')
+          ->orderBy('id', 'desc')
           ->latest('timestamp')
           ->get(['id', 'activity_instance_id'])
           ->unique('activity_instance_id')
@@ -66,43 +67,20 @@ class ProgressRepository
           ->whereIn('id', $this->recentIds())
           ->with('activityInstance')
           ->with('moduleInstanceProgress')
-          ->whereHas('moduleInstanceProgress', function (Builder $query) use (
+          ->when(
+            (count($incomplete) + count($complete) + count($hidden) + count($visible) + count($active) + count($inactive) + count($mandatory) + count($optional)) > 0
+            , function (Builder $query) use (
             $incomplete, $complete, $hidden, $visible, $active, $inactive, $mandatory, $optional
           ) {
-              if (count($incomplete) > 0) {
-                  $query->where(function(Builder $query) use ($incomplete) {
-                      $query->where('complete', false)
-                        ->whereIn('module_instance_id', $incomplete);
-                  });
-              }
-              if (count($complete) > 0) {
-                  $query->where('complete', true)
-                    ->whereIn('module_instance_id', $complete);
-              }
-              if (count($hidden) > 0) {
-                  $query->where('visible', false)
-                    ->whereIn('module_instance_id', $hidden);
-              }
-              if (count($visible) > 0) {
-                  $query->where('visible', true)
-                    ->whereIn('module_instance_id', $visible);
-              }
-              if (count($active) > 0) {
-                  $query->where('active', true)
-                    ->whereIn('module_instance_id', $active);
-              }
-              if (count($inactive) > 0) {
-                  $query->where('active', false)
-                    ->whereIn('module_instance_id', $inactive);
-              }
-              if (count($mandatory) > 0) {
-                  $query->where('mandatory', true)
-                    ->whereIn('module_instance_id', $mandatory);
-              }
-              if (count($optional) > 0) {
-                  $query->where('mandatory', false)
-                    ->whereIn('module_instance_id', $optional);
-              }
+
+              $this->whereModuleInstanceExistsQuery($query, $incomplete, 'complete', false);
+              $this->whereModuleInstanceExistsQuery($query, $complete, 'complete', true);
+              $this->whereModuleInstanceExistsQuery($query, $hidden, 'visible', false);
+              $this->whereModuleInstanceExistsQuery($query, $visible, 'visible', true);
+              $this->whereModuleInstanceExistsQuery($query, $inactive, 'active', false);
+              $this->whereModuleInstanceExistsQuery($query, $active, 'active', true);
+              $this->whereModuleInstanceExistsQuery($query, $optional, 'mandatory', false);
+              $this->whereModuleInstanceExistsQuery($query, $mandatory, 'mandatory', true);
           })
           ->where('percentage', '>=', $progressAbove)
           ->where('percentage', '<=', $progressBelow)
@@ -110,4 +88,35 @@ class ProgressRepository
           ->get();
     }
 
+    /**
+     * Construct a where query based around module instance progress statuses
+     *
+     * @param Builder $query The query to modidy
+     * @param array $ids A list of IDs of modules that should meet the conditoin
+     * @param string $attributeName The name of the attribute in the database
+     * @param bool $attributeValue The value of the attribute in the database
+     */
+    private function whereModuleInstanceExistsQuery(\Illuminate\Database\Eloquent\Builder &$query, array $ids, string $attributeName, bool $attributeValue)
+    {
+        foreach($ids as $id) {
+            $query->whereHas('moduleInstanceProgress', function(Builder $query) use ($id, $attributeName, $attributeValue) {
+                $query->where([$attributeName => $attributeValue, 'module_instance_id' => $id]);
+            });
+        }
+    }
+
+    /**
+     * Get all progress models for the given activity instance
+     *
+     * @param int $activityInstanceId
+     * @return Collection
+     */
+    public function allForActivityInstance(int $activityInstanceId)
+    {
+        return Progress::where('activity_instance_id', $activityInstanceId)
+          ->orderBy('timestamp', 'asc')
+          ->with('activityInstance')
+          ->with('moduleInstanceProgress')
+          ->get();
+    }
 }
