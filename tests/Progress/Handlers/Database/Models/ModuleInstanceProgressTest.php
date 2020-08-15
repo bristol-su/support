@@ -2,6 +2,8 @@
 
 namespace BristolSU\Support\Tests\Progress\Handlers\Database\Models;
 
+use BristolSU\Support\ActivityInstance\ActivityInstance;
+use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Progress\Handlers\Database\Models\ModuleInstanceProgress;
 use BristolSU\Support\Progress\Handlers\Database\Models\Progress;
 use BristolSU\Support\Tests\TestCase;
@@ -34,15 +36,24 @@ class ModuleInstanceProgressTest extends TestCase
             'visible' => 0
         ]);
     }
-    
+
     /** @test */
     public function the_progress_can_be_retrieved(){
         $progress = factory(Progress::class)->create();
         $moduleInstanceProgress = factory(ModuleInstanceProgress::class)->create([
             'progress_id' => $progress->id,
         ]);
-        
+
         $this->assertModelEquals($progress, $moduleInstanceProgress->progress);
     }
-    
+
+    /** @test */
+    public function the_module_instance_can_be_retrieved(){
+        $moduleInstance = factory(ModuleInstance::class)->create();
+        factory(ModuleInstance::class, 3)->create();
+        $progress = factory(ModuleInstanceProgress::class)->create(['module_instance_id' => $moduleInstance->id]);
+
+        $this->assertModelEquals($moduleInstance, $progress->moduleInstance);
+    }
+
 }
