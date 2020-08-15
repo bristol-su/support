@@ -1,15 +1,16 @@
-# Changelog
+## Changelog
 
 All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [4.7.1] - (15/08/2020)
 
 ### Added
 - Relationship between the activity instance and progress models
 - Relationship between the module instance and module instance progress models
+- ProgressRepository for retrieving progress information from the database
 
 ## [4.7.0] - (07/08/2020)
 
@@ -261,7 +262,9 @@ BristolSU\Support\Testing\HandlesAuthorization to help with testing modules with
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/support/compare/v4.6.1...HEAD
+[Unreleased]: https://github.com/bristol-su/support/compare/v4.7.1...HEAD
+[4.7.1]: https://github.com/bristol-su/support-compare/v4.7.0...v4.7.1
+[4.7.0]: https://github.com/bristol-su/support-compare/v4.6.1...v4.7.0
 [4.6.1]: https://github.com/bristol-su/support-compare/v4.6.0...v4.6.1
 [4.6.0]: https://github.com/bristol-su/support-compare/v4.5.1...v4.6.0
 [4.5.1]: https://github.com/bristol-su/support-compare/v4.5...v4.5.1
