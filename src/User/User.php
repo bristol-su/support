@@ -2,8 +2,10 @@
 
 namespace BristolSU\Support\User;
 
+use BristolSU\ControlDB\Contracts\Repositories\DataUser;
 use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Validation\ValidationException;
@@ -36,7 +38,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
 
     /**
      * Get the ID of the control
-     * 
+     *
      * @return int
      */
     public function controlId(): int
@@ -46,7 +48,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
 
     /**
      * Get the control user attached to this database user
-     * 
+     *
      * @return \BristolSU\ControlDB\Contracts\Models\User
      */
     public function controlUser()
@@ -56,7 +58,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
 
     /**
      * Get the user email to send a notification to
-     * 
+     *
      * @return string|null
      */
     public function routeNotificationForMail()
@@ -96,5 +98,20 @@ class User extends Authenticatable implements MustVerifyEmailContract
             ]);
         }
         return $email;
+    }
+
+    public function findForPassport(string $email)
+    {
+        try {
+            $dataUser = app(DataUser::class)->getWhere(['email' => $email]);
+        } catch (ModelNotFoundException $e) {
+            return null;
+        }
+        $controlUser = $dataUser->user();
+        if($controlUser === null) {
+            return null;
+        }
+
+        return static::newQuery()->where('control_id', $controlUser->id())->first();
     }
 }
