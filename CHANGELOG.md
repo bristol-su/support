@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - portal-123: Change the name of registerConnection to registerConnector
+- Updated dependencies
 
 ### Fixed
 - portal-124: Register services using the correct alias
