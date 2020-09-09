@@ -5,7 +5,7 @@ namespace BristolSU\Support\Module;
 use BristolSU\Support\Action\Facade\ActionManager;
 use BristolSU\Support\Completion\Contracts\CompletionConditionManager;
 use BristolSU\Support\Connection\Contracts\ConnectorStore;
-use BristolSU\Support\Connection\ServiceRequest;
+use BristolSU\Support\Connection\Contracts\ServiceRequest;
 use BristolSU\Support\Events\Contracts\EventManager;
 use BristolSU\Support\Filters\Contracts\FilterManager;
 use BristolSU\Support\Module\Contracts\ModuleManager;
