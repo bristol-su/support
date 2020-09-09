@@ -488,7 +488,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      * @param string $class
      * @throws BindingResolutionException
      */
-    public function registerConnection(string $name, string $description, string $alias, string $service, string $class): void
+    public function registerConnector(string $name, string $description, string $alias, string $service, string $class): void
     {
         $connectorStore = $this->app->make(ConnectorStore::class);
         $connectorStore->register(
@@ -508,8 +508,8 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function registerServices()
     {
         $serviceRequest = $this->app->make(ServiceRequest::class);
-        $serviceRequest->required('my-module-alias', $this->requiredServices);
-        $serviceRequest->optional('my-module-alias', $this->optionalServices);
+        $serviceRequest->required($this->alias(), $this->requiredServices);
+        $serviceRequest->optional($this->alias(), $this->optionalServices);
     }
 
     private function registerFilters()
