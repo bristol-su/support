@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Wrapper around body of frontend.
+- Wrapper around content
 
 ## [4.7.2] - (24/08/2020)
 

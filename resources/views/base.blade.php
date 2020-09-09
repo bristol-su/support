@@ -25,7 +25,9 @@
     @componentFirst(['partials.components.body', 'bristolsu::partials.components.body'])
         @componentFirst(['partials.components.wrapper', 'bristolsu::partials.components.wrapper'])
             @includeFirst(['partials.header', 'bristolsu::partials.header'])
-            @yield('content')
+            @componentFirst(['partials.components.contentwrap', 'bristolsu::partials.components.contentwrap'])
+                @yield('content')
+            @endcomponentfirst
             @includeFirst(['partials.footer', 'bristolsu::partials.footer'])
         @endcomponentfirst
         @stack('scripts')
