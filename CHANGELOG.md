@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Updated
+- Upgraded to Laravel 7.0 from Laravel 6.0
+
 ### Added
 - Wrapper around body of frontend.
 - Wrapper around content

@@ -5,7 +5,7 @@ namespace BristolSU\Support\Testing\LogicTester;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
-use Illuminate\Foundation\Testing\Assert;
+use Illuminate\Testing\Assert;
 
 /**
  * Handles collecting and evaluating collections of user, group or role models
@@ -15,8 +15,8 @@ class LogicTesterResult
 
     /**
      * Holds the user/group/role combinations which are in a logic group
-     * 
-     * @var array Array of arrays: [$user, $group, $role] 
+     *
+     * @var array Array of arrays: [$user, $group, $role]
      */
     private $passes = [];
 
@@ -36,11 +36,11 @@ class LogicTesterResult
 
     /**
      * Should the evaluation always return a certain value?
-     * 
-     * @var null|bool 
+     *
+     * @var null|bool
      */
     private $overrideResult;
-    
+
     /**
      * Holds the default return value if the user/group/role combination have not been given a result
      *
@@ -50,8 +50,8 @@ class LogicTesterResult
 
     /**
      * The given combination of user, group and role should return true when tested
-     * 
-     * @param User|null $userModel User model 
+     *
+     * @param User|null $userModel User model
      * @param Group|null $groupModel Group model
      * @param Role|null $roleModel Role model
      * @return $this
@@ -74,7 +74,7 @@ class LogicTesterResult
     {
         return [($userModel instanceof User ? $userModel->id() : null), ($groupModel instanceof Group ? $groupModel->id() : null), ($roleModel instanceof Role ? $roleModel->id() : null)];
     }
-    
+
     /**
      * The given combination of user, group and role should return false when tested
      *
@@ -91,7 +91,7 @@ class LogicTesterResult
 
     /**
      * The given combination must be called for the assertion to pass
-     * 
+     *
      * @param User|null $userModel User model
      * @param Group|null $groupModel Group model
      * @param Role|null $roleModel Role model
@@ -130,7 +130,7 @@ class LogicTesterResult
     {
         $this->overrideResult = false;
     }
-    
+
     /**
      * Evaluate a user/group/role combination
      *
@@ -145,11 +145,11 @@ class LogicTesterResult
         $this->required = array_filter($this->required, function($parameters) use ($args) {
             return $parameters !== $args;
         });
-     
+
         if ($this->overrideResult !== null) {
             return $this->overrideResult;
         }
-        
+
         if (in_array($args, $this->passes)) {
             return true;
         }
