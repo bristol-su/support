@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Factories;
+
 $factory->define(\BristolSU\Support\Action\History\ActionHistory::class, function(\Faker\Generator $faker) {
     return [
         'action_instance_id' => function() {

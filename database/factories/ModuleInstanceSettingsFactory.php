@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Factories;
+
 use Faker\Generator as Faker;
 
 $factory->define(\BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting::class, function(Faker $faker) {

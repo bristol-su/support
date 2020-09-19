@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Factories;
+
 use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Action\ActionInstanceField;
 use BristolSU\Support\Activity\Activity;

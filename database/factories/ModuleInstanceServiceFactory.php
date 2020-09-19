@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Factories;
+
 use BristolSU\Support\Connection\Connection;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
 use BristolSU\Support\ModuleInstance\ModuleInstance;

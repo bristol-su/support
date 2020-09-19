@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Factories;
+
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use Faker\Generator as Faker;
 

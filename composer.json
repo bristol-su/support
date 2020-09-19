@@ -1,63 +1,63 @@
 {
-    "name": "bristol-su/support",
-    "description": "SDK for the Bristol SU Portal",
-    "license": "GPL-3.0-or-later",
-    "prefer-stable": true,
-    "keywords": [
-        "portal",
-        "sdk",
-        "bristol su"
-    ],
-    "authors": [
-        {
-            "name": "Toby Twigger",
-            "email": "toby.twigger@bristol.ac.uk"
-        }
-    ],
-    "type": "library",
-    "require": {
-        "php": "^7.4",
-        "laravel/framework": "^7.0",
-        "laravel/passport": "^9.0",
-        "laracasts/utilities": "^3.0",
-        "ext-json": "*",
-        "tobytwigger/form-schema-generator": "^1.1",
-        "bristol-su/control": "^2.0",
-        "doctrine/dbal": "^2.10",
-        "venturecraft/revisionable": "^1.33"
-    },
-    "require-dev": {
-        "orchestra/testbench": "^5.0",
-        "phpstan/phpstan": "^0.12.3",
-        "brianium/paratest": "^4.0",
-        "phpspec/prophecy-phpunit": "^2.0"
-    },
-    "autoload": {
-        "files": [
-            "src/helpers/helpers.php"
-        ],
-        "psr-4": {
-            "BristolSU\\Support\\": "src/"
-        },
-        "classmap": [
-            "database/seeds/",
-            "database/factories/"
-        ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "BristolSU\\Support\\Tests\\": "tests/"
-        }
-    },
-    "extra": {
-        "laravel": {
-            "providers": [
-                "BristolSU\\Support\\SupportServiceProvider"
-            ],
-            "dont-discover": [
-                "laravel/passport",
-                "venturecraft/revisionable"
-            ]
-        }
+  "name": "bristol-su/support",
+  "description": "SDK for the Bristol SU Portal",
+  "license": "GPL-3.0-or-later",
+  "prefer-stable": true,
+  "keywords": [
+    "portal",
+    "sdk",
+    "bristol su"
+  ],
+  "authors": [
+    {
+      "name": "Toby Twigger",
+      "email": "toby.twigger@bristol.ac.uk"
     }
+  ],
+  "type": "library",
+  "require": {
+    "php": "^7.4",
+    "laravel/framework": "^8.0",
+    "laravel/passport": "^10.0",
+    "laracasts/utilities": "^3.0",
+    "ext-json": "*",
+    "tobytwigger/form-schema-generator": "^1.1",
+    "bristol-su/control": "dev-laravel-8",
+    "doctrine/dbal": "^2.10",
+    "venturecraft/revisionable": "^1.33",
+    "guzzlehttp/guzzle": "^7.0.0"
+  },
+  "require-dev": {
+    "orchestra/testbench": "^6.0",
+    "phpstan/phpstan": "^0.12.3",
+    "brianium/paratest": "^4.0",
+    "phpspec/prophecy-phpunit": "^2.0",
+    "laravel/legacy-factories": "^1.0"
+  },
+  "autoload": {
+    "files": [
+      "src/helpers/helpers.php"
+    ],
+    "psr-4": {
+      "BristolSU\\Support\\": "src/",
+      "Database\\Factories\\": "database/factories/",
+      "Database\\Seeders\\": "database/seeders/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "BristolSU\\Support\\Tests\\": "tests/"
+    }
+  },
+  "extra": {
+    "laravel": {
+      "providers": [
+        "BristolSU\\Support\\SupportServiceProvider"
+      ],
+      "dont-discover": [
+        "laravel/passport",
+        "venturecraft/revisionable"
+      ]
+    }
+  }
 }

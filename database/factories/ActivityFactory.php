@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Factories;
+
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Logic\Logic;
 use Faker\Generator as Faker;

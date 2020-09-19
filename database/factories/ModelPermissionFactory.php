@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Factories;
+
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Permissions\Models\ModelPermission;
 use BristolSU\Support\User\User;
