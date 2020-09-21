@@ -45,7 +45,8 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         'enabled',
         'user_id',
         'order',
-        'grouping_id'
+        'grouping_id',
+        'image_url'
     ];
 
     /**

@@ -256,4 +256,14 @@ class ActivityTest extends TestCase
         $this->assertEquals('OldName', $activity->revisionHistory->first()->old_value);
         $this->assertEquals('NewName', $activity->revisionHistory->first()->new_value);
     }
+
+    /** @test */
+    public function activities_have_a_module_url(){
+        $activity = factory(Activity::class)->create([
+          'image_url' => 'https://testimage.com/image-1'
+        ]);
+
+        $this->assertEquals('https://testimage.com/image-1', $activity->image_url);
+    }
+
 }

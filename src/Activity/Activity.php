@@ -20,10 +20,10 @@ use Illuminate\Support\Str;
 class Activity extends Model
 {
     use HasRevisions;
-    
+
     /**
      * Fillable attributes
-     * 
+     *
      * @var array
      */
     protected $fillable = [
@@ -37,12 +37,13 @@ class Activity extends Model
         'slug',
         'type',
         'enabled',
-        'user_id'
+        'user_id',
+        'image_url'
     ];
 
     /**
      * Attributes to be casted
-     * 
+     *
      * @var array
      */
     protected $casts = [
@@ -52,11 +53,11 @@ class Activity extends Model
     ];
 
     /**
-     * Initialise an Activity model. 
-     * 
+     * Initialise an Activity model.
+     *
      * Set up creating event to set the slug automatically
      * Save the User ID of the current user on creation
-     * 
+     *
      * @param array $attributes
      */
     public function __construct(array $attributes = [])
@@ -74,7 +75,7 @@ class Activity extends Model
 
     /**
      * Module Instance relationship
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function moduleInstances()
@@ -84,7 +85,7 @@ class Activity extends Model
 
     /**
      * Scope only enabled activities
-     * 
+     *
      * @param Builder $query
      * @return Builder
      */
@@ -92,10 +93,10 @@ class Activity extends Model
     {
         return $query->where('enabled', true);
     }
-    
+
     /**
      * For logic relationship
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function forLogic()
@@ -105,7 +106,7 @@ class Activity extends Model
 
     /**
      * Admin logic relationship
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function adminLogic()
@@ -115,9 +116,9 @@ class Activity extends Model
 
     /**
      * Active scope
-     * 
+     *
      * Only returns activities which are either not time sensitive, or within the correct time frame
-     * 
+     *
      * @param Builder $query
      * @return Builder
      */
@@ -132,9 +133,9 @@ class Activity extends Model
 
     /**
      * Is the activity completable?
-     * 
+     *
      * Can the activity be completed? An open activity cannot, but a completable activity can be
-     * 
+     *
      * @return bool
      */
     public function isCompletable(): bool {
@@ -143,7 +144,7 @@ class Activity extends Model
 
     /**
      * Activity Instance relationship
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function activityInstances()

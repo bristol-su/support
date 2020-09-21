@@ -15,6 +15,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Redirect to module includes query string
 
 ### Added
+- Image URL for module instance and activity
+
+### Added
 - Wrapper around body of frontend.
 - Wrapper around content
 

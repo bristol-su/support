@@ -287,4 +287,14 @@ class ModuleInstanceTest extends TestCase
         $this->assertModelEquals($progresses[0], $retrievedProgresses[0]);
         $this->assertModelEquals($progresses[1], $retrievedProgresses[1]);
     }
+
+
+    /** @test */
+    public function module_instances_have_a_module_url(){
+        $moduleInstance = factory(ModuleInstance::class)->create([
+          'image_url' => 'https://testimage.com/image-1'
+        ]);
+
+        $this->assertEquals('https://testimage.com/image-1', $moduleInstance->image_url);
+    }
 }

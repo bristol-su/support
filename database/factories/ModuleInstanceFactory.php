@@ -2,8 +2,10 @@
 
 namespace Database\Factories;
 
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Logic\Logic;
+use BristolSU\Support\ModuleInstance\ModuleInstanceGrouping;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
@@ -20,31 +22,32 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(ModuleInstance::class, function(Faker $faker) {
+$factory->define(ModuleInstance::class, function (Faker $faker) {
     return [
-        'alias' => $faker->word,
-        'activity_id' => function() {
-            return factory(Activity::class)->create()->id;
-        },
-        'name' => $faker->word,
-        'description' => $faker->text,
-        'active' => function() {
-            return factory(Logic::class)->create()->id;
-        },
-        'visible' => function() {
-            return factory(Logic::class)->create()->id;
-        },
-        'mandatory' => function() {
-            return factory(Logic::class)->create()->id;
-        },
-        'completion_condition_instance_id' => null,
-        'enabled' => true,
-        'user_id' => function() {
-            return factory(\BristolSU\ControlDB\Models\User::class)->create()->id();
-        },
-        'order' => 1,
-        'grouping_id' => function() {
-            return factory(\BristolSU\Support\ModuleInstance\ModuleInstanceGrouping::class)->create()->id;
-        }
+      'alias' => $faker->word,
+      'activity_id' => function () {
+          return factory(Activity::class)->create()->id;
+      },
+      'name' => $faker->word,
+      'description' => $faker->text,
+      'active' => function () {
+          return factory(Logic::class)->create()->id;
+      },
+      'visible' => function () {
+          return factory(Logic::class)->create()->id;
+      },
+      'mandatory' => function () {
+          return factory(Logic::class)->create()->id;
+      },
+      'completion_condition_instance_id' => null,
+      'enabled' => true,
+      'user_id' => function () {
+          return factory(User::class)->create()->id();
+      },
+      'order' => 1,
+      'grouping_id' => function () {
+          return factory(ModuleInstanceGrouping::class)->create()->id;
+      },
+      'image_url' => $faker->imageUrl()
     ];
 });
