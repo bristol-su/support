@@ -223,6 +223,41 @@ class ActivityInstanceTest extends TestCase
     }
 
     /** @test */
+    public function participant_name_attribute_returns_the_group_name_if_the_activity_instance_is_for_a_group(){
+        $dataGroup = factory(DataGroup::class)->create(['name' => 'Group Name 1']);
+        $group = $this->newGroup(['data_provider_id' => $dataGroup->id()]);
+
+        $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'group', 'resource_id' => $group->id()]);
+        $this->assertEquals('Group Name 1', $activityInstance->participant_name);
+    }
+
+    /** @test */
+    public function participant_name_attribute_returns_the_user_preferred_name_if_the_activity_instance_is_for_a_user(){
+        $dataUser = factory(DataUser::class)->create(['preferred_name' => 'User Name 1']);
+        $user = $this->newUser(['data_provider_id' => $dataUser->id()]);
+
+        $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'user', 'resource_id' => $user->id()]);
+        $this->assertEquals('User Name 1', $activityInstance->participant_name);
+    }
+
+    /** @test */
+    public function participant_name_attribute_returns_the_role_name_if_the_activity_instance_is_for_a_role(){
+        $dataRole = factory(DataRole::class)->create(['role_name' => 'Role Name 1']);
+        $role = $this->newRole(['data_provider_id' => $dataRole->id()]);
+
+        $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'role', 'resource_id' => $role->id()]);
+        $this->assertEquals('Role Name 1', $activityInstance->participant_name);
+    }
+
+    /** @test */
+    public function participant_name_attribute_throws_an_exception_if_the_type_is_not_one_of_user_group_or_role(){
+        $this->expectException(\Exception::class);
+
+        $activityInstance = new ActivityInstance();
+        $activityInstance->participantName();
+    }
+
+    /** @test */
     public function it_has_many_progresses(){
         $activityInstance = factory(ActivityInstance::class)->create();
         factory(Progress::class, 5)->create();

@@ -16,10 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - Image URL for module instance and activity
-
-### Added
 - Wrapper around body of frontend.
 - Wrapper around content
+
+### Changed
+- Changed the variable names to be injected and do so through a view composer for all Bristol SU bases
 
 ## [4.7.2] - (24/08/2020)
 

@@ -2,7 +2,8 @@
 
 namespace BristolSU\Support\Http;
 
-use BristolSU\Support\Http\Middleware\InjectJavascriptVariables;
+use BristolSU\Support\Http\View\InjectJavascriptVariables;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -13,12 +14,12 @@ class HttpServiceProvider extends ServiceProvider
 
     /**
      * Boot
-     * 
+     *
      * - Push the JS middleware to the module middleware group
      */
     public function boot()
     {
-        $this->app['router']->pushMiddlewareToGroup('module', InjectJavascriptVariables::class);
+        View::composer(['bristolsu::base'], InjectJavascriptVariables::class);
     }
 
 }
