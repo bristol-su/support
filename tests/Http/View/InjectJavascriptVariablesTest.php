@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Tests\Http\View;
 
+use BristolSU\ControlDB\Models\DataUser;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
@@ -10,9 +11,11 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Http\View\InjectJavascriptVariables;
 use BristolSU\Support\Testing\CreatesModuleEnvironment;
 use BristolSU\Support\Tests\TestCase;
+use BristolSU\Support\User\Contracts\UserAuthentication;
+use BristolSU\Support\User\User;
+use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Support\Arr;
 use Laracasts\Utilities\JavaScript\Transformers\Transformer;
 use Prophecy\Argument;
 
@@ -28,9 +31,42 @@ class InjectJavascriptVariablesTest extends TestCase
         $this->createModuleEnvironment('module-alias');
     }
 
-    private function assertViewComposerInjects(array $injection, Authentication $authentication, ActivityInstanceResolver $activityInstanceResolver, Request $request)
-    {
-        $viewComposer = new InjectJavascriptVariables($authentication, $activityInstanceResolver, $request);
+    private function assertViewComposerInjects(
+      array $injection,
+      ?Authentication $authentication = null,
+      ?ActivityInstanceResolver $activityInstanceResolver = null,
+      ?Request $request = null,
+      ?UserAuthentication $userAuthentication = null
+    ) {
+        if($authentication === null) {
+            $authentication = $this->prophesize(Authentication::class);
+            $authentication->getUser()->willReturn(null);
+            $authentication->getGroup()->willReturn(null);
+            $authentication->getRole()->willReturn(null);
+            $authentication = $authentication->reveal();
+        }
+        if($activityInstanceResolver === null) {
+            $activityInstance = factory(ActivityInstance::class)->create();
+            $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
+            $activityInstanceResolver->getActivityInstance()->willReturn($activityInstance);
+            $activityInstanceResolver = $activityInstanceResolver->reveal();
+        }
+        if($request === null) {
+            $request = $this->prophesize(Request::class);
+            $request->has('module_instance_slug')->willReturn(true);
+            $request->route('module_instance_slug')->willReturn($this->getModuleInstance());
+            $request->has('activity_slug')->willReturn(true);
+            $request->route('activity_slug')->willReturn($this->getActivity());
+            $request->is(Argument::any())->willReturn(false);
+            $request = $request->reveal();
+        }
+        if($userAuthentication === null) {
+            $userAuthentication = $this->prophesize(UserAuthentication::class);
+            $userAuthentication->getUser()->willReturn(null);
+            $userAuthentication = $userAuthentication->reveal();
+        }
+
+        $viewComposer = new InjectJavascriptVariables($authentication, $activityInstanceResolver, $request, $userAuthentication);
         $transformer = $this->prophesize(Transformer::class);
         $transformer->put(Argument::that(function($arg) use ($injection) {
             foreach($injection as $key => $content) {
@@ -52,17 +88,9 @@ class InjectJavascriptVariablesTest extends TestCase
         $request->has('activity_slug')->shouldBeCalled()->willReturn(false);
         $request->is(Argument::any())->willReturn(true);
 
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn(true);
-        $authentication->getGroup()->shouldBeCalled()->willReturn(true);
-        $authentication->getRole()->shouldBeCalled()->willReturn(true);
-
-        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
-        $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willThrow(new NotInActivityInstanceException());
-
         $this->assertViewComposerInjects([
           'admin' => true
-        ], $authentication->reveal(), $activityInstanceResolver->reveal(), $request->reveal());
+        ], null, null, $request->reveal());
     }
 
     /** @test */
@@ -73,50 +101,28 @@ class InjectJavascriptVariablesTest extends TestCase
         $request->has('activity_slug')->shouldBeCalled()->willReturn(false);
         $request->is(Argument::any())->willReturn(false);
 
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn(null);
-        $authentication->getGroup()->shouldBeCalled()->willReturn(null);
-        $authentication->getRole()->shouldBeCalled()->willReturn(null);
-
-        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
-        $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willThrow(new NotInActivityInstanceException());
-
         $this->assertViewComposerInjects([
           'admin' => false
-        ], $authentication->reveal(), $activityInstanceResolver->reveal(), $request->reveal());
+        ], null, null, $request->reveal());
     }
 
     /** @test */
     public function it_injects_authentication_as_null_if_not_logged_in(){
-        $request = $this->prophesize(Request::class);
-        $request->has('module_instance_slug')->shouldBeCalled()->willReturn(true);
-        $request->route('module_instance_slug')->shouldBeCalled()->willReturn($this->getModuleInstance());
-        $request->has('activity_slug')->shouldBeCalled()->willReturn(false);
-        $request->is(Argument::any())->willReturn(false);
 
         $authentication = $this->prophesize(Authentication::class);
         $authentication->getUser()->shouldBeCalled()->willReturn(null);
         $authentication->getGroup()->shouldBeCalled()->willReturn(null);
         $authentication->getRole()->shouldBeCalled()->willReturn(null);
-
-        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
-        $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willThrow(new NotInActivityInstanceException());
 
         $this->assertViewComposerInjects([
           'user' => null,
           'group' => null,
           'role' => null
-        ], $authentication->reveal(), $activityInstanceResolver->reveal(), $request->reveal());
+        ], $authentication->reveal());
     }
 
     /** @test */
     public function it_injects_authentication_if_logged_in(){
-        $request = $this->prophesize(Request::class);
-        $request->has('module_instance_slug')->shouldBeCalled()->willReturn(true);
-        $request->route('module_instance_slug')->shouldBeCalled()->willReturn($this->getModuleInstance());
-        $request->has('activity_slug')->shouldBeCalled()->willReturn(false);
-        $request->is(Argument::any())->willReturn(false);
-
         $user = $this->newUser();
         $group = $this->newGroup();
         $role = $this->newRole();
@@ -126,57 +132,32 @@ class InjectJavascriptVariablesTest extends TestCase
         $authentication->getGroup()->shouldBeCalled()->willReturn($group);
         $authentication->getRole()->shouldBeCalled()->willReturn($role);
 
-        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
-        $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willThrow(new NotInActivityInstanceException());
-
         $this->assertViewComposerInjects([
           'user' => $user,
           'group' => $group,
           'role' => $role
-        ], $authentication->reveal(), $activityInstanceResolver->reveal(), $request->reveal());
+        ], $authentication->reveal());
     }
 
     /** @test */
     public function it_injects_the_activity_instance_from_the_resolver(){
-        $request = $this->prophesize(Request::class);
-        $request->has('module_instance_slug')->shouldBeCalled()->willReturn(true);
-        $request->route('module_instance_slug')->shouldBeCalled()->willReturn($this->getModuleInstance());
-        $request->has('activity_slug')->shouldBeCalled()->willReturn(false);
-        $request->is(Argument::any())->willReturn(false);
-
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn(null);
-        $authentication->getGroup()->shouldBeCalled()->willReturn(null);
-        $authentication->getRole()->shouldBeCalled()->willReturn(null);
-
         $activityInstance = factory(ActivityInstance::class)->create();
         $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
         $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willReturn($activityInstance);
 
         $this->assertViewComposerInjects([
           'activity_instance' => $activityInstance,
-        ], $authentication->reveal(), $activityInstanceResolver->reveal(), $request->reveal());
+        ], null, $activityInstanceResolver->reveal());
     }
 
     /** @test */
     public function it_injects_null_for_the_activity_instance_if_the_resolver_throws_the_exception(){
-        $request = $this->prophesize(Request::class);
-        $request->has('module_instance_slug')->shouldBeCalled()->willReturn(true);
-        $request->route('module_instance_slug')->shouldBeCalled()->willReturn($this->getModuleInstance());
-        $request->has('activity_slug')->shouldBeCalled()->willReturn(false);
-        $request->is(Argument::any())->willReturn(false);
-
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn(null);
-        $authentication->getGroup()->shouldBeCalled()->willReturn(null);
-        $authentication->getRole()->shouldBeCalled()->willReturn(null);
-
         $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
         $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willThrow(new NotInActivityInstanceException());
 
         $this->assertViewComposerInjects([
           'activity_instance' => null,
-        ], $authentication->reveal(), $activityInstanceResolver->reveal(), $request->reveal());
+        ], null, $activityInstanceResolver->reveal());
     }
 
     /** @test */
@@ -187,17 +168,9 @@ class InjectJavascriptVariablesTest extends TestCase
         $request->has('activity_slug')->shouldBeCalled()->willReturn(false);
         $request->is(Argument::any())->willReturn(false);
 
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn(null);
-        $authentication->getGroup()->shouldBeCalled()->willReturn(null);
-        $authentication->getRole()->shouldBeCalled()->willReturn(null);
-
-        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
-        $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willThrow(new NotInActivityInstanceException());
-
         $this->assertViewComposerInjects([
           'module_instance' => $this->getModuleInstance(),
-        ], $authentication->reveal(), $activityInstanceResolver->reveal(), $request->reveal());
+        ], null, null, $request->reveal());
     }
 
     /** @test */
@@ -208,17 +181,9 @@ class InjectJavascriptVariablesTest extends TestCase
         $request->has('activity_slug')->shouldBeCalled()->willReturn(false);
         $request->is(Argument::any())->willReturn(false);
 
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn(null);
-        $authentication->getGroup()->shouldBeCalled()->willReturn(null);
-        $authentication->getRole()->shouldBeCalled()->willReturn(null);
-
-        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
-        $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willThrow(new NotInActivityInstanceException());
-
         $this->assertViewComposerInjects([
           'module_instance' => null,
-        ], $authentication->reveal(), $activityInstanceResolver->reveal(), $request->reveal());
+        ], null, null, $request->reveal());
     }
 
     /** @test */
@@ -230,17 +195,9 @@ class InjectJavascriptVariablesTest extends TestCase
         $request->route('activity_slug')->shouldBeCalled()->willReturn($activity);
         $request->is(Argument::any())->willReturn(false);
 
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn(null);
-        $authentication->getGroup()->shouldBeCalled()->willReturn(null);
-        $authentication->getRole()->shouldBeCalled()->willReturn(null);
-
-        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
-        $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willThrow(new NotInActivityInstanceException());
-
         $this->assertViewComposerInjects([
           'activity' => $activity,
-        ], $authentication->reveal(), $activityInstanceResolver->reveal(), $request->reveal());
+        ], null, null, $request->reveal());
     }
 
     /** @test */
@@ -251,17 +208,41 @@ class InjectJavascriptVariablesTest extends TestCase
         $request->route('activity_slug')->shouldNotBeCalled();
         $request->is(Argument::any())->willReturn(false);
 
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn(null);
-        $authentication->getGroup()->shouldBeCalled()->willReturn(null);
-        $authentication->getRole()->shouldBeCalled()->willReturn(null);
-
-        $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
-        $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willThrow(new NotInActivityInstanceException());
-
         $this->assertViewComposerInjects([
           'activity' => null,
-        ], $authentication->reveal(), $activityInstanceResolver->reveal(), $request->reveal());
+        ], null, null, $request->reveal());
     }
 
+    /** @test */
+    public function it_injects_the_db_user_if_given(){
+        $controlUser = $this->newUser();
+        $dbUser = factory(User::class)->create([
+            'control_id' => $controlUser->id(),
+            'email_verified_at' => null
+        ]);
+
+        $userAuthentication = $this->prophesize(UserAuthentication::class);
+        $userAuthentication->getUser()->shouldBeCalled()->willReturn($dbUser);
+
+        // Had to use the control user from the db user for array formatting.
+        // Set the control user id manually to ensure the correct control user is returned
+        $attributes = $dbUser->toArray();
+        $attributes['control_user'] = $dbUser->controlUser()->toArray();
+        $attributes['control_user']['id'] = $controlUser->id();
+        $this->assertViewComposerInjects([
+          'db_user' => $attributes,
+        ], null, null, null, $userAuthentication->reveal());
+    }
+
+    /** @test */
+    public function it_injects_null_for_the_db_user_if_none_given(){
+        $userAuthentication = $this->prophesize(UserAuthentication::class);
+        $userAuthentication->getUser()->shouldBeCalled()->willReturn(null);
+
+        // Had to use the control user from the db user for array formatting.
+        // Set the control user id manually to ensure the correct control user is returned
+        $this->assertViewComposerInjects([
+          'db_user' => null,
+        ], null, null, null, $userAuthentication->reveal());
+    }
 }
