@@ -3,6 +3,8 @@
 namespace BristolSU\Support\Http;
 
 use BristolSU\Support\Http\View\InjectJavascriptVariables;
+use BristolSU\Support\Http\View\InjectOldInput;
+use BristolSU\Support\Http\View\InjectValidationErrors;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
@@ -20,6 +22,8 @@ class HttpServiceProvider extends ServiceProvider
     public function boot()
     {
         View::composer(['bristolsu::base'], InjectJavascriptVariables::class);
+        View::composer(['bristolsu::base'], InjectValidationErrors::class);
+        View::composer(['bristolsu::base'], InjectOldInput::class);
     }
 
 }
