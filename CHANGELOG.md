@@ -21,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Setting tools for global settings
 - Inject validation from the server to js
 - Inject old input to js
+- Inject all named routes to js
 
 ### Changed
 - Changed the variable names to be injected and do so through a view composer for all Bristol SU bases
