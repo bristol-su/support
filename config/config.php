@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'url' => env('APP_URL', 'http://localhost'),
+    'api_url' => env('API_URL', 'http://localhost/api'),
     'analytics' => [
         'enabled' => env('ANALYTICS_ENABLED', false)
     ],
@@ -28,6 +30,27 @@ return [
                 'tableName' => env('AIRTABLE_TABLE_NAME'),
                 'apiKey' => env('AIRTABLE_API_KEY')
             ]
+        ]
+    ],
+    'translators' => [
+        'default' => 'chain',
+        'chain' => [
+            'driver' => 'chain',
+            'queue' => [
+                'cache', 'database', 'aws'
+            ]
+        ],
+        'aws' => [
+            'driver' => 'aws',
+            'version' => 'latest',
+            'region' => env('AWS_DEFAULT_REGION', 'eu-west-2'),
+            'credentials' => [
+                'key'    => env('AWS_ACCESS_KEY_ID'),
+                'secret' => env('AWS_SECRET_ACCESS_KEY'),
+            ]
+        ],
+        'cache' => [
+            'driver' => 'cache'
         ]
     ]
 ];

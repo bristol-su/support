@@ -61,4 +61,14 @@ class NamedRouteRetrieverTest extends TestCase
         ], $retriever->all());
     }
 
+    /** @test */
+    public function it_gets_the_current_route_name_from_the_router(){
+        $router = $this->prophesize(Router::class);
+        $router->currentRouteName()->willReturn('route.name');
+
+        $retriever = new NamedRouteRetriever($router->reveal());
+
+        $this->assertEquals('route.name', $retriever->currentRouteName());
+    }
+
 }

@@ -24,9 +24,14 @@ class NamedRouteRetrieverCache implements NamedRouteRetrieverInterface
 
     public function all(): array
     {
-        return $this->cache->remember(NamedRouteRetrieverCache::class, 600, function() {
+        return $this->cache->remember(NamedRouteRetrieverCache::class . '.all', 600, function() {
             return $this->retriever->all();
         });
+    }
+
+    public function currentRouteName(): ?string
+    {
+        return $this->retriever->currentRouteName();
     }
 
 }

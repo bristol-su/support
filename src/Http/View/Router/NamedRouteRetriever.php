@@ -27,4 +27,9 @@ class NamedRouteRetriever implements NamedRouteRetrieverInterface
           })->toArray();
     }
 
+    public function currentRouteName(): ?string
+    {
+        return $this->router->currentRouteName();
+    }
+
 }

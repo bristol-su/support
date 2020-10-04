@@ -8,4 +8,6 @@ interface NamedRouteRetrieverInterface
 {
     public function all(): array;
 
+    public function currentRouteName(): ?string;
+
 }
