@@ -50,7 +50,6 @@ class SupportServiceProvider extends ServiceProvider
         AuthenticationServiceProvider::class,
         ModuleFrameworkServiceProvider::class,
         ModuleInstanceServiceProvider::class,
-        UserServiceProvider::class,
         HttpServiceProvider::class,
         RevisionServiceProvider::class,
         SettingsServiceProvider::class,
