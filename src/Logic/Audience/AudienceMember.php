@@ -5,8 +5,6 @@ namespace BristolSU\Support\Logic\Audience;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
-use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\Support\Logic\Facade\LogicTester;
 use BristolSU\Support\Logic\Logic;
 use Illuminate\Contracts\Support\Arrayable;
@@ -21,28 +19,28 @@ class AudienceMember implements Arrayable, Jsonable
 
     /**
      * Holds the user for which the audience member is about
-     * 
+     *
      * @var User
      */
     private $user;
 
     /**
      * Is the user themselves in the logic group?
-     * 
+     *
      * @var bool
      */
     private $canBeUser;
 
     /**
      * Roles the user owns/that're in the logic group
-     * 
+     *
      * @var Collection
      */
     private $roles;
 
     /**
      * Groups the user owns/that're in the logic group
-     * 
+     *
      * @var Collection
      */
     private $groups;
@@ -57,7 +55,7 @@ class AudienceMember implements Arrayable, Jsonable
 
     /**
      * Get all groups for which the user has a membership to
-     * 
+     *
      * @return Collection
      */
     public function groups()
@@ -70,7 +68,7 @@ class AudienceMember implements Arrayable, Jsonable
 
     /**
      * Get all roles which the user is in
-     * 
+     *
      * @return Collection
      */
     public function roles()
@@ -87,7 +85,7 @@ class AudienceMember implements Arrayable, Jsonable
 
     /**
      * Get the user the audience member is about
-     * 
+     *
      * @return User
      */
     public function user()
@@ -97,7 +95,7 @@ class AudienceMember implements Arrayable, Jsonable
 
     /**
      * Can the user themselves be in the logic group?
-     * 
+     *
      * @return bool
      */
     public function canBeUser()
@@ -107,13 +105,13 @@ class AudienceMember implements Arrayable, Jsonable
 
     /**
      * Filter the audience member down to those in the logic group
-     * 
+     *
      * If passed a logic group, the audience member will only then contain roles and groups which are in the given
      * logic group with the user. It will also set canBeUser, as to whether just the user is in the logic group (without
      * their roles or groups).
-     * 
+     *
      * @param Logic $logic Logic group to test
-     * 
+     *
      * @return void
      */
     public function filterForLogic(Logic $logic)
@@ -131,10 +129,10 @@ class AudienceMember implements Arrayable, Jsonable
 
     /**
      * Does the audience member have an audience at all?
-     * 
+     *
      * After filtering for logic, this function will return true if the user can access the logic group
      * in any way, or false or otherwise.
-     * 
+     *
      * @return bool
      */
     public function hasAudience()
@@ -158,7 +156,7 @@ class AudienceMember implements Arrayable, Jsonable
      *          \BristolSU\ControlDB\Models\Role()
      *      ]
      * ]
-     * 
+     *
      * @return array
      */
     public function toArray()
@@ -175,7 +173,7 @@ class AudienceMember implements Arrayable, Jsonable
      * Convert the object to its JSON representation.
      *
      * @param int $options
-     * 
+     *
      * @return string
      */
     public function toJson($options = 0)
@@ -185,7 +183,7 @@ class AudienceMember implements Arrayable, Jsonable
 
     /**
      * Convert the object to a string, a JSON representation
-     * 
+     *
      * @return string
      */
     public function __toString()

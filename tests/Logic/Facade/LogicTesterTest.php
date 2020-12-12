@@ -6,8 +6,8 @@ namespace BristolSU\Support\Tests\Logic\Facade;
 
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
-use Prophecy\Argument;
 use BristolSU\Support\Tests\TestCase;
+use Prophecy\Argument;
 
 class LogicTesterTest extends TestCase
 {

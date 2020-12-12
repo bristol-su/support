@@ -3,7 +3,7 @@
 
 namespace BristolSU\Support\Filters\Contracts\Filters;
 
-use \BristolSU\ControlDB\Contracts\Models\User;
+use BristolSU\ControlDB\Contracts\Models\User;
 
 /**
  * A filter for a user

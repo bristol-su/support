@@ -2,7 +2,6 @@
 
 namespace BristolSU\Support\Tests\Http\View;
 
-use BristolSU\ControlDB\Models\DataUser;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
@@ -11,9 +10,6 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Http\View\InjectJavascriptVariables;
 use BristolSU\Support\Testing\CreatesModuleEnvironment;
 use BristolSU\Support\Tests\TestCase;
-use BristolSU\Support\User\Contracts\UserAuthentication;
-use BristolSU\Support\User\User;
-use Carbon\Carbon;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
 use Laracasts\Utilities\JavaScript\Transformers\Transformer;
@@ -35,8 +31,7 @@ class InjectJavascriptVariablesTest extends TestCase
       array $injection,
       ?Authentication $authentication = null,
       ?ActivityInstanceResolver $activityInstanceResolver = null,
-      ?Request $request = null,
-      ?UserAuthentication $userAuthentication = null
+      ?Request $request = null
     ) {
         if($authentication === null) {
             $authentication = $this->prophesize(Authentication::class);
@@ -60,13 +55,8 @@ class InjectJavascriptVariablesTest extends TestCase
             $request->is(Argument::any())->willReturn(false);
             $request = $request->reveal();
         }
-        if($userAuthentication === null) {
-            $userAuthentication = $this->prophesize(UserAuthentication::class);
-            $userAuthentication->getUser()->willReturn(null);
-            $userAuthentication = $userAuthentication->reveal();
-        }
 
-        $viewComposer = new InjectJavascriptVariables($authentication, $activityInstanceResolver, $request, $userAuthentication);
+        $viewComposer = new InjectJavascriptVariables($authentication, $activityInstanceResolver, $request);
         $transformer = $this->prophesize(Transformer::class);
         $transformer->put(Argument::that(function($arg) use ($injection) {
             foreach($injection as $key => $content) {
@@ -213,36 +203,4 @@ class InjectJavascriptVariablesTest extends TestCase
         ], null, null, $request->reveal());
     }
 
-    /** @test */
-    public function it_injects_the_db_user_if_given(){
-        $controlUser = $this->newUser();
-        $dbUser = factory(User::class)->create([
-            'control_id' => $controlUser->id(),
-            'email_verified_at' => null
-        ]);
-
-        $userAuthentication = $this->prophesize(UserAuthentication::class);
-        $userAuthentication->getUser()->shouldBeCalled()->willReturn($dbUser);
-
-        // Had to use the control user from the db user for array formatting.
-        // Set the control user id manually to ensure the correct control user is returned
-        $attributes = $dbUser->toArray();
-        $attributes['control_user'] = $dbUser->controlUser()->toArray();
-        $attributes['control_user']['id'] = $controlUser->id();
-        $this->assertViewComposerInjects([
-          'db_user' => $attributes,
-        ], null, null, null, $userAuthentication->reveal());
-    }
-
-    /** @test */
-    public function it_injects_null_for_the_db_user_if_none_given(){
-        $userAuthentication = $this->prophesize(UserAuthentication::class);
-        $userAuthentication->getUser()->shouldBeCalled()->willReturn(null);
-
-        // Had to use the control user from the db user for array formatting.
-        // Set the control user id manually to ensure the correct control user is returned
-        $this->assertViewComposerInjects([
-          'db_user' => null,
-        ], null, null, null, $userAuthentication->reveal());
-    }
 }

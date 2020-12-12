@@ -6,15 +6,15 @@ namespace BristolSU\Support\Tests\Filters\Filters\User;
 
 use BristolSU\ControlDB\Contracts\Models\Tags\UserTag as UserTagModelContract;
 use BristolSU\ControlDB\Contracts\Repositories\Tags\UserTag as UserTagRepositoryContract;
-use BristolSU\ControlDB\Models\User;
 use BristolSU\ControlDB\Models\Tags\UserTag;
 use BristolSU\ControlDB\Models\Tags\UserTagCategory;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Filters\Filters\User\UserTagged;
 use BristolSU\Support\Tests\TestCase;
 
 class UserTaggedTest extends TestCase
 {
-    
+
     /** @test */
     public function options_returns_a_list_of_possible_tags(){
 
@@ -45,7 +45,7 @@ class UserTaggedTest extends TestCase
         ]));
 
         $userTagFilter = new UserTagged($userTagRepository->reveal());
-        
+
         $this->assertEquals(1, count($userTagFilter->options()->fields()));
         $this->assertEquals('tag', $userTagFilter->options()->fields()[0]->model());
         $this->assertEquals('select', $userTagFilter->options()->fields()[0]->type());
@@ -55,7 +55,7 @@ class UserTaggedTest extends TestCase
             ['id' => 'cat1.ref3', 'name' => 'Name3 (cat1.ref3)', 'user' => 'category1Name'],
         ], $userTagFilter->options()->fields()[0]->values());
     }
-    
+
     /** @test */
     public function it_evaluates_to_true_if_user_tagged(){
         $userTagRepository = $this->prophesize(UserTagRepositoryContract::class);

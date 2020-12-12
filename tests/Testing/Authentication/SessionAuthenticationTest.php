@@ -47,7 +47,7 @@ class SessionAuthenticationTest extends TestCase
     {
         $role = $this->newRole();
         $this->beRole($role);
-        
+
         $authentication = resolve(SessionAuthentication::class);
         $this->assertEquals($role->id(), $authentication->getRole()->id);
     }
@@ -105,23 +105,5 @@ class SessionAuthenticationTest extends TestCase
         $authentication->setRole($role);
         $this->assertTrue(Session::has('role_id'));
         $this->assertEquals($role->id(), Session::get('role_id'));    }
-    
-    /** @test */
-    public function reset_logs_out_of_all_guards(){
-        Session::put('user_id', 1);
-        Session::put('group_id', 2);
-        Session::put('role_id', 3);
-
-        $this->assertEquals(1, Session::get('user_id'));
-        $this->assertEquals(2, Session::get('group_id'));
-        $this->assertEquals(3, Session::get('role_id'));
-        
-        $authentication = resolve(SessionAuthentication::class);
-        $authentication->reset();
-
-        $this->assertFalse(Session::has('user_id'));
-        $this->assertFalse(Session::has('group_id'));
-        $this->assertFalse(Session::has('role_id'));
-    }
 
 }

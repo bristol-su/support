@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Connection;
 
-use BristolSU\Support\User\Contracts\UserAuthentication;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
@@ -15,12 +15,15 @@ class AccessibleConnectionScope implements Scope
 
     /**
      * Only return connections which are accessible by the current user
-     * 
+     *
      * @param Builder $builder Query builder
      * @param Model $model Model being scoped
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('user_id', app(UserAuthentication::class)->getUser()->control_id);
+        $auth = app(Authentication::class);
+        if($auth->hasUser()) {
+            $builder->where('user_id', $auth->getUser()->id());
+        }
     }
 }

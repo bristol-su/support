@@ -6,8 +6,6 @@ namespace BristolSU\Support\Tests\Module;
 
 use BristolSU\Support\Completion\Contracts\EventRepository;
 use BristolSU\Support\Module\Module;
-use BristolSU\Support\Permissions\Contracts\PermissionRepository;
-use Illuminate\Config\Repository;
 use BristolSU\Support\Tests\TestCase;
 
 class ModuleTest extends TestCase

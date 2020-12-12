@@ -4,7 +4,6 @@ namespace BristolSU\Support\Http\View\Router;
 
 use Illuminate\Routing\Route;
 use Illuminate\Routing\Router;
-use Laracasts\Utilities\JavaScript\JavaScriptFacade;
 
 class NamedRouteRetriever implements NamedRouteRetrieverInterface
 {

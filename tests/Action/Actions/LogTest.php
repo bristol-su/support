@@ -2,8 +2,8 @@
 
 namespace BristolSU\Support\Tests\Action\Actions;
 
-use BristolSU\Support\Action\Actions\Log;
 use BristolSU\Support\Action\ActionResponse;
+use BristolSU\Support\Action\Actions\Log;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Schema\Form;
 use Psr\Log\LoggerInterface;

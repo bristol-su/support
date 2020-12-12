@@ -2,7 +2,6 @@
 
 namespace BristolSU\Support\ActivityInstance;
 
-use BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository as ActivityInstanceRepositoryContract;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use BristolSU\Support\ActivityInstance\Contracts\DefaultActivityInstanceGenerator as DefaultActivityInstanceGeneratorContract;
@@ -11,10 +10,7 @@ use BristolSU\Support\ActivityInstance\Middleware\CheckActivityInstanceForActivi
 use BristolSU\Support\ActivityInstance\Middleware\CheckLoggedIntoActivityInstance;
 use BristolSU\Support\ActivityInstance\Middleware\ClearActivityInstance;
 use BristolSU\Support\ActivityInstance\Middleware\InjectActivityInstance;
-use BristolSU\Support\ActivityInstance\Middleware\LogIntoActivityInstance;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -25,7 +21,7 @@ class ActivityInstanceServiceProvider extends ServiceProvider
 
     /**
      * Register
-     * 
+     *
      * - Register the activity instance resolver, API or Web
      * - Bind the activity instance repository contract to an implementation
      * - Bind the activity instance generator contract to an implementation
@@ -51,16 +47,13 @@ class ActivityInstanceServiceProvider extends ServiceProvider
         $this->app['router']->pushMiddlewareToGroup('participant', InjectActivityInstance::class);
         $this->app['router']->pushMiddlewareToGroup('nonmodule', ClearActivityInstance::class);
 
-        Auth::provider('activity-instance-provider', function(Container $app, array $config) {
-            return new ActivityInstanceProvider(app(ActivityInstanceRepositoryContract::class));
-        });
     }
 
     /**
      * Register the activity instance resolver.
-     * 
+     *
      * Registers the api activitiy instance resoolver for an API route, or a web resolver otherwise.
-     * 
+     *
      * @param Request $request
      */
     public function registerActivityInstanceResolver(Request $request)

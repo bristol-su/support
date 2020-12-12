@@ -3,9 +3,7 @@
 namespace BristolSU\Support\Tests\Http\View;
 
 use BristolSU\Support\Tests\TestCase;
-use Illuminate\Contracts\Session\Session;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 use Illuminate\Support\MessageBag;
 use Illuminate\Support\ViewErrorBag;
 use Laracasts\Utilities\JavaScript\Transformers\Transformer;

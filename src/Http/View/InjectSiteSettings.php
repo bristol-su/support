@@ -2,12 +2,9 @@
 
 namespace BristolSU\Support\Http\View;
 
-use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Settings\SettingRepository;
-use BristolSU\Support\User\Contracts\UserAuthentication;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 use Laracasts\Utilities\JavaScript\JavaScriptFacade;
 
 class InjectSiteSettings

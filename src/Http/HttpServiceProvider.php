@@ -12,7 +12,6 @@ use BristolSU\Support\Http\View\Router\NamedRouteRetrieverCache;
 use BristolSU\Support\Http\View\Router\NamedRouteRetrieverInterface;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Container\Container;
-use Illuminate\Support\Facades\Lang;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 

@@ -6,10 +6,10 @@ namespace BristolSU\Support\Tests\Activity\Middleware;
 
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Activity\Middleware\InjectActivity;
+use BristolSU\Support\Tests\TestCase;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
 use Prophecy\Argument;
-use BristolSU\Support\Tests\TestCase;
 
 class InjectActivityInstanceTest extends TestCase
 {

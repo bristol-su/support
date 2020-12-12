@@ -2,8 +2,8 @@
 
 namespace BristolSU\Support\Module;
 
-use BristolSU\Support\Module\Contracts\ModuleBuilder as ModuleBuilderContract;
 use BristolSU\Support\Module\Contracts\Module;
+use BristolSU\Support\Module\Contracts\ModuleBuilder as ModuleBuilderContract;
 use BristolSU\Support\Module\Contracts\ModuleFactory as ModuleFactoryAlias;
 
 /**
@@ -14,7 +14,7 @@ class ModuleFactory implements ModuleFactoryAlias
 
     /**
      * Create a module from its alias
-     * 
+     *
      * @param string $alias Alias of the module
      * @return Module Fully constructed module
      */

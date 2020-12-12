@@ -3,9 +3,8 @@
 namespace BristolSU\Support\Tests\Completion\CompletionConditions\EventFired;
 
 use BristolSU\Support\ActivityInstance\ActivityInstance;
-use BristolSU\Support\Events\Contracts\EventRepository;
 use BristolSU\Support\Completion\CompletionConditions\EventFired\EventFired;
-use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\Events\Contracts\EventRepository;
 use BristolSU\Support\Tests\TestCase;
 
 class EventFiredTest extends TestCase
@@ -18,7 +17,7 @@ class EventFiredTest extends TestCase
         $condition = new EventFired('module1', $this->prophesize(EventRepository::class)->reveal());
         $this->assertTrue($condition->isComplete([], $activityInstance, $moduleInstance));
     }
-    
+
     /** @test */
     public function options_returns_a_list_of_events(){
         $eventRepository = $this->prophesize(EventRepository::class);
@@ -26,11 +25,11 @@ class EventFiredTest extends TestCase
             ['event' => 'event1', 'name' => 'name1'],
             ['event' => 'event2', 'name' => 'name2']
         ]);
-        
+
         $condition = new EventFired('module1', $eventRepository->reveal());
 
-        
-        
+
+
         $this->assertEquals(1, count($condition->options()->fields()));
         $this->assertEquals('event_type', $condition->options()->fields()[0]->model());
         $this->assertEquals('select', $condition->options()->fields()[0]->type());
@@ -38,9 +37,9 @@ class EventFiredTest extends TestCase
             ['id' => 'event1', 'name' => 'name1'],
             ['id' => 'event2', 'name' => 'name2'],
         ], $condition->options()->fields()[0]->values());
-        
+
     }
-    
+
     /** @test */
     public function name_returns_a_string(){
         $condition = new EventFired('module1', $this->prophesize(EventRepository::class)->reveal());
@@ -58,5 +57,5 @@ class EventFiredTest extends TestCase
         $condition = new EventFired('module1', $this->prophesize(EventRepository::class)->reveal());
         $this->assertIsString($condition->alias());
     }
-    
+
 }

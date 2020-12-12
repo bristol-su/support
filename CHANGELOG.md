@@ -25,11 +25,24 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Translation
 
 ### Changed
-- Changed the variable names to be injected and do so through a view composer for all Bristol SU bases
-- Changed some of the variable names being injected
+- Changed the variable names to be injected for JavaScript use, and do so through a view composer for all Bristol SU bases
+- Changed some of the variable names being injected for JavaScript use
+- Add `hasUser`, `hasGroup` and `hasRole` to the Authentication contract.
 
 ### Removed
-- Removed any reference to database user
+- Moved authentication to the portal-auth package
+    - Moved Passport Service provider
+    - Moved the `BristolSU\Support\Authentication\Contracts\Authentication implementations
+    - Moved everything in the `BristolSU\Support\User` namespace to package.
+        - `BristolSU\Support\User\User` -> `BristolSU\Auth\User\AuthenticationUser`
+        - `BristolSU\Support\User\UserRepository` -> `BristolSU\Auth\User\AuthenticationUserRepository`
+        - `BristolSU\Support\User\Contracts\UserRepository` -> `BristolSU\Auth\User\Contracts\AuthenticationUserRepository`
+        - User authentication resolvers for both API and Web
+        - `BristolSU\Support\User\Contracts\UserAuthentication` -> `BristolSU\Auth\User\Contracts\UserAuthentication`
+    - CheckAdminIsAtLeastUser obsolete because now handled in the Authentication
+    - `getDatabaseUser()` and `setDatabaseUser()` from testing - tests no longer use database users
+    - Deleted `BristolSU\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider` as now handled through `WebRequestActivityInstanceResolver` and `ApiActivityInstanceResolver`
+    - `BristolSU\Testing\ActivityInstance\LaravelAuthActivityInstanceResolver` changed to use session rather than the whole laravel auth system, and renamed to `BristolSU\Testing\ActivityInstance\SessionActivityInstanceResolver`
 
 ## [4.7.2] - (24/08/2020)
 

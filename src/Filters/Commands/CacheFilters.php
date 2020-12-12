@@ -5,8 +5,8 @@ namespace BristolSU\Support\Filters\Commands;
 use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
-use BristolSU\Support\Filters\Contracts\FilterInstanceRepository;
 use BristolSU\Support\Filters\Contracts\FilterInstance;
+use BristolSU\Support\Filters\Contracts\FilterInstanceRepository;
 use BristolSU\Support\Filters\Jobs\CacheFilter;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
@@ -33,9 +33,9 @@ class CacheFilters extends Command
 
     /**
      * Cache the result of all filter instances.
-     * 
+     *
      * This function will fire a job to cache the filter of all filter instances.
-     * 
+     *
      * @param FilterInstanceRepository $filterInstanceRepository Filter instance repository to get the filter instances from
      * @param UserRepository $userRepository Repository to get all users from
      * @param GroupRepository $groupRepository Repository to get all groups from
@@ -71,7 +71,7 @@ class CacheFilters extends Command
 
     /**
      * Fire a job to cache the given filter with the given models
-     * 
+     *
      * @param FilterInstance $filterInstance Filter instance to cache
      * @param Collection $models Models to cache the result of.
      */

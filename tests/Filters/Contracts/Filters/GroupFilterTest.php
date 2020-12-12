@@ -2,8 +2,6 @@
 
 namespace BristolSU\Support\Tests\Filters\Contracts\Filters;
 
-use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\ControlDB\Models\Group;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Schema\Form;
@@ -27,14 +25,14 @@ class GroupFilterTest extends TestCase
 
         $this->assertTrue($filter->hasModel());
     }
-    
+
     /** @test */
     public function hasModel_returns_false_if_the_group_is_not_set(){
         $filter = new DummyGroupFilter();
 
         $this->assertFalse($filter->hasModel());
     }
-    
+
     /** @test */
     public function setModel_throws_exception_if_model_not_of_type_group(){
         $fakeGroup = new class {};
@@ -43,7 +41,7 @@ class GroupFilterTest extends TestCase
         $filter = new DummyGroupFilter();
         $filter->setModel($fakeGroup);
     }
-    
+
     /** @test */
     public function group_returns_the_group(){
         $filter = new DummyGroupFilter();
@@ -51,7 +49,7 @@ class GroupFilterTest extends TestCase
         $filter->setModel($group);
         $this->assertEquals($group, $filter->group());
     }
-    
+
 }
 
 class DummyGroupFilter extends GroupFilter

@@ -4,7 +4,6 @@ namespace BristolSU\Support\Tests\Settings\Saved;
 
 use BristolSU\Support\Settings\Saved\SavedSettingModel;
 use BristolSU\Support\Tests\TestCase;
-use function GuzzleHttp\Psr7\stream_for;
 
 class SavedSettingModelTest extends TestCase
 {

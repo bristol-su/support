@@ -5,17 +5,15 @@ namespace BristolSU\Support\Tests\Logic;
 
 
 use BristolSU\ControlDB\Contracts\Repositories\User;
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Filters\Contracts\FilterManager;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
-use BristolSU\Support\User\Contracts\UserAuthentication;
+use BristolSU\Support\Tests\TestCase;
 use FormSchema\Schema\Form;
 use Illuminate\Support\Collection;
-use BristolSU\Support\Tests\TestCase;
 
 class LogicTest extends TestCase
 {
@@ -207,7 +205,7 @@ class LogicTest extends TestCase
         app(FilterManager::class)->register('dummyrole_1', DummyRoleFilter::class);
         $logic = factory(Logic::class)->create();
         $filter = factory(FilterInstance::class)->create(['logic_id' => $logic->id, 'alias' => 'dummyrole_1']);
-        
+
         $this->assertEquals('role', $logic->lowestResource);
     }
 
@@ -240,7 +238,7 @@ class LogicTest extends TestCase
         $logic = factory(Logic::class)->create();
         $filter = factory(FilterInstance::class)->create(['logic_id' => $logic->id, 'alias' => 'dummyuser_1']);
 
-        $this->assertEquals('user', $logic->lowestResource);  
+        $this->assertEquals('user', $logic->lowestResource);
     }
 
     /** @test */
@@ -300,14 +298,11 @@ class LogicTest extends TestCase
     /** @test */
     public function user_id_is_automatically_added_on_creation(){
         $user = $this->newUser();
-        $dbUser = factory(\BristolSU\Support\User\User::class)->create(['control_id' => $user->id()]);
-        $authentication = $this->prophesize(UserAuthentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn($dbUser);
-        $this->instance(UserAuthentication::class, $authentication->reveal());
+        $this->beUser($user);
 
         $logic = factory(Logic::class)->create();
         $logic = factory(Logic::class)->create(['user_id' => null]);
-        
+
 
         $this->assertNotNull($logic->user_id);
         $this->assertEquals($user->id(), $logic->user_id);

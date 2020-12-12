@@ -2,9 +2,9 @@
 
 namespace BristolSU\Support\Tests\Logic;
 
-use BristolSU\ControlDB\Contracts\Models\Group as GroupContract;
 use BristolSU\ControlDB\Models\Group;
 use BristolSU\ControlDB\Models\Role;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Filters\Contracts\FilterRepository;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
@@ -13,9 +13,8 @@ use BristolSU\Support\Filters\Contracts\FilterTester;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Logic\LogicTester;
-use BristolSU\ControlDB\Models\User;
-use Prophecy\Argument;
 use BristolSU\Support\Tests\TestCase;
+use Prophecy\Argument;
 
 class LogicTesterTest extends TestCase
 {
@@ -64,7 +63,7 @@ class LogicTesterTest extends TestCase
             'group' => $this->prophesize(GroupFilter::class),
             'role' => $this->prophesize(RoleFilter::class)
         ][$filterType])->reveal());
-        
+
         $modelKey = 'fake' . ucfirst($filterType);
         $this->filterTester->evaluate(Argument::that(function($arg) use ($filter) {
             return $arg->id === $filter->id;
@@ -76,7 +75,7 @@ class LogicTesterTest extends TestCase
     {
         return (new LogicTester)->evaluate($logic, $this->fakeUser, $this->fakeGroup, $this->fakeRole);
     }
-   
+
     /** @test */
     public function it_returns_true_when_all_fields_match_what_they_should_do()
     {

@@ -4,9 +4,6 @@
 namespace BristolSU\Support\Tests\Filters;
 
 
-use BristolSU\ControlDB\Contracts\Models\Group;
-use BristolSU\ControlDB\Contracts\Models\Role;
-use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Filters\Contracts\FilterRepository as FilterRepositoryContract;
 use BristolSU\Support\Filters\Contracts\Filters\Filter;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
@@ -47,7 +44,7 @@ class FilterInstanceTest extends TestCase
         $filterInstance = factory(FilterInstance::class)->create(['settings' => ['setting1' => 'A Value']]);
         $this->assertEquals(['setting1' => 'A Value'], $filterInstance->settings());
     }
-    
+
     /** @test */
     public function for_returns_user_if_the_filter_is_a_user_filter(){
         $filterRepository = $this->prophesize(FilterRepositoryContract::class);
@@ -77,7 +74,7 @@ class FilterInstanceTest extends TestCase
         $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
         $this->assertEquals('role', factory(FilterInstance::class)->create(['alias' => 'alias1'])->for());
     }
-    
+
     /** @test */
     public function for_throws_an_exception_if_filter_not_correct_type(){
         $this->expectException(\Exception::class);
@@ -88,7 +85,7 @@ class FilterInstanceTest extends TestCase
         $filterInstance = factory(FilterInstance::class)->create(['alias' => 'alias1']);
         $filterInstance->for();
     }
-    
+
     /** @test */
     public function for_can_be_called_through_a_magic_method(){
         $filterRepository = $this->prophesize(FilterRepositoryContract::class);
@@ -116,7 +113,7 @@ class FilterInstanceTest extends TestCase
         $this->assertEquals('OldName', $filterInstance->revisionHistory->first()->old_value);
         $this->assertEquals('NewName', $filterInstance->revisionHistory->first()->new_value);
     }
-    
+
 }
 
 

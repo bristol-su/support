@@ -5,14 +5,12 @@ namespace BristolSU\Support\Tests\Action;
 use BristolSU\Support\Action\ActionBuilder;
 use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Action\ActionInstanceField;
+use BristolSU\Support\Action\ActionResponse;
 use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
-use BristolSU\Support\Action\ActionResponse;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Schema\Form;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Contracts\Foundation\Application;
-use Prophecy\Argument;
 
 class ActionBuilderTest extends TestCase
 {
@@ -152,15 +150,15 @@ class ActionBuilderTest extends TestCase
             'action' => ActionBuilderDummyAction::class,
             'event' => ActionBuilderDummyEvent::class
         ]);
-        
+
         $action = $this->prophesize(Action::class);
         $action->setActionInstanceId($actionInstance->id)->shouldBeCalled();
         $action->setEventFields(['key' => 'val1'])->shouldBeCalled();
         $action->setSettings([])->shouldBeCalled();
-        
+
         $app = $this->prophesize(Application::class);
         $app->make(ActionBuilderDummyAction::class, ['data' => []])->shouldBeCalled()->willReturn($action->reveal());
-        
+
         $builder = new ActionBuilder($app->reveal());
         $action = $builder->build($actionInstance, ['key' => 'val1']);
 

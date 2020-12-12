@@ -2,8 +2,8 @@
 
 namespace BristolSU\Support\Module;
 
-use BristolSU\Support\Module\Contracts\ModuleBuilder as ModuleBuilderContract;
 use BristolSU\Support\Module\Contracts\Module as ModuleContract;
+use BristolSU\Support\Module\Contracts\ModuleBuilder as ModuleBuilderContract;
 use BristolSU\Support\Module\Contracts\ModuleFactory as ModuleFactoryContract;
 use BristolSU\Support\Module\Contracts\ModuleManager as ModuleManagerContract;
 use BristolSU\Support\Module\Contracts\ModuleRepository as ModuleRepositoryContract;
@@ -18,7 +18,7 @@ class ModuleFrameworkServiceProvider extends ServiceProvider
 
     /**
      * Register
-     * 
+     *
      * - Bind implementations to interfaces
      * - Set up the module manager as a singleton
      */
@@ -33,7 +33,7 @@ class ModuleFrameworkServiceProvider extends ServiceProvider
 
     /**
      * Boot
-     * 
+     *
      * - Set up route model binding for a module
      */
     public function boot()
@@ -41,6 +41,6 @@ class ModuleFrameworkServiceProvider extends ServiceProvider
         Route::bind('module', function($alias) {
             return $this->app->make(ModuleRepositoryContract::class)->findByAlias($alias);
         });
-        
+
     }
 }

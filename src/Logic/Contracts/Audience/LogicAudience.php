@@ -2,11 +2,11 @@
 
 namespace BristolSU\Support\Logic\Contracts\Audience;
 
-use BristolSU\Support\Logic\Audience\AudienceMember;
-use BristolSU\Support\Logic\Logic;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
+use BristolSU\Support\Logic\Audience\AudienceMember;
+use BristolSU\Support\Logic\Logic;
 
 /**
  * Gets the audience for a logic group
@@ -16,7 +16,7 @@ abstract class LogicAudience
 
     /**
      * Gets the audience of a logic group
-     * 
+     *
      * @param Logic $logic Logic group to get the audience from
      * @return mixed
      */
@@ -24,9 +24,9 @@ abstract class LogicAudience
 
     /**
      * Get the users belonging to a logic group
-     * 
+     *
      * Extracts the user models from audiences and returns all users who can access the logic group
-     * 
+     *
      * @param Logic $logic Logic group to test
      * @return \Illuminate\Support\Collection All users who can access the logic group
      */
@@ -43,7 +43,7 @@ abstract class LogicAudience
 
     /**
      * Return all groups in the logic group
-     * 
+     *
      * @param Logic $logic Logic group to test
      * @return \Illuminate\Support\Collection All groups who can access the logic group
      */

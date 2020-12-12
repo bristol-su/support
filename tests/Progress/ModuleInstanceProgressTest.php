@@ -5,7 +5,6 @@ namespace BristolSU\Support\Tests\Progress;
 
 
 use BristolSU\Support\Progress\ModuleInstanceProgress;
-use BristolSU\Support\Progress\Progress;
 use BristolSU\Support\Tests\TestCase;
 
 class ModuleInstanceProgressTest extends TestCase
@@ -70,11 +69,11 @@ class ModuleInstanceProgressTest extends TestCase
         $progress->setPercentage(58);
         $this->assertEquals(58, $progress->getPercentage());
     }
-    
+
     /** @test */
     public function create_creates_a_progress_model_with_filled_in_values(){
         $progress = ModuleInstanceProgress::create(
-            5, 
+            5,
             true,
             false,
             10,
@@ -86,9 +85,9 @@ class ModuleInstanceProgressTest extends TestCase
         $this->assertTrue($progress->isVisible());
         $this->assertFalse($progress->isComplete());
         $this->assertFalse($progress->isActive());
-        
+
         $this->assertEquals(5, $progress->getModuleInstanceId());
         $this->assertEquals(10, $progress->getPercentage());
     }
-    
+
 }

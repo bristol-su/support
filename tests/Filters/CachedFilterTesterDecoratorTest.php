@@ -2,8 +2,6 @@
 
 namespace BristolSU\Support\Tests\Filters;
 
-use BristolSU\ControlDB\Models\Group;
-use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Filters\CachedFilterTesterDecorator;
 use BristolSU\Support\Filters\Contracts\FilterTester;
 use BristolSU\Support\Filters\FilterInstance;
@@ -32,13 +30,13 @@ class CachedFilterTesterDecoratorTest extends TestCase
         $this->assertTrue($tester->evaluate($filterInstance, $model));
         $this->assertTrue($tester->evaluate($filterInstance, $model));
     }
-    
+
     /** @test */
     public function the_cache_key_changes_if_filter_instance_changes(){
         $filterInstance1 = factory(FilterInstance::class)->create();
         $filterInstance2 = factory(FilterInstance::class)->create();
         $model = $this->newUser();
-        
+
         $realTester = $this->prophesize(FilterTester::class);
         $realTester->evaluate(Argument::that(function($arg) use ($filterInstance1) {
             return $filterInstance1->id === $arg->id;
@@ -57,7 +55,7 @@ class CachedFilterTesterDecoratorTest extends TestCase
         $this->assertTrue($tester->evaluate($filterInstance1, $model));
         $this->assertFalse($tester->evaluate($filterInstance2, $model));
     }
-    
+
     /** @test */
     public function the_cache_key_changes_if_model_id_changes(){
         $filterInstance = factory(FilterInstance::class)->create();
@@ -107,5 +105,5 @@ class CachedFilterTesterDecoratorTest extends TestCase
         $this->assertFalse($tester->evaluate($filterInstance, $model1));
         $this->assertTrue($tester->evaluate($filterInstance, $model2));
     }
-    
+
 }

@@ -6,8 +6,6 @@ use BristolSU\ControlDB\Models\Group;
 use BristolSU\ControlDB\Models\Role;
 use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\Support\Permissions\Contracts\PermissionTester;
-use BristolSU\Support\Permissions\Facade\Permission;
 use BristolSU\Support\Testing\HandlesAuthentication;
 use BristolSU\Support\Tests\TestCase;
 use Prophecy\Argument;
@@ -15,14 +13,14 @@ use Prophecy\Argument;
 class HandlesAuthenticationTest extends TestCase
 {
     use HandlesAuthentication;
-    
+
     /** @test */
     public function newUser_creates_a_new_user(){
         $user = $this->newUser();
-        
+
         $this->assertInstanceOf(User::class, $user);
     }
-    
+
     /** @test */
     public function newUser_allows_attributes_to_be_overridden(){
         $user = $this->newUser(['data_provider_id' => 5]);

@@ -4,7 +4,6 @@ namespace BristolSU\Support\Testing\Authentication;
 
 use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\Support\Authentication\Contracts\Authentication as AuthenticationContract;
-use BristolSU\Support\User\Contracts\UserAuthentication;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
@@ -53,7 +52,6 @@ class SessionAuthentication implements AuthenticationContract
      * @param Session $session Session
      * @param GroupRepository $groupRepository Group Repository
      * @param UserRepository $userRepository User Repository
-     * @param UserAuthentication $userAuthentication Database User Authentication
      */
     public function __construct(Session $session, GroupRepository $groupRepository, UserRepository $userRepository, RoleRepository $roleRepository)
     {
@@ -151,14 +149,32 @@ class SessionAuthentication implements AuthenticationContract
     }
 
     /**
-     * Unset the user, group and role
+     * Is a group logged in?
      *
-     * @return void
+     * @return bool
      */
-    public function reset(): void
+    public function hasGroup(): bool
     {
-        $this->session->forget([
-            'user_id', 'group_id', 'role_id'
-        ]);
+        return $this->session->has('group_id');
+    }
+
+    /**
+     * Is a role logged in?
+     *
+     * @return bool
+     */
+    public function hasRole(): bool
+    {
+        return $this->session->has('role_id');
+    }
+
+    /**
+     * Is a user logged in?
+     *
+     * @return bool
+     */
+    public function hasUser(): bool
+    {
+        return $this->session->has('user_id');
     }
 }

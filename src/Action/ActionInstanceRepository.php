@@ -2,7 +2,6 @@
 
 namespace BristolSU\Support\Action;
 
-use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
