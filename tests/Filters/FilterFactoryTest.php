@@ -6,8 +6,8 @@ namespace BristolSU\Support\Tests\Filters;
 
 use BristolSU\Support\Filters\Contracts\Filters\Filter;
 use BristolSU\Support\Filters\FilterFactory;
-use Illuminate\Contracts\Container\Container;
 use BristolSU\Support\Tests\TestCase;
+use Illuminate\Contracts\Container\Container;
 
 class FilterFactoryTest extends TestCase
 {

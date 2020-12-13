@@ -7,23 +7,21 @@ use BristolSU\Support\Action\History\ActionHistory;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
-use BristolSU\Support\User\Contracts\UserAuthentication;
 use FormSchema\Transformers\VFGTransformer;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Str;
 
 /**
  * ActionInstance Model.
- * 
+ *
  * Represents an Action and Event link in the database
  */
 class ActionInstance extends Model
 {
     use HasRevisions;
-    
+
     /**
      * Fillable properties
-     * 
+     *
      * @var array
      */
     protected $fillable = [
@@ -32,7 +30,7 @@ class ActionInstance extends Model
 
     /**
      * Additional properties to compute dynamically
-     * 
+     *
      * @var array
      */
     protected $appends = [
@@ -41,7 +39,7 @@ class ActionInstance extends Model
 
     /**
     * Properties to automatically cast
-    * 
+    *
     * @var array
     */
     protected $casts = [
@@ -59,8 +57,8 @@ class ActionInstance extends Model
     {
         parent::__construct($attributes);
         self::creating(function($model) {
-            if($model->user_id === null && ($user = app(UserAuthentication::class)->getUser()) !== null) {
-                $model->user_id = $user->controlId();
+            if($model->user_id === null && app(Authentication::class)->hasUser()) {
+                $model->user_id = app(Authentication::class)->getUser()->id();
             }
         });
     }
@@ -75,7 +73,7 @@ class ActionInstance extends Model
 
     /**
      * Get the field meta data for the event
-     * 
+     *
      * @return mixed
      */
     public function getEventFieldsAttribute()
@@ -85,7 +83,7 @@ class ActionInstance extends Model
 
     /**
      * Get the field meta data for the action
-     * 
+     *
      * @return mixed
      */
     public function getActionSchemaAttribute()
@@ -95,7 +93,7 @@ class ActionInstance extends Model
 
     /**
      * Module Instance relationship
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function moduleInstance()

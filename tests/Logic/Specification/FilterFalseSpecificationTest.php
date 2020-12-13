@@ -2,9 +2,6 @@
 
 namespace BristolSU\Support\Tests\Logic\Specification;
 
-use BristolSU\ControlDB\Models\Group;
-use BristolSU\ControlDB\Models\Role;
-use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Filters\Contracts\FilterInstance;
 use BristolSU\Support\Filters\Contracts\FilterTester;
 use BristolSU\Support\Logic\Specification\FilterFalseSpecification;
@@ -18,16 +15,16 @@ class FilterFalseSpecificationTest extends TestCase
         $user = $this->newUser();
         $group = $this->newGroup();
         $role = $this->newRole();
-        
+
         $filter = $this->prophesize(FilterInstance::class);
         $filter->for()->shouldBeCalled()->willReturn('user');
 
         $filterTester = $this->prophesize(FilterTester::class);
         $filterTester->evaluate($filter->reveal(), $user)->shouldBeCalled()->willReturn(false);
         $this->app->instance(FilterTester::class, $filterTester->reveal());
-        
+
         $specification = new FilterFalseSpecification($filter->reveal(), $user, $group, $role);
-        
+
         $this->assertTrue(
             $specification->isSatisfied()
         );
@@ -132,7 +129,7 @@ class FilterFalseSpecificationTest extends TestCase
             $specification->isSatisfied()
         );
     }
-    
+
     /** @test */
     public function isSatisfied_returns_false_if_wrong_filter_type_given(){
         $user = $this->newUser();

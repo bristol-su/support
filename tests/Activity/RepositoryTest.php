@@ -4,18 +4,15 @@
 namespace BristolSU\Support\Tests\Activity;
 
 
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Activity\Repository as ActivityRepository;
-use BristolSU\ControlDB\Models\Group;
-use BristolSU\ControlDB\Models\Role;
-use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
+use BristolSU\Support\Tests\TestCase;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
-use BristolSU\Support\Tests\TestCase;
 use Prophecy\Argument;
 
 class RepositoryTest extends TestCase
@@ -38,7 +35,7 @@ class RepositoryTest extends TestCase
             'start_date' => Carbon::now()->addDay(),
             'end_date' => Carbon::now()->addWeek()
         ]);
-        
+
         $inactiveActivities->push(factory(Activity::class)->create(['enabled' => false, 'start_date' => null, 'end_date' => null]));
 
         $activities = (new ActivityRepository)->active();
@@ -61,7 +58,7 @@ class RepositoryTest extends TestCase
         $this->logicTester()->forLogic($adminActivity->forLogic)->alwaysFail();
         $this->logicTester()->forLogic($neitherActivity->forLogic)->alwaysFail();
         $this->logicTester()->bind();
-        
+
         $activitiesForUser = (new ActivityRepository)->getForParticipant();
         $this->assertCount(1, $activitiesForUser);
         $this->assertModelEquals($participantActivity, $activitiesForUser->first());
@@ -111,7 +108,7 @@ class RepositoryTest extends TestCase
         $this->logicTester()->forLogic($participantActivity->adminLogic)->alwaysFail();
         $this->logicTester()->forLogic($neitherActivity->adminLogic)->alwaysFail();
         $this->logicTester()->bind();
-        
+
         $activitiesForAdmin = (new ActivityRepository)->getForAdministrator();
         $this->assertInstanceOf(Collection::class, $activitiesForAdmin);
         $this->assertEmpty($activitiesForAdmin);
@@ -159,7 +156,7 @@ class RepositoryTest extends TestCase
         }),  null, null)->shouldBeCalled()->willReturn(true);
 
         $this->instance(LogicTester::class, $logicTester->reveal());
-        
+
         (new ActivityRepository)->getForAdministrator($user);
     }
 
@@ -261,38 +258,38 @@ class RepositoryTest extends TestCase
 
         (new ActivityRepository)->getForParticipant();
     }
-    
+
     /** @test */
     public function getById_returns_an_activity_by_id(){
         $activity = factory(Activity::class)->create();
         $repository = new ActivityRepository();
-        
+
         $this->assertModelEquals($activity, $repository->getById($activity->id));
     }
-    
+
     /** @test */
     public function getById_throws_an_exception_if_no_model_found(){
         $this->expectException(ModelNotFoundException::class);
         $repository = new ActivityRepository();
         $repository->getById(100);
     }
-    
+
     /** @test */
     public function delete_deletes_an_activity(){
         $activity = factory(Activity::class)->create();
         $repository = new ActivityRepository();
-        
+
         $this->assertDatabaseHas('activities', [
             'id' => $activity->id,
         ]);
-        
+
         $repository->delete($activity->id);
 
         $this->assertDatabaseMissing('activities', [
             'id' => $activity->id,
         ]);
     }
-    
+
     /** @test */
     public function update_updates_an_activity(){
         $attributesOld = [
@@ -319,10 +316,10 @@ class RepositoryTest extends TestCase
 
         $activity = factory(Activity::class)->create($attributesOld);
         $this->assertDatabaseHas('activities', $attributesOld);
-        
+
         $repository = new ActivityRepository;
         $repository->update($activity->id, $attributesNew);
-        
+
         $this->assertDatabaseHas('activities', $attributesNew);
     }
 
@@ -365,5 +362,5 @@ class RepositoryTest extends TestCase
         $this->assertModelEquals($disabledActivity, $activitiesForAdmin->shift());
         $this->assertModelEquals($outOfTimeActivity, $activitiesForAdmin->shift());
     }
-    
+
 }

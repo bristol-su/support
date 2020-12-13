@@ -2,14 +2,14 @@
 
 namespace BristolSU\Support\Action\Actions;
 
-use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Action\ActionResponse;
+use BristolSU\Support\Action\Contracts\Action;
 use FormSchema\Generator\Field;
 use FormSchema\Schema\Form;
 
 /**
  * Logging Action.
- * 
+ *
  * Logs a message to the PHP log.
  */
 class Log extends Action

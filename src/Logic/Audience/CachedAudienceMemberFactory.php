@@ -5,8 +5,6 @@ namespace BristolSU\Support\Logic\Audience;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
-use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
-use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory as AudienceMemberFactoryContract;
 use BristolSU\Support\Logic\Logic;
 use Illuminate\Contracts\Cache\Repository;
@@ -35,7 +33,7 @@ class CachedAudienceMemberFactory implements AudienceMemberFactoryContract
 
     /**
      * Audience members who have access to a given resource in some way.
-     * 
+     *
      * @param User|Group|Role $resource Resource audience members must have access to
      * @return Collection
      */
@@ -56,7 +54,7 @@ class CachedAudienceMemberFactory implements AudienceMemberFactoryContract
      * This function will return all audience members who have an audience in the logic group which uses a given resource.
      * @param User|Group|Role $resource Resource that must be in the logic group
      * @param Logic $logic Logic group the resource must be in for an audience member
-     * 
+     *
      * @return Collection
      */
     public function withAccessToLogicGroupWithResource($resource, Logic $logic)

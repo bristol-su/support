@@ -1,15 +1,12 @@
 <?php
 
 
-namespace BristolSU\Support\Tests\Module\ModuleInstance;
+namespace BristolSU\Support\Tests\ModuleInstance;
 
 
 use BristolSU\ControlDB\Contracts\Repositories\User;
-use BristolSU\Module\Tests\UploadFile\Integration\Http\Controllers\ParticipantPageControllerTest;
 use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Activity\Activity;
-use BristolSU\Support\ActivityInstance\ActivityInstance;
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
@@ -17,9 +14,6 @@ use BristolSU\Support\ModuleInstance\ModuleInstanceGrouping;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\Progress\Handlers\Database\Models\ModuleInstanceProgress;
-use BristolSU\Support\Progress\Handlers\Database\Models\Progress;
-use BristolSU\Support\User\Contracts\UserAuthentication;
-use Illuminate\Support\Facades\DB;
 use BristolSU\Support\Tests\TestCase;
 
 class ModuleInstanceTest extends TestCase
@@ -206,10 +200,7 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function user_id_is_automatically_added_on_creation(){
         $user = $this->newUser();
-        $dbUser = factory(\BristolSU\Support\User\User::class)->create(['control_id' => $user->id()]);
-        $authentication = $this->prophesize(UserAuthentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn($dbUser);
-        $this->instance(UserAuthentication::class, $authentication->reveal());
+        $this->beUser($user);
 
         $logic = factory(Logic::class)->create();
         $moduleInstance = factory(ModuleInstance::class)->create(['user_id' => null]);

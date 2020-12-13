@@ -2,12 +2,8 @@
 
 namespace BristolSU\Support\Tests\Logic\Specification;
 
-use BristolSU\ControlDB\Models\Group;
-use BristolSU\ControlDB\Models\Role;
-use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Filters\Contracts\FilterInstance;
 use BristolSU\Support\Filters\Contracts\FilterTester;
-use BristolSU\Support\Logic\Specification\FilterFalseSpecification;
 use BristolSU\Support\Logic\Specification\FilterTrueSpecification;
 use BristolSU\Support\Tests\TestCase;
 
@@ -149,5 +145,5 @@ class FilterTrueSpecificationTest extends TestCase
             $specification->isSatisfied()
         );
     }
-    
+
 }

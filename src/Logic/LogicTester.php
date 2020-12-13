@@ -7,9 +7,9 @@ use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Logic\Contracts\LogicTester as LogicTesterContract;
 use BristolSU\Support\Logic\Specification\AndSpecification;
-use BristolSU\Support\Logic\Specification\OrSpecification;
 use BristolSU\Support\Logic\Specification\FilterFalseSpecification;
 use BristolSU\Support\Logic\Specification\FilterTrueSpecification;
+use BristolSU\Support\Logic\Specification\OrSpecification;
 
 /**
  * Test if the given resources are in a logic group
@@ -19,12 +19,12 @@ class LogicTester implements LogicTesterContract
 
     /**
      * Test if the given resources are in a logic group
-     * 
+     *
      * @param Logic $logic Logic group to test
      * @param null|User $userModel The user model to test the logic group with
      * @param null|Group $groupModel The group model to test the logic group with
      * @param null|Role $roleModel The role model to test the logic group with
-     * 
+     *
      * @return bool If the user, group and/or role are in the logic group
      */
     public function evaluate(Logic $logic, $userModel = null, $groupModel = null, $roleModel = null): bool

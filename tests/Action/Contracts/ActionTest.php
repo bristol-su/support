@@ -2,8 +2,8 @@
 
 namespace BristolSU\Support\Tests\Action\Contracts;
 
-use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Action\ActionResponse;
+use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Tests\TestCase;
 use Exception;
 use FormSchema\Schema\Form;
@@ -64,7 +64,7 @@ class ActionTest extends TestCase
         $action->setActionInstanceId(1);
         $action->exceptionMessage = 'An exception message';
         $action->handle();
-        
+
         $response = $action->getResponse();
         $this->assertEquals('An exception message', $response->getMessage());
         $this->assertFalse($response->getSuccess());
@@ -81,23 +81,23 @@ class ActionTest extends TestCase
         $this->assertEquals('An error was thrown during processing', $response->getMessage());
         $this->assertFalse($response->getSuccess());
     }
-    
+
     /** @test */
     public function it_creates_a_history_when_the_response_is_returned(){
         $action = new DummyAction([]);
         $action->setActionInstanceId(1);
         $response = ActionResponse::success('Message Here');
         $action->responseToReturn = $response;
-        
+
         $action->handle();
-        
+
         $this->assertDatabaseHas('action_histories', [
             'action_instance_id' => 1,
             'success' => 1,
             'message' => 'Message Here'
         ]);
     }
-    
+
 }
 
 class DummyAction extends Action
@@ -126,7 +126,7 @@ class DummyActionWithException extends Action
 {
 
     public $exceptionMessage = '';
-    
+
     public static function options(): Form
     {
         // TODO: Implement options() method.

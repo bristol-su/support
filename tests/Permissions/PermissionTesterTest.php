@@ -5,23 +5,25 @@ namespace BristolSU\Support\Tests\Permissions;
 
 
 use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\Support\User\Contracts\UserAuthentication;
+use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
-use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
 use BristolSU\Support\Permissions\Contracts\PermissionStore;
 use BristolSU\Support\Permissions\Contracts\Tester;
 use BristolSU\Support\Permissions\PermissionTester;
 use BristolSU\Support\Tests\TestCase;
-use BristolSU\Support\User\User as DatabaseUser;
 use Closure;
 use Exception;
 use Prophecy\Argument;
 
 class PermissionTesterTest extends TestCase
 {
+
+    private \Prophecy\Prophecy\ObjectProphecy $permissionStore;
+    private \Prophecy\Prophecy\ObjectProphecy $authentication;
+    private PermissionRepository $permissionRepository;
 
     public function setUp(): void
     {
@@ -30,14 +32,17 @@ class PermissionTesterTest extends TestCase
         $permissionStore->get(Argument::any())->will(function ($args) {
             return new \BristolSU\Support\Permissions\Models\Permission($args[0], 'Permission Name', 'Permission Description');
         });
-        $this->app->instance(PermissionStore::class, $permissionStore->reveal());
+        $this->instance(PermissionStore::class, $permissionStore->reveal());
+        $this->permissionStore = $permissionStore;
+        $this->permissionRepository = app(PermissionRepository::class);
+        $this->authentication = $this->prophesize(Authentication::class);
     }
 
     /** @test */
     public function getChain_throws_an_exception_if_no_testers()
     {
         $this->expectException(Exception::class);
-        $permissionTester = new PermissionTester;
+        $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
         $permissionTester->getChain();
     }
 
@@ -45,7 +50,7 @@ class PermissionTesterTest extends TestCase
     public function getChain_returns_a_single_tester_if_one_tester_registered()
     {
         $tester1 = $this->prophesize(Tester::class);
-        $permissionTester = new PermissionTester();
+        $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
         $permissionTester->register($tester1->reveal());
 
         $this->assertEquals($tester1->reveal(), $permissionTester->getChain());
@@ -56,7 +61,7 @@ class PermissionTesterTest extends TestCase
     {
         $tester1 = $this->prophesize(Tester::class);
         $tester2 = $this->prophesize(Tester::class);
-        $permissionTester = new PermissionTester();
+        $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
         $permissionTester->register($tester1->reveal());
         $permissionTester->register($tester2->reveal());
 
@@ -68,7 +73,7 @@ class PermissionTesterTest extends TestCase
     {
         $tester1 = $this->prophesize(Tester::class);
         $tester2 = $this->prophesize(Tester::class);
-        $permissionTester = new PermissionTester();
+        $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
         $permissionTester->register($tester1->reveal());
         $permissionTester->register($tester2->reveal(), 0);
 
@@ -87,7 +92,7 @@ class PermissionTesterTest extends TestCase
         $tester2->setNext($tester3->reveal())->shouldBeCalled();
         $tester3->setNext($tester4->reveal())->shouldBeCalled();
 
-        $permissionTester = new PermissionTester();
+        $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
         $permissionTester->register($tester1->reveal());
         $permissionTester->register($tester2->reveal());
         $permissionTester->register($tester3->reveal());
@@ -101,7 +106,7 @@ class PermissionTesterTest extends TestCase
     {
         $tester = (new DummyTester())->return(true);
 
-        $permissionTester = new PermissionTester;
+        $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
         $permissionTester->register($tester);
 
         $this->assertTrue(
@@ -114,7 +119,7 @@ class PermissionTesterTest extends TestCase
     {
         $tester = (new DummyTester())->return(false);
 
-        $permissionTester = new PermissionTester;
+        $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
         $permissionTester->register($tester);
 
         $this->assertFalse(
@@ -127,7 +132,7 @@ class PermissionTesterTest extends TestCase
     {
         $tester = (new DummyTester())->returnNull();
 
-        $permissionTester = new PermissionTester;
+        $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
         $permissionTester->register($tester);
 
         $this->assertFalse(
@@ -141,7 +146,7 @@ class PermissionTesterTest extends TestCase
         $tester1 = (new DummyTester())->returnNull();
         $tester2 = (new DummyTester())->return(true);
 
-        $permissionTester = new PermissionTester;
+        $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
         $permissionTester->register($tester1);
         $permissionTester->register($tester2);
 
@@ -171,7 +176,7 @@ class PermissionTesterTest extends TestCase
                 $this->assertEquals($role, $arg);
             });
 
-        $permissionTester = new PermissionTester;
+        $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
         $permissionTester->register($tester);
 
         $permissionTester->evaluateFor('ability', $user, $group, $role);
@@ -183,7 +188,10 @@ class PermissionTesterTest extends TestCase
     {
         $tester = (new DummyTester())->return(true);
 
-        $permissionTester = new PermissionTester;
+        $this->authentication->getUser()->willReturn($this->newUser());
+        $this->authentication->getGroup()->willReturn(null);
+        $this->authentication->getRole()->willReturn(null);
+        $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
         $permissionTester->register($tester);
 
         $this->assertTrue(
@@ -196,7 +204,10 @@ class PermissionTesterTest extends TestCase
     {
         $tester = (new DummyTester())->return(false);
 
-        $permissionTester = new PermissionTester;
+        $this->authentication->getUser()->willReturn($this->newUser());
+        $this->authentication->getGroup()->willReturn(null);
+        $this->authentication->getRole()->willReturn(null);
+        $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
         $permissionTester->register($tester);
 
         $this->assertFalse(
@@ -209,7 +220,10 @@ class PermissionTesterTest extends TestCase
     {
         $tester = (new DummyTester())->returnNull();
 
-        $permissionTester = new PermissionTester;
+        $this->authentication->getUser()->willReturn($this->newUser());
+        $this->authentication->getGroup()->willReturn(null);
+        $this->authentication->getRole()->willReturn(null);
+        $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
         $permissionTester->register($tester);
 
         $this->assertFalse(
@@ -223,7 +237,10 @@ class PermissionTesterTest extends TestCase
         $tester1 = (new DummyTester())->returnNull();
         $tester2 = (new DummyTester())->return(true);
 
-        $permissionTester = new PermissionTester;
+        $this->authentication->getUser()->willReturn($this->newUser());
+        $this->authentication->getGroup()->willReturn(null);
+        $this->authentication->getRole()->willReturn(null);
+        $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
         $permissionTester->register($tester1);
         $permissionTester->register($tester2);
 
@@ -244,7 +261,6 @@ class PermissionTesterTest extends TestCase
         $authentication->getUser()->shouldBeCalled()->willReturn($user);
         $authentication->getGroup()->shouldBeCalled()->willReturn($group);
         $authentication->getRole()->shouldBeCalled()->willReturn($role);
-        $this->app->instance(Authentication::class, $authentication->reveal());
 
         $tester = (new DummyTester())
             ->assertPermission(function ($arg) {
@@ -260,48 +276,7 @@ class PermissionTesterTest extends TestCase
                 $this->assertEquals($role, $arg);
             });
 
-        $permissionTester = new PermissionTester;
-        $permissionTester->register($tester);
-
-        $permissionTester->evaluate('ability');
-
-    }
-
-    /** @test */
-    public function evaluate_finds_the_correct_user_from_the_database_user_if_no_user_in_authentication()
-    {
-        $user = $this->newUser();
-        $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn(null);
-        $authentication->getGroup()->shouldBeCalled()->willReturn(null);
-        $authentication->getRole()->shouldBeCalled()->willReturn(null);
-        $this->app->instance(Authentication::class, $authentication->reveal());
-
-        $dbUserRepo = $this->prophesize(UserAuthentication::class);
-        $dbUser = factory(DatabaseUser::class)->create(['control_id' => $user->id()]);
-        $dbUserRepo->getUser()->shouldBeCalled()->willReturn($dbUser);
-        $this->app->instance(UserAuthentication::class, $dbUserRepo->reveal());
-        
-        $userRepo = $this->prophesize(UserRepository::class);
-        $userRepo->getById($user->id())->shouldBeCalled()->willReturn($user);
-        $this->app->instance(UserRepository::class, $userRepo->reveal());
-        
-
-        $tester = (new DummyTester())
-            ->assertPermission(function ($arg) {
-                $this->assertEquals('ability', $arg->getAbility());
-            })
-            ->assertUser(function ($arg) use ($user) {
-                $this->assertEquals($user, $arg);
-            })
-            ->assertGroup(function ($arg) {
-                $this->assertNull($arg);
-            })
-            ->assertRole(function ($arg) {
-                $this->assertNull($arg);
-            });
-
-        $permissionTester = new PermissionTester;
+        $permissionTester = new PermissionTester($authentication->reveal(), $this->permissionRepository);
         $permissionTester->register($tester);
 
         $permissionTester->evaluate('ability');
@@ -325,7 +300,10 @@ class PermissionTesterTest extends TestCase
                 $this->assertNull($arg);
             });
 
-        $permissionTester = new PermissionTester;
+        $this->authentication->getUser()->willReturn(null);
+        $this->authentication->getGroup()->willReturn(null);
+        $this->authentication->getRole()->willReturn(null);
+        $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
         $permissionTester->register($tester);
 
         $permissionTester->evaluate('ability');

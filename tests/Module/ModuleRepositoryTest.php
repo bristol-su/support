@@ -7,31 +7,28 @@ namespace BristolSU\Support\Tests\Module\Module;
 use BristolSU\Support\Module\Contracts\Module as ModuleContract;
 use BristolSU\Support\Module\Contracts\ModuleFactory;
 use BristolSU\Support\Module\Contracts\ModuleManager;
-use BristolSU\Support\Module\Module;
 use BristolSU\Support\Module\ModuleRepository;
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Filesystem\Filesystem;
 use BristolSU\Support\Tests\TestCase;
 
 class ModuleRepositoryTest extends TestCase
 {
-    
-    
+
+
 
     /** @test */
     public function it_gets_a_module_by_alias(){
         $module = $this->prophesize(ModuleContract::class);
         $manager = $this->prophesize(ModuleManager::class);
         $factory = $this->prophesize(ModuleFactory::class);
-        
+
         $manager->exists('alias1')->shouldBeCalled()->willReturn(true);
         $factory->fromAlias('alias1')->shouldBeCalled()->willReturn($module->reveal());
-        
+
         $moduleRepository = new ModuleRepository($manager->reveal(), $factory->reveal());
 
         $createdModule = $moduleRepository->findByAlias('alias1');
         $this->assertEquals($module->reveal(), $createdModule);
-        
+
     }
 
     /** @test */

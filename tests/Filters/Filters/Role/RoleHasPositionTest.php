@@ -7,13 +7,12 @@ namespace BristolSU\Support\Tests\Filters\Filters\Role;
 use BristolSU\ControlDB\Contracts\Repositories\Position as PositionRepository;
 use BristolSU\ControlDB\Models\DataPosition;
 use BristolSU\ControlDB\Models\Position;
-use BristolSU\ControlDB\Models\Role;
 use BristolSU\Support\Filters\Filters\Role\RoleHasPosition;
 use BristolSU\Support\Tests\TestCase;
 
 class RoleHasPositionTest extends TestCase
 {
-    
+
     /** @test */
     public function it_returns_a_list_of_possible_positions(){
         $positionRepository = $this->prophesize(PositionRepository::class);
@@ -38,9 +37,9 @@ class RoleHasPositionTest extends TestCase
 
     /** @test */
     public function it_evaluates_to_true_if_role_has_position(){
-        
+
         $roleHasPositionFilter = new RoleHasPosition($this->prophesize(PositionRepository::class)->reveal());
-        
+
         $role = $this->newRole([
             'position_id' => 1
         ]);

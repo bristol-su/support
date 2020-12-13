@@ -8,7 +8,6 @@ use BristolSU\Support\Permissions\Contracts\Models\Permission as PermissionContr
 use BristolSU\Support\Permissions\Contracts\PermissionRepository as PermissionRepositoryContract;
 use BristolSU\Support\Permissions\Contracts\PermissionStore as PermissionStoreContract;
 use BristolSU\Support\Permissions\Contracts\PermissionTester as PermissionTesterContract;
-use BristolSU\Support\Permissions\Facade\Permission as PermissionFacade;
 use BristolSU\Support\Permissions\Facade\PermissionTester as PermissionTesterFacade;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\Permissions\Models\Permission;
@@ -17,9 +16,7 @@ use BristolSU\Support\Permissions\Testers\ModuleInstanceGroupOverridePermission;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceRoleOverridePermission;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceUserOverridePermission;
 use BristolSU\Support\Permissions\Testers\SystemUserPermission;
-use BristolSU\Support\User\User;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,7 +28,7 @@ class PermissionServiceProvider extends ServiceProvider
 
     /**
      * Register
-     * 
+     *
      * - Bind the permission model and the permission repository
      * - Set the permission store as a singleton
      * - Set the permission tester as a singleton
@@ -46,13 +43,13 @@ class PermissionServiceProvider extends ServiceProvider
 
     /**
      * Boot
-     * 
+     *
      * - Register provided permission testers.
      * - Set the Laravel gate callback to use the Permission Tester. This allows us to still use laravel functions to check permissions.
      * - Route model binding for a module instance permission
      * - route model binding for a permission
      * - Route model binding for a site (global) permission specifically
-     * 
+     *
      * @throws BindingResolutionException
      */
     public function boot()
@@ -65,10 +62,6 @@ class PermissionServiceProvider extends ServiceProvider
         PermissionTesterFacade::register($this->app->make(ModuleInstanceRoleOverridePermission::class));
         // Check default module instance permissions
         PermissionTesterFacade::register($this->app->make(ModuleInstancePermissions::class));
-
-        Gate::before(function(User $user, $ability) {
-            return app()->make(PermissionTesterContract::class)->evaluate($ability);
-        });
 
         Route::bind('module_instance_permission', function($id) {
             return ModuleInstancePermission::findOrFail($id);

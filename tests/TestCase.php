@@ -7,10 +7,11 @@ use BristolSU\Support\Testing\FakesLogicTesters;
 use BristolSU\Support\Testing\HandlesAuthentication;
 use BristolSU\Support\Testing\TestCase as BaseTestCase;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Prophecy\PhpUnit\ProphecyTrait;
 
 class TestCase extends BaseTestCase
 {
-    use DatabaseMigrations, HandlesAuthentication, FakesLogicTesters, AssertsEloquentModels, ProphecyTrait;
-    
+    use DatabaseTransactions, HandlesAuthentication, FakesLogicTesters, AssertsEloquentModels, ProphecyTrait;
+
 }

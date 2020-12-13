@@ -9,7 +9,6 @@ use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
-use BristolSU\Support\User\User as DatabaseUser;
 use Illuminate\Support\Str;
 
 /**
@@ -21,14 +20,14 @@ trait CreatesModuleEnvironment
 
     /**
      * Alias of the module to set up
-     * 
+     *
      * @var string
      */
     private $alias;
 
     /**
      * Activity with the module in
-     * 
+     *
      * @var null|Activity
      */
     private $activity;
@@ -41,23 +40,23 @@ trait CreatesModuleEnvironment
 
     /**
      * Activity instance, related to the current authentication information
-     * 
+     *
      * @var null|ActivityInstance
      */
     private $activityInstance;
 
     /**
      * Who should the activity be for?
-     * 
+     *
      * Should be one of user, group or role
-     * 
-     * @var string 
+     *
+     * @var string
      */
     private $for;
 
     /**
      * Stores the user being used
-     * 
+     *
      * @var User|null
      */
     private $controlUser;
@@ -77,13 +76,6 @@ trait CreatesModuleEnvironment
     private $controlRole;
 
     /**
-     * Stores the database user being used
-     *
-     * @var DatabaseUser|null
-     */
-    private $databaseUser;
-
-    /**
      * Set up the module in the set configuration
      *
      * @param string $alias Alias of the module to set up
@@ -94,12 +86,11 @@ trait CreatesModuleEnvironment
         $this->alias = $alias;
         $this->setUpAuthentication();
         $this->setUpModule();
-        $this->setUpDatabaseUser();
     }
 
     /**
      * Set the activity to stage the module in
-     * 
+     *
      * @param Activity $activity
      */
     public function setActivity(Activity $activity)
@@ -109,7 +100,7 @@ trait CreatesModuleEnvironment
 
     /**
      * Set the module instance to stage the module in
-     * 
+     *
      * @param \BristolSU\Support\ModuleInstance\Contracts\ModuleInstance $moduleInstance
      */
     public function setModuleInstance(\BristolSU\Support\ModuleInstance\Contracts\ModuleInstance $moduleInstance)
@@ -129,7 +120,7 @@ trait CreatesModuleEnvironment
 
     /**
      * Set the activity instance to use
-     * 
+     *
      * @param ActivityInstance $activityInstance
      */
     public function setActivityInstance(ActivityInstance $activityInstance)
@@ -139,7 +130,7 @@ trait CreatesModuleEnvironment
 
     /**
      * Set the control user to use
-     * 
+     *
      * @param \BristolSU\ControlDB\Contracts\Models\User $user
      */
     public function setControlUser(\BristolSU\ControlDB\Contracts\Models\User $user)
@@ -149,7 +140,7 @@ trait CreatesModuleEnvironment
 
     /**
      * Set the control group to use
-     * 
+     *
      * @param \BristolSU\ControlDB\Contracts\Models\Group $group
      */
     public function setControlGroup(\BristolSU\ControlDB\Contracts\Models\Group $group)
@@ -165,16 +156,6 @@ trait CreatesModuleEnvironment
     public function setControlRole(\BristolSU\ControlDB\Contracts\Models\Role $role)
     {
         $this->controlRole = $role;
-    }
-
-    /**
-     * Set the database user
-     * 
-     * @param DatabaseUser $databaseUser
-     */
-    public function setDatabaseUser(DatabaseUser $databaseUser)
-    {
-        $this->databaseUser = $databaseUser;
     }
 
     /**
@@ -196,7 +177,7 @@ trait CreatesModuleEnvironment
     {
         return $this->for;
     }
-    
+
     /**
      * Get the module instance to stage the module in
      *
@@ -239,7 +220,7 @@ trait CreatesModuleEnvironment
 
     /**
      * Get the control role to use
-     * 
+     *
      * @return \BristolSU\ControlDB\Contracts\Models\Role
      */
     public function getControlRole(): \BristolSU\ControlDB\Contracts\Models\Role
@@ -248,42 +229,32 @@ trait CreatesModuleEnvironment
     }
 
     /**
-     * Get the database user
-     *
-     * @return DatabaseUser
-     */
-    public function getDatabaseUser(): DatabaseUser
-    {
-        return $this->databaseUser;
-    }
-    
-    /**
      * Set up the module
-     * 
+     *
      * - Get/create the activity and bind it
      * - Get/create a module instance and bind
      * - Get/create an activity instance and bind
      */
     private function setUpModule()
     {
-        $this->activity = ($this->activity 
+        $this->activity = ($this->activity
             ?? factory(Activity::class)->create([
                 'slug' => Str::random(5),
                 'activity_for' => ($this->for??'user')
             ]));
-        
-        $this->moduleInstance = ($this->moduleInstance 
+
+        $this->moduleInstance = ($this->moduleInstance
             ?? factory(ModuleInstance::class)->create([
-                'slug' => Str::random(5), 
+                'slug' => Str::random(5),
                 'activity_id' => $this->activity->id,
                 'alias' => $this->alias
             ]));
-        
-        $this->activityInstance = ($this->activityInstance 
+
+        $this->activityInstance = ($this->activityInstance
             ?? factory(ActivityInstance::class)->create([
                 'activity_id' => $this->activity->id,
                 'resource_id' => ($this->for === 'role' ? $this->controlRole->id() : ($this->for === 'group' ? $this->controlGroup->id() : $this->controlUser->id())
-                ), 
+                ),
                 'resource_type' => ($this->for??'user')
             ]));
 
@@ -296,12 +267,12 @@ trait CreatesModuleEnvironment
 
     /**
      * Set up the control authentication
-     * 
+     *
      * Sets the user/group/role that is able to use the module for a given 'for' value.
      * - if 'for' is 'role', will create and log in a user, group and role
      * - if 'for' is 'group', will create and log in a user and group
      * - if 'for' is 'user', will create and log in a user
-     * 
+     *
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     private function setUpAuthentication()
@@ -322,19 +293,8 @@ trait CreatesModuleEnvironment
     }
 
     /**
-     * Create a database user
-     */
-    private function setUpDatabaseUser()
-    {
-        $this->databaseUser = ($this->databaseUser ?? factory(DatabaseUser::class)->create([
-            'control_id' => ($this->controlUser ? $this->controlUser->id() : 1)
-        ]));
-        $this->be($this->databaseUser);
-    }
-
-    /**
      * Get the url of the admin side of a module
-     * 
+     *
      * @param string $path Url to return relative to the admin side of the module
      * @return string Url
      */

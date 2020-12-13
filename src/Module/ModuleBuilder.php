@@ -2,13 +2,12 @@
 
 namespace BristolSU\Support\Module;
 
-use BristolSU\Support\Events\Contracts\EventRepository;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
-use BristolSU\Support\Completion\Contracts\CompletionCondition;
 use BristolSU\Support\Completion\Contracts\CompletionConditionRepository;
 use BristolSU\Support\Connection\Contracts\ServiceRequest;
+use BristolSU\Support\Events\Contracts\EventRepository;
+use BristolSU\Support\Module\Contracts\Module as ModuleContract;
 use BristolSU\Support\Module\Contracts\ModuleBuilder as ModuleBuilderContract;
-use \BristolSU\Support\Module\Contracts\Module as ModuleContract;
 use BristolSU\Support\ModuleInstance\Contracts\Settings\ModuleSettingsStore;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use Exception;
@@ -23,56 +22,56 @@ class ModuleBuilder implements ModuleBuilderContract
 
     /**
      * Holds the module
-     * 
+     *
      * @var ModuleContract
      */
     private $module;
-    
+
     /**
      * Repository for resolving permissions
-     * 
+     *
      * @var PermissionRepository
      */
     private $permissionRepository;
-    
+
     /**
      * Configuration for resolving name/description
-     * 
+     *
      * @var Repository
      */
     private $config;
 
     /**
      * Alias for the module to use
-     * 
+     *
      * @var string
      */
     private $alias;
 
     /**
      * Repository for resolving events from
-     * 
+     *
      * @var EventRepository
      */
     private $eventRepository;
-    
+
     /**
      * Repository for resolving completion conditions used by the module
-     * 
+     *
      * @var CompletionConditionRepository
      */
     private $completionConditionRepository;
-    
+
     /**
      * Store for resolving module settings out of
-     * 
+     *
      * @var ModuleSettingsStore
      */
     private $moduleSettingsStore;
-    
+
     /**
      * Service request for resolving services needed by the module
-     * 
+     *
      * @var ServiceRequest
      */
     private $serviceRequest;
@@ -105,7 +104,7 @@ class ModuleBuilder implements ModuleBuilderContract
 
     /**
      * Initialise the module builder
-     * 
+     *
      * @param string $alias Alias to use for the module
      */
     public function create(string $alias)
@@ -115,7 +114,7 @@ class ModuleBuilder implements ModuleBuilderContract
 
     /**
      * Get the alias to use for the module
-     * 
+     *
      * @return string Alias
      * @throws Exception If the create() function has not been called, so no alias is known
      */
@@ -129,7 +128,7 @@ class ModuleBuilder implements ModuleBuilderContract
 
     /**
      * Set the alias on the module
-     * 
+     *
      * @throws Exception If no alias is known by the builder
      */
     public function setAlias()
@@ -151,7 +150,7 @@ class ModuleBuilder implements ModuleBuilderContract
 
     /**
      * Set the name of the module
-     * 
+     *
      * @throws Exception If no alias is known by the builder
      */
     public function setName()
@@ -163,7 +162,7 @@ class ModuleBuilder implements ModuleBuilderContract
 
     /**
      * Set the description of the module
-     * 
+     *
      * @throws Exception If no alias is known by the builder
      */
     public function setDescription()
@@ -175,7 +174,7 @@ class ModuleBuilder implements ModuleBuilderContract
 
     /**
      * Set the settings of the module
-     * 
+     *
      * @throws Exception If no alias is known by the builder
      */
     public function setSettings()
@@ -189,7 +188,7 @@ class ModuleBuilder implements ModuleBuilderContract
 
     /**
      * Set the triggers of the module
-     * 
+     *
      * @throws Exception If no alias is known by the builder
      */
     public function setTriggers()
@@ -205,7 +204,7 @@ class ModuleBuilder implements ModuleBuilderContract
 
     /**
      * Set the services of the module
-     * 
+     *
      * @throws Exception If no alias is known by the builder
      */
     public function setServices()
@@ -218,7 +217,7 @@ class ModuleBuilder implements ModuleBuilderContract
 
     /**
      * Set what resource the module requires.
-     * 
+     *
      * @throws Exception If no alias is known by the builder
      */
     public function setFor()
@@ -227,10 +226,10 @@ class ModuleBuilder implements ModuleBuilderContract
             $this->config->get($this->getAlias().'.for', 'user')
         );
     }
-    
+
     /**
      * Get the built module
-     * 
+     *
      * @return ModuleContract Initialised module
      */
     public function getModule(): ModuleContract
@@ -240,7 +239,7 @@ class ModuleBuilder implements ModuleBuilderContract
 
     /**
      * Set the completion conditions for the module
-     * 
+     *
      * @throws Exception If no alias is known by the builder
      */
     public function setCompletionConditions()

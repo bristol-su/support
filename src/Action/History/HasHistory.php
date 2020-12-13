@@ -4,7 +4,6 @@ namespace BristolSU\Support\Action\History;
 
 use BristolSU\Support\Action\ActionResponse;
 use Exception;
-use Illuminate\Http\Response;
 
 trait HasHistory
 {

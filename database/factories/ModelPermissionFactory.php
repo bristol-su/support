@@ -2,9 +2,9 @@
 
 namespace Database\Factories;
 
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Permissions\Models\ModelPermission;
-use BristolSU\Support\User\User;
 use Faker\Generator as Faker;
 
 /*

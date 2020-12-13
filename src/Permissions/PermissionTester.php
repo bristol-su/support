@@ -3,7 +3,6 @@
 namespace BristolSU\Support\Permissions;
 
 use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\Support\User\Contracts\UserAuthentication;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
@@ -11,14 +10,29 @@ use BristolSU\Support\Permissions\Contracts\Models\Permission;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository as PermissionRepositoryContract;
 use BristolSU\Support\Permissions\Contracts\PermissionTester as PermissionTesterContract;
 use BristolSU\Support\Permissions\Contracts\Tester;
-use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use Exception;
+use Illuminate\Auth\AuthenticationException;
 
 /**
  * Test if credentials have permissions
  */
 class PermissionTester implements PermissionTesterContract
 {
+
+    /**
+     * @var Authentication
+     */
+    private Authentication $authentication;
+    /**
+     * @var PermissionRepositoryContract
+     */
+    private PermissionRepositoryContract $permissionRepositoryContract;
+
+    public function __construct(Authentication $authentication, PermissionRepositoryContract $permissionRepositoryContract)
+    {
+        $this->authentication = $authentication;
+        $this->permissionRepositoryContract = $permissionRepositoryContract;
+    }
 
     /**
      * Holds the testers to test the permission with
@@ -36,16 +50,7 @@ class PermissionTester implements PermissionTesterContract
      */
     public function evaluate(string $ability): bool
     {
-        /*
-         * We always need to pass a user in. This is always possible, since you will always be logged into a database user.
-         * By default, we take from authentication. If this is null, we take from the database user
-         */
-        $user = app(Authentication::class)->getUser();
-        if ($user === null && ($dbUser = app(UserAuthentication::class)->getUser()) !== null) {
-            $user = app(UserRepository::class)->getById($dbUser->control_id);
-        }
-
-        $result = $this->evaluateFor($ability, $user, app(Authentication::class)->getGroup(), app(Authentication::class)->getRole());
+        $result = $this->evaluateFor($ability, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole());
         return ($result ?? false);
     }
 
@@ -88,13 +93,13 @@ class PermissionTester implements PermissionTesterContract
 
     /**
      * Get a permission from the ability
-     * 
+     *
      * @param string $ability Ability of the permission
-     * @return Permission 
+     * @return Permission
      */
     private function getPermission(string $ability): Permission
     {
-        return app(PermissionRepositoryContract::class)->get($ability);
+        return $this->permissionRepositoryContract->get($ability);
     }
 
     /**

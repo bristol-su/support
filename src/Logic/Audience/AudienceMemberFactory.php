@@ -5,8 +5,6 @@ namespace BristolSU\Support\Logic\Audience;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
-use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
-use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory as AudienceMemberFactoryContract;
 use BristolSU\Support\Logic\Logic;
 use Illuminate\Support\Collection;
@@ -19,9 +17,9 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
 
     /**
      * Create an audience member from a user
-     * 
+     *
      * @param User $user User to create the audience member around
-     * 
+     *
      * @return AudienceMember
      */
     public function fromUser(User $user): AudienceMember {
@@ -30,7 +28,7 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
 
     /**
      * Audience members who have access to a given resource in some way.
-     * 
+     *
      * @param User|Group|Role $resource Resource audience members must have access to
      * @return Collection
      */
@@ -64,7 +62,7 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
      * This function will return all audience members who have an audience in the logic group which uses a given resource.
      * @param User|Group|Role $resource Resource that must be in the logic group
      * @param Logic $logic Logic group the resource must be in for an audience member
-     * 
+     *
      * @return Collection
      */
     public function withAccessToLogicGroupWithResource($resource, Logic $logic)

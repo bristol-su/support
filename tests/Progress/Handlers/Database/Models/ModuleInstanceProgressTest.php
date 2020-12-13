@@ -2,7 +2,6 @@
 
 namespace BristolSU\Support\Tests\Progress\Handlers\Database\Models;
 
-use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Progress\Handlers\Database\Models\ModuleInstanceProgress;
 use BristolSU\Support\Progress\Handlers\Database\Models\Progress;

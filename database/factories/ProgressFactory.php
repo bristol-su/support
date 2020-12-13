@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Progress\Handlers\Database\Models\Progress;
-use BristolSU\Support\User\User;
 use Faker\Generator as Faker;
 
 /*
