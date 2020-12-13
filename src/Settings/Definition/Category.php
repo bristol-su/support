@@ -2,7 +2,13 @@
 
 namespace BristolSU\Support\Settings\Definition;
 
-class Category
+abstract class Category
 {
+
+    abstract public function name(): string;
+
+    abstract public function definition(): string;
+
+    abstract public function icon(): string;
 
 }

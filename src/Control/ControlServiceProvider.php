@@ -12,7 +12,7 @@ use BristolSU\Support\Control\Settings\Attributes\AdditionalAttributesRole;
 use BristolSU\Support\Control\Settings\Attributes\AdditionalAttributesUser;
 use BristolSU\Support\Control\Settings\Attributes\AttributeGroup;
 use BristolSU\Support\Control\Settings\ControlCategory;
-use BristolSU\Support\Settings\Definition\DefinitionStore;
+use BristolSU\Support\Settings\Definition\SettingStore;
 use BristolSU\Support\Settings\SettingRepository;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,10 +21,10 @@ class ControlServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        app(DefinitionStore::class)->register(AdditionalAttributesUser::class, ControlCategory::class, AttributeGroup::class);
-        app(DefinitionStore::class)->register(AdditionalAttributesGroup::class, ControlCategory::class, AttributeGroup::class);
-        app(DefinitionStore::class)->register(AdditionalAttributesRole::class, ControlCategory::class, AttributeGroup::class);
-        app(DefinitionStore::class)->register(AdditionalAttributesPosition::class, ControlCategory::class, AttributeGroup::class);
+        app(SettingStore::class)->register(AdditionalAttributesUser::class, ControlCategory::class, AttributeGroup::class);
+        app(SettingStore::class)->register(AdditionalAttributesGroup::class, ControlCategory::class, AttributeGroup::class);
+        app(SettingStore::class)->register(AdditionalAttributesRole::class, ControlCategory::class, AttributeGroup::class);
+        app(SettingStore::class)->register(AdditionalAttributesPosition::class, ControlCategory::class, AttributeGroup::class);
 
         $settingRepository = $this->app->make(SettingRepository::class);
         try {

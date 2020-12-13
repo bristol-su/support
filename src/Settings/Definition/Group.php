@@ -2,7 +2,12 @@
 
 namespace BristolSU\Support\Settings\Definition;
 
-class Group
+abstract class Group
 {
 
+    abstract public function name(): string;
+
+    abstract public function icon(): string;
+
+    abstract public function description(): string;
 }

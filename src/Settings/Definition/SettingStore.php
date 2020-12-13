@@ -2,17 +2,17 @@
 
 namespace BristolSU\Support\Settings\Definition;
 
-class DefinitionStore
+class SettingStore
 {
 
     private array $settings = [];
 
-    public function register(string $setting, string $category, string $group)
-    {
-        $this->checkStringInstanceOf(Definition::class, $setting);
-        $this->checkStringInstanceOf(Category::class, $category);
-        $this->checkStringInstanceOf(Group::class, $group);
+    private ?Category $useCategory;
+    private ?Group $useGroup;
 
+    public function registerGlobalSetting(GlobalSetting $setting, Group $group = null, Category $category = null)
+    {
+        if($category === null)
         if(!array_key_exists($category, $this->settings)) {
             $this->settings[$category] = [];
         }
@@ -22,6 +22,20 @@ class DefinitionStore
         if(!in_array($setting, $this->settings[$category][$group])) {
             $this->settings[$category][$group][] = $setting;
         }
+    }
+
+    public function category(Category $category, \Closure $callback)
+    {
+        $this->useCategory = $category;
+        $callback($this);
+        $this->useCategory = null;
+    }
+
+    public function group(Group $group, \Closure $callback)
+    {
+        $this->useGroup = $group;
+        $callback($this);
+        $this->useGroup = null;
     }
 
     public function getByKey(string $key): string
@@ -43,6 +57,16 @@ class DefinitionStore
     public function all(): array
     {
         return $this->settings;
+    }
+
+    public function allGlobal()
+    {
+
+    }
+
+    public function allUser()
+    {
+        return array_filter($this->all(), fn($setting)
     }
 
     private function checkStringInstanceOf(string $expected, string $actual)

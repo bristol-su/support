@@ -7,4 +7,8 @@ use BristolSU\Support\Settings\Definition\Group;
 class AttributeGroup extends Group
 {
 
+    public function name()
+    {
+        return 'Attributes';
+    }
 }
