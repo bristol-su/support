@@ -44,6 +44,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - Deleted `BristolSU\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider` as now handled through `WebRequestActivityInstanceResolver` and `ApiActivityInstanceResolver`
     - `BristolSU\Testing\ActivityInstance\LaravelAuthActivityInstanceResolver` changed to use session rather than the whole laravel auth system, and renamed to `BristolSU\Testing\ActivityInstance\SessionActivityInstanceResolver`
 
+## [4.7.4] - (09/09/2020)
+
+### Fixed
+- ServiceRequest resolves from contract not concretion
+
+## [4.7.3] - (09/09/2020)
+
+### Changed
+- portal-123: Change the name of registerConnection to registerConnector
+- Updated dependencies
+
+### Fixed
+- portal-124: Register services using the correct alias
+
 ## [4.7.2] - (24/08/2020)
 
 ### Added
@@ -306,7 +320,9 @@ BristolSU\Support\Testing\HandlesAuthorization to help with testing modules with
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/support/compare/v4.7.2...HEAD
+[Unreleased]: https://github.com/bristol-su/support/compare/v4.7.4...HEAD
+[4.7.4]: https://github.com/bristol-su/support-compare/v4.7.3...v4.7.4
+[4.7.3]: https://github.com/bristol-su/support-compare/v4.7.2...v4.7.3
 [4.7.2]: https://github.com/bristol-su/support-compare/v4.7.1...v4.7.2
 [4.7.1]: https://github.com/bristol-su/support-compare/v4.7.0...v4.7.1
 [4.7.0]: https://github.com/bristol-su/support-compare/v4.6.1...v4.7.0
