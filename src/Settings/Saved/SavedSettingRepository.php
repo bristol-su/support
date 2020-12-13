@@ -23,13 +23,6 @@ interface SavedSettingRepository
     public function get($key);
 
     /**
-     * Get all of the settings for the application.
-     *
-     * @return array A collection of setting values, with the key as the setting key
-     */
-    public function all(): array;
-
-    /**
      * Set a given setting.
      *
      * @param array|string $key Key of the settings
