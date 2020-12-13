@@ -5,10 +5,12 @@ namespace BristolSU\Support\Settings;
 interface SettingRepository
 {
 
-    public function all(): array;
+    public function getValue(string $key);
 
-    public function get(string $key);
+    public function setForUser(string $key, $value, int $userId);
 
-    public function set(string $key, $value = null): void;
+    public function setForAllUsers(string $key, $value);
+
+    public function setGlobal(string $key, $value);
 
 }

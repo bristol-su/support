@@ -16,7 +16,7 @@ class SavedSettingModel extends Model
     protected $table = 'settings';
 
     protected $fillable = [
-        'key', 'value'
+        'key', 'value', 'user_id'
     ];
 
     public function setValueAttribute($value)

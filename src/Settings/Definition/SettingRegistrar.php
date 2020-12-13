@@ -5,30 +5,39 @@ namespace BristolSU\Support\Settings\Definition;
 class SettingRegistrar
 {
 
-    /*
-     * registerGlobalSetting
-     * registerUserSetting
-     * category(
-     * group(
+    /**
+     * @var SettingStore
      */
+    private SettingStore $settingStore;
 
-    private array $settings = [];
+    public function __construct(SettingStore $settingStore)
+    {
+        $this->settingStore = $settingStore;
+    }
 
     private ?Category $useCategory;
     private ?Group $useGroup;
 
     public function registerGlobalSetting(GlobalSetting $setting, Group $group = null, Category $category = null)
     {
-        if($category === null)
-        if(!array_key_exists($category, $this->settings)) {
-            $this->settings[$category] = [];
+        if($category === null && $this->useCategory !== null) {
+            $category = $this->useCategory;
         }
-        if(!array_key_exists($group, $this->settings[$category])) {
-            $this->settings[$category][$group] = [];
+        if($group === null && $this->useGroup !== null) {
+            $group = $this->useGroup;
         }
-        if(!in_array($setting, $this->settings[$category][$group])) {
-            $this->settings[$category][$group][] = $setting;
+        $this->settingStore->addGlobalSetting($setting, $group, $category);
+    }
+
+    public function registerUserSetting(UserSetting $setting, Group $group = null, Category $category = null)
+    {
+        if($category === null && $this->useCategory !== null) {
+            $category = $this->useCategory;
         }
+        if($group === null && $this->useGroup !== null) {
+            $group = $this->useGroup;
+        }
+        $this->settingStore->addUserSetting($setting, $group, $category);
     }
 
     public function category(Category $category, \Closure $callback)

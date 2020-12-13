@@ -35,7 +35,7 @@ class SettingStore
         self::USER_SETTING_KEY => []
     ];
 
-    private function addSetting(string $type, GlobalSetting $setting, Group $group, Category $category)
+    private function addSetting(string $type, $setting, Group $group, Category $category)
     {
         if(!array_key_exists($category->key(), $this->map)) {
             $this->categories[$category->key()] = $category;
@@ -58,7 +58,7 @@ class SettingStore
         $this->addSetting(self::GLOBAL_SETTING_KEY, $setting, $group, $category);
     }
 
-    public function addUserSetting(GlobalSetting $setting, Group $group, Category $category)
+    public function addUserSetting(UserSetting $setting, Group $group, Category $category)
     {
         $this->addSetting(self::USER_SETTING_KEY, $setting, $group, $category);
     }
