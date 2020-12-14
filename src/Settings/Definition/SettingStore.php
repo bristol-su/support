@@ -5,10 +5,16 @@ namespace BristolSU\Support\Settings\Definition;
 class SettingStore
 {
 
-    const GLOBAL_SETTING_KEY = 'global';
-
-    const USER_SETTING_KEY = 'user';
-
+    /**
+     * A map of the settings related to the categories and groups
+     * [
+     *  'category-key' => [
+     *     'group-key' => ['settingkey1', 'settingkey2']
+     *  ]
+     * ]
+     *
+     * @var array
+     */
     private array $map = [];
 
     /**
@@ -26,16 +32,20 @@ class SettingStore
     private array $groups = [];
 
     /**
-     * An array of global and user settings
+     * An array of settings with the key as the index
      *
-     * @var array|array[]
+     * @var Setting[]
      */
-    private array $settings = [
-        self::GLOBAL_SETTING_KEY => [],
-        self::USER_SETTING_KEY => []
-    ];
+    private array $settings = [];
 
-    private function addSetting(string $type, $setting, Group $group, Category $category)
+    /**
+     * Add a setting to the store
+     *
+     * @param Setting $setting The setting object
+     * @param Group $group The group the setting exists under
+     * @param Category $category The category the setting should sit under
+     */
+    public function addSetting(Setting $setting, Group $group, Category $category)
     {
         if(!array_key_exists($category->key(), $this->map)) {
             $this->categories[$category->key()] = $category;
@@ -48,45 +58,22 @@ class SettingStore
         }
 
         if(!array_key_exists($setting->key(), $this->map[$category->key()][$group->key()])) {
-            $this->settings[$type][$setting->key()] = $setting;
+            $this->settings[$setting->key()] = $setting;
             $this->map[$category->key()][$group->key()][] = $setting->key();
         }
     }
 
-    public function addGlobalSetting(GlobalSetting $setting, Group $group, Category $category)
-    {
-        $this->addSetting(self::GLOBAL_SETTING_KEY, $setting, $group, $category);
-    }
-
-    public function addUserSetting(UserSetting $setting, Group $group, Category $category)
-    {
-        $this->addSetting(self::USER_SETTING_KEY, $setting, $group, $category);
-    }
-
-    /*
- * getByKey
- * getAllForCategory
- * getAllForGroup
- * getAll
- * getAllUser
-     * getAllGlobal
- */
-
     /**
      * Get a setting by the setting key
      *
-     * @param string $key
-     * @return string
-     * @throws \Exception
+     * @param string $key The setting key
+     * @return Setting
+     * @throws \Exception If the setting wasn't foung
      */
-    public function getByKey(string $key): string
+    public function getSetting(string $key): Setting
     {
-        if(array_key_exists($key, $this->settings[self::GLOBAL_SETTING_KEY])) {
-            return $this->settings[self::GLOBAL_SETTING_KEY][$key];
-        }
-
-        if(array_key_exists($key, $this->settings[self::USER_SETTING_KEY])) {
-            return $this->settings[self::USER_SETTING_KEY][$key];
+        if(array_key_exists($key, $this->settings)) {
+            return $this->settings[$key];
         }
 
         throw new \Exception(
@@ -99,10 +86,14 @@ class SettingStore
      *
      * @param string $key The key of the category
      * @return Category The category requested
+     * @throws \Exception If the category wasn't foung
      */
     public function getCategory(string $key): Category
     {
-
+        if(array_key_exists($key, $this->categories)) {
+            return $this->categories[$key];
+        }
+        throw new \Exception(sprintf('Setting category %s not registered', $key));
     }
 
     /**
@@ -110,32 +101,65 @@ class SettingStore
      *
      * @param string $key The key of the group
      * @return Group The group requested
+     *
+     * @throws \Exception If the group wasn't foung
      */
     public function getGroup(string $key): Group
     {
-
+        if(array_key_exists($key, $this->groups)) {
+            return $this->groups[$key];
+        }
+        throw new \Exception(sprintf('Setting group %s not registered', $key));
     }
 
     /**
-     * Get all global settings in the given group
+     * Get all global settings in the given group and category
      *
+     * @param Category $category
      * @param Group $group
-     * @return GlobalSetting[]
+     * @return GlobalSetting[] The global settings in the category and group
+     * @throws \Exception If a setting key wasn't found
      */
-    public function getGlobalSettingsInGroup(Group $group): array
+    public function getGlobalSettingsInGroup(Category $category, Group $group): array
     {
-
+        return array_filter(
+            $this->getAllSettingsInGroup($category, $group),
+            fn(Setting $setting): bool => $setting instanceof GlobalSetting
+        );
     }
 
     /**
      * Get all user settings in the given group
      *
+     * @param Category $category
      * @param Group $group
      * @return UserSetting[]
+     * @throws \Exception If a setting key wasn't found
      */
-    public function getUserSettingsInGroup(Group $group): array
+    public function getUserSettingsInGroup(Category $category, Group $group): array
     {
+        return array_filter(
+            $this->getAllSettingsInGroup($category, $group),
+            fn(Setting $setting): bool => $setting instanceof UserSetting
+        );
+    }
 
+    /**
+     * Get all settings for the given group
+     *
+     * @param Category $category
+     * @param Group $group
+     * @return Setting[]
+     * @throws \Exception If a setting key wasn't found
+     */
+    public function getAllSettingsInGroup(Category $category, Group $group): array
+    {
+        if(
+            array_key_exists($category->key(), $this->map) &&
+            array_key_exists($group->key(), $this->map[$category->key()])) {
+            return array_map(fn ($settingKey): Setting  => $this->getByKey($settingKey), $this->map[$category->key()][$group->key()]);
+        }
+        return [];
     }
 
     /**
@@ -143,10 +167,14 @@ class SettingStore
      *
      * @param Category $category
      * @return Group[]
+     * @throws \Exception If a group key could not be found
      */
-    public function getAllGroupsInCategory(Category $category)
+    public function getAllGroupsInCategory(Category $category): array
     {
-
+        if(array_key_exists($category->key(), $this->map)) {
+            return array_map(fn ($groupKey): Group => $this->getGroup($groupKey), array_keys($this->map[$category->key()]));
+        }
+        return [];
     }
 
     /**
@@ -156,7 +184,7 @@ class SettingStore
      */
     public function getCategories(): array
     {
-        return $this->settings;
+        return array_values($this->categories);
     }
 
 }

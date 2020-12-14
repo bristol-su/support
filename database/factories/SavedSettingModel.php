@@ -23,6 +23,7 @@ $factory->define(SavedSettingModel::class, function (Faker $faker) {
         'value' => $faker->word,
         'user_id' => function () {
             return factory(User::class)->create()->id();
-        }
+        },
+        'visibility' => 'global'
     ];
 });

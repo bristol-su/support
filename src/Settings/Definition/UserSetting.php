@@ -2,39 +2,27 @@
 
 namespace BristolSU\Support\Settings\Definition;
 
-use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\Support\Settings\Saved\SavedSettingRepository;
-use FormSchema\Schema\Field;
-use Illuminate\Contracts\Validation\Validator;
+use BristolSU\Support\Settings\SettingRepository;
 
-abstract class UserSetting
+abstract class UserSetting implements Setting
 {
 
-    abstract public function key(): string;
-
-    abstract public function defaultValue();
-
-    abstract public function fieldOptions(): Field;
-
-    abstract public function validator($value): Validator;
-
     /**
-     * Get the value for the given user, or the current user if none given
+     * Get the value for the given user, or the current user if no user given
      *
      * @param int|null $userId The ID of the user to check, or null to use the current user
      * @return mixed
      */
     public function getValue(int $userId = null)
     {
-        if($userId === null && app(Authentication::class)->hasUser()) {
-            $userId = app(Authentication::class)->getUser()->id();
-        }
+        return app(SettingRepository::class)
+            ->getUserValue($this->key(), $userId);
+    }
 
-        $store = app(SavedSettingRepository::class);
-        if($store->has(static::key())) {
-            return $store->get(static::key());
-        }
-        return static::defaultValue();
+    public static function getKey(): string
+    {
+        $instance = resolve(static::class);
+        return $instance->key();
     }
 
 }

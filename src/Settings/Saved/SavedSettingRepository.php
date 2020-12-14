@@ -10,36 +10,36 @@ interface SavedSettingRepository
     /**
      * Check if a global setting has been saved with the given key
      *
-     * @param $key
+     * @param string $key
      * @return bool
      */
-    public function hasGlobal($key): bool;
+    public function hasGlobal(string $key): bool;
 
     /**
      * Get the specified setting value.
      *
-     * @param array|string $key Key of the setting
+     * @param string $key Key of the setting
      * @return mixed Value of the setting, or the default value
      * @throws ModelNotFoundException
      */
-    public function getGlobalValue($key);
+    public function getGlobalValue(string $key);
 
     /**
      * Check if a user setting has been saved with the given key
      *
-     * @param $key
+     * @param string $key
      * @return bool
      */
-    public function hasUser($key): bool;
+    public function hasUser(string $key, int $userId): bool;
 
     /**
      * Get the specified setting value.
      *
-     * @param array|string $key Key of the setting
+     * @param string $key Key of the setting
      * @return mixed Value of the setting, or the default value
      * @throws ModelNotFoundException
      */
-    public function getUserValue($key);
+    public function getUserValue(string $key, int $userId);
 
     /**
      * Set a setting value for a user
@@ -65,4 +65,36 @@ interface SavedSettingRepository
      * @param mixed $value The value of the setting
      */
     public function setGlobal(string $key, $value);
+
+    /**
+     * See if a user setting has a value for all users
+     *
+     * These are for user settings that don't belong to any particular user, and can be thought of as the default value
+     * for that setting.
+     *
+     * @param string $key
+     * @return bool
+     */
+    public function hasUserDefault(string $key): bool;
+
+    /**
+     * Get the value of a setting set for all users.
+     *
+     * These are for user settings that don't belong to any particular user, and can be thought of as the default value
+     * for that setting.
+     *
+     * @param string $key
+     * @return mixed
+     */
+    public function getUserDefault(string $key);
+
+    /**
+     * Get the value of a setting set for all users.
+     *
+     * These are for user settings that don't belong to any particular user, and can be thought of as the default value
+     * for that setting.
+     *
+     * @return array Index as the setting key, value as the value
+     */
+    public function getAllUserDefaults(): array;
 }

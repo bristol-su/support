@@ -2,19 +2,51 @@
 
 namespace BristolSU\Support\Control\Settings\Attributes;
 
-use BristolSU\Support\Settings\Definition\Definition;
+use BristolSU\Support\Settings\Definition\GlobalSetting;
+use FormSchema\Schema\Field;
+use Illuminate\Contracts\Validation\Validator;
 
-class AdditionalAttributesPosition extends Definition
+class AdditionalAttributesPosition extends GlobalSetting
 {
 
-    public static function key(): string
+    /**
+     * The key for the setting
+     *
+     * @return string
+     */
+    public function key(): string
     {
-        return 'Control.AdditionalAttribute.Position';
+        return 'control.data-fields.position';
     }
 
-    public static function defaultValue()
+    /**
+     * The default value of the setting
+     *
+     * @return mixed
+     */
+    public function defaultValue()
     {
         return [];
     }
 
+    /**
+     * The field schema to show the user when editing the value
+     *
+     * @return Field
+     */
+    public function fieldOptions(): Field
+    {
+        // TODO Fill in field options
+    }
+
+    /**
+     * A validator to validate any new values
+     *
+     * @param mixed $value The new value
+     * @return Validator
+     */
+    public function validator($value): Validator
+    {
+        // TODO: Implement validator() method.
+    }
 }

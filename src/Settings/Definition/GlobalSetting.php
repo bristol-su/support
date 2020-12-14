@@ -2,20 +2,10 @@
 
 namespace BristolSU\Support\Settings\Definition;
 
-use BristolSU\Support\Settings\Saved\SavedSettingRepository;
-use FormSchema\Schema\Field;
-use Illuminate\Contracts\Validation\Validator;
+use BristolSU\Support\Settings\SettingRepository;
 
-abstract class GlobalSetting
+abstract class GlobalSetting implements Setting
 {
-
-    abstract public function key(): string;
-
-    abstract public function defaultValue();
-
-    abstract public function fieldOptions(): Field;
-
-    abstract public function validator($value): Validator;
 
     /**
      * Get the value of the setting
@@ -24,11 +14,14 @@ abstract class GlobalSetting
      */
     public function getValue()
     {
-        $store = app(SavedSettingRepository::class);
-        if($store->has(static::key())) {
-            return $store->get(static::key());
-        }
-        return static::defaultValue();
+        return app(SettingRepository::class)
+            ->getGlobalValue($this->key());
+    }
+
+    public static function getKey(): string
+    {
+        $instance = resolve(static::class);
+        return $instance->key();
     }
 
 }
