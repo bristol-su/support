@@ -34,7 +34,7 @@ class DatabaseSavedSettingRepository implements SavedSettingRepository
      * Check if a user setting has been saved with the given key
      *
      * @param string $key
-     * @param int|null $userId
+     * @param int $userId
      * @return bool
      */
     public function hasUser(string $key, int $userId): bool
