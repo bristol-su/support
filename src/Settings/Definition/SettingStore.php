@@ -93,7 +93,7 @@ class SettingStore
         if(array_key_exists($key, $this->categories)) {
             return $this->categories[$key];
         }
-        throw new \Exception(sprintf('Setting category %s not registered', $key));
+        throw new \Exception(sprintf('Setting category [%s] not registered', $key));
     }
 
     /**
@@ -109,7 +109,7 @@ class SettingStore
         if(array_key_exists($key, $this->groups)) {
             return $this->groups[$key];
         }
-        throw new \Exception(sprintf('Setting group %s not registered', $key));
+        throw new \Exception(sprintf('Setting group [%s] not registered', $key));
     }
 
     /**
@@ -122,10 +122,10 @@ class SettingStore
      */
     public function getGlobalSettingsInGroup(Category $category, Group $group): array
     {
-        return array_filter(
+        return array_values(array_filter(
             $this->getAllSettingsInGroup($category, $group),
             fn(Setting $setting): bool => $setting instanceof GlobalSetting
-        );
+        ));
     }
 
     /**
@@ -138,10 +138,10 @@ class SettingStore
      */
     public function getUserSettingsInGroup(Category $category, Group $group): array
     {
-        return array_filter(
+        return array_values(array_filter(
             $this->getAllSettingsInGroup($category, $group),
             fn(Setting $setting): bool => $setting instanceof UserSetting
-        );
+        ));
     }
 
     /**
@@ -157,7 +157,7 @@ class SettingStore
         if(
             array_key_exists($category->key(), $this->map) &&
             array_key_exists($group->key(), $this->map[$category->key()])) {
-            return array_map(fn ($settingKey): Setting  => $this->getByKey($settingKey), $this->map[$category->key()][$group->key()]);
+            return array_map(fn ($settingKey): Setting  => $this->getSetting($settingKey), $this->map[$category->key()][$group->key()]);
         }
         return [];
     }

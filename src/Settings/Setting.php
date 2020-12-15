@@ -110,4 +110,5 @@ class Setting implements SettingRepository
     {
         return $this->settingStore->getSetting($key)->defaultValue();
     }
+
 }

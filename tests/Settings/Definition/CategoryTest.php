@@ -1,30 +1,30 @@
 <?php
 
-namespace BristolSU\Support\Tests\Settings;
+
+namespace BristolSU\Support\Tests\Settings\Definition;
+
 
 use BristolSU\Support\Settings\Definition\Category;
 use BristolSU\Support\Settings\Definition\GlobalSetting;
 use BristolSU\Support\Settings\Definition\Group;
 use BristolSU\Support\Settings\Definition\SettingStore;
 use BristolSU\Support\Settings\Definition\UserSetting;
-use BristolSU\Support\Settings\Saved\SavedSettingRepository;
-use BristolSU\Support\Settings\Setting;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Schema\Field;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 
-class SettingTest extends TestCase
+class CategoryTest extends TestCase
 {
+
 
     public function newSettingCategory(string $key, $name = 'CategoryName', $description = 'CategoryDescription')
     {
-        return new SettingTestDummyCategory($key, $name, $description);
+        return new CategoryTestDummyCategory($key, $name, $description);
     }
 
     public function newSettingGroup(string $key, $name = 'GroupName', $description = 'GroupDescription')
     {
-        return new SettingTestDummyGroup($key, $name, $description);
+        return new CategoryTestDummyGroup($key, $name, $description);
     }
 
     public function newGlobalSetting(string $key, $defaultValue = 'DefaultValue', Field $field = null, Validator $validator = null)
@@ -35,7 +35,7 @@ class SettingTest extends TestCase
         if($validator === null) {
             $validator = $this->prophesize(Validator::class)->reveal();
         }
-        return new SettingTestDummyGlobalSetting($key, $defaultValue, $field, $validator);
+        return new CategoryTestDummyGlobalSetting($key, $defaultValue, $field, $validator);
     }
 
     public function newUserSetting(string $key, $defaultValue = 'DefaultValue', Field $field = null, Validator $validator = null)
@@ -46,117 +46,91 @@ class SettingTest extends TestCase
         if($validator === null) {
             $validator = $this->prophesize(Validator::class)->reveal();
         }
-        return new SettingTestDummyUserSetting($key, $defaultValue, $field, $validator);
+        return new CategoryTestDummyUserSetting($key, $defaultValue, $field, $validator);
     }
 
     /** @test */
-    public function getUserValue_returns_the_user_value(){
-        $settingStore = $this->prophesize(SettingStore::class);
-        $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
-        $savedSettingRepository->getUserValue('setting_key', 44)->shouldBeCalled()->willReturn('global_value');
-
-        $class = new Setting($settingStore->reveal(), $savedSettingRepository->reveal());
-        $this->assertEquals('global_value', $class->getUserValue('setting_key', 44));
+    public function icon_returns_null(){
+        $category = $this->newSettingCategory('ck');
+        $this->assertNull($category->icon());
     }
 
     /** @test */
-    public function getUserValue_uses_the_authenticated_user_if_user_id_is_null(){
-        $user = $this->newUser();
-        $this->beUser($user);
+    public function groups_returns_the_groups_in_the_category(){
+        $category = $this->newSettingCategory('ck');
+        $group1 = $this->newSettingGroup('g1');
+        $group2 = $this->newSettingGroup('g2');
+        $group3 = $this->newSettingGroup('g3');
+        $group4 = $this->newSettingGroup('g4');
 
         $settingStore = $this->prophesize(SettingStore::class);
-        $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
-        $savedSettingRepository->getUserValue('setting_key', $user->id())->shouldBeCalled()->willReturn('global_value');
+        $settingStore->getAllGroupsInCategory($category)->shouldBeCalled()->willReturn([
+            $group1, $group2, $group3, $group4
+        ]);
+        $this->instance(SettingStore::class, $settingStore->reveal());
 
-        $class = new Setting($settingStore->reveal(), $savedSettingRepository->reveal());
-        $this->assertEquals('global_value', $class->getUserValue('setting_key'));
+        $this->assertEquals(
+            [$group1, $group2, $group3, $group4],
+            $category->groups()
+        );
     }
 
     /** @test */
-    public function getUserValue_returns_the_default_value_if_no_user_id_is_given_and_no_user_is_logged_in(){
-        $setting = $this->newUserSetting('setting_key', 'Default Value - Test');
+    public function groupWithUserSettings_returns_groups_that_have_user_settings(){
+        $category = $this->newSettingCategory('ck');
+        $group1 = $this->prophesize(Group::class);
+        $group1->hasUserSettings($category)->willReturn(false);
+
+        $group2 = $this->prophesize(Group::class);
+        $group2->hasUserSettings($category)->willReturn(true);
+
+        $group3 = $this->prophesize(Group::class);
+        $group3->hasUserSettings($category)->willReturn(true);
+
+        $group4 = $this->prophesize(Group::class);
+        $group4->hasUserSettings($category)->willReturn(false);
 
         $settingStore = $this->prophesize(SettingStore::class);
-        $settingStore->getSetting('setting_key')->willReturn($setting);
-
-        $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
-
-        $class = new Setting($settingStore->reveal(), $savedSettingRepository->reveal());
-        $this->assertEquals('Default Value - Test', $class->getUserValue('setting_key'));
+        $settingStore->getAllGroupsInCategory($category)->shouldBeCalled()->willReturn([
+            $group1->reveal(), $group2->reveal(), $group3->reveal(), $group4->reveal()
+        ]);
+        $this->instance(SettingStore::class, $settingStore->reveal());
+        $this->assertEquals(
+            [$group2->reveal(), $group3->reveal()],
+            $category->groupsWithUserSettings()
+        );
     }
 
     /** @test */
-    public function getUserValue_returns_the_default_value_if_the_saved_settings_repository_throws_an_exception(){
-        $setting = $this->newUserSetting('setting_key', 'Default Value - Test');
+    public function groupsWithGlobalSettings_returns_groups_that_have_global_settings(){
+        $category = $this->newSettingCategory('ck');
+        $group1 = $this->prophesize(Group::class);
+        $group1->hasGlobalSettings($category)->willReturn(false);
+
+        $group2 = $this->prophesize(Group::class);
+        $group2->hasGlobalSettings($category)->willReturn(true);
+
+        $group3 = $this->prophesize(Group::class);
+        $group3->hasGlobalSettings($category)->willReturn(true);
+
+        $group4 = $this->prophesize(Group::class);
+        $group4->hasGlobalSettings($category)->willReturn(false);
 
         $settingStore = $this->prophesize(SettingStore::class);
-        $settingStore->getSetting('setting_key')->willReturn($setting);
-
-        $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
-        $savedSettingRepository->getUserValue('setting_key', 3)->shouldBeCalled()->willThrow(new ModelNotFoundException());
-
-        $class = new Setting($settingStore->reveal(), $savedSettingRepository->reveal());
-        $this->assertEquals('Default Value - Test', $class->getUserValue('setting_key', 3));
+        $settingStore->getAllGroupsInCategory($category)->shouldBeCalled()->willReturn([
+            $group1->reveal(), $group2->reveal(), $group3->reveal(), $group4->reveal()
+        ]);
+        $this->instance(SettingStore::class, $settingStore->reveal());
+        $this->assertEquals(
+            [$group2->reveal(), $group3->reveal()],
+            $category->groupsWithGlobalSettings()
+        );
     }
-
-    /** @test */
-    public function getGlobalValue_gets_the_global_value_for_a_setting(){
-        $settingStore = $this->prophesize(SettingStore::class);
-        $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
-        $savedSettingRepository->getGlobalValue('setting_key')->shouldBeCalled()->willReturn('global_value');
-
-        $class = new Setting($settingStore->reveal(), $savedSettingRepository->reveal());
-        $this->assertEquals('global_value', $class->getGlobalValue('setting_key'));
-    }
-
-    /** @test */
-    public function getGlobalValue_returns_the_default_value_if_the_saved_settings_repository_throws_an_exception(){
-        $setting = $this->newGlobalSetting('setting_key', 'Default Value - Test');
-
-        $settingStore = $this->prophesize(SettingStore::class);
-        $settingStore->getSetting('setting_key')->willReturn($setting);
-
-        $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
-        $savedSettingRepository->getGlobalValue('setting_key')->shouldBeCalled()->willThrow(new ModelNotFoundException());
-
-        $class = new Setting($settingStore->reveal(), $savedSettingRepository->reveal());
-        $this->assertEquals('Default Value - Test', $class->getGlobalValue('setting_key'));
-    }
-
-    /** @test */
-    public function setForUser_sets_the_setting_for_a_user(){
-        $settingStore = $this->prophesize(SettingStore::class);
-        $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
-        $savedSettingRepository->setForUser('setting_key', 'setting_value', 4)->shouldBeCalled();
-
-        $class = new Setting($settingStore->reveal(), $savedSettingRepository->reveal());
-        $class->setForUser('setting_key', 'setting_value', 4);
-    }
-
-    /** @test */
-    public function setForAllUsers_sets_a_default_user_setting(){
-        $settingStore = $this->prophesize(SettingStore::class);
-        $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
-        $savedSettingRepository->setForAllUsers('setting_key', 'setting_value')->shouldBeCalled();
-
-        $class = new Setting($settingStore->reveal(), $savedSettingRepository->reveal());
-        $class->setForAllUsers('setting_key', 'setting_value');
-    }
-
-    /** @test */
-    public function setGlobal_sets_a_global_setting_value(){
-        $settingStore = $this->prophesize(SettingStore::class);
-        $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
-        $savedSettingRepository->setGlobal('setting_key', 'setting_value')->shouldBeCalled();
-
-        $class = new Setting($settingStore->reveal(), $savedSettingRepository->reveal());
-        $class->setGlobal('setting_key', 'setting_value');
-    }
-
 
 }
 
-class SettingTestDummyCategory extends Category
+
+class CategoryTestDummyCategory extends Category
 {
 
     public string $key;
@@ -201,7 +175,7 @@ class SettingTestDummyCategory extends Category
     }
 }
 
-class SettingTestDummyGroup extends Group
+class CategoryTestDummyGroup extends Group
 {
 
     public string $key;
@@ -246,7 +220,7 @@ class SettingTestDummyGroup extends Group
     }
 }
 
-class SettingTestDummyUserSetting extends UserSetting
+class CategoryTestDummyUserSetting extends UserSetting
 {
 
     public string $key;
@@ -322,7 +296,7 @@ class SettingTestDummyUserSetting extends UserSetting
     }
 }
 
-class SettingTestDummyGlobalSetting extends GlobalSetting
+class CategoryTestDummyGlobalSetting extends GlobalSetting
 {
 
     public string $key;
@@ -397,4 +371,3 @@ class SettingTestDummyGlobalSetting extends GlobalSetting
         return [];
     }
 }
-

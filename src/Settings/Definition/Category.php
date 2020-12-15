@@ -53,7 +53,7 @@ abstract class Category
      */
     public function groupsWithUserSettings(): array
     {
-        return array_filter($this->groups(), fn (Group $group): bool => $group->hasUserSettings($this));
+        return array_values(array_filter($this->groups(), fn (Group $group): bool => $group->hasUserSettings($this)));
     }
 
     /**
@@ -63,7 +63,7 @@ abstract class Category
      */
     public function groupsWithGlobalSettings(): array
     {
-        return array_filter($this->groups(), fn (Group $group): bool => $group->hasGlobalSettings($this));
+        return array_values(array_filter($this->groups(), fn (Group $group): bool => $group->hasGlobalSettings($this)));
     }
 
 }

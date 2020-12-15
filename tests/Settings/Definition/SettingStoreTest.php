@@ -37,7 +37,7 @@ class SettingStoreTest extends TestCase
         return new SettingStoreTestDummyGlobalSetting($key, $defaultValue, $field, $validator);
     }
 
-    public function newUserSetting(string $key, $defaultValue, Field $field = null, Validator $validator = null)
+    public function newUserSetting(string $key, $defaultValue = 'DefaultValue', Field $field = null, Validator $validator = null)
     {
         if($field === null) {
             $field = $this->prophesize(Field::class)->reveal();
@@ -71,49 +71,240 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function a_group_can_be_registered_and_retrieved(){
+    public function a_setting_can_be_registered_twice_and_retrieved(){
+        $category = $this->newSettingCategory('cat_key');
+        $category2 = $this->newSettingCategory('cat2_key');
+        $group = $this->newSettingGroup('group_key');
+        $group2 = $this->newSettingGroup('group2_key');
+        $setting = $this->newGlobalSetting('setting_key');
 
+        $store = new SettingStore();
+        $store->addSetting($setting, $group, $category);
+        $store->addSetting($setting, $group2, $category2);
+
+        $this->assertSame($setting, $store->getSetting('setting_key'));
+    }
+
+
+    /** @test */
+    public function a_group_can_be_registered_and_retrieved(){
+        $category = $this->newSettingCategory('cat_key');
+        $group = $this->newSettingGroup('group_key');
+        $setting = $this->newGlobalSetting('setting_key');
+
+        $store = new SettingStore();
+        $store->addSetting($setting, $group, $category);
+
+        $this->assertSame($group, $store->getGroup('group_key'));
+    }
+
+    /** @test */
+    public function a_group_can_be_registered_twice_and_retrieved(){
+        $category = $this->newSettingCategory('cat_key');
+        $category2 = $this->newSettingCategory('cat2_key');
+        $group = $this->newSettingGroup('group_key');
+        $setting = $this->newGlobalSetting('setting_key');
+        $setting2 = $this->newGlobalSetting('setting2_key');
+
+        $store = new SettingStore();
+        $store->addSetting($setting, $group, $category);
+        $store->addSetting($setting2, $group, $category2);
+
+        $this->assertSame($group, $store->getGroup('group_key'));
     }
 
     /** @test */
     public function getGroup_throws_an_exception_if_the_group_is_not_registered(){
+        $this->expectException(\Exception::class);
+        $this->expectDeprecationMessage('Setting group [group_key] not registered');
 
+        $store = new SettingStore();
+
+        $store->getGroup('group_key');
     }
 
     /** @test */
     public function a_category_can_be_registered_and_retrieved(){
+        $category = $this->newSettingCategory('cat_key');
+        $group = $this->newSettingGroup('group_key');
+        $setting = $this->newGlobalSetting('setting_key');
 
+        $store = new SettingStore();
+        $store->addSetting($setting, $group, $category);
+
+        $this->assertSame($category, $store->getCategory('cat_key'));
+    }
+
+    /** @test */
+    public function a_category_can_be_registered_twice_and_retrieved(){
+        $category = $this->newSettingCategory('cat_key');
+        $group = $this->newSettingGroup('group_key');
+        $group2 = $this->newSettingGroup('group2_key');
+        $setting = $this->newGlobalSetting('setting_key');
+        $setting2 = $this->newGlobalSetting('setting2_key');
+
+        $store = new SettingStore();
+        $store->addSetting($setting, $group, $category);
+        $store->addSetting($setting2, $group2, $category);
+
+        $this->assertSame($category, $store->getCategory('cat_key'));
     }
 
     /** @test */
     public function getCategory_throws_an_exception_if_the_category_is_not_registered(){
+        $this->expectException(\Exception::class);
+        $this->expectDeprecationMessage('Setting category [category_key] not registered');
 
+        $store = new SettingStore();
+
+        $store->getCategory('category_key');
     }
 
     /** @test */
     public function getGlobalSettingsInGroup_gets_all_global_setting_in_the_given_group_and_category(){
+        $category = $this->newSettingCategory('cat_key');
+        $group = $this->newSettingGroup('group_key');
+        $setting = $this->newUserSetting('setting_key');
+        $setting2 = $this->newGlobalSetting('setting2_key');
+        $setting3 = $this->newUserSetting('setting3_key');
+        $setting4 = $this->newGlobalSetting('setting4_key');
 
+        $store = new SettingStore();
+        $store->addSetting($setting, $group, $category);
+        $store->addSetting($setting2, $group, $category);
+        $store->addSetting($setting3, $group, $category);
+        $store->addSetting($setting4, $group, $category);
+
+        $settings = $store->getGlobalSettingsInGroup($category, $group);
+        $this->assertCount(2, $settings);
+        $this->assertEquals([
+            $setting2, $setting4
+        ], $settings);
     }
 
     /** @test */
     public function getUserSettingsInGroup_gets_all_user_setting_in_the_given_group_and_category(){
+        $category = $this->newSettingCategory('cat_key');
+        $group = $this->newSettingGroup('group_key');
+        $setting = $this->newUserSetting('setting_key');
+        $setting2 = $this->newGlobalSetting('setting2_key');
+        $setting3 = $this->newUserSetting('setting3_key');
+        $setting4 = $this->newGlobalSetting('setting4_key');
 
+        $store = new SettingStore();
+        $store->addSetting($setting, $group, $category);
+        $store->addSetting($setting2, $group, $category);
+        $store->addSetting($setting3, $group, $category);
+        $store->addSetting($setting4, $group, $category);
+
+        $settings = $store->getUserSettingsInGroup($category, $group);
+        $this->assertCount(2, $settings);
+        $this->assertEquals([
+            $setting, $setting3
+        ], $settings);
     }
 
     /** @test */
     public function getAllSettingsInGroup_gets_all_the_settings_in_the_given_group_and_category(){
+        $category = $this->newSettingCategory('cat_key');
+        $group = $this->newSettingGroup('group_key');
+        $setting = $this->newUserSetting('setting_key');
+        $setting2 = $this->newGlobalSetting('setting2_key');
+        $setting3 = $this->newUserSetting('setting3_key');
+        $setting4 = $this->newGlobalSetting('setting4_key');
 
+        $store = new SettingStore();
+        $store->addSetting($setting, $group, $category);
+        $store->addSetting($setting2, $group, $category);
+        $store->addSetting($setting3, $group, $category);
+        $store->addSetting($setting4, $group, $category);
+
+        $settings = $store->getAllSettingsInGroup($category, $group);
+        $this->assertCount(4, $settings);
+        $this->assertEquals([
+            $setting, $setting2, $setting3, $setting4
+        ], $settings);
     }
 
     /** @test */
     public function getAllGroupsInCategory_gets_all_the_groups_in_the_given_category(){
+        $category = $this->newSettingCategory('cat_key');
+        $group = $this->newSettingGroup('group_key');
+        $group2 = $this->newSettingGroup('group2_key');
+        $group3 = $this->newSettingGroup('group3_key');
+        $setting = $this->newUserSetting('setting_1');
 
+        $store = new SettingStore();
+        $store->addSetting($setting, $group, $category);
+        $store->addSetting($setting, $group2, $category);
+        $store->addSetting($setting, $group3, $category);
+
+        $groups = $store->getAllGroupsInCategory($category);
+        $this->assertCount(3, $groups);
+        $this->assertEquals([
+            $group, $group2, $group3
+        ], $groups);
     }
 
     /** @test */
     public function getCategories_gets_all_categories(){
+        $category = $this->newSettingCategory('cat_key');
+        $category2 = $this->newSettingCategory('cat2_key');
+        $category3 = $this->newSettingCategory('cat3_key');
+        $group = $this->newSettingGroup('group_key');
+        $setting = $this->newUserSetting('setting_1');
 
+        $store = new SettingStore();
+        $store->addSetting($setting, $group, $category);
+        $store->addSetting($setting, $group, $category2);
+        $store->addSetting($setting, $group, $category3);
+
+        $categories = $store->getCategories();
+        $this->assertCount(3, $categories);
+        $this->assertEquals([
+            $category, $category2, $category3
+        ], $categories);
     }
+
+    /** @test */
+    public function getAllSettingsInGroup_returns_an_empty_array_if_category_not_registered(){
+        $category = $this->newSettingCategory('cat_key');
+        $category2 = $this->newSettingCategory('cat2_key');
+        $group = $this->newSettingGroup('group_key');
+        $setting = $this->newUserSetting('setting_key');
+
+        $store = new SettingStore();
+        $store->addSetting($setting, $group, $category);
+
+        $this->assertEquals([], $store->getAllSettingsInGroup($category2, $group));
+    }
+
+    /** @test */
+    public function getAllSettingsInGroup_returns_an_empty_array_if_group_not_registered(){
+        $category = $this->newSettingCategory('cat_key');
+        $group = $this->newSettingGroup('group_key');
+        $group2 = $this->newSettingGroup('group2_key');
+        $setting = $this->newUserSetting('setting_key');
+
+        $store = new SettingStore();
+        $store->addSetting($setting, $group, $category);
+
+        $this->assertEquals([], $store->getAllSettingsInGroup($category, $group2));
+    }
+
+    /** @test */
+    public function getAllGroupsInCategory_returns_an_empty_array_if_category_not_registered(){
+        $category = $this->newSettingCategory('cat_key');
+        $category2 = $this->newSettingCategory('cat2_key');
+        $group = $this->newSettingGroup('group_key');
+        $setting = $this->newUserSetting('setting_key');
+
+        $store = new SettingStore();
+        $store->addSetting($setting, $group, $category);
+
+        $this->assertEquals([], $store->getAllGroupsInCategory($category2));
+    }
+
 }
 
 class SettingStoreTestDummyCategory extends Category
@@ -268,6 +459,18 @@ class SettingStoreTestDummyUserSetting extends UserSetting
     {
         return $this->validator;
     }
+
+    /**
+     * Return the validation rules for the setting.
+     *
+     * The key to use for the rules is data. You may also override the validator method to customise the validator further
+     *
+     * @return array
+     */
+    public function rules(): array
+    {
+        return [];
+    }
 }
 
 class SettingStoreTestDummyGlobalSetting extends GlobalSetting
@@ -331,5 +534,17 @@ class SettingStoreTestDummyGlobalSetting extends GlobalSetting
     public function validator($value): Validator
     {
         return $this->validator;
+    }
+
+    /**
+     * Return the validation rules for the setting.
+     *
+     * The key to use for the rules is data. You may also override the validator method to customise the validator further
+     *
+     * @return array
+     */
+    public function rules(): array
+    {
+        return [];
     }
 }

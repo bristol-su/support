@@ -40,7 +40,6 @@ class HttpServiceProvider extends ServiceProvider
         View::composer(['bristolsu::base'], InjectValidationErrors::class);
         View::composer(['bristolsu::base'], InjectOldInput::class);
         View::composer(['bristolsu::base'], InjectNamedRoutes::class);
-        View::composer(['bristolsu::base'], InjectSiteSettings::class);
     }
 
 }

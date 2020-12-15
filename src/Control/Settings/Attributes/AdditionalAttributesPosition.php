@@ -5,6 +5,7 @@ namespace BristolSU\Support\Control\Settings\Attributes;
 use BristolSU\Support\Settings\Definition\GlobalSetting;
 use FormSchema\Schema\Field;
 use Illuminate\Contracts\Validation\Validator;
+use Illuminate\Support\Facades\Hash;
 
 class AdditionalAttributesPosition extends GlobalSetting
 {
@@ -33,20 +34,24 @@ class AdditionalAttributesPosition extends GlobalSetting
      * The field schema to show the user when editing the value
      *
      * @return Field
+     * @throws \Exception
      */
     public function fieldOptions(): Field
     {
-        // TODO Fill in field options
+        return \FormSchema\Generator\Field::input($this->inputName())->inputType('text')->getSchema();
     }
 
     /**
-     * A validator to validate any new values
+     * Return the validation rules for the setting.
      *
-     * @param mixed $value The new value
-     * @return Validator
+     * The key to use for the rules is data. You may also override the validator method to customise the validator further
+     *
+     * @return array
      */
-    public function validator($value): Validator
+    public function rules(): array
     {
-        // TODO: Implement validator() method.
+        return [
+            $this->inputName() => 'optional'
+        ];
     }
 }

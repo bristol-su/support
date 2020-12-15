@@ -22,34 +22,34 @@ class ControlServiceProvider extends ServiceProvider
 
     public function boot(SettingRepository $settingRepository)
     {
-        $this->registerSettings()
-            ->category(new ControlCategory())
-            ->group(new AttributeGroup())
-            ->registerSetting(new AdditionalAttributesUser())
-            ->registerSetting(new AdditionalAttributesGroup())
-            ->registerSetting(new AdditionalAttributesRole())
-            ->registerSetting(new AdditionalAttributesPosition());
-
-        try {
-            foreach($settingRepository->getGlobalValue(AdditionalAttributesUser::getKey()) as $attribute) {
-                (app(DataUser::class))::addProperty($attribute['key']);
-            }
-
-            foreach($settingRepository->get('control.data-fields.Group') as $attribute) {
-                (app(DataGroup::class))::addProperty($attribute['key']);
-            }
-
-            foreach($settingRepository->get('control.data-fields.Role') as $attribute) {
-                (app(DataRole::class))::addProperty($attribute['key']);
-            }
-
-            foreach($settingRepository->get('control.data-fields.Position') as $attribute) {
-                (app(DataPosition::class))::addProperty($attribute['key']);
-            }
-
-        } catch (\Exception $e) {
+//        $this->registerSettings()
+//            ->category(new ControlCategory())
+//            ->group(new AttributeGroup())
+//            ->registerSetting(new AdditionalAttributesUser())
+//            ->registerSetting(new AdditionalAttributesGroup())
+//            ->registerSetting(new AdditionalAttributesRole())
+//            ->registerSetting(new AdditionalAttributesPosition());
+//
+//        try {
+//            foreach($settingRepository->getGlobalValue(AdditionalAttributesUser::getKey()) as $attribute) {
+//                (app(DataUser::class))::addProperty($attribute['key']);
+//            }
+//
+//            foreach($settingRepository->get('control.data-fields.Group') as $attribute) {
+//                (app(DataGroup::class))::addProperty($attribute['key']);
+//            }
+//
+//            foreach($settingRepository->get('control.data-fields.Role') as $attribute) {
+//                (app(DataRole::class))::addProperty($attribute['key']);
+//            }
+//
+//            foreach($settingRepository->get('control.data-fields.Position') as $attribute) {
+//                (app(DataPosition::class))::addProperty($attribute['key']);
+//            }
+//
+//        } catch (\Exception $e) {
 //             TODO Handle this exception. This occurs when commands are run but the database isn't migrated so the attribute col doesn't exist
-        }
+//        }
 
     }
 

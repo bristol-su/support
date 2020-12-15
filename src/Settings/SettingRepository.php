@@ -49,5 +49,5 @@ interface SettingRepository
      * @param mixed $value The new value of the setting
      */
     public function setGlobal(string $key, $value);
-
+    
 }

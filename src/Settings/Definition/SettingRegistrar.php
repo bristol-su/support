@@ -43,14 +43,21 @@ class SettingRegistrar
      * @param Group|null $group The group to register the setting under. If null, must be used in the group() function
      * @param Category|null $category The category to register the setting under. If null, must be used in the category() function
      * @return SettingRegistrar
+     * @throws \Exception If a category or group aren't given or set globally
      */
     public function registerSetting(Setting $setting, Group $group = null, Category $category = null): self
     {
-        if($category === null && $this->useCategory !== null) {
+        if($category === null && isset($this->useCategory) && $this->useCategory !== null) {
             $category = $this->useCategory;
         }
-        if($group === null && $this->useGroup !== null) {
+        if($group === null && isset($this->useGroup) && $this->useGroup !== null) {
             $group = $this->useGroup;
+        }
+        if($category === null) {
+            throw new \Exception('Category must be given to register a setting');
+        }
+        if($group === null) {
+            throw new \Exception('Group must be given to register a setting');
         }
         $this->settingStore->addSetting($setting, $group, $category);
         return $this;
