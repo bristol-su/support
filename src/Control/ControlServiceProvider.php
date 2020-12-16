@@ -13,9 +13,7 @@ use BristolSU\Support\Control\Settings\Attributes\AdditionalAttributesUser;
 use BristolSU\Support\Control\Settings\Attributes\AttributeGroup;
 use BristolSU\Support\Control\Settings\ControlCategory;
 use BristolSU\Support\Settings\Concerns\RegistersSettings;
-use BristolSU\Support\Settings\Facade\Setting;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class ControlServiceProvider extends ServiceProvider
