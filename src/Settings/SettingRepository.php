@@ -2,9 +2,6 @@
 
 namespace BristolSU\Support\Settings;
 
-use BristolSU\Support\Authentication\Contracts\Authentication;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-
 interface SettingRepository
 {
 
@@ -49,5 +46,5 @@ interface SettingRepository
      * @param mixed $value The new value of the setting
      */
     public function setGlobal(string $key, $value);
-    
+
 }

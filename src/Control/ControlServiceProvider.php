@@ -13,43 +13,44 @@ use BristolSU\Support\Control\Settings\Attributes\AdditionalAttributesUser;
 use BristolSU\Support\Control\Settings\Attributes\AttributeGroup;
 use BristolSU\Support\Control\Settings\ControlCategory;
 use BristolSU\Support\Settings\Concerns\RegistersSettings;
-use BristolSU\Support\Settings\SettingRepository;
+use BristolSU\Support\Settings\Facade\Setting;
+use Illuminate\Database\QueryException;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
 class ControlServiceProvider extends ServiceProvider
 {
     use RegistersSettings;
 
-    public function boot(SettingRepository $settingRepository)
+    public function boot()
     {
-//        $this->registerSettings()
-//            ->category(new ControlCategory())
-//            ->group(new AttributeGroup())
-//            ->registerSetting(new AdditionalAttributesUser())
-//            ->registerSetting(new AdditionalAttributesGroup())
-//            ->registerSetting(new AdditionalAttributesRole())
-//            ->registerSetting(new AdditionalAttributesPosition());
-//
-//        try {
-//            foreach($settingRepository->getGlobalValue(AdditionalAttributesUser::getKey()) as $attribute) {
-//                (app(DataUser::class))::addProperty($attribute['key']);
-//            }
-//
-//            foreach($settingRepository->get('control.data-fields.Group') as $attribute) {
-//                (app(DataGroup::class))::addProperty($attribute['key']);
-//            }
-//
-//            foreach($settingRepository->get('control.data-fields.Role') as $attribute) {
-//                (app(DataRole::class))::addProperty($attribute['key']);
-//            }
-//
-//            foreach($settingRepository->get('control.data-fields.Position') as $attribute) {
-//                (app(DataPosition::class))::addProperty($attribute['key']);
-//            }
-//
-//        } catch (\Exception $e) {
-//             TODO Handle this exception. This occurs when commands are run but the database isn't migrated so the attribute col doesn't exist
-//        }
+        $this->registerSettings()
+            ->category(new ControlCategory())
+            ->group(new AttributeGroup())
+            ->registerSetting(new AdditionalAttributesUser())
+            ->registerSetting(new AdditionalAttributesGroup())
+            ->registerSetting(new AdditionalAttributesRole())
+            ->registerSetting(new AdditionalAttributesPosition());
+
+        try {
+            foreach(AdditionalAttributesUser::getValue() as $attribute) {
+                (app(DataUser::class))::addProperty($attribute['key']);
+            }
+
+            foreach(AdditionalAttributesGroup::getValue() as $attribute) {
+                (app(DataGroup::class))::addProperty($attribute['key']);
+            }
+
+            foreach(AdditionalAttributesRole::getValue() as $attribute) {
+                (app(DataRole::class))::addProperty($attribute['key']);
+            }
+
+            foreach(AdditionalAttributesPosition::getValue() as $attribute) {
+                (app(DataPosition::class))::addProperty($attribute['key']);
+            }
+        } catch (QueryException $e) {
+            // Additional attributes couldn't be loaded as settings table hasn't yet been migrated.
+        }
 
     }
 
