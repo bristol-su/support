@@ -8,7 +8,7 @@ use BristolSU\Support\Settings\SettingRepository;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static mixed getUserValue(string $key, int $userId)
+ * @method static mixed getUserValue(string $key, int $userId = null)
  * @method static mixed getGlobalValue(string $key)
  * @method static void setForUser(string $key, mixed $value, int $userId)
  * @method static void setForAllUsers(string $key, mixed $value)

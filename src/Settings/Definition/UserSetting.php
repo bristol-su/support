@@ -34,6 +34,56 @@ abstract class UserSetting implements Setting
     }
 
     /**
+     * Set the setting value.
+     *
+     * @param mixed $value The value to set the setting to
+     * @param int|null $userId The ID of the user to set the setting for, or null to use the current user
+     * @return void
+     */
+    public static function setValue($value, int $userId = null): void
+    {
+        $instance = resolve(static::class);
+        $instance->setSettingValue($value, $userId);
+    }
+
+    /**
+     * Set the setting value.
+     *
+     * @param mixed $value The value to set the setting to
+     * @param int|null $userId The ID of the user to set the setting for, or null to use the current user
+     * @return void
+     */
+    public function setSettingValue($value, int $userId = null): void
+    {
+        app(SettingRepository::class)
+            ->setForUser($this->key(), $value, $userId);
+    }
+
+    /**
+     * Set the setting default.
+     *
+     * @param mixed $value The value to set the setting to
+     * @return void
+     */
+    public static function setDefault($value): void
+    {
+        $instance = resolve(static::class);
+        $instance->setSettingDefault($value);
+    }
+
+    /**
+     * Set the setting default
+     *
+     * @param mixed $value The value to set the setting default to
+     * @return void
+     */
+    public function setSettingDefault($value): void
+    {
+        app(SettingRepository::class)
+            ->setForAllUsers($this->key(), $value);
+    }
+
+    /**
      * Get the key of the setting
      *
      * @return string The key

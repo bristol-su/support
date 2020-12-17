@@ -9,7 +9,6 @@ use BristolSU\Support\Settings\SettingRepository;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Schema\Field;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Facades\Hash;
 
 class GlobalSettingTest extends TestCase
 {
@@ -57,6 +56,25 @@ class GlobalSettingTest extends TestCase
     public function inputName_hashes_the_key(){
         $setting = new GlobalSettingTestDummyGlobalSetting();
         $this->assertEquals(sha1('my key'), $setting->inputName());
+    }
+
+    /** @test */
+    public function setValue_sets_the_value(){
+        $settingRepository = $this->prophesize(SettingRepository::class);
+        $settingRepository->setGlobal('my key', 'value1')->shouldBeCalled();
+        $this->instance(SettingRepository::class, $settingRepository->reveal());
+
+        GlobalSettingTestDummyGlobalSetting::setValue('value1');
+    }
+
+    /** @test */
+    public function setSettingValue_sets_the_value(){
+        $settingRepository = $this->prophesize(SettingRepository::class);
+        $settingRepository->setGlobal('my key', 'value1')->shouldBeCalled();
+        $this->instance(SettingRepository::class, $settingRepository->reveal());
+
+        $setting = new GlobalSettingTestDummyGlobalSetting();
+        $setting->setSettingValue('value1');
     }
 
 }

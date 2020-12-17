@@ -4,7 +4,6 @@ namespace BristolSU\Support\Settings\Definition;
 
 use BristolSU\Support\Settings\SettingRepository;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Facades\Hash;
 
 abstract class GlobalSetting implements Setting
 {
@@ -29,6 +28,30 @@ abstract class GlobalSetting implements Setting
     {
         $instance = resolve(static::class);
         return $instance->value();
+    }
+
+    /**
+     * Set the setting value.
+     *
+     * @param mixed $value The value to set the setting to
+     * @return void
+     */
+    public static function setValue($value): void
+    {
+        $instance = resolve(static::class);
+        $instance->setSettingValue($value);
+    }
+
+    /**
+     * Set the setting value.
+     *
+     * @param mixed $value The value to set the setting to
+     * @return void
+     */
+    public function setSettingValue($value): void
+    {
+        app(SettingRepository::class)
+            ->setGlobal($this->key(), $value);
     }
 
     /**

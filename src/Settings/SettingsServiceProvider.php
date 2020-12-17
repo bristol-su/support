@@ -15,6 +15,11 @@ class SettingsServiceProvider extends ServiceProvider
         $this->app->singleton(SettingStore::class);
         $this->app->bind(SavedSettingRepository::class, DatabaseSavedSettingRepository::class);
         $this->app->bind(SettingRepository::class, Setting::class);
+        $this->app->extend(SettingRepository::class, function($service, $app) {
+            return $app->make(SettingValidation::class, [
+                'repository' => $service
+            ]);
+        });
     }
 
 }

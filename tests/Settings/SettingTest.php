@@ -134,6 +134,32 @@ class SettingTest extends TestCase
     }
 
     /** @test */
+    public function setForUser_sets_the_setting_for_the_logged_in_user_if_no_user_id_given(){
+        $user = $this->newUser();
+        $this->beUser($user);
+
+        $settingStore = $this->prophesize(SettingStore::class);
+        $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
+        $savedSettingRepository->setForUser('setting_key', 'setting_value', $user->id())->shouldBeCalled();
+
+        $class = new Setting($settingStore->reveal(), $savedSettingRepository->reveal());
+        $class->setForUser('setting_key', 'setting_value');
+    }
+
+    /** @test */
+    public function setForUser_prioritises_the_given_user_id(){
+        $user = $this->newUser();
+        $this->beUser($user);
+
+        $settingStore = $this->prophesize(SettingStore::class);
+        $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
+        $savedSettingRepository->setForUser('setting_key', 'setting_value', $user->id() + 1)->shouldBeCalled();
+
+        $class = new Setting($settingStore->reveal(), $savedSettingRepository->reveal());
+        $class->setForUser('setting_key', 'setting_value',  $user->id() + 1);
+    }
+
+    /** @test */
     public function setForAllUsers_sets_a_default_user_setting(){
         $settingStore = $this->prophesize(SettingStore::class);
         $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);

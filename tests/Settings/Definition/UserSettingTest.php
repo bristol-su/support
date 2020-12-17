@@ -58,6 +58,44 @@ class UserSettingTest extends TestCase
         $this->assertEquals(sha1('my key'), $setting->inputName());
     }
 
+    /** @test */
+    public function setValue_sets_the_value_for_a_specific_user(){
+        $settingRepository = $this->prophesize(SettingRepository::class);
+        $settingRepository->setForUser('my key', 'value1', 2)->shouldBeCalled();
+        $this->instance(SettingRepository::class, $settingRepository->reveal());
+
+        UserSettingTestDummyUserSetting::setValue('value1', 2);
+    }
+
+    /** @test */
+    public function setSettingValue_sets_the_value_for_a_specific_user(){
+        $settingRepository = $this->prophesize(SettingRepository::class);
+        $settingRepository->setForUser('my key', 'value1', 2)->shouldBeCalled();
+        $this->instance(SettingRepository::class, $settingRepository->reveal());
+
+        $setting = new UserSettingTestDummyUserSetting();
+        $setting->setSettingValue('value1', 2);
+    }
+
+    /** @test */
+    public function setDefault_sets_the_value_for_all_users(){
+        $settingRepository = $this->prophesize(SettingRepository::class);
+        $settingRepository->setForAllUsers('my key', 'value1')->shouldBeCalled();
+        $this->instance(SettingRepository::class, $settingRepository->reveal());
+
+        UserSettingTestDummyUserSetting::setDefault('value1');
+    }
+
+    /** @test */
+    public function setSettingDefault_sets_the_value_for_all_users(){
+        $settingRepository = $this->prophesize(SettingRepository::class);
+        $settingRepository->setForAllUsers('my key', 'value1')->shouldBeCalled();
+        $this->instance(SettingRepository::class, $settingRepository->reveal());
+
+        $setting = new UserSettingTestDummyUserSetting();
+        $setting->setSettingDefault('value1');
+    }
+
 }
 
 class UserSettingTestDummyUserSetting extends UserSetting
