@@ -3,8 +3,10 @@ Toby Twigger <tobytwigger1@gmail.com>
 :description: Using settings in a module
 :keywords: settings,module settings,form schema,form,.env,environment,setting listener,config
 
+== Types of Settings
+
 It's generally better to reuse a module rather than creating a new one,
-since it leads to less code to maintain, fewer bugs and so less time
+since it leads to less code to maintain, fewer bugs and less time
 spent developing! Therefore, rather than creating for example a file
 upload module, and a multiple file upload module, it'd be better if we
 could create a single file upload and give the user the choice of
@@ -14,7 +16,7 @@ For this, we use settings. A module registers the settings it needs,
 then a user fills them out when creating a module instance. You can
 access the setting values in your controllers/blade templates.
 
-To make things a bit more [line-through]#confusing# flexible, there are three types of settings.
+To make things a bit more flexible, there are three types of settings.
 
 - **Module settings**. These are set whenever a new instance of your module is set up, and so will be things related to a specific module instance. Think 'Page Title', 'Allowed file types' or 'Approval required'. These are the settings you will normally use when creating a module
 
@@ -29,7 +31,11 @@ It's important not to confuse these with permissions, which only allow specific 
 
 Anything that you'd usually put in a configuration file either belongs as a global Site Setting or a user setting. We recommend putting a significant amount of config into the setting format, so even non-technical users can customise their site.
 
-== Defining Module Settings
+== Module Settings
+
+These are the settings modules may ask the user to set each time a new module instance is made.
+
+=== Defining Module Settings
 
 To define settings, you should create a 'settings' method in your
 service provider and return a form schema. To learn more about form
@@ -51,7 +57,7 @@ public function settings(): Form
 ----
 ====
 
-=== Custom Fields
+==== Custom Fields
 
 Although the FormSchema package provides a number of fields, you may
 sometimes need to make your own. For example, you may need want a third
@@ -89,19 +95,19 @@ public function boot()
 ----
 
 
-== Accessing Setting Values
+=== Accessing Setting Values
 
 The SDK handles the assignment of the settings in a module. To access a
 settings value, use the settings() helper: `+settings($key, $default = null)+`.
 
 This will return the value of the setting, or the default if the setting is not given.
 
-== Setting listeners
+=== Setting listeners
 
 If you want to respond to settings being changed, you can hook into the
 events fired when settings are created, saved, deleted etc.
 
-=== Creating a Setting Listener
+==== Creating a Setting Listener
 
 To create a settings listener, extend the `+\BristolSU\Support\ModuleInstance\Settings\SettingsListener+` class and add methods to handle different events. These events will correlate to the Eloquent events.
 
@@ -118,7 +124,7 @@ class NameSettingListener extends \BristolSU\Support\ModuleInstance\Settings\Set
 }
 ----
 
-=== Register a Setting Listener
+==== Register a Setting Listener
 
 You should register a setting listener by including it in your `+$settingListeners+` array in the service provider.
 
