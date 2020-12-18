@@ -5,6 +5,7 @@ namespace BristolSU\Support\Tests\helpers;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\Permissions\Contracts\PermissionTester;
+use BristolSU\Support\Settings\Setting;
 use BristolSU\Support\Tests\TestCase;
 
 class helpersTest extends TestCase
@@ -123,5 +124,23 @@ class helpersTest extends TestCase
         \BristolSU\Support\Permissions\Facade\PermissionTester::swap($permissionTester->reveal());
 
         $this->assertFalse(hasPermission('ability1', $user, $group, $role));
+    }
+
+    /** @test */
+    public function globalSetting_returns_the_value_of_a_global_setting(){
+        $setting = $this->prophesize(Setting::class);
+        $setting->getGlobalValue('key')->shouldBeCalled()->willReturn('val');
+        $this->instance(Setting::class, $setting->reveal());
+
+        $this->assertEquals('val', globalSetting('key'));
+    }
+
+    /** @test */
+    public function userSetting_returns_the_value_of_a_user_setting(){
+        $setting = $this->prophesize(Setting::class);
+        $setting->getUserValue('key', 3)->shouldBeCalled()->willReturn('val');
+        $this->instance(Setting::class, $setting->reveal());
+
+        $this->assertEquals('val', userSetting('key', 3));
     }
 }

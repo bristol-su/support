@@ -12,40 +12,42 @@ use BristolSU\Support\Control\Settings\Attributes\AdditionalAttributesRole;
 use BristolSU\Support\Control\Settings\Attributes\AdditionalAttributesUser;
 use BristolSU\Support\Control\Settings\Attributes\AttributeGroup;
 use BristolSU\Support\Control\Settings\ControlCategory;
-use BristolSU\Support\Settings\Definition\DefinitionStore;
-use BristolSU\Support\Settings\SettingRepository;
+use BristolSU\Support\Settings\Concerns\RegistersSettings;
+use Illuminate\Database\QueryException;
 use Illuminate\Support\ServiceProvider;
 
 class ControlServiceProvider extends ServiceProvider
 {
+    use RegistersSettings;
 
     public function boot()
     {
-        app(DefinitionStore::class)->register(AdditionalAttributesUser::class, ControlCategory::class, AttributeGroup::class);
-        app(DefinitionStore::class)->register(AdditionalAttributesGroup::class, ControlCategory::class, AttributeGroup::class);
-        app(DefinitionStore::class)->register(AdditionalAttributesRole::class, ControlCategory::class, AttributeGroup::class);
-        app(DefinitionStore::class)->register(AdditionalAttributesPosition::class, ControlCategory::class, AttributeGroup::class);
+        $this->registerSettings()
+            ->category(new ControlCategory())
+            ->group(new AttributeGroup())
+            ->registerSetting(new AdditionalAttributesUser())
+            ->registerSetting(new AdditionalAttributesGroup())
+            ->registerSetting(new AdditionalAttributesRole())
+            ->registerSetting(new AdditionalAttributesPosition());
 
-        $settingRepository = $this->app->make(SettingRepository::class);
         try {
-            foreach($settingRepository->get('Control.AdditionalAttribute.User') as $attribute) {
+            foreach(AdditionalAttributesUser::getValue() as $attribute) {
                 (app(DataUser::class))::addProperty($attribute['key']);
             }
 
-            foreach($settingRepository->get('Control.AdditionalAttribute.Group') as $attribute) {
+            foreach(AdditionalAttributesGroup::getValue() as $attribute) {
                 (app(DataGroup::class))::addProperty($attribute['key']);
             }
 
-            foreach($settingRepository->get('Control.AdditionalAttribute.Role') as $attribute) {
+            foreach(AdditionalAttributesRole::getValue() as $attribute) {
                 (app(DataRole::class))::addProperty($attribute['key']);
             }
 
-            foreach($settingRepository->get('Control.AdditionalAttribute.Position') as $attribute) {
+            foreach(AdditionalAttributesPosition::getValue() as $attribute) {
                 (app(DataPosition::class))::addProperty($attribute['key']);
             }
-
-        } catch (\Exception $e) {
-            // TODO Handle this exception. This occurs when commands are run but the database isn't migrated so the attribute col doesn't exist
+        } catch (QueryException $e) {
+            // Additional attributes couldn't be loaded as settings table hasn't yet been migrated.
         }
 
     }

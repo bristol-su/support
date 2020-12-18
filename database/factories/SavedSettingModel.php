@@ -2,8 +2,7 @@
 
 namespace Database\Factories;
 
-use BristolSU\Support\ActivityInstance\ActivityInstance;
-use BristolSU\Support\Progress\Handlers\Database\Models\Progress;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Settings\Saved\SavedSettingModel;
 use Faker\Generator as Faker;
 
@@ -20,7 +19,11 @@ use Faker\Generator as Faker;
 
 $factory->define(SavedSettingModel::class, function (Faker $faker) {
     return [
-      'key' => $faker->unique()->word,
-      'value' => $faker->word
+        'key' => $faker->unique()->word,
+        'value' => $faker->word,
+        'user_id' => function () {
+            return factory(User::class)->create()->id();
+        },
+        'visibility' => 'global'
     ];
 });

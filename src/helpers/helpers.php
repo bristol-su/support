@@ -37,7 +37,7 @@ if (!function_exists('settings')) {
 if (!function_exists('alias')) {
     /**
      * Get the alias of the currently injected module instance
-     * 
+     *
      * @return string Alias of the module instance
      * @throws BindingResolutionException If the module instance cannot be found
      */
@@ -53,10 +53,10 @@ if (!function_exists('alias')) {
 if (!function_exists('hasPermission')) {
     /**
      * Does the user/group/role have the given permission?
-     * 
+     *
      * Just pass the ability to test if the currently authenticated user has the permission
      * Pass a user, user and group or user, group and role to test them instead of the authenticated user/group/role
-     * 
+     *
      * @param string $ability Permission to test
      * @param User|null $userModel User to test. Leave as null to test the authenticated user.
      * @param Group|null $group Group to test. Leave as null to test the authenticated group.
@@ -70,4 +70,33 @@ if (!function_exists('hasPermission')) {
         return \BristolSU\Support\Permissions\Facade\PermissionTester::evaluateFor($ability, $userModel, $group, $role);
     }
 
+}
+
+
+
+if(!function_exists('globalSetting')) {
+
+    /**
+     * Get the value of a global setting
+     *
+     * @param string $key The key of the setting
+     * @return mixed
+     */
+    function globalSetting(string $key) {
+        return \BristolSU\Support\Settings\Facade\Setting::getGlobalValue($key);
+    }
+}
+
+if(!function_exists('userSetting')) {
+
+    /**
+     * Get the value of a user setting
+     *
+     * @param string $key The key of the setting
+     * @param int|null $userId The user ID, or null to use the current user
+     * @return mixed
+     */
+    function userSetting(string $key, ?int $userId = null) {
+        return \BristolSU\Support\Settings\Facade\Setting::getUserValue($key, $userId);
+    }
 }

@@ -104,6 +104,48 @@ class SessionAuthenticationTest extends TestCase
         $authentication = resolve(SessionAuthentication::class);
         $authentication->setRole($role);
         $this->assertTrue(Session::has('role_id'));
-        $this->assertEquals($role->id(), Session::get('role_id'));    }
+        $this->assertEquals($role->id(), Session::get('role_id'));
+    }
+
+    /** @test */
+    public function hasUser_returns_true_if_a_user_is_logged_in(){
+        $authentication = resolve(SessionAuthentication::class);
+        $authentication->setUser($this->newUser());
+        $this->assertTrue($authentication->hasUser());
+    }
+
+    /** @test */
+    public function hasUser_returns_false_if_a_user_is_not_logged_in(){
+        $authentication = resolve(SessionAuthentication::class);
+        $this->assertFalse($authentication->hasUser());
+    }
+
+    /** @test */
+    public function hasGroup_returns_true_if_a_group_is_logged_in(){
+        $authentication = resolve(SessionAuthentication::class);
+        $authentication->setGroup($this->newGroup());
+        $this->assertTrue($authentication->hasGroup());
+    }
+
+    /** @test */
+    public function hasGroup_returns_false_if_a_group_is_not_logged_in(){
+        $authentication = resolve(SessionAuthentication::class);
+        $this->assertFalse($authentication->hasGroup());
+    }
+
+    /** @test */
+    public function hasRole_returns_true_if_a_role_is_logged_in(){
+        $authentication = resolve(SessionAuthentication::class);
+        $authentication->setRole($this->newRole());
+        $this->assertTrue($authentication->hasRole());
+    }
+
+    /** @test */
+    public function hasRole_returns_false_if_a_role_is_not_logged_in(){
+        $authentication = resolve(SessionAuthentication::class);
+        $this->assertFalse($authentication->hasRole());
+    }
+
+
 
 }
