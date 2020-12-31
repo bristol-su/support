@@ -27,6 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed the variable names to be injected for JavaScript use, and do so through a view composer for all Bristol SU bases
 - Changed some of the variable names being injected for JavaScript use
 - Add `hasUser`, `hasGroup` and `hasRole` to the Authentication contract.
+- Neatened up middleware groups to only those documented
 
 ### Removed
 - Moved authentication to the portal-auth package
