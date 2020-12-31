@@ -24,10 +24,9 @@ class AuthorizationServiceProvider extends ServiceProvider
         $this->app['router']->pushMiddlewareToGroup('participant', CheckLoggedIntoActivityForType::class);
         $this->app['router']->pushMiddlewareToGroup('participant', CheckActivityFor::class);
         $this->app['router']->pushMiddlewareToGroup('participant', CheckActivityEnabled::class);
-        $this->app['router']->pushMiddlewareToGroup('moduleparticipant', CheckModuleInstanceEnabled::class);
-        $this->app['router']->pushMiddlewareToGroup('moduleparticipant', CheckModuleInstanceActive::class);
+        $this->app['router']->pushMiddlewareToGroup('module', CheckModuleInstanceEnabled::class);
+        $this->app['router']->pushMiddlewareToGroup('module', CheckModuleInstanceActive::class);
         $this->app['router']->pushMiddlewareToGroup('administrator', CheckAdminActivityFor::class);
-
     }
 
 }
