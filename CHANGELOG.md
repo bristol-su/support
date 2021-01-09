@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed some of the variable names being injected for JavaScript use
 - Add `hasUser`, `hasGroup` and `hasRole` to the Authentication contract.
 - Neatened up middleware groups to only those documented
+- Moved the request->user() function override to the portal-auth package
 
 ### Removed
 - Moved authentication to the portal-auth package
