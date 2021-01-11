@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5442f2bfef6e230d2a646f52da8b157e",
+    "content-hash": "7c8cb20a897af747774963d3e00f542f",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -210,6 +210,81 @@
                 "source": "https://github.com/bristol-su/control/tree/laravel-8"
             },
             "time": "2020-09-19T16:48:07+00:00"
+        },
+        {
+            "name": "doctrine/annotations",
+            "version": "1.11.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/doctrine/annotations.git",
+                "reference": "ce77a7ba1770462cd705a91a151b6c3746f9c6ad"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/doctrine/annotations/zipball/ce77a7ba1770462cd705a91a151b6c3746f9c6ad",
+                "reference": "ce77a7ba1770462cd705a91a151b6c3746f9c6ad",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/lexer": "1.*",
+                "ext-tokenizer": "*",
+                "php": "^7.1 || ^8.0"
+            },
+            "require-dev": {
+                "doctrine/cache": "1.*",
+                "doctrine/coding-standard": "^6.0 || ^8.1",
+                "phpstan/phpstan": "^0.12.20",
+                "phpunit/phpunit": "^7.5 || ^9.1.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.11.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Doctrine\\Common\\Annotations\\": "lib/Doctrine/Common/Annotations"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Guilherme Blanco",
+                    "email": "guilhermeblanco@gmail.com"
+                },
+                {
+                    "name": "Roman Borschel",
+                    "email": "roman@code-factory.org"
+                },
+                {
+                    "name": "Benjamin Eberlei",
+                    "email": "kontakt@beberlei.de"
+                },
+                {
+                    "name": "Jonathan Wage",
+                    "email": "jonwage@gmail.com"
+                },
+                {
+                    "name": "Johannes Schmitt",
+                    "email": "schmittjoh@gmail.com"
+                }
+            ],
+            "description": "Docblock Annotations Parser",
+            "homepage": "https://www.doctrine-project.org/projects/annotations.html",
+            "keywords": [
+                "annotations",
+                "docblock",
+                "parser"
+            ],
+            "support": {
+                "issues": "https://github.com/doctrine/annotations/issues",
+                "source": "https://github.com/doctrine/annotations/tree/1.11.1"
+            },
+            "time": "2020-10-26T10:28:16+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -4841,6 +4916,85 @@
             "time": "2019-12-15T17:35:51+00:00"
         },
         {
+            "name": "twigger/blade-themes",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tobytwigger/blade-themes.git",
+                "reference": "bd30fabab62b1b87c5ffcf9821e64f7be66ff4ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tobytwigger/blade-themes/zipball/bd30fabab62b1b87c5ffcf9821e64f7be66ff4ea",
+                "reference": "bd30fabab62b1b87c5ffcf9821e64f7be66ff4ea",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/annotations": "^1.11",
+                "ext-json": "*",
+                "laravel/framework": "^8.9",
+                "php": "^7.2|^8.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^6.4",
+                "phpspec/prophecy-phpunit": "^2.0",
+                "phpunit/phpunit": "^9.4"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Twigger\\Blade\\ThemeServiceProvider",
+                        "Twigger\\Blade\\Themes\\Bootstrap\\BootstrapThemeServiceProvider"
+                    ],
+                    "aliases": {
+                        "Theme": "Twigger\\Blade\\Theme\\Theme"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Twigger\\Blade\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Toby Twigger",
+                    "email": "tobytwigger1@gmail.com",
+                    "homepage": "https://github.com/tobytwigger"
+                }
+            ],
+            "description": "A UI framework with dynamic theme injection to dynamically change the appearance of a site",
+            "homepage": "https://github.com/tobytwigger/blade-themes",
+            "keywords": [
+                "blade",
+                "bootstrap",
+                "design",
+                "laravel",
+                "material",
+                "themes",
+                "ui"
+            ],
+            "support": {
+                "docs": "https://tobytwigger.github.io/blade-themes/",
+                "email": "tobytwigger1@gmail.com",
+                "issues": "https://github.com/tobytwigger/blade-themes/issues",
+                "source": "https://github.com/tobytwigger/blade-themes/tree/develop"
+            },
+            "funding": [
+                {
+                    "url": "https://www.buymeacoffee.com/translate",
+                    "type": "buymeacoffee"
+                }
+            ],
+            "time": "2020-12-11T01:34:29+00:00"
+        },
+        {
             "name": "venturecraft/revisionable",
             "version": "1.35.0",
             "source": {
@@ -5698,81 +5852,6 @@
             "time": "2020-12-07T18:04:37+00:00"
         },
         {
-            "name": "doctrine/annotations",
-            "version": "1.11.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/annotations.git",
-                "reference": "ce77a7ba1770462cd705a91a151b6c3746f9c6ad"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/annotations/zipball/ce77a7ba1770462cd705a91a151b6c3746f9c6ad",
-                "reference": "ce77a7ba1770462cd705a91a151b6c3746f9c6ad",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/lexer": "1.*",
-                "ext-tokenizer": "*",
-                "php": "^7.1 || ^8.0"
-            },
-            "require-dev": {
-                "doctrine/cache": "1.*",
-                "doctrine/coding-standard": "^6.0 || ^8.1",
-                "phpstan/phpstan": "^0.12.20",
-                "phpunit/phpunit": "^7.5 || ^9.1.5"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.11.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Doctrine\\Common\\Annotations\\": "lib/Doctrine/Common/Annotations"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Guilherme Blanco",
-                    "email": "guilhermeblanco@gmail.com"
-                },
-                {
-                    "name": "Roman Borschel",
-                    "email": "roman@code-factory.org"
-                },
-                {
-                    "name": "Benjamin Eberlei",
-                    "email": "kontakt@beberlei.de"
-                },
-                {
-                    "name": "Jonathan Wage",
-                    "email": "jonwage@gmail.com"
-                },
-                {
-                    "name": "Johannes Schmitt",
-                    "email": "schmittjoh@gmail.com"
-                }
-            ],
-            "description": "Docblock Annotations Parser",
-            "homepage": "https://www.doctrine-project.org/projects/annotations.html",
-            "keywords": [
-                "annotations",
-                "docblock",
-                "parser"
-            ],
-            "support": {
-                "issues": "https://github.com/doctrine/annotations/issues",
-                "source": "https://github.com/doctrine/annotations/tree/1.11.1"
-            },
-            "time": "2020-10-26T10:28:16+00:00"
-        },
-        {
             "name": "doctrine/instantiator",
             "version": "1.4.0",
             "source": {
@@ -6382,16 +6461,16 @@
         },
         {
             "name": "nette/utils",
-            "version": "v3.2.0",
+            "version": "v3.2.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "d0427c1811462dbb6c503143eabe5478b26685f7"
+                "reference": "740520b2b32233adf7a49388e3cc6c2b5b74535d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/d0427c1811462dbb6c503143eabe5478b26685f7",
-                "reference": "d0427c1811462dbb6c503143eabe5478b26685f7",
+                "url": "https://api.github.com/repos/nette/utils/zipball/740520b2b32233adf7a49388e3cc6c2b5b74535d",
+                "reference": "740520b2b32233adf7a49388e3cc6c2b5b74535d",
                 "shasum": ""
             },
             "require": {
@@ -6461,9 +6540,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/utils/issues",
-                "source": "https://github.com/nette/utils/tree/v3.2.0"
+                "source": "https://github.com/nette/utils/tree/v3.2.1"
             },
-            "time": "2020-11-25T23:47:50+00:00"
+            "time": "2021-01-10T23:09:27+00:00"
         },
         {
             "name": "nikic/php-parser",
@@ -9669,7 +9748,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "bristol-su/control": 20
+        "bristol-su/control": 20,
+        "twigger/blade-themes": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
