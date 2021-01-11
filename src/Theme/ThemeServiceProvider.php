@@ -33,7 +33,7 @@ class ThemeServiceProvider extends ServiceProvider
             // Theme couldn't be loaded as settings table hasn't yet been migrated.
         }
 
-        $this->app['config']->set('themes.tag-prefix', 'su');
+        $this->app['config']->set('themes.tag-prefix', 'portal');
     }
 
 }
