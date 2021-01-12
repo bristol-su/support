@@ -58,7 +58,8 @@
             ],
             "dont-discover": [
                 "laravel/passport",
-                "venturecraft/revisionable"
+                "venturecraft/revisionable",
+                "twigger/blade-themes"
             ]
         }
     }
