@@ -22,12 +22,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Inject validation from the server to js
 - Inject old input to js
 - Inject all named routes to js
+- Handle setting up blade themes for any code to use
 
 ### Changed
 - Changed the variable names to be injected for JavaScript use, and do so through a view composer for all Bristol SU bases
 - Changed some of the variable names being injected for JavaScript use
 - Add `hasUser`, `hasGroup` and `hasRole` to the Authentication contract.
 - Neatened up middleware groups to only those documented
+- Moved the request->user() function override to the portal-auth package
 
 ### Removed
 - Moved authentication to the portal-auth package
@@ -43,6 +45,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - `getDatabaseUser()` and `setDatabaseUser()` from testing - tests no longer use database users
     - Deleted `BristolSU\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider` as now handled through `WebRequestActivityInstanceResolver` and `ApiActivityInstanceResolver`
     - `BristolSU\Testing\ActivityInstance\LaravelAuthActivityInstanceResolver` changed to use session rather than the whole laravel auth system, and renamed to `BristolSU\Testing\ActivityInstance\SessionActivityInstanceResolver`
+- Simplified default header (portal-226)
+- Removed the passport dependency
+- Removed support for the blade partials cookies_warning and analytics
 
 ## [4.7.4] - (09/09/2020)
 
