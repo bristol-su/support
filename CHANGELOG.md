@@ -47,6 +47,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     - `BristolSU\Testing\ActivityInstance\LaravelAuthActivityInstanceResolver` changed to use session rather than the whole laravel auth system, and renamed to `BristolSU\Testing\ActivityInstance\SessionActivityInstanceResolver`
 - Simplified default header (portal-226)
 - Removed the passport dependency
+- Removed support for the blade partials cookies_warning and analytics
 
 ## [4.7.4] - (09/09/2020)
 

@@ -14,12 +14,10 @@
     @componentFirst(['partials.components.head', 'bristolsu::partials.components.head'])
         @stack('meta-tags')
         @includeFirst(['partials.javascript', 'bristolsu::partials.javascript'])
-        @includeFirst(['partials.analytics', 'bristolsu::partials.analytics'])
         <title>@yield('title', 'Portal')</title>
         @stack('fonts')
         @stack('styles')
         @includeFirst(['partials.noscript', 'bristolsu::partials.noscript'])
-        @includeFirst(['partials.cookies_warning', 'bristolsu::partials.cookies_warning'])
     @endcomponentfirst
 
     @componentFirst(['partials.components.body', 'bristolsu::partials.components.body'])
