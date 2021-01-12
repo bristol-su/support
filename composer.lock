@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2854f642c56ff672d92a1cafe01f95fc",
+    "content-hash": "7030ece4e8c3c88f5b77ae185b965bb5",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -154,16 +154,16 @@
         },
         {
             "name": "bristol-su/control",
-            "version": "dev-portal-225/php-8",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bristol-su/control.git",
-                "reference": "adf971027e138dcfc348909727f4ef27fd6b01f2"
+                "reference": "c3450e49b5c6f4963e7bd47def5bb8891f805b01"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bristol-su/control/zipball/adf971027e138dcfc348909727f4ef27fd6b01f2",
-                "reference": "adf971027e138dcfc348909727f4ef27fd6b01f2",
+                "url": "https://api.github.com/repos/bristol-su/control/zipball/c3450e49b5c6f4963e7bd47def5bb8891f805b01",
+                "reference": "c3450e49b5c6f4963e7bd47def5bb8891f805b01",
                 "shasum": ""
             },
             "require": {
@@ -207,9 +207,9 @@
             "description": "An implementation of the control contracts",
             "support": {
                 "issues": "https://github.com/bristol-su/control/issues",
-                "source": "https://github.com/bristol-su/control/tree/portal-225/php-8"
+                "source": "https://github.com/bristol-su/control/tree/develop"
             },
-            "time": "2021-01-12T19:05:04+00:00"
+            "time": "2021-01-12T19:42:48+00:00"
         },
         {
             "name": "doctrine/annotations",
