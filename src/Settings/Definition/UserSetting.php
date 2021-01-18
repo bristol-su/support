@@ -10,6 +10,13 @@ abstract class UserSetting implements Setting
 {
 
     /**
+     * Should the setting value be encrypted?
+     *
+     * @var bool
+     */
+    protected bool $encrypt = false;
+
+    /**
      * Get the value for the given user, or the current user if no user given
      *
      * @param int|null $userId The ID of the user to check, or null to use the current user
@@ -126,5 +133,9 @@ abstract class UserSetting implements Setting
         return sha1($this->key());
     }
 
+    public function shouldEncrypt(): bool
+    {
+        return $this->encrypt;
+    }
 
 }

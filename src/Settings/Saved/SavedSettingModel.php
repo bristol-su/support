@@ -33,69 +33,6 @@ class SavedSettingModel extends Model
     ];
 
     /**
-     * Value accessor to serialize any value before going into the database
-     *
-     * @param mixed $value
-     * @throws \Exception If the value could not be serialized
-     */
-    public function setValueAttribute($value)
-    {
-        if(is_string($value)) {
-            $this->attributes['value'] = $value;
-            $this->attributes['type'] = 'string';
-        } elseif(is_integer($value)) {
-            $this->attributes['value'] = $value;
-            $this->attributes['type'] = 'integer';
-        } elseif(is_array($value)) {
-            $this->attributes['value'] = json_encode($value);
-            $this->attributes['type'] = 'array';
-        } elseif(is_bool($value)) {
-            $this->attributes['value'] = ($value?1:0);
-            $this->attributes['type'] = 'boolean';
-        } elseif(is_float($value)) {
-            $this->attributes['value'] = $value;
-            $this->attributes['type'] = 'float';
-        } elseif(is_null($value)) {
-            $this->attributes['value'] = null;
-            $this->attributes['type'] = 'null';
-        } elseif(is_object($value) && !is_callable($value)) {
-            $this->attributes['value'] = serialize($value);
-            $this->attributes['type'] = 'object';
-        } else {
-            throw new \Exception(sprintf('Type %s is not supported in saving settings', gettype($value)));
-        }
-    }
-
-    /**
-     * Value mutator to deserialize any value before being given back to the user
-     *
-     * @return mixed
-     * @throws \Exception If the value could not be deserialized
-     */
-    public function getValueAttribute()
-    {
-        $value = $this->attributes['value'];
-        $type = $this->attributes['type'];
-
-        if($type === 'string') {
-            return (string) $value;
-        } elseif($type === 'integer') {
-            return (int) $value;
-        } elseif($type === 'array') {
-            return json_decode($value, true);
-        } elseif($type === 'boolean') {
-            return (int) $value === 1;
-        } elseif($type === 'float') {
-            return (float) $value;
-        } elseif($type === 'null') {
-            return null;
-        } elseif($type === 'object') {
-            return unserialize($value);
-        }
-        throw new \Exception(sprintf('Type %s is not supported in retrieving settings', $type));
-    }
-
-    /**
      * Where the setting override is global
      *
      * @param Builder $query
