@@ -2,10 +2,15 @@
 
 namespace BristolSU\Support\Settings\Saved;
 
+use BristolSU\Support\Settings\Saved\ValueManipulator\Manipulator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DatabaseSavedSettingRepository implements SavedSettingRepository
 {
+
+    public function __construct(protected Manipulator $manipulator)
+    {
+    }
 
     /**
      * Check if a global setting has been saved with the given key
@@ -27,7 +32,8 @@ class DatabaseSavedSettingRepository implements SavedSettingRepository
      */
     public function getGlobalValue(string $key)
     {
-        return SavedSettingModel::global()->key($key)->firstOrFail()->getSettingValue();
+        $value = SavedSettingModel::global()->key($key)->firstOrFail()->getSettingValue();
+        return $this->manipulator->decode($key, $value);
     }
 
     /**
@@ -53,9 +59,11 @@ class DatabaseSavedSettingRepository implements SavedSettingRepository
     public function getUserValue(string $key, int $userId)
     {
         if(SavedSettingModel::user($userId)->key($key)->count() > 0) {
-            return SavedSettingModel::user($userId)->key($key)->firstOrFail()->getSettingValue();
+            $value = SavedSettingModel::user($userId)->key($key)->firstOrFail()->getSettingValue();
+        } else {
+            $value = SavedSettingModel::user()->key($key)->firstOrFail()->getSettingValue();
         }
-        return SavedSettingModel::user()->key($key)->firstOrFail()->getSettingValue();
+        return $this->manipulator->decode($key, $value);
     }
 
     /**
@@ -67,6 +75,7 @@ class DatabaseSavedSettingRepository implements SavedSettingRepository
      */
     public function setForUser(string $key, $value, int $userId)
     {
+        $value = $this->manipulator->encode($key, $value);
         SavedSettingModel::updateOrCreate(
             ['key' => $key, 'visibility' => 'user', 'user_id' => $userId],
             ['value' => $value]
@@ -81,6 +90,7 @@ class DatabaseSavedSettingRepository implements SavedSettingRepository
      */
     public function setForAllUsers(string $key, $value)
     {
+        $value = $this->manipulator->encode($key, $value);
         SavedSettingModel::updateOrCreate(
             ['key' => $key, 'visibility' => 'user', 'user_id' => null],
             ['value' => $value]
@@ -95,6 +105,7 @@ class DatabaseSavedSettingRepository implements SavedSettingRepository
      */
     public function setGlobal(string $key, $value)
     {
+        $value = $this->manipulator->encode($key, $value);
         SavedSettingModel::updateOrCreate(
             ['key' => $key, 'visibility' => 'global'],
             ['value' => $value]
@@ -126,7 +137,8 @@ class DatabaseSavedSettingRepository implements SavedSettingRepository
      */
     public function getUserDefault(string $key)
     {
-        return SavedSettingModel::user(null)->key($key)->firstOrFail()->getSettingValue();
+        $value = SavedSettingModel::user(null)->key($key)->firstOrFail()->getSettingValue();
+        return $this->manipulator->decode($key, $value);
     }
 
     /**
@@ -141,7 +153,10 @@ class DatabaseSavedSettingRepository implements SavedSettingRepository
     {
         $defaults = [];
         foreach(SavedSettingModel::user(null)->get() as $savedSettingModel) {
-            $defaults[$savedSettingModel->getSettingKey()] = $savedSettingModel->getSettingValue();
+            $defaults[$savedSettingModel->getSettingKey()] = $this->manipulator->decode(
+                $savedSettingModel->getSettingKey(),
+                $savedSettingModel->getSettingValue()
+            );
         }
         return $defaults;
     }

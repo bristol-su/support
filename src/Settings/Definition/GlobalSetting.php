@@ -9,6 +9,13 @@ abstract class GlobalSetting implements Setting
 {
 
     /**
+     * Should the setting value be encrypted?
+     *
+     * @var bool
+     */
+    protected bool $encrypt = false;
+
+    /**
      * Get the value of the setting
      *
      * @return mixed
@@ -97,4 +104,8 @@ abstract class GlobalSetting implements Setting
         return sha1($this->key());
     }
 
+    public function shouldEncrypt(): bool
+    {
+        return $this->encrypt;
+    }
 }

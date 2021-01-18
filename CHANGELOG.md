@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Image URL for module instance and activity
 - Wrapper around body of frontend.
 - Wrapper around content
-- Added Setting framework for global and user settings (portal-147)
+- Added Setting framework for global and user settings (portal-147, portal-265)
 - Inject validation from the server to js
 - Inject old input to js
 - Inject all named routes to js

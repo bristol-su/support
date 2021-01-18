@@ -39,4 +39,10 @@ interface Setting
      */
     public function validator($value): Validator;
 
+    /**
+     * Should the setting value be encrypted?
+     *
+     * @return bool
+     */
+    public function shouldEncrypt(): bool;
 }

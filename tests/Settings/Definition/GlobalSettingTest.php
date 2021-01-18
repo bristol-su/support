@@ -77,6 +77,17 @@ class GlobalSettingTest extends TestCase
         $setting->setSettingValue('value1');
     }
 
+    /** @test */
+    public function shouldEncrypt_returns_the_value_of_the_encrypt_property(){
+        $setting = new GlobalSettingTestDummyGlobalSetting();
+
+        $setting->setShouldEncrypt(true);
+        $this->assertTrue($setting->shouldEncrypt());
+
+        $setting->setShouldEncrypt(false);
+        $this->assertFalse($setting->shouldEncrypt());
+    }
+
 }
 
 class GlobalSettingTestDummyGlobalSetting extends GlobalSetting
@@ -125,5 +136,10 @@ class GlobalSettingTestDummyGlobalSetting extends GlobalSetting
         return [
             $this->inputName() => 'required|string'
         ];
+    }
+
+    public function setShouldEncrypt(bool $val)
+    {
+        $this->encrypt = $val;
     }
 }
