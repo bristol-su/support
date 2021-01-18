@@ -35,3 +35,5 @@ jobs:
 
       - name: Run test suite
         run: composer run-script test
+        env:
+          COMPOSER_PROCESS_TIMEOUT: 1500
