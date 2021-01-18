@@ -96,6 +96,17 @@ class UserSettingTest extends TestCase
         $setting->setSettingDefault('value1');
     }
 
+    /** @test */
+    public function shouldEncrypt_returns_the_value_of_the_encrypt_property(){
+        $setting = new UserSettingTestDummyUserSetting();
+
+        $setting->setShouldEncrypt(true);
+        $this->assertTrue($setting->shouldEncrypt());
+
+        $setting->setShouldEncrypt(false);
+        $this->assertFalse($setting->shouldEncrypt());
+    }
+
 }
 
 class UserSettingTestDummyUserSetting extends UserSetting
@@ -144,5 +155,10 @@ class UserSettingTestDummyUserSetting extends UserSetting
         return [
             $this->inputName() => 'required|string'
         ];
+    }
+
+    public function setShouldEncrypt(bool $val)
+    {
+        $this->encrypt = $val;
     }
 }

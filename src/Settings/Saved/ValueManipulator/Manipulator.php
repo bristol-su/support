@@ -12,7 +12,7 @@ interface Manipulator
      * @param mixed $value Original Value
      * @return string Saved value
      */
-    public function save(string $key, mixed $value): string;
+    public function encode(string $key, mixed $value): string;
 
     /**
      * Convert the saved value back to the original value
@@ -21,6 +21,6 @@ interface Manipulator
      * @param string $value Saved Value
      * @return mixed Original Value
      */
-    public function retrieve(string $key, string $value): mixed;
+    public function decode(string $key, string $value): mixed;
 
 }

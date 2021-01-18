@@ -12,7 +12,7 @@ class SerializeValue implements Manipulator
      * @param mixed $value Original Value
      * @return string Saved value
      */
-    public function save(string $key, mixed $value): string
+    public function encode(string $key, mixed $value): string
     {
         return serialize($value);
     }
@@ -24,8 +24,8 @@ class SerializeValue implements Manipulator
      * @param string $value Saved Value
      * @return mixed Original Value
      */
-    public function retrieve(string $key, string $value): mixed
+    public function decode(string $key, string $value): mixed
     {
-        return unserialize($key);
+        return unserialize($value);
     }
 }

@@ -26,7 +26,7 @@ class RemoveTypeColumnFromSettingsTable extends Migration
     public function down()
     {
         Schema::table('settings', function(Blueprint $table) {
-            $table->string('type');
+            $table->string('type')->nullable();
         });
     }
 }
