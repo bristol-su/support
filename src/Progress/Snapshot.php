@@ -33,7 +33,7 @@ class Snapshot
         return $Progress;
     }
 
-    public function ofUpdatesToActivity($caller, $driver, Activity $activity)
+    public function ofUpdatesToActivity(Activity $activity, $caller)
     {
         $progresses = [];
         foreach(app(ActivityInstanceRepository::class)->allForActivity($activity->id) as $activityInstance) {
