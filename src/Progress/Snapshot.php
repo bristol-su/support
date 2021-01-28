@@ -4,26 +4,81 @@
 namespace BristolSU\Support\Progress;
 
 
+use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class Snapshot
 {
 
-    /**
-     * Take a snapshot of an entire activity
-     * 
-     * @param \BristolSU\Support\Activity\Activity $activity
-     * 
-     * @return array|Progress[]
-     */
-    public function ofActivity(\BristolSU\Support\Activity\Activity $activity): array
+    public function concatActivityInstance(Progress $activityProgress)
+    {
+        return sprintf("%s_%s_%s",
+            $activityProgress->getActivityInstanceId(),
+            $activityProgress->getPercentage(),
+            json_encode($activityProgress->getModules())
+        );
+    }
+
+    public function saveHash($Key, $Progress)
+    {
+        ProgressHashes::create([
+            'item_key' => $Key,
+            'hash' => Hash::make($this->concatActivityInstance($Progress))
+        ]);
+
+        return $Progress;
+    }
+
+    public function ofUpdatesToActivity($caller, $driver, Activity $activity)
     {
         $progresses = [];
         foreach(app(ActivityInstanceRepository::class)->allForActivity($activity->id) as $activityInstance) {
-            $progresses[] = static::ofActivityInstance($activityInstance);
+            array_push($progresses, $this->ofUpdateToActivityInstance($activityInstance, $caller));
+        }
+        return array_filter($progresses);
+    }
+
+    public function ofUpdateToActivityInstance(ActivityInstance $activityInstance, $caller) : Progress
+    {
+        // Set Cache key:
+        $itemKey = $caller . '_' . $activityInstance->id;
+
+        // Get the Current Progress:
+        $currentProgress = $this->ofActivityInstance($activityInstance);
+
+        $storedProgress = ProgressHashes::find($itemKey);
+
+        // Check if data is missing from Cache:
+        if(! $storedProgress){
+            // Return all Progress to be Saved to stored:
+            return $this->saveHash($itemKey, $currentProgress);
+        }
+
+        // Check if data is different:
+        if(! Hash::check($this->concatActivityInstance($currentProgress), $storedProgress->hash)) {
+            // Return all Progress to be Saved to stored:
+            return $this->saveHash($itemKey, $currentProgress);
+        }
+
+        return null;
+    }
+
+    /**
+     * Take a snapshot of an entire activity
+     * 
+     * @param Activity $activity
+     * 
+     * @return array|Progress[]
+     */
+    public function ofActivity(Activity $activity): array
+    {
+        $progresses = [];
+        foreach(app(ActivityInstanceRepository::class)->allForActivity($activity->id) as $activityInstance) {
+            $progresses[] = $this->ofActivityInstance($activityInstance);
         }
         return $progresses;
     }

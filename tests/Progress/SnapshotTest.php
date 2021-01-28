@@ -12,6 +12,7 @@ use BristolSU\Support\Progress\ModuleInstanceProgress;
 use BristolSU\Support\Progress\Snapshot;
 use BristolSU\Support\Tests\TestCase;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Prophecy\Argument;
 
 class SnapshotTest extends TestCase
@@ -36,6 +37,42 @@ class SnapshotTest extends TestCase
         $progress = (new Snapshot)->ofActivityInstance($activityInstance);
         $this->assertCount(5, $progress->getModules());
         $this->assertContainsOnlyInstancesOf(ModuleInstanceProgress::class, $progress->getModules());
+    }
+
+    /** @test */
+    public function ofUpdatesToActivityInstance_only_returns_progress_when_updated()
+    {
+        $activity = factory(Activity::class)->create();
+        $modules = factory(ModuleInstance::class, 5)->create(['activity_id' => $activity->id]);
+        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+
+        // Save the Item to the Cache:
+        $progress = (new Snapshot)->ofUpdateToActivityInstance($activityInstance, 'ALTest');
+
+        // Progress would return Full Object
+
+        $checkUpdate = (new Snapshot)->ofUpdateToActivityInstance($activityInstance, 'ALTest');
+
+        $this->assertNull($checkUpdate);
+    }
+
+    /** @test */
+    public function ofUpdateToActivity_only_returns_progress_when_updated()
+    {
+        $activity = factory(Activity::class)->create();
+        $modules = factory(ModuleInstance::class, 5)->create(['activity_id' => $activity->id]);
+        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+
+        $progress = (new Snapshot)->ofUpdatesToActivity($activity, '', '');
+
+    }
+
+    /** @test */
+    public function ofUpdateToActivity_updates_cache_when_called()
+    {
+        // Updates Cache with last called date
+
+        // Updates Cache fully when data is updated
     }
 
     /** @test */
