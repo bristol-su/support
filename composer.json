@@ -60,5 +60,8 @@
                 "venturecraft/revisionable"
             ]
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --colors=always --process-isolation --verbose --configuration phpunit.xml"
     }
 }
