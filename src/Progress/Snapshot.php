@@ -7,39 +7,21 @@ use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator;
-use BristolSU\Support\Progress\ProgressUpdateRepository;
+use BristolSU\Support\Progress\Contracts\ProgressUpdateContract;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Hash;
 
 class Snapshot
 {
 
-    private ProgressUpdateRepository $ProgressUpdateRepository;
+    private $ProgressUpdateRepository;
 
-    public function __construct()
+    public function __construct(ProgressUpdateContract $ProgressUpdateRepository)
     {
-        $this->ProgressUpdateRepository = new ProgressUpdateRepository();
+        $this->ProgressUpdateRepository = $ProgressUpdateRepository;
     }
 
-    public function createActivityHashArray(Progress $activityProgress)
-    {
-        return [
-            $activityProgress->getActivityInstanceId(),
-            $activityProgress->getPercentage(),
-            json_encode(
-                array_map(fn(ModuleInstanceProgress $moduleInstanceProgress): array => [
-                    'moduleInstanceId' => $moduleInstanceProgress->getModuleInstanceId(),
-                    'mandatory' => $moduleInstanceProgress->isMandatory(),
-                    'complete' => $moduleInstanceProgress->isComplete(),
-                    'percentage' => $moduleInstanceProgress->getPercentage(),
-                    'active' => $moduleInstanceProgress->isActive(),
-                    'visible' => $moduleInstanceProgress->isVisible()
-                ], $activityProgress->getModules())
-            )
-        ];
-    }
-
-    public function ofUpdatesToActivity(Activity $activity, $caller)
+    public function ofUpdatesToActivity(Activity $activity, $caller) : array
     {
         $progresses = [];
         foreach(app(ActivityInstanceRepository::class)->allForActivity($activity->id) as $activityInstance) {
@@ -55,7 +37,7 @@ class Snapshot
 
         // Get the Current Progress:
         $Progress = $this->ofActivityInstance($activityInstance);
-        $progressArrayHash = $this->createActivityHashArray($Progress);
+        $progressArrayHash = $this->ProgressUpdateRepository->generateActivityHash($Progress);
 
         $storedProgress = ProgressHashes::find($itemKey);
 

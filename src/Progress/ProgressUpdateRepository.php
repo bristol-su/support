@@ -3,6 +3,7 @@
 namespace BristolSU\Support\Progress;
 
 use BristolSU\Support\Progress\Contracts\ProgressUpdateContract;
+use BristolSU\Support\Progress\ModuleInstanceProgress;
 use Illuminate\Support\Facades\Hash;
 
 class ProgressUpdateRepository implements ProgressUpdateContract {
@@ -17,6 +18,25 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
         foreach ($Items as $item) { $str .= '_' . $item; }
 
         return Hash::make($str);
+    }
+
+    public function generateActivityHash(Progress $Activity): string
+    {
+        return $this->generateHash([
+            $Activity->getActivityInstanceId(),
+            $Activity->getPercentage(),
+            $Activity->isComplete(),
+                json_encode(
+                    array_map(fn(ModuleInstanceProgress $moduleInstanceProgress): array => [
+                        'moduleInstanceId' => $moduleInstanceProgress->getModuleInstanceId(),
+                        'mandatory' => $moduleInstanceProgress->isMandatory(),
+                        'complete' => $moduleInstanceProgress->isComplete(),
+                        'percentage' => $moduleInstanceProgress->getPercentage(),
+                        'active' => $moduleInstanceProgress->isActive(),
+                        'visible' => $moduleInstanceProgress->isVisible()
+                    ], $Activity->getModules())
+                )
+        ]);
     }
 
     /**
