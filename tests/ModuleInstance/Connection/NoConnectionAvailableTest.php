@@ -7,11 +7,10 @@ use BristolSU\Support\Tests\TestCase;
 
 class NoConnectionAvailableTest extends TestCase
 {
-
     /** @test */
-    public function it_defaults_the_message_to_a_connection_failed_message(){
+    public function it_defaults_the_message_to_a_connection_failed_message()
+    {
         $exception = new NoConnectionAvailable();
         $this->assertEquals('No connection has been found', $exception->getMessage());
     }
-    
 }

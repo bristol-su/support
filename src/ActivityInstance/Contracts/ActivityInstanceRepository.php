@@ -6,13 +6,12 @@ use BristolSU\Support\ActivityInstance\ActivityInstance;
 use Illuminate\Support\Collection;
 
 /**
- * A repository for retrieving Activity Instances
+ * A repository for retrieving Activity Instances.
  */
 interface ActivityInstanceRepository
 {
-
     /**
-     * Get the first activity instance found with the given parameters
+     * Get the first activity instance found with the given parameters.
      *
      * @param int $activityId ID of the activity to which the activity instance should belong
      * @param string $resourceType Resource (owner) type. One of user, group or role.
@@ -22,7 +21,7 @@ interface ActivityInstanceRepository
     public function firstFor(int $activityId, string $resourceType, int $resourceId): ActivityInstance;
 
     /**
-     * Create a new Activity Instance
+     * Create a new Activity Instance.
      *
      * @param int $activityId ID of the activity to which the activity instance should belong
      * @param string $resourceType Resource (owner) type. One of user, group or role.
@@ -35,7 +34,7 @@ interface ActivityInstanceRepository
     public function create(int $activityId, string $resourceType, int $resourceId, string $name, ?string $description): ActivityInstance;
 
     /**
-     * Get an activity instance by ID
+     * Get an activity instance by ID.
      *
      * @param int $id ID of the activity instance
      * @return ActivityInstance
@@ -43,7 +42,7 @@ interface ActivityInstanceRepository
     public function getById($id): ActivityInstance;
 
     /**
-     * Get all activity instances with the given parameters
+     * Get all activity instances with the given parameters.
      *
      * @param int $activityId ID of the activity to which the activity instances should belong
      * @param string $resourceType Resource (owner) type. One of user, group or role.
@@ -54,7 +53,7 @@ interface ActivityInstanceRepository
     public function allFor(int $activityId, string $resourceType, int $resourceId): Collection;
 
     /**
-     * Get all activity instances belonging to an activity
+     * Get all activity instances belonging to an activity.
      *
      * @param int $activityId ID Of the activity
      *
@@ -63,7 +62,7 @@ interface ActivityInstanceRepository
     public function allForActivity(int $activityId): Collection;
 
     /**
-     * Get all activity instances for the given resource
+     * Get all activity instances for the given resource.
      *
      * @param string $resourceType Resource (owner) type. One of user, group or role.
      * @param int $resourceId Resource (owner) id. ID of the model in resource type.

@@ -12,12 +12,12 @@ use Prophecy\Argument;
 
 class LaravelAuthActivityInstanceResolverTest extends TestCase
 {
-
     /** @test */
-    public function setActivityInstance_sets_the_activity_instance(){
+    public function set_activity_instance_sets_the_activity_instance()
+    {
         $activityInstance = factory(ActivityInstance::class)->create();
         $guard = $this->prophesize(StatefulGuard::class);
-        $guard->login(Argument::that(function($arg) use ($activityInstance) {
+        $guard->login(Argument::that(function ($arg) use ($activityInstance) {
             return $activityInstance->is($arg);
         }))->shouldBeCalled();
         
@@ -29,7 +29,8 @@ class LaravelAuthActivityInstanceResolverTest extends TestCase
     }
     
     /** @test */
-    public function getActivityInstance_returns_the_activity_instance_if_set(){
+    public function get_activity_instance_returns_the_activity_instance_if_set()
+    {
         $activityInstance = factory(ActivityInstance::class)->create();
         $guard = $this->prophesize(StatefulGuard::class);
         $guard->check()->shouldBeCalled()->willReturn(true);
@@ -43,7 +44,8 @@ class LaravelAuthActivityInstanceResolverTest extends TestCase
     }
     
     /** @test */
-    public function getActivityInstance_throws_an_exception_if_the_activity_instance_is_not_found(){
+    public function get_activity_instance_throws_an_exception_if_the_activity_instance_is_not_found()
+    {
         $this->expectException(NotInActivityInstanceException::class);
         $this->expectExceptionMessage('No activity instance found');
         $this->expectExceptionCode(404);
@@ -60,7 +62,8 @@ class LaravelAuthActivityInstanceResolverTest extends TestCase
     }
     
     /** @test */
-    public function clearActivityInstance_logs_out_of_the_activity_instance(){
+    public function clear_activity_instance_logs_out_of_the_activity_instance()
+    {
         $activityInstance = factory(ActivityInstance::class)->create();
         $guard = $this->prophesize(StatefulGuard::class);
         $guard->logout()->shouldBeCalled();
@@ -71,5 +74,4 @@ class LaravelAuthActivityInstanceResolverTest extends TestCase
         $resolver = new LaravelAuthActivityInstanceResolver($authFactory->reveal());
         $resolver->clearActivityInstance();
     }
-    
 }

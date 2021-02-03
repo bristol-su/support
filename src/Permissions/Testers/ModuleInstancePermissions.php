@@ -12,14 +12,13 @@ use BristolSU\Support\Permissions\Contracts\Tester;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
- * Check if the credentials are in the logic group assigned to the module instance default permission
+ * Check if the credentials are in the logic group assigned to the module instance default permission.
  */
 class ModuleInstancePermissions extends Tester
 {
-
     /**
-     * Holds the logic tester instance
-     * 
+     * Holds the logic tester instance.
+     *
      * @var LogicTester
      */
     private $logicTester;
@@ -34,10 +33,10 @@ class ModuleInstancePermissions extends Tester
 
     /**
      * Does the user have the given permission?
-     * 
-     * This tester will check the module instance permissions, and see if the given credentials are in the logic 
+     *
+     * This tester will check the module instance permissions, and see if the given credentials are in the logic
      * group assigned to the module instance permission.
-     * 
+     *
      * @param Permission $permission Permission to test
      * @param User|null $user User to test with
      * @param Group|null $group Group to test with
@@ -56,9 +55,9 @@ class ModuleInstancePermissions extends Tester
                 ->where('ability', $permission->getAbility())->firstOrFail();
             if ($permissionValue->logic !== null) {
                 return $this->logicTester->evaluate($permissionValue->logic, $user, $group, $role);
-
             }
-        } catch (ModelNotFoundException $e) {}
+        } catch (ModelNotFoundException $e) {
+        }
         
         return null;
     }

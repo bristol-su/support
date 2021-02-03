@@ -8,8 +8,7 @@ class CreateModuleInstanceGroupingsTable extends Migration
 {
     /**
      * Run the migrations.
-     * 
-     * @return void
+     *
      */
     public function up()
     {
@@ -23,10 +22,9 @@ class CreateModuleInstanceGroupingsTable extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
      */
     public function down()
     {
-        Schema::dropIfExists('module_instance_grouping');    
+        Schema::dropIfExists('module_instance_grouping');
     }
 }

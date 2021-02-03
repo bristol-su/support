@@ -3,19 +3,17 @@
 
 namespace BristolSU\Support\Connection;
 
-
 use BristolSU\Support\Connection\Contracts\ConnectorRepository as ConnectorRepositoryContract;
 use BristolSU\Support\Connection\Contracts\ConnectorStore as ConnectorStoreContract;
 
 /**
- * Connector repository
+ * Connector repository.
  */
 class ConnectorRepository implements ConnectorRepositoryContract
 {
-
     /**
-     * Holds the connector store
-     * 
+     * Holds the connector store.
+     *
      * @var ConnectorStoreContract
      */
     private $connectorStore;
@@ -29,11 +27,11 @@ class ConnectorRepository implements ConnectorRepositoryContract
     }
 
     /**
-     * Get a registered connector by alias
-     * 
+     * Get a registered connector by alias.
+     *
      * @param string $alias Alias of the connector
-     * @return RegisteredConnector The registered connector
      * @throws \Exception If the connector is not found
+     * @return RegisteredConnector The registered connector
      */
     public function get(string $alias): RegisteredConnector
     {
@@ -41,21 +39,21 @@ class ConnectorRepository implements ConnectorRepositoryContract
     }
 
     /**
-     * Get all connectors for a given service
-     * 
+     * Get all connectors for a given service.
+     *
      * @param string $service Service to get connectors for
      * @return RegisteredConnector[]|array
      */
     public function forService(string $service): array
     {
-        return array_values(array_filter($this->connectorStore->all(), function(RegisteredConnector $connector) use ($service) {
+        return array_values(array_filter($this->connectorStore->all(), function (RegisteredConnector $connector) use ($service) {
             return $connector->getService() === $service;
         }));
     }
 
     /**
-     * Get all connectors registered 
-     * 
+     * Get all connectors registered.
+     *
      * @return RegisteredConnector[]|array
      */
     public function all(): array

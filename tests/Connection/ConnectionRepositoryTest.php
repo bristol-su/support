@@ -4,7 +4,6 @@ namespace BristolSU\Support\Tests\Connection;
 
 use BristolSU\Support\Connection\Connection;
 use BristolSU\Support\Connection\ConnectionRepository;
-use BristolSU\Support\Connection\Contracts\Connector;
 use BristolSU\Support\Connection\Contracts\ConnectorRepository;
 use BristolSU\Support\Connection\RegisteredConnector;
 use BristolSU\Support\Tests\TestCase;
@@ -13,9 +12,9 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ConnectionRepositoryTest extends TestCase
 {
-    
     /** @test */
-    public function all_returns_all_available_connections(){
+    public function all_returns_all_available_connections()
+    {
         $user = $this->newUser();
         $this->be(factory(User::class)->create(['control_id' => $user->id()]));
 
@@ -26,13 +25,14 @@ class ConnectionRepositoryTest extends TestCase
         
         $this->assertInstanceOf(Collection::class, $allConnections);
         $this->assertEquals(5, $allConnections->count());
-        foreach($connections as $connection) {
+        foreach ($connections as $connection) {
             $this->assertModelEquals($connection, $allConnections->shift());
         }
     }
 
     /** @test */
-    public function get_returns_a_connection_by_id(){
+    public function get_returns_a_connection_by_id()
+    {
         $user = $this->newUser();
         $this->be(factory(User::class)->create(['control_id' => $user->id()]));
 
@@ -46,7 +46,8 @@ class ConnectionRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function delete_deletes_a_connection(){
+    public function delete_deletes_a_connection()
+    {
         $user = $this->newUser();
         $this->be(factory(User::class)->create(['control_id' => $user->id()]));
 
@@ -61,7 +62,8 @@ class ConnectionRepositoryTest extends TestCase
     }
     
     /** @test */
-    public function create_creates_and_returns_a_connection(){
+    public function create_creates_and_returns_a_connection()
+    {
         $user = $this->newUser();
         $this->be(factory(User::class)->create(['control_id' => $user->id()]));
 
@@ -82,11 +84,11 @@ class ConnectionRepositoryTest extends TestCase
             'settings' => '{"setting1":"value1"}',
             'id' => $connection->id
         ]);
-        
     }
     
     /** @test */
-    public function update_updates_the_given_connection(){
+    public function update_updates_the_given_connection()
+    {
         $user = $this->newUser();
         $this->be(factory(User::class)->create(['control_id' => $user->id()]));
         
@@ -119,7 +121,8 @@ class ConnectionRepositoryTest extends TestCase
     }
     
     /** @test */
-    public function getAllForService_gets_all_connections_for_a_service(){
+    public function get_all_for_service_gets_all_connections_for_a_service()
+    {
         $user = $this->newUser();
         $this->be(factory(User::class)->create(['control_id' => $user->id()]));
         
@@ -149,7 +152,8 @@ class ConnectionRepositoryTest extends TestCase
     }
     
     /** @test */
-    public function getAllForConnector_returns_all_connections_with_an_alias(){
+    public function get_all_for_connector_returns_all_connections_with_an_alias()
+    {
         $user = $this->newUser();
         $this->be(factory(User::class)->create(['control_id' => $user->id()]));
 

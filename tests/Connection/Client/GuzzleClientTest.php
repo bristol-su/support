@@ -9,9 +9,9 @@ use GuzzleHttp\Psr7\Response;
 
 class GuzzleClientTest extends TestCase
 {
-
     /** @test */
-    public function it_calls_the_request_function_of_the_client(){
+    public function it_calls_the_request_function_of_the_client()
+    {
         $response = new Response(200, [], json_encode(['some' => 'body']));
         
         $client = $this->prophesize(BaseGuzzleInterface::class);
@@ -20,5 +20,4 @@ class GuzzleClientTest extends TestCase
         $guzzleClient = new GuzzleClient($client->reveal());
         $this->assertEquals($response, $guzzleClient->request('post', '/a', ['form_params' => ['test' => 1]]));
     }
-
 }

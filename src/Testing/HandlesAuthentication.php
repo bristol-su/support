@@ -6,17 +6,15 @@ use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\Support\Testing\Authentication\SessionAuthentication;
 
 /**
- * Trait for aiding interactions with the user/group/role system
+ * Trait for aiding interactions with the user/group/role system.
  */
 trait HandlesAuthentication
 {
-
     /**
-     * Create a new control user
-     * 
+     * Create a new control user.
+     *
      * @param array $attributes Attributes to use for the user
      * @return User
      */
@@ -26,7 +24,7 @@ trait HandlesAuthentication
     }
 
     /**
-     * Create a new control group
+     * Create a new control group.
      *
      * @param array $attributes Attributes to use for the group
      * @return Group
@@ -37,7 +35,7 @@ trait HandlesAuthentication
     }
 
     /**
-     * Create a new control role
+     * Create a new control role.
      *
      * @param array $attributes Attributes to use for the role
      * @return Role
@@ -48,10 +46,9 @@ trait HandlesAuthentication
     }
     
     /**
-     * Set a group
+     * Set a group.
      *
      * @param Group $group
-     * @return void
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function beGroup(Group $group)
@@ -60,10 +57,9 @@ trait HandlesAuthentication
     }
 
     /**
-     * Set a role
+     * Set a role.
      *
      * @param Role $role
-     * @return void
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function beRole(Role $role)
@@ -71,17 +67,14 @@ trait HandlesAuthentication
         app()->make(Authentication::class)->setRole($role);
     }
 
-
     /**
-     * Set a user
-     * 
+     * Set a user.
+     *
      * @param User $user
-     * @return void
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function beUser(User $user)
     {
         app()->make(Authentication::class)->setUser($user);
     }
-    
 }

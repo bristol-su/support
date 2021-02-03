@@ -8,9 +8,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class ModuleFactoryTest extends TestCase
 {
-
     /** @test */
-    public function fromAlias_builds_a_module_from_an_alias(){
+    public function from_alias_builds_a_module_from_an_alias()
+    {
         $module = new \BristolSU\Support\Module\Module();
         $module->setAlias('alias1');
         
@@ -33,5 +33,4 @@ class ModuleFactoryTest extends TestCase
         
         $this->assertEquals('alias1', $builtModule->getAlias());
     }
-
 }

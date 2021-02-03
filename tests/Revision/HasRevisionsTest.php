@@ -10,7 +10,8 @@ class HasRevisionsTest extends TestCase
     use HasRevisions;
 
     /** @test */
-    public function it_initializes_properties_from_the_config(){
+    public function it_initializes_properties_from_the_config()
+    {
         $config = app('config');
         $config->set('support.revision.cleanup.enabled', false);
         $config->set('support.revision.cleanup.limit', 5);
@@ -22,7 +23,8 @@ class HasRevisionsTest extends TestCase
     }
     
     /** @test */
-    public function it_returns_the_ID_of_a_user_through_authentication(){
+    public function it_returns_the__i_d_of_a_user_through_authentication()
+    {
         $user = $this->newUser();
         $this->beUser($user);
         
@@ -30,8 +32,8 @@ class HasRevisionsTest extends TestCase
     }
     
     /** @test */
-    public function it_returns_null_if_no_user_found(){
+    public function it_returns_null_if_no_user_found()
+    {
         $this->assertNull($this->getSystemUserId());
     }
-    
 }

@@ -16,7 +16,8 @@ class HasResourceTest extends TestCase
     use HasResource;
     
     /** @test */
-    public function activity_instance_id_returns_the_activity_instance_id(){
+    public function activity_instance_id_returns_the_activity_instance_id()
+    {
         $activityInstance = factory(ActivityInstance::class)->create();
         
         $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
@@ -27,7 +28,8 @@ class HasResourceTest extends TestCase
     }
     
     /** @test */
-    public function module_instance_id_returns_the_module_instance_id(){
+    public function module_instance_id_returns_the_module_instance_id()
+    {
         $moduleInstance = factory(ModuleInstance::class)->create();
 
         $this->app->instance(ModuleInstance::class, $moduleInstance);
@@ -36,7 +38,8 @@ class HasResourceTest extends TestCase
     }
     
     /** @test */
-    public function forResource_scope_applies_correct_queries(){
+    public function for_resource_scope_applies_correct_queries()
+    {
         $activityInstance = factory(ActivityInstance::class)->create();
         $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
         $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willReturn(($activityInstance));
@@ -52,7 +55,8 @@ class HasResourceTest extends TestCase
     }
     
     /** @test */
-    public function forResource_can_have_the_ids_overwritten(){
+    public function for_resource_can_have_the_ids_overwritten()
+    {
         $builder = $this->prophesize(Builder::class);
         $builder->where('activity_instance_id', 100)->shouldBeCalled()->willReturn($builder->reveal());
         $builder->where('module_instance_id', 101)->shouldBeCalled();
@@ -60,8 +64,9 @@ class HasResourceTest extends TestCase
         $this->scopeForResource($builder->reveal(), 100, 101);
     }
 
-	/** @test */
-    public function forModuleInstance_scope_applies_correct_queries(){
+    /** @test */
+    public function for_module_instance_scope_applies_correct_queries()
+    {
         $moduleInstance = factory(ModuleInstance::class)->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
         
@@ -72,7 +77,8 @@ class HasResourceTest extends TestCase
     }
     
     /** @test */
-    public function forModuleInstance_can_have_the_ids_overwritten(){
+    public function for_module_instance_can_have_the_ids_overwritten()
+    {
         $builder = $this->prophesize(Builder::class);
         $builder->where('module_instance_id', 101)->shouldBeCalled();
 
@@ -80,7 +86,8 @@ class HasResourceTest extends TestCase
     }
     
     /** @test */
-    public function activity_and_module_instance_id_are_set_on_save(){
+    public function activity_and_module_instance_id_are_set_on_save()
+    {
         $activityInstance = factory(ActivityInstance::class)->create();
         $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
         $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willReturn(($activityInstance));
@@ -88,7 +95,7 @@ class HasResourceTest extends TestCase
         $moduleInstance = factory(ModuleInstance::class)->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
         
-        $this->getConnection()->getSchemaBuilder()->create('testtable_hasresource', function(Blueprint $table) {
+        $this->getConnection()->getSchemaBuilder()->create('testtable_hasresource', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('activity_instance_id');
             $table->unsignedInteger('module_instance_id');
@@ -97,12 +104,12 @@ class HasResourceTest extends TestCase
         $model = FakeModel::create();
         $this->assertEquals($activityInstance->id, $model->activity_instance_id);
         $this->assertEquals($moduleInstance->id, $model->module_instance_id);
-        
     }
     
     /** @test */
-    public function activity_and_module_instance_id_are_not_set_if_given_already(){
-        $this->getConnection()->getSchemaBuilder()->create('testtable_hasresource', function(Blueprint $table) {
+    public function activity_and_module_instance_id_are_not_set_if_given_already()
+    {
+        $this->getConnection()->getSchemaBuilder()->create('testtable_hasresource', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('activity_instance_id');
             $table->unsignedInteger('module_instance_id');
@@ -115,13 +122,15 @@ class HasResourceTest extends TestCase
         $this->assertEquals(500, $model->activity_instance_id);
         $this->assertEquals(505, $model->module_instance_id);
     }
-    
 }
 
-class FakeModel extends Model {
+class FakeModel extends Model
+{
     use HasResource;
     
     protected $table = 'testtable_hasresource';
+
     public $timestamps = false;
+
     protected $guarded = [];
 }

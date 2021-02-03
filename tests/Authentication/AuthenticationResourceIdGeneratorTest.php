@@ -4,17 +4,14 @@ namespace BristolSU\Support\Tests\Authentication;
 
 use BristolSU\Support\Authentication\AuthenticationResourceIdGenerator;
 use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\ControlDB\Models\Group;
-use BristolSU\ControlDB\Models\Role;
-use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Tests\TestCase;
 use Exception;
 
 class AuthenticationResourceIdGeneratorTest extends TestCase
 {
-
     /** @test */
-    public function fromString_returns_the_user_id_if_user_given(){
+    public function from_string_returns_the_user_id_if_user_given()
+    {
         $authentication = $this->prophesize(Authentication::class);
         $user = $this->newUser();
         $authentication->getUser()->shouldBeCalled()->willReturn($user);
@@ -24,7 +21,8 @@ class AuthenticationResourceIdGeneratorTest extends TestCase
     }
 
     /** @test */
-    public function fromString_returns_the_group_id_if_group_given(){
+    public function from_string_returns_the_group_id_if_group_given()
+    {
         $authentication = $this->prophesize(Authentication::class);
         $group = $this->newGroup();
         $authentication->getGroup()->shouldBeCalled()->willReturn($group);
@@ -34,7 +32,8 @@ class AuthenticationResourceIdGeneratorTest extends TestCase
     }
 
     /** @test */
-    public function fromString_returns_the_role_id_if_role_given(){
+    public function from_string_returns_the_role_id_if_role_given()
+    {
         $authentication = $this->prophesize(Authentication::class);
         $role = $this->newRole();
         $authentication->getRole()->shouldBeCalled()->willReturn($role);
@@ -44,7 +43,8 @@ class AuthenticationResourceIdGeneratorTest extends TestCase
     }
 
     /** @test */
-    public function fromString_throws_an_exception_if_no_user_found_and_user_given(){
+    public function from_string_throws_an_exception_if_no_user_found_and_user_given()
+    {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Not logged into correct model');
         
@@ -56,7 +56,8 @@ class AuthenticationResourceIdGeneratorTest extends TestCase
     }
 
     /** @test */
-    public function fromString_throws_an_exception_if_no_group_found_and_group_given(){
+    public function from_string_throws_an_exception_if_no_group_found_and_group_given()
+    {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Not logged into correct model');
 
@@ -68,7 +69,8 @@ class AuthenticationResourceIdGeneratorTest extends TestCase
     }
 
     /** @test */
-    public function fromString_throws_an_exception_if_no_role_found_and_role_given(){
+    public function from_string_throws_an_exception_if_no_role_found_and_role_given()
+    {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Not logged into correct model');
 
@@ -78,5 +80,4 @@ class AuthenticationResourceIdGeneratorTest extends TestCase
         $idGenerator = new AuthenticationResourceIdGenerator($authentication->reveal());
         $idGenerator->fromString('role');
     }
-    
 }

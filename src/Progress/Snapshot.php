@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Progress;
 
-
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
@@ -94,14 +93,15 @@ class Snapshot
         foreach(app(ActivityInstanceRepository::class)->allForActivity($activity->id) as $activityInstance) {
             $progresses[] = $this->ofActivityInstance($activityInstance);
         }
+
         return $progresses;
     }
 
     /**
-     * Take a snapshot of a single activity instance
-     * 
+     * Take a snapshot of a single activity instance.
+     *
      * @param ActivityInstance $activityInstance
-     * 
+     *
      * @return Progress
      */
     public function ofActivityInstance(ActivityInstance $activityInstance): Progress
@@ -111,7 +111,7 @@ class Snapshot
         $moduleCount = 0;
         $progress = Progress::create($activity->id, $activityInstance->id, Carbon::now(), true, 0);
 
-        foreach($activity->moduleInstances as $moduleInstance) {
+        foreach ($activity->moduleInstances as $moduleInstance) {
             $evaluation = ModuleInstanceEvaluator::evaluateResource($activityInstance, $moduleInstance);
             $moduleInstanceProgress = ModuleInstanceProgress::create(
                 $moduleInstance->id,
@@ -121,21 +121,20 @@ class Snapshot
                 $evaluation->active(),
                 $evaluation->visible()
             );
-            if($evaluation->mandatory()) {
+            if ($evaluation->mandatory()) {
                 $moduleCount++;
                 $percentages += $evaluation->percentage();
-                if(!$evaluation->complete()) {
+                if (!$evaluation->complete()) {
                     $progress->setComplete(false);
                 }
             }
             $progress->pushModule($moduleInstanceProgress);
         }
         
-        if($moduleCount > 0) {
+        if ($moduleCount > 0) {
             $progress->setPercentage($percentages / $moduleCount);
         }
         
         return $progress;
     }
-
 }

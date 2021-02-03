@@ -3,52 +3,51 @@
 
 namespace BristolSU\Support\ModuleInstance\Evaluator;
 
-
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation as EvaluationContract;
 
 /**
- * Represents an evaluation of a module instance
+ * Represents an evaluation of a module instance.
  */
 class Evaluation implements EvaluationContract
 {
     /**
      * Is the module instance active?
-     * 
+     *
      * @var bool
      */
     private $active = false;
 
     /**
      * Is the module instance visible?
-     * 
+     *
      * @var bool
      */
     private $visible = false;
 
     /**
      * Is the module instance mandatory?
-     * 
+     *
      * @var bool
      */
     private $mandatory = false;
 
     /**
      * Is the module instance complete?
-     * 
+     *
      * @var bool
      */
     private $complete = false;
 
     /**
-     * The percentage completion of the module instance
-     * 
-     * @var int 
+     * The percentage completion of the module instance.
+     *
+     * @var int
      */
     private $percentage = 0;
     
     /**
      * Is the module instance active?
-     * 
+     *
      * @return bool
      */
     public function active(): bool
@@ -58,7 +57,7 @@ class Evaluation implements EvaluationContract
 
     /**
      * Is the module instance mandatory?
-     * 
+     *
      * @return bool
      */
     public function mandatory(): bool
@@ -68,7 +67,7 @@ class Evaluation implements EvaluationContract
 
     /**
      * Is the module instance complete?
-     * 
+     *
      * @return bool
      */
     public function complete(): bool
@@ -77,10 +76,9 @@ class Evaluation implements EvaluationContract
     }
 
     /**
-     * Set the active status of the module instance evaluation
-     * 
+     * Set the active status of the module instance evaluation.
+     *
      * @param bool $active New active status of the module instance evaluation
-     * @return void
      */
     public function setActive(bool $active)
     {
@@ -88,10 +86,9 @@ class Evaluation implements EvaluationContract
     }
 
     /**
-     * Set the mandatory status of the module instance evaluation
-     * 
+     * Set the mandatory status of the module instance evaluation.
+     *
      * @param bool $mandatory Mandatory status
-     * @return void
      */
     public function setMandatory(bool $mandatory)
     {
@@ -99,10 +96,9 @@ class Evaluation implements EvaluationContract
     }
 
     /**
-     * Set the visible status of the module instance evaluation
-     * 
+     * Set the visible status of the module instance evaluation.
+     *
      * @param bool $visible Visible status
-     * @return void
      */
     public function setVisible(bool $visible)
     {
@@ -110,10 +106,9 @@ class Evaluation implements EvaluationContract
     }
 
     /**
-     * Set the complete status of the module instance evaluation 
-     * 
+     * Set the complete status of the module instance evaluation.
+     *
      * @param bool $complete Complete status
-     * @return void
      */
     public function setComplete(bool $complete)
     {
@@ -122,7 +117,7 @@ class Evaluation implements EvaluationContract
 
     /**
      * Is the module instance visible?
-     * 
+     *
      * @return bool
      */
     public function visible(): bool
@@ -131,7 +126,7 @@ class Evaluation implements EvaluationContract
     }
 
     /**
-     * Get the percentage completion of the module
+     * Get the percentage completion of the module.
      *
      * @return float
      */
@@ -141,7 +136,7 @@ class Evaluation implements EvaluationContract
     }
 
     /**
-     * Set the percentage completion of the module
+     * Set the percentage completion of the module.
      *
      * @param float $percentage
      */
@@ -150,10 +145,9 @@ class Evaluation implements EvaluationContract
         $this->percentage = $percentage;
     }
 
-
     /**
-     * Cast the representation to an array
-     * 
+     * Cast the representation to an array.
+     *
      * @return array
      */
     public function toArray()
@@ -167,7 +161,6 @@ class Evaluation implements EvaluationContract
         ];
     }
 
-
     /**
      * Convert the object to its JSON representation.
      *
@@ -180,8 +173,8 @@ class Evaluation implements EvaluationContract
     }
 
     /**
-     * Convert the object to a JSON representation
-     * 
+     * Convert the object to a JSON representation.
+     *
      * @return string
      */
     public function __toString()

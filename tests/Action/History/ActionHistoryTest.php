@@ -8,9 +8,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class ActionHistoryTest extends TestCase
 {
-    
     /** @test */
-    public function an_action_history_can_be_created(){
+    public function an_action_history_can_be_created()
+    {
         $actionInstance = factory(ActionInstance::class)->create();
         
         $actionHistory = factory(ActionHistory::class)->create([
@@ -29,7 +29,8 @@ class ActionHistoryTest extends TestCase
     }
     
     /** @test */
-    public function it_has_an_action_instance(){
+    public function it_has_an_action_instance()
+    {
         $actionInstance = factory(ActionInstance::class)->create();
 
         $actionHistory = factory(ActionHistory::class)->create([
@@ -39,5 +40,4 @@ class ActionHistoryTest extends TestCase
         $this->assertInstanceOf(ActionInstance::class, $actionHistory->actionInstance);
         $this->assertModelEquals($actionInstance, $actionHistory->actionInstance);
     }
-
 }

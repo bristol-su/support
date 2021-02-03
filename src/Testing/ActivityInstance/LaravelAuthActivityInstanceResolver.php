@@ -2,9 +2,9 @@
 
 namespace BristolSU\Support\Testing\ActivityInstance;
 
+use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use BristolSU\Support\ActivityInstance\Exceptions\NotInActivityInstanceException;
-use BristolSU\Support\ActivityInstance\ActivityInstance;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 
 /**
@@ -13,7 +13,7 @@ use Illuminate\Contracts\Auth\Factory as AuthFactory;
 class LaravelAuthActivityInstanceResolver implements ActivityInstanceResolver
 {
     /**
-     * Laravel Auth Factory
+     * Laravel Auth Factory.
      *
      * Used for saving and retrieving activity instances.
      *
@@ -22,7 +22,7 @@ class LaravelAuthActivityInstanceResolver implements ActivityInstanceResolver
     private $auth;
 
     /**
-     * Initialise the activity instance resolver
+     * Initialise the activity instance resolver.
      *
      * @param AuthFactory $auth
      */
@@ -32,7 +32,7 @@ class LaravelAuthActivityInstanceResolver implements ActivityInstanceResolver
     }
 
     /**
-     * Set the activity instance
+     * Set the activity instance.
      *
      * @param ActivityInstance $activityInstance Activity instance to set.
      */
@@ -43,17 +43,18 @@ class LaravelAuthActivityInstanceResolver implements ActivityInstanceResolver
 
     /**
      *
-     * Get the activity instance
-     *
-     * @return ActivityInstance Activity instance set through setActivityInstance
+     * Get the activity instance.
      *
      * @throws NotInActivityInstanceException If the activity instance is not set.
+     * @return ActivityInstance Activity instance set through setActivityInstance
+     *
      */
     public function getActivityInstance(): ActivityInstance
     {
         if ($this->auth->guard('activity-instance')->check()) {
             return $this->auth->guard('activity-instance')->user();
         }
+
         throw new NotInActivityInstanceException('No activity instance found', 404);
     }
 

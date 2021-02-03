@@ -2,7 +2,6 @@
 
 namespace BristolSU\Support\ModuleInstance;
 
-use BristolSU\Support\Activity\Middleware\InjectActivity;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceServiceRepository;
 use BristolSU\Support\ModuleInstance\Contracts\Connection\ModuleInstanceServiceRepository as ModuleInstanceServiceRepositoryContract;
@@ -23,14 +22,13 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Module Instance Service Provider
+ * Module Instance Service Provider.
  */
 class ModuleInstanceServiceProvider extends ServiceProvider
 {
-
     /**
-     * Register
-     * 
+     * Register.
+     *
      * - Bind implementations to contracts
      * - Set up the module settings store as a singleton
      * - Set up the command store as a singleton
@@ -47,8 +45,8 @@ class ModuleInstanceServiceProvider extends ServiceProvider
     }
 
     /**
-     * Boot
-     * 
+     * Boot.
+     *
      * - Push middleware to module group
      * - Route model binding for a module_instance_setting
      * - Route model binding for a module_instance_service
@@ -58,23 +56,22 @@ class ModuleInstanceServiceProvider extends ServiceProvider
     {
         $this->app['router']->pushMiddlewareToGroup('module', InjectModuleInstance::class);
 
-        Route::bind('module_instance_setting', function($id) {
+        Route::bind('module_instance_setting', function ($id) {
             return ModuleInstanceSetting::findOrFail($id);
         });
 
-        Route::bind('module_instance_service', function($id) {
+        Route::bind('module_instance_service', function ($id) {
             return ModuleInstanceService::findOrFail($id);
         });
 
-        Route::bind('module_instance_slug', function($slug, $route) {
+        Route::bind('module_instance_slug', function ($slug, $route) {
             $activity = $route->parameter('activity_slug');
+
             return ModuleInstance::where('slug', $slug)
-                ->whereHas('activity', function($query) use ($activity) {
+                ->whereHas('activity', function ($query) use ($activity) {
                     $query->where('slug', $activity->slug);
                 })
                 ->firstOrFail();
         });
-                
     }
-
 }

@@ -2,15 +2,14 @@
 
 namespace BristolSU\Support\Tests\Action\Contracts;
 
-use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Action\ActionResponse;
+use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Tests\TestCase;
 use Exception;
 use FormSchema\Schema\Form;
 
 class ActionTest extends TestCase
 {
-
     /** @test */
     public function option_returns_an_index_given_by_data()
     {
@@ -51,7 +50,7 @@ class ActionTest extends TestCase
     }
 
     /** @test */
-    public function getData_returns_all_data()
+    public function get_data_returns_all_data()
     {
         $action = new DummyAction(['key1' => 'val1', 'key2' => 'val2']);
         $this->assertEquals(['key1' => 'val1', 'key2' => 'val2'], $action->getData());
@@ -83,7 +82,8 @@ class ActionTest extends TestCase
     }
     
     /** @test */
-    public function it_creates_a_history_when_the_response_is_returned(){
+    public function it_creates_a_history_when_the_response_is_returned()
+    {
         $action = new DummyAction([]);
         $action->setActionInstanceId(1);
         $response = ActionResponse::success('Message Here');
@@ -97,12 +97,10 @@ class ActionTest extends TestCase
             'message' => 'Message Here'
         ]);
     }
-    
 }
 
 class DummyAction extends Action
 {
-
     public $ran = false;
 
     public $responseToReturn;
@@ -118,13 +116,13 @@ class DummyAction extends Action
     public function run(): ActionResponse
     {
         $this->ran = true;
+
         return ($this->responseToReturn ?? ActionResponse::success());
     }
 }
 
 class DummyActionWithException extends Action
 {
-
     public $exceptionMessage = '';
     
     public static function options(): Form

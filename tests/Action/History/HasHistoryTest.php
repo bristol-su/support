@@ -9,9 +9,9 @@ use FormSchema\Schema\Form;
 
 class HasHistoryTest extends TestCase
 {
-
     /** @test */
-    public function an_exception_is_thrown_if_the_action_instance_is_null(){
+    public function an_exception_is_thrown_if_the_action_instance_is_null()
+    {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('The action instance ID must not be null');
         
@@ -22,7 +22,8 @@ class HasHistoryTest extends TestCase
     }
     
     /** @test */
-    public function if_the_settings_are_null_an_empty_array_is_saved(){
+    public function if_the_settings_are_null_an_empty_array_is_saved()
+    {
         $action = new ActionForResponse();
         $action->response = ActionResponse::success('Message 1');
         $action->setActionInstanceId(1);
@@ -38,7 +39,8 @@ class HasHistoryTest extends TestCase
     }
     
     /** @test */
-    public function if_event_fields_are_null_an_empty_array_is_saved(){
+    public function if_event_fields_are_null_an_empty_array_is_saved()
+    {
         $action = new ActionForResponse();
         $action->response = ActionResponse::success('Message 1');
         $action->setActionInstanceId(1);
@@ -54,7 +56,8 @@ class HasHistoryTest extends TestCase
     }
     
     /** @test */
-    public function action_history_is_created_from_the_response(){
+    public function action_history_is_created_from_the_response()
+    {
         $action = new ActionForResponse();
         $action->response = ActionResponse::success('Message 1');
         $action->setActionInstanceId(1);
@@ -70,12 +73,10 @@ class HasHistoryTest extends TestCase
             'success' => 1
         ]);
     }
-    
 }
 
 class ActionForResponse extends Action
 {
-
     public $response;
     
     /**

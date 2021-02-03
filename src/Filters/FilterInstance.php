@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Filters;
 
-
 use BristolSU\Support\Filters\Contracts\FilterInstance as FilterInstanceContract;
 use BristolSU\Support\Filters\Contracts\FilterRepository as FilterRepositoryContract;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
@@ -15,15 +14,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
- * Represents a filter instance
+ * Represents a filter instance.
  */
 class FilterInstance extends Model implements FilterInstanceContract
 {
     use HasRevisions;
     
     /**
-     * Fillable attributes
-     * 
+     * Fillable attributes.
+     *
      * @var array
      */
     protected $fillable = [
@@ -31,8 +30,8 @@ class FilterInstance extends Model implements FilterInstanceContract
     ];
 
     /**
-     * Cast settings to an array
-     * 
+     * Cast settings to an array.
+     *
      * @var array
      */
     protected $casts = [
@@ -40,17 +39,17 @@ class FilterInstance extends Model implements FilterInstanceContract
     ];
 
     /**
-     * Append the 'for' attribute to the Laravel model
-     * 
-     * @var array 
+     * Append the 'for' attribute to the Laravel model.
+     *
+     * @var array
      */
     protected $appends = [
         'for'
     ];
     
     /**
-     * Return the filter instance name
-     * 
+     * Return the filter instance name.
+     *
      * @return string Filter instance name
      */
     public function name()
@@ -59,8 +58,8 @@ class FilterInstance extends Model implements FilterInstanceContract
     }
 
     /**
-     * Return the filter instance settings
-     * 
+     * Return the filter instance settings.
+     *
      * @return array
      */
     public function settings()
@@ -69,12 +68,12 @@ class FilterInstance extends Model implements FilterInstanceContract
     }
 
     /**
-     * Return who the filter instance is for
-     * 
-     * @return string user, group or role
+     * Return who the filter instance is for.
+     *
      * @throws \Exception If the filter does not extend a user, group or role filter contract
+     * @return string user, group or role
      */
-    public function for ()
+    public function for()
     {
         $filter = app(FilterRepositoryContract::class)->getByAlias($this->alias());
         if ($filter instanceof UserFilter) {
@@ -86,12 +85,13 @@ class FilterInstance extends Model implements FilterInstanceContract
         if ($filter instanceof RoleFilter) {
             return 'role';
         }
+
         throw new \Exception('Filter must extend Filter contract');
     }
     
     /**
-     * Logic relationship
-     * 
+     * Logic relationship.
+     *
      * @return BelongsTo
      */
     public function logic()
@@ -100,10 +100,10 @@ class FilterInstance extends Model implements FilterInstanceContract
     }
 
     /**
-     * Dynamically get the for attribute
-     * 
-     * @return string Get the for attribute
+     * Dynamically get the for attribute.
+     *
      * @throws \Exception If the filter does not extend a user, group or role contract
+     * @return string Get the for attribute
      */
     public function getForAttribute()
     {
@@ -111,14 +111,12 @@ class FilterInstance extends Model implements FilterInstanceContract
     }
 
     /**
-     * Get the filter alias
-     * 
+     * Get the filter alias.
+     *
      * @return string Filter alias
      */
     public function alias()
     {
         return $this->alias;
     }
-
-
 }

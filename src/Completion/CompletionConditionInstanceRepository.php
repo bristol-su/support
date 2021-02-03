@@ -6,7 +6,7 @@ use BristolSU\Support\Completion\Contracts\CompletionConditionInstanceRepository
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
- * Class to retrieve and change completion condition instances
+ * Class to retrieve and change completion condition instances.
  */
 class CompletionConditionInstanceRepository implements CompletionConditionInstanceRepositoryContract
 {
@@ -30,7 +30,7 @@ class CompletionConditionInstanceRepository implements CompletionConditionInstan
     }
 
     /**
-     * Get all completion condition instances
+     * Get all completion condition instances.
      *
      * @return CompletionConditionInstance[]
      */
@@ -40,34 +40,35 @@ class CompletionConditionInstanceRepository implements CompletionConditionInstan
     }
 
     /**
-     * Get a completion condition instance by ID
-     * 
+     * Get a completion condition instance by ID.
+     *
      * @param int $id
-     * @return Contracts\CompletionConditionInstance
-     * 
      * @throws ModelNotFoundException If the completion condition instance was not found
+     * @return Contracts\CompletionConditionInstance
+     *
      */
-    public function getById(int $id): \BristolSU\Support\Completion\Contracts\CompletionConditionInstance
+    public function getById(int $id): Contracts\CompletionConditionInstance
     {
         return CompletionConditionInstance::findOrFail($id);
     }
 
     /**
-     * Update a completion condition instance
+     * Update a completion condition instance.
      *
      * Any number of parameters may be passed to be updated. The possible attributes are alias, name, description and settings
      *
      * @param int $id
      * @param array $attributes
-     * @return Contracts\CompletionConditionInstance
-     * 
      * @throws ModelNotFoundException If the completion condition instance was not found
+     * @return Contracts\CompletionConditionInstance
+     *
      */
-    public function update(int $id, array $attributes): \BristolSU\Support\Completion\Contracts\CompletionConditionInstance
+    public function update(int $id, array $attributes): Contracts\CompletionConditionInstance
     {
         $completionCondition = $this->getById($id);
         $completionCondition->fill($attributes);
         $completionCondition->save();
+
         return $completionCondition;
     }
 }

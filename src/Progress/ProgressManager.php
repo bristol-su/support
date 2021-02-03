@@ -2,7 +2,6 @@
 
 namespace BristolSU\Support\Progress;
 
-use BristolSU\Support\Progress\Handlers\AirTable\AirtableHandler;
 use BristolSU\Support\Progress\Handlers\Database\DatabaseHandler;
 use BristolSU\Support\Progress\Handlers\Handler;
 use Closure;
@@ -12,7 +11,6 @@ use InvalidArgumentException;
 
 class ProgressManager
 {
-
     /**
      * The container instance.
      *
@@ -31,7 +29,6 @@ class ProgressManager
      * Create a new Export manager instance.
      *
      * @param  Container  $container
-     * @return void
      */
     public function __construct(Container $container)
     {
@@ -53,9 +50,9 @@ class ProgressManager
      * Resolve the given export instance by name.
      *
      * @param  string  $name
+     * @throws \InvalidArgumentException
      * @return Handler
      *
-     * @throws \InvalidArgumentException
      */
     protected function resolve($name)
     {
@@ -68,7 +65,7 @@ class ProgressManager
             return $this->callCustomCreator($config);
         }
 
-        $driverMethod = 'create'.Str::studly($config['driver']).'Driver';
+        $driverMethod = 'create' . Str::studly($config['driver']) . 'Driver';
 
         if (method_exists($this, $driverMethod)) {
             return $this->{$driverMethod}($config);
@@ -97,9 +94,10 @@ class ProgressManager
     protected function configurationFor($name)
     {
         $config = $this->container['config']["support.progress.export.{$name}"];
-        if(is_null($config)) {
+        if (is_null($config)) {
             return null;
         }
+
         return $config;
     }
 
@@ -141,12 +139,11 @@ class ProgressManager
 
     /**
      * @param $config
-     * 
+     *
      * @return DatabaseHandler
      */
     public function createDatabaseDriver($config)
     {
         return new DatabaseHandler();
     }
-
 }

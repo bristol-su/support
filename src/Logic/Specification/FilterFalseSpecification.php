@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Logic\Specification;
 
-
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
@@ -17,29 +16,29 @@ use BristolSU\Support\Logic\Contracts\Specification;
 class FilterFalseSpecification implements Specification
 {
     /**
-     * Holds the filter instance to test
-     * 
+     * Holds the filter instance to test.
+     *
      * @var FilterInstance
      */
     private $filter;
     
     /**
-     * Holds the user to test the filter against
-     * 
+     * Holds the user to test the filter against.
+     *
      * @var User|null
      */
     private $user;
     
     /**
-     * Holds the group to test the filter against
-     * 
+     * Holds the group to test the filter against.
+     *
      * @var Group|null
      */
     private $group;
     
     /**
-     * Holds the role to test the filter against
-     * 
+     * Holds the role to test the filter against.
+     *
      * @var Role|null
      */
     private $role;
@@ -60,7 +59,7 @@ class FilterFalseSpecification implements Specification
 
     /**
      * Does the filter return false?
-     * 
+     *
      * @return bool True if the filter is false, false if the filter is true
      */
     public function isSatisfied(): bool
@@ -79,5 +78,4 @@ class FilterFalseSpecification implements Specification
                 return false;
         }
     }
-
 }

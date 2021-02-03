@@ -4,10 +4,10 @@ namespace BristolSU\Support\Tests\Action;
 
 use BristolSU\Support\Action\ActionDispatcher;
 use BristolSU\Support\Action\ActionInstance;
+use BristolSU\Support\Action\ActionResponse;
 use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Action\Contracts\ActionBuilder;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
-use BristolSU\Support\Action\ActionResponse;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Schema\Form;
@@ -18,9 +18,9 @@ use Prophecy\Argument;
 
 class ActionDispatcherTest extends TestCase
 {
-
     /** @test */
-    public function handle_builds_each_relevant_action(){
+    public function handle_builds_each_relevant_action()
+    {
         $moduleInstance = factory(ModuleInstance::class)->create();
         $this->instance(ModuleInstance::class, $moduleInstance);
         $actionInstances = factory(ActionInstance::class, 4)->create([
@@ -29,8 +29,8 @@ class ActionDispatcherTest extends TestCase
         ]);
         
         $builder = $this->prophesize(ActionBuilder::class);
-        foreach($actionInstances as $actionInstance) {
-            $builder->build(Argument::that(function($arg) use ($actionInstance) {
+        foreach ($actionInstances as $actionInstance) {
+            $builder->build(Argument::that(function ($arg) use ($actionInstance) {
                 return $arg->id === $actionInstance->id;
             }), ['field1' => 'field1value'])->shouldBeCalled()->willReturn(new DispatcherDummyAction([]));
         }
@@ -40,7 +40,8 @@ class ActionDispatcherTest extends TestCase
     }
     
     /** @test */
-    public function handle_dispatches_a_job_for_each_relevant_action(){
+    public function handle_dispatches_a_job_for_each_relevant_action()
+    {
         Bus::swap($fake = new BusFakeWithDispatchNow(Bus::getFacadeRoot()));
         
         $moduleInstance = factory(ModuleInstance::class)->create();
@@ -51,7 +52,7 @@ class ActionDispatcherTest extends TestCase
         ]);
 
         $builder = $this->prophesize(ActionBuilder::class);
-        foreach($actionInstances as $actionInstance) {
+        foreach ($actionInstances as $actionInstance) {
             $builder->build(Argument::any(), Argument::any())->shouldBeCalled()->willReturn(new DispatcherDummyAction([]));
         }
 
@@ -62,7 +63,8 @@ class ActionDispatcherTest extends TestCase
     }
     
     /** @test */
-    public function it_dispatches_now_if_should_queue_is_false(){
+    public function it_dispatches_now_if_should_queue_is_false()
+    {
         Bus::swap($fake = new BusFakeWithDispatchNow(Bus::getFacadeRoot()));
         $moduleInstance = factory(ModuleInstance::class)->create();
         $this->instance(ModuleInstance::class, $moduleInstance);
@@ -73,7 +75,7 @@ class ActionDispatcherTest extends TestCase
         ]);
 
         $builder = $this->prophesize(ActionBuilder::class);
-        foreach($actionInstances as $actionInstance) {
+        foreach ($actionInstances as $actionInstance) {
             $builder->build(Argument::any(), Argument::any())->shouldBeCalled()->willReturn(new DispatcherDummyAction([]));
         }
 
@@ -82,13 +84,9 @@ class ActionDispatcherTest extends TestCase
 
         Bus::assertDispatchedNow(DispatcherDummyAction::class, $actionInstances->count());
     }
-    
-
-    
 }
 class DispatcherDummyEvent implements TriggerableEvent
 {
-
     public function getFields(): array
     {
         return ['field1' => 'field1value'];
@@ -106,7 +104,6 @@ class DispatcherDummyEvent implements TriggerableEvent
 
 class DispatcherDummyAction extends Action
 {
-
     public function run(): ActionResponse
     {
         return ActionResponse::success();
@@ -126,7 +123,7 @@ class DispatcherDummyAction extends Action
     }
 }
 
-class BusFakeWithDispatchNow extends BusFake 
+class BusFakeWithDispatchNow extends BusFake
 {
     protected $nowCommands;
 
@@ -151,7 +148,6 @@ class BusFakeWithDispatchNow extends BusFake
      *
      * @param  string  $command
      * @param  callable|int|null  $callback
-     * @return void
      */
     public function assertDispatchedNow($command, $callback = null)
     {
@@ -170,7 +166,6 @@ class BusFakeWithDispatchNow extends BusFake
      *
      * @param  string  $command
      * @param  int  $times
-     * @return void
      */
     public function assertDispatchedTimesNow($command, $times = 1)
     {
@@ -214,5 +209,4 @@ class BusFakeWithDispatchNow extends BusFake
     {
         return isset($this->nowCommands[$command]) && ! empty($this->nowCommands[$command]);
     }
-
 }

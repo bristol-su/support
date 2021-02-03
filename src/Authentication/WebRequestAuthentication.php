@@ -2,63 +2,63 @@
 
 namespace BristolSU\Support\Authentication;
 
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
-use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
+use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use Exception;
 use Illuminate\Http\Request;
 
 /**
- * Api Authentication for getting authentication models from the query string
+ * Api Authentication for getting authentication models from the query string.
  */
 class WebRequestAuthentication implements Authentication
 {
-
     /**
-     * Holds the request object
+     * Holds the request object.
      *
      * @var Request
      */
     private $request;
 
     /**
-     * Holds the role repository
+     * Holds the role repository.
      *
      * @var RoleRepository
      */
     private $roleRepository;
 
     /**
-     * Holds the group repository
+     * Holds the group repository.
      *
      * @var GroupRepository
      */
     private $groupRepository;
 
     /**
-     * Holds the user repository
+     * Holds the user repository.
      *
      * @var UserRepository
      */
     private $userRepository;
 
     /**
-     * Initialise the API authentication
+     * Initialise the API authentication.
      *
      * @param Request $request Request object to get parameters from
      * @param RoleRepository $roleRepository Role repository for retrieving roles
      * @param GroupRepository $groupRepository Group repository for retrieving groups
      * @param UserRepository $userRepository User repository for retrieving users
      */
-    public function __construct(Request $request,
-                                RoleRepository $roleRepository,
-                                GroupRepository $groupRepository,
-                                UserRepository $userRepository)
-    {
+    public function __construct(
+        Request $request,
+        RoleRepository $roleRepository,
+        GroupRepository $groupRepository,
+        UserRepository $userRepository
+    ) {
         $this->request = $request;
         $this->roleRepository = $roleRepository;
         $this->groupRepository = $groupRepository;
@@ -66,7 +66,7 @@ class WebRequestAuthentication implements Authentication
     }
 
     /**
-     * Get a group from the g parameter
+     * Get a group from the g parameter.
      *
      * @return Group|null
      */
@@ -78,11 +78,12 @@ class WebRequestAuthentication implements Authentication
             } catch (Exception $e) {
             }
         }
+
         return null;
     }
 
     /**
-     * Get a role from the r parameter
+     * Get a role from the r parameter.
      *
      * @return Role|null
      */
@@ -94,11 +95,12 @@ class WebRequestAuthentication implements Authentication
             } catch (Exception $e) {
             }
         }
+
         return null;
     }
 
     /**
-     * Get a user from the u parameter
+     * Get a user from the u parameter.
      *
      * @return User|null
      */
@@ -110,14 +112,14 @@ class WebRequestAuthentication implements Authentication
             } catch (Exception $e) {
             }
         }
+
         return null;
     }
 
     /**
-     * Set the group
+     * Set the group.
      *
      * @param Group $group
-     * @return void
      */
     public function setGroup(Group $group)
     {
@@ -126,10 +128,9 @@ class WebRequestAuthentication implements Authentication
     }
 
     /**
-     * Set the role
+     * Set the role.
      *
      * @param Role $role
-     * @return void
      */
     public function setRole(Role $role)
     {
@@ -138,10 +139,9 @@ class WebRequestAuthentication implements Authentication
     }
 
     /**
-     * Set the user
+     * Set the user.
      *
      * @param User $user
-     * @return void
      */
     public function setUser(User $user)
     {
@@ -150,9 +150,8 @@ class WebRequestAuthentication implements Authentication
     }
 
     /**
-     * Reset the query strings to null
+     * Reset the query strings to null.
      *
-     * @return void
      */
     public function reset(): void
     {

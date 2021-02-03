@@ -7,21 +7,20 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
 /**
- * Handle creating and retrieving users from the database
+ * Handle creating and retrieving users from the database.
  */
 interface UserRepository
 {
-
     /**
      * Get a user matching the given email address.
-     * 
+     *
      * @param string $email Email address of the user
      * @return User
      */
     public function getWhereEmail($email): User;
     
     /**
-     * Get a user matching the given control ID
+     * Get a user matching the given control ID.
      *
      * @param int $controlId Control ID of the user
      * @return User
@@ -42,33 +41,33 @@ interface UserRepository
     public function create(array $attributes): User;
 
     /**
-     * Get all users registered in the database
-     * 
+     * Get all users registered in the database.
+     *
      * @return User[]|Collection
      */
     public function all();
 
     /**
-     * Get a user by remember token
-     * 
+     * Get a user by remember token.
+     *
      * @param string $token Remember token
-     * @return User
      * @throws ModelNotFoundException
+     * @return User
      */
     public function getFromRememberToken(string $token): User;
 
     /**
-     * Get a user by ID
-     * 
+     * Get a user by ID.
+     *
      * @param int $id ID of the user
-     * @return User
      * @throws ModelNotFoundException
+     * @return User
      */
     public function getById(int $id): User;
 
     /**
-     * Set the remember token of a user
-     * 
+     * Set the remember token of a user.
+     *
      * @param int $id ID of the user
      * @param mixed $token New token for the user
      */

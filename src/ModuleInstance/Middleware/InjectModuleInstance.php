@@ -3,21 +3,19 @@
 
 namespace BristolSU\Support\ModuleInstance\Middleware;
 
-
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Closure;
 use Illuminate\Contracts\Container\Container;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Inject the module instance into the container
+ * Inject the module instance into the container.
  */
 class InjectModuleInstance
 {
-
     /**
-     * Holds a reference to the container to inject the module instance into 
-     * 
+     * Holds a reference to the container to inject the module instance into.
+     *
      * @var Container
      */
     private $app;
@@ -31,11 +29,11 @@ class InjectModuleInstance
     }
 
     /**
-     * Inject the module instance into the container
-     * 
+     * Inject the module instance into the container.
+     *
      * @param Request $request Request object
      * @param Closure $next Next middleware callback
-     * 
+     *
      * @return mixed
      */
     public function handle(Request $request, Closure $next)
@@ -45,5 +43,4 @@ class InjectModuleInstance
 
         return $next($request);
     }
-
 }

@@ -5,11 +5,10 @@ namespace BristolSU\Support\Tests\Action;
 use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Action\ActionInstanceField;
+use BristolSU\Support\Action\ActionResponse;
 use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
-use BristolSU\Support\Action\ActionResponse;
 use BristolSU\Support\Action\History\ActionHistory;
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
@@ -20,7 +19,7 @@ use Illuminate\Support\Collection;
 class ActionInstanceTest extends TestCase
 {
     /** @test */
-    public function actionInstance_has_many_actionInstanceFields()
+    public function action_instance_has_many_action_instance_fields()
     {
         $actionInstance = factory(ActionInstance::class)->create();
         $actionInstanceFieldsFactory = factory(ActionInstanceField::class, 10)->create([
@@ -28,13 +27,14 @@ class ActionInstanceTest extends TestCase
         ]);
         
         $actionInstanceFields = $actionInstance->actionInstanceFields;
-        foreach($actionInstanceFieldsFactory as $field) {
+        foreach ($actionInstanceFieldsFactory as $field) {
             $this->assertModelEquals($field, $actionInstanceFields->shift());
         }
     }
     
     /** @test */
-    public function actionInstance_has_an_event_fields_attribute(){
+    public function action_instance_has_an_event_fields_attribute()
+    {
         $actionInstance = factory(ActionInstance::class)->create([
             'event' => ActionInstanceDummyEvent::class,
             'action' => ActionInstanceDummyAction::class
@@ -45,11 +45,11 @@ class ActionInstanceTest extends TestCase
                 'label' => 'Event Field 1'
             ]
         ], $actionInstance->event_fields);
-
     }
     
     /** @test */
-    public function actionInstance_has_an_action_schema_attribute(){
+    public function action_instance_has_an_action_schema_attribute()
+    {
         $actionInstance = factory(ActionInstance::class)->create([
             'event' => ActionInstanceDummyEvent::class,
             'action' => ActionInstanceDummyAction::class
@@ -64,7 +64,8 @@ class ActionInstanceTest extends TestCase
     }
     
     /** @test */
-    public function actionInstance_has_a_module_instance(){
+    public function action_instance_has_a_module_instance()
+    {
         $moduleInstance = factory(ModuleInstance::class)->create();
         $actionInstance = factory(ActionInstance::class)->create([
             'module_instance_id' => $moduleInstance->id
@@ -72,11 +73,11 @@ class ActionInstanceTest extends TestCase
         
         $this->assertInstanceOf(ModuleInstance::class, $actionInstance->moduleInstance);
         $this->assertModelEquals($moduleInstance, $actionInstance->moduleInstance);
-        
     }
 
     /** @test */
-    public function user_returns_a_user_with_the_correct_id(){
+    public function user_returns_a_user_with_the_correct_id()
+    {
         $user = $this->newUser();
         $userRepository = $this->prophesize(User::class);
         $userRepository->getById($user->id())->shouldBeCalled()->willReturn($user);
@@ -88,7 +89,8 @@ class ActionInstanceTest extends TestCase
     }
 
     /** @test */
-    public function user_throws_an_exception_if_user_id_is_null(){
+    public function user_throws_an_exception_if_user_id_is_null()
+    {
         $actionInstance = factory(ActionInstance::class)->create(['user_id' => null, 'id' => 2000]);
 
         $this->expectException(\Exception::class);
@@ -98,7 +100,8 @@ class ActionInstanceTest extends TestCase
     }
 
     /** @test */
-    public function user_id_is_automatically_added_on_creation(){
+    public function user_id_is_automatically_added_on_creation()
+    {
         $user = $this->newUser();
         $dbUser = factory(\BristolSU\Support\User\User::class)->create(['control_id' => $user->id()]);
         $authentication = $this->prophesize(UserAuthentication::class);
@@ -113,7 +116,8 @@ class ActionInstanceTest extends TestCase
     }
 
     /** @test */
-    public function user_id_is_not_overridden_if_given(){
+    public function user_id_is_not_overridden_if_given()
+    {
         $user = $this->newUser();
 
         $logic = factory(Logic::class)->create();
@@ -125,7 +129,8 @@ class ActionInstanceTest extends TestCase
     }
     
     /** @test */
-    public function revisions_are_saved(){
+    public function revisions_are_saved()
+    {
         $user = $this->newUser();
         $this->beUser($user);
         
@@ -143,7 +148,8 @@ class ActionInstanceTest extends TestCase
     }
     
     /** @test */
-    public function it_has_history(){
+    public function it_has_history()
+    {
         $actionInstance = factory(ActionInstance::class)->create();
         $histories = factory(ActionHistory::class, 10)->create([
             'action_instance_id' => $actionInstance->id
@@ -153,7 +159,7 @@ class ActionInstanceTest extends TestCase
         $resolvedHistory = $actionInstance->history;
         $this->assertInstanceOf(Collection::class, $resolvedHistory);
         $this->assertContainsOnlyInstancesOf(ActionHistory::class, $resolvedHistory);
-        foreach($histories as $history) {
+        foreach ($histories as $history) {
             $this->assertModelEquals($history, $resolvedHistory->shift());
         }
     }
@@ -161,7 +167,6 @@ class ActionInstanceTest extends TestCase
 
 class ActionInstanceDummyAction extends Action
 {
-
     public function run(): ActionResponse
     {
         return ActionResponse::success();
@@ -182,7 +187,6 @@ class ActionInstanceDummyAction extends Action
 
 class ActionInstanceDummyEvent implements TriggerableEvent
 {
-
     public function getFields(): array
     {
         return [
@@ -195,7 +199,7 @@ class ActionInstanceDummyEvent implements TriggerableEvent
         return [
             'eventfield1' => [
                 'label' => 'Event Field 1'
-            ] 
+            ]
         ];
     }
 }

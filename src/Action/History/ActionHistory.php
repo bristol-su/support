@@ -6,11 +6,10 @@ use BristolSU\Support\Action\ActionInstance;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Represents the action history
+ * Represents the action history.
  */
 class ActionHistory extends Model
 {
-
     protected $table = 'action_histories';
     
     protected $fillable = [
@@ -27,5 +26,4 @@ class ActionHistory extends Model
     {
         return $this->belongsTo(ActionInstance::class);
     }
-    
 }

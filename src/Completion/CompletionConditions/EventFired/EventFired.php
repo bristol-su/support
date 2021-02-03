@@ -2,22 +2,21 @@
 
 namespace BristolSU\Support\Completion\CompletionConditions\EventFired;
 
-use BristolSU\Support\Events\Contracts\EventRepository;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Completion\Contracts\CompletionCondition;
+use BristolSU\Support\Events\Contracts\EventRepository;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
 use FormSchema\Generator\Field;
 use FormSchema\Schema\Form;
 
 /**
- * Has an event been fired
+ * Has an event been fired.
  */
 class EventFired extends CompletionCondition
 {
-
     /**
-     * Holds the event repository
-     * 
+     * Holds the event repository.
+     *
      * @var EventRepository
      */
     private $eventRepository;
@@ -33,25 +32,25 @@ class EventFired extends CompletionCondition
     }
 
     /**
-     * Get all events for the module instance
+     * Get all events for the module instance.
      *
-     * @return Form
      * @throws \Exception
+     * @return Form
      */
     public function options(): Form
     {
         return \FormSchema\Generator\Form::make()->withField(
             Field::select('event_type')->label('Event')->required(true)->hint('What event should be fired to mark this as complete?')
                 ->help('Select an event which occurs within the module. When this event is fired, the module will be marked as complete. This cannot be undone.')
-                ->values(collect($this->eventRepository->allForModule($this->moduleAlias()))->map(function($event) {
+                ->values(collect($this->eventRepository->allForModule($this->moduleAlias()))->map(function ($event) {
                     return ['id' => $event['event'], 'name' => $event['name']];
                 })->toArray())->selectOptions(['noneSelectedText' => 'Please Select an Event', 'hideNoneSelectedText' => false])
         )->getSchema();
     }
 
     /**
-     * Name of the completion condition
-     * 
+     * Name of the completion condition.
+     *
      * @return string
      */
     public function name(): string
@@ -60,8 +59,8 @@ class EventFired extends CompletionCondition
     }
 
     /**
-     * Description of the completion condition
-     * 
+     * Description of the completion condition.
+     *
      * @return string
      */
     public function description(): string
@@ -70,8 +69,8 @@ class EventFired extends CompletionCondition
     }
 
     /**
-     * Alias of the completion condition
-     * 
+     * Alias of the completion condition.
+     *
      * @return string
      */
     public function alias(): string
@@ -81,12 +80,12 @@ class EventFired extends CompletionCondition
 
     /**
      * Is the condition satisfied?
-     * 
-     * 
-     * @param array $settings Settings 
+     *
+     *
+     * @param array $settings Settings
      * @param ActivityInstance $activityInstance Activity instance to test
      * @param ModuleInstance $moduleInstance Module instance to test
-     * 
+     *
      * @return bool
      */
     public function isComplete($settings, ActivityInstance $activityInstance, ModuleInstance $moduleInstance): bool

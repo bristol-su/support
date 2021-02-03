@@ -3,23 +3,20 @@
 
 namespace BristolSU\Support\Tests\Logic;
 
-
 use BristolSU\ControlDB\Contracts\Repositories\User;
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Filters\Contracts\FilterManager;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
+use BristolSU\Support\Tests\TestCase;
 use BristolSU\Support\User\Contracts\UserAuthentication;
 use FormSchema\Schema\Form;
 use Illuminate\Support\Collection;
-use BristolSU\Support\Tests\TestCase;
 
 class LogicTest extends TestCase
 {
-
     /** @test */
     public function all_true_filters_returns_all_true_filters()
     {
@@ -70,7 +67,6 @@ class LogicTest extends TestCase
         $this->assertCount(1, $logic->allFalseFilters);
         $this->assertModelEquals($filterInstance, $logic->allFalseFilters->first());
     }
-
 
     /** @test */
     public function all_false_filters_returns_an_empty_array_if_no_all_false_filters()
@@ -177,7 +173,7 @@ class LogicTest extends TestCase
     public function filters_can_retrieve_all_filters()
     {
         $logic = factory(Logic::class)->create();
-        $filters = new Collection;
+        $filters = new Collection();
         $filters->push(factory(FilterInstance::class)->create([
             'logic_id' => $logic->id,
             'logic_type' => 'any_false'
@@ -202,7 +198,7 @@ class LogicTest extends TestCase
     }
 
     /** @test */
-    public function getLowestResourceAttribute_returns_role_if_there_is_a_role_filter()
+    public function get_lowest_resource_attribute_returns_role_if_there_is_a_role_filter()
     {
         app(FilterManager::class)->register('dummyrole_1', DummyRoleFilter::class);
         $logic = factory(Logic::class)->create();
@@ -212,7 +208,7 @@ class LogicTest extends TestCase
     }
 
     /** @test */
-    public function getLowestResourceAttribute_returns_group_if_there_is_a_group_filter_and_no_role_filter()
+    public function get_lowest_resource_attribute_returns_group_if_there_is_a_group_filter_and_no_role_filter()
     {
         app(FilterManager::class)->register('dummygroup_1', DummyGroupFilter::class);
         $logic = factory(Logic::class)->create();
@@ -222,7 +218,7 @@ class LogicTest extends TestCase
     }
 
     /** @test */
-    public function getLowestResourceAttribute_returns_role_if_there_is_a_role_filter_and_a_group_filter()
+    public function get_lowest_resource_attribute_returns_role_if_there_is_a_role_filter_and_a_group_filter()
     {
         app(FilterManager::class)->register('dummyrole_1', DummyRoleFilter::class);
         app(FilterManager::class)->register('dummygroup_1', DummyGroupFilter::class);
@@ -234,17 +230,17 @@ class LogicTest extends TestCase
     }
 
     /** @test */
-    public function getLowestResourceAttribute_returns_user_if_there_is_only_a_user_filter()
+    public function get_lowest_resource_attribute_returns_user_if_there_is_only_a_user_filter()
     {
         app(FilterManager::class)->register('dummyuser_1', DummyUserFilter::class);
         $logic = factory(Logic::class)->create();
         $filter = factory(FilterInstance::class)->create(['logic_id' => $logic->id, 'alias' => 'dummyuser_1']);
 
-        $this->assertEquals('user', $logic->lowestResource);  
+        $this->assertEquals('user', $logic->lowestResource);
     }
 
     /** @test */
-    public function getLowestResourceAttribute_returns_group_if_there_is_a_user_filter_and_a_group_filter()
+    public function get_lowest_resource_attribute_returns_group_if_there_is_a_user_filter_and_a_group_filter()
     {
         app(FilterManager::class)->register('dummyuser_1', DummyUserFilter::class);
         app(FilterManager::class)->register('dummygroup_1', DummyGroupFilter::class);
@@ -256,7 +252,7 @@ class LogicTest extends TestCase
     }
 
     /** @test */
-    public function getLowestResourceAttribute_returns_role_if_there_is_a_user_filter_and_a_role_filter()
+    public function get_lowest_resource_attribute_returns_role_if_there_is_a_user_filter_and_a_role_filter()
     {
         app(FilterManager::class)->register('dummyrole_1', DummyRoleFilter::class);
         app(FilterManager::class)->register('dummyuser_1', DummyUserFilter::class);
@@ -268,7 +264,7 @@ class LogicTest extends TestCase
     }
 
     /** @test */
-    public function getLowestResourceAttribute_returns_none_if_there_is_are_no_filters()
+    public function get_lowest_resource_attribute_returns_none_if_there_is_are_no_filters()
     {
         $logic = factory(Logic::class)->create();
 
@@ -276,7 +272,8 @@ class LogicTest extends TestCase
     }
 
     /** @test */
-    public function user_returns_a_user_with_the_correct_id(){
+    public function user_returns_a_user_with_the_correct_id()
+    {
         $user = $this->newUser();
         $userRepository = $this->prophesize(User::class);
         $userRepository->getById($user->id())->shouldBeCalled()->willReturn($user);
@@ -288,7 +285,8 @@ class LogicTest extends TestCase
     }
 
     /** @test */
-    public function user_throws_an_exception_if_user_id_is_null(){
+    public function user_throws_an_exception_if_user_id_is_null()
+    {
         $logic = factory(Logic::class)->create(['user_id' => null, 'id' => 2000]);
 
         $this->expectException(\Exception::class);
@@ -298,7 +296,8 @@ class LogicTest extends TestCase
     }
 
     /** @test */
-    public function user_id_is_automatically_added_on_creation(){
+    public function user_id_is_automatically_added_on_creation()
+    {
         $user = $this->newUser();
         $dbUser = factory(\BristolSU\Support\User\User::class)->create(['control_id' => $user->id()]);
         $authentication = $this->prophesize(UserAuthentication::class);
@@ -314,7 +313,8 @@ class LogicTest extends TestCase
     }
 
     /** @test */
-    public function user_id_is_not_overridden_if_given(){
+    public function user_id_is_not_overridden_if_given()
+    {
         $user = $this->newUser();
 
         $logic = factory(Logic::class)->create();
@@ -346,7 +346,6 @@ class LogicTest extends TestCase
 
 class DummyUserFilter extends UserFilter
 {
-
     private $result = true;
 
     public function options(): Form
@@ -392,7 +391,6 @@ class DummyUserFilter extends UserFilter
 
 class DummyGroupFilter extends GroupFilter
 {
-
     private $result = true;
 
     /**
@@ -441,7 +439,6 @@ class DummyGroupFilter extends GroupFilter
 
 class DummyRoleFilter extends RoleFilter
 {
-
     private $result = true;
 
     /**

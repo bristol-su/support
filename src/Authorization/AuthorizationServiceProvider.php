@@ -15,13 +15,12 @@ use BristolSU\Support\Authorization\Middleware\LogoutOfExtras;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Authorization Service Provider
+ * Authorization Service Provider.
  */
 class AuthorizationServiceProvider extends ServiceProvider
 {
-
     /**
-     * Push middleware to groups
+     * Push middleware to groups.
      */
     public function boot()
     {
@@ -37,5 +36,4 @@ class AuthorizationServiceProvider extends ServiceProvider
         $this->app['router']->pushMiddlewareToGroup('activity', CheckDatabaseUserOwnsControlUser::class);
         $this->app['router']->pushMiddlewareToGroup('activity', CheckAdditionalCredentialsOwnedByUser::class);
     }
-    
 }
