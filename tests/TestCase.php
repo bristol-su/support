@@ -12,5 +12,4 @@ use Prophecy\PhpUnit\ProphecyTrait;
 class TestCase extends BaseTestCase
 {
     use DatabaseMigrations, HandlesAuthentication, FakesLogicTesters, AssertsEloquentModels, ProphecyTrait;
-    
 }

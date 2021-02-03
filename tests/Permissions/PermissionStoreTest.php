@@ -3,16 +3,14 @@
 
 namespace BristolSU\Support\Tests\Permissions;
 
-
-use BristolSU\Support\Permissions\Contracts\Models\Permission;
 use BristolSU\Support\Permissions\PermissionStore;
 use BristolSU\Support\Tests\TestCase;
 
 class PermissionStoreTest extends TestCase
 {
-
     /** @test */
-    public function registerPermission_registers_a_permission_to_the_store(){
+    public function register_permission_registers_a_permission_to_the_store()
+    {
         $ability = 'ability';
         $name = 'name';
         $description = 'description';
@@ -26,11 +24,11 @@ class PermissionStoreTest extends TestCase
         $this->assertEquals($name, $permissionStore->get($ability)->getName());
         $this->assertEquals($description, $permissionStore->get($ability)->getDescription());
         $this->assertEquals($type, $permissionStore->get($ability)->getType());
-
     }
 
     /** @test */
-    public function register_site_permission_registers_a_permission_by_attributes(){
+    public function register_site_permission_registers_a_permission_by_attributes()
+    {
         $ability = 'ability';
         $name = 'name';
         $description = 'description';
@@ -45,7 +43,8 @@ class PermissionStoreTest extends TestCase
     }
 
     /** @test */
-    public function register_registers_a_module_permission_by_attributes(){
+    public function register_registers_a_module_permission_by_attributes()
+    {
         $ability = 'ability';
         $name = 'name';
         $description = 'description';
@@ -64,11 +63,12 @@ class PermissionStoreTest extends TestCase
     }
 
     /** @test */
-    public function all_returns_all_permissions(){
+    public function all_returns_all_permissions()
+    {
         $permission1 = new \BristolSU\Support\Permissions\Models\Permission('a1', 'n1', 'd1', 'global');
         $permission2 = new \BristolSU\Support\Permissions\Models\Permission('a2', 'n2', 'd2', 'global');
 
-        $permissionStore = new PermissionStore;
+        $permissionStore = new PermissionStore();
         $permissionStore->registerPermission($permission1);
         $permissionStore->registerPermission($permission2);
 
@@ -78,11 +78,10 @@ class PermissionStoreTest extends TestCase
     }
 
     /** @test */
-    public function get_throws_an_exception_if_ability_not_found(){
+    public function get_throws_an_exception_if_ability_not_found()
+    {
         $this->expectException(\Exception::class);
         $permissionStore = new PermissionStore();
         $permissionStore->get('non-existent');
-
     }
-
 }

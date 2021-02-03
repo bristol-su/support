@@ -3,7 +3,6 @@
 namespace BristolSU\Support\User;
 
 use BristolSU\ControlDB\Contracts\Repositories\DataUser;
-use Illuminate\Auth\MustVerifyEmail;
 use Illuminate\Contracts\Auth\MustVerifyEmail as MustVerifyEmailContract;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -12,7 +11,7 @@ use Illuminate\Validation\ValidationException;
 use Laravel\Passport\HasApiTokens;
 
 /**
- * Represents a user in the database
+ * Represents a user in the database.
  */
 class User extends Authenticatable implements MustVerifyEmailContract
 {
@@ -37,7 +36,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
     ];
 
     /**
-     * Get the ID of the control
+     * Get the ID of the control.
      *
      * @return int
      */
@@ -47,7 +46,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
     }
 
     /**
-     * Get the control user attached to this database user
+     * Get the control user attached to this database user.
      *
      * @return \BristolSU\ControlDB\Contracts\Models\User
      */
@@ -57,7 +56,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
     }
 
     /**
-     * Get the user email to send a notification to
+     * Get the user email to send a notification to.
      *
      * @return string|null
      */
@@ -69,34 +68,36 @@ class User extends Authenticatable implements MustVerifyEmailContract
     /**
      * Get the email address that should be used for verification.
      *
-     * @return string
      * @throws ValidationException
+     * @return string
      */
     public function getEmailForVerification()
     {
         $email = $this->controlUser()->data()->email();
-        if(!$email) {
+        if (!$email) {
             throw ValidationException::withMessages([
                 'identifier' => 'Your email has not been set.'
             ]);
         }
+
         return $email;
     }
 
     /**
      * Get the email address that should be used for password resets.
      *
-     * @return string
      * @throws ValidationException
+     * @return string
      */
     public function getEmailForPasswordReset()
     {
         $email = $this->controlUser()->data()->email();
-        if(!$email) {
+        if (!$email) {
             throw ValidationException::withMessages([
                 'identifier' => 'Your email has not been set.'
             ]);
         }
+
         return $email;
     }
 
@@ -108,7 +109,7 @@ class User extends Authenticatable implements MustVerifyEmailContract
             return null;
         }
         $controlUser = $dataUser->user();
-        if($controlUser === null) {
+        if ($controlUser === null) {
             return null;
         }
 

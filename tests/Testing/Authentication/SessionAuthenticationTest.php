@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Session;
 
 class SessionAuthenticationTest extends TestCase
 {
-
     /** @test */
     public function get_group_gets_a_group_from_a_group()
     {
@@ -23,7 +22,8 @@ class SessionAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function get_group_returns_a_group_given_by_a_role_if_role_given(){
+    public function get_group_returns_a_group_given_by_a_role_if_role_given()
+    {
         $group = $this->newGroup();
         $role = $this->newRole(['group_id' => $group->id()]);
         $this->beRole($role);
@@ -40,7 +40,6 @@ class SessionAuthenticationTest extends TestCase
         $authentication = resolve(SessionAuthentication::class);
         $this->assertNull($authentication->getGroup());
     }
-
 
     /** @test */
     public function get_role_gets_role_if_logged_in()
@@ -59,7 +58,6 @@ class SessionAuthenticationTest extends TestCase
         $this->assertNull($authentication->getRole());
     }
 
-
     /** @test */
     public function get_user_returns_a_user_if_logged_into_a_user()
     {
@@ -75,7 +73,6 @@ class SessionAuthenticationTest extends TestCase
         $authentication = resolve(SessionAuthentication::class);
         $this->assertNull($authentication->getUser());
     }
-
 
     /** @test */
     public function set_user_sets_the_user()
@@ -104,10 +101,12 @@ class SessionAuthenticationTest extends TestCase
         $authentication = resolve(SessionAuthentication::class);
         $authentication->setRole($role);
         $this->assertTrue(Session::has('role_id'));
-        $this->assertEquals($role->id(), Session::get('role_id'));    }
+        $this->assertEquals($role->id(), Session::get('role_id'));
+    }
     
     /** @test */
-    public function reset_logs_out_of_all_guards(){
+    public function reset_logs_out_of_all_guards()
+    {
         Session::put('user_id', 1);
         Session::put('group_id', 2);
         Session::put('role_id', 3);
@@ -123,5 +122,4 @@ class SessionAuthenticationTest extends TestCase
         $this->assertFalse(Session::has('group_id'));
         $this->assertFalse(Session::has('role_id'));
     }
-
 }

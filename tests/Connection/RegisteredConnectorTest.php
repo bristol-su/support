@@ -8,48 +8,52 @@ use BristolSU\Support\Tests\TestCase;
 use FormSchema\Generator\Group;
 use FormSchema\Schema\Form;
 use FormSchema\Transformers\VFGTransformer;
-use Psr\Http\Message\ResponseInterface;
 
 class RegisteredConnectorTest extends TestCase
 {
-
     /** @test */
-    public function name_can_be_set_and_retrieved(){
+    public function name_can_be_set_and_retrieved()
+    {
         $registeredConnector = new RegisteredConnector();
         $registeredConnector->setName('name1');
         $this->assertEquals('name1', $registeredConnector->getName());
     }
 
     /** @test */
-    public function description_can_be_set_and_retrieved(){
+    public function description_can_be_set_and_retrieved()
+    {
         $registeredConnector = new RegisteredConnector();
         $registeredConnector->setDescription('description1');
         $this->assertEquals('description1', $registeredConnector->getDescription());
     }
 
     /** @test */
-    public function service_can_be_set_and_retrieved(){
+    public function service_can_be_set_and_retrieved()
+    {
         $registeredConnector = new RegisteredConnector();
         $registeredConnector->setService('service1');
         $this->assertEquals('service1', $registeredConnector->getService());
     }
 
     /** @test */
-    public function alias_can_be_set_and_retrieved(){
+    public function alias_can_be_set_and_retrieved()
+    {
         $registeredConnector = new RegisteredConnector();
         $registeredConnector->setAlias('alias1');
         $this->assertEquals('alias1', $registeredConnector->getAlias());
     }
 
     /** @test */
-    public function connector_can_be_set_and_retrieved(){
+    public function connector_can_be_set_and_retrieved()
+    {
         $registeredConnector = new RegisteredConnector();
         $registeredConnector->setConnector('connector1');
         $this->assertEquals('connector1', $registeredConnector->getConnector());
     }
     
     /** @test */
-    public function __toString_toArray_and_toJson_returns_the_connector(){
+    public function __to_string_to_array_and_to_json_returns_the_connector()
+    {
         $registeredConnector = new RegisteredConnector();
         $registeredConnector->setName('name1');
         $registeredConnector->setDescription('description1');
@@ -80,12 +84,11 @@ class RegisteredConnectorTest extends TestCase
             'alias' => 'alias1',
             'settings' => (new VFGTransformer())->transformToArray(DummyConnector_RegisteredConnector::settingsSchema())
         ]), (string) $registeredConnector);
-
     }
 }
 
-class DummyConnector_RegisteredConnector extends Connector {
-
+class DummyConnector_RegisteredConnector extends Connector
+{
     /**
      * @inheritDoc
      */
@@ -103,7 +106,7 @@ class DummyConnector_RegisteredConnector extends Connector {
     /**
      * @inheritDoc
      */
-    static public function settingsSchema(): Form
+    public static function settingsSchema(): Form
     {
         return \FormSchema\Generator\Form::make()->withGroup(
             Group::make('legend1')

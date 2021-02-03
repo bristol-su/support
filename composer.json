@@ -30,7 +30,8 @@
         "orchestra/testbench": "^4.0",
         "phpstan/phpstan": "^0.12.3",
         "brianium/paratest": "^4.0",
-        "phpspec/prophecy-phpunit": "^2.0"
+        "phpspec/prophecy-phpunit": "^2.0",
+        "bristol-su/portal-code-style": "dev-develop"
     },
     "autoload": {
         "files": [

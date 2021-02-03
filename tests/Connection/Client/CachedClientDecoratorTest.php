@@ -11,13 +11,14 @@ use Prophecy\Argument;
 class CachedClientDecoratorTest extends TestCase
 {
     /** @test */
-    public function it_caches_a_request_if_the_request_is_a_get_request(){
+    public function it_caches_a_request_if_the_request_is_a_get_request()
+    {
         $realClient = $this->prophesize(Client::class);
         $cache = $this->prophesize(Cache::class);
 
         $cache->remember(Argument::type('string'), Argument::type('integer'), Argument::any())
             ->shouldBeCalled()
-            ->will(function($args) {
+            ->will(function ($args) {
                 return $args[2]();
             });
 
@@ -29,7 +30,8 @@ class CachedClientDecoratorTest extends TestCase
     }
 
     /** @test */
-    public function it_does_not_cache_a_request_if_the_request_is_a_post_request(){
+    public function it_does_not_cache_a_request_if_the_request_is_a_post_request()
+    {
         $realClient = $this->prophesize(Client::class);
         $cache = $this->prophesize(Cache::class);
 
@@ -43,9 +45,9 @@ class CachedClientDecoratorTest extends TestCase
         $this->assertEquals(['some' => 'response'], $response);
     }
     
-    
     /** @test */
-    public function it_returns_a_cached_result_if_the_request_is_cached(){
+    public function it_returns_a_cached_result_if_the_request_is_cached()
+    {
         $realClient = $this->prophesize(Client::class);
         $cache = $this->prophesize(Cache::class);
         
@@ -59,5 +61,4 @@ class CachedClientDecoratorTest extends TestCase
         
         $this->assertEquals(['some' => 'response'], $response);
     }
-    
 }

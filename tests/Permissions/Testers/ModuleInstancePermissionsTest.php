@@ -2,9 +2,6 @@
 
 namespace BristolSU\Support\Tests\Permissions\Testers;
 
-use BristolSU\ControlDB\Models\Group;
-use BristolSU\ControlDB\Models\Role;
-use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
@@ -15,7 +12,6 @@ use BristolSU\Support\Tests\TestCase;
 
 class ModuleInstancePermissionsTest extends TestCase
 {
-
     /** @test */
     public function can_returns_null_if_no_module_instance_is_in_the_container()
     {
@@ -104,5 +100,4 @@ class ModuleInstancePermissionsTest extends TestCase
             $tester->can(new Permission('permission1'), $user, $group, $role)
         );
     }
-
 }

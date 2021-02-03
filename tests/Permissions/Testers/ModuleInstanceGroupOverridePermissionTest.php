@@ -2,7 +2,6 @@
 
 namespace BristolSU\Support\Tests\Permissions\Testers;
 
-use BristolSU\ControlDB\Models\Group;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Models\ModelPermission;
 use BristolSU\Support\Permissions\Models\Permission;
@@ -12,8 +11,9 @@ use BristolSU\Support\Tests\TestCase;
 class ModuleInstanceGroupOverridePermissionTest extends TestCase
 {
     /** @test */
-    public function can_returns_null_if_no_group_given(){
-        $tester = new ModuleInstanceGroupOverridePermission;
+    public function can_returns_null_if_no_group_given()
+    {
+        $tester = new ModuleInstanceGroupOverridePermission();
         $moduleInstance = factory(ModuleInstance::class)->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
@@ -23,8 +23,9 @@ class ModuleInstanceGroupOverridePermissionTest extends TestCase
     }
 
     /** @test */
-    public function can_returns_null_if_no_module_instance_injected(){
-        $tester = new ModuleInstanceGroupOverridePermission;
+    public function can_returns_null_if_no_module_instance_injected()
+    {
+        $tester = new ModuleInstanceGroupOverridePermission();
         $group = $this->newGroup();
         $this->assertNull(
             $tester->can(new Permission('ability', '', '', 'module'), null, $group, null)
@@ -32,8 +33,9 @@ class ModuleInstanceGroupOverridePermissionTest extends TestCase
     }
 
     /** @test */
-    public function can_returns_null_if_the_permission_is_not_module(){
-        $tester = new ModuleInstanceGroupOverridePermission;
+    public function can_returns_null_if_the_permission_is_not_module()
+    {
+        $tester = new ModuleInstanceGroupOverridePermission();
         $group = $this->newGroup();
         $moduleInstance = factory(ModuleInstance::class)->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
@@ -44,8 +46,9 @@ class ModuleInstanceGroupOverridePermissionTest extends TestCase
     }
 
     /** @test */
-    public function can_returns_true_if_there_is_a_system_override_in_the_database_with_a_true_result(){
-        $tester = new ModuleInstanceGroupOverridePermission;
+    public function can_returns_true_if_there_is_a_system_override_in_the_database_with_a_true_result()
+    {
+        $tester = new ModuleInstanceGroupOverridePermission();
         $group = $this->newGroup();
         $moduleInstance = factory(ModuleInstance::class)->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
@@ -64,8 +67,9 @@ class ModuleInstanceGroupOverridePermissionTest extends TestCase
     }
 
     /** @test */
-    public function can_returns_false_if_there_is_a_system_override_in_the_database_with_a_false_result(){
-        $tester = new ModuleInstanceGroupOverridePermission;
+    public function can_returns_false_if_there_is_a_system_override_in_the_database_with_a_false_result()
+    {
+        $tester = new ModuleInstanceGroupOverridePermission();
         $group = $this->newGroup();
         $moduleInstance = factory(ModuleInstance::class)->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
@@ -84,8 +88,9 @@ class ModuleInstanceGroupOverridePermissionTest extends TestCase
     }
 
     /** @test */
-    public function can_returns_null_if_there_is_no_system_override_in_the_database(){
-        $tester = new ModuleInstanceGroupOverridePermission;
+    public function can_returns_null_if_there_is_no_system_override_in_the_database()
+    {
+        $tester = new ModuleInstanceGroupOverridePermission();
         $group = $this->newGroup();
 
         $this->assertNull(
@@ -94,8 +99,9 @@ class ModuleInstanceGroupOverridePermissionTest extends TestCase
     }
 
     /** @test */
-    public function can_returns_null_if_module_instance_id_not_in_permission_override(){
-        $tester = new ModuleInstanceGroupOverridePermission;
+    public function can_returns_null_if_module_instance_id_not_in_permission_override()
+    {
+        $tester = new ModuleInstanceGroupOverridePermission();
         $group = $this->newGroup();
         $moduleInstance = factory(ModuleInstance::class)->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);

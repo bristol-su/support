@@ -11,17 +11,16 @@ use Illuminate\Http\Request;
  */
 class CheckLoggedIntoActivityInstance
 {
-
     /**
-     * Holds the activity instance resolver
-     * 
+     * Holds the activity instance resolver.
+     *
      * @var ActivityInstanceResolver
      */
     private $activityInstanceResolver;
 
     /**
-     * Initialise middleware
-     * 
+     * Initialise middleware.
+     *
      * @param ActivityInstanceResolver $activityInstanceResolver Resolver to get the activity instance.
      */
     public function __construct(ActivityInstanceResolver $activityInstanceResolver)
@@ -30,12 +29,12 @@ class CheckLoggedIntoActivityInstance
     }
 
     /**
-     * Check we're logged into an activity instance
-     * 
+     * Check we're logged into an activity instance.
+     *
      * @param Request $request Request Object
      * @param \Closure $next Next middleware callback
-     * @return mixed
      * @throws NotInActivityInstanceException If an activity instance is not found
+     * @return mixed
      */
     public function handle(Request $request, \Closure $next)
     {
@@ -44,9 +43,9 @@ class CheckLoggedIntoActivityInstance
         } catch (\Exception $exception) {
             // We're not currently in an activity instance, so we should throw an exception
             // The exception handler should gracefully handle this exception
-            throw new NotInActivityInstanceException;
+            throw new NotInActivityInstanceException();
         }
+
         return $next($request);
     }
-
 }

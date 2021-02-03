@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 
 class CheckActivityEnabledTest extends TestCase
 {
-
     /** @test */
-    public function it_throws_an_exception_if_the_activity_is_not_enabled(){
+    public function it_throws_an_exception_if_the_activity_is_not_enabled()
+    {
         $this->expectException(ActivityDisabled::class);
         
         $activity = factory(Activity::class)->create(['enabled' => false]);
@@ -22,13 +22,14 @@ class CheckActivityEnabledTest extends TestCase
         $request->route('test_callback')->shouldNotBeCalled();
         
         $middleware = new CheckActivityEnabled();
-        $middleware->handle($request->reveal(), function($request) {
+        $middleware->handle($request->reveal(), function ($request) {
             $request->route('test_callback');
         });
     }
 
     /** @test */
-    public function it_calls_the_callback_if_the_activity_is_enabled(){
+    public function it_calls_the_callback_if_the_activity_is_enabled()
+    {
         $activity = factory(Activity::class)->create(['enabled' => true]);
 
         $request = $this->prophesize(Request::class);
@@ -36,9 +37,8 @@ class CheckActivityEnabledTest extends TestCase
         $request->route('test_callback')->shouldBeCalled()->willReturn(true);
 
         $middleware = new CheckActivityEnabled();
-        $middleware->handle($request->reveal(), function($request) {
+        $middleware->handle($request->reveal(), function ($request) {
             $this->assertTrue($request->route('test_callback'));
         });
     }
-    
 }

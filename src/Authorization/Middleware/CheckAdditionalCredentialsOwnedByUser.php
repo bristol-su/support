@@ -11,7 +11,6 @@ use Illuminate\Http\Request;
 
 class CheckAdditionalCredentialsOwnedByUser
 {
-
     /**
      * @var Authentication
      */
@@ -23,21 +22,21 @@ class CheckAdditionalCredentialsOwnedByUser
     }
 
     /**
-     * Check the user has access to any logged in group/role
+     * Check the user has access to any logged in group/role.
      *
      * @param Request $request
      * @param \Closure $next
-     * @return mixed
      * @throws IncorrectLogin If there is an issue with the logged in group/role
+     * @return mixed
      */
     public function handle(Request $request, \Closure $next)
     {
-        if($user = $this->authentication->getUser()) {
-            if($role = $this->authentication->getRole()) {
+        if ($user = $this->authentication->getUser()) {
+            if ($role = $this->authentication->getRole()) {
                 $this->checkUserIsInRole($user, $role);
                 $group = $this->checkGroupIsLoggedIn();
                 $this->checkGroupBelongsToRole($group, $role);
-            } elseif($group = $this->authentication->getGroup()) {
+            } elseif ($group = $this->authentication->getGroup()) {
                 $this->checkUserHasMembershipToGroup($user, $group);
             }
         }
@@ -46,7 +45,7 @@ class CheckAdditionalCredentialsOwnedByUser
     }
 
     /**
-     * Check that the user is in the given role
+     * Check that the user is in the given role.
      *
      * @param User $user
      * @param Role $role
@@ -54,7 +53,7 @@ class CheckAdditionalCredentialsOwnedByUser
      */
     private function checkUserIsInRole(User $user, Role $role): void
     {
-        if(!in_array($role->id(), $user->roles()->map(function(Role $role) {
+        if (!in_array($role->id(), $user->roles()->map(function (Role $role) {
             return $role->id();
         })->toArray())) {
             throw new IncorrectLogin('The user must own the current role');
@@ -62,7 +61,7 @@ class CheckAdditionalCredentialsOwnedByUser
     }
 
     /**
-     * Check that the role belongs to the given group
+     * Check that the role belongs to the given group.
      *
      * @param Group $group
      * @param Role $role
@@ -70,13 +69,13 @@ class CheckAdditionalCredentialsOwnedByUser
      */
     private function checkGroupBelongsToRole(Group $group, Role $role): void
     {
-        if($group->id() !== $role->groupId()) {
+        if ($group->id() !== $role->groupId()) {
             throw new IncorrectLogin('The group must belong to the current role');
         }
     }
 
     /**
-     * Check that the user has a membership to the given group
+     * Check that the user has a membership to the given group.
      *
      * @param User $user
      * @param Group $group
@@ -84,7 +83,7 @@ class CheckAdditionalCredentialsOwnedByUser
      */
     private function checkUserHasMembershipToGroup(User $user, Group $group): void
     {
-        if(!in_array($group->id(), $user->groups()->map(function(Group $group) {
+        if (!in_array($group->id(), $user->groups()->map(function (Group $group) {
             return $group->id();
         })->toArray())) {
             throw new IncorrectLogin('The user must have a membership to the group');
@@ -92,16 +91,16 @@ class CheckAdditionalCredentialsOwnedByUser
     }
 
     /**
-     * Check a group is currently logged in
-     * 
+     * Check a group is currently logged in.
+     *
      * @throws IncorrectLogin If a group is not logged in
      */
     private function checkGroupIsLoggedIn(): Group
     {
-        if($group = $this->authentication->getGroup()) {
+        if ($group = $this->authentication->getGroup()) {
             return $group;
         }
+
         throw new IncorrectLogin('The group must belong to the current role');
     }
-
 }

@@ -1,19 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateModuleInstanceSettingsTable extends Migration
 {
     /**
      * Run the migrations.
      *
-     * @return void
      */
     public function up()
     {
-        Schema::create('module_instance_settings', function(Blueprint $table) {
+        Schema::create('module_instance_settings', function (Blueprint $table) {
             $table->increments('id');
             $table->string('key');
             $table->text('value')->nullable();
@@ -26,7 +25,6 @@ class CreateModuleInstanceSettingsTable extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
      */
     public function down()
     {

@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class ModuleInstanceProgress extends Model
 {
-
     protected $table = 'module_instance_progress';
 
     protected $fillable = [
@@ -29,5 +28,4 @@ class ModuleInstanceProgress extends Model
     {
         return $this->belongsTo(ModuleInstance::class);
     }
-
 }

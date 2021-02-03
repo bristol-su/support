@@ -9,15 +9,15 @@ use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Represents a module instance permission
+ * Represents a module instance permission.
  */
 class ModuleInstancePermission extends Model
 {
     use HasRevisions;
     
     /**
-     * Fillable attributes
-     * 
+     * Fillable attributes.
+     *
      * @var array
      */
     protected $fillable = [
@@ -25,18 +25,18 @@ class ModuleInstancePermission extends Model
     ];
 
     /**
-     * Appended properties
-     * 
+     * Appended properties.
+     *
      * - Type: Returns the type of the permission. One of module or global
      * - Permission: Returns a permission model representing the permission attached to this module instance.
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $appends = ['type', 'permission'];
 
     /**
-     * Get the associated module instance
-     * 
+     * Get the associated module instance.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function moduleInstance()
@@ -45,8 +45,8 @@ class ModuleInstancePermission extends Model
     }
 
     /**
-     * Get the associated logic group
-     * 
+     * Get the associated logic group.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function logic()
@@ -55,8 +55,8 @@ class ModuleInstancePermission extends Model
     }
 
     /**
-     * Get the permission associated with the module instance permission class
-     * 
+     * Get the permission associated with the module instance permission class.
+     *
      * @return mixed
      */
     public function getPermissionAttribute()
@@ -66,12 +66,11 @@ class ModuleInstancePermission extends Model
 
     /**
      * Get the type of the associated permission class.
-     * 
+     *
      * @return string module or global
      */
     public function getTypeAttribute()
     {
         return $this->permission->getType();
     }
-    
 }

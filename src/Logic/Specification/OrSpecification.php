@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Logic\Specification;
 
-
 use BristolSU\Support\Logic\Contracts\Specification;
 
 /**
@@ -11,9 +10,8 @@ use BristolSU\Support\Logic\Contracts\Specification;
  */
 class OrSpecification implements Specification
 {
-
     /**
-     * Holds the specifications
+     * Holds the specifications.
      *
      * @var array
      */
@@ -32,7 +30,7 @@ class OrSpecification implements Specification
      *
      * @return bool If any of the specifications are satisfied
      */
-    public function isSatisfied() : bool
+    public function isSatisfied(): bool
     {
         if (count($this->specifications) === 0) {
             return true;
@@ -45,5 +43,4 @@ class OrSpecification implements Specification
 
         return false;
     }
-
 }

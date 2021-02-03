@@ -8,13 +8,12 @@ class AlterTableActionInstanceFieldsRenameEventFieldToActionValue extends Migrat
 {
     /**
      * Run the migrations.
-     * 
-     * @return void
+     *
      */
     public function up()
     {
         $actionInstanceFields = \BristolSU\Support\Action\ActionInstanceField::all();
-        foreach($actionInstanceFields as $actionInstanceField) {
+        foreach ($actionInstanceFields as $actionInstanceField) {
             $actionInstanceField->event_field = sprintf('{{event:%s}}', $actionInstanceField->event_field);
             $actionInstanceField->save();
         }
@@ -27,7 +26,6 @@ class AlterTableActionInstanceFieldsRenameEventFieldToActionValue extends Migrat
     /**
      * Reverse the migrations.
      *
-     * @return void
      */
     public function down()
     {
@@ -36,10 +34,9 @@ class AlterTableActionInstanceFieldsRenameEventFieldToActionValue extends Migrat
         });
 
         $actionInstanceFields = \BristolSU\Support\Action\ActionInstanceField::all();
-        foreach($actionInstanceFields as $actionInstanceField) {
+        foreach ($actionInstanceFields as $actionInstanceField) {
             $actionInstanceField->event_field = substr(substr($actionInstanceField->event_field, 8), 0, -2);
             $actionInstanceField->save();
         }
-        
     }
 }

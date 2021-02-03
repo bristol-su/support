@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Filters;
 
-
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
@@ -13,13 +12,13 @@ use BristolSU\Support\Filters\Contracts\FilterTester as FilterTesterContract;
 use Exception;
 
 /**
- * Test filters for the result
+ * Test filters for the result.
  */
 class FilterTester implements FilterTesterContract
 {
     /**
-     * Filter repository to resolve the filter out of
-     * 
+     * Filter repository to resolve the filter out of.
+     *
      * @var FilterRepository
      */
     private $repository;
@@ -39,14 +38,15 @@ class FilterTester implements FilterTesterContract
      *
      * @param FilterInstance $filterInstance Filter instance to test
      * @param User|Group|Role $model Model to test the filter instance up
+     * @throws Exception If the model type does not match the filter type
      * @return bool If the filter passes
      *
-     * @throws Exception If the model type does not match the filter type
      */
     public function evaluate(FilterInstance $filterInstance, $model): bool
     {
         $filter = $this->repository->getByAlias($filterInstance->alias());
         $filter->setModel($model);
+
         return $filter->evaluate($filterInstance->settings());
     }
 }

@@ -9,9 +9,9 @@ use FormSchema\Schema\Form;
 
 class UserFilterTest extends TestCase
 {
-
     /** @test */
-    public function getModel_returns_the_set_model(){
+    public function get_model_returns_the_set_model()
+    {
         $filter = new DummyUserFilter();
         $user = $this->newUser();
         $filter->setModel($user);
@@ -19,7 +19,8 @@ class UserFilterTest extends TestCase
     }
 
     /** @test */
-    public function hasModel_returns_true_if_the_user_is_set(){
+    public function has_model_returns_true_if_the_user_is_set()
+    {
         $filter = new DummyUserFilter();
         $dummyUser = $this->newUser();
         $filter->setModel($dummyUser);
@@ -28,15 +29,18 @@ class UserFilterTest extends TestCase
     }
 
     /** @test */
-    public function hasModel_returns_false_if_the_user_is_not_set(){
+    public function has_model_returns_false_if_the_user_is_not_set()
+    {
         $filter = new DummyUserFilter();
 
         $this->assertFalse($filter->hasModel());
     }
 
     /** @test */
-    public function setModel_throws_exception_if_model_not_of_type_user(){
-        $fakeUser = new class {};
+    public function set_model_throws_exception_if_model_not_of_type_user()
+    {
+        $fakeUser = new class() {
+        };
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Cannot pass a class of type [' . get_class($fakeUser) . '] to a user filter');
         $filter = new DummyUserFilter();
@@ -44,26 +48,24 @@ class UserFilterTest extends TestCase
     }
 
     /** @test */
-    public function user_returns_the_user(){
+    public function user_returns_the_user()
+    {
         $filter = new DummyUserFilter();
         $user = $this->newUser();
         $filter->setModel($user);
         $this->assertEquals($user, $filter->user());
     }
-
-
 }
 
 class DummyUserFilter extends UserFilter
 {
-
     public function options(): Form
     {
         return new Form();
     }
 
     /**
-     * Test if the filter passes
+     * Test if the filter passes.
      *
      * @param Object $model User, Role or User
      * @param string $settings Key of the chosen option

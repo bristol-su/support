@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Tests\Filters\Filters\Group;
 
-
 use BristolSU\ControlDB\Contracts\Models\Tags\GroupTag as GroupTagModelContract;
 use BristolSU\ControlDB\Contracts\Repositories\Tags\GroupTag as GroupTagRepositoryContract;
 use BristolSU\ControlDB\Models\Group;
@@ -14,10 +13,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class GroupTaggedTest extends TestCase
 {
-    
     /** @test */
-    public function options_returns_a_list_of_possible_tags(){
-
+    public function options_returns_a_list_of_possible_tags()
+    {
         $groupTagCategory1 = factory(GroupTagCategory::class)->create(['name' => 'category1Name', 'reference' => 'cat1']);
         $groupTagCategory2 = factory(GroupTagCategory::class)->create(['name' => 'category2Name', 'reference' => 'cat2']);
 
@@ -57,7 +55,8 @@ class GroupTaggedTest extends TestCase
     }
     
     /** @test */
-    public function it_evaluates_to_true_if_group_tagged(){
+    public function it_evaluates_to_true_if_group_tagged()
+    {
         $groupTagRepository = $this->prophesize(GroupTagRepositoryContract::class);
 
         $group = $this->prophesize(Group::class);
@@ -79,7 +78,8 @@ class GroupTaggedTest extends TestCase
     }
 
     /** @test */
-    public function it_evaluates_to_false_if_group_not_tagged(){
+    public function it_evaluates_to_false_if_group_not_tagged()
+    {
         $groupTagRepository = $this->prophesize(GroupTagRepositoryContract::class);
 
         $group = $this->prophesize(Group::class);
@@ -102,7 +102,8 @@ class GroupTaggedTest extends TestCase
     }
 
     /** @test */
-    public function evaluate_returns_false_if_the_group_tag_repository_throws_an_error(){
+    public function evaluate_returns_false_if_the_group_tag_repository_throws_an_error()
+    {
         $group = $this->prophesize(Group::class);
         $groupTagRepository = $this->prophesize(GroupTagRepositoryContract::class);
         $group->tags()->shouldBeCalled()->willThrow(new \Exception());
@@ -113,19 +114,22 @@ class GroupTaggedTest extends TestCase
     }
 
     /** @test */
-    public function name_returns_a_string(){
+    public function name_returns_a_string()
+    {
         $filter = new GroupTagged($this->prophesize(GroupTagRepositoryContract::class)->reveal());
         $this->assertIsString($filter->name());
     }
 
     /** @test */
-    public function description_returns_a_string(){
+    public function description_returns_a_string()
+    {
         $filter = new GroupTagged($this->prophesize(GroupTagRepositoryContract::class)->reveal());
         $this->assertIsString($filter->description());
     }
 
     /** @test */
-    public function alias_returns_a_string(){
+    public function alias_returns_a_string()
+    {
         $filter = new GroupTagged($this->prophesize(GroupTagRepositoryContract::class)->reveal());
         $this->assertIsString($filter->alias());
     }

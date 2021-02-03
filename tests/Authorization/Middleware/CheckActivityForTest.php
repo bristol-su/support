@@ -4,14 +4,8 @@ namespace BristolSU\Support\Tests\Authorization\Middleware;
 
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\Support\Authorization\Exception\ActivityRequiresGroup;
 use BristolSU\Support\Authorization\Exception\ActivityRequiresParticipant;
-use BristolSU\Support\Authorization\Exception\ActivityRequiresRole;
-use BristolSU\Support\Authorization\Exception\ActivityRequiresUser;
 use BristolSU\Support\Authorization\Middleware\CheckActivityFor;
-use BristolSU\ControlDB\Models\Group;
-use BristolSU\ControlDB\Models\Role;
-use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Tests\TestCase;
 use Illuminate\Http\Request;
@@ -19,7 +13,7 @@ use Illuminate\Http\Request;
 class CheckActivityForTest extends TestCase
 {
     /** @test */
-    public function it_throws_an_ActivityRequiresUser_exception_if_user_not_in_activity_for()
+    public function it_throws_an__activity_requires_user_exception_if_user_not_in_activity_for()
     {
         $this->expectException(ActivityRequiresParticipant::class);
         
@@ -45,7 +39,7 @@ class CheckActivityForTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_an_ActivityRequiresGroup_exception_if_group_not_in_activity_for()
+    public function it_throws_an__activity_requires_group_exception_if_group_not_in_activity_for()
     {
         $this->expectException(ActivityRequiresParticipant::class);
         
@@ -71,7 +65,7 @@ class CheckActivityForTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_an_ActivityRequiresRole_exception_if_role_not_in_activity_for()
+    public function it_throws_an__activity_requires_role_exception_if_role_not_in_activity_for()
     {
         $this->expectException(ActivityRequiresParticipant::class);
         

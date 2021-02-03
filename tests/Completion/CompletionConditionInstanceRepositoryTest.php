@@ -8,9 +8,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class CompletionConditionInstanceRepositoryTest extends TestCase
 {
-
     /** @test */
-    public function create_creates_a_completion_condition_instance(){
+    public function create_creates_a_completion_condition_instance()
+    {
         $cCIAttributes = [
             'name' => 'name1',
             'description' => 'description1',
@@ -38,7 +38,8 @@ class CompletionConditionInstanceRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function create_returns_the_completion_condition_instance(){
+    public function create_returns_the_completion_condition_instance()
+    {
         $cCIAttributes = [
             'name' => 'name1',
             'description' => 'description1',
@@ -57,11 +58,11 @@ class CompletionConditionInstanceRepositoryTest extends TestCase
         $foundCCI = CompletionConditionInstance::findOrFail($completionConditionInstance->id);
         
         $this->assertModelEquals($foundCCI, $completionConditionInstance);
-        
     }
     
     /** @test */
-    public function all_returns_all_completion_condition_instances(){
+    public function all_returns_all_completion_condition_instances()
+    {
         $completionConditionInstances = factory(CompletionConditionInstance::class, 10)->create();
 
         $repository = new CompletionConditionInstanceRepository();
@@ -73,7 +74,8 @@ class CompletionConditionInstanceRepositoryTest extends TestCase
     }
     
     /** @test */
-    public function getById_returns_a_completion_condition_instance_with_the_given_id(){
+    public function get_by_id_returns_a_completion_condition_instance_with_the_given_id()
+    {
         $ccI = factory(CompletionConditionInstance::class)->create();
         factory(CompletionConditionInstance::class, 5)->create();
         
@@ -85,7 +87,8 @@ class CompletionConditionInstanceRepositoryTest extends TestCase
     }
     
     /** @test */
-    public function update_updates_the_completion_condition_instance(){
+    public function update_updates_the_completion_condition_instance()
+    {
         $ccI = factory(CompletionConditionInstance::class)->create([
             'alias'=> 'OldAlias', 'name' => 'OldName', 'description' => 'OldDescription', 'settings' => ['val' => 'OldVal']
         ]);

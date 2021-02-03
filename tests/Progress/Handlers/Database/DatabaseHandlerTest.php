@@ -10,19 +10,34 @@ use Carbon\Carbon;
 
 class DatabaseHandlerTest extends TestCase
 {
-
     /** @test */
-    public function it_saves_a_progress(){
+    public function it_saves_a_progress()
+    {
         $now = Carbon::now();
         $progress = Progress::create(2, 3, $now, false, 40);
         $moduleInstanceProgress1 = ModuleInstanceProgress::create(
-            4, false, true, 100, true, false
+            4,
+            false,
+            true,
+            100,
+            true,
+            false
         );
         $moduleInstanceProgress2 = ModuleInstanceProgress::create(
-            5, true, false, 24, false, true
+            5,
+            true,
+            false,
+            24,
+            false,
+            true
         );
         $moduleInstanceProgress3 = ModuleInstanceProgress::create(
-            6, false, false, 5, true, false
+            6,
+            false,
+            false,
+            5,
+            true,
+            false
         );
 
         $progress->pushModule($moduleInstanceProgress1);
@@ -74,17 +89,33 @@ class DatabaseHandlerTest extends TestCase
     }
 
     /** @test */
-    public function it_saves_many_progresses(){
+    public function it_saves_many_progresses()
+    {
         $now = Carbon::now();
         $progress1 = Progress::create(2, 3, $now, false, 40);
         $moduleInstanceProgress1 = ModuleInstanceProgress::create(
-            4, false, true, 100, true, false
+            4,
+            false,
+            true,
+            100,
+            true,
+            false
         );
         $moduleInstanceProgress2 = ModuleInstanceProgress::create(
-            5, true, false, 24, false, true
+            5,
+            true,
+            false,
+            24,
+            false,
+            true
         );
         $moduleInstanceProgress3 = ModuleInstanceProgress::create(
-            6, false, false, 5, true, false
+            6,
+            false,
+            false,
+            5,
+            true,
+            false
         );
 
         $progress1->pushModule($moduleInstanceProgress1);
@@ -93,13 +124,28 @@ class DatabaseHandlerTest extends TestCase
 
         $progress2 = Progress::create(7, 8, $now, true, 100);
         $moduleInstanceProgress1 = ModuleInstanceProgress::create(
-            9, false, true, 100, true, false
+            9,
+            false,
+            true,
+            100,
+            true,
+            false
         );
         $moduleInstanceProgress2 = ModuleInstanceProgress::create(
-            10, true, false, 24, false, true
+            10,
+            true,
+            false,
+            24,
+            false,
+            true
         );
         $moduleInstanceProgress3 = ModuleInstanceProgress::create(
-            11, false, false, 5, true, false
+            11,
+            false,
+            false,
+            5,
+            true,
+            false
         );
 
         $progress2->pushModule($moduleInstanceProgress1);
@@ -192,5 +238,4 @@ class DatabaseHandlerTest extends TestCase
             'visible' => 0
         ]);
     }
-    
 }

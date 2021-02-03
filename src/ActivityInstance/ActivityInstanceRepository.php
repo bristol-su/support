@@ -10,9 +10,8 @@ use Illuminate\Support\Collection;
  */
 class ActivityInstanceRepository implements ActivityInstanceRepositoryContract
 {
-
     /**
-     * Get the first activity instance found with the given parameters
+     * Get the first activity instance found with the given parameters.
      *
      * @param int $activityId ID of the activity to which the activity instance should belong
      * @param string $resourceType Resource (owner) type. One of user, group or role.
@@ -29,7 +28,7 @@ class ActivityInstanceRepository implements ActivityInstanceRepositoryContract
     }
 
     /**
-     * Create a new Activity Instance
+     * Create a new Activity Instance.
      *
      * @param int $activityId ID of the activity to which the activity instance should belong
      * @param string $resourceType Resource (owner) type. One of user, group or role.
@@ -51,7 +50,7 @@ class ActivityInstanceRepository implements ActivityInstanceRepositoryContract
     }
 
     /**
-     * Get an activity instance by ID
+     * Get an activity instance by ID.
      *
      * @param int $id ID of the activity instance
      * @return ActivityInstance
@@ -62,7 +61,7 @@ class ActivityInstanceRepository implements ActivityInstanceRepositoryContract
     }
 
     /**
-     * Get all activity instances for the given resource
+     * Get all activity instances for the given resource.
      *
      * @param string $resourceType Resource (owner) type. One of user, group or role.
      * @param int $resourceId Resource (owner) id. ID of the model in resource type.
@@ -78,7 +77,7 @@ class ActivityInstanceRepository implements ActivityInstanceRepositoryContract
     }
     
     /**
-     * Get all activity instances with the given parameters
+     * Get all activity instances with the given parameters.
      *
      * @param int $activityId ID of the activity to which the activity instances should belong
      * @param string $resourceType Resource (owner) type. One of user, group or role.
@@ -96,7 +95,7 @@ class ActivityInstanceRepository implements ActivityInstanceRepositoryContract
     }
 
     /**
-     * Get all activity instances belonging to an activity
+     * Get all activity instances belonging to an activity.
      *
      * @param int $activityId ID Of the activity
      *

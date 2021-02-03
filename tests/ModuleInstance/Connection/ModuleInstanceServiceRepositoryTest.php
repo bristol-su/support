@@ -15,10 +15,9 @@ use Prophecy\Argument;
 
 class ModuleInstanceServiceRepositoryTest extends TestCase
 {
-
     /** @test */
-    public function getConnectorForService_throws_an_exception_if_no_service_found(){
-        
+    public function get_connector_for_service_throws_an_exception_if_no_service_found()
+    {
         $this->expectException(NoConnectionAvailable::class);
         $this->expectExceptionMessage('No connection has been found for test-service-alias');
 
@@ -27,7 +26,8 @@ class ModuleInstanceServiceRepositoryTest extends TestCase
     }
     
     /** @test */
-    public function getConnectorForService_creates_and_returns_a_connector_from_a_found_connection(){
+    public function get_connector_for_service_creates_and_returns_a_connector_from_a_found_connection()
+    {
         $user = $this->newUser();
         $this->beUser($user);
         $this->be(factory(User::class)->create(['control_id' => $user->id()]));
@@ -40,7 +40,7 @@ class ModuleInstanceServiceRepositoryTest extends TestCase
         
         $connectorFactory = $this->prophesize(ConnectorFactory::class);
         $connector = $this->prophesize(Connector::class);
-        $connectorFactory->createFromConnection(Argument::that(function($arg) use ($connection) {
+        $connectorFactory->createFromConnection(Argument::that(function ($arg) use ($connection) {
             return $arg instanceof Connection && $connection->id === $arg->id;
         }))->shouldBeCalled()->willReturn($connector->reveal());
         $this->instance(ConnectorFactory::class, $connectorFactory->reveal());
@@ -52,7 +52,8 @@ class ModuleInstanceServiceRepositoryTest extends TestCase
     }
     
     /** @test */
-    public function all_returns_all_module_instance_services(){
+    public function all_returns_all_module_instance_services()
+    {
         $moduleInstanceServices = factory(ModuleInstanceService::class, 10)->create();
         
         $repository = new ModuleInstanceServiceRepository();
@@ -60,9 +61,8 @@ class ModuleInstanceServiceRepositoryTest extends TestCase
         
         $this->assertEquals(10, $foundServices->count());
         $this->assertContainsOnlyInstancesOf(ModuleInstanceService::class, $foundServices);
-        foreach($moduleInstanceServices as $service) {
+        foreach ($moduleInstanceServices as $service) {
             $this->assertModelEquals($service, $foundServices->shift());
         }
     }
-    
 }

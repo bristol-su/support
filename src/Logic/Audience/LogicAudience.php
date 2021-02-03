@@ -2,29 +2,28 @@
 
 namespace BristolSU\Support\Logic\Audience;
 
-
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory as AudienceMemberFactoryContract;
 use BristolSU\Support\Logic\Contracts\Audience\LogicAudience as LogicAudienceContract;
 use BristolSU\Support\Logic\Logic;
 
 /**
- * Get the audience of a logic group
- * 
+ * Get the audience of a logic group.
+ *
  * @see LogicAudienceContract
  */
 class LogicAudience extends LogicAudienceContract
 {
     /**
-     * User Repository, to resolve all users from
-     * 
+     * User Repository, to resolve all users from.
+     *
      * @var UserRepository
      */
     private $userRepository;
     
     /**
-     * Audience member factory to construct audience members
-     * 
+     * Audience member factory to construct audience members.
+     *
      * @var AudienceMemberFactoryContract
      */
     private $audienceMemberFactory;
@@ -40,10 +39,10 @@ class LogicAudience extends LogicAudienceContract
     }
 
     /**
-     * Get the audience of a logic group
-     * 
+     * Get the audience of a logic group.
+     *
      * Will return an array of AudienceMember objects representing the audience of the given logic group.
-     * 
+     *
      * @param Logic $logic Logic group to get the audience for
      * @return AudienceMember[]
      */
@@ -55,11 +54,12 @@ class LogicAudience extends LogicAudienceContract
                 $audienceMembers[] = $audienceMember;
             }
         }
+
         return $audienceMembers;
     }
 
     /**
-     * Get the possible audience
+     * Get the possible audience.
      *
      * Returns all users of the portal as AudienceMembers.
      *
@@ -72,5 +72,4 @@ class LogicAudience extends LogicAudienceContract
             yield $this->audienceMemberFactory->fromUserInLogic($user, $logic);
         }
     }
-
 }

@@ -8,14 +8,13 @@ use BristolSU\Support\Authorization\Middleware\CheckDatabaseUserOwnsControlUser;
 use BristolSU\Support\Tests\TestCase;
 use BristolSU\Support\User\Contracts\UserAuthentication;
 use BristolSU\Support\User\User;
-use Illuminate\Auth\AuthenticationException;
 use Illuminate\Http\Request;
 
 class CheckDatabaseUserOwnsControlUserTest extends TestCase
 {
-
     /** @test */
-    public function it_calls_the_next_request_if_the_database_user_is_not_logged_in(){
+    public function it_calls_the_next_request_if_the_database_user_is_not_logged_in()
+    {
         $request = $this->prophesize(Request::class);
         $request->route('test_callback_is_called')->shouldBeCalled()->willReturn(true);
 
@@ -26,7 +25,7 @@ class CheckDatabaseUserOwnsControlUserTest extends TestCase
         $userAuthentication->getUser()->shouldBeCalled()->willReturn(null);
         
         $middleware = new CheckDatabaseUserOwnsControlUser($userAuthentication->reveal(), $authentication->reveal());
-        $middleware->handle($request->reveal(), function($request){
+        $middleware->handle($request->reveal(), function ($request) {
             $this->assertTrue(
                 $request->route('test_callback_is_called')
             );
@@ -34,7 +33,8 @@ class CheckDatabaseUserOwnsControlUserTest extends TestCase
     }
     
     /** @test */
-    public function it_calls_the_next_request_if_the_control_user_is_not_logged_in(){
+    public function it_calls_the_next_request_if_the_control_user_is_not_logged_in()
+    {
         $request = $this->prophesize(Request::class);
         $request->route('test_callback_is_called')->shouldBeCalled()->willReturn(true);
 
@@ -47,7 +47,7 @@ class CheckDatabaseUserOwnsControlUserTest extends TestCase
         $userAuthentication->getUser()->shouldBeCalled()->willReturn($databaseUser);
 
         $middleware = new CheckDatabaseUserOwnsControlUser($userAuthentication->reveal(), $authentication->reveal());
-        $middleware->handle($request->reveal(), function($request){
+        $middleware->handle($request->reveal(), function ($request) {
             $this->assertTrue(
                 $request->route('test_callback_is_called')
             );
@@ -55,7 +55,8 @@ class CheckDatabaseUserOwnsControlUserTest extends TestCase
     }
     
     /** @test */
-    public function it_calls_the_next_request_if_the_control_user_is_owned_by_the_database_user(){
+    public function it_calls_the_next_request_if_the_control_user_is_owned_by_the_database_user()
+    {
         $request = $this->prophesize(Request::class);
         $request->route('test_callback_is_called')->shouldBeCalled()->willReturn(true);
 
@@ -69,7 +70,7 @@ class CheckDatabaseUserOwnsControlUserTest extends TestCase
         $userAuthentication->getUser()->shouldBeCalled()->willReturn($databaseUser);
 
         $middleware = new CheckDatabaseUserOwnsControlUser($userAuthentication->reveal(), $authentication->reveal());
-        $middleware->handle($request->reveal(), function($request){
+        $middleware->handle($request->reveal(), function ($request) {
             $this->assertTrue(
                 $request->route('test_callback_is_called')
             );
@@ -77,7 +78,8 @@ class CheckDatabaseUserOwnsControlUserTest extends TestCase
     }
     
     /** @test */
-    public function it_throws_an_exception_if_the_control_user_is_different_to_the_database_user(){
+    public function it_throws_an_exception_if_the_control_user_is_different_to_the_database_user()
+    {
         $this->expectException(IncorrectLogin::class);
         $this->expectExceptionMessage('Logged into incorrect user');
         
@@ -94,8 +96,7 @@ class CheckDatabaseUserOwnsControlUserTest extends TestCase
         $userAuthentication->getUser()->shouldBeCalled()->willReturn($databaseUser);
 
         $middleware = new CheckDatabaseUserOwnsControlUser($userAuthentication->reveal(), $authentication->reveal());
-        $middleware->handle($request->reveal(), function($request){
+        $middleware->handle($request->reveal(), function ($request) {
         });
     }
-    
 }

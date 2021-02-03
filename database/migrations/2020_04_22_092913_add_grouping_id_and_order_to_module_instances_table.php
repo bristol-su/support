@@ -8,8 +8,7 @@ class AddGroupingIdAndOrderToModuleInstancesTable extends Migration
 {
     /**
      * Run the migrations.
-     * 
-     * @return void
+     *
      */
     public function up()
     {
@@ -22,7 +21,6 @@ class AddGroupingIdAndOrderToModuleInstancesTable extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
      */
     public function down()
     {
@@ -32,7 +30,5 @@ class AddGroupingIdAndOrderToModuleInstancesTable extends Migration
         Schema::table('module_instances', function (Blueprint $table) {
             $table->dropColumn('grouping_id');
         });
-
-
     }
 }

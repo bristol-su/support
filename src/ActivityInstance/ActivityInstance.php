@@ -2,13 +2,13 @@
 
 namespace BristolSU\Support\ActivityInstance;
 
+use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
+use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
+use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\ControlDB\Models\Group;
 use BristolSU\ControlDB\Models\Role;
 use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Activity\Activity;
-use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
-use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Progress\Handlers\Database\Models\Progress;
 use BristolSU\Support\Revision\HasRevisions;
@@ -16,7 +16,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * An eloquent model representing an Activity Instance
+ * An eloquent model representing an Activity Instance.
  */
 class ActivityInstance extends Model implements Authenticatable
 {
@@ -33,7 +33,7 @@ class ActivityInstance extends Model implements Authenticatable
     protected $appends = ['run_number', 'participant', 'participant_name'];
 
     /**
-     * Fillable properties
+     * Fillable properties.
      *
      * @var array
      */
@@ -63,14 +63,15 @@ class ActivityInstance extends Model implements Authenticatable
                 }
             }
         }
+
         return 1;
     }
 
     /**
-     * Retrieve the name of the participant to show to users
+     * Retrieve the name of the participant to show to users.
      *
-     * @return string|null
      * @throws \Exception
+     * @return string|null
      */
     public function getParticipantNameAttribute()
     {
@@ -84,9 +85,9 @@ class ActivityInstance extends Model implements Authenticatable
      * If the resource_type is group, returns the group with the id 'resource_id'
      * If the resource_type is role, returns the role with the id 'resource_id'
      *
+     * @throws \Exception If the resource type is not one of user, group or role
      * @return User|Group|Role The model for the resource of the activity instance.
      *
-     * @throws \Exception If the resource type is not one of user, group or role
      */
     public function getParticipantAttribute()
     {
@@ -99,6 +100,7 @@ class ActivityInstance extends Model implements Authenticatable
         if ($this->resource_type === 'role') {
             return app(RoleRepository::class)->getById($this->resource_id);
         }
+
         throw new \Exception('Resource type is not valid');
     }
 
@@ -115,7 +117,7 @@ class ActivityInstance extends Model implements Authenticatable
     }
 
     /**
-     * Module Instance relationship
+     * Module Instance relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
      */
@@ -125,7 +127,7 @@ class ActivityInstance extends Model implements Authenticatable
     }
 
     /**
-     * Activity relationship
+     * Activity relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -176,7 +178,6 @@ class ActivityInstance extends Model implements Authenticatable
      * Set the token value for the "remember me" session.
      *
      * @param string $value
-     * @return void
      */
     public function setRememberToken($value)
     {
@@ -193,16 +194,17 @@ class ActivityInstance extends Model implements Authenticatable
 
     public function participantName()
     {
-        if($this->resource_type === 'user') {
+        if ($this->resource_type === 'user') {
             return $this->participant()->data()->preferredName();
         }
-        if($this->resource_type === 'group') {
+        if ($this->resource_type === 'group') {
             return $this->participant()->data()->name();
         }
-        if($this->resource_type === 'role') {
+        if ($this->resource_type === 'role') {
             return $this->participant()->data()->roleName();
         }
-        throw new \Exception;
+
+        throw new \Exception();
     }
 
     public function progress()

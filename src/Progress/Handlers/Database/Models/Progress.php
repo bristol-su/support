@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Progress extends Model
 {
-
     protected $table = 'progress';
 
     protected $fillable = [
@@ -27,7 +26,7 @@ class Progress extends Model
     }
 
     /**
-     * Relationship between progress and an activity instance
+     * Relationship between progress and an activity instance.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -35,6 +34,4 @@ class Progress extends Model
     {
         return $this->belongsTo(ActivityInstance::class);
     }
-
-
 }

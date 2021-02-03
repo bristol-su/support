@@ -7,30 +7,33 @@ use BristolSU\Support\Tests\TestCase;
 
 class RegisteredActionTest extends TestCase
 {
-    
     /** @test */
-    public function name_can_be_set_and_got(){
-        $registeredAction = new RegisteredAction;
+    public function name_can_be_set_and_got()
+    {
+        $registeredAction = new RegisteredAction();
         $registeredAction->setName('Some name');
         $this->assertEquals('Some name', $registeredAction->getName());
     }
 
     /** @test */
-    public function description_can_be_set_and_got(){
-        $registeredAction = new RegisteredAction;
+    public function description_can_be_set_and_got()
+    {
+        $registeredAction = new RegisteredAction();
         $registeredAction->setDescription('Some description');
         $this->assertEquals('Some description', $registeredAction->getDescription());
     }
 
     /** @test */
-    public function className_can_be_set_and_got(){
-        $registeredAction = new RegisteredAction;
+    public function class_name_can_be_set_and_got()
+    {
+        $registeredAction = new RegisteredAction();
         $registeredAction->setClassName('ClassName\One');
         $this->assertEquals('ClassName\One', $registeredAction->getClassName());
     }
     
     /** @test */
-    public function instance_can_be_constructed_from_fromArray(){
+    public function instance_can_be_constructed_from_from_array()
+    {
         $registeredAction = RegisteredAction::fromArray([
             'name' => 'Some Name',
             'description' => 'A description',
@@ -42,8 +45,9 @@ class RegisteredActionTest extends TestCase
     }
     
     /** @test */
-    public function toArray_returns_all_parameters_as_an_array(){
-        $registeredAction = new RegisteredAction;
+    public function to_array_returns_all_parameters_as_an_array()
+    {
+        $registeredAction = new RegisteredAction();
         $registeredAction->setName('Some Name');
         $registeredAction->setDescription('A description');
         $registeredAction->setClassName('ClassName\Two');
@@ -56,8 +60,9 @@ class RegisteredActionTest extends TestCase
     }
     
     /** @test */
-    public function toJson_returns_all_parameters_as_json(){
-        $registeredAction = new RegisteredAction;
+    public function to_json_returns_all_parameters_as_json()
+    {
+        $registeredAction = new RegisteredAction();
         $registeredAction->setName('Some Name');
         $registeredAction->setDescription('A description');
         $registeredAction->setClassName('ClassName\Two');
@@ -70,8 +75,9 @@ class RegisteredActionTest extends TestCase
     }
     
     /** @test */
-    public function __toString_returns_all_parameters_as_json(){
-        $registeredAction = new RegisteredAction;
+    public function __to_string_returns_all_parameters_as_json()
+    {
+        $registeredAction = new RegisteredAction();
         $registeredAction->setName('Some Name');
         $registeredAction->setDescription('A description');
         $registeredAction->setClassName('ClassName\Two');
@@ -80,7 +86,6 @@ class RegisteredActionTest extends TestCase
             'name' => 'Some Name',
             'description' => 'A description',
             'class' => 'ClassName\Two'
-        ]), (string)$registeredAction);
+        ]), (string) $registeredAction);
     }
-
 }
