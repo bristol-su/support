@@ -4,6 +4,7 @@
 namespace BristolSU\Support\Progress;
 
 use BristolSU\Support\Progress\Commands\UpdateProgress;
+use BristolSU\Support\Progress\Contracts\ProgressUpdateContract;
 use Illuminate\Support\ServiceProvider;
 
 class ProgressServiceProvider extends ServiceProvider
