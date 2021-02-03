@@ -2,7 +2,6 @@
 
 namespace BristolSU\Support\Tests\Filters\Contracts\Filters;
 
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\ControlDB\Models\Group;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use BristolSU\Support\Tests\TestCase;
@@ -10,9 +9,9 @@ use FormSchema\Schema\Form;
 
 class GroupFilterTest extends TestCase
 {
-
     /** @test */
-    public function getModel_returns_the_set_model(){
+    public function get_model_returns_the_set_model()
+    {
         $filter = new DummyGroupFilter();
         $group = $this->newGroup();
         $filter->setModel($group);
@@ -20,7 +19,8 @@ class GroupFilterTest extends TestCase
     }
 
     /** @test */
-    public function hasModel_returns_true_if_the_group_is_set(){
+    public function has_model_returns_true_if_the_group_is_set()
+    {
         $filter = new DummyGroupFilter();
         $dummyGroup = $this->newGroup();
         $filter->setModel($dummyGroup);
@@ -29,15 +29,18 @@ class GroupFilterTest extends TestCase
     }
     
     /** @test */
-    public function hasModel_returns_false_if_the_group_is_not_set(){
+    public function has_model_returns_false_if_the_group_is_not_set()
+    {
         $filter = new DummyGroupFilter();
 
         $this->assertFalse($filter->hasModel());
     }
     
     /** @test */
-    public function setModel_throws_exception_if_model_not_of_type_group(){
-        $fakeGroup = new class {};
+    public function set_model_throws_exception_if_model_not_of_type_group()
+    {
+        $fakeGroup = new class() {
+        };
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Cannot pass a class of type [' . get_class($fakeGroup) . '] to a group filter');
         $filter = new DummyGroupFilter();
@@ -45,25 +48,24 @@ class GroupFilterTest extends TestCase
     }
     
     /** @test */
-    public function group_returns_the_group(){
+    public function group_returns_the_group()
+    {
         $filter = new DummyGroupFilter();
         $group = $this->newGroup();
         $filter->setModel($group);
         $this->assertEquals($group, $filter->group());
     }
-    
 }
 
 class DummyGroupFilter extends GroupFilter
 {
-
     public function options(): Form
     {
         return new Form();
     }
 
     /**
-     * Test if the filter passes
+     * Test if the filter passes.
      *
      * @param Object $model Group, Role or User
      * @param string $settings Key of the chosen option

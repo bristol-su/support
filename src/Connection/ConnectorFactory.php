@@ -6,14 +6,13 @@ use BristolSU\Support\Connection\Contracts\Connector;
 use BristolSU\Support\Connection\Contracts\ConnectorFactory as ConnectorFactoryContract;
 
 /**
- * Create a connector
+ * Create a connector.
  */
 class ConnectorFactory implements ConnectorFactoryContract
 {
-
     /**
-     * Create a connector from a connection
-     * 
+     * Create a connector from a connection.
+     *
      * @param Connection $connection Connection to create the connector from
      * @return Connector Connector created
      */
@@ -21,6 +20,7 @@ class ConnectorFactory implements ConnectorFactoryContract
     {
         $connector = app($connection->connector()->getConnector());
         $connector->setSettings($connection->settings);
+
         return $connector;
     }
 }

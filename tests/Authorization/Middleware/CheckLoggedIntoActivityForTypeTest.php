@@ -8,16 +8,13 @@ use BristolSU\Support\Authorization\Exception\ActivityRequiresGroup;
 use BristolSU\Support\Authorization\Exception\ActivityRequiresRole;
 use BristolSU\Support\Authorization\Exception\ActivityRequiresUser;
 use BristolSU\Support\Authorization\Middleware\CheckLoggedIntoActivityForType;
-use BristolSU\ControlDB\Models\Group;
-use BristolSU\ControlDB\Models\Role;
-use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Tests\TestCase;
 use Illuminate\Http\Request;
 
 class CheckLoggedIntoActivityForTypeTest extends TestCase
 {
     /** @test */
-    public function it_throws_an_ActivityRequiresUser_exception_if_user_not_logged_in_when_required()
+    public function it_throws_an__activity_requires_user_exception_if_user_not_logged_in_when_required()
     {
         $this->expectException(ActivityRequiresUser::class);
         $authentication = $this->prophesize(Authentication::class);
@@ -34,7 +31,7 @@ class CheckLoggedIntoActivityForTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_an_ActivityRequiresGroup_exception_if_group_not_logged_in_when_required()
+    public function it_throws_an__activity_requires_group_exception_if_group_not_logged_in_when_required()
     {
         $this->expectException(ActivityRequiresGroup::class);
         $authentication = $this->prophesize(Authentication::class);
@@ -49,7 +46,7 @@ class CheckLoggedIntoActivityForTypeTest extends TestCase
     }
 
     /** @test */
-    public function it_throws_an_ActivityRequiresRole_exception_if_role_not_logged_in_when_required()
+    public function it_throws_an__activity_requires_role_exception_if_role_not_logged_in_when_required()
     {
         $this->expectException(ActivityRequiresRole::class);
         $authentication = $this->prophesize(Authentication::class);
@@ -62,7 +59,6 @@ class CheckLoggedIntoActivityForTypeTest extends TestCase
         $middleware->handle($request->reveal(), function ($request) {
         });
     }
-
 
     /** @test */
     public function it_calls_the_callback()

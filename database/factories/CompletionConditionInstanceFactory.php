@@ -12,9 +12,9 @@ use Faker\Generator as Faker;
 | your application. Factories provide a convenient way to generate new
 | model instances for testing / seeding your application's database.
 |
-*/
+ */
 
-$factory->define(CompletionConditionInstance::class, function(Faker $faker) {
+$factory->define(CompletionConditionInstance::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
         'description' => $faker->text,

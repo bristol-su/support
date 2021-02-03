@@ -3,22 +3,21 @@
 
 namespace BristolSU\Support\Completion;
 
-
 use BristolSU\Support\Completion\Contracts\CompletionConditionInstance as CompletionConditionInstanceContract;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Represents a completion condition instance
+ * Represents a completion condition instance.
  */
 class CompletionConditionInstance extends Model implements CompletionConditionInstanceContract
 {
     use HasRevisions;
     
     /**
-     * Fillable properties
-     * 
+     * Fillable properties.
+     *
      * @var array
      */
     protected $fillable = [
@@ -26,8 +25,8 @@ class CompletionConditionInstance extends Model implements CompletionConditionIn
     ];
 
     /**
-     * Castable properties
-     * 
+     * Castable properties.
+     *
      * @var array
      */
     protected $casts = [
@@ -35,8 +34,8 @@ class CompletionConditionInstance extends Model implements CompletionConditionIn
     ];
 
     /**
-     * Get the name of the completion condition instance
-     * 
+     * Get the name of the completion condition instance.
+     *
      * @return string
      */
     public function name()
@@ -45,8 +44,8 @@ class CompletionConditionInstance extends Model implements CompletionConditionIn
     }
 
     /**
-     * Get the settings for the completion condition instance
-     * 
+     * Get the settings for the completion condition instance.
+     *
      * @return array
      */
     public function settings()
@@ -55,8 +54,8 @@ class CompletionConditionInstance extends Model implements CompletionConditionIn
     }
 
     /**
-     * Get the alias of the completion condition instance
-     * 
+     * Get the alias of the completion condition instance.
+     *
      * @return string
      */
     public function alias()
@@ -65,13 +64,12 @@ class CompletionConditionInstance extends Model implements CompletionConditionIn
     }
 
     /**
-     * Module instance relationship
-     * 
+     * Module instance relationship.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function moduleInstance()
     {
         return $this->hasOne(ModuleInstance::class);
     }
-
 }

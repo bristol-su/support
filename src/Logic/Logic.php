@@ -3,7 +3,6 @@
 namespace BristolSU\Support\Logic;
 
 use BristolSU\ControlDB\Contracts\Repositories\User;
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Revision\HasRevisions;
 use BristolSU\Support\User\Contracts\UserAuthentication;
@@ -11,15 +10,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 /**
- * Represents a logic group in the database
+ * Represents a logic group in the database.
  */
 class Logic extends Model
 {
     use HasRevisions;
     
     /**
-     * Fillable properties
-     * 
+     * Fillable properties.
+     *
      * @var array
      */
     protected $fillable = [
@@ -29,19 +28,18 @@ class Logic extends Model
     ];
 
     /**
-     * Additional properties
-     * 
+     * Additional properties.
+     *
      * - Lowest Resource: The lowest form of resource required. Returns either user, group or role.
      *      If user is returned, it means the logic group will ALWAYS return false if a user, group or role is not givn
      *      If group is returned, it means the logic group will ALWAYS return false if a group or role is not given
      *      If role is returned, it means the logic group will ALWAYS return false if a role is not given
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $appends = [
         'lowest_resource'
     ];
-
 
     /**
      * Initialise a Logic model.
@@ -53,18 +51,18 @@ class Logic extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        self::creating(function($model) {
-            if($model->user_id === null && ($user = app(UserAuthentication::class)->getUser()) !== null) {
+        self::creating(function ($model) {
+            if ($model->user_id === null && ($user = app(UserAuthentication::class)->getUser()) !== null) {
                 $model->user_id = $user->controlId();
             }
         });
     }
     
     /**
-     * Filter relationship
-     * 
+     * Filter relationship.
+     *
      * Returns all filters constituting the logic group
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function filters()
@@ -72,10 +70,9 @@ class Logic extends Model
         return $this->hasMany(FilterInstance::class);
     }
 
-
     /**
-     * Filter relationship for filters that must all be true
-     * 
+     * Filter relationship for filters that must all be true.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function allTrueFilters()
@@ -84,7 +81,7 @@ class Logic extends Model
     }
 
     /**
-     * Filter relationship for filters that must all be false
+     * Filter relationship for filters that must all be false.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -94,7 +91,7 @@ class Logic extends Model
     }
 
     /**
-     * Filter relationship for filters of which any must be true
+     * Filter relationship for filters of which any must be true.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -104,7 +101,7 @@ class Logic extends Model
     }
 
     /**
-     * Filter relationship for filters of which any must be false
+     * Filter relationship for filters of which any must be false.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -115,14 +112,14 @@ class Logic extends Model
 
     /**
      * Method for getting the lowest resource.
-     * 
-     * Resources are stacked. i.e. you either have a user, a user AND a group or a user, group AND role. This will return 
-     * the lowest type of resource required to return true. If our logic group contains a role filter, in order for the 
+     *
+     * Resources are stacked. i.e. you either have a user, a user AND a group or a user, group AND role. This will return
+     * the lowest type of resource required to return true. If our logic group contains a role filter, in order for the
      * logic group to return a meaningful result (i.e. not just false), a role must be given to the tester. Therefore, this
-     * function will return role in that case.If, on the other hand, our logic group only contains user and group filters, 
+     * function will return role in that case.If, on the other hand, our logic group only contains user and group filters,
      * passing in an additional role won't make a difference to the logic tester so we only NEED a user and a group. This
      * function will then return group
-     * 
+     *
      * @return string
      */
     public function getLowestResourceAttribute()
@@ -131,25 +128,27 @@ class Logic extends Model
         $filters = $this->filters;
         if ($filters->contains('for', 'role')) {
             return 'role';
-        } else if ($filters->contains('for', 'group')) {
+        } elseif ($filters->contains('for', 'group')) {
             return 'group';
-        } else if ($filters->contains('for', 'user')) {
+        } elseif ($filters->contains('for', 'user')) {
             return 'user';
         }
+
         return 'none';
     }
 
     /**
-     * Get the user who created the logic
+     * Get the user who created the logic.
      *
-     * @return \BristolSU\ControlDB\Contracts\Models\User
      * @throws \Exception If the user ID is null
+     * @return \BristolSU\ControlDB\Contracts\Models\User
      */
     public function user(): \BristolSU\ControlDB\Contracts\Models\User
     {
-        if($this->user_id === null) {
+        if ($this->user_id === null) {
             throw new \Exception(sprintf('Logic #%u is not owned by a user.', $this->id));
         }
+
         return app(User::class)->getById($this->user_id);
     }
 }

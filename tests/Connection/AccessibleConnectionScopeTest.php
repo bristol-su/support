@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Builder;
 
 class AccessibleConnectionScopeTest extends TestCase
 {
-
     /** @test */
-    public function apply_applies_a_where_constraint_for_user_id(){
+    public function apply_applies_a_where_constraint_for_user_id()
+    {
         $connection = factory(Connection::class)->create();
         $user = $this->newUser();
         $databaseUser = factory(User::class)->create(['control_id' => $user->id()]);
@@ -24,5 +24,4 @@ class AccessibleConnectionScopeTest extends TestCase
         $scope = new AccessibleConnectionScope();
         $scope->apply($builder->reveal(), $connection);
     }
-    
 }

@@ -6,20 +6,20 @@ use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use Illuminate\Http\Request;
 
 /**
- * Clear the current activity instance from the resolver
+ * Clear the current activity instance from the resolver.
  */
 class ClearActivityInstance
 {
     /**
-     * Holds the activity instance resolver
-     * 
+     * Holds the activity instance resolver.
+     *
      * @var ActivityInstanceResolver
      */
     private $activityInstanceResolver;
 
     /**
-     * Initialise the middleware
-     * 
+     * Initialise the middleware.
+     *
      * @param ActivityInstanceResolver $activityInstanceResolver Resolver to clear the activity instance from
      */
     public function __construct(ActivityInstanceResolver $activityInstanceResolver)
@@ -29,7 +29,7 @@ class ClearActivityInstance
 
     /**
      * Clears the activity instance from the resolver.
-     * 
+     *
      * @param Request $request Request object
      * @param \Closure $next Next middleware callback
      * @return mixed
@@ -37,6 +37,7 @@ class ClearActivityInstance
     public function handle(Request $request, \Closure $next)
     {
         $this->activityInstanceResolver->clearActivityInstance();
+
         return $next($request);
     }
 }

@@ -9,9 +9,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class ModuleInstanceGroupingTest extends TestCase
 {
-
     /** @test */
-    public function a_grouping_model_can_be_created(){
+    public function a_grouping_model_can_be_created()
+    {
         $grouping = factory(ModuleInstanceGrouping::class)->create(['heading' => 'Test Heading']);
         $this->assertDatabaseHas('module_instance_grouping', [
             'id' => $grouping->id,
@@ -21,7 +21,8 @@ class ModuleInstanceGroupingTest extends TestCase
     }
  
     /** @test */
-    public function forActivity_returns_all_groupings_for_a_given_activity(){
+    public function for_activity_returns_all_groupings_for_a_given_activity()
+    {
         $activity1 = factory(Activity::class)->create();
         $act1Grouping1 = factory(ModuleInstanceGrouping::class)->create();
         $act1Grouping2 = factory(ModuleInstanceGrouping::class)->create();
@@ -48,7 +49,5 @@ class ModuleInstanceGroupingTest extends TestCase
         $this->assertCount(1, $groupings);
         $this->assertContainsOnlyInstancesOf(ModuleInstanceGrouping::class, $groupings);
         $this->assertTrue($act2Grouping1->is($groupings->shift()));
-        
     }
-    
 }

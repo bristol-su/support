@@ -4,7 +4,6 @@ namespace BristolSU\Support\Activity;
 
 use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
@@ -15,15 +14,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
- * Activity Model
+ * Activity Model.
  */
 class Activity extends Model
 {
     use HasRevisions;
     
     /**
-     * Fillable attributes
-     * 
+     * Fillable attributes.
+     *
      * @var array
      */
     protected $fillable = [
@@ -41,8 +40,8 @@ class Activity extends Model
     ];
 
     /**
-     * Attributes to be casted
-     * 
+     * Attributes to be casted.
+     *
      * @var array
      */
     protected $casts = [
@@ -52,29 +51,29 @@ class Activity extends Model
     ];
 
     /**
-     * Initialise an Activity model. 
-     * 
+     * Initialise an Activity model.
+     *
      * Set up creating event to set the slug automatically
      * Save the User ID of the current user on creation
-     * 
+     *
      * @param array $attributes
      */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        self::creating(function($model) {
+        self::creating(function ($model) {
             if ($model->slug === null) {
                 $model->slug = Str::slug($model->name);
             }
-            if($model->user_id === null && ($user = app(UserAuthentication::class)->getUser()) !== null) {
+            if ($model->user_id === null && ($user = app(UserAuthentication::class)->getUser()) !== null) {
                 $model->user_id = $user->controlId();
             }
         });
     }
 
     /**
-     * Module Instance relationship
-     * 
+     * Module Instance relationship.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function moduleInstances()
@@ -83,8 +82,8 @@ class Activity extends Model
     }
 
     /**
-     * Scope only enabled activities
-     * 
+     * Scope only enabled activities.
+     *
      * @param Builder $query
      * @return Builder
      */
@@ -94,8 +93,8 @@ class Activity extends Model
     }
     
     /**
-     * For logic relationship
-     * 
+     * For logic relationship.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function forLogic()
@@ -104,8 +103,8 @@ class Activity extends Model
     }
 
     /**
-     * Admin logic relationship
-     * 
+     * Admin logic relationship.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function adminLogic()
@@ -114,14 +113,15 @@ class Activity extends Model
     }
 
     /**
-     * Active scope
-     * 
+     * Active scope.
+     *
      * Only returns activities which are either not time sensitive, or within the correct time frame
-     * 
+     *
      * @param Builder $query
      * @return Builder
      */
-    public function scopeActive(Builder $query) {
+    public function scopeActive(Builder $query)
+    {
         return $query
             ->where(['start_date' => null, 'end_date'=>null])
             ->orWhere([
@@ -132,18 +132,19 @@ class Activity extends Model
 
     /**
      * Is the activity completable?
-     * 
+     *
      * Can the activity be completed? An open activity cannot, but a completable activity can be
-     * 
+     *
      * @return bool
      */
-    public function isCompletable(): bool {
+    public function isCompletable(): bool
+    {
         return $this->type === 'completable' || $this->type === 'multi-completable';
     }
 
     /**
-     * Activity Instance relationship
-     * 
+     * Activity Instance relationship.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function activityInstances()
@@ -152,16 +153,17 @@ class Activity extends Model
     }
 
     /**
-     * Get the user who created the activity
+     * Get the user who created the activity.
      *
-     * @return \BristolSU\ControlDB\Contracts\Models\User
      * @throws \Exception If the user ID is null
+     * @return \BristolSU\ControlDB\Contracts\Models\User
      */
     public function user(): \BristolSU\ControlDB\Contracts\Models\User
     {
-        if($this->user_id === null) {
+        if ($this->user_id === null) {
             throw new \Exception(sprintf('Activity #%u is not owned by a user.', $this->id));
         }
+
         return app(User::class)->getById($this->user_id);
     }
 }

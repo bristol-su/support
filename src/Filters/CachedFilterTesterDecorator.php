@@ -10,21 +10,20 @@ use BristolSU\Support\Filters\Contracts\FilterTester as FilterTesterContract;
 use Illuminate\Contracts\Cache\Repository;
 
 /**
- * Decorator to cache filter results
+ * Decorator to cache filter results.
  */
 class CachedFilterTesterDecorator implements FilterTesterContract
 {
-
     /**
-     * Holds the underlying filter tester
-     * 
+     * Holds the underlying filter tester.
+     *
      * @var FilterTesterContract
      */
     private $filterInstanceTester;
     
     /**
-     * Cache implementation
-     * 
+     * Cache implementation.
+     *
      * @var Repository
      */
     private $cache;
@@ -40,31 +39,30 @@ class CachedFilterTesterDecorator implements FilterTesterContract
     }
 
     /**
-     * Cache the test result
-     * 
+     * Cache the test result.
+     *
      * @param FilterInstanceContract $filterInstance Filter instance to test
      * @param Group|Role|User $model Model to test
      * @return bool If the filter passes
      */
     public function evaluate(FilterInstanceContract $filterInstance, $model): bool
     {
-        return $this->cache->remember($this->getKey($filterInstance, $model), config('support.caching.filters.duration', 900), function() use ($filterInstance, $model) {
+        return $this->cache->remember($this->getKey($filterInstance, $model), config('support.caching.filters.duration', 900), function () use ($filterInstance, $model) {
             return $this->filterInstanceTester->evaluate($filterInstance, $model);
         });
     }
 
     /**
-     * Get a unique key for the filter test
-     * 
+     * Get a unique key for the filter test.
+     *
      * @param FilterInstanceContract $filterInstance Filter instance to test
      * @param User|Group|Role $model Model to test
      * @return string Get the unique token
      */
     private function getKey(FilterInstanceContract $filterInstance, $model)
     {
-        return CachedFilterTesterDecorator::class. 
-            'FilterInstance:'.$filterInstance->id.';'.
-            'Model:'.get_class($model).'::'.$model->id;
+        return CachedFilterTesterDecorator::class .
+            'FilterInstance:' . $filterInstance->id . ';' .
+            'Model:' . get_class($model) . '::' . $model->id;
     }
-
 }

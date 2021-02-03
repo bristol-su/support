@@ -9,17 +9,16 @@ use Illuminate\Http\Request;
 
 class CheckActivityInstanceAccessible
 {
-
     /**
-     * Gets the current activity instance
-     * 
+     * Gets the current activity instance.
+     *
      * @var ActivityInstanceResolver
      */
     private $activityInstanceResolver;
     
     /**
-     * Generates an ID for the resource
-     * 
+     * Generates an ID for the resource.
+     *
      * @var ResourceIdGenerator
      */
     private $resourceIdGenerator;
@@ -31,22 +30,21 @@ class CheckActivityInstanceAccessible
     }
 
     /**
-     * Throw an exception if the activity instance resource ID is not logged in currently
-     * 
+     * Throw an exception if the activity instance resource ID is not logged in currently.
+     *
      * @param Request $request
      * @param \Closure $next
-     * @return mixed
      * @throws NotInActivityInstanceException
+     * @return mixed
      */
     public function handle(Request $request, \Closure $next)
     {
         $activityInstance = $this->activityInstanceResolver->getActivityInstance();
         $resourceId = $this->resourceIdGenerator->fromString($activityInstance->activity->activity_for);
-        if((int) $activityInstance->resource_id !== (int) $resourceId) {
+        if ((int) $activityInstance->resource_id !== (int) $resourceId) {
             throw new NotInActivityInstanceException('Incorrect activity instance set');
         }
         
         return $next($request);
     }
-    
 }

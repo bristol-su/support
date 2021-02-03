@@ -11,7 +11,7 @@ use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * Provide a facade for accessing the module instance evaluator
+ * Provide a facade for accessing the module instance evaluator.
  *
  * @method static Evaluation evaluateParticipant(ActivityInstance $activityInstance, ModuleInstance $moduleInstance, ?User $user = null, ?Group $group = null, ?Role $role = null) Evaluate a module instance for a participant
  * @method static Evaluation evaluateAdministrator(ActivityInstance $activityInstance, ModuleInstance $moduleInstance, ?User $user = null, ?Group $group = null, ?Role $role = null) Evaluate a module instance for an administrator
@@ -19,15 +19,13 @@ use Illuminate\Support\Facades\Facade;
  */
 class ModuleInstanceEvaluator extends Facade
 {
-
     /**
-     * Get the binding string of the contract
-     * 
+     * Get the binding string of the contract.
+     *
      * @return string ModuleInstanceEvaluator class name
      */
     protected static function getFacadeAccessor()
     {
         return \BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator::class;
     }
-
 }

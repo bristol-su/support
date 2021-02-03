@@ -6,20 +6,15 @@ use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Authorization\Exception\ActivityRequiresAdmin;
 use BristolSU\Support\Authorization\Middleware\CheckAdminActivityFor;
-use BristolSU\ControlDB\Models\Group;
-use BristolSU\ControlDB\Models\Role;
-use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Tests\TestCase;
-use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 class CheckAdminActivityForTest extends TestCase
 {
-
-
     /** @test */
-    public function it_throws_an_exception_if_the_logic_tester_returns_false(){
+    public function it_throws_an_exception_if_the_logic_tester_returns_false()
+    {
         $this->expectException(ActivityRequiresAdmin::class);
 
         $logic = factory(Logic::class)->create();
@@ -39,10 +34,13 @@ class CheckAdminActivityForTest extends TestCase
         $this->logicTester()->bind();
         
         $middleware = new CheckAdminActivityFor($authentication->reveal());
-        $middleware->handle($request->reveal(), function(){ });
+        $middleware->handle($request->reveal(), function () {
+        });
     }
+
     /** @test */
-    public function it_calls_the_callback_if_the_logic_tester_returns_true(){
+    public function it_calls_the_callback_if_the_logic_tester_returns_true()
+    {
         $logic = factory(Logic::class)->create();
         $activity = factory(Activity::class)->create(['admin_logic' => $logic->id]);
         $request = $this->prophesize(Request::class);
@@ -61,11 +59,10 @@ class CheckAdminActivityForTest extends TestCase
         $this->logicTester()->bind();
         
         $middleware = new CheckAdminActivityFor($authentication->reveal());
-        $middleware->handle($request->reveal(), function($request){
+        $middleware->handle($request->reveal(), function ($request) {
             $this->assertTrue(
                 $request->route('test_callback_is_called')
             );
         });
     }
-    
 }

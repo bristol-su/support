@@ -2,20 +2,18 @@
 
 namespace BristolSU\Support\Permissions\Testers;
 
-use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\Support\Permissions\Contracts\Models\Permission;
-use BristolSU\Support\Permissions\Contracts\Tester;
-use BristolSU\Support\Permissions\Models\ModelPermission;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
+use BristolSU\Support\Permissions\Contracts\Models\Permission;
+use BristolSU\Support\Permissions\Contracts\Tester;
+use BristolSU\Support\Permissions\Models\ModelPermission;
 
 /**
- * Check if a global position is owned by the user
+ * Check if a global position is owned by the user.
  */
 class SystemUserPermission extends Tester
 {
-
     /**
      * Do the given models have the ability?
      *

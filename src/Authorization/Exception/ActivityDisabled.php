@@ -6,28 +6,29 @@ use BristolSU\Support\Activity\Activity;
 
 class ActivityDisabled extends \Exception
 {
-
     /**
-     * The activity that was disabled
+     * The activity that was disabled.
      * @var Activity
      */
     protected $activity;
 
     /**
-     * Create an instance of the exception
-     * 
+     * Create an instance of the exception.
+     *
      * @param Activity $activity
      * @return ActivityDisabled
      */
-    public static function fromActivity(Activity $activity) {
-        $exception = new self;
+    public static function fromActivity(Activity $activity)
+    {
+        $exception = new self();
         $exception->setActivity($activity);
+
         return $exception;
     }
 
     /**
-     * Set the activity that caused the exception to be thrown
-     * 
+     * Set the activity that caused the exception to be thrown.
+     *
      * @param Activity $activity
      */
     public function setActivity(Activity $activity)
@@ -36,7 +37,7 @@ class ActivityDisabled extends \Exception
     }
 
     /**
-     * Set the activity that caused the exception to be thrown
+     * Set the activity that caused the exception to be thrown.
      *
      * @return Activity
      */
@@ -44,5 +45,4 @@ class ActivityDisabled extends \Exception
     {
         return $this->activity;
     }
-    
 }

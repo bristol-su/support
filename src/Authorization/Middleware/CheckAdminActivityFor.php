@@ -9,20 +9,20 @@ use Closure;
 use Illuminate\Http\Request;
 
 /**
- * Middleware to check the user is in the adminLogic logic group
+ * Middleware to check the user is in the adminLogic logic group.
  */
 class CheckAdminActivityFor
 {
     /**
-     * Holds the authentication
-     * 
+     * Holds the authentication.
+     *
      * @var Authentication
      */
     private $authentication;
 
     /**
-     * Initialise middleware
-     * 
+     * Initialise middleware.
+     *
      * @param Authentication $authentication
      */
     public function __construct(Authentication $authentication)
@@ -31,11 +31,11 @@ class CheckAdminActivityFor
     }
 
     /**
-     * Check the user is in the adminLogic logic group
+     * Check the user is in the adminLogic logic group.
      * @param Request $request
      * @param Closure $next
-     * @return mixed
      * @throws ActivityRequiresAdmin
+     * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
@@ -43,6 +43,7 @@ class CheckAdminActivityFor
         if (!LogicTester::evaluate($activity->adminLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole())) {
             throw ActivityRequiresAdmin::createWithActivity($activity, 'You must be an administrator to access this page', 403);
         }
+
         return $next($request);
     }
 }

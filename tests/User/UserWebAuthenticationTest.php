@@ -2,15 +2,15 @@
 
 namespace BristolSU\Support\Tests\User;
 
-use BristolSU\Support\User\UserWebAuthentication;
 use BristolSU\Support\Tests\TestCase;
 use BristolSU\Support\User\User;
+use BristolSU\Support\User\UserWebAuthentication;
 
 class UserWebAuthenticationTest extends TestCase
 {
-
     /** @test */
-    public function getUser_retrieves_a_user_from_the_web_guard(){
+    public function get_user_retrieves_a_user_from_the_web_guard()
+    {
         $user = factory(User::class)->create();
         $this->be($user, 'web');
         
@@ -19,7 +19,8 @@ class UserWebAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function setUser_sets_a_user_in_the_web_guard(){
+    public function set_user_sets_a_user_in_the_web_guard()
+    {
         $user = factory(User::class)->create();
 
         $auth = resolve(UserWebAuthentication::class);
@@ -29,7 +30,8 @@ class UserWebAuthenticationTest extends TestCase
     }
     
     /** @test */
-    public function getUser_returns_null_if_no_user_in_guard(){
+    public function get_user_returns_null_if_no_user_in_guard()
+    {
         $auth = resolve(UserWebAuthentication::class);
         $this->assertNull($auth->getUser());
     }
@@ -46,5 +48,4 @@ class UserWebAuthenticationTest extends TestCase
 
         $this->assertGuest();
     }
-    
 }

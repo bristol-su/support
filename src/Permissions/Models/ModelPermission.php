@@ -20,15 +20,15 @@ class ModelPermission extends Model
     use HasRevisions;
     
     /**
-     * The table to use in the database
-     * 
+     * The table to use in the database.
+     *
      * @var string
      */
     protected $table = 'model_permissions';
 
     /**
-     * Fillable attributes
-     * 
+     * Fillable attributes.
+     *
      * @var array
      */
     protected $fillable = [
@@ -40,8 +40,8 @@ class ModelPermission extends Model
     ];
 
     /**
-     * Attributes to cast
-     * 
+     * Attributes to cast.
+     *
      * @var array
      */
     protected $casts = [
@@ -49,10 +49,10 @@ class ModelPermission extends Model
     ];
 
     /**
-     * The related module instance
-     * 
+     * The related module instance.
+     *
      * If the model permission belongs to a module instance, it is a module permission.
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function moduleInstance()
@@ -62,7 +62,7 @@ class ModelPermission extends Model
 
     /**
      * Get model permissions for a user with the given attributes.
-     * 
+     *
      * @param Builder $query Query object to mutate
      * @param int|null $userId User ID to return model permissions for. Leave null to return all User IDs.
      * @param string|null $ability Ability the model permissions should have. Leave null to return all abilities.
@@ -81,11 +81,12 @@ class ModelPermission extends Model
         if ($moduleInstanceId !== null) {
             $constraints['module_instance_id'] = $moduleInstanceId;
         }
+
         return $query->where($constraints);
     }
 
     /**
-     * Get model permissions for a logic group with the given attributes
+     * Get model permissions for a logic group with the given attributes.
      *
      * @param Builder $query Query object to mutate
      * @param int|null $logicId Logic ID to return model permissions for. Leave null to return all Logic IDs.
@@ -105,6 +106,7 @@ class ModelPermission extends Model
         if ($moduleInstanceId !== null) {
             $constraints['module_instance_id'] = $moduleInstanceId;
         }
+
         return $query->where($constraints);
     }
 
@@ -129,6 +131,7 @@ class ModelPermission extends Model
         if ($moduleInstanceId !== null) {
             $constraints['module_instance_id'] = $moduleInstanceId;
         }
+
         return $query->where($constraints);
     }
 
@@ -153,6 +156,7 @@ class ModelPermission extends Model
         if ($moduleInstanceId !== null) {
             $constraints['module_instance_id'] = $moduleInstanceId;
         }
+
         return $query->where($constraints);
     }
 }

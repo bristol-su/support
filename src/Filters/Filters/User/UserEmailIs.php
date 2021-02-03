@@ -11,15 +11,14 @@ use FormSchema\Schema\Form;
  */
 class UserEmailIs extends UserFilter
 {
-
     /**
-     * Get possible options as an array
+     * Get possible options as an array.
      *
      * You should return a form schema which represents the available options for the filter
      *
+     * @throws \Exception
      * @return Form Options
      *
-     * @throws \Exception
      */
     public function options(): Form
     {
@@ -30,7 +29,7 @@ class UserEmailIs extends UserFilter
     }
 
     /**
-     * The user email is the same as the settings
+     * The user email is the same as the settings.
      *
      * @param string $settings ['email' => '' ]
      *
@@ -42,12 +41,12 @@ class UserEmailIs extends UserFilter
             return $this->user()->data()->email() === $settings['email'];
         } catch (\Exception $e) {
             return false;
-        }        
+        }
     }
 
     /**
-     * Return the filter name
-     * 
+     * Return the filter name.
+     *
      * @return string Filter name
      */
     public function name()
@@ -56,8 +55,8 @@ class UserEmailIs extends UserFilter
     }
 
     /**
-     * Return the filter description
-     * 
+     * Return the filter description.
+     *
      * @return string Filter description
      */
     public function description()
@@ -66,8 +65,8 @@ class UserEmailIs extends UserFilter
     }
 
     /**
-     * Return the filter alias
-     * 
+     * Return the filter alias.
+     *
      * @return string Filter alias
      */
     public function alias()

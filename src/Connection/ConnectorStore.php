@@ -5,23 +5,21 @@ namespace BristolSU\Support\Connection;
 use BristolSU\Support\Connection\Contracts\ConnectorStore as ConnectorStoreContract;
 
 /**
- * Stores connectors
+ * Stores connectors.
  */
 class ConnectorStore implements ConnectorStoreContract
 {
-
     /**
-     * Connectors registered
-     * 
+     * Connectors registered.
+     *
      * @var array
      */
     private $connectors = [];
 
     /**
-     * Register a connector class directly
-     * 
+     * Register a connector class directly.
+     *
      * @param RegisteredConnector $connector Connector to register
-     * @return void
      */
     public function registerConnector(RegisteredConnector $connector): void
     {
@@ -29,15 +27,14 @@ class ConnectorStore implements ConnectorStoreContract
     }
 
     /**
-     * Register a new connector from its attributes
+     * Register a new connector from its attributes.
      *
      * @param string $name Name of the connector
      * @param string $description Description for the connector
      * @param string $alias Unique alias of the connector
      * @param string $service Alias of the service
      * @param string $connector Connector class name
-     * 
-     * @return void
+     *
      */
     public function register(string $name, string $description, string $alias, string $service, string $connector): void
     {
@@ -51,22 +48,23 @@ class ConnectorStore implements ConnectorStoreContract
     }
 
     /**
-     * Get a registered connector by alias
+     * Get a registered connector by alias.
      *
      * @param string $alias Alias of the registered connector
-     * @return RegisteredConnector
      * @throws \Exception If not found
+     * @return RegisteredConnector
      */
     public function get(string $alias): RegisteredConnector
     {
         if (array_key_exists($alias, $this->connectors)) {
             return $this->connectors[$alias];
         }
-        throw new \Exception('Connector '.$alias.' not registered');
+
+        throw new \Exception('Connector ' . $alias . ' not registered');
     }
 
     /**
-     * Return all registered connectors
+     * Return all registered connectors.
      *
      * @return RegisteredConnector[]
      */

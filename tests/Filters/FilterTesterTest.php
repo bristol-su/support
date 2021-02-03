@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Tests\Filters;
 
-
 use BristolSU\Support\Filters\Contracts\FilterRepository;
 use BristolSU\Support\Filters\Contracts\Filters\Filter;
 use BristolSU\Support\Filters\FilterInstance;
@@ -13,7 +12,6 @@ use Prophecy\Argument;
 
 class FilterTesterTest extends TestCase
 {
-
     /** @test */
     public function evaluate_gets_a_filter_by_alias()
     {
@@ -27,16 +25,14 @@ class FilterTesterTest extends TestCase
         $filterInstance = factory(FilterInstance::class)->create(['alias' => 'alias1']);
 
         $filterTester = new FilterTester($repository->reveal());
-        $filterTester->evaluate($filterInstance, new class
-        {
+        $filterTester->evaluate($filterInstance, new class() {
         });
     }
 
     /** @test */
     public function evaluate_sets_the_model()
     {
-        $user = new class
-        {
+        $user = new class() {
             public $id = 1;
         };
 
@@ -54,9 +50,9 @@ class FilterTesterTest extends TestCase
     }
     
     /** @test */
-    public function evaluate_passes_the_settings_to_the_filter(){
-        $user = new class
-        {
+    public function evaluate_passes_the_settings_to_the_filter()
+    {
+        $user = new class() {
             public $id = 1;
         };
 
@@ -79,8 +75,7 @@ class FilterTesterTest extends TestCase
     /** @test */
     public function evaluate_returns_true_if_the_filter_is_true()
     {
-        $user = new class
-        {
+        $user = new class() {
             public $id = 1;
         };
 
@@ -105,8 +100,7 @@ class FilterTesterTest extends TestCase
     /** @test */
     public function evaluate_returns_false_if_the_filter_is_false()
     {
-        $user = new class
-        {
+        $user = new class() {
             public $id = 1;
         };
 

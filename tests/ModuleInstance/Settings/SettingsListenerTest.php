@@ -8,9 +8,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class SettingsListenerTest extends TestCase
 {
-
     /** @test */
-    public function handle_returns_false_if_key_not_the_same_as_the_setting_key(){
+    public function handle_returns_false_if_key_not_the_same_as_the_setting_key()
+    {
         $setting = factory(ModuleInstanceSetting::class)->create(['key' => 'not-a-key']);
         
         $listener = new Listener();
@@ -21,7 +21,8 @@ class SettingsListenerTest extends TestCase
     }
     
     /** @test */
-    public function handle_calls_the_correct_functions_and_passes_the_correct_attribute(){
+    public function handle_calls_the_correct_functions_and_passes_the_correct_attribute()
+    {
         $setting = factory(ModuleInstanceSetting::class)->create(['key' => 'a-key']);
 
         $listener = new Listener();
@@ -31,11 +32,11 @@ class SettingsListenerTest extends TestCase
         $this->assertEquals([
             ['name' => 'saving', 'setting' => $setting->toArray()]
         ], $listener->calls);
-        
     }
     
     /** @test */
-    public function handle_returns_null_if_method_not_defined(){
+    public function handle_returns_null_if_method_not_defined()
+    {
         $setting = factory(ModuleInstanceSetting::class)->create(['key' => 'a-key']);
 
         $listener = new Listener();
@@ -45,7 +46,8 @@ class SettingsListenerTest extends TestCase
     }
     
     /** @test */
-    public function handle_returns_function_result_if_method_defined(){
+    public function handle_returns_function_result_if_method_defined()
+    {
         $setting = factory(ModuleInstanceSetting::class)->create(['key' => 'a-key']);
 
         $listener = new Listener();
@@ -55,10 +57,10 @@ class SettingsListenerTest extends TestCase
             $listener->handle('eloquent.saving: ' . ModuleInstanceSetting::class, [$setting])
         );
     }
-    
 }
 
-class Listener extends SettingListener {
+class Listener extends SettingListener
+{
     protected $key = 'a-key';
 
     public $calls = [];
@@ -68,8 +70,7 @@ class Listener extends SettingListener {
     public function onSaving($setting)
     {
         $this->calls[] = ['name' => 'saving', 'setting' => $setting->toArray()];
+
         return $this->return;
     }
-    
-    
 }

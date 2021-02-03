@@ -7,15 +7,15 @@ use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Represents a setting value associated with a module instance
+ * Represents a setting value associated with a module instance.
  */
 class ModuleInstanceSetting extends Model
 {
     use HasRevisions;
     
     /**
-     * Fillable attributes for mass assignment
-     * 
+     * Fillable attributes for mass assignment.
+     *
      * @var array
      */
     protected $fillable = [
@@ -23,8 +23,8 @@ class ModuleInstanceSetting extends Model
     ];
 
     /**
-     * Module instance relationship
-     * 
+     * Module instance relationship.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function moduleInstance()
@@ -33,8 +33,8 @@ class ModuleInstanceSetting extends Model
     }
 
     /**
-     * Dynamically encode the value of the setting if an array
-     * 
+     * Dynamically encode the value of the setting if an array.
+     *
      * @param mixed $value
      */
     public function setValueAttribute($value)
@@ -48,8 +48,8 @@ class ModuleInstanceSetting extends Model
     }
 
     /**
-     * Dynamically decode the value of the setting if json
-     * 
+     * Dynamically decode the value of the setting if json.
+     *
      * @return mixed
      */
     public function getValueAttribute()
@@ -57,6 +57,7 @@ class ModuleInstanceSetting extends Model
         if (($this->attributes['encoded']??false)) {
             return json_decode($this->attributes['value'], true);
         }
+
         return $this->attributes['value'];
     }
 }

@@ -6,23 +6,21 @@ namespace BristolSU\Support\Filters\Contracts\Filters;
 use \BristolSU\ControlDB\Contracts\Models\User;
 
 /**
- * A filter for a user
+ * A filter for a user.
  */
 abstract class UserFilter extends Filter
 {
-
     /**
-     * Holds the user if set
+     * Holds the user if set.
      *
      * @var User|null
      */
     private $user;
 
     /**
-     * Set the user
+     * Set the user.
      *
      * @param User $model User to set
-     * @return void
      *
      * @throws \Exception If model is not a user
      */
@@ -47,7 +45,7 @@ abstract class UserFilter extends Filter
     }
 
     /**
-     * Get the user
+     * Get the user.
      *
      * @return User|null
      */
@@ -57,7 +55,7 @@ abstract class UserFilter extends Filter
     }
 
     /**
-     * Get the user
+     * Get the user.
      *
      * @return User|null
      */
@@ -65,6 +63,4 @@ abstract class UserFilter extends Filter
     {
         return $this->model();
     }
-
-
 }

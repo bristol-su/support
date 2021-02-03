@@ -2,20 +2,19 @@
 
 namespace BristolSU\Support\Tests\Authentication;
 
-use BristolSU\Support\Authentication\WebRequestAuthentication;
 use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\ControlDB\Models\Group;
 use BristolSU\ControlDB\Models\Role;
 use BristolSU\ControlDB\Models\User;
-use Illuminate\Http\Request;
+use BristolSU\Support\Authentication\WebRequestAuthentication;
 use BristolSU\Support\Tests\TestCase;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 class WebRequestAuthenticationTest extends TestCase
 {
-
     /** @test */
     public function get_group_returns_null_if_not_logged_into_a_group_or_role()
     {
@@ -56,7 +55,6 @@ class WebRequestAuthenticationTest extends TestCase
     /** @test */
     public function get_role_returns_a_role_if_given_in_query()
     {
-        
         $role = $this->newRole();
         $roleRepository = $this->prophesize(RoleRepository::class);
         $roleRepository->getById($role->id())->shouldBeCalled()->willReturn($role);
@@ -155,7 +153,8 @@ class WebRequestAuthenticationTest extends TestCase
     }
     
     /** @test */
-    public function getGroup_returns_null_if_exception_thrown_in_repository(){
+    public function get_group_returns_null_if_exception_thrown_in_repository()
+    {
         $parameterBag = $this->prophesize(ParameterBag::class);
         $parameterBag->has('g')->shouldBeCalled()->willReturn(true);
         $parameterBag->get('g')->shouldBeCalled()->willReturn(1);
@@ -174,7 +173,8 @@ class WebRequestAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function getRole_returns_null_if_exception_thrown_in_repository(){
+    public function get_role_returns_null_if_exception_thrown_in_repository()
+    {
         $parameterBag = $this->prophesize(ParameterBag::class);
         $parameterBag->has('r')->shouldBeCalled()->willReturn(true);
         $parameterBag->get('r')->shouldBeCalled()->willReturn(1);
@@ -193,7 +193,8 @@ class WebRequestAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function getUser_returns_null_if_exception_thrown_in_repository(){
+    public function get_user_returns_null_if_exception_thrown_in_repository()
+    {
         $parameterBag = $this->prophesize(ParameterBag::class);
         $parameterBag->has('u')->shouldBeCalled()->willReturn(true);
         $parameterBag->get('u')->shouldBeCalled()->willReturn(1);
@@ -212,7 +213,8 @@ class WebRequestAuthenticationTest extends TestCase
     }
     
     /** @test */
-    public function reset_resets_the_query(){
+    public function reset_resets_the_query()
+    {
         $parameterBag = $this->prophesize(ParameterBag::class);
         $parameterBag->remove('u')->shouldBeCalled();
         $parameterBag->remove('g')->shouldBeCalled();
@@ -230,5 +232,4 @@ class WebRequestAuthenticationTest extends TestCase
 
         $authentication->reset();
     }
-    
 }

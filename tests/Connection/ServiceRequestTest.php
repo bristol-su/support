@@ -7,9 +7,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class ServiceRequestTest extends TestCase
 {
-
     /** @test */
-    public function optional_services_can_be_set_and_retrieved_for_a_module_alias(){
+    public function optional_services_can_be_set_and_retrieved_for_a_module_alias()
+    {
         $serviceRequest = new ServiceRequest();
 
         $serviceRequest->optional('alias1', ['typeform', 'service2', 'service3']);
@@ -20,7 +20,8 @@ class ServiceRequestTest extends TestCase
     }
 
     /** @test */
-    public function all_optional_services_can_be_retrieved(){
+    public function all_optional_services_can_be_retrieved()
+    {
         $serviceRequest = new ServiceRequest();
 
         $serviceRequest->optional('alias1', ['typeform', 'service2', 'service3']);
@@ -33,14 +34,16 @@ class ServiceRequestTest extends TestCase
     }
 
     /** @test */
-    public function if_no_optional_services_are_registered_by_an_alias_optional_services_returns_an_empty_array(){
+    public function if_no_optional_services_are_registered_by_an_alias_optional_services_returns_an_empty_array()
+    {
         $serviceRequest = new ServiceRequest();
 
         $this->assertEquals([], $serviceRequest->getOptional('alias1'));
     }
     
     /** @test */
-    public function required_services_can_be_set_and_retrieved_for_a_module_alias(){
+    public function required_services_can_be_set_and_retrieved_for_a_module_alias()
+    {
         $serviceRequest = new ServiceRequest();
 
         $serviceRequest->required('alias1', ['typeform', 'service2', 'service3']);
@@ -51,7 +54,8 @@ class ServiceRequestTest extends TestCase
     }
 
     /** @test */
-    public function all_required_services_can_be_retrieved(){
+    public function all_required_services_can_be_retrieved()
+    {
         $serviceRequest = new ServiceRequest();
 
         $serviceRequest->required('alias1', ['typeform', 'service2', 'service3']);
@@ -64,12 +68,10 @@ class ServiceRequestTest extends TestCase
     }
     
     /** @test */
-    public function if_no_required_services_are_registered_by_an_alias_required_services_returns_an_empty_array(){
+    public function if_no_required_services_are_registered_by_an_alias_required_services_returns_an_empty_array()
+    {
         $serviceRequest = new ServiceRequest();
 
         $this->assertEquals([], $serviceRequest->getRequired('alias1'));
     }
-    
-    
-    
 }

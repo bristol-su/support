@@ -3,21 +3,18 @@
 
 namespace BristolSU\Support\Tests\Activity;
 
-
 use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\Tests\TestCase;
 use BristolSU\Support\User\Contracts\UserAuthentication;
 use Carbon\Carbon;
-use BristolSU\Support\Tests\TestCase;
 use Exception;
 
 class ActivityTest extends TestCase
 {
-
     /**
      * @test
      */
@@ -28,9 +25,10 @@ class ActivityTest extends TestCase
         $activity->moduleInstances()->saveMany($moduleInstances);
 
         for ($i = 0; $i < $moduleInstances->count(); $i++) {
-
-            $this->assertTrue($moduleInstances[$i]->is(
-                $activity->moduleInstances[$i])
+            $this->assertTrue(
+                $moduleInstances[$i]->is(
+                    $activity->moduleInstances[$i]
+                )
             );
         }
     }
@@ -96,7 +94,6 @@ class ActivityTest extends TestCase
         $this->assertModelEquals($activity, $retrieved->first());
     }
 
-
     /** @test */
     public function it_has_a_for_logic()
     {
@@ -132,21 +129,21 @@ class ActivityTest extends TestCase
     }
 
     /** @test */
-    public function isCompletable_returns_true_if_the_activity_is_a_multicompletable_activity()
+    public function is_completable_returns_true_if_the_activity_is_a_multicompletable_activity()
     {
         $activity = factory(Activity::class)->create(['type' => 'multi-completable']);
         $this->assertTrue($activity->isCompletable());
     }
 
     /** @test */
-    public function isCompletable_returns_true_if_the_activity_is_a_completable_activity()
+    public function is_completable_returns_true_if_the_activity_is_a_completable_activity()
     {
         $activity = factory(Activity::class)->create(['type' => 'completable']);
         $this->assertTrue($activity->isCompletable());
     }
 
     /** @test */
-    public function isCompletable_returns_false_if_the_activity_is_an_open_activity()
+    public function is_completable_returns_false_if_the_activity_is_an_open_activity()
     {
         $activity = factory(Activity::class)->create(['type' => 'open']);
         $this->assertFalse($activity->isCompletable());

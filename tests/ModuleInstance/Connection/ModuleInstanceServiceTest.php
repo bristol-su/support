@@ -10,9 +10,9 @@ use BristolSU\Support\User\User;
 
 class ModuleInstanceServiceTest extends TestCase
 {
-
     /** @test */
-    public function it_belongs_to_a_module_instance(){
+    public function it_belongs_to_a_module_instance()
+    {
         $moduleInstance = factory(ModuleInstance::class)->create();
         $moduleInstanceService = factory(ModuleInstanceService::class)->create(['module_instance_id' => $moduleInstance->id]);
         
@@ -21,7 +21,8 @@ class ModuleInstanceServiceTest extends TestCase
     }
     
     /** @test */
-    public function it_belongs_to_a_connection(){
+    public function it_belongs_to_a_connection()
+    {
         $user = $this->newUser();
         $this->beUser($user);
         $this->be(factory(User::class)->create(['control_id' => $user->id()]));
@@ -37,7 +38,8 @@ class ModuleInstanceServiceTest extends TestCase
     }
 
     /** @test */
-    public function the_connection_relationship_does_not_need_the_accessible_connection_scope(){
+    public function the_connection_relationship_does_not_need_the_accessible_connection_scope()
+    {
         $user = $this->newUser();
         $user2 = $this->newUser();
         $this->beUser($user);
@@ -71,5 +73,4 @@ class ModuleInstanceServiceTest extends TestCase
         $this->assertEquals('OldService', $moduleInstanceService->revisionHistory->first()->old_value);
         $this->assertEquals('NewService', $moduleInstanceService->revisionHistory->first()->new_value);
     }
-    
 }

@@ -6,15 +6,15 @@ use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Action Instance Field Model
+ * Action Instance Field Model.
  */
 class ActionInstanceField extends Model
 {
     use HasRevisions;
     
     /**
-     * Fillable Properties
-     * 
+     * Fillable Properties.
+     *
      * @var array
      */
     protected $fillable = [
@@ -22,8 +22,8 @@ class ActionInstanceField extends Model
     ];
 
     /**
-     * The action instance relationship
-     * 
+     * The action instance relationship.
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function actionInstance()

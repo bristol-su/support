@@ -4,7 +4,6 @@ namespace BristolSU\Support\Tests\Progress;
 
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
-use BristolSU\Support\Module\Module;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\Evaluator\Evaluation;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
@@ -16,44 +15,43 @@ use Prophecy\Argument;
 
 class SnapshotTest extends TestCase
 {
-
     /** @test */
-    public function ofActivityInstance_returns_no_modules_if_no_modules_created(){
+    public function of_activity_instance_returns_no_modules_if_no_modules_created()
+    {
         $activity = factory(Activity::class)->create();
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-        $progress = (new Snapshot)->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot())->ofActivityInstance($activityInstance);
         $this->assertCount(0, $progress->getModules());
-
     }
     
     /** @test */
-    public function ofActivityInstance_builds_a_module_instance_progress_for_each_module()
+    public function of_activity_instance_builds_a_module_instance_progress_for_each_module()
     {
         $activity = factory(Activity::class)->create();
         $modules = factory(ModuleInstance::class, 5)->create(['activity_id' => $activity->id]);
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
         
-        $progress = (new Snapshot)->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot())->ofActivityInstance($activityInstance);
         $this->assertCount(5, $progress->getModules());
         $this->assertContainsOnlyInstancesOf(ModuleInstanceProgress::class, $progress->getModules());
     }
 
     /** @test */
-    public function ofActivityInstance_builds_the_progress_correctly_excluding_completion_and_percentage()
+    public function of_activity_instance_builds_the_progress_correctly_excluding_completion_and_percentage()
     {
         Carbon::setTestNow(Carbon::now());
         $activity = factory(Activity::class)->create();
         $modules = factory(ModuleInstance::class, 5)->create(['activity_id' => $activity->id]);
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
 
-        $progress = (new Snapshot)->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot())->ofActivityInstance($activityInstance);
         $this->assertEquals($activityInstance->id, $progress->getActivityInstanceId());
         $this->assertEquals($activity->id, $progress->getActivityId());
         $this->assertEquals(Carbon::now(), $progress->getTimestamp());
     }
 
     /** @test */
-    public function ofActivityInstance_builds_the_module_instance_progresses_correctly()
+    public function of_activity_instance_builds_the_module_instance_progresses_correctly()
     {
         Carbon::setTestNow(Carbon::now());
         $activity = factory(Activity::class)->create();
@@ -74,20 +72,20 @@ class SnapshotTest extends TestCase
         $module2Evaluation->setPercentage(10);
         
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[0]);
         }))->shouldBeCalled()->willReturn($module1Evaluation);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[1]);
         }))->shouldBeCalled()->willReturn($module2Evaluation);
 
         \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
         
-        $progress = (new Snapshot)->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot())->ofActivityInstance($activityInstance);
         $module1Progress = $progress->getModules()[0];
         $this->assertTrue($module1Progress->isActive());
         $this->assertTrue($module1Progress->isVisible());
@@ -100,11 +98,10 @@ class SnapshotTest extends TestCase
         $this->assertFalse($module2Progress->isComplete());
         $this->assertTrue($module2Progress->isMandatory());
         $this->assertEquals(10, $module2Progress->getPercentage());
-        
     }
 
     /** @test */
-    public function ofActivityInstance_sets_complete_to_true_if_all_modules_are_mandatory_and_complete()
+    public function of_activity_instance_sets_complete_to_true_if_all_modules_are_mandatory_and_complete()
     {
         Carbon::setTestNow(Carbon::now());
         $activity = factory(Activity::class)->create();
@@ -131,30 +128,30 @@ class SnapshotTest extends TestCase
         $module3Evaluation->setPercentage(10);
 
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[0]);
         }))->shouldBeCalled()->willReturn($module1Evaluation);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[1]);
         }))->shouldBeCalled()->willReturn($module2Evaluation);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[2]);
         }))->shouldBeCalled()->willReturn($module3Evaluation);
 
         \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
 
-        $progress = (new Snapshot)->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot())->ofActivityInstance($activityInstance);
         $this->assertTrue($progress->isComplete());
     }
 
     /** @test */
-    public function ofActivityInstance_sets_complete_to_false_if_all_modules_are_mandatory_but_one_is_not_complete()
+    public function of_activity_instance_sets_complete_to_false_if_all_modules_are_mandatory_but_one_is_not_complete()
     {
         Carbon::setTestNow(Carbon::now());
         $activity = factory(Activity::class)->create();
@@ -181,30 +178,30 @@ class SnapshotTest extends TestCase
         $module3Evaluation->setPercentage(10);
 
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[0]);
         }))->shouldBeCalled()->willReturn($module1Evaluation);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[1]);
         }))->shouldBeCalled()->willReturn($module2Evaluation);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[2]);
         }))->shouldBeCalled()->willReturn($module3Evaluation);
 
         \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
 
-        $progress = (new Snapshot)->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot())->ofActivityInstance($activityInstance);
         $this->assertFalse($progress->isComplete());
     }
 
     /** @test */
-    public function ofActivityInstance_sets_complete_to_true_if_all_mandatory_modules_are_complete()
+    public function of_activity_instance_sets_complete_to_true_if_all_mandatory_modules_are_complete()
     {
         Carbon::setTestNow(Carbon::now());
         $activity = factory(Activity::class)->create();
@@ -231,30 +228,30 @@ class SnapshotTest extends TestCase
         $module3Evaluation->setPercentage(10);
 
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[0]);
         }))->shouldBeCalled()->willReturn($module1Evaluation);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[1]);
         }))->shouldBeCalled()->willReturn($module2Evaluation);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[2]);
         }))->shouldBeCalled()->willReturn($module3Evaluation);
 
         \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
 
-        $progress = (new Snapshot)->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot())->ofActivityInstance($activityInstance);
         $this->assertTrue($progress->isComplete());
     }
 
     /** @test */
-    public function ofActivityInstance_sets_the_percentage_to_the_completed_percentage_of_all_mandatory_modules()
+    public function of_activity_instance_sets_the_percentage_to_the_completed_percentage_of_all_mandatory_modules()
     {
         Carbon::setTestNow(Carbon::now());
         $activity = factory(Activity::class)->create();
@@ -281,30 +278,30 @@ class SnapshotTest extends TestCase
         $module3Evaluation->setPercentage(50);
 
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[0]);
         }))->shouldBeCalled()->willReturn($module1Evaluation);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[1]);
         }))->shouldBeCalled()->willReturn($module2Evaluation);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[2]);
         }))->shouldBeCalled()->willReturn($module3Evaluation);
 
         \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
 
-        $progress = (new Snapshot)->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot())->ofActivityInstance($activityInstance);
         $this->assertEqualsWithDelta(53.3333, $progress->getPercentage(), 0.0001);
     }
 
     /** @test */
-    public function ofActivityInstance_sets_the_percentage_to_the_completed_percentage_of_all_mandatory_modules_and_ignores_non_mandatory_modules()
+    public function of_activity_instance_sets_the_percentage_to_the_completed_percentage_of_all_mandatory_modules_and_ignores_non_mandatory_modules()
     {
         Carbon::setTestNow(Carbon::now());
         $activity = factory(Activity::class)->create();
@@ -331,30 +328,30 @@ class SnapshotTest extends TestCase
         $module3Evaluation->setPercentage(50);
 
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[0]);
         }))->shouldBeCalled()->willReturn($module1Evaluation);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[1]);
         }))->shouldBeCalled()->willReturn($module2Evaluation);
-        $moduleInstanceEvaluator->evaluateResource(Argument::that(function($arg) use ($activityInstance) {
+        $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
-        }), Argument::that(function($arg) use ($modules) {
+        }), Argument::that(function ($arg) use ($modules) {
             return $arg instanceof ModuleInstance && $arg->is($modules[2]);
         }))->shouldBeCalled()->willReturn($module3Evaluation);
 
         \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
 
-        $progress = (new Snapshot)->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot())->ofActivityInstance($activityInstance);
         $this->assertEquals(55, $progress->getPercentage());
     }
 
     /** @test */
-    public function ofActivity_runs_the_above_for_all_activity_instances()
+    public function of_activity_runs_the_above_for_all_activity_instances()
     {
         Carbon::setTestNow(Carbon::now());
         $activity = factory(Activity::class)->create();
@@ -362,7 +359,7 @@ class SnapshotTest extends TestCase
         $activityInstance2 = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
         $activityInstance3 = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
 
-        $progresses = (new Snapshot)->ofActivity($activity);
+        $progresses = (new Snapshot())->ofActivity($activity);
         $this->assertEquals($activityInstance1->id, $progresses[0]->getActivityInstanceId());
         $this->assertEquals($activityInstance2->id, $progresses[1]->getActivityInstanceId());
         $this->assertEquals($activityInstance3->id, $progresses[2]->getActivityInstanceId());
@@ -370,6 +367,4 @@ class SnapshotTest extends TestCase
         $this->assertEquals($activity->id, $progresses[1]->getActivityId());
         $this->assertEquals($activity->id, $progresses[2]->getActivityId());
     }
-
-
 }

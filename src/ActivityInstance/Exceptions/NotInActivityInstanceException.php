@@ -7,5 +7,4 @@ namespace BristolSU\Support\ActivityInstance\Exceptions;
  */
 class NotInActivityInstanceException extends \Exception
 {
-
 }

@@ -2,22 +2,21 @@
 
 namespace BristolSU\Support\Activity;
 
-use BristolSU\Support\Activity\Contracts\Repository as ActivityRepositoryContract;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
-use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\ControlDB\Contracts\Models\User;
+use BristolSU\Support\Activity\Contracts\Repository as ActivityRepositoryContract;
+use BristolSU\Support\Logic\Contracts\LogicTester;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Collection;
 
 /**
- * Activity Repository implementation using Eloquent
+ * Activity Repository implementation using Eloquent.
  */
 class Repository implements ActivityRepositoryContract
 {
-
     /**
-     * Return all admin activities for a user
+     * Return all admin activities for a user.
      *
      * Return all the admin for which the given user, group and role satisfy the forLogic group.
      *
@@ -28,8 +27,9 @@ class Repository implements ActivityRepositoryContract
      */
     public function getForAdministrator(?User $user = null, ?Group $group = null, ?Role $role = null): Collection
     {
-        return $this->all()->filter(function($activity) use ($user, $group, $role) {
+        return $this->all()->filter(function ($activity) use ($user, $group, $role) {
             $logicTester = app()->make(LogicTester::class);
+
             return $logicTester->evaluate($activity->adminLogic, $user, $group, $role);
         })->values();
     }
@@ -55,7 +55,7 @@ class Repository implements ActivityRepositoryContract
     }
 
     /**
-     * Return all participant activities for a user
+     * Return all participant activities for a user.
      *
      * Return all the activities for which the given user, group and role satisfy the forLogic group.
      *
@@ -66,14 +66,15 @@ class Repository implements ActivityRepositoryContract
      */
     public function getForParticipant(?User $user = null, ?Group $group = null, ?Role $role = null): Collection
     {
-        return $this->active()->filter(function($activity) use ($user, $group, $role) {
+        return $this->active()->filter(function ($activity) use ($user, $group, $role) {
             $logicTester = app()->make(LogicTester::class);
+
             return $logicTester->evaluate($activity->forLogic, $user, $group, $role);
         })->values();
     }
 
     /**
-     * Return all activities
+     * Return all activities.
      *
      * @return Collection
      */
@@ -83,7 +84,7 @@ class Repository implements ActivityRepositoryContract
     }
 
     /**
-     * Create an activity
+     * Create an activity.
      *
      * Create an activity using the given attributes. The attributes can be taken from the following:
      * [
@@ -107,14 +108,13 @@ class Repository implements ActivityRepositoryContract
         return Activity::create($attributes);
     }
 
-
     /**
-     * Get an activity by ID
+     * Get an activity by ID.
      *
      * @param int $id ID of the activity
+     * @throws ModelNotFoundException
      * @return Activity
      *
-     * @throws ModelNotFoundException
      */
     public function getById($id): Activity
     {
@@ -122,7 +122,7 @@ class Repository implements ActivityRepositoryContract
     }
 
     /**
-     * Update an activity
+     * Update an activity.
      *
      * Update an activity using the given attributes. The attributes can be taken from the following:
      * [
@@ -140,22 +140,22 @@ class Repository implements ActivityRepositoryContract
      *
      * @param $id
      * @param $attributes
-     * @return Activity
      * @throws ModelNotFoundException
+     * @return Activity
      */
     public function update($id, $attributes)
     {
         $activity = $this->getById($id);
         $activity->fill($attributes);
         $activity->save();
+
         return $activity;
     }
 
     /**
-     * Delete an activity by ID
+     * Delete an activity by ID.
      *
      * @param int $id ID of the activity
-     * @return void
      *
      * @throws \Exception
      */

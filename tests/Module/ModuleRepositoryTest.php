@@ -3,23 +3,17 @@
 
 namespace BristolSU\Support\Tests\Module\Module;
 
-
 use BristolSU\Support\Module\Contracts\Module as ModuleContract;
 use BristolSU\Support\Module\Contracts\ModuleFactory;
 use BristolSU\Support\Module\Contracts\ModuleManager;
-use BristolSU\Support\Module\Module;
 use BristolSU\Support\Module\ModuleRepository;
-use Illuminate\Contracts\Container\Container;
-use Illuminate\Filesystem\Filesystem;
 use BristolSU\Support\Tests\TestCase;
 
 class ModuleRepositoryTest extends TestCase
 {
-    
-    
-
     /** @test */
-    public function it_gets_a_module_by_alias(){
+    public function it_gets_a_module_by_alias()
+    {
         $module = $this->prophesize(ModuleContract::class);
         $manager = $this->prophesize(ModuleManager::class);
         $factory = $this->prophesize(ModuleFactory::class);
@@ -31,11 +25,11 @@ class ModuleRepositoryTest extends TestCase
 
         $createdModule = $moduleRepository->findByAlias('alias1');
         $this->assertEquals($module->reveal(), $createdModule);
-        
     }
 
     /** @test */
-    public function it_returns_null_if_module_not_found(){
+    public function it_returns_null_if_module_not_found()
+    {
         $module = $this->prophesize(ModuleContract::class);
         $manager = $this->prophesize(ModuleManager::class);
         $factory = $this->prophesize(ModuleFactory::class);
@@ -50,8 +44,9 @@ class ModuleRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function it_gets_all_modules(){
-        $manager = new \BristolSU\Support\Module\ModuleManager;
+    public function it_gets_all_modules()
+    {
+        $manager = new \BristolSU\Support\Module\ModuleManager();
         $manager->register('alias1');
         $manager->register('alias2');
 
@@ -69,5 +64,4 @@ class ModuleRepositoryTest extends TestCase
             'alias2' => $module2->reveal()
         ], $moduleRepository->all());
     }
-
 }

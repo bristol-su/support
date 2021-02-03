@@ -12,15 +12,15 @@ use Illuminate\Http\Request;
 class CheckActivityInstanceForActivity
 {
     /**
-     * Holds the activity instance resolver
-     * 
+     * Holds the activity instance resolver.
+     *
      * @var ActivityInstanceResolver
      */
     private $activityInstanceResolver;
 
     /**
-     * Initialise the middleware
-     * 
+     * Initialise the middleware.
+     *
      * @param ActivityInstanceResolver $activityInstanceResolver Resolver to get the current activity instance.
      */
     public function __construct(ActivityInstanceResolver $activityInstanceResolver)
@@ -29,12 +29,12 @@ class CheckActivityInstanceForActivity
     }
 
     /**
-     * Check the logged in activity instance is for the relevant activity
-     * 
+     * Check the logged in activity instance is for the relevant activity.
+     *
      * @param Request $request Request object
      * @param \Closure $next Next middleware callback
-     * @return mixed
      * @throws NotInActivityInstanceException If the activity instance does not belong to the activity
+     * @return mixed
      */
     public function handle(Request $request, \Closure $next)
     {
@@ -42,7 +42,7 @@ class CheckActivityInstanceForActivity
         if ($activityInstance->activity_id !== $request->route('activity_slug')->id) {
             throw new NotInActivityInstanceException('Not logged into the correct activity instance for the activity');
         }
+
         return $next($request);
-        
     }
 }

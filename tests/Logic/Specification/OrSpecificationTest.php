@@ -3,16 +3,15 @@
 
 namespace BristolSU\Support\Tests\Logic\Specification;
 
-
 use BristolSU\Support\Logic\Contracts\Specification as SpecificationContract;
 use BristolSU\Support\Logic\Specification\OrSpecification;
 use BristolSU\Support\Tests\TestCase;
 
 class OrSpecificationTest extends TestCase
 {
-
     /** @test */
-    public function it_returns_true_if_any_specifications_are_met(){
+    public function it_returns_true_if_any_specifications_are_met()
+    {
         $spec1 = $this->prophesize(SpecificationContract::class);
         $spec2 = $this->prophesize(SpecificationContract::class);
         $spec3 = $this->prophesize(SpecificationContract::class);
@@ -27,7 +26,8 @@ class OrSpecificationTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_false_if_no_specifications_are_met(){
+    public function it_returns_false_if_no_specifications_are_met()
+    {
         $spec1 = $this->prophesize(SpecificationContract::class);
         $spec2 = $this->prophesize(SpecificationContract::class);
         $spec3 = $this->prophesize(SpecificationContract::class);
@@ -42,10 +42,10 @@ class OrSpecificationTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_true_if_there_are_no_specifications(){
-        $specification = new OrSpecification;
+    public function it_returns_true_if_there_are_no_specifications()
+    {
+        $specification = new OrSpecification();
 
         $this->assertTrue($specification->isSatisfied());
     }
-
 }

@@ -2,20 +2,19 @@
 
 namespace BristolSU\Support\Tests\Authentication;
 
-use BristolSU\Support\Authentication\ApiAuthentication;
 use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\ControlDB\Models\Group;
 use BristolSU\ControlDB\Models\Role;
 use BristolSU\ControlDB\Models\User;
-use Illuminate\Http\Request;
+use BristolSU\Support\Authentication\ApiAuthentication;
 use BristolSU\Support\Tests\TestCase;
+use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 class ApiAuthenticationTest extends TestCase
 {
-
     /** @test */
     public function get_group_returns_null_if_not_logged_into_a_group_or_role()
     {
@@ -48,7 +47,8 @@ class ApiAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function get_group_returns_a_group_given_by_a_role_if_role_given(){
+    public function get_group_returns_a_group_given_by_a_role_if_role_given()
+    {
         $group = $this->newGroup();
         $role = $this->newRole(['group_id' => $group->id()]);
         $roleRepository = $this->prophesize(RoleRepository::class);
@@ -78,7 +78,6 @@ class ApiAuthenticationTest extends TestCase
     /** @test */
     public function get_role_returns_a_role_if_given_in_query()
     {
-        
         $role = $this->newRole();
         $roleRepository = $this->prophesize(RoleRepository::class);
         $roleRepository->getById($role->id())->shouldBeCalled()->willReturn($role);
@@ -171,7 +170,8 @@ class ApiAuthenticationTest extends TestCase
     }
     
     /** @test */
-    public function getGroup_returns_null_if_exception_thrown_in_repository(){
+    public function get_group_returns_null_if_exception_thrown_in_repository()
+    {
         $query = $this->prophesize(ParameterBag::class);
         $query->has('role_id')->shouldBeCalled()->willReturn(false);
         $query->has('group_id')->shouldBeCalled()->willReturn(true);
@@ -191,7 +191,8 @@ class ApiAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function getRole_returns_null_if_exception_thrown_in_repository(){
+    public function get_role_returns_null_if_exception_thrown_in_repository()
+    {
         $query = $this->prophesize(ParameterBag::class);
         $query->has('role_id')->shouldBeCalled()->willReturn(true);
         $query->get('role_id')->shouldBeCalled()->willReturn(1);
@@ -210,7 +211,8 @@ class ApiAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function getUser_returns_null_if_exception_thrown_in_repository(){
+    public function get_user_returns_null_if_exception_thrown_in_repository()
+    {
         $query = $this->prophesize(ParameterBag::class);
         $query->has('user_id')->shouldBeCalled()->willReturn(true);
         $query->get('user_id')->shouldBeCalled()->willReturn(1);
@@ -229,7 +231,8 @@ class ApiAuthenticationTest extends TestCase
     }
     
     /** @test */
-    public function reset_resets_the_query(){
+    public function reset_resets_the_query()
+    {
         $request = $this->prophesize(Request::class);
         $query = $this->prophesize(ParameterBag::class);
         $query->set('user_id', null)->shouldBeCalled();
@@ -245,5 +248,4 @@ class ApiAuthenticationTest extends TestCase
 
         $authentication->reset();
     }
-    
 }

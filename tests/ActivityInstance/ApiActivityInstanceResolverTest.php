@@ -11,9 +11,9 @@ use Illuminate\Http\Request;
 
 class ApiActivityInstanceResolverTest extends TestCase
 {
-
     /** @test */
-    public function setActivityInstance_throws_an_exception(){
+    public function set_activity_instance_throws_an_exception()
+    {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Cannot set an activity instance when using the API');
         
@@ -24,7 +24,8 @@ class ApiActivityInstanceResolverTest extends TestCase
     }
 
     /** @test */
-    public function clearActivityInstance_throws_an_exception(){
+    public function clear_activity_instance_throws_an_exception()
+    {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Cannot clear an activity instance when using the API');
 
@@ -34,7 +35,8 @@ class ApiActivityInstanceResolverTest extends TestCase
     }
     
     /** @test */
-    public function getActivityInstance_returns_an_activity_instance_using_the_request(){
+    public function get_activity_instance_returns_an_activity_instance_using_the_request()
+    {
         $request = $this->prophesize(Request::class);
         $repository = $this->prophesize(ActivityInstanceRepository::class);
         $activityInstance = factory(ActivityInstance::class)->create();
@@ -49,7 +51,8 @@ class ApiActivityInstanceResolverTest extends TestCase
     }
 
     /** @test */
-    public function getActivityInstance_throws_an_exception_if_activity_instance_not_passed_in_request(){
+    public function get_activity_instance_throws_an_exception_if_activity_instance_not_passed_in_request()
+    {
         $this->expectException(NotInActivityInstanceException::class);
         $request = $this->prophesize(Request::class);
         $repository = $this->prophesize(ActivityInstanceRepository::class);
@@ -59,7 +62,4 @@ class ApiActivityInstanceResolverTest extends TestCase
         $resolver = new ApiActivityInstanceResolver($request->reveal(), $repository->reveal());
         $resolver->getActivityInstance();
     }
-    
-    
-    
 }

@@ -8,9 +8,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class ActionInstanceFieldTest extends TestCase
 {
-
     /** @test */
-    public function actionInstanceField_has_an_action_instance(){
+    public function action_instance_field_has_an_action_instance()
+    {
         $actionInstance = factory(ActionInstance::class)->create();
         $actionInstanceField = factory(ActionInstanceField::class)->create([
             'action_instance_id' => $actionInstance->id
@@ -20,7 +20,8 @@ class ActionInstanceFieldTest extends TestCase
     }
 
     /** @test */
-    public function revisions_are_saved(){
+    public function revisions_are_saved()
+    {
         $user = $this->newUser();
         $this->beUser($user);
 
@@ -36,5 +37,4 @@ class ActionInstanceFieldTest extends TestCase
         $this->assertEquals(1, $actionInstanceField->revisionHistory->first()->old_value);
         $this->assertEquals(2, $actionInstanceField->revisionHistory->first()->new_value);
     }
-    
 }

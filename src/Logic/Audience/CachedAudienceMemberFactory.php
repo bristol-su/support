@@ -5,23 +5,21 @@ namespace BristolSU\Support\Logic\Audience;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
-use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
-use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory as AudienceMemberFactoryContract;
 use BristolSU\Support\Logic\Logic;
 use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Collection;
 
 /**
- * Creates an audience member
+ * Creates an audience member.
  */
 class CachedAudienceMemberFactory implements AudienceMemberFactoryContract
 {
-
     /**
      * @var AudienceMemberFactoryContract
      */
     private $audienceMemberFactory;
+
     /**
      * @var Repository
      */
@@ -35,7 +33,7 @@ class CachedAudienceMemberFactory implements AudienceMemberFactoryContract
 
     /**
      * Audience members who have access to a given resource in some way.
-     * 
+     *
      * @param User|Group|Role $resource Resource audience members must have access to
      * @return Collection
      */
@@ -44,7 +42,7 @@ class CachedAudienceMemberFactory implements AudienceMemberFactoryContract
         return $this->cache->remember(
             static::class . '@withAccessToResource:' . get_class($resource) . ':' . $resource->id(),
             86400,
-            function() use ($resource) {
+            function () use ($resource) {
                 return $this->audienceMemberFactory->withAccessToResource($resource);
             }
         );
@@ -56,7 +54,7 @@ class CachedAudienceMemberFactory implements AudienceMemberFactoryContract
      * This function will return all audience members who have an audience in the logic group which uses a given resource.
      * @param User|Group|Role $resource Resource that must be in the logic group
      * @param Logic $logic Logic group the resource must be in for an audience member
-     * 
+     *
      * @return Collection
      */
     public function withAccessToLogicGroupWithResource($resource, Logic $logic)
@@ -64,14 +62,14 @@ class CachedAudienceMemberFactory implements AudienceMemberFactoryContract
         return $this->cache->remember(
             static::class . '@withAccessToLogicGroupWithResource:' . get_class($resource) . ':' . $resource->id() . ':' . $logic->id,
             86400,
-            function() use ($resource, $logic) {
+            function () use ($resource, $logic) {
                 return $this->audienceMemberFactory->withAccessToLogicGroupWithResource($resource, $logic);
             }
         );
     }
 
     /**
-     * Create an audience member from a user and filter it down to the given logic
+     * Create an audience member from a user and filter it down to the given logic.
      *
      * @param User $user User to create the audience member from
      *
@@ -83,14 +81,14 @@ class CachedAudienceMemberFactory implements AudienceMemberFactoryContract
         return $this->cache->remember(
             static::class . '@fromUserInLogic' . ':' . $user->id() . ':' . $logic->id,
             86400,
-            function() use ($user, $logic) {
+            function () use ($user, $logic) {
                 return $this->audienceMemberFactory->fromUserInLogic($user, $logic);
             }
         );
     }
 
     /**
-     * Create an audience member from a user
+     * Create an audience member from a user.
      *
      * @param User $user User to create the audience member from
      *

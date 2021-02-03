@@ -8,10 +8,10 @@ use FormSchema\Schema\Form;
 
 class FilterTest extends TestCase
 {
-
     /** @test */
-    public function toArray_returns_an_array_of_attributes(){
-        $filter = new DummyFilter;
+    public function to_array_returns_an_array_of_attributes()
+    {
+        $filter = new DummyFilter();
         
         $this->assertEquals([
             'alias' => 'alias1',
@@ -29,12 +29,10 @@ class FilterTest extends TestCase
             ]
         ], $filter->toArray());
     }
-    
 }
 
 class DummyFilter extends Filter
 {
-
     /**
      * @inheritDoc
      */

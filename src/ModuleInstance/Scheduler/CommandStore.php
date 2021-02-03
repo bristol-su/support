@@ -5,33 +5,31 @@ namespace BristolSU\Support\ModuleInstance\Scheduler;
 use BristolSU\Support\ModuleInstance\Contracts\Scheduler\CommandStore as CommandStoreContract;
 
 /**
- * Holds information about scheduled commands
+ * Holds information about scheduled commands.
  */
 class CommandStore implements CommandStoreContract
 {
-
     /**
-     * Holds the registered commands 
-     * 
+     * Holds the registered commands.
+     *
      * Held in the form
      * [
      *      'module_alias' => [
      *          CommandOne::class => '* * * * *', ...
      *      ], ...
      * ]
-     * 
-     * @var array 
+     *
+     * @var array
      */
     private $commands = [];
 
     /**
-     * Register a new scheduled command
+     * Register a new scheduled command.
      *
      * @param string $alias Module alias registering the command
      * @param string $command Command to run
      * @param string $cron Cron string to represent the frequency of the command running
      *
-     * @return void
      */
     public function schedule($alias, $command, $cron)
     {
@@ -42,7 +40,7 @@ class CommandStore implements CommandStoreContract
     }
 
     /**
-     * Retrieve all scheduled commands
+     * Retrieve all scheduled commands.
      *
      * @return array ['module_alias' => [CommandName::class => 'cron', ...], ... ]
      */
@@ -52,7 +50,7 @@ class CommandStore implements CommandStoreContract
     }
 
     /**
-     * Get all scheduled commands for a given module
+     * Get all scheduled commands for a given module.
      *
      * @param string $alias Alias of the module
      * @return array [ CommandName::class => '* * * * *', ... ]
@@ -62,5 +60,4 @@ class CommandStore implements CommandStoreContract
         return (isset($this->commands, $alias) ?
             $this->commands[$alias] : []);
     }
-    
 }

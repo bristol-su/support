@@ -9,9 +9,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class ConnectorRepositoryTest extends TestCase
 {
-    
     /** @test */
-    public function get_returns_a_registered_connector_by_alias(){
+    public function get_returns_a_registered_connector_by_alias()
+    {
         $registeredConnector1 = $this->prophesize(RegisteredConnector::class);
 
         $store = $this->prophesize(ConnectorStore::class);
@@ -24,7 +24,8 @@ class ConnectorRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function get_throws_an_exception_if_connector_not_registered(){
+    public function get_throws_an_exception_if_connector_not_registered()
+    {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Not Registered Message');
 
@@ -36,7 +37,8 @@ class ConnectorRepositoryTest extends TestCase
     }
     
     /** @test */
-    public function forService_returns_all_connectors_belonging_to_a_service(){
+    public function for_service_returns_all_connectors_belonging_to_a_service()
+    {
         $registeredConnector1 = $this->prophesize(RegisteredConnector::class);
         $registeredConnector1->getService()->shouldBeCalled()->willReturn('service1');
         $registeredConnector2 = $this->prophesize(RegisteredConnector::class);
@@ -56,11 +58,11 @@ class ConnectorRepositoryTest extends TestCase
         $this->assertCount(2, $registeredConnectors);
         $this->assertSame($registeredConnector1->reveal(), $registeredConnectors[0]);
         $this->assertSame($registeredConnector3->reveal(), $registeredConnectors[1]);
-        
     }
     
     /** @test */
-    public function all_returns_all_registered_connectors(){
+    public function all_returns_all_registered_connectors()
+    {
         $registeredConnector1 = $this->prophesize(RegisteredConnector::class);
         $registeredConnector2 = $this->prophesize(RegisteredConnector::class);
         $registeredConnector3 = $this->prophesize(RegisteredConnector::class);
@@ -79,5 +81,4 @@ class ConnectorRepositoryTest extends TestCase
         $this->assertSame($registeredConnector2->reveal(), $registeredConnectors['alias2']);
         $this->assertSame($registeredConnector3->reveal(), $registeredConnectors['alias3']);
     }
-
 }

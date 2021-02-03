@@ -2,8 +2,6 @@
 
 namespace BristolSU\Support\Tests\Filters\Jobs;
 
-use BristolSU\ControlDB\Models\User;
-use BristolSU\Support\Filters\Contracts\FilterRepository;
 use BristolSU\Support\Filters\Contracts\FilterTester;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Filters\Jobs\CacheFilter;
@@ -12,9 +10,9 @@ use Prophecy\Argument;
 
 class CacheFilterTest extends TestCase
 {
-
     /** @test */
-    public function it_evaluates_the_given_filter_with_the_given_model(){
+    public function it_evaluates_the_given_filter_with_the_given_model()
+    {
         $model = $this->newUser();
         $filterInstance = factory(FilterInstance::class)->create([
             'alias' => 'alias1',
@@ -22,13 +20,11 @@ class CacheFilterTest extends TestCase
         ]);
         
         $filterTester = $this->prophesize(FilterTester::class);
-        $filterTester->evaluate(Argument::that(function($arg) use ($filterInstance) {
+        $filterTester->evaluate(Argument::that(function ($arg) use ($filterInstance) {
             return $arg instanceof FilterInstance && $filterInstance->id === $arg->id;
         }), $model)->shouldBeCalled()->willReturn(true);
         
         $job = new CacheFilter($filterInstance, $model);
         $job->handle($filterTester->reveal());
-        
     }
-    
 }

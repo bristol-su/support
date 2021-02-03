@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Revision;
 
-
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use Venturecraft\Revisionable\RevisionableTrait;
 
@@ -12,21 +11,21 @@ trait HasRevisions
     use RevisionableTrait;
 
     /**
-     * Maximum number of revisions to save for any given model
-     * 
+     * Maximum number of revisions to save for any given model.
+     *
      * @var int
      */
     protected $historyLimit;
 
     /**
      * Should revisions be deleted when there is a greater number than the historyLimit?
-     * 
+     *
      * @var bool
      */
     protected $revisionCleanup;
 
     /**
-     * Set the configuration properties required by the base implementation from the config
+     * Set the configuration properties required by the base implementation from the config.
      */
     public function initializeHasRevisions()
     {
@@ -35,15 +34,14 @@ trait HasRevisions
     }
     
     /**
-     * Attempt to find the ID of the current user
-     * 
+     * Attempt to find the ID of the current user.
+     *
      * @return int|null
      */
     public function getSystemUserId()
     {
         $user = app(Authentication::class)->getUser();
+
         return ($user === null ? null : $user->id());
     }
-    
-    
 }

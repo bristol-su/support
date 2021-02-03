@@ -3,16 +3,14 @@
 
 namespace BristolSU\Support\Progress;
 
-
 use BristolSU\Support\Progress\Commands\UpdateProgress;
 use Illuminate\Support\ServiceProvider;
 
 class ProgressServiceProvider extends ServiceProvider
 {
-
     public function register()
     {
-        $this->app->singleton('progress-exporter', function($app) {
+        $this->app->singleton('progress-exporter', function ($app) {
             return new ProgressManager($app);
         });
     }
@@ -23,5 +21,4 @@ class ProgressServiceProvider extends ServiceProvider
             UpdateProgress::class
         ]);
     }
-    
 }

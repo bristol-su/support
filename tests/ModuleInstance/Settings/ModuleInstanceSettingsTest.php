@@ -3,14 +3,12 @@
 
 namespace BristolSU\Support\Tests\ModuleInstance\Settings;
 
-
-use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\Tests\TestCase;
 
 class ModuleInstanceSettingsTest extends TestCase
 {
-
     /** @test */
     public function it_has_a_module_instance()
     {
@@ -22,7 +20,8 @@ class ModuleInstanceSettingsTest extends TestCase
     }
     
     /** @test */
-    public function setValue_sets_a_value_in_attributes(){
+    public function set_value_sets_a_value_in_attributes()
+    {
         $setting = factory(ModuleInstanceSetting::class)->create();
         $setting->value = 'test';
         $setting->save();
@@ -35,7 +34,8 @@ class ModuleInstanceSettingsTest extends TestCase
     }
 
     /** @test */
-    public function getValue_gets_a_value_in_attributes(){
+    public function get_value_gets_a_value_in_attributes()
+    {
         $setting = factory(ModuleInstanceSetting::class)->create();
         $setting->value = 'test';
         $setting->save();
@@ -44,7 +44,8 @@ class ModuleInstanceSettingsTest extends TestCase
     }
     
     /** @test */
-    public function setValue_encodes_an_object_in_attributes(){
+    public function set_value_encodes_an_object_in_attributes()
+    {
         $setting = factory(ModuleInstanceSetting::class)->create();
         $setting->value = ['test' => 1];
         $setting->save();
@@ -57,7 +58,8 @@ class ModuleInstanceSettingsTest extends TestCase
     }
     
     /** @test */
-    public function getValue_decodes_an_object_in_attributes(){
+    public function get_value_decodes_an_object_in_attributes()
+    {
         $setting = factory(ModuleInstanceSetting::class)->create();
         $setting->value = ['test' => 1];
         $setting->save();
@@ -66,7 +68,8 @@ class ModuleInstanceSettingsTest extends TestCase
     }
 
     /** @test */
-    public function setValue_encodes_an_array_in_attributes(){
+    public function set_value_encodes_an_array_in_attributes()
+    {
         $setting = factory(ModuleInstanceSetting::class)->create();
         $setting->value = ['test', 'test2'];
         $setting->save();
@@ -79,7 +82,8 @@ class ModuleInstanceSettingsTest extends TestCase
     }
 
     /** @test */
-    public function getValue_decodes_an_array_in_attributes(){
+    public function get_value_decodes_an_array_in_attributes()
+    {
         $setting = factory(ModuleInstanceSetting::class)->create();
         $setting->value = ['test', 'test2'];
         $setting->save();
@@ -105,5 +109,4 @@ class ModuleInstanceSettingsTest extends TestCase
         $this->assertEquals('OldKey', $moduleInstanceSetting->revisionHistory->first()->old_value);
         $this->assertEquals('NewKey', $moduleInstanceSetting->revisionHistory->first()->new_value);
     }
-    
 }

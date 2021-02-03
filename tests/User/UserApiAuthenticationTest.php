@@ -2,17 +2,17 @@
 
 namespace BristolSU\Support\Tests\User;
 
-use BristolSU\Support\User\UserApiAuthentication;
 use BristolSU\Support\Tests\TestCase;
 use BristolSU\Support\User\User;
+use BristolSU\Support\User\UserApiAuthentication;
 use Illuminate\Contracts\Auth\Factory;
 use Illuminate\Contracts\Auth\Guard;
 
 class UserApiAuthenticationTest extends TestCase
 {
-
     /** @test */
-    public function getUser_retrieves_a_user_from_the_api_guard(){
+    public function get_user_retrieves_a_user_from_the_api_guard()
+    {
         $user = factory(User::class)->create();
         $this->be($user, 'api');
 
@@ -21,7 +21,8 @@ class UserApiAuthenticationTest extends TestCase
     }
     
     /** @test */
-    public function getUser_returns_null_if_no_user_found(){
+    public function get_user_returns_null_if_no_user_found()
+    {
         $factory = $this->prophesize(Factory::class);
         $guard = $this->prophesize(Guard::class);
         $guard->check()->shouldBeCalled()->willReturn(false);
@@ -32,7 +33,8 @@ class UserApiAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function setUser_throws_an_exception(){
+    public function set_user_throws_an_exception()
+    {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Cannot set an API user');
 
@@ -43,12 +45,12 @@ class UserApiAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function logout_throws_an_exception(){
+    public function logout_throws_an_exception()
+    {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Cannot log out an API user');
 
         $auth = new UserApiAuthentication($this->prophesize(Factory::class)->reveal());
         $auth->logout();
     }
-    
 }

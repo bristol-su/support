@@ -3,28 +3,26 @@
 
 namespace BristolSU\Support\Completion;
 
-
 use BristolSU\Support\Completion\Contracts\CompletionCondition;
 use BristolSU\Support\Completion\Contracts\CompletionConditionFactory as CompletionConditionFactoryContract;
 use BristolSU\Support\Completion\Contracts\CompletionConditionManager as CompletionConditionManagerContract;
 use BristolSU\Support\Completion\Contracts\CompletionConditionRepository as CompletionConditionRepositoryContract;
 
 /**
- * Access and build Completion Conditions
+ * Access and build Completion Conditions.
  */
 class CompletionConditionRepository implements CompletionConditionRepositoryContract
 {
-
     /**
-     * Holds the completion condition manager reference
-     * 
+     * Holds the completion condition manager reference.
+     *
      * @var CompletionConditionManagerContract
      */
     private $manager;
     
     /**
-     * Holds the completion condition factory contract
-     * 
+     * Holds the completion condition factory contract.
+     *
      * @var CompletionConditionFactoryContract
      */
     private $completionConditionFactory;
@@ -40,22 +38,23 @@ class CompletionConditionRepository implements CompletionConditionRepositoryCont
     }
 
     /**
-     * Get a completion condition by its alias
+     * Get a completion condition by its alias.
      *
      * @param string $moduleAlias Alias of the module
      * @param string $alias Alias of the completion condition
      *
-     * @return CompletionCondition
      * @throws \Exception If the class cannot be found or resolved
+     * @return CompletionCondition
      */
     public function getByAlias($moduleAlias, $alias): CompletionCondition
     {
         $class = $this->manager->getClassFromAlias($moduleAlias, $alias);
+
         return $this->completionConditionFactory->createCompletionConditionFromClassName($class, $moduleAlias);
     }
 
     /**
-     * Get all completion conditions for a given module alias
+     * Get all completion conditions for a given module alias.
      *
      * @param string $moduleAlias Alias of the module
      * @return CompletionCondition[] [CompletionCondition1, CompletionCondition2]
@@ -68,6 +67,7 @@ class CompletionConditionRepository implements CompletionConditionRepositoryCont
         foreach ($classes as $class) {
             $completionConditions[] = $this->completionConditionFactory->createCompletionConditionFromClassName($class, $moduleAlias);
         }
+
         return $completionConditions;
     }
 }

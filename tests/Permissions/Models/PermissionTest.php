@@ -3,76 +3,80 @@
 
 namespace BristolSU\Support\Tests\Permissions\Models;
 
-
 use BristolSU\Support\Permissions\Models\Permission;
 use BristolSU\Support\Tests\TestCase;
 
 class PermissionTest extends TestCase
 {
-
     /** @test */
-    public function ability_can_be_set_and_got(){
+    public function ability_can_be_set_and_got()
+    {
         $ability = 'ability';
 
-        $permission = new Permission;
+        $permission = new Permission();
         $permission->setAbility($ability);
 
         $this->assertEquals($ability, $permission->getAbility());
     }
 
     /** @test */
-    public function name_can_be_set_and_got(){
+    public function name_can_be_set_and_got()
+    {
         $name = 'name';
 
-        $permission = new Permission;
+        $permission = new Permission();
         $permission->setName($name);
 
         $this->assertEquals($name, $permission->getName());
     }
 
-
     /** @test */
-    public function description_can_be_set_and_got(){
+    public function description_can_be_set_and_got()
+    {
         $description = 'description';
 
-        $permission = new Permission;
+        $permission = new Permission();
         $permission->setDescription($description);
 
         $this->assertEquals($description, $permission->getDescription());
     }
 
     /** @test */
-    public function type_can_be_set_and_got(){
+    public function type_can_be_set_and_got()
+    {
         $type = 'global';
 
-        $permission = new Permission;
+        $permission = new Permission();
         $permission->setType($type);
 
         $this->assertEquals($type, $permission->getType());
     }
 
     /** @test */
-    public function module_type_can_be_set_and_got(){
+    public function module_type_can_be_set_and_got()
+    {
         $moduleType = 'admin';
 
-        $permission = new Permission;
+        $permission = new Permission();
         $permission->setModuleType($moduleType);
 
         $this->assertEquals($moduleType, $permission->getModuleType());
     }
 
     /** @test */
-    public function module_alias_can_be_set_and_got(){
+    public function module_alias_can_be_set_and_got()
+    {
         $moduleAlias = 'fileupload';
 
-        $permission = new Permission;
+        $permission = new Permission();
         $permission->setModuleAlias($moduleAlias);
 
         $this->assertEquals($moduleAlias, $permission->getModuleAlias());
     }
 
     /** @test */
-    public function all_can_be_set_through_the_constructor(){
+    public function all_can_be_set_through_the_constructor()
+    {
         $ability = 'ability';
         $name = 'name';
         $description = 'description';
@@ -88,11 +92,11 @@ class PermissionTest extends TestCase
         $this->assertEquals($type, $permission->getType());
         $this->assertEquals($alias, $permission->getModuleAlias());
         $this->assertEquals($moduleType, $permission->getModuleType());
-
     }
 
     /** @test */
-    public function toArray_toJson_and___toString_return_all_attributes(){
+    public function to_array_to_json_and___to_string_return_all_attributes()
+    {
         $ability = 'ability';
         $name = 'name';
         $description = 'description';
@@ -129,5 +133,4 @@ class PermissionTest extends TestCase
             'module_type' => $moduleType
         ]), (string) $permission);
     }
-
 }

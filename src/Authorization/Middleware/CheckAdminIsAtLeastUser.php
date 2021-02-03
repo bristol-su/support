@@ -8,11 +8,11 @@ use Illuminate\Http\Request;
 
 class CheckAdminIsAtLeastUser
 {
-
     /**
      * @var Authentication
      */
     private $authentication;
+
     /**
      * @var UserAuthentication
      */
@@ -25,7 +25,7 @@ class CheckAdminIsAtLeastUser
     }
 
     /**
-     * Set the user if it is not already set
+     * Set the user if it is not already set.
      *
      * @param Request $request
      * @param \Closure $next
@@ -33,12 +33,12 @@ class CheckAdminIsAtLeastUser
      */
     public function handle(Request $request, \Closure $next)
     {
-        if($this->authentication->getUser() === null) {
+        if ($this->authentication->getUser() === null) {
             $this->authentication->setUser(
                 $this->userAuthentication->getUser()->controlUser()
             );
         }
+
         return $next($request);
     }
-    
 }

@@ -7,9 +7,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class ModuleManagerTest extends TestCase
 {
-
     /** @test */
-    public function aliases_returns_all_registered_aliases(){
+    public function aliases_returns_all_registered_aliases()
+    {
         $manager = new ModuleManager();
         $manager->register('alias1');
         $manager->register('alias2');
@@ -18,7 +18,8 @@ class ModuleManagerTest extends TestCase
     }
     
     /** @test */
-    public function exists_returns_true_if_an_alias_has_been_registered(){
+    public function exists_returns_true_if_an_alias_has_been_registered()
+    {
         $manager = new ModuleManager();
         $manager->register('alias1');
 
@@ -26,9 +27,9 @@ class ModuleManagerTest extends TestCase
     }
     
     /** @test */
-    public function exists_returns_false_if_an_alias_has_not_been_registered(){
+    public function exists_returns_false_if_an_alias_has_not_been_registered()
+    {
         $manager = new ModuleManager();
         $this->assertFalse($manager->exists('alias1'));
     }
-    
 }

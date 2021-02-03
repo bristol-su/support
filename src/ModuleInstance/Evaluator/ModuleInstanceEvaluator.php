@@ -3,28 +3,25 @@
 
 namespace BristolSU\Support\ModuleInstance\Evaluator;
 
-
-use BristolSU\Support\ActivityInstance\ActivityInstance;
-use BristolSU\Support\Completion\Contracts\CompletionConditionTester;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
+use BristolSU\Support\ActivityInstance\ActivityInstance;
+use BristolSU\Support\Completion\Contracts\CompletionConditionTester;
 use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory;
 use BristolSU\Support\Logic\Facade\LogicTester;
-use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation as EvaluationContract;
-use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator as ModuleInstanceEvaluatorContract;
+use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
 
 /**
- * Evaluates a given module instance and module
+ * Evaluates a given module instance and module.
  */
 class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
 {
-
     /**
-     * Evaluate a module instance for a given administrator
+     * Evaluate a module instance for a given administrator.
      *
      * @param ModuleInstance $moduleInstance Module instance to evaluate
      * @param User|null $user User to evaluate for
@@ -45,7 +42,7 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
     }
 
     /**
-     * Evaluate a module instance for a given participant
+     * Evaluate a module instance for a given participant.
      *
      * @param ActivityInstance $activityInstance Activity instance to evaluate
      * @param ModuleInstance $moduleInstance Module instance to evaluate
@@ -98,7 +95,7 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
     }
 
     /**
-     * Test if the given module instance is complete for the given module instance
+     * Test if the given module instance is complete for the given module instance.
      *
      * @param ActivityInstance $activityInstance Activity instance to test against
      * @param ModuleInstance $moduleInstance Module instance to test
@@ -111,11 +108,11 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
     }
 
     /**
-     * Get the percentage of how complete the module is for the given activity instance
-     * 
+     * Get the percentage of how complete the module is for the given activity instance.
+     *
      * @param ActivityInstance $activityInstance
      * @param ModuleInstance $moduleInstance
-     * 
+     *
      * @return float
      */
     private function getPercentage(ActivityInstance $activityInstance, ModuleInstance $moduleInstance): float
@@ -123,5 +120,4 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
         return (float) ($activityInstance->activity->isCompletable() ?
             app(CompletionConditionTester::class)->evaluatePercentage($activityInstance, $moduleInstance->completionConditionInstance) : 0);
     }
-
 }

@@ -8,9 +8,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class ActionManagerTest extends TestCase
 {
-
     /** @test */
-    public function actions_can_be_registered_through_the_facade(){
+    public function actions_can_be_registered_through_the_facade()
+    {
         ActionManagerFacade::registerAction('Class\One', 'Name1', 'Description1');
         
         $actionManager = app()->make(ActionManager::class);
@@ -19,5 +19,4 @@ class ActionManagerTest extends TestCase
         $this->assertEquals('Name1', $action['name']);
         $this->assertEquals('Description1', $action['description']);
     }
-    
 }

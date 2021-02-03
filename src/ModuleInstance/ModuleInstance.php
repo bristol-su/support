@@ -5,13 +5,12 @@ namespace BristolSU\Support\ModuleInstance;
 use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Activity\Activity;
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Completion\CompletionConditionInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance as ModuleInstanceContract;
-use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
+use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\Progress\Handlers\Database\Models\ModuleInstanceProgress;
 use BristolSU\Support\Revision\HasRevisions;
 use BristolSU\Support\User\Contracts\UserAuthentication;
@@ -21,14 +20,14 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;
 
 /**
- * Represents a module instance in the database
+ * Represents a module instance in the database.
  */
 class ModuleInstance extends Model implements ModuleInstanceContract
 {
     use HasRevisions;
 
     /**
-     * Fillable attributes
+     * Fillable attributes.
      *
      * @var array
      */
@@ -49,7 +48,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     ];
 
     /**
-     * Attributes to cast
+     * Attributes to cast.
      *
      * @var array
      */
@@ -58,25 +57,25 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     ];
 
     /**
-     * When the model is saved, the slug will be dynamically set if not given
+     * When the model is saved, the slug will be dynamically set if not given.
      *
      * @param array $attributes Attributes for the model
      */
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        self::creating(function($model) {
+        self::creating(function ($model) {
             if ($model->slug === null) {
                 $model->slug = Str::slug($model->name);
             }
-            if($model->user_id === null && ($user = app(UserAuthentication::class)->getUser()) !== null) {
+            if ($model->user_id === null && ($user = app(UserAuthentication::class)->getUser()) !== null) {
                 $model->user_id = $user->controlId();
             }
         });
     }
 
     /**
-     * Get the alias of the module
+     * Get the alias of the module.
      *
      * @return string
      */
@@ -86,7 +85,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * Get the ID of the module
+     * Get the ID of the module.
      *
      * @return int
      */
@@ -96,7 +95,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * Activity relationship
+     * Activity relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -106,7 +105,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * Settings relationship
+     * Settings relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -116,7 +115,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * Permissions relationship
+     * Permissions relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -126,7 +125,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * Completion condition relationship
+     * Completion condition relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -136,7 +135,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * Active logic relationship
+     * Active logic relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -146,7 +145,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * Visible logic relationship
+     * Visible logic relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -156,7 +155,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * Mandatory logic relationship
+     * Mandatory logic relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -166,7 +165,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * Action instances relationship
+     * Action instances relationship.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function actionInstances()
@@ -175,7 +174,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * Services relationship
+     * Services relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -185,7 +184,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * Get a setting from the module instance
+     * Get a setting from the module instance.
      *
      * @param string $key Key of the setting
      * @param mixed|null $default Default value if the setting is not found
@@ -201,7 +200,7 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * Return only enabled module instances
+     * Return only enabled module instances.
      *
      * @param Builder $query
      *
@@ -213,16 +212,17 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     }
 
     /**
-     * Get the user who created the module instance
+     * Get the user who created the module instance.
      *
-     * @return \BristolSU\ControlDB\Contracts\Models\User
      * @throws \Exception If the user ID is null
+     * @return \BristolSU\ControlDB\Contracts\Models\User
      */
     public function user(): \BristolSU\ControlDB\Contracts\Models\User
     {
-        if($this->user_id === null) {
+        if ($this->user_id === null) {
             throw new \Exception(sprintf('Module Instance #%u is not owned by a user.', $this->id));
         }
+
         return app(User::class)->getById($this->user_id);
     }
 
