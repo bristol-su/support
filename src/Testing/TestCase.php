@@ -26,7 +26,7 @@ class TestCase extends BaseTestCase
      *
      * Loads migrations and factories for the sdk
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
         $this->loadMigrationsFrom(realpath(__DIR__ . '/../database/migrations'));
@@ -41,7 +41,7 @@ class TestCase extends BaseTestCase
      *
      * @param Application $app Application to set up
      */
-    public function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('database.default', 'testing');
         $app['config']->set('passport.storage.database.connection', 'testing');

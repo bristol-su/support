@@ -97,9 +97,9 @@ class Progress
     /**
      * Set the timestamp of the progress snapshot.
      *
-     * @param \DateTime $timestamp
+     * @param \DateTime|\DateTimeImmutable $timestamp
      */
-    public function setTimestamp(\DateTime $timestamp): void
+    public function setTimestamp(\DateTimeInterface $timestamp): void
     {
         $this->timestamp = $timestamp;
     }
@@ -169,7 +169,7 @@ class Progress
      *
      * @param int $activityId
      * @param int $activityInstanceId
-     * @param \DateTime $timestamp
+     * @param \DateTime|\DateTimeImmutable $timestamp
      * @param bool $complete
      * @param float $percentage
      * @return static
@@ -177,7 +177,7 @@ class Progress
     public static function create(
         int $activityId,
         int $activityInstanceId,
-        \DateTime $timestamp,
+        \DateTimeInterface $timestamp,
         bool $complete,
         float $percentage
     ): self {
