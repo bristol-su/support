@@ -124,6 +124,7 @@ class ProgressManager
      *
      * @param  string  $method
      * @param  array  $parameters
+     * @throws \InvalidArgumentException
      * @return mixed
      */
     public function __call($method, $parameters)
