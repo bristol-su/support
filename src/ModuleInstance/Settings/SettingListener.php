@@ -12,7 +12,9 @@ use Illuminate\Queue\SerializesModels;
  */
 abstract class SettingListener implements ShouldQueue
 {
-    use Dispatchable, SerializesModels, Queueable;
+    use Dispatchable;
+    use SerializesModels;
+    use Queueable;
 
     /**
      * Set the key of the setting to trigger on.

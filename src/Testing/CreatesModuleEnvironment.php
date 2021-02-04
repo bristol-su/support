@@ -17,7 +17,8 @@ use Illuminate\Support\Str;
  */
 trait CreatesModuleEnvironment
 {
-    use HandlesAuthentication, HandlesAuthorization;
+    use HandlesAuthentication;
+    use HandlesAuthorization;
 
     /**
      * Alias of the module to set up.

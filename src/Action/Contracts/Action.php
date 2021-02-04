@@ -16,7 +16,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
  */
 abstract class Action implements ShouldQueue, RecordsHistory
 {
-    use Dispatchable, Queueable, HasHistory;
+    use Dispatchable;
+    use Queueable;
+    use HasHistory;
 
     /**
      * @var array

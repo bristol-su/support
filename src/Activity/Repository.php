@@ -158,6 +158,7 @@ class Repository implements ActivityRepositoryContract
      * @param int $id ID of the activity
      *
      * @throws \Exception
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function delete($id)
     {
