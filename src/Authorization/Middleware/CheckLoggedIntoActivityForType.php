@@ -39,6 +39,9 @@ class CheckLoggedIntoActivityForType
      * @param Request $request
      * @param Closure $next
      * @throws ActivityRequiresParticipant
+     * @throws \BristolSU\Support\Authorization\Exception\ActivityRequiresUser
+     * @throws \BristolSU\Support\Authorization\Exception\ActivityRequiresGroup
+     * @throws \BristolSU\Support\Authorization\Exception\ActivityRequiresRole
      * @return mixed
      */
     public function handle(Request $request, Closure $next)

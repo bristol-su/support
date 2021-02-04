@@ -40,6 +40,7 @@ if (!function_exists('alias')) {
      * Get the alias of the currently injected module instance.
      *
      * @throws BindingResolutionException If the module instance cannot be found
+     * @throws \Exception
      * @return string Alias of the module instance
      */
     function alias()
