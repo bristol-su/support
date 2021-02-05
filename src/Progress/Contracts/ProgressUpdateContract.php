@@ -6,13 +6,13 @@ use BristolSU\Support\Progress\Progress;
 
 interface ProgressUpdateContract {
 
-    public function generateItemKey($id, $caller): string;
+    public function getItemKey($id, $caller): string;
 
     public function generateHash(array $Items): string;
 
     public function checkHash($expected, $actual): bool;
 
-    public function hasChanged($itemKey, Progress $currentProgress): bool;
+    public function hasChanged($id, $caller, Progress $currentProgress): bool;
 
-    public function saveChanges($Key, Progress $currentProgress);
+    public function saveChanges($id, $caller, Progress $currentProgress);
 }

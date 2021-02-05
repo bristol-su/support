@@ -32,18 +32,12 @@ class Snapshot
 
     public function ofUpdateToActivityInstance(ActivityInstance $activityInstance, $caller) : ?Progress
     {
-        dd($this->ProgressUpdateRepository->generateItemKey($activityInstance->id, $caller));
-
-        // Set Cache key:
-        $itemKey = $this->ProgressUpdateRepository
-                        ->generateItemKey($activityInstance->id, $caller);
-
         // Get the Current Progress:
         $currentProgress = $this->ofActivityInstance($activityInstance);
 
-        if($this->ProgressUpdateRepository->hasChanged($itemKey, $currentProgress)){
+        if($this->ProgressUpdateRepository->hasChanged($activityInstance->id, $caller, $currentProgress)){
             // Save Changes and return Progress
-            $this->ProgressUpdateRepository->saveChanges($itemKey, $currentProgress);
+            $this->ProgressUpdateRepository->saveChanges($activityInstance->id, $caller, $currentProgress);
             return $currentProgress;
         }
 
