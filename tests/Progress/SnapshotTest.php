@@ -8,6 +8,7 @@ use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator
 use BristolSU\Support\ModuleInstance\Evaluator\Evaluation;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Progress\ModuleInstanceProgress;
+use BristolSU\Support\Progress\ProgressUpdateRepository;
 use BristolSU\Support\Progress\Snapshot;
 use BristolSU\Support\Tests\TestCase;
 use Carbon\Carbon;
@@ -45,13 +46,13 @@ class SnapshotTest extends TestCase
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
 
         // Save the Item to the Cache:
-        $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))
-                        ->ofUpdateToActivityInstance($activityInstance, 'ALTest');
+        $progress = (new Snapshot($this->prophesize(ProgressUpdateRepository::class)->reveal()))
+                         ->ofUpdateToActivityInstance($activityInstance, 'ActivityInstance');
 
         // Progress would return Full Object
 
-        $checkUpdate = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))
-                        ->ofUpdateToActivityInstance($activityInstance, 'ALTest');
+        $checkUpdate = (new Snapshot($this->prophesize(ProgressUpdateRepository::class)->reveal()))
+                            ->ofUpdateToActivityInstance($activityInstance, 'ActivityInstance');
 
         $this->assertNull($checkUpdate);
     }
@@ -63,7 +64,8 @@ class SnapshotTest extends TestCase
         $modules = factory(ModuleInstance::class, 5)->create(['activity_id' => $activity->id]);
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
 
-        $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofUpdatesToActivity($activity, '', '');
+        $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))
+                    ->ofUpdatesToActivity($activity, 'Activity');
 
     }
 

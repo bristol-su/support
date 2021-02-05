@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Hash;
 class Snapshot
 {
 
-    private $ProgressUpdateRepository;
+    protected $ProgressUpdateRepository;
 
     public function __construct(ProgressUpdateContract $ProgressUpdateRepository)
     {
@@ -32,34 +32,44 @@ class Snapshot
 
     public function ofUpdateToActivityInstance(ActivityInstance $activityInstance, $caller) : ?Progress
     {
+        dd($this->ProgressUpdateRepository->generateItemKey($activityInstance->id, $caller));
+
         // Set Cache key:
-        $itemKey = $caller . '_' . $activityInstance->id;
+        $itemKey = $this->ProgressUpdateRepository
+                        ->generateItemKey($activityInstance->id, $caller);
 
         // Get the Current Progress:
-        $Progress = $this->ofActivityInstance($activityInstance);
-        $progressArrayHash = $this->ProgressUpdateRepository->generateActivityHash($Progress);
+        $currentProgress = $this->ofActivityInstance($activityInstance);
 
-        $storedProgress = ProgressHashes::find($itemKey);
-
-        // Check if data is missing from Cache:
-        if(! $storedProgress){
-            // Return all Progress to be Saved to stored:
-            $this->ProgressUpdateRepository->saveHash($itemKey, $progressArrayHash);
-            return $Progress;
-        }
-
-        // Check if data is different: Hash::check($this->concatActivityInstance($currentProgress), $storedProgress->hash)
-        if(! $this->ProgressUpdateRepository->checkHash(
-            $this->ProgressUpdateRepository->generateHash($progressArrayHash),
-            $storedProgress->hash
-        )) {
-            // Return all Progress to be Saved to stored:
-            $this->ProgressUpdateRepository->saveHash($itemKey, $progressArrayHash);
-
-            return $Progress;
+        if($this->ProgressUpdateRepository->hasChanged($itemKey, $currentProgress)){
+            // Save Changes and return Progress
+            $this->ProgressUpdateRepository->saveChanges($itemKey, $currentProgress);
+            return $currentProgress;
         }
 
         return null;
+
+//        $storedProgress = ProgressHashes::find($itemKey);
+//
+//        // Check if data is missing from Cache:
+//        if(! $storedProgress){
+//            // Return all Progress to be Saved to stored:
+//            $this->ProgressUpdateRepository->saveHash($itemKey, $Progress);
+//            return $Progress;
+//        }
+//
+//        // Check if data is different: Hash::check($this->concatActivityInstance($currentProgress), $storedProgress->hash)
+//        if(! $this->ProgressUpdateRepository->checkHash(
+//            $this->ProgressUpdateRepository->generateHash($progressArrayHash),
+//            $storedProgress->hash
+//        )) {
+//            // Return all Progress to be Saved to stored:
+//            $this->ProgressUpdateRepository->saveHash($itemKey, $progressArrayHash);
+//
+//            return $Progress;
+//        }
+//
+//        return null;
     }
 
     /**

@@ -9,6 +9,16 @@ use Illuminate\Support\Facades\Hash;
 class ProgressUpdateRepository implements ProgressUpdateContract {
 
     /**
+     * @param $id
+     * @param $caller
+     * @return string
+     */
+    public function generateItemKey($id, $caller): string
+    {
+        return sprintf("%c_%i", $caller, $id);
+    }
+
+    /**
      * @param array $Items
      * @return string
      */
@@ -40,20 +50,6 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
     }
 
     /**
-     * Save Hashed Data into Database
-     *
-     * @param $Key
-     * @param array $Hash
-     */
-    public function saveHash($Key, array $Hash)
-    {
-        ProgressHashes::updateOrcreate(
-            [ 'item_key' => $Key ],
-            [ 'hash' => $this->generateHash($Hash) ]
-        );
-    }
-
-    /**
      * @param $actual
      * @param $expected
      * @return bool
@@ -61,6 +57,33 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
     public function checkHash($actual, $expected): bool
     {
         return \Hash::check($actual, $expected);
+    }
+
+    public function hasChanged($itemKey, Progress $currentProgress): bool
+    {
+        $storedProgress = ProgressHashes::find($itemKey);
+        // Check if $itemKey exists:
+        if(! $storedProgress) {
+            return true;
+        }
+
+        // TODO : Check this as I think that it needs the Hash or the Array passing through to work properly!
+        // If exists check current against stored:
+        return $this->checkHash($this->generateActivityHash($currentProgress), $storedProgress);
+    }
+
+    /**
+     * Save Hashed Data into Database
+     *
+     * @param $Key
+     * @param array $Hash
+     */
+    public function saveChanges($Key, Progress $currentProgress)
+    {
+        ProgressHashes::updateOrcreate(
+            [ 'item_key' => $Key ],
+            [ 'hash' => $this->generateActivityHash($currentProgress) ]
+        );
     }
 
 
