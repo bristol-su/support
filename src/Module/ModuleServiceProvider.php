@@ -261,6 +261,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
      * Register events the module fires.
      *
      * @throws BindingResolutionException
+     * @throws \Exception
      */
     public function registerEvents()
     {

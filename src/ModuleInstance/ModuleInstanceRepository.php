@@ -93,6 +93,7 @@ class ModuleInstanceRepository implements ModuleInstanceRepositoryContract
      * @param int $id ID of the module instance
      * @param array $attributes Attributes to be updated
      *
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      * @return ModuleInstanceContract The updated module instance
      */
     public function update(int $id, array $attributes = []): ModuleInstanceContract
@@ -108,6 +109,7 @@ class ModuleInstanceRepository implements ModuleInstanceRepositoryContract
      * Delete a module instance.
      *
      * @param int $id
+     * @throws \Illuminate\Database\Eloquent\ModelNotFoundException
      */
     public function delete(int $id)
     {

@@ -39,6 +39,7 @@ class ProgressManager
      * Get a export driver instance.
      *
      * @param  string|null  $driver
+     * @throws \InvalidArgumentException
      * @return mixed
      */
     public function driver($driver = null)
@@ -111,16 +112,9 @@ class ProgressManager
         return $this->container['config']['support.progress.default'];
     }
 
-    /**
-     * Register a custom driver creator Closure.
-     *
-     * @param  string  $driver
-     * @param  \Closure  $callback
-     * @return $this
-     */
     public function extend($driver, Closure $callback)
     {
-        $this->customCreators[$driver] = $callback->bindTo($this, $this);
+        $this->customCreators[$driver] = $callback;
 
         return $this;
     }
@@ -130,6 +124,7 @@ class ProgressManager
      *
      * @param  string  $method
      * @param  array  $parameters
+     * @throws \InvalidArgumentException
      * @return mixed
      */
     public function __call($method, $parameters)
