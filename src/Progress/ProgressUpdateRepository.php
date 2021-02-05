@@ -13,7 +13,7 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
      * @param $caller
      * @return string
      */
-    public function getItemKey($id, $caller): string
+    protected function getItemKey($id, $caller): string
     {
         return $this->generateItemKey($id, $caller);
     }
@@ -32,7 +32,7 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
      * @param array $Items
      * @return string
      */
-    public function generateHash(array $Items): string
+    protected function generateHash(array $Items): string
     {
         $str = '';
         foreach ($Items as $item) { $str .= '_' . $item; }
@@ -40,7 +40,7 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
         return Hash::make($str);
     }
 
-    public function generateActivityHash(Progress $Activity): string
+    protected function generateActivityHash(Progress $Activity): string
     {
         return $this->generateHash([
             $Activity->getActivityInstanceId(),
@@ -64,7 +64,7 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
      * @param $expected
      * @return bool
      */
-    public function checkHash($actual, $expected): bool
+    protected function checkHash($actual, $expected): bool
     {
         return Hash::check($actual, $expected);
     }
@@ -90,7 +90,7 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
      * @param $Key
      * @param array $Hash
      */
-    public function saveChanges($id, $caller, Progress $currentProgress)
+    public function saveChanges($id, $caller, Progress $currentProgress): void
     {
         ProgressHashes::updateOrcreate(
             [ 'item_key' => $this->getItemKey($id, $caller) ],
