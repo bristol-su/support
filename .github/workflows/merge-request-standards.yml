@@ -34,7 +34,14 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Run test suite
-        run: composer run-script test
+        run: vendor/bin/phpunit --colors=always --process-isolation --verbose --configuration phpunit.xml --coverage-clover ./coverage.xml
+
+      - name: Check test coverage
+        id: test-coverage
+        uses: johanvanhelden/gha-clover-test-coverage-check@v1
+        with:
+          percentage: "100"
+          filename: "coverage.xml"
 
       - name: Validate code style
         run: ./vendor/bin/php-cs-fixer fix --config .php-cs --dry-run
