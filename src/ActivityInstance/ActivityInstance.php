@@ -192,6 +192,9 @@ class ActivityInstance extends Model implements Authenticatable
     {
     }
 
+    /**
+     * @throws \Exception
+     */
     public function participantName()
     {
         if ($this->resource_type === 'user') {

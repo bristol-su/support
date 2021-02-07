@@ -60,5 +60,15 @@
                 "venturecraft/revisionable"
             ]
         }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit --colors=always --process-isolation --verbose --configuration phpunit.xml",
+        "code-style": [
+            "vendor/bin/php-cs-fixer fix --config .php_cs --dry-run --verbose --using-cache=no",
+            "vendor/bin/rector process --dry-run --output-format=console"
+        ],
+        "fix-code-style": "vendor/bin/php-cs-fixer fix --config .php_cs --verbose --using-cache=no",
+        "phpstan":  "vendor/bin/phpstan analyse --configuration phpstan.neon",
+        "coverage": "vendor/bin/phpunit --colors=always --process-isolation --verbose --configuration phpunit.xml --coverage-html coverage"
     }
 }

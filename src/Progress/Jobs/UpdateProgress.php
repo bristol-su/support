@@ -13,7 +13,9 @@ use Illuminate\Queue\SerializesModels;
 
 class UpdateProgress implements ShouldQueue
 {
-    use Dispatchable, Queueable, SerializesModels;
+    use Dispatchable;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * @var Activity
