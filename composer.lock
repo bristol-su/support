@@ -5558,12 +5558,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/bristol-su/portal-code-style.git",
-                "reference": "61f8804ef2319540a58c8e71edb3b513c9f72a77"
+                "reference": "6a7ce3e84f9ae1ef67ae6484197b5db88f453a47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bristol-su/portal-code-style/zipball/61f8804ef2319540a58c8e71edb3b513c9f72a77",
-                "reference": "61f8804ef2319540a58c8e71edb3b513c9f72a77",
+                "url": "https://api.github.com/repos/bristol-su/portal-code-style/zipball/6a7ce3e84f9ae1ef67ae6484197b5db88f453a47",
+                "reference": "6a7ce3e84f9ae1ef67ae6484197b5db88f453a47",
                 "shasum": ""
             },
             "require": {
@@ -5597,7 +5597,7 @@
                 "issues": "https://github.com/bristol-su/portal-code-style/issues",
                 "source": "https://github.com/bristol-su/portal-code-style/tree/develop"
             },
-            "time": "2021-02-07T02:24:34+00:00"
+            "time": "2021-02-07T02:31:38+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",
