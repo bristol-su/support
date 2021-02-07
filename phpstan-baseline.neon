@@ -3311,6 +3311,16 @@ parameters:
 			path: src/Progress/ProgressManager.php
 
 		-
+			message: "#^Method BristolSU\\\\Support\\\\Progress\\\\ProgressManager\\:\\:extend\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Progress/ProgressManager.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Progress\\\\ProgressManager\\:\\:extend\\(\\) has parameter \\$driver with no typehint specified\\.$#"
+			count: 1
+			path: src/Progress/ProgressManager.php
+
+		-
 			message: "#^Method BristolSU\\\\Support\\\\Progress\\\\ProgressManager\\:\\:__call\\(\\) has parameter \\$parameters with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Progress/ProgressManager.php
