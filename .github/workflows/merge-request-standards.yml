@@ -75,6 +75,9 @@ jobs:
       - name: Rector check
         uses: bristol-su/portal-code-style/src/Rector@wip
 
+      - name: Static Analysis
+        uses: bristol-su/portal-code-style/src/PHPStan@wip
+
   security:
     runs-on: ubuntu-latest
 
