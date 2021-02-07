@@ -2,10 +2,10 @@
 
 namespace BristolSU\Support\Testing\ActivityInstance;
 
+use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use BristolSU\Support\ActivityInstance\Exceptions\NotInActivityInstanceException;
-use BristolSU\Support\ActivityInstance\ActivityInstance;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -18,6 +18,7 @@ class SessionActivityInstanceResolver implements ActivityInstanceResolver
      * @var Session
      */
     private Session $session;
+
     /**
      * @var ActivityInstanceRepository
      */
@@ -30,7 +31,7 @@ class SessionActivityInstanceResolver implements ActivityInstanceResolver
     }
 
     /**
-     * Set the activity instance
+     * Set the activity instance.
      *
      * @param ActivityInstance $activityInstance Activity instance to set.
      */
@@ -41,15 +42,15 @@ class SessionActivityInstanceResolver implements ActivityInstanceResolver
 
     /**
      *
-     * Get the activity instance
-     *
-     * @return ActivityInstance Activity instance set through setActivityInstance
+     * Get the activity instance.
      *
      * @throws NotInActivityInstanceException If the activity instance is not set.
+     * @return ActivityInstance Activity instance set through setActivityInstance
+     *
      */
     public function getActivityInstance(): ActivityInstance
     {
-        if($this->session->has('activity-instance')) {
+        if ($this->session->has('activity-instance')) {
             try {
                 return $this->activityInstanceRepository->getById(
                     (int) $this->session->get('activity-instance')

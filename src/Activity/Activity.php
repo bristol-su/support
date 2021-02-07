@@ -14,14 +14,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
 /**
- * Activity Model
+ * Activity Model.
  */
 class Activity extends Model
 {
     use HasRevisions;
 
     /**
-     * Fillable attributes
+     * Fillable attributes.
      *
      * @var array
      */
@@ -41,7 +41,7 @@ class Activity extends Model
     ];
 
     /**
-     * Attributes to be casted
+     * Attributes to be casted.
      *
      * @var array
      */
@@ -62,18 +62,18 @@ class Activity extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        self::creating(function($model) {
+        self::creating(function ($model) {
             if ($model->slug === null) {
                 $model->slug = Str::slug($model->name);
             }
-            if($model->user_id === null && app(Authentication::class)->hasUser()) {
+            if ($model->user_id === null && app(Authentication::class)->hasUser()) {
                 $model->user_id = app(Authentication::class)->getUser()->id();
             }
         });
     }
 
     /**
-     * Module Instance relationship
+     * Module Instance relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -83,7 +83,7 @@ class Activity extends Model
     }
 
     /**
-     * Scope only enabled activities
+     * Scope only enabled activities.
      *
      * @param Builder $query
      * @return Builder
@@ -94,7 +94,7 @@ class Activity extends Model
     }
 
     /**
-     * For logic relationship
+     * For logic relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -104,7 +104,7 @@ class Activity extends Model
     }
 
     /**
-     * Admin logic relationship
+     * Admin logic relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -114,14 +114,15 @@ class Activity extends Model
     }
 
     /**
-     * Active scope
+     * Active scope.
      *
      * Only returns activities which are either not time sensitive, or within the correct time frame
      *
      * @param Builder $query
      * @return Builder
      */
-    public function scopeActive(Builder $query) {
+    public function scopeActive(Builder $query)
+    {
         return $query
             ->where(['start_date' => null, 'end_date'=>null])
             ->orWhere([
@@ -137,12 +138,13 @@ class Activity extends Model
      *
      * @return bool
      */
-    public function isCompletable(): bool {
+    public function isCompletable(): bool
+    {
         return $this->type === 'completable' || $this->type === 'multi-completable';
     }
 
     /**
-     * Activity Instance relationship
+     * Activity Instance relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -152,16 +154,17 @@ class Activity extends Model
     }
 
     /**
-     * Get the user who created the activity
+     * Get the user who created the activity.
      *
-     * @return \BristolSU\ControlDB\Contracts\Models\User
      * @throws \Exception If the user ID is null
+     * @return \BristolSU\ControlDB\Contracts\Models\User
      */
     public function user(): \BristolSU\ControlDB\Contracts\Models\User
     {
-        if($this->user_id === null) {
+        if ($this->user_id === null) {
             throw new \Exception(sprintf('Activity #%u is not owned by a user.', $this->id));
         }
+
         return app(User::class)->getById($this->user_id);
     }
 }

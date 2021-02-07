@@ -7,38 +7,35 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
 /**
- * Class RegisteredAction
- * @package BristolSU\Support\Action
+ * Class RegisteredAction.
  */
 class RegisteredAction implements Arrayable, Jsonable, RegisteredActionContract
 {
-
     /**
-     * Name of the action
-     * 
+     * Name of the action.
+     *
      * @var string
      */
     private $name;
 
     /**
-     * Description for the action
-     * 
+     * Description for the action.
+     *
      * @var string
      */
     private $description;
 
     /**
-     * Class name of the action
-     * 
+     * Class name of the action.
+     *
      * @var string
      */
     private $className;
 
     /**
      * Set the name of the action.
-     * 
+     *
      * @param string $name Name of the action
-     * @return void
      */
     public function setName(string $name): void
     {
@@ -57,9 +54,8 @@ class RegisteredAction implements Arrayable, Jsonable, RegisteredActionContract
 
     /**
      * Set the description of the action.
-     * 
+     *
      * @param string $description Name of the description
-     * @return void
      */
     public function setDescription(string $description): void
     {
@@ -80,7 +76,6 @@ class RegisteredAction implements Arrayable, Jsonable, RegisteredActionContract
      * Set the class name of the action.
      *
      * @param string $className Class of the action
-     * @return void
      */
     public function setClassName(string $className): void
     {
@@ -88,7 +83,7 @@ class RegisteredAction implements Arrayable, Jsonable, RegisteredActionContract
     }
 
     /**
-     * Get the class name of the action
+     * Get the class name of the action.
      *
      * @return string
      */
@@ -112,15 +107,16 @@ class RegisteredAction implements Arrayable, Jsonable, RegisteredActionContract
      */
     public static function fromArray(array $parameters): RegisteredActionContract
     {
-        $registeredAction = new self;
+        $registeredAction = new self();
         $registeredAction->setName($parameters['name']);
         $registeredAction->setDescription($parameters['description']);
         $registeredAction->setClassName($parameters['class']);
+
         return $registeredAction;
     }
 
     /**
-     * Transform the action to an array
+     * Transform the action to an array.
      *
      * @return array
      */
@@ -134,7 +130,7 @@ class RegisteredAction implements Arrayable, Jsonable, RegisteredActionContract
     }
 
     /**
-     * Transform the action to json
+     * Transform the action to json.
      *
      * @param int $options
      * @return string
@@ -145,7 +141,7 @@ class RegisteredAction implements Arrayable, Jsonable, RegisteredActionContract
     }
 
     /**
-     * Transform the action to json when casting class to a string
+     * Transform the action to json when casting class to a string.
      *
      * @return string
      */
@@ -153,5 +149,4 @@ class RegisteredAction implements Arrayable, Jsonable, RegisteredActionContract
     {
         return $this->toJson();
     }
-    
 }

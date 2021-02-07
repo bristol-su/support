@@ -16,13 +16,13 @@ use Faker\Generator as Faker;
 | your application. Factories provide a convenient way to generate new
 | model instances for testing / seeding your application's database.
 |
-*/
+ */
 
-$factory->define(ModelPermission::class, function(Faker $faker) {
+$factory->define(ModelPermission::class, function (Faker $faker) {
     return [
         'ability' => $faker->word,
         'model' => 'user',
-        'model_id' => function() {
+        'model_id' => function () {
             return factory(User::class)->create()->id;
         },
         'result' => $faker->boolean,
@@ -30,41 +30,41 @@ $factory->define(ModelPermission::class, function(Faker $faker) {
     ];
 });
 
-$factory->state(ModelPermission::class, 'user', function() {
+$factory->state(ModelPermission::class, 'user', function () {
     return [
         'model' => 'user',
-        'model_id' => function() {
+        'model_id' => function () {
             return factory(User::class)->create()->id;
         },
     ];
 });
 
-$factory->state(ModelPermission::class, 'group', function() {
+$factory->state(ModelPermission::class, 'group', function () {
     return [
         'model' => 'group',
         'model_id' => 1,
     ];
 });
 
-$factory->state(ModelPermission::class, 'role', function() {
+$factory->state(ModelPermission::class, 'role', function () {
     return [
         'model' => 'role',
         'model_id' => 1,
     ];
 });
 
-$factory->state(ModelPermission::class, 'logic', function() {
+$factory->state(ModelPermission::class, 'logic', function () {
     return [
         'model' => 'logic',
-        'model_id' => function() {
+        'model_id' => function () {
             return factory(Logic::class)->create()->id;
         },
     ];
 });
 
-$factory->state(ModelPermission::class, 'module', function() {
+$factory->state(ModelPermission::class, 'module', function () {
     return [
-        'module_instance_id' => function() {
+        'module_instance_id' => function () {
             return factory(\BristolSU\Support\ModuleInstance\ModuleInstance::class)->create()->id;
         }
     ];

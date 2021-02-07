@@ -12,9 +12,9 @@ use Illuminate\Http\Request;
 
 class CheckActivityInstanceAccessibleTest extends TestCase
 {
-
     /** @test */
-    public function it_throws_an_exception_if_the_group_activity_instance_is_not_logged_into_the_current_group(){
+    public function it_throws_an_exception_if_the_group_activity_instance_is_not_logged_into_the_current_group()
+    {
         $this->expectException(NotInActivityInstanceException::class);
         $this->expectExceptionMessage('Incorrect activity instance set');
         
@@ -29,13 +29,14 @@ class CheckActivityInstanceAccessibleTest extends TestCase
         $this->beGroup($this->newGroup());
 
         $middleware = app(CheckActivityInstanceAccessible::class);
-        $middleware->handle($request->reveal(), function($request) {
+        $middleware->handle($request->reveal(), function ($request) {
             $this->assertTrue($request->route('test_callback_called'));
         });
     }
 
     /** @test */
-    public function it_throws_an_exception_if_the_user_activity_instance_is_not_logged_into_the_current_user(){
+    public function it_throws_an_exception_if_the_user_activity_instance_is_not_logged_into_the_current_user()
+    {
         $this->expectException(NotInActivityInstanceException::class);
         $this->expectExceptionMessage('Incorrect activity instance set');
 
@@ -50,13 +51,14 @@ class CheckActivityInstanceAccessibleTest extends TestCase
         $this->beUser($this->newUser());
 
         $middleware = app(CheckActivityInstanceAccessible::class);
-        $middleware->handle($request->reveal(), function($request) {
+        $middleware->handle($request->reveal(), function ($request) {
             $this->assertTrue($request->route('test_callback_called'));
         });
     }
 
     /** @test */
-    public function it_throws_an_exception_if_the_role_activity_instance_is_not_logged_into_the_current_role(){
+    public function it_throws_an_exception_if_the_role_activity_instance_is_not_logged_into_the_current_role()
+    {
         $this->expectException(NotInActivityInstanceException::class);
         $this->expectExceptionMessage('Incorrect activity instance set');
 
@@ -71,13 +73,14 @@ class CheckActivityInstanceAccessibleTest extends TestCase
         $this->beRole($this->newRole());
 
         $middleware = app(CheckActivityInstanceAccessible::class);
-        $middleware->handle($request->reveal(), function($request) {
+        $middleware->handle($request->reveal(), function ($request) {
             $this->assertTrue($request->route('test_callback_called'));
         });
     }
     
     /** @test */
-    public function it_calls_the_next_middleware_if_the_activity_instance_is_owned_by_the_user(){
+    public function it_calls_the_next_middleware_if_the_activity_instance_is_owned_by_the_user()
+    {
         $request = $this->prophesize(Request::class);
         $request->route('test_callback_called')->shouldBeCalled()->willReturn(true);
         
@@ -89,13 +92,14 @@ class CheckActivityInstanceAccessibleTest extends TestCase
         $this->beUser($user);
 
         $middleware = app(CheckActivityInstanceAccessible::class);
-        $middleware->handle($request->reveal(), function($request) {
+        $middleware->handle($request->reveal(), function ($request) {
             $this->assertTrue($request->route('test_callback_called'));
         });
     }
 
     /** @test */
-    public function it_calls_the_next_middleware_if_the_activity_instance_is_owned_by_the_group(){
+    public function it_calls_the_next_middleware_if_the_activity_instance_is_owned_by_the_group()
+    {
         $request = $this->prophesize(Request::class);
         $request->route('test_callback_called')->shouldBeCalled()->willReturn(true);
 
@@ -107,13 +111,14 @@ class CheckActivityInstanceAccessibleTest extends TestCase
         $this->beGroup($group);
 
         $middleware = app(CheckActivityInstanceAccessible::class);
-        $middleware->handle($request->reveal(), function($request) {
+        $middleware->handle($request->reveal(), function ($request) {
             $this->assertTrue($request->route('test_callback_called'));
         });
     }
 
     /** @test */
-    public function it_calls_the_next_middleware_if_the_activity_instance_is_owned_by_the_role(){
+    public function it_calls_the_next_middleware_if_the_activity_instance_is_owned_by_the_role()
+    {
         $request = $this->prophesize(Request::class);
         $request->route('test_callback_called')->shouldBeCalled()->willReturn(true);
 
@@ -125,9 +130,8 @@ class CheckActivityInstanceAccessibleTest extends TestCase
         $this->beRole($role);
 
         $middleware = app(CheckActivityInstanceAccessible::class);
-        $middleware->handle($request->reveal(), function($request) {
+        $middleware->handle($request->reveal(), function ($request) {
             $this->assertTrue($request->route('test_callback_called'));
         });
     }
-    
 }

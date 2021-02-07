@@ -9,17 +9,17 @@ use Illuminate\Contracts\Container\Container;
 
 class CompletionConditionFactoryTest extends TestCase
 {
-
     /** @test */
-    public function createCompletionConditionFromClassName_resolves_a_completion_condition_from_the_container(){
+    public function create_completion_condition_from_class_name_resolves_a_completion_condition_from_the_container()
+    {
         $container = $this->prophesize(Container::class);
         $condition = $this->prophesize(CompletionCondition::class);
         $container->make('ClassName', ['moduleAlias' => 'moduleAlias1'])->shouldBeCalled()->willReturn($condition->reveal());
         
         $factory = new CompletionConditionFactory($container->reveal());
-        $this->assertEquals($condition->reveal(), 
+        $this->assertEquals(
+            $condition->reveal(),
             $factory->createCompletionConditionFromClassName('ClassName', 'moduleAlias1')
         );
     }
-    
 }

@@ -7,7 +7,6 @@ use Illuminate\Routing\Router;
 
 class NamedRouteRetriever implements NamedRouteRetrieverInterface
 {
-
     /**
      * @var Router
      */
@@ -21,14 +20,13 @@ class NamedRouteRetriever implements NamedRouteRetrieverInterface
     public function all(): array
     {
         return collect($this->router->getRoutes()->getRoutesByName())
-          ->map(function (Route $route) {
-              return $route->uri();
-          })->toArray();
+            ->map(function (Route $route) {
+                return $route->uri();
+            })->toArray();
     }
 
     public function currentRouteName(): ?string
     {
         return $this->router->currentRouteName();
     }
-
 }

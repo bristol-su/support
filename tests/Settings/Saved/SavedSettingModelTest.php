@@ -7,7 +7,6 @@ use BristolSU\Support\Tests\TestCase;
 
 class SavedSettingModelTest extends TestCase
 {
-
     /** @test */
     public function it_can_be_created()
     {
@@ -24,9 +23,8 @@ class SavedSettingModelTest extends TestCase
         ]);
     }
 
-
     /** @test */
-    public function scopeKey_returns_a_model_with_the_given_key()
+    public function scope_key_returns_a_model_with_the_given_key()
     {
         $uniqueKey = 'some.unique.key.12345abjskdhfsdafdfs-aba';
         factory(SavedSettingModel::class, 10)->create();
@@ -41,7 +39,8 @@ class SavedSettingModelTest extends TestCase
     }
 
     /** @test */
-    public function scopeGlobal_only_returns_global_settings(){
+    public function scope_global_only_returns_global_settings()
+    {
         $user = $this->newUser();
 
         $globalSettings = factory(SavedSettingModel::class, 5)->create([
@@ -58,14 +57,14 @@ class SavedSettingModelTest extends TestCase
 
         $settings = SavedSettingModel::global()->get();
         $this->assertEquals(5, $settings->count());
-        foreach($settings as $setting) {
+        foreach ($settings as $setting) {
             $this->assertModelEquals($globalSettings->shift(), $setting);
         }
-
     }
 
     /** @test */
-    public function scopeUser_with_no_user_only_returns_user_settings_for_everyone(){
+    public function scope_user_with_no_user_only_returns_user_settings_for_everyone()
+    {
         $user = $this->newUser();
 
         $globalSettings = factory(SavedSettingModel::class, 5)->create([
@@ -82,13 +81,14 @@ class SavedSettingModelTest extends TestCase
 
         $settings = SavedSettingModel::user()->get();
         $this->assertEquals(7, $settings->count());
-        foreach($settings as $setting) {
+        foreach ($settings as $setting) {
             $this->assertModelEquals($userDefaultSettings->shift(), $setting);
         }
     }
 
     /** @test */
-    public function scopeUser_with_a_user_id_only_returns_settings_for_that_user(){
+    public function scope_user_with_a_user_id_only_returns_settings_for_that_user()
+    {
         $user = $this->newUser();
 
         $globalSettings = factory(SavedSettingModel::class, 5)->create([
@@ -105,13 +105,13 @@ class SavedSettingModelTest extends TestCase
 
         $settings = SavedSettingModel::user($user->id())->get();
         $this->assertEquals(6, $settings->count());
-        foreach($settings as $setting) {
+        foreach ($settings as $setting) {
             $this->assertModelEquals($userSettings->shift(), $setting);
         }
     }
 
     /** @test */
-    public function getSettingValue_returns_the_setting_value()
+    public function get_setting_value_returns_the_setting_value()
     {
         $setting = factory(SavedSettingModel::class)->create([
             'key' => 'some-key',
@@ -122,7 +122,7 @@ class SavedSettingModelTest extends TestCase
     }
 
     /** @test */
-    public function getSettingKey_returns_the_setting_key()
+    public function get_setting_key_returns_the_setting_key()
     {
         $setting = factory(SavedSettingModel::class)->create([
             'key' => 'some-key',
@@ -131,5 +131,4 @@ class SavedSettingModelTest extends TestCase
 
         $this->assertEquals('some-key', $setting->getSettingKey());
     }
-
 }

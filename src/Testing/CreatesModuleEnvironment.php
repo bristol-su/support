@@ -12,34 +12,35 @@ use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Support\Str;
 
 /**
- * Trait to help set up a module testing environment
+ * Trait to help set up a module testing environment.
  */
 trait CreatesModuleEnvironment
 {
-    use HandlesAuthentication, HandlesAuthorization;
+    use HandlesAuthentication;
+    use HandlesAuthorization;
 
     /**
-     * Alias of the module to set up
+     * Alias of the module to set up.
      *
      * @var string
      */
     private $alias;
 
     /**
-     * Activity with the module in
+     * Activity with the module in.
      *
      * @var null|Activity
      */
     private $activity;
 
     /**
-     * Module instance for the module
+     * Module instance for the module.
      * @var null|ModuleInstance
      */
     private $moduleInstance;
 
     /**
-     * Activity instance, related to the current authentication information
+     * Activity instance, related to the current authentication information.
      *
      * @var null|ActivityInstance
      */
@@ -55,28 +56,28 @@ trait CreatesModuleEnvironment
     private $for;
 
     /**
-     * Stores the user being used
+     * Stores the user being used.
      *
      * @var User|null
      */
     private $controlUser;
 
     /**
-     * Stores the group being used
+     * Stores the group being used.
      *
      * @var Group|null
      */
     private $controlGroup;
 
     /**
-     * Stores the role being used
+     * Stores the role being used.
      *
      * @var Role|null
      */
     private $controlRole;
 
     /**
-     * Set up the module in the set configuration
+     * Set up the module in the set configuration.
      *
      * @param string $alias Alias of the module to set up
      * @throws \Illuminate\Contracts\Container\BindingResolutionException
@@ -89,7 +90,7 @@ trait CreatesModuleEnvironment
     }
 
     /**
-     * Set the activity to stage the module in
+     * Set the activity to stage the module in.
      *
      * @param Activity $activity
      */
@@ -99,7 +100,7 @@ trait CreatesModuleEnvironment
     }
 
     /**
-     * Set the module instance to stage the module in
+     * Set the module instance to stage the module in.
      *
      * @param \BristolSU\Support\ModuleInstance\Contracts\ModuleInstance $moduleInstance
      */
@@ -119,7 +120,7 @@ trait CreatesModuleEnvironment
     }
 
     /**
-     * Set the activity instance to use
+     * Set the activity instance to use.
      *
      * @param ActivityInstance $activityInstance
      */
@@ -129,7 +130,7 @@ trait CreatesModuleEnvironment
     }
 
     /**
-     * Set the control user to use
+     * Set the control user to use.
      *
      * @param \BristolSU\ControlDB\Contracts\Models\User $user
      */
@@ -139,7 +140,7 @@ trait CreatesModuleEnvironment
     }
 
     /**
-     * Set the control group to use
+     * Set the control group to use.
      *
      * @param \BristolSU\ControlDB\Contracts\Models\Group $group
      */
@@ -150,7 +151,7 @@ trait CreatesModuleEnvironment
 
     /**
      * Set the control role to use
-     * +
+     * +.
      * @param \BristolSU\ControlDB\Contracts\Models\Role $role
      */
     public function setControlRole(\BristolSU\ControlDB\Contracts\Models\Role $role)
@@ -159,7 +160,7 @@ trait CreatesModuleEnvironment
     }
 
     /**
-     * Get the activity to stage the module in
+     * Get the activity to stage the module in.
      *
      * @return Activity
      */
@@ -179,7 +180,7 @@ trait CreatesModuleEnvironment
     }
 
     /**
-     * Get the module instance to stage the module in
+     * Get the module instance to stage the module in.
      *
      * @return \BristolSU\Support\ModuleInstance\Contracts\ModuleInstance
      */
@@ -189,7 +190,7 @@ trait CreatesModuleEnvironment
     }
 
     /**
-     * Get the activity instance to use
+     * Get the activity instance to use.
      *
      * @return ActivityInstance
      */
@@ -199,7 +200,7 @@ trait CreatesModuleEnvironment
     }
 
     /**
-     * Get the control user to use
+     * Get the control user to use.
      *
      * @return \BristolSU\ControlDB\Contracts\Models\User
      */
@@ -209,7 +210,7 @@ trait CreatesModuleEnvironment
     }
 
     /**
-     * Get the control group to use
+     * Get the control group to use.
      *
      * @return \BristolSU\ControlDB\Contracts\Models\Group
      */
@@ -219,7 +220,7 @@ trait CreatesModuleEnvironment
     }
 
     /**
-     * Get the control role to use
+     * Get the control role to use.
      *
      * @return \BristolSU\ControlDB\Contracts\Models\Role
      */
@@ -229,7 +230,7 @@ trait CreatesModuleEnvironment
     }
 
     /**
-     * Set up the module
+     * Set up the module.
      *
      * - Get/create the activity and bind it
      * - Get/create a module instance and bind
@@ -253,7 +254,8 @@ trait CreatesModuleEnvironment
         $this->activityInstance = ($this->activityInstance
             ?? factory(ActivityInstance::class)->create([
                 'activity_id' => $this->activity->id,
-                'resource_id' => ($this->for === 'role' ? $this->controlRole->id() : ($this->for === 'group' ? $this->controlGroup->id() : $this->controlUser->id())
+                'resource_id' => (
+                    $this->for === 'role' ? $this->controlRole->id() : ($this->for === 'group' ? $this->controlGroup->id() : $this->controlUser->id())
                 ),
                 'resource_type' => ($this->for??'user')
             ]));
@@ -262,11 +264,10 @@ trait CreatesModuleEnvironment
         app()->instance(ModuleInstance::class, $this->moduleInstance);
         app()->make(ActivityInstanceResolver::class)->setActivityInstance($this->activityInstance);
         app()->instance(ActivityInstance::class, $this->activityInstance);
-
     }
 
     /**
-     * Set up the control authentication
+     * Set up the control authentication.
      *
      * Sets the user/group/role that is able to use the module for a given 'for' value.
      * - if 'for' is 'role', will create and log in a user, group and role
@@ -286,14 +287,13 @@ trait CreatesModuleEnvironment
             $this->controlGroup = $this->controlRole->group();
             $this->beRole($this->controlRole);
             $this->beGroup($this->controlGroup);
-
         }
         $this->controlUser = ($this->controlUser ?? $this->newUser());
         $this->beUser($this->controlUser);
     }
 
     /**
-     * Get the url of the admin side of a module
+     * Get the url of the admin side of a module.
      *
      * @param string $path Url to return relative to the admin side of the module
      * @return string Url
@@ -301,13 +301,14 @@ trait CreatesModuleEnvironment
     public function adminUrl($path = '')
     {
         if (!Str::startsWith($path, '/')) {
-            $path = '/'.$path;
+            $path = '/' . $path;
         }
-        return '/a/'.$this->activity->slug.'/'.$this->moduleInstance->slug.'/'.$this->alias.$path;
+
+        return '/a/' . $this->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->alias . $path;
     }
 
     /**
-     * Get the url of the user side of a module
+     * Get the url of the user side of a module.
      *
      * @param string $path Url to return relative to the user side of the module
      * @return string Url
@@ -315,13 +316,14 @@ trait CreatesModuleEnvironment
     public function userUrl($path = '')
     {
         if (!Str::startsWith($path, '/')) {
-            $path = '/'.$path;
+            $path = '/' . $path;
         }
-        return '/p/'.$this->activity->slug.'/'.$this->moduleInstance->slug.'/'.$this->alias.$path;
+
+        return '/p/' . $this->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->alias . $path;
     }
 
     /**
-     * Get the url of the admin api
+     * Get the url of the admin api.
      *
      * @param string $path Url to return relative to the admin api route
      * @return string Url
@@ -329,13 +331,14 @@ trait CreatesModuleEnvironment
     public function adminApiUrl($path = '')
     {
         if (!Str::startsWith($path, '/')) {
-            $path = '/'.$path;
+            $path = '/' . $path;
         }
-        return '/api/a/'.$this->activity->slug.'/'.$this->moduleInstance->slug.'/'.$this->alias.$path;
+
+        return '/api/a/' . $this->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->alias . $path;
     }
 
     /**
-     * Get the url of the user api
+     * Get the url of the user api.
      *
      * @param string $path Url to return relative to the user api route
      * @return string Url
@@ -343,10 +346,9 @@ trait CreatesModuleEnvironment
     public function userApiUrl($path = '')
     {
         if (!Str::startsWith($path, '/')) {
-            $path = '/'.$path;
+            $path = '/' . $path;
         }
-        return '/api/p/'.$this->activity->slug.'/'.$this->moduleInstance->slug.'/'.$this->alias.$path;
+
+        return '/api/p/' . $this->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->alias . $path;
     }
-
-
 }

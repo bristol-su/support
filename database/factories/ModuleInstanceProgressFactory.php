@@ -2,7 +2,6 @@
 
 namespace Database\Factories;
 
-use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Progress\Handlers\Database\Models\ModuleInstanceProgress;
 use BristolSU\Support\Progress\Handlers\Database\Models\Progress;
 use Faker\Generator as Faker;
@@ -16,14 +15,14 @@ use Faker\Generator as Faker;
 | your application. Factories provide a convenient way to generate new
 | model instances for testing / seeding your application's database.
 |
-*/
+ */
 
-$factory->define(ModuleInstanceProgress::class, function(Faker $faker) {
+$factory->define(ModuleInstanceProgress::class, function (Faker $faker) {
     return [
-        'module_instance_id' => function() {
+        'module_instance_id' => function () {
             return factory(\BristolSU\Support\ModuleInstance\ModuleInstance::class)->create()->id;
         },
-        'progress_id' => function() {
+        'progress_id' => function () {
             return factory(Progress::class)->create()->id;
         },
         'mandatory' => $faker->boolean,

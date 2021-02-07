@@ -7,13 +7,12 @@ use BristolSU\Support\Module\Contracts\ModuleBuilder as ModuleBuilderContract;
 use BristolSU\Support\Module\Contracts\ModuleFactory as ModuleFactoryAlias;
 
 /**
- * Create a module object
+ * Create a module object.
  */
 class ModuleFactory implements ModuleFactoryAlias
 {
-
     /**
-     * Create a module from its alias
+     * Create a module from its alias.
      *
      * @param string $alias Alias of the module
      * @return Module Fully constructed module
@@ -31,6 +30,7 @@ class ModuleFactory implements ModuleFactoryAlias
         $moduleBuilder->setCompletionConditions();
         $moduleBuilder->setServices();
         $moduleBuilder->setFor();
+
         return $moduleBuilder->getModule();
     }
 }

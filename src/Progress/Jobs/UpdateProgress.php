@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Progress\Jobs;
 
-
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Progress\ProgressExport;
 use BristolSU\Support\Progress\Snapshot;
@@ -14,7 +13,9 @@ use Illuminate\Queue\SerializesModels;
 
 class UpdateProgress implements ShouldQueue
 {
-    use Dispatchable, Queueable, SerializesModels;
+    use Dispatchable;
+    use Queueable;
+    use SerializesModels;
 
     /**
      * @var Activity
@@ -35,7 +36,4 @@ class UpdateProgress implements ShouldQueue
         
         ProgressExport::driver($this->driver)->saveMany($progresses);
     }
-    
-    
-
 }

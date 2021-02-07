@@ -4,38 +4,37 @@ namespace BristolSU\Support\Progress;
 
 class Progress
 {
-
     /**
-     * The ID of the activity the progress is for
-     * 
+     * The ID of the activity the progress is for.
+     *
      * @var integer
      */
     private $activityId;
 
     /**
-     * The ID of the activity instance the progress is for
-     * 
+     * The ID of the activity instance the progress is for.
+     *
      * @var integer
      */
     private $activityInstanceId;
 
     /**
-     * The time at which the progress snapshot was taken
-     * 
+     * The time at which the progress snapshot was taken.
+     *
      * @var \DateTime
      */
     private $timestamp;
 
     /**
-     * Whether the progress is complete or not
-     * 
+     * Whether the progress is complete or not.
+     *
      * @var boolean
      */
     private $complete;
 
     /**
-     * The percentage marked as complete
-     * 
+     * The percentage marked as complete.
+     *
      * @var float
      */
     private $percentage;
@@ -46,8 +45,8 @@ class Progress
     private $modules = [];
 
     /**
-     * Get the activity ID
-     * 
+     * Get the activity ID.
+     *
      * @return int
      */
     public function getActivityId(): int
@@ -56,8 +55,8 @@ class Progress
     }
 
     /**
-     * Set the Activity ID
-     * 
+     * Set the Activity ID.
+     *
      * @param int $activityId
      */
     public function setActivityId(int $activityId): void
@@ -66,8 +65,8 @@ class Progress
     }
 
     /**
-     * Get the activity instance ID 
-     * 
+     * Get the activity instance ID.
+     *
      * @return int
      */
     public function getActivityInstanceId(): int
@@ -76,8 +75,8 @@ class Progress
     }
 
     /**
-     * Get the activity instance ID
-     * 
+     * Get the activity instance ID.
+     *
      * @param int $activityInstanceId
      */
     public function setActivityInstanceId(int $activityInstanceId): void
@@ -86,8 +85,8 @@ class Progress
     }
 
     /**
-     * Get the timestamp of the progress snapshot
-     * 
+     * Get the timestamp of the progress snapshot.
+     *
      * @return \DateTime
      */
     public function getTimestamp(): \DateTime
@@ -96,18 +95,18 @@ class Progress
     }
 
     /**
-     * Set the timestamp of the progress snapshot
-     * 
-     * @param \DateTime $timestamp
+     * Set the timestamp of the progress snapshot.
+     *
+     * @param \DateTime|\DateTimeImmutable $timestamp
      */
-    public function setTimestamp(\DateTime $timestamp): void
+    public function setTimestamp(\DateTimeInterface $timestamp): void
     {
         $this->timestamp = $timestamp;
     }
 
     /**
      * Is the activity marked as complete?
-     * 
+     *
      * @return bool
      */
     public function isComplete(): bool
@@ -116,8 +115,8 @@ class Progress
     }
 
     /**
-     * Set the progress completion status
-     * 
+     * Set the progress completion status.
+     *
      * @param bool $complete
      */
     public function setComplete(bool $complete): void
@@ -126,8 +125,8 @@ class Progress
     }
 
     /**
-     * Get the percentage completion of the activity
-     * 
+     * Get the percentage completion of the activity.
+     *
      * @return float
      */
     public function getPercentage(): float
@@ -136,8 +135,8 @@ class Progress
     }
 
     /**
-     * Set the percentage completion of the activity
-     * 
+     * Set the percentage completion of the activity.
+     *
      * @param float $percentage
      */
     public function setPercentage(float $percentage): void
@@ -146,8 +145,8 @@ class Progress
     }
 
     /**
-     * Get all module instance progresses
-     * 
+     * Get all module instance progresses.
+     *
      * @return array|ModuleInstanceProgress[]
      */
     public function getModules()
@@ -156,8 +155,8 @@ class Progress
     }
 
     /**
-     * Add a module instance progress to this progress snapshot
-     * 
+     * Add a module instance progress to this progress snapshot.
+     *
      * @param ModuleInstanceProgress $moduleInstanceProgress
      */
     public function pushModule(ModuleInstanceProgress $moduleInstanceProgress): void
@@ -166,11 +165,11 @@ class Progress
     }
     
     /**
-     * Create a new progress model
-     * 
+     * Create a new progress model.
+     *
      * @param int $activityId
      * @param int $activityInstanceId
-     * @param \DateTime $timestamp
+     * @param \DateTime|\DateTimeImmutable $timestamp
      * @param bool $complete
      * @param float $percentage
      * @return static
@@ -178,17 +177,17 @@ class Progress
     public static function create(
         int $activityId,
         int $activityInstanceId,
-        \DateTime $timestamp,
+        \DateTimeInterface $timestamp,
         bool $complete,
-        float $percentage): self
-    {
+        float $percentage
+    ): self {
         $progress = new self();
         $progress->setActivityId($activityId);
         $progress->setActivityInstanceId($activityInstanceId);
         $progress->setTimestamp($timestamp);
         $progress->setComplete($complete);
         $progress->setPercentage($percentage);
+
         return $progress;
     }
-    
 }

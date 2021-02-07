@@ -11,13 +11,12 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Module Framework service provider
+ * Module Framework service provider.
  */
 class ModuleFrameworkServiceProvider extends ServiceProvider
 {
-
     /**
-     * Register
+     * Register.
      *
      * - Bind implementations to interfaces
      * - Set up the module manager as a singleton
@@ -32,15 +31,14 @@ class ModuleFrameworkServiceProvider extends ServiceProvider
     }
 
     /**
-     * Boot
+     * Boot.
      *
      * - Set up route model binding for a module
      */
     public function boot()
     {
-        Route::bind('module', function($alias) {
+        Route::bind('module', function ($alias) {
             return $this->app->make(ModuleRepositoryContract::class)->findByAlias($alias);
         });
-
     }
 }

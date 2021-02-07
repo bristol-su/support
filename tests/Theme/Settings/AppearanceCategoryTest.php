@@ -7,29 +7,31 @@ use BristolSU\Support\Theme\Settings\AppearanceCategory;
 
 class AppearanceCategoryTest extends TestCase
 {
-
     /** @test */
-    public function the_class_can_be_created(){
+    public function the_class_can_be_created()
+    {
         $category = new AppearanceCategory();
         $this->assertInstanceOf(AppearanceCategory::class, $category);
     }
 
     /** @test */
-    public function key_returns_the_key(){
+    public function key_returns_the_key()
+    {
         $category = new AppearanceCategory();
         $this->assertEquals('appearance', $category->key());
     }
 
     /** @test */
-    public function name_returns_a_string(){
+    public function name_returns_a_string()
+    {
         $category = new AppearanceCategory();
         $this->assertIsString($category->name());
     }
 
     /** @test */
-    public function description_returns_a_string(){
+    public function description_returns_a_string()
+    {
         $category = new AppearanceCategory();
         $this->assertIsString($category->description());
     }
-
 }

@@ -11,26 +11,26 @@ use Illuminate\Http\Request;
 
 class CheckLoggedIntoActivityInstanceTest extends TestCase
 {
-
     /** @test */
-    public function handle_throws_an_exception_if_the_activity_instance_is_not_found(){
+    public function handle_throws_an_exception_if_the_activity_instance_is_not_found()
+    {
         $this->expectException(NotInActivityInstanceException::class);
         
         $activityInstance = factory(ActivityInstance::class)->create();
 
         $resolver = $this->prophesize(ActivityInstanceResolver::class);
-        $resolver->getActivityInstance()->willThrow(new NotInActivityInstanceException);
+        $resolver->getActivityInstance()->willThrow(new NotInActivityInstanceException());
 
         $request = $this->prophesize(Request::class);
 
         $middleware = new CheckLoggedIntoActivityInstance($resolver->reveal());
-        $middleware->handle($request->reveal(), function($request) {
-
+        $middleware->handle($request->reveal(), function ($request) {
         });
     }
 
     /** @test */
-    public function handle_calls_the_callback_if_the_activity_instance_is_found(){
+    public function handle_calls_the_callback_if_the_activity_instance_is_found()
+    {
         $activityInstance = factory(ActivityInstance::class)->create();
 
         $resolver = $this->prophesize(ActivityInstanceResolver::class);
@@ -40,11 +40,10 @@ class CheckLoggedIntoActivityInstanceTest extends TestCase
         $request->route('test_callback_is_called')->shouldBeCalled()->willReturn(true);
 
         $middleware = new CheckLoggedIntoActivityInstance($resolver->reveal());
-        $middleware->handle($request->reveal(), function($request) {
+        $middleware->handle($request->reveal(), function ($request) {
             $this->assertTrue(
                 $request->route('test_callback_is_called')
             );
         });
     }
-    
 }

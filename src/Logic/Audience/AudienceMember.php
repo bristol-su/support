@@ -12,13 +12,12 @@ use Illuminate\Contracts\Support\Jsonable;
 use Illuminate\Support\Collection;
 
 /**
- * Represents a user and their roles/memberships, and allows for logic filtering
+ * Represents a user and their roles/memberships, and allows for logic filtering.
  */
 class AudienceMember implements Arrayable, Jsonable
 {
-
     /**
-     * Holds the user for which the audience member is about
+     * Holds the user for which the audience member is about.
      *
      * @var User
      */
@@ -32,14 +31,14 @@ class AudienceMember implements Arrayable, Jsonable
     private $canBeUser;
 
     /**
-     * Roles the user owns/that're in the logic group
+     * Roles the user owns/that're in the logic group.
      *
      * @var Collection
      */
     private $roles;
 
     /**
-     * Groups the user owns/that're in the logic group
+     * Groups the user owns/that're in the logic group.
      *
      * @var Collection
      */
@@ -54,7 +53,7 @@ class AudienceMember implements Arrayable, Jsonable
     }
 
     /**
-     * Get all groups for which the user has a membership to
+     * Get all groups for which the user has a membership to.
      *
      * @return Collection
      */
@@ -63,28 +62,31 @@ class AudienceMember implements Arrayable, Jsonable
         if ($this->groups == null) {
             $this->groups = $this->user()->groups();
         }
+
         return $this->groups;
     }
 
     /**
-     * Get all roles which the user is in
+     * Get all roles which the user is in.
      *
      * @return Collection
      */
     public function roles()
     {
         if ($this->roles == null) {
-            $this->roles = $this->user()->roles()->map(function(Role $role) {
+            $this->roles = $this->user()->roles()->map(function (Role $role) {
                 $role->group = $role->group();
                 $role->position = $role->position();
+
                 return $role;
             });
         }
+
         return $this->roles;
     }
 
     /**
-     * Get the user the audience member is about
+     * Get the user the audience member is about.
      *
      * @return User
      */
@@ -104,7 +106,7 @@ class AudienceMember implements Arrayable, Jsonable
     }
 
     /**
-     * Filter the audience member down to those in the logic group
+     * Filter the audience member down to those in the logic group.
      *
      * If passed a logic group, the audience member will only then contain roles and groups which are in the given
      * logic group with the user. It will also set canBeUser, as to whether just the user is in the logic group (without
@@ -112,17 +114,16 @@ class AudienceMember implements Arrayable, Jsonable
      *
      * @param Logic $logic Logic group to test
      *
-     * @return void
      */
     public function filterForLogic(Logic $logic)
     {
         $this->canBeUser = LogicTester::evaluate($logic, $this->user);
 
-        $this->groups = $this->groups()->filter(function(Group $group) use ($logic) {
+        $this->groups = $this->groups()->filter(function (Group $group) use ($logic) {
             return LogicTester::evaluate($logic, $this->user, $group);
         })->values();
 
-        $this->roles = $this->roles()->filter(function(Role $role) use ($logic) {
+        $this->roles = $this->roles()->filter(function (Role $role) use ($logic) {
             return LogicTester::evaluate($logic, $this->user, $role->group(), $role);
         })->values();
     }
@@ -139,7 +140,6 @@ class AudienceMember implements Arrayable, Jsonable
     {
         return $this->canBeUser() || count($this->groups) > 0 || count($this->roles) > 0;
     }
-
 
     /**
      * Get the instance as an array.
@@ -182,7 +182,7 @@ class AudienceMember implements Arrayable, Jsonable
     }
 
     /**
-     * Convert the object to a string, a JSON representation
+     * Convert the object to a string, a JSON representation.
      *
      * @return string
      */

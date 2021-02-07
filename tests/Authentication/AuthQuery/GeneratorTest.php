@@ -12,9 +12,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class GeneratorTest extends TestCase
 {
-
     /** @test */
-    public function getAuthCredentials_fills_the_auth_credential_container(){
+    public function get_auth_credentials_fills_the_auth_credential_container()
+    {
         $role = $this->newRole();
         $group = $role->group();
         $this->beGroup($group);
@@ -33,7 +33,8 @@ class GeneratorTest extends TestCase
     }
 
     /** @test */
-    public function getAuthCredentials_passes_the_user_and_group_from_authentication_without_activity_instance(){
+    public function get_auth_credentials_passes_the_user_and_group_from_authentication_without_activity_instance()
+    {
         $role = $this->newRole();
         $group = $role->group();
         $this->beGroup($group);
@@ -50,7 +51,8 @@ class GeneratorTest extends TestCase
     }
 
     /** @test */
-    public function getAuthCredentials_passes_null_for_user_and_group_from_authentication_if_not_logged_in(){
+    public function get_auth_credentials_passes_null_for_user_and_group_from_authentication_if_not_logged_in()
+    {
         $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
         $activityInstanceResolver->getActivityInstance()->willThrow(new NotInActivityInstanceException());
 
@@ -62,7 +64,8 @@ class GeneratorTest extends TestCase
     }
 
     /** @test */
-    public function getAuthCredentials_passes_just_the_activity_instance_if_given_by_the_resolver(){
+    public function get_auth_credentials_passes_just_the_activity_instance_if_given_by_the_resolver()
+    {
         $activityInstance = factory(ActivityInstance::class)->create();
         $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
         $activityInstanceResolver->getActivityInstance()->willReturn($activityInstance);
@@ -74,5 +77,4 @@ class GeneratorTest extends TestCase
         $this->assertNull($credentials->roleId());
         $this->assertEquals($activityInstance->id, $credentials->activityInstanceId());
     }
-
 }

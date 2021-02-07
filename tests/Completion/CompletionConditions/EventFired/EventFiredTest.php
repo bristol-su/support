@@ -9,9 +9,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class EventFiredTest extends TestCase
 {
-
     /** @test */
-    public function isComplete_returns_true(){
+    public function is_complete_returns_true()
+    {
         $activityInstance = $this->prophesize(ActivityInstance::class)->reveal();
         $moduleInstance = $this->prophesize(\BristolSU\Support\ModuleInstance\Contracts\ModuleInstance::class)->reveal();
         $condition = new EventFired('module1', $this->prophesize(EventRepository::class)->reveal());
@@ -19,7 +19,8 @@ class EventFiredTest extends TestCase
     }
 
     /** @test */
-    public function options_returns_a_list_of_events(){
+    public function options_returns_a_list_of_events()
+    {
         $eventRepository = $this->prophesize(EventRepository::class);
         $eventRepository->allForModule('module1')->willReturn([
             ['event' => 'event1', 'name' => 'name1'],
@@ -37,25 +38,26 @@ class EventFiredTest extends TestCase
             ['id' => 'event1', 'name' => 'name1'],
             ['id' => 'event2', 'name' => 'name2'],
         ], $condition->options()->fields()[0]->values());
-
     }
 
     /** @test */
-    public function name_returns_a_string(){
+    public function name_returns_a_string()
+    {
         $condition = new EventFired('module1', $this->prophesize(EventRepository::class)->reveal());
         $this->assertIsString($condition->name());
     }
 
     /** @test */
-    public function description_returns_a_string(){
+    public function description_returns_a_string()
+    {
         $condition = new EventFired('module1', $this->prophesize(EventRepository::class)->reveal());
         $this->assertIsString($condition->description());
     }
 
     /** @test */
-    public function alias_returns_a_string(){
+    public function alias_returns_a_string()
+    {
         $condition = new EventFired('module1', $this->prophesize(EventRepository::class)->reveal());
         $this->assertIsString($condition->alias());
     }
-
 }

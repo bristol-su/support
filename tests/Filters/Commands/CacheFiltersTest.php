@@ -14,14 +14,13 @@ use Illuminate\Support\Facades\Queue;
 
 class CacheFiltersTest extends TestCase
 {
-
     /** @test */
     public function it_caches_a_user_filter_instances_with_users()
     {
         Queue::fake();
 
         $userFilterInstances = [];
-        for($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $fi = $this->prophesize(FilterInstanceContract::class);
             $fi->for()->shouldBeCalled()->willReturn('user');
             $userFilterInstances[] = $fi->reveal();
@@ -65,7 +64,7 @@ class CacheFiltersTest extends TestCase
         Queue::fake();
 
         $groupFilterInstances = [];
-        for($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $gfi = $this->prophesize(FilterInstanceContract::class);
             $gfi->for()->shouldBeCalled()->willReturn('group');
             $groupFilterInstances[] = $gfi->reveal();
@@ -109,7 +108,7 @@ class CacheFiltersTest extends TestCase
         Queue::fake();
 
         $roleFilterInstances = [];
-        for($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $gfi = $this->prophesize(FilterInstanceContract::class);
             $gfi->for()->shouldBeCalled()->willReturn('role');
             $roleFilterInstances[] = $gfi->reveal();
@@ -146,5 +145,4 @@ class CacheFiltersTest extends TestCase
             }
         }
     }
-
 }

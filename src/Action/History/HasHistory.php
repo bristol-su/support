@@ -7,30 +7,29 @@ use Exception;
 
 trait HasHistory
 {
-
     /**
-     * ID to use for action instances
+     * ID to use for action instances.
      *
      * @var int
      */
     private $actionInstanceId;
 
     /**
-     * Data from the event
+     * Data from the event.
      *
      * @var
      */
     private $eventFields;
 
     /**
-     * Data from the settings passed to the action
+     * Data from the settings passed to the action.
      *
      * @var
      */
     private $settings;
 
     /**
-     * Set the action instance for use in the action history records
+     * Set the action instance for use in the action history records.
      *
      * @param int $actionInstanceId
      */
@@ -40,7 +39,7 @@ trait HasHistory
     }
 
     /**
-     * Set the fields given by the event
+     * Set the fields given by the event.
      *
      * @param array $eventFields
      */
@@ -50,7 +49,7 @@ trait HasHistory
     }
 
     /**
-     * Set the data passed to the action
+     * Set the data passed to the action.
      *
      * @param array $settings
      */
@@ -60,14 +59,14 @@ trait HasHistory
     }
 
     /**
-     * Save the history of the action run
+     * Save the history of the action run.
      *
      * @param ActionResponse $response Response of the run
      * @throws Exception If the action instance ID is not given
      */
     public function saveHistory(ActionResponse $response): void
     {
-        if ($this->actionInstanceId === null){
+        if ($this->actionInstanceId === null) {
             throw new Exception('The action instance ID must not be null');
         }
 
@@ -79,5 +78,4 @@ trait HasHistory
             'message' => $response->getMessage()
         ]);
     }
-
 }

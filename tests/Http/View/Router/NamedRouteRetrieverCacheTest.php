@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Tests\Http\View\Router;
 
-
 use BristolSU\Support\Http\View\Router\NamedRouteRetrieverCache;
 use BristolSU\Support\Http\View\Router\NamedRouteRetrieverInterface;
 use BristolSU\Support\Tests\TestCase;
@@ -12,9 +11,9 @@ use Prophecy\Argument;
 
 class NamedRouteRetrieverCacheTest extends TestCase
 {
-
     /** @test */
-    public function all_is_cached(){
+    public function all_is_cached()
+    {
         $retriever = $this->prophesize(NamedRouteRetrieverInterface::class);
         $retriever->all()->shouldBeCalledTimes(1)->willReturn(['route' => '']);
         $cache = app(Repository::class);
@@ -29,7 +28,8 @@ class NamedRouteRetrieverCacheTest extends TestCase
     }
 
     /** @test */
-    public function currentRouteName_is_not_cached(){
+    public function current_route_name_is_not_cached()
+    {
         $retriever = $this->prophesize(NamedRouteRetrieverInterface::class);
         $retriever->currentRouteName()->shouldBeCalledTimes(2)->willReturn('test.route');
 
@@ -41,5 +41,4 @@ class NamedRouteRetrieverCacheTest extends TestCase
         $this->assertEquals('test.route', $cachedRetriever->currentRouteName());
         $this->assertEquals('test.route', $cachedRetriever->currentRouteName());
     }
-
 }

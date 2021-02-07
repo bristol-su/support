@@ -3,9 +3,7 @@
 
 namespace BristolSU\Support\Activity\Middleware;
 
-
 use BristolSU\Support\Activity\Activity;
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
 
@@ -14,17 +12,16 @@ use Illuminate\Http\Request;
  */
 class InjectActivity
 {
-
     /**
-     * Holds a reference to the container
-     * 
+     * Holds a reference to the container.
+     *
      * @var Container
      */
     private $app;
 
     /**
-     * Initialise the middleware
-     * 
+     * Initialise the middleware.
+     *
      * @param Container $app The container to bind the activity to.
      */
     public function __construct(Container $app)
@@ -33,8 +30,8 @@ class InjectActivity
     }
 
     /**
-     * Bind the activity to the container
-     * 
+     * Bind the activity to the container.
+     *
      * @param Request $request
      * @param \Closure $next
      * @return mixed

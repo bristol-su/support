@@ -7,7 +7,6 @@ use Illuminate\Contracts\Validation\Validator;
 
 abstract class GlobalSetting implements Setting
 {
-
     /**
      * Should the setting value be encrypted?
      *
@@ -16,7 +15,7 @@ abstract class GlobalSetting implements Setting
     protected bool $encrypt = false;
 
     /**
-     * Get the value of the setting
+     * Get the value of the setting.
      *
      * @return mixed
      */
@@ -27,13 +26,14 @@ abstract class GlobalSetting implements Setting
     }
 
     /**
-     * Get the value of the setting
+     * Get the value of the setting.
      *
      * @return mixed
      */
     public static function getValue()
     {
         $instance = resolve(static::class);
+
         return $instance->value();
     }
 
@@ -41,7 +41,6 @@ abstract class GlobalSetting implements Setting
      * Set the setting value.
      *
      * @param mixed $value The value to set the setting to
-     * @return void
      */
     public static function setValue($value): void
     {
@@ -53,7 +52,6 @@ abstract class GlobalSetting implements Setting
      * Set the setting value.
      *
      * @param mixed $value The value to set the setting to
-     * @return void
      */
     public function setSettingValue($value): void
     {
@@ -62,18 +60,19 @@ abstract class GlobalSetting implements Setting
     }
 
     /**
-     * Get the key of the setting
+     * Get the key of the setting.
      *
      * @return string The key
      */
     public static function getKey(): string
     {
         $instance = resolve(static::class);
+
         return $instance->key();
     }
 
     /**
-     * A validator to validate any new values
+     * A validator to validate any new values.
      *
      * @param mixed $value The new value
      * @return Validator
@@ -95,7 +94,7 @@ abstract class GlobalSetting implements Setting
     abstract public function rules(): array;
 
     /**
-     * The key to use for the field options
+     * The key to use for the field options.
      *
      * @return string
      */

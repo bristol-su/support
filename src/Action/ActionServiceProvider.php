@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Action;
 
-
 use BristolSU\Support\Action\Actions\Log;
 use BristolSU\Support\Action\Contracts\ActionBuilder as ActionBuilderContract;
 use BristolSU\Support\Action\Contracts\ActionInstanceRepository as ActionInstanceRepositoryContract;
@@ -15,14 +14,13 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Action Service Provider
+ * Action Service Provider.
  */
 class ActionServiceProvider extends ServiceProvider
 {
-
     /**
-     * Register
-     * 
+     * Register.
+     *
      * - Bind the action repository contract
      * - Bind the action manager contract
      * - Bind the action builder contract
@@ -37,8 +35,8 @@ class ActionServiceProvider extends ServiceProvider
     }
 
     /**
-     * Boot
-     * 
+     * Boot.
+     *
      * - Initialise the Action Dispatcher to trigger on events
      * - Register default actions
      */
@@ -48,5 +46,4 @@ class ActionServiceProvider extends ServiceProvider
         
         ActionManagerFacade::registerAction(Log::class, 'Log', 'Log some text');
     }
-    
 }

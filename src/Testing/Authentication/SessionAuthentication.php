@@ -2,52 +2,50 @@
 
 namespace BristolSU\Support\Testing\Authentication;
 
-use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
-use BristolSU\Support\Authentication\Contracts\Authentication as AuthenticationContract;
+use \BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
-use \BristolSU\ControlDB\Contracts\Models\User;
+use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
+use BristolSU\Support\Authentication\Contracts\Authentication as AuthenticationContract;
 use Illuminate\Contracts\Session\Session;
 
 /**
- * Authentication for getting a user, group or role from the session
+ * Authentication for getting a user, group or role from the session.
  */
 class SessionAuthentication implements AuthenticationContract
 {
-
     /**
-     * Holds a reference to the session object
+     * Holds a reference to the session object.
      *
      * @var Session
      */
     private $session;
 
     /**
-     * Group repository
+     * Group repository.
      *
      * @var GroupRepository
      */
-
     private $groupRepository;
+
     /**
-     * User Repository
+     * User Repository.
      *
      * @var UserRepository
      */
     private $userRepository;
 
     /**
-     * Role Repository
+     * Role Repository.
      *
      * @var RoleRepository
      */
     private $roleRepository;
 
-
     /**
-     * Initialise the session
+     * Initialise the session.
      *
      * @param Session $session Session
      * @param GroupRepository $groupRepository Group Repository
@@ -62,7 +60,7 @@ class SessionAuthentication implements AuthenticationContract
     }
 
     /**
-     * Get the group
+     * Get the group.
      *
      * Returns the group belonging to a role if logged into a role, otherwise the group logged in
      *
@@ -84,7 +82,7 @@ class SessionAuthentication implements AuthenticationContract
     }
 
     /**
-     * Get the role
+     * Get the role.
      *
      * @return Role|null
      */
@@ -100,7 +98,7 @@ class SessionAuthentication implements AuthenticationContract
     }
 
     /**
-     * Get the user
+     * Get the user.
      *
      * @return User|null
      */
@@ -116,10 +114,9 @@ class SessionAuthentication implements AuthenticationContract
     }
 
     /**
-     * Set the group
+     * Set the group.
      *
      * @param Group $group
-     * @return void
      */
     public function setGroup(Group $group)
     {
@@ -127,10 +124,9 @@ class SessionAuthentication implements AuthenticationContract
     }
 
     /**
-     * Set the role
+     * Set the role.
      *
      * @param Role $role
-     * @return void
      */
     public function setRole(Role $role)
     {
@@ -138,10 +134,9 @@ class SessionAuthentication implements AuthenticationContract
     }
 
     /**
-     * Set the user
+     * Set the user.
      *
      * @param User $user
-     * @return void
      */
     public function setUser(User $user)
     {

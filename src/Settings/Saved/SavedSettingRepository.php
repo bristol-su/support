@@ -6,9 +6,8 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 interface SavedSettingRepository
 {
-
     /**
-     * Check if a global setting has been saved with the given key
+     * Check if a global setting has been saved with the given key.
      *
      * @param string $key
      * @return bool
@@ -19,13 +18,13 @@ interface SavedSettingRepository
      * Get the specified setting value.
      *
      * @param string $key Key of the setting
-     * @return mixed Value of the setting, or the default value
      * @throws ModelNotFoundException
+     * @return mixed Value of the setting, or the default value
      */
     public function getGlobalValue(string $key);
 
     /**
-     * Check if a user setting has been saved with the given key
+     * Check if a user setting has been saved with the given key.
      *
      * @param string $key
      * @return bool
@@ -36,13 +35,13 @@ interface SavedSettingRepository
      * Get the specified setting value.
      *
      * @param string $key Key of the setting
-     * @return mixed Value of the setting, or the default value
      * @throws ModelNotFoundException
+     * @return mixed Value of the setting, or the default value
      */
     public function getUserValue(string $key, int $userId);
 
     /**
-     * Set a setting value for a user
+     * Set a setting value for a user.
      *
      * @param string $key The key of the setting to set
      * @param mixed $value The value of the setting
@@ -67,7 +66,7 @@ interface SavedSettingRepository
     public function setGlobal(string $key, $value);
 
     /**
-     * See if a user setting has a value for all users
+     * See if a user setting has a value for all users.
      *
      * These are for user settings that don't belong to any particular user, and can be thought of as the default value
      * for that setting.

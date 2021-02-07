@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\Collection;
 
 class ConnectionTest extends TestCase
 {
-
     /** @test */
-    public function connector_gets_the_connector_for_the_connection(){
+    public function connector_gets_the_connector_for_the_connection()
+    {
         $connector = $this->prophesize(RegisteredConnector::class)->reveal();
         $connectorRepository = $this->prophesize(ConnectorRepository::class);
         $connectorRepository->get('connector-alias')->shouldBeCalled()->willReturn($connector);
@@ -23,7 +23,8 @@ class ConnectionTest extends TestCase
     }
 
     /** @test */
-    public function connector_attribute_gets_the_connector_for_the_connection(){
+    public function connector_attribute_gets_the_connector_for_the_connection()
+    {
         $connector = $this->prophesize(RegisteredConnector::class)->reveal();
         $connectorRepository = $this->prophesize(ConnectorRepository::class);
         $connectorRepository->get('connector-alias')->shouldBeCalled()->willReturn($connector);
@@ -34,7 +35,8 @@ class ConnectionTest extends TestCase
     }
 
     /** @test */
-    public function the_global_scope_is_applied(){
+    public function the_global_scope_is_applied()
+    {
         $user1 = $this->newUser();
         $user2 = $this->newUser();
         $this->beUser($user1);
@@ -50,7 +52,8 @@ class ConnectionTest extends TestCase
     }
 
     /** @test */
-    public function user_id_is_automatically_set_if_left_null(){
+    public function user_id_is_automatically_set_if_left_null()
+    {
         $user1 = $this->newUser();
         $this->beUser($user1);
 
@@ -78,5 +81,4 @@ class ConnectionTest extends TestCase
         $this->assertEquals('OldName', $connection->revisionHistory->first()->old_value);
         $this->assertEquals('NewName', $connection->revisionHistory->first()->new_value);
     }
-
 }

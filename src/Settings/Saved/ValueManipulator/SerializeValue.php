@@ -4,9 +4,8 @@ namespace BristolSU\Support\Settings\Saved\ValueManipulator;
 
 class SerializeValue implements Manipulator
 {
-
     /**
-     * Convert the original value ready for saving
+     * Convert the original value ready for saving.
      *
      * @param string $key The key of the setting being saved
      * @param mixed $value Original Value
@@ -18,7 +17,7 @@ class SerializeValue implements Manipulator
     }
 
     /**
-     * Convert the saved value back to the original value
+     * Convert the saved value back to the original value.
      *
      * @param string $key The key of the setting being saved
      * @param string $value Saved Value

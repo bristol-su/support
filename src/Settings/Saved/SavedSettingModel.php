@@ -12,16 +12,15 @@ use Illuminate\Database\Eloquent\Model;
  */
 class SavedSettingModel extends Model
 {
-
     /**
-     * The table name to use
+     * The table name to use.
      *
      * @var string
      */
     protected $table = 'settings';
 
     /**
-     * Fillable attributes
+     * Fillable attributes.
      *
      * @var string[]
      */
@@ -33,7 +32,7 @@ class SavedSettingModel extends Model
     ];
 
     /**
-     * Where the setting override is global
+     * Where the setting override is global.
      *
      * @param Builder $query
      */
@@ -43,7 +42,7 @@ class SavedSettingModel extends Model
     }
 
     /**
-     * Where the setting override is for a user
+     * Where the setting override is for a user.
      *
      * @param Builder $query
      * @param int|null $userId Optional user ID. If given, settings for the user will be given. Otherwise, just defaults will be given
@@ -51,7 +50,7 @@ class SavedSettingModel extends Model
     public function scopeUser(Builder $query, int $userId = null)
     {
         $query->where('visibility', 'user');
-        if($userId === null) {
+        if ($userId === null) {
             $query->whereNull('user_id');
         } else {
             $query->where('user_id', $userId);
@@ -59,7 +58,7 @@ class SavedSettingModel extends Model
     }
 
     /**
-     * Get settings with the given key
+     * Get settings with the given key.
      *
      * @param Builder $query
      * @param string $key
@@ -70,7 +69,7 @@ class SavedSettingModel extends Model
     }
 
     /**
-     * Get the value of the setting
+     * Get the value of the setting.
      *
      * @return mixed
      */
@@ -80,7 +79,7 @@ class SavedSettingModel extends Model
     }
 
     /**
-     * Get the key of the setting
+     * Get the key of the setting.
      *
      * @return mixed
      */
@@ -88,5 +87,4 @@ class SavedSettingModel extends Model
     {
         return $this->key;
     }
-
 }

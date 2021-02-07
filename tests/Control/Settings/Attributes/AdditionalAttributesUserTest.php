@@ -8,9 +8,9 @@ use FormSchema\Schema\Field;
 
 class AdditionalAttributesUserTest extends TestCase
 {
-
     /** @test */
-    public function it_has_the_right_key(){
+    public function it_has_the_right_key()
+    {
         $this->assertEquals('control.data-fields.user', AdditionalAttributesUser::getKey());
     }
 
@@ -21,7 +21,8 @@ class AdditionalAttributesUserTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_rules(){
+    public function it_returns_rules()
+    {
         $this->assertIsArray((new AdditionalAttributesUser())->rules());
     }
 

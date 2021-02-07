@@ -9,7 +9,6 @@ use Illuminate\Support\ServiceProvider;
 
 class AuthenticationServiceProvider extends ServiceProvider
 {
-
     public function register()
     {
         $this->app->bind(ResourceIdGenerator::class, AuthenticationResourceIdGenerator::class);
@@ -17,12 +16,11 @@ class AuthenticationServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        UrlGenerator::macro('getAuthQueryArray', function() {
+        UrlGenerator::macro('getAuthQueryArray', function () {
             return app(Generator::class)->getAuthCredentials()->toArray();
         });
-        UrlGenerator::macro('getAuthQueryString', function() {
+        UrlGenerator::macro('getAuthQueryString', function () {
             return app(Generator::class)->getAuthCredentials()->toString();
         });
     }
-
 }

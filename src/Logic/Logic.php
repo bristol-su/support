@@ -10,14 +10,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 /**
- * Represents a logic group in the database
+ * Represents a logic group in the database.
  */
 class Logic extends Model
 {
     use HasRevisions;
 
     /**
-     * Fillable properties
+     * Fillable properties.
      *
      * @var array
      */
@@ -28,7 +28,7 @@ class Logic extends Model
     ];
 
     /**
-     * Additional properties
+     * Additional properties.
      *
      * - Lowest Resource: The lowest form of resource required. Returns either user, group or role.
      *      If user is returned, it means the logic group will ALWAYS return false if a user, group or role is not givn
@@ -41,7 +41,6 @@ class Logic extends Model
         'lowest_resource'
     ];
 
-
     /**
      * Initialise a Logic model.
      *
@@ -52,15 +51,15 @@ class Logic extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        self::creating(function($model) {
-            if($model->user_id === null && app(Authentication::class)->hasUser()) {
+        self::creating(function ($model) {
+            if ($model->user_id === null && app(Authentication::class)->hasUser()) {
                 $model->user_id = app(Authentication::class)->getUser()->id();
             }
         });
     }
 
     /**
-     * Filter relationship
+     * Filter relationship.
      *
      * Returns all filters constituting the logic group
      *
@@ -71,9 +70,8 @@ class Logic extends Model
         return $this->hasMany(FilterInstance::class);
     }
 
-
     /**
-     * Filter relationship for filters that must all be true
+     * Filter relationship for filters that must all be true.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -83,7 +81,7 @@ class Logic extends Model
     }
 
     /**
-     * Filter relationship for filters that must all be false
+     * Filter relationship for filters that must all be false.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -93,7 +91,7 @@ class Logic extends Model
     }
 
     /**
-     * Filter relationship for filters of which any must be true
+     * Filter relationship for filters of which any must be true.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -103,7 +101,7 @@ class Logic extends Model
     }
 
     /**
-     * Filter relationship for filters of which any must be false
+     * Filter relationship for filters of which any must be false.
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -130,25 +128,27 @@ class Logic extends Model
         $filters = $this->filters;
         if ($filters->contains('for', 'role')) {
             return 'role';
-        } else if ($filters->contains('for', 'group')) {
+        } elseif ($filters->contains('for', 'group')) {
             return 'group';
-        } else if ($filters->contains('for', 'user')) {
+        } elseif ($filters->contains('for', 'user')) {
             return 'user';
         }
+
         return 'none';
     }
 
     /**
-     * Get the user who created the logic
+     * Get the user who created the logic.
      *
-     * @return \BristolSU\ControlDB\Contracts\Models\User
      * @throws \Exception If the user ID is null
+     * @return \BristolSU\ControlDB\Contracts\Models\User
      */
     public function user(): \BristolSU\ControlDB\Contracts\Models\User
     {
-        if($this->user_id === null) {
+        if ($this->user_id === null) {
             throw new \Exception(sprintf('Logic #%u is not owned by a user.', $this->id));
         }
+
         return app(User::class)->getById($this->user_id);
     }
 }

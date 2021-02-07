@@ -1,19 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateActionInstanceFieldsTable extends Migration
 {
     /**
      * Run the migrations.
      *
-     * @return void
      */
     public function up()
     {
-        Schema::create('action_instance_fields', function(Blueprint $table) {
+        Schema::create('action_instance_fields', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('event_field');
             $table->string('action_field');
@@ -25,7 +24,6 @@ class CreateActionInstanceFieldsTable extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
      */
     public function down()
     {

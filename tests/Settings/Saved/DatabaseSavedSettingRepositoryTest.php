@@ -10,9 +10,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DatabaseSavedSettingRepositoryTest extends TestCase
 {
-
     /** @test */
-    public function hasGlobal_returns_true_if_the_global_setting_exists(){
+    public function has_global_returns_true_if_the_global_setting_exists()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
 
         $setting = factory(SavedSettingModel::class)->create([
@@ -26,7 +26,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function hasGlobal_returns_false_if_the_global_setting_does_not_exist(){
+    public function has_global_returns_false_if_the_global_setting_does_not_exist()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
 
         $repo = new DatabaseSavedSettingRepository($manipulator->reveal());
@@ -36,7 +37,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function getGlobalValue_returns_the_value_of_the_setting_manipulated(){
+    public function get_global_value_returns_the_value_of_the_setting_manipulated()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->decode('mykey1', 'abc123')->shouldBeCalled()->willReturn('realvalue1');
 
@@ -46,13 +48,14 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
 
         $repo = new DatabaseSavedSettingRepository($manipulator->reveal());
         $this->assertEquals(
-            'realvalue1', $repo->getGlobalValue('mykey1')
+            'realvalue1',
+            $repo->getGlobalValue('mykey1')
         );
-
     }
 
     /** @test */
-    public function getGlobalValue_throws_a_model_not_found_exception_if_the_setting_does_not_exist(){
+    public function get_global_value_throws_a_model_not_found_exception_if_the_setting_does_not_exist()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
 
         $this->expectException(ModelNotFoundException::class);
@@ -62,7 +65,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function hasUser_returns_false_if_a_user_setting_does_not_exist(){
+    public function has_user_returns_false_if_a_user_setting_does_not_exist()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
 
         $user = $this->newUser();
@@ -73,7 +77,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function hasUser_returns_true_if_a_user_setting_exists(){
+    public function has_user_returns_true_if_a_user_setting_exists()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
 
         $user = $this->newUser();
@@ -88,7 +93,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function hasUser_returns_true_if_a_user_default_setting_exists(){
+    public function has_user_returns_true_if_a_user_default_setting_exists()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
 
         $user = $this->newUser();
@@ -103,7 +109,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function hasUser_returns_true_if_a_user_default_setting_and_user_setting_exists(){
+    public function has_user_returns_true_if_a_user_default_setting_and_user_setting_exists()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
 
         $user = $this->newUser();
@@ -121,7 +128,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function getUserValue_returns_the_user_value_if_user_setting_exists(){
+    public function get_user_value_returns_the_user_value_if_user_setting_exists()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->decode('mykey1', 'abc123')->shouldBeCalled()->willReturn('testvalue1');
 
@@ -132,12 +140,14 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
 
         $repo = new DatabaseSavedSettingRepository($manipulator->reveal());
         $this->assertEquals(
-            'testvalue1', $repo->getUserValue('mykey1', $user->id())
+            'testvalue1',
+            $repo->getUserValue('mykey1', $user->id())
         );
     }
 
     /** @test */
-    public function getUserValue_returns_the_user_default_value_if_user_default_setting_exists(){
+    public function get_user_value_returns_the_user_default_value_if_user_default_setting_exists()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->decode('mykey1', 'abc123')->shouldBeCalled()->willReturn('testvalue2');
 
@@ -148,12 +158,14 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
 
         $repo = new DatabaseSavedSettingRepository($manipulator->reveal());
         $this->assertEquals(
-            'testvalue2', $repo->getUserValue('mykey1', $user->id())
+            'testvalue2',
+            $repo->getUserValue('mykey1', $user->id())
         );
     }
 
     /** @test */
-    public function getUserValue_returns_the_user_value_if_both_user_and_user_default_settings_exist(){
+    public function get_user_value_returns_the_user_value_if_both_user_and_user_default_settings_exist()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->decode('mykey1', 'abc1')->shouldBeCalled()->willReturn('testvalue1');
 
@@ -167,12 +179,14 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
 
         $repo = new DatabaseSavedSettingRepository($manipulator->reveal());
         $this->assertEquals(
-            'testvalue1', $repo->getUserValue('mykey1', $user->id())
+            'testvalue1',
+            $repo->getUserValue('mykey1', $user->id())
         );
     }
 
     /** @test */
-    public function getUserValue_throws_a_model_not_found_exception_if_both_settings_missing(){
+    public function get_user_value_throws_a_model_not_found_exception_if_both_settings_missing()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
 
         $this->expectException(ModelNotFoundException::class);
@@ -180,12 +194,14 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
         $user = $this->newUser();
         $repo = new DatabaseSavedSettingRepository($manipulator->reveal());
         $this->assertEquals(
-            'testvalue1', $repo->getUserValue('mykey1', $user->id())
+            'testvalue1',
+            $repo->getUserValue('mykey1', $user->id())
         );
     }
 
     /** @test */
-    public function setForUser_updates_a_setting_for_a_specific_user_if_the_setting_already_exists(){
+    public function set_for_user_updates_a_setting_for_a_specific_user_if_the_setting_already_exists()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->encode('mykey1', 'testvalue2')->shouldBeCalled()->willReturn('abc123');
 
@@ -210,7 +226,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function setForUser_creates_a_setting_for_a_specific_user_if_the_setting_does_not_exist(){
+    public function set_for_user_creates_a_setting_for_a_specific_user_if_the_setting_does_not_exist()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->encode('mykey1', 'testvalue1')->shouldBeCalled()->willReturn('abc123');
 
@@ -230,7 +247,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function setForAllUsers_updates_a_setting_for_a_all_users_if_the_setting_already_exists(){
+    public function set_for_all_users_updates_a_setting_for_a_all_users_if_the_setting_already_exists()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->encode('mykey1', 'testvalue2')->shouldBeCalled()->willReturn('abc123');
 
@@ -255,7 +273,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function setForAllUsers_creates_a_setting_for_all_users_if_the_setting_does_not_exist(){
+    public function set_for_all_users_creates_a_setting_for_all_users_if_the_setting_does_not_exist()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->encode('mykey1', 'testvalue1')->shouldBeCalled()->willReturn('abc123');
 
@@ -276,7 +295,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function setForAllUsers_only_sets_the_default_setting_not_a_user_specific_setting_of_the_same_name(){
+    public function set_for_all_users_only_sets_the_default_setting_not_a_user_specific_setting_of_the_same_name()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->encode('mykey1', 'testvalue3')->shouldBeCalled()->willReturn('abc123');
 
@@ -307,7 +327,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function setForUsers_only_sets_the_user_setting_not_a_default_user_setting_of_the_same_name(){
+    public function set_for_users_only_sets_the_user_setting_not_a_default_user_setting_of_the_same_name()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->encode('mykey1', 'testvalue3')->shouldBeCalled()->willReturn('abc123');
 
@@ -338,7 +359,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function setGlobal_updates_a_global_setting_if_the_setting_already_exists(){
+    public function set_global_updates_a_global_setting_if_the_setting_already_exists()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->encode('mykey1', 'testvalue2')->shouldBeCalled()->willReturn('abc123');
 
@@ -363,7 +385,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function setGlobal_creates_a_global_setting_if_the_setting_does_not_exist(){
+    public function set_global_creates_a_global_setting_if_the_setting_does_not_exist()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->encode('mykey1', 'testvalue2')->shouldBeCalled()->willReturn('abc123');
 
@@ -385,7 +408,7 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function hasUserDefault_returns_true_if_a_user_default_setting_exists()
+    public function has_user_default_returns_true_if_a_user_default_setting_exists()
     {
         $manipulator = $this->prophesize(Manipulator::class);
 
@@ -400,7 +423,7 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function hasUserDefault_returns_false_if_a_user_default_setting_does_not_exist()
+    public function has_user_default_returns_false_if_a_user_default_setting_does_not_exist()
     {
         $manipulator = $this->prophesize(Manipulator::class);
 
@@ -411,7 +434,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function getUserDefault_returns_the_value_of_the_setting(){
+    public function get_user_default_returns_the_value_of_the_setting()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->decode('mykey1', 'testvalue2')->shouldBeCalled()->willReturn('abc123');
 
@@ -421,12 +445,14 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
 
         $repo = new DatabaseSavedSettingRepository($manipulator->reveal());
         $this->assertEquals(
-            'abc123', $repo->getUserDefault('mykey1')
+            'abc123',
+            $repo->getUserDefault('mykey1')
         );
     }
 
     /** @test */
-    public function getUserDefault_throws_a_model_not_found_exception_if_the_setting_does_not_exist(){
+    public function get_user_default_throws_a_model_not_found_exception_if_the_setting_does_not_exist()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
 
         $this->expectException(ModelNotFoundException::class);
@@ -436,7 +462,8 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function getAllUserDefaults_returns_an_array_of_default_setting_keys_and_values(){
+    public function get_all_user_defaults_returns_an_array_of_default_setting_keys_and_values()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->decode('mykey1', 'testvalue1')->shouldBeCalled()->willReturn('testvalue1-decoded');
         $manipulator->decode('mykey2', 'testvalue2')->shouldBeCalled()->willReturn('testvalue2-decoded');
@@ -466,11 +493,11 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function getAllUserDefaults_returns_an_empty_array_if_no_default_settings_in_database(){
+    public function get_all_user_defaults_returns_an_empty_array_if_no_default_settings_in_database()
+    {
         $manipulator = $this->prophesize(Manipulator::class);
 
         $repo = new DatabaseSavedSettingRepository($manipulator->reveal());
         $this->assertEquals([], $repo->getAllUserDefaults());
     }
-
 }

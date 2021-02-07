@@ -9,9 +9,9 @@ use Laracasts\Utilities\JavaScript\Transformers\Transformer;
 
 class InjectOldInputTest extends TestCase
 {
-
     /** @test */
-    public function it_injects_any_old_input_as_an_array(){
+    public function it_injects_any_old_input_as_an_array()
+    {
         $request = $this->prophesize(Request::class);
         $request->old()->willReturn(['old' => 'input']);
 
@@ -20,12 +20,13 @@ class InjectOldInputTest extends TestCase
         $this->instance('JavaScript', $transformer->reveal());
 
         (new \BristolSU\Support\Http\View\InjectOldInput($request->reveal()))->compose(
-          $this->prophesize(View::class)->reveal()
+            $this->prophesize(View::class)->reveal()
         );
     }
 
     /** @test */
-    public function it_injects_an_empty_array_if_no_input(){
+    public function it_injects_an_empty_array_if_no_input()
+    {
         $request = $this->prophesize(Request::class);
         $request->old()->willReturn([]);
 
@@ -34,8 +35,7 @@ class InjectOldInputTest extends TestCase
         $this->instance('JavaScript', $transformer->reveal());
 
         (new \BristolSU\Support\Http\View\InjectOldInput($request->reveal()))->compose(
-          $this->prophesize(View::class)->reveal()
+            $this->prophesize(View::class)->reveal()
         );
     }
-
 }

@@ -11,9 +11,9 @@ use Illuminate\Contracts\Session\Session;
 
 class SessionActivityInstanceResolverTest extends TestCase
 {
-
     /** @test */
-    public function setActivityInstance_sets_the_activity_instance(){
+    public function set_activity_instance_sets_the_activity_instance()
+    {
         $activityInstance = factory(ActivityInstance::class)->create();
 
         $session = $this->prophesize(Session::class);
@@ -27,7 +27,8 @@ class SessionActivityInstanceResolverTest extends TestCase
     }
 
     /** @test */
-    public function getActivityInstance_returns_the_activity_instance_if_set(){
+    public function get_activity_instance_returns_the_activity_instance_if_set()
+    {
         $activityInstance = factory(ActivityInstance::class)->create();
 
         $session = $this->prophesize(Session::class);
@@ -43,7 +44,8 @@ class SessionActivityInstanceResolverTest extends TestCase
     }
 
     /** @test */
-    public function getActivityInstance_throws_an_exception_if_the_activity_instance_is_not_found_in_the_repository(){
+    public function get_activity_instance_throws_an_exception_if_the_activity_instance_is_not_found_in_the_repository()
+    {
         $this->expectException(NotInActivityInstanceException::class);
         $this->expectExceptionMessage('No activity instance with an id 5000 found');
         $this->expectExceptionCode(404);
@@ -59,7 +61,8 @@ class SessionActivityInstanceResolverTest extends TestCase
     }
 
     /** @test */
-    public function getActivityInstance_throws_an_exception_if_the_activity_instance_is_not_found_in_the_session(){
+    public function get_activity_instance_throws_an_exception_if_the_activity_instance_is_not_found_in_the_session()
+    {
         $this->expectException(NotInActivityInstanceException::class);
         $this->expectExceptionMessage('No activity instance found');
         $this->expectExceptionCode(404);
@@ -74,8 +77,8 @@ class SessionActivityInstanceResolverTest extends TestCase
     }
 
     /** @test */
-    public function clearActivityInstance_logs_out_of_the_activity_instance(){
-
+    public function clear_activity_instance_logs_out_of_the_activity_instance()
+    {
         $session = $this->prophesize(Session::class);
         $session->remove('activity-instance')->shouldBeCalled();
 
@@ -84,5 +87,4 @@ class SessionActivityInstanceResolverTest extends TestCase
         $resolver = new SessionActivityInstanceResolver($session->reveal(), $activityInstanceRepository->reveal());
         $resolver->clearActivityInstance();
     }
-
 }

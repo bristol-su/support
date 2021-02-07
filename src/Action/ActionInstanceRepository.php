@@ -7,7 +7,6 @@ use Illuminate\Support\Collection;
 
 class ActionInstanceRepository implements \BristolSU\Support\Action\Contracts\ActionInstanceRepository
 {
-
     /**
      * @inheritDoc
      */
@@ -19,7 +18,7 @@ class ActionInstanceRepository implements \BristolSU\Support\Action\Contracts\Ac
     }
 
     /**
-     * Get all action instances for a given module instance
+     * Get all action instances for a given module instance.
      *
      * @param int $moduleInstanceId ID of the module instance to get the action instances from
      * @return Collection
@@ -30,12 +29,12 @@ class ActionInstanceRepository implements \BristolSU\Support\Action\Contracts\Ac
     }
 
     /**
-     * Get an action instance by ID
+     * Get an action instance by ID.
      *
      * @param int $id
+     * @throws ModelNotFoundException
      * @return ActionInstance
      *
-     * @throws ModelNotFoundException
      */
     public function getById(int $id): ActionInstance
     {
@@ -43,7 +42,7 @@ class ActionInstanceRepository implements \BristolSU\Support\Action\Contracts\Ac
     }
 
     /**
-     * Get all action instances registered
+     * Get all action instances registered.
      * @return Collection
      */
     public function all(): Collection
@@ -52,27 +51,27 @@ class ActionInstanceRepository implements \BristolSU\Support\Action\Contracts\Ac
     }
 
     /**
-     * Update an action instance
+     * Update an action instance.
      *
      * @param int $id
      * @param array $attributes
+     * @throws ModelNotFoundException
      * @return ActionInstance
      *
-     * @throws ModelNotFoundException
      */
     public function update(int $id, array $attributes): ActionInstance
     {
         $actionInstance = $this->getById($id);
         $actionInstance->fill($attributes);
         $actionInstance->save();
+
         return $actionInstance;
     }
 
     /**
-     * Delete an action instance
+     * Delete an action instance.
      *
      * @param int $id
-     * @return void
      *
      * @throws ModelNotFoundException
      * @throws \Exception
@@ -82,6 +81,4 @@ class ActionInstanceRepository implements \BristolSU\Support\Action\Contracts\Ac
         $actionInstance = $this->getById($id);
         $actionInstance->delete();
     }
-
-
 }

@@ -9,9 +9,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class FilterFalseSpecificationTest extends TestCase
 {
-
     /** @test */
-    public function isSatisfied_returns_true_if_filter_false_when_a_user_filter_is_given(){
+    public function is_satisfied_returns_true_if_filter_false_when_a_user_filter_is_given()
+    {
         $user = $this->newUser();
         $group = $this->newGroup();
         $role = $this->newRole();
@@ -31,7 +31,8 @@ class FilterFalseSpecificationTest extends TestCase
     }
 
     /** @test */
-    public function isSatisfied_returns_false_if_filter_true_when_a_user_filter_is_given(){
+    public function is_satisfied_returns_false_if_filter_true_when_a_user_filter_is_given()
+    {
         $user = $this->newUser();
         $group = $this->newGroup();
         $role = $this->newRole();
@@ -51,7 +52,8 @@ class FilterFalseSpecificationTest extends TestCase
     }
 
     /** @test */
-    public function isSatisfied_returns_true_if_filter_false_when_a_group_filter_is_given(){
+    public function is_satisfied_returns_true_if_filter_false_when_a_group_filter_is_given()
+    {
         $user = $this->newUser();
         $group = $this->newGroup();
         $role = $this->newRole();
@@ -71,7 +73,8 @@ class FilterFalseSpecificationTest extends TestCase
     }
 
     /** @test */
-    public function isSatisfied_returns_false_if_filter_true_when_a_group_filter_is_given(){
+    public function is_satisfied_returns_false_if_filter_true_when_a_group_filter_is_given()
+    {
         $user = $this->newUser();
         $group = $this->newGroup();
         $role = $this->newRole();
@@ -91,7 +94,8 @@ class FilterFalseSpecificationTest extends TestCase
     }
 
     /** @test */
-    public function isSatisfied_returns_true_if_filter_false_when_a_role_filter_is_given(){
+    public function is_satisfied_returns_true_if_filter_false_when_a_role_filter_is_given()
+    {
         $user = $this->newUser();
         $group = $this->newGroup();
         $role = $this->newRole();
@@ -111,7 +115,8 @@ class FilterFalseSpecificationTest extends TestCase
     }
 
     /** @test */
-    public function isSatisfied_returns_false_if_filter_true_when_a_role_filter_is_given(){
+    public function is_satisfied_returns_false_if_filter_true_when_a_role_filter_is_given()
+    {
         $user = $this->newUser();
         $group = $this->newGroup();
         $role = $this->newRole();
@@ -131,7 +136,8 @@ class FilterFalseSpecificationTest extends TestCase
     }
 
     /** @test */
-    public function isSatisfied_returns_false_if_wrong_filter_type_given(){
+    public function is_satisfied_returns_false_if_wrong_filter_type_given()
+    {
         $user = $this->newUser();
         $group = $this->newGroup();
         $role = $this->newRole();
@@ -145,5 +151,4 @@ class FilterFalseSpecificationTest extends TestCase
             $specification->isSatisfied()
         );
     }
-
 }

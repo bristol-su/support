@@ -11,7 +11,6 @@ use BristolSU\Support\Settings\Definition\SettingStore;
  */
 class SettingValidation implements SettingRepository
 {
-
     /**
      * @var SettingRepository
      */
@@ -29,7 +28,7 @@ class SettingValidation implements SettingRepository
     }
 
     /**
-     * Get the value of a user setting for the given/authenticated user
+     * Get the value of a user setting for the given/authenticated user.
      *
      * @param string $key The key of the setting
      * @param int|null $userId The ID of the user, or null to use the authenticated user
@@ -41,7 +40,7 @@ class SettingValidation implements SettingRepository
     }
 
     /**
-     * Get the value of a global setting
+     * Get the value of a global setting.
      *
      * @param string $key The setting key
      * @return mixed The value of the setting
@@ -52,7 +51,7 @@ class SettingValidation implements SettingRepository
     }
 
     /**
-     * Set a setting for a user
+     * Set a setting for a user.
      *
      * @param string $key The key of the setting
      * @param mixed $value The new value of the setting
@@ -69,7 +68,7 @@ class SettingValidation implements SettingRepository
     }
 
     /**
-     * Set a setting for all user (this will be overridden by a user changing it, so acts as the default)
+     * Set a setting for all user (this will be overridden by a user changing it, so acts as the default).
      *
      * @param string $key The key of the setting
      * @param mixed $value The new value of the setting
@@ -82,11 +81,10 @@ class SettingValidation implements SettingRepository
             ->validate();
 
         $this->repository->setForAllUsers($key, $value);
-
     }
 
     /**
-     * Set a global setting
+     * Set a global setting.
      *
      * @param string $key The key of the setting
      * @param mixed $value The new value of the setting

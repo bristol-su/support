@@ -5,20 +5,19 @@ namespace BristolSU\Support\Connection\Contracts;
 use BristolSU\Support\Connection\RegisteredConnector;
 
 /**
- * Stores information about registered connectors
+ * Stores information about registered connectors.
  */
 interface ConnectorStore
 {
-
     /**
-     * Register a new connector from a RegisteredConnector class
-     * 
+     * Register a new connector from a RegisteredConnector class.
+     *
      * @param RegisteredConnector $connector Registered connector
      */
     public function registerConnector(RegisteredConnector $connector): void;
 
     /**
-     * Register a new connector
+     * Register a new connector.
      *
      * @param string $name Name of the connector
      * @param string $description Description for the connector
@@ -29,19 +28,18 @@ interface ConnectorStore
     public function register(string $name, string $description, string $alias, string $service, string $connector): void;
 
     /**
-     * Get a registered connector by alias
-     * 
+     * Get a registered connector by alias.
+     *
      * @param string $alias Alias of the registered connector
-     * @return RegisteredConnector
      * @throws \Exception If not found
+     * @return RegisteredConnector
      */
     public function get(string $alias): RegisteredConnector;
 
     /**
-     * Return all registered connectors
-     * 
+     * Return all registered connectors.
+     *
      * @return RegisteredConnector[]
      */
     public function all(): array;
-    
 }

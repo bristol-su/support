@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Filters\Filters\Role;
 
-
 use BristolSU\ControlDB\Contracts\Repositories\Position;
 use BristolSU\ControlDB\Contracts\Repositories\Position as PositionRepository;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
@@ -15,14 +14,14 @@ use FormSchema\Schema\Form;
 class RoleHasPosition extends RoleFilter
 {
     /**
-     * Holds the position repository
-     * 
+     * Holds the position repository.
+     *
      * @var PositionRepository
      */
     private $positionRepository;
 
     /**
-     * @param Position $positionRepository Position repository 
+     * @param Position $positionRepository Position repository
      */
     public function __construct(Position $positionRepository)
     {
@@ -31,7 +30,7 @@ class RoleHasPosition extends RoleFilter
 
     /**
      * Does the role have the given position ID?
-     * 
+     *
      * @param string $settings Contain the position id as 'position'
      * @return bool
      */
@@ -40,29 +39,30 @@ class RoleHasPosition extends RoleFilter
         if ($this->role()->positionId() === (int) $settings['position']) {
             return true;
         }
+
         return false;
     }
 
     /**
-     * Get possible options as an array
+     * Get possible options as an array.
      *
      * You should return a form schema which represents the available options for the filter
      *
+     * @throws \Exception
      * @return Form Options
      *
-     * @throws \Exception
      */
     public function options(): Form
     {
         $positions = $this->positionRepository->all();
         $values = [];
-        foreach ($positions as $position)
-        {
+        foreach ($positions as $position) {
             $values[] = [
                 'id' => $position->id(),
                 'name' => $position->data()->name(),
             ];
         }
+
         return \FormSchema\Generator\Form::make()->withField(
             \FormSchema\Generator\Field::select('position')->values($values)->label('Position')
                 ->required(true)
@@ -70,8 +70,8 @@ class RoleHasPosition extends RoleFilter
     }
 
     /**
-     * Return the filter name
-     * 
+     * Return the filter name.
+     *
      * @return string Filter name
      */
     public function name()
@@ -80,8 +80,8 @@ class RoleHasPosition extends RoleFilter
     }
 
     /**
-     * Return the filter description
-     * 
+     * Return the filter description.
+     *
      * @return string Filter description
      */
     public function description()
@@ -90,13 +90,12 @@ class RoleHasPosition extends RoleFilter
     }
 
     /**
-     * Returh the filter alias
-     * 
+     * Returh the filter alias.
+     *
      * @return string Filter alias
      */
     public function alias()
     {
         return 'role_has_position';
     }
-
 }

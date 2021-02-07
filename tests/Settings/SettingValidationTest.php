@@ -12,9 +12,9 @@ use Illuminate\Validation\ValidationException;
 
 class SettingValidationTest extends TestCase
 {
-
     /** @test */
-    public function getUserValue_calls_the_underlying_repository(){
+    public function get_user_value_calls_the_underlying_repository()
+    {
         $repository = $this->prophesize(SettingRepository::class);
         $repository->getUserValue('key', 1)->shouldBeCalled()->willReturn('val1');
 
@@ -25,7 +25,8 @@ class SettingValidationTest extends TestCase
     }
 
     /** @test */
-    public function getGlobalValue_calls_the_underlying_repository(){
+    public function get_global_value_calls_the_underlying_repository()
+    {
         $repository = $this->prophesize(SettingRepository::class);
         $repository->getGlobalValue('key')->shouldBeCalled()->willReturn('val1');
 
@@ -36,7 +37,8 @@ class SettingValidationTest extends TestCase
     }
 
     /** @test */
-    public function setForUser_calls_the_underlying_repository(){
+    public function set_for_user_calls_the_underlying_repository()
+    {
         $repository = $this->prophesize(SettingRepository::class);
         $repository->setForUser('key', 'val1', 1)->shouldBeCalled();
 
@@ -54,7 +56,8 @@ class SettingValidationTest extends TestCase
     }
 
     /** @test */
-    public function setForAllUsers_calls_the_underlying_repository(){
+    public function set_for_all_users_calls_the_underlying_repository()
+    {
         $repository = $this->prophesize(SettingRepository::class);
         $repository->setForAllUsers('key', 'val1')->shouldBeCalled();
 
@@ -72,7 +75,8 @@ class SettingValidationTest extends TestCase
     }
 
     /** @test */
-    public function setGlobal_calls_the_underlying_repository(){
+    public function set_global_calls_the_underlying_repository()
+    {
         $repository = $this->prophesize(SettingRepository::class);
         $repository->setGlobal('key', 'val1')->shouldBeCalled();
 
@@ -90,7 +94,8 @@ class SettingValidationTest extends TestCase
     }
 
     /** @test */
-    public function it_validates_when_setting_a_user_setting(){
+    public function it_validates_when_setting_a_user_setting()
+    {
         $this->expectException(ValidationException::class);
 
         $validator = $this->prophesize(Validator::class);
@@ -110,7 +115,8 @@ class SettingValidationTest extends TestCase
     }
 
     /** @test */
-    public function it_validates_when_setting_a_user_default_setting(){
+    public function it_validates_when_setting_a_user_default_setting()
+    {
         $this->expectException(ValidationException::class);
 
         $validator = $this->prophesize(Validator::class);
@@ -130,7 +136,8 @@ class SettingValidationTest extends TestCase
     }
 
     /** @test */
-    public function it_validates_when_setting_a_global_setting(){
+    public function it_validates_when_setting_a_global_setting()
+    {
         $this->expectException(ValidationException::class);
 
         $validator = $this->prophesize(Validator::class);
@@ -150,7 +157,8 @@ class SettingValidationTest extends TestCase
     }
 
     /** @test */
-    public function it_extends_the_base_setting_repository(){
+    public function it_extends_the_base_setting_repository()
+    {
         $this->expectException(ValidationException::class);
 
         $validator = $this->prophesize(Validator::class);
@@ -167,6 +175,5 @@ class SettingValidationTest extends TestCase
 
         $validationRepo = new SettingValidation($baseRepository->reveal(), $settingStore->reveal());
         $validationRepo->setGlobal('key', 'val1');
-
     }
 }

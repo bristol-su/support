@@ -29,7 +29,6 @@ use Illuminate\Support\ServiceProvider;
  */
 abstract class ModuleServiceProvider extends ServiceProvider
 {
-
     /**
      * Should the module registration be deferred?
      *
@@ -131,7 +130,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     protected $completionConditions = [];
 
     /**
-     * A list of service aliases required by the module
+     * A list of service aliases required by the module.
      *
      * @var array
      */
@@ -145,14 +144,14 @@ abstract class ModuleServiceProvider extends ServiceProvider
     protected $optionalServices = [];
 
     /**
-     * An array of filters your module registers, with the key being the filter alias
+     * An array of filters your module registers, with the key being the filter alias.
      *
      * @var array
      */
     protected $filters = [];
 
     /**
-     * Boot
+     * Boot.
      *
      * - Register translations
      * - Register configuration
@@ -193,7 +192,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register setting listeners
+     * Register setting listeners.
      *
      * Register listeners to be fired when settings are changed.
      */
@@ -205,7 +204,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register scheduled commands
+     * Register scheduled commands.
      *
      * Register commands to run at scheduled times.
      *
@@ -220,11 +219,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register routes for the module
+     * Register routes for the module.
      */
     public function registerRoutes()
     {
-
         $this->mapParticipantRoutes();
         $this->mapAdminRoutes();
         $this->mapParticipantApiRoutes();
@@ -232,7 +230,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register the module
+     * Register the module.
      *
      * @throws BindingResolutionException
      */
@@ -242,7 +240,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register permissions the module uses
+     * Register permissions the module uses.
      *
      * @throws Exception
      */
@@ -260,9 +258,10 @@ abstract class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register events the module fires
+     * Register events the module fires.
      *
      * @throws BindingResolutionException
+     * @throws \Exception
      */
     public function registerEvents()
     {
@@ -276,7 +275,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register translations
+     * Register translations.
      */
     public function registerTranslations()
     {
@@ -284,31 +283,32 @@ abstract class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register config
+     * Register config.
      */
     protected function registerConfig()
     {
         $this->publishes([$this->baseDirectory() . '/config/config.php' => config_path($this->alias() . '.php'),
         ], ['module', 'module-config', 'config']);
         $this->mergeConfigFrom(
-          $this->baseDirectory() . '/config/config.php', $this->alias()
+            $this->baseDirectory() . '/config/config.php',
+            $this->alias()
         );
     }
 
     /**
-     * Register views
+     * Register views.
      */
     public function registerViews()
     {
         $this->publishes([
-          $this->baseDirectory() . '/resources/views' => resource_path('views/vendor/' . $this->alias()),
+            $this->baseDirectory() . '/resources/views' => resource_path('views/vendor/' . $this->alias()),
         ], ['module', 'module-views', 'views']);
 
         $this->loadViewsFrom($this->baseDirectory() . '/resources/views', $this->alias());
     }
 
     /**
-     * Register factories in a non-production environment
+     * Register factories in a non-production environment.
      *
      * @throws BindingResolutionException
      */
@@ -320,7 +320,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Load migrations to be used
+     * Load migrations to be used.
      */
     public function loadMigrations()
     {
@@ -328,51 +328,51 @@ abstract class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Load participant routes
+     * Load participant routes.
      */
     public function mapParticipantRoutes()
     {
         Route::prefix('/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
-          ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
-          ->namespace($this->namespace())
-          ->group($this->baseDirectory() . '/routes/participant/web.php');
+            ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
+            ->namespace($this->namespace())
+            ->group($this->baseDirectory() . '/routes/participant/web.php');
     }
 
     /**
-     * Load admin routes
+     * Load admin routes.
      */
     public function mapAdminRoutes()
     {
         Route::prefix('/a/{activity_slug}/{module_instance_slug}/' . $this->alias())
-          ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'administrator'])
-          ->namespace($this->namespace())
-          ->group($this->baseDirectory() . '/routes/admin/web.php');
+            ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'administrator'])
+            ->namespace($this->namespace())
+            ->group($this->baseDirectory() . '/routes/admin/web.php');
     }
 
     /**
-     * Load participant API routes
+     * Load participant API routes.
      */
     public function mapParticipantApiRoutes()
     {
         Route::prefix('/api/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
-          ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
-          ->namespace($this->namespace())
-          ->group($this->baseDirectory() . '/routes/participant/api.php');
+            ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
+            ->namespace($this->namespace())
+            ->group($this->baseDirectory() . '/routes/participant/api.php');
     }
 
     /**
-     * Load admin API routes
+     * Load admin API routes.
      */
     public function mapAdminApiRoutes()
     {
         Route::prefix('/api/a/{activity_slug}/{module_instance_slug}/' . $this->alias())
-          ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'administrator'])
-          ->namespace($this->namespace())
-          ->group($this->baseDirectory() . '/routes/admin/api.php');
+            ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'administrator'])
+            ->namespace($this->namespace())
+            ->group($this->baseDirectory() . '/routes/admin/api.php');
     }
 
     /**
-     * Register commmands to make available
+     * Register commmands to make available.
      */
     public function registerCommands()
     {
@@ -382,12 +382,12 @@ abstract class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register assets
+     * Register assets.
      */
     public function registerAssets()
     {
         $this->publishes([
-          $this->baseDirectory() . '/public/modules/' . $this->alias() => public_path('modules/' . $this->alias())
+            $this->baseDirectory() . '/public/modules/' . $this->alias() => public_path('modules/' . $this->alias())
         ], ['module', 'module-assets', 'assets']);
     }
 
@@ -399,9 +399,9 @@ abstract class ModuleServiceProvider extends ServiceProvider
         $completionConditionManager = $this->app->make(CompletionConditionManager::class);
         foreach ($this->completionConditions as $alias => $class) {
             $completionConditionManager->register(
-              $this->alias(),
-              $alias,
-              $class
+                $this->alias(),
+                $alias,
+                $class
             );
         }
     }
@@ -426,21 +426,21 @@ abstract class ModuleServiceProvider extends ServiceProvider
     abstract public function baseDirectory();
 
     /**
-     * Return the alias of the module
+     * Return the alias of the module.
      *
      * @return string Module alias
      */
     abstract public function alias(): string;
 
     /**
-     * Return settings required by the module
+     * Return settings required by the module.
      *
      * @return Form
      */
     abstract public function settings(): Form;
 
     /**
-     * Register settings for the module
+     * Register settings for the module.
      *
      * @throws BindingResolutionException
      */
@@ -467,7 +467,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register an action with the portal
+     * Register an action with the portal.
      *
      * @param string $class The fully qualified class name of the action class
      * @param string $name A name for your action
@@ -479,7 +479,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register a third party connection
+     * Register a third party connection.
      *
      * @param string $name
      * @param string $description
@@ -492,16 +492,16 @@ abstract class ModuleServiceProvider extends ServiceProvider
     {
         $connectorStore = $this->app->make(ConnectorStore::class);
         $connectorStore->register(
-          $name,
-          $description,
-          $alias,
-          $service,
-          $class
+            $name,
+            $description,
+            $alias,
+            $service,
+            $class
         );
     }
 
     /**
-     * Registers services the module asks for with the SDK
+     * Registers services the module asks for with the SDK.
      *
      * @throws BindingResolutionException
      */
@@ -515,9 +515,8 @@ abstract class ModuleServiceProvider extends ServiceProvider
     private function registerFilters()
     {
         $filterManager = $this->app->make(FilterManager::class);
-        foreach($this->filters as $alias => $filter) {
+        foreach ($this->filters as $alias => $filter) {
             $filterManager->register($alias, $filter);
         }
     }
-
 }

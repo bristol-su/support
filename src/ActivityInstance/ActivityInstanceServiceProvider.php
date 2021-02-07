@@ -8,19 +8,17 @@ use BristolSU\Support\ActivityInstance\Contracts\DefaultActivityInstanceGenerato
 use BristolSU\Support\ActivityInstance\Middleware\CheckActivityInstanceAccessible;
 use BristolSU\Support\ActivityInstance\Middleware\CheckActivityInstanceForActivity;
 use BristolSU\Support\ActivityInstance\Middleware\CheckLoggedIntoActivityInstance;
-use BristolSU\Support\ActivityInstance\Middleware\ClearActivityInstance;
 use BristolSU\Support\ActivityInstance\Middleware\InjectActivityInstance;
 use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * ActivityInstanceServiceProvider
+ * ActivityInstanceServiceProvider.
  */
 class ActivityInstanceServiceProvider extends ServiceProvider
 {
-
     /**
-     * Register
+     * Register.
      *
      * - Register the activity instance resolver, API or Web
      * - Bind the activity instance repository contract to an implementation
@@ -34,7 +32,7 @@ class ActivityInstanceServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register
+     * Register.
      *
      * - Push middleware to a middleware group
      * - Set up activity instance authentication provider
@@ -45,7 +43,6 @@ class ActivityInstanceServiceProvider extends ServiceProvider
         $this->app['router']->pushMiddlewareToGroup('participant', CheckActivityInstanceForActivity::class);
         $this->app['router']->pushMiddlewareToGroup('participant', CheckActivityInstanceAccessible::class);
         $this->app['router']->pushMiddlewareToGroup('participant', InjectActivityInstance::class);
-
     }
 
     /**
@@ -57,10 +54,9 @@ class ActivityInstanceServiceProvider extends ServiceProvider
      */
     public function registerActivityInstanceResolver(Request $request)
     {
-        $this->app->bind(ActivityInstanceResolver::class, function($app) use ($request) {
+        $this->app->bind(ActivityInstanceResolver::class, function ($app) use ($request) {
             return ($request->is('api/*') ?
                 $app->make(ApiActivityInstanceResolver::class) : $app->make(WebRequestActivityInstanceResolver::class));
         });
     }
-
 }

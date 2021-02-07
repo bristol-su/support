@@ -3,13 +3,12 @@
 
 namespace BristolSU\Support\Tests\Permissions;
 
-
-use BristolSU\Support\Authentication\Contracts\Authentication;
-use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
+use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use BristolSU\Support\Permissions\Contracts\PermissionStore;
 use BristolSU\Support\Permissions\Contracts\Tester;
 use BristolSU\Support\Permissions\PermissionTester;
@@ -20,9 +19,10 @@ use Prophecy\Argument;
 
 class PermissionTesterTest extends TestCase
 {
-
     private \Prophecy\Prophecy\ObjectProphecy $permissionStore;
+
     private \Prophecy\Prophecy\ObjectProphecy $authentication;
+
     private PermissionRepository $permissionRepository;
 
     public function setUp(): void
@@ -39,7 +39,7 @@ class PermissionTesterTest extends TestCase
     }
 
     /** @test */
-    public function getChain_throws_an_exception_if_no_testers()
+    public function get_chain_throws_an_exception_if_no_testers()
     {
         $this->expectException(Exception::class);
         $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
@@ -47,7 +47,7 @@ class PermissionTesterTest extends TestCase
     }
 
     /** @test */
-    public function getChain_returns_a_single_tester_if_one_tester_registered()
+    public function get_chain_returns_a_single_tester_if_one_tester_registered()
     {
         $tester1 = $this->prophesize(Tester::class);
         $permissionTester = new PermissionTester($this->authentication->reveal(), $this->permissionRepository);
@@ -57,7 +57,7 @@ class PermissionTesterTest extends TestCase
     }
 
     /** @test */
-    public function getChain_returns_a_single_tester_if_multiple_testers_registered()
+    public function get_chain_returns_a_single_tester_if_multiple_testers_registered()
     {
         $tester1 = $this->prophesize(Tester::class);
         $tester2 = $this->prophesize(Tester::class);
@@ -69,7 +69,7 @@ class PermissionTesterTest extends TestCase
     }
 
     /** @test */
-    public function getChain_returns_testers_registered_in_specific_positions_in_those_positions()
+    public function get_chain_returns_testers_registered_in_specific_positions_in_those_positions()
     {
         $tester1 = $this->prophesize(Tester::class);
         $tester2 = $this->prophesize(Tester::class);
@@ -82,7 +82,7 @@ class PermissionTesterTest extends TestCase
     }
 
     /** @test */
-    public function getChain_sets_a_chain()
+    public function get_chain_sets_a_chain()
     {
         $tester1 = $this->prophesize(Tester::class);
         $tester2 = $this->prophesize(Tester::class);
@@ -102,7 +102,7 @@ class PermissionTesterTest extends TestCase
     }
 
     /** @test */
-    public function evaluateFor_returns_true_if_the_tester_is_true()
+    public function evaluate_for_returns_true_if_the_tester_is_true()
     {
         $tester = (new DummyTester())->return(true);
 
@@ -115,7 +115,7 @@ class PermissionTesterTest extends TestCase
     }
 
     /** @test */
-    public function evaluateFor_returns_false_if_the_tester_is_false()
+    public function evaluate_for_returns_false_if_the_tester_is_false()
     {
         $tester = (new DummyTester())->return(false);
 
@@ -128,7 +128,7 @@ class PermissionTesterTest extends TestCase
     }
 
     /** @test */
-    public function evaluateFor_returns_false_if_null_returned_from_can()
+    public function evaluate_for_returns_false_if_null_returned_from_can()
     {
         $tester = (new DummyTester())->returnNull();
 
@@ -141,7 +141,7 @@ class PermissionTesterTest extends TestCase
     }
 
     /** @test */
-    public function evaluateFor_tries_each_class_until_one_returns_a_boolean()
+    public function evaluate_for_tries_each_class_until_one_returns_a_boolean()
     {
         $tester1 = (new DummyTester())->returnNull();
         $tester2 = (new DummyTester())->return(true);
@@ -156,7 +156,7 @@ class PermissionTesterTest extends TestCase
     }
 
     /** @test */
-    public function evaluateFor_passes_the_models_through_to_the_tester()
+    public function evaluate_for_passes_the_models_through_to_the_tester()
     {
         $user = $this->newUser();
         $group = $this->newGroup();
@@ -181,7 +181,6 @@ class PermissionTesterTest extends TestCase
 
         $permissionTester->evaluateFor('ability', $user, $group, $role);
     }
-
 
     /** @test */
     public function evaluate_returns_true_if_the_tester_is_true()
@@ -252,7 +251,6 @@ class PermissionTesterTest extends TestCase
     /** @test */
     public function evaluate_takes_user_information_from_authentication_by_default()
     {
-
         $user = $this->newUser();
         $group = $this->newGroup();
         $role = $this->newRole();
@@ -280,7 +278,6 @@ class PermissionTesterTest extends TestCase
         $permissionTester->register($tester);
 
         $permissionTester->evaluate('ability');
-
     }
 
     /** @test */
@@ -290,7 +287,7 @@ class PermissionTesterTest extends TestCase
             ->assertPermission(function ($arg) {
                 $this->assertEquals('ability', $arg->getAbility());
             })
-            ->assertUser(function ($arg){
+            ->assertUser(function ($arg) {
                 $this->assertNull($arg);
             })
             ->assertGroup(function ($arg) {
@@ -312,46 +309,55 @@ class PermissionTesterTest extends TestCase
 
 class DummyTester extends Tester
 {
-
     private $return = null;
+
     private $user = null;
+
     private $group = null;
+
     private $role = null;
+
     private $permission = null;
 
     public function returnNull()
     {
         $this->return = null;
+
         return $this;
     }
 
     public function return($bool)
     {
         $this->return = $bool;
+
         return $this;
     }
 
     public function assertPermission(Closure $closure)
     {
         $this->permission = $closure;
+
         return $this;
     }
 
     public function assertUser(Closure $closure)
     {
         $this->user = $closure;
+
         return $this;
     }
 
     public function assertGroup(Closure $closure)
     {
         $this->group = $closure;
+
         return $this;
     }
 
     public function assertRole(Closure $closure)
     {
         $this->role = $closure;
+
         return $this;
     }
 
@@ -378,6 +384,7 @@ class DummyTester extends Tester
         if ($this->role !== null) {
             ($this->role)($role);
         }
+
         return $this->return;
     }
 }

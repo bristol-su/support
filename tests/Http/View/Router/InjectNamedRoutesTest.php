@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Tests\Http\View\Router;
 
-
 use BristolSU\Support\Http\View\Router\InjectNamedRoutes;
 use BristolSU\Support\Http\View\Router\NamedRouteRetriever;
 use BristolSU\Support\Tests\TestCase;
@@ -14,13 +13,12 @@ use Prophecy\Argument;
 
 class InjectNamedRoutesTest extends TestCase
 {
-
     /** @test */
     public function it_injects_whatever_the_route_retriever_passes()
     {
         $routes = [
-          'route1' => 'test/123',
-          'route2' => 'test/456'
+            'route1' => 'test/123',
+            'route2' => 'test/456'
         ];
 
         $retriever = $this->prophesize(NamedRouteRetriever::class);
@@ -28,7 +26,7 @@ class InjectNamedRoutesTest extends TestCase
         $retriever->currentRouteName()->willReturn(null);
 
         $transformer = $this->prophesize(Transformer::class);
-        $transformer->put(Argument::that(function($arg) use ($routes) {
+        $transformer->put(Argument::that(function ($arg) use ($routes) {
             return array_key_exists('named_routes', $arg)
               && $arg['named_routes'] === $routes;
         }))->shouldBeCalled();
@@ -46,7 +44,7 @@ class InjectNamedRoutesTest extends TestCase
         $retriever->currentRouteName()->willReturn('route.example');
 
         $transformer = $this->prophesize(Transformer::class);
-        $transformer->put(Argument::that(function($arg) {
+        $transformer->put(Argument::that(function ($arg) {
             return array_key_exists('current_route', $arg)
               && $arg['current_route'] === 'route.example';
         }))->shouldBeCalled();
@@ -55,7 +53,6 @@ class InjectNamedRoutesTest extends TestCase
         $injector = new InjectNamedRoutes($retriever->reveal(), $this->prophesize(Request::class)->reveal());
         $injector->compose($this->prophesize(View::class)->reveal());
     }
-
 
     /** @test */
     public function it_injects_the_base_url()
@@ -68,7 +65,7 @@ class InjectNamedRoutesTest extends TestCase
         $request->getBaseUrl()->shouldBeCalled()->willReturn('https://example.com');
 
         $transformer = $this->prophesize(Transformer::class);
-        $transformer->put(Argument::that(function($arg) {
+        $transformer->put(Argument::that(function ($arg) {
             return array_key_exists('base_url', $arg)
               && $arg['base_url'] === 'https://example.com';
         }))->shouldBeCalled();
@@ -77,5 +74,4 @@ class InjectNamedRoutesTest extends TestCase
         $injector = new InjectNamedRoutes($retriever->reveal(), $request->reveal());
         $injector->compose($this->prophesize(View::class)->reveal());
     }
-
 }

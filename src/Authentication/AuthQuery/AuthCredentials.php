@@ -3,16 +3,15 @@
 
 namespace BristolSU\Support\Authentication\AuthQuery;
 
-
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
-use Illuminate\Routing\UrlGenerator;
 
 class AuthCredentials implements Arrayable, Jsonable, \Stringable
 {
-
     private ?int $groupId;
+
     private ?int $roleId;
+
     private ?int $activityInstanceId;
 
     /**
@@ -21,10 +20,11 @@ class AuthCredentials implements Arrayable, Jsonable, \Stringable
      * @param int|null $roleId
      * @param int|null $activityInstanceId
      */
-    public function __construct(?int $groupId = null,
-                                ?int $roleId = null,
-                                ?int $activityInstanceId = null)
-    {
+    public function __construct(
+        ?int $groupId = null,
+        ?int $roleId = null,
+        ?int $activityInstanceId = null
+    ) {
         $this->groupId = $groupId;
         $this->roleId = $roleId;
         $this->activityInstanceId = $activityInstanceId;
@@ -38,7 +38,10 @@ class AuthCredentials implements Arrayable, Jsonable, \Stringable
     public function toQuery(): string
     {
         return http_build_query(
-            $this->toArray(), '', '&', PHP_QUERY_RFC3986
+            $this->toArray(),
+            '',
+            '&',
+            PHP_QUERY_RFC3986
         );
     }
 

@@ -8,9 +8,9 @@ use FormSchema\Schema\Field;
 
 class AdditionalAttributesPositionTest extends TestCase
 {
-
     /** @test */
-    public function it_has_the_right_key(){
+    public function it_has_the_right_key()
+    {
         $this->assertEquals('control.data-fields.position', AdditionalAttributesPosition::getKey());
     }
 
@@ -21,7 +21,8 @@ class AdditionalAttributesPositionTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_rules(){
+    public function it_returns_rules()
+    {
         $this->assertIsArray((new AdditionalAttributesPosition())->rules());
     }
 
@@ -30,5 +31,4 @@ class AdditionalAttributesPositionTest extends TestCase
     {
         $this->assertInstanceOf(Field::class, (new AdditionalAttributesPosition())->fieldOptions());
     }
-
 }

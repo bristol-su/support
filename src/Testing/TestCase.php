@@ -9,12 +9,11 @@ use BristolSU\Support\SupportServiceProvider;
 use BristolSU\Support\Testing\ActivityInstance\SessionActivityInstanceResolver;
 use BristolSU\Support\Testing\Authentication\SessionAuthentication;
 use Illuminate\Foundation\Application;
-use Illuminate\Support\Facades\DB;
 use Laracasts\Utilities\JavaScript\JavaScriptServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 
 /**
- * Test Case
+ * Test Case.
  *
  * Sets up a Laravel testing environment for any project using the sdk.
  */
@@ -27,22 +26,22 @@ class TestCase extends BaseTestCase
      *
      * Loads migrations and factories for the sdk
      */
-    public function setUp(): void
+    protected function setUp(): void
     {
         parent::setUp();
-        $this->loadMigrationsFrom(realpath(__DIR__.'/../database/migrations'));
-        $this->withFactories(__DIR__.'/../../database/factories');
+        $this->loadMigrationsFrom(realpath(__DIR__ . '/../database/migrations'));
+        $this->withFactories(__DIR__ . '/../../database/factories');
     }
 
     /**
-     * Set up the Orchestra Environment
+     * Set up the Orchestra Environment.
      *
      * - Set up the memory database connection
      * - Set up the Sdk environment
      *
      * @param Application $app Application to set up
      */
-    public function getEnvironmentSetUp($app)
+    protected function getEnvironmentSetUp($app)
     {
         $app['config']->set('database.default', 'testing');
         $app['config']->set('passport.storage.database.connection', 'testing');
@@ -55,7 +54,6 @@ class TestCase extends BaseTestCase
         $this->createSdkEnvironment($app);
         $app->bind(Authentication::class, SessionAuthentication::class);
         $app->bind(ActivityInstanceResolver::class, SessionActivityInstanceResolver::class);
-
     }
 
     /**
@@ -72,5 +70,4 @@ class TestCase extends BaseTestCase
             ControlDBServiceProvider::class
         ];
     }
-
 }

@@ -7,12 +7,12 @@ use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Illuminate\Http\Request;
 
 /**
- * Redirect to a module page
+ * Redirect to a module page.
  */
 class ModuleInstanceRedirectController
 {
     /**
-     * Redirect the general activity-slug/module-instance-slug to the specific module URL
+     * Redirect the general activity-slug/module-instance-slug to the specific module URL.
      *
      * @param Request $request Request object
      * @param Activity $activity Current activity
@@ -22,10 +22,11 @@ class ModuleInstanceRedirectController
      */
     public function index(Request $request, Activity $activity, ModuleInstance $moduleInstance)
     {
-        $url = $request->path().'/'.$moduleInstance->alias();
-        if($request->query->count() > 0) {
+        $url = $request->path() . '/' . $moduleInstance->alias();
+        if ($request->query->count() > 0) {
             $url .= '?' . $request->getQueryString();
         }
+
         return redirect()->to($url);
     }
 }

@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class SettingTest extends TestCase
 {
-
     public function newSettingCategory(string $key, $name = 'CategoryName', $description = 'CategoryDescription')
     {
         return new SettingTestDummyCategory($key, $name, $description);
@@ -29,28 +28,31 @@ class SettingTest extends TestCase
 
     public function newGlobalSetting(string $key, $defaultValue = 'DefaultValue', Field $field = null, Validator $validator = null)
     {
-        if($field === null) {
+        if ($field === null) {
             $field = $this->prophesize(Field::class)->reveal();
         }
-        if($validator === null) {
+        if ($validator === null) {
             $validator = $this->prophesize(Validator::class)->reveal();
         }
+
         return new SettingTestDummyGlobalSetting($key, $defaultValue, $field, $validator);
     }
 
     public function newUserSetting(string $key, $defaultValue = 'DefaultValue', Field $field = null, Validator $validator = null)
     {
-        if($field === null) {
+        if ($field === null) {
             $field = $this->prophesize(Field::class)->reveal();
         }
-        if($validator === null) {
+        if ($validator === null) {
             $validator = $this->prophesize(Validator::class)->reveal();
         }
+
         return new SettingTestDummyUserSetting($key, $defaultValue, $field, $validator);
     }
 
     /** @test */
-    public function getUserValue_returns_the_user_value(){
+    public function get_user_value_returns_the_user_value()
+    {
         $settingStore = $this->prophesize(SettingStore::class);
         $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
         $savedSettingRepository->getUserValue('setting_key', 44)->shouldBeCalled()->willReturn('global_value');
@@ -60,7 +62,8 @@ class SettingTest extends TestCase
     }
 
     /** @test */
-    public function getUserValue_uses_the_authenticated_user_if_user_id_is_null(){
+    public function get_user_value_uses_the_authenticated_user_if_user_id_is_null()
+    {
         $user = $this->newUser();
         $this->beUser($user);
 
@@ -73,7 +76,8 @@ class SettingTest extends TestCase
     }
 
     /** @test */
-    public function getUserValue_returns_the_default_value_if_no_user_id_is_given_and_no_user_is_logged_in(){
+    public function get_user_value_returns_the_default_value_if_no_user_id_is_given_and_no_user_is_logged_in()
+    {
         $setting = $this->newUserSetting('setting_key', 'Default Value - Test');
 
         $settingStore = $this->prophesize(SettingStore::class);
@@ -86,7 +90,8 @@ class SettingTest extends TestCase
     }
 
     /** @test */
-    public function getUserValue_returns_the_default_value_if_the_saved_settings_repository_throws_an_exception(){
+    public function get_user_value_returns_the_default_value_if_the_saved_settings_repository_throws_an_exception()
+    {
         $setting = $this->newUserSetting('setting_key', 'Default Value - Test');
 
         $settingStore = $this->prophesize(SettingStore::class);
@@ -100,7 +105,8 @@ class SettingTest extends TestCase
     }
 
     /** @test */
-    public function getGlobalValue_gets_the_global_value_for_a_setting(){
+    public function get_global_value_gets_the_global_value_for_a_setting()
+    {
         $settingStore = $this->prophesize(SettingStore::class);
         $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
         $savedSettingRepository->getGlobalValue('setting_key')->shouldBeCalled()->willReturn('global_value');
@@ -110,7 +116,8 @@ class SettingTest extends TestCase
     }
 
     /** @test */
-    public function getGlobalValue_returns_the_default_value_if_the_saved_settings_repository_throws_an_exception(){
+    public function get_global_value_returns_the_default_value_if_the_saved_settings_repository_throws_an_exception()
+    {
         $setting = $this->newGlobalSetting('setting_key', 'Default Value - Test');
 
         $settingStore = $this->prophesize(SettingStore::class);
@@ -124,7 +131,8 @@ class SettingTest extends TestCase
     }
 
     /** @test */
-    public function setForUser_sets_the_setting_for_a_user(){
+    public function set_for_user_sets_the_setting_for_a_user()
+    {
         $settingStore = $this->prophesize(SettingStore::class);
         $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
         $savedSettingRepository->setForUser('setting_key', 'setting_value', 4)->shouldBeCalled();
@@ -134,7 +142,8 @@ class SettingTest extends TestCase
     }
 
     /** @test */
-    public function setForUser_sets_the_setting_for_the_logged_in_user_if_no_user_id_given(){
+    public function set_for_user_sets_the_setting_for_the_logged_in_user_if_no_user_id_given()
+    {
         $user = $this->newUser();
         $this->beUser($user);
 
@@ -147,7 +156,8 @@ class SettingTest extends TestCase
     }
 
     /** @test */
-    public function setForUser_prioritises_the_given_user_id(){
+    public function set_for_user_prioritises_the_given_user_id()
+    {
         $user = $this->newUser();
         $this->beUser($user);
 
@@ -156,11 +166,12 @@ class SettingTest extends TestCase
         $savedSettingRepository->setForUser('setting_key', 'setting_value', $user->id() + 1)->shouldBeCalled();
 
         $class = new Setting($settingStore->reveal(), $savedSettingRepository->reveal());
-        $class->setForUser('setting_key', 'setting_value',  $user->id() + 1);
+        $class->setForUser('setting_key', 'setting_value', $user->id() + 1);
     }
 
     /** @test */
-    public function setForAllUsers_sets_a_default_user_setting(){
+    public function set_for_all_users_sets_a_default_user_setting()
+    {
         $settingStore = $this->prophesize(SettingStore::class);
         $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
         $savedSettingRepository->setForAllUsers('setting_key', 'setting_value')->shouldBeCalled();
@@ -170,7 +181,8 @@ class SettingTest extends TestCase
     }
 
     /** @test */
-    public function setGlobal_sets_a_global_setting_value(){
+    public function set_global_sets_a_global_setting_value()
+    {
         $settingStore = $this->prophesize(SettingStore::class);
         $savedSettingRepository = $this->prophesize(SavedSettingRepository::class);
         $savedSettingRepository->setGlobal('setting_key', 'setting_value')->shouldBeCalled();
@@ -178,15 +190,14 @@ class SettingTest extends TestCase
         $class = new Setting($settingStore->reveal(), $savedSettingRepository->reveal());
         $class->setGlobal('setting_key', 'setting_value');
     }
-
-
 }
 
 class SettingTestDummyCategory extends Category
 {
-
     public string $key;
+
     public string $name;
+
     public string $description;
 
     public function __construct(string $key, string $name = 'SettingName', string $description = 'SettingDescription')
@@ -197,7 +208,7 @@ class SettingTestDummyCategory extends Category
     }
 
     /**
-     * The key of the category
+     * The key of the category.
      *
      * @return string
      */
@@ -207,7 +218,7 @@ class SettingTestDummyCategory extends Category
     }
 
     /**
-     * The name for the category
+     * The name for the category.
      *
      * @return string
      */
@@ -217,7 +228,7 @@ class SettingTestDummyCategory extends Category
     }
 
     /**
-     * A description for the category
+     * A description for the category.
      *
      * @return string
      */
@@ -229,9 +240,10 @@ class SettingTestDummyCategory extends Category
 
 class SettingTestDummyGroup extends Group
 {
-
     public string $key;
+
     public string $name;
+
     public string $description;
 
     public function __construct(string $key, string $name = 'SettingName', string $description = 'SettingDescription')
@@ -242,7 +254,7 @@ class SettingTestDummyGroup extends Group
     }
 
     /**
-     * The key of the group
+     * The key of the group.
      *
      * @return string
      */
@@ -252,7 +264,7 @@ class SettingTestDummyGroup extends Group
     }
 
     /**
-     * The name for the group
+     * The name for the group.
      *
      * @return string
      */
@@ -262,7 +274,7 @@ class SettingTestDummyGroup extends Group
     }
 
     /**
-     * A description for the group
+     * A description for the group.
      *
      * @return string
      */
@@ -274,13 +286,15 @@ class SettingTestDummyGroup extends Group
 
 class SettingTestDummyUserSetting extends UserSetting
 {
-
     public string $key;
+
     public $defaultValue;
+
     /**
      * @var Field
      */
     public Field $fieldOptions;
+
     /**
      * @var Validator
      */
@@ -295,7 +309,7 @@ class SettingTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * The key for the setting
+     * The key for the setting.
      *
      * @return string
      */
@@ -305,7 +319,7 @@ class SettingTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * The default value of the setting
+     * The default value of the setting.
      *
      * @return mixed
      */
@@ -315,7 +329,7 @@ class SettingTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * The field schema to show the user when editing the value
+     * The field schema to show the user when editing the value.
      *
      * @return Field
      */
@@ -325,7 +339,7 @@ class SettingTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * A validator to validate any new values
+     * A validator to validate any new values.
      *
      * @param mixed $value The new value
      * @return Validator
@@ -350,13 +364,15 @@ class SettingTestDummyUserSetting extends UserSetting
 
 class SettingTestDummyGlobalSetting extends GlobalSetting
 {
-
     public string $key;
+
     public $defaultValue;
+
     /**
      * @var Field
      */
     public Field $fieldOptions;
+
     /**
      * @var Validator
      */
@@ -371,7 +387,7 @@ class SettingTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * The key for the setting
+     * The key for the setting.
      *
      * @return string
      */
@@ -381,7 +397,7 @@ class SettingTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * The default value of the setting
+     * The default value of the setting.
      *
      * @return mixed
      */
@@ -391,7 +407,7 @@ class SettingTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * The field schema to show the global when editing the value
+     * The field schema to show the global when editing the value.
      *
      * @return Field
      */
@@ -401,7 +417,7 @@ class SettingTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * A validator to validate any new values
+     * A validator to validate any new values.
      *
      * @param mixed $value The new value
      * @return Validator
@@ -423,4 +439,3 @@ class SettingTestDummyGlobalSetting extends GlobalSetting
         return [];
     }
 }
-

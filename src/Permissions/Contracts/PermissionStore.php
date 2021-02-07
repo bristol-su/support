@@ -3,16 +3,15 @@
 
 namespace BristolSU\Support\Permissions\Contracts;
 
-
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
 
 /**
- * Register and retrieve permissions
+ * Register and retrieve permissions.
  */
 interface PermissionStore
 {
     /**
-     * Register a global site permission
+     * Register a global site permission.
      *
      * @param string $ability Ability of the permission
      * @param string $name Name of the permission
@@ -22,7 +21,7 @@ interface PermissionStore
 
     /**
      * Register a module permission.
-     * 
+     *
      * Alias of the registerModulePermission function
      *
      * @param string $ability Ability of the permission
@@ -32,7 +31,6 @@ interface PermissionStore
      * @param bool $admin Is the permission an admin permission? Defaults to false
      */
     public function register(string $ability, string $name, string $description, string $alias, bool $admin = false): void;
-
 
     /**
      * Register a module permission.
@@ -45,27 +43,25 @@ interface PermissionStore
      */
     public function registerModulePermission(string $ability, string $name, string $description, string $alias, bool $admin = false): void;
 
-
     /**
-     * Register a permission class
+     * Register a permission class.
      *
      * @param Permission $permission Permission to register
      */
     public function registerPermission(Permission $permission): void;
 
     /**
-     * Get a permission by its ability string
-     * 
+     * Get a permission by its ability string.
+     *
      * @param string $ability Ability string of the permission
      * @return Permission Permission with the given ability string
      */
     public function get(string $ability): Permission;
 
     /**
-     * Get all registered permissions
-     * 
+     * Get all registered permissions.
+     *
      * @return Permission[]
      */
     public function all(): array;
-
 }

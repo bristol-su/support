@@ -3,19 +3,17 @@
 
 namespace BristolSU\Support\Tests\ModuleInstance\Evaluator;
 
-
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\Evaluator\ActivityInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
-use Prophecy\Argument;
 use BristolSU\Support\Tests\TestCase;
+use Prophecy\Argument;
 
 class ActivityInstanceEvaluatorTest extends TestCase
 {
-
     /** @test */
     public function participant_evaluates_each_module_instance()
     {
@@ -49,7 +47,8 @@ class ActivityInstanceEvaluatorTest extends TestCase
     }
 
     /** @test */
-    public function resource_evaluates_each_module_instance(){
+    public function resource_evaluates_each_module_instance()
+    {
         $moduleInstances = factory(ModuleInstance::class, 3)->make();
         $activity = factory(Activity::class)->create();
         $activity->moduleInstances()->saveMany($moduleInstances);

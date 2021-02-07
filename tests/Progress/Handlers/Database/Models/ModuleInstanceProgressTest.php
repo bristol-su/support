@@ -10,9 +10,9 @@ use Carbon\Carbon;
 
 class ModuleInstanceProgressTest extends TestCase
 {
-
     /** @test */
-    public function the_module_instance_progress_model_can_be_created(){
+    public function the_module_instance_progress_model_can_be_created()
+    {
         $now = Carbon::now();
 
         $progress = ModuleInstanceProgress::create([
@@ -37,7 +37,8 @@ class ModuleInstanceProgressTest extends TestCase
     }
 
     /** @test */
-    public function the_progress_can_be_retrieved(){
+    public function the_progress_can_be_retrieved()
+    {
         $progress = factory(Progress::class)->create();
         $moduleInstanceProgress = factory(ModuleInstanceProgress::class)->create([
             'progress_id' => $progress->id,
@@ -47,12 +48,12 @@ class ModuleInstanceProgressTest extends TestCase
     }
 
     /** @test */
-    public function the_module_instance_can_be_retrieved(){
+    public function the_module_instance_can_be_retrieved()
+    {
         $moduleInstance = factory(ModuleInstance::class)->create();
         factory(ModuleInstance::class, 3)->create();
         $progress = factory(ModuleInstanceProgress::class)->create(['module_instance_id' => $moduleInstance->id]);
 
         $this->assertModelEquals($moduleInstance, $progress->moduleInstance);
     }
-
 }

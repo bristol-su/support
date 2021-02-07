@@ -3,19 +3,18 @@
 
 namespace BristolSU\Support\Completion;
 
-
 use BristolSU\Support\Completion\Contracts\CompletionCondition;
 use BristolSU\Support\Completion\Contracts\CompletionConditionFactory as CompletionConditionFactoryContract;
 use Illuminate\Contracts\Container\Container;
 
 /**
- * Resolve a completion condition from the container
+ * Resolve a completion condition from the container.
  */
 class CompletionConditionFactory implements CompletionConditionFactoryContract
 {
     /**
-     * Holds a reference to the container
-     * 
+     * Holds a reference to the container.
+     *
      * @var Container
      */
     private $container;
@@ -29,13 +28,13 @@ class CompletionConditionFactory implements CompletionConditionFactoryContract
     }
 
     /**
-     * Resolve a condition from its class name
+     * Resolve a condition from its class name.
      *
      * @param string $className Name of the class to resolve
      * @param string $moduleAlias Module alias requesting the condition
-     * @return CompletionCondition
-     * 
      * @throws \Illuminate\Contracts\Container\BindingResolutionException If the resolving failed
+     * @return CompletionCondition
+     *
      */
     public function createCompletionConditionFromClassName($className, $moduleAlias): CompletionCondition
     {

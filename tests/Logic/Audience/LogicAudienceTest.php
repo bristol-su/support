@@ -12,10 +12,9 @@ use Prophecy\Argument;
 
 class LogicAudienceTest extends TestCase
 {
-
-
     /** @test */
-    public function it_creates_an_audience_member_for_each_user(){
+    public function it_creates_an_audience_member_for_each_user()
+    {
         $logic = factory(Logic::class)->create();
 
         $user1 = $this->newUser();
@@ -30,13 +29,13 @@ class LogicAudienceTest extends TestCase
         $userRepository->all()->shouldBeCalled()->willReturn($users);
 
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
-        $audienceMemberFactory->fromUserInLogic($user1, Argument::that(function($arg) use ($logic) {
+        $audienceMemberFactory->fromUserInLogic($user1, Argument::that(function ($arg) use ($logic) {
             return $arg->id === $logic->id;
         }))->shouldBeCalled()->willReturn($audienceMember1->reveal());
-        $audienceMemberFactory->fromUserInLogic($user2, Argument::that(function($arg) use ($logic) {
+        $audienceMemberFactory->fromUserInLogic($user2, Argument::that(function ($arg) use ($logic) {
             return $arg->id === $logic->id;
         }))->shouldBeCalled()->willReturn($audienceMember2->reveal());
-        $audienceMemberFactory->fromUserInLogic($user3, Argument::that(function($arg) use ($logic) {
+        $audienceMemberFactory->fromUserInLogic($user3, Argument::that(function ($arg) use ($logic) {
             return $arg->id === $logic->id;
         }))->shouldBeCalled()->willReturn($audienceMember3->reveal());
 
@@ -45,7 +44,8 @@ class LogicAudienceTest extends TestCase
     }
 
     /** @test */
-    public function it_calls_filterForLogic_on_each_audience_member(){
+    public function it_calls_filter_for_logic_on_each_audience_member()
+    {
         $logic = factory(Logic::class)->create();
 
         $user1 = $this->newUser();
@@ -64,13 +64,13 @@ class LogicAudienceTest extends TestCase
         $userRepository->all()->shouldBeCalled()->willReturn($users);
 
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
-        $audienceMemberFactory->fromUserInLogic($user1, Argument::that(function($arg) use ($logic) {
+        $audienceMemberFactory->fromUserInLogic($user1, Argument::that(function ($arg) use ($logic) {
             return $arg->id === $logic->id;
         }))->shouldBeCalled()->willReturn($audienceMember1->reveal());
-        $audienceMemberFactory->fromUserInLogic($user2, Argument::that(function($arg) use ($logic) {
+        $audienceMemberFactory->fromUserInLogic($user2, Argument::that(function ($arg) use ($logic) {
             return $arg->id === $logic->id;
         }))->shouldBeCalled()->willReturn($audienceMember2->reveal());
-        $audienceMemberFactory->fromUserInLogic($user3, Argument::that(function($arg) use ($logic) {
+        $audienceMemberFactory->fromUserInLogic($user3, Argument::that(function ($arg) use ($logic) {
             return $arg->id === $logic->id;
         }))->shouldBeCalled()->willReturn($audienceMember3->reveal());
 
@@ -79,7 +79,8 @@ class LogicAudienceTest extends TestCase
     }
 
     /** @test */
-    public function it_calls_hasAudience_on_each_audience_member_and_returns_them_if_true(){
+    public function it_calls_has_audience_on_each_audience_member_and_returns_them_if_true()
+    {
         $logic = factory(Logic::class)->create();
 
         $user1 = $this->newUser();
@@ -98,13 +99,13 @@ class LogicAudienceTest extends TestCase
         $userRepository->all()->shouldBeCalled()->willReturn($users);
 
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
-        $audienceMemberFactory->fromUserInLogic($user1, Argument::that(function($arg) use ($logic) {
+        $audienceMemberFactory->fromUserInLogic($user1, Argument::that(function ($arg) use ($logic) {
             return $arg->id === $logic->id;
         }))->shouldBeCalled()->willReturn($audienceMember1->reveal());
-        $audienceMemberFactory->fromUserInLogic($user2, Argument::that(function($arg) use ($logic) {
+        $audienceMemberFactory->fromUserInLogic($user2, Argument::that(function ($arg) use ($logic) {
             return $arg->id === $logic->id;
         }))->shouldBeCalled()->willReturn($audienceMember2->reveal());
-        $audienceMemberFactory->fromUserInLogic($user3, Argument::that(function($arg) use ($logic) {
+        $audienceMemberFactory->fromUserInLogic($user3, Argument::that(function ($arg) use ($logic) {
             return $arg->id === $logic->id;
         }))->shouldBeCalled()->willReturn($audienceMember3->reveal());
 
@@ -113,7 +114,8 @@ class LogicAudienceTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_an_empty_array_if_no_audience_found(){
+    public function it_returns_an_empty_array_if_no_audience_found()
+    {
         $logic = factory(Logic::class)->create();
 
         $user1 = $this->newUser();
@@ -132,13 +134,13 @@ class LogicAudienceTest extends TestCase
         $userRepository->all()->shouldBeCalled()->willReturn($users);
 
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
-        $audienceMemberFactory->fromUserInLogic($user1, Argument::that(function($arg) use ($logic) {
+        $audienceMemberFactory->fromUserInLogic($user1, Argument::that(function ($arg) use ($logic) {
             return $arg->id === $logic->id;
         }))->shouldBeCalled()->willReturn($audienceMember1->reveal());
-        $audienceMemberFactory->fromUserInLogic($user2, Argument::that(function($arg) use ($logic) {
+        $audienceMemberFactory->fromUserInLogic($user2, Argument::that(function ($arg) use ($logic) {
             return $arg->id === $logic->id;
         }))->shouldBeCalled()->willReturn($audienceMember2->reveal());
-        $audienceMemberFactory->fromUserInLogic($user3, Argument::that(function($arg) use ($logic) {
+        $audienceMemberFactory->fromUserInLogic($user3, Argument::that(function ($arg) use ($logic) {
             return $arg->id === $logic->id;
         }))->shouldBeCalled()->willReturn($audienceMember3->reveal());
 
@@ -147,7 +149,8 @@ class LogicAudienceTest extends TestCase
     }
 
     /** @test */
-    public function userAudience_gets_all_unique_users_from_the_audience(){
+    public function user_audience_gets_all_unique_users_from_the_audience()
+    {
         $logic = factory(Logic::class)->create();
         $user1 = $this->newUser();
         $user2 = $this->newUser();
@@ -182,11 +185,11 @@ class LogicAudienceTest extends TestCase
         $this->assertContainsOnlyInstancesOf(\BristolSU\ControlDB\Contracts\Models\User::class, $extractedUsers);
         $this->assertModelEquals($user1, $extractedUsers->offsetGet(0));
         $this->assertModelEquals($user2, $extractedUsers->offsetGet(1));
-
     }
 
     /** @test */
-    public function groupAudience_gets_all_groups_from_the_audience(){
+    public function group_audience_gets_all_groups_from_the_audience()
+    {
         $logic = factory(Logic::class)->create();
         $group1 = $this->newGroup();
         $group2 = $this->newGroup();
@@ -249,7 +252,8 @@ class LogicAudienceTest extends TestCase
     }
 
     /** @test */
-    public function roleAudience_gets_all_roles_from_the_audience(){
+    public function role_audience_gets_all_roles_from_the_audience()
+    {
         $logic = factory(Logic::class)->create();
         $role1 = $this->newRole();
         $role2 = $this->newRole();
@@ -283,12 +287,11 @@ class LogicAudienceTest extends TestCase
         $this->assertModelEquals($role2, $extractedRoles->offsetGet(1));
         $this->assertModelEquals($role3, $extractedRoles->offsetGet(2));
     }
-
 }
 
 
-class DummyLogicAudience extends \BristolSU\Support\Logic\Contracts\Audience\LogicAudience {
-
+class DummyLogicAudience extends \BristolSU\Support\Logic\Contracts\Audience\LogicAudience
+{
     private $audience;
 
     /**
@@ -299,7 +302,8 @@ class DummyLogicAudience extends \BristolSU\Support\Logic\Contracts\Audience\Log
         return $this->audience;
     }
 
-    public function addAudience($audience) {
+    public function addAudience($audience)
+    {
         $this->audience[] = $audience;
     }
 }

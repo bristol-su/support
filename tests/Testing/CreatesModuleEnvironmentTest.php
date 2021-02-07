@@ -15,18 +15,19 @@ use BristolSU\Support\Tests\TestCase;
 
 class CreatesModuleEnvironmentTest extends TestCase
 {
-
     use CreatesModuleEnvironment;
 
     /** @test */
-    public function create_module_environment_creates_and_binds_an_activity_with_the_correct_parameters(){
+    public function create_module_environment_creates_and_binds_an_activity_with_the_correct_parameters()
+    {
         $this->createModuleEnvironment('alias1');
 
         $this->assertInstanceOf(Activity::class, $this->app->make(Activity::class));
     }
 
     /** @test */
-    public function create_module_environment_and_binds_a_given_activity(){
+    public function create_module_environment_and_binds_a_given_activity()
+    {
         $activity = factory(Activity::class)->create();
         $this->setActivity($activity);
 
@@ -37,7 +38,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function create_module_environment_creates_and_logs_in_an_activity_instance_with_the_correct_parameters_for_a_user_activity(){
+    public function create_module_environment_creates_and_logs_in_an_activity_instance_with_the_correct_parameters_for_a_user_activity()
+    {
         $activity = factory(Activity::class)->create(['activity_for' => 'user']);
         $this->setActivity($activity);
         $this->setModuleIsFor('user');
@@ -51,7 +53,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function create_module_environment_creates_and_logs_in_an_activity_instance_with_the_correct_parameters_for_a_group_activity(){
+    public function create_module_environment_creates_and_logs_in_an_activity_instance_with_the_correct_parameters_for_a_group_activity()
+    {
         $activity = factory(Activity::class)->create(['activity_for' => 'group']);
         $this->setActivity($activity);
         $this->setModuleIsFor('group');
@@ -65,7 +68,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function create_module_environment_creates_and_logs_in_an_activity_instance_with_the_correct_parameters_for_a_role_activity(){
+    public function create_module_environment_creates_and_logs_in_an_activity_instance_with_the_correct_parameters_for_a_role_activity()
+    {
         $activity = factory(Activity::class)->create(['activity_for' => 'role']);
         $this->setActivity($activity);
         $this->setModuleIsFor('role');
@@ -79,11 +83,13 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function create_module_environment_logs_in_a_given_activity_instance(){
+    public function create_module_environment_logs_in_a_given_activity_instance()
+    {
         $activity = factory(Activity::class)->create(['activity_for' => 'user']);
         $user = factory(User::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create([
-            'resource_type' => 'user', 'resource_id'=> $user->id, 'activity_id' => $activity->id]
+        $activityInstance = factory(ActivityInstance::class)->create(
+            [
+                'resource_type' => 'user', 'resource_id'=> $user->id, 'activity_id' => $activity->id]
         );
 
         $this->setActivity($activity);
@@ -97,18 +103,19 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function create_module_environment_creates_and_binds_a_module_instance_with_the_correct_parameters(){
+    public function create_module_environment_creates_and_binds_a_module_instance_with_the_correct_parameters()
+    {
         $this->createModuleEnvironment('alias1');
 
         $moduleInstance = $this->app->make(ModuleInstance::class);
         $this->assertInstanceOf(ModuleInstance::class, $moduleInstance);
         $this->assertEquals($this->getActivity()->id, $moduleInstance->activity_id);
         $this->assertEquals('alias1', $moduleInstance->alias);
-
     }
 
     /** @test */
-    public function create_module_environment_binds_a_given_module_instance(){
+    public function create_module_environment_binds_a_given_module_instance()
+    {
         $moduleInstance = factory(ModuleInstance::class)->create();
         $this->setModuleInstance($moduleInstance);
         $this->createModuleEnvironment('alias1');
@@ -119,7 +126,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function create_module_environment_creates_and_logs_in_a_control_user_only_when_for_is_user(){
+    public function create_module_environment_creates_and_logs_in_a_control_user_only_when_for_is_user()
+    {
         $this->setModuleIsFor('user');
         $this->createModuleEnvironment('alias1');
 
@@ -129,7 +137,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function create_module_environment_logs_in_a_given_control_user_when_for_is_user(){
+    public function create_module_environment_logs_in_a_given_control_user_when_for_is_user()
+    {
         $user = factory(User::class)->create();
         $this->setControlUser($user);
         $this->setModuleIsFor('user');
@@ -140,7 +149,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function create_module_environment_creates_and_logs_in_a_control_user_and_control_group_when_for_is_group(){
+    public function create_module_environment_creates_and_logs_in_a_control_user_and_control_group_when_for_is_group()
+    {
         $this->setModuleIsFor('group');
         $this->createModuleEnvironment('alias1');
 
@@ -150,7 +160,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function create_module_environment_logs_in_a_given_control_group_when_for_is_group(){
+    public function create_module_environment_logs_in_a_given_control_group_when_for_is_group()
+    {
         $group = factory(Group::class)->create();
         $this->setControlGroup($group);
         $this->setModuleIsFor('group');
@@ -161,7 +172,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function create_module_environment_creates_and_logs_in_a_control_user_and_control_group_and_control_role_when_for_is_role(){
+    public function create_module_environment_creates_and_logs_in_a_control_user_and_control_group_and_control_role_when_for_is_role()
+    {
         $this->setModuleIsFor('role');
         $this->createModuleEnvironment('alias1');
 
@@ -171,7 +183,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function create_module_environment_logs_in_a_given_control_role_when_for_is_role(){
+    public function create_module_environment_logs_in_a_given_control_role_when_for_is_role()
+    {
         $role = factory(Role::class)->create();
         $this->setControlRole($role);
         $this->setModuleIsFor('role');
@@ -182,7 +195,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function admin_url_returns_the_correct_admin_url(){
+    public function admin_url_returns_the_correct_admin_url()
+    {
         $activity = factory(Activity::class)->create(['slug' => 'activity-slug']);
         $moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'module-instance-slug']);
         $this->setActivity($activity);
@@ -190,11 +204,11 @@ class CreatesModuleEnvironmentTest extends TestCase
         $this->createModuleEnvironment('module-alias');
 
         $this->assertEquals('/a/activity-slug/module-instance-slug/module-alias/', $this->adminUrl());
-
     }
 
     /** @test */
-    public function admin_url_appends_path_starting_with_a_forward_slash_to_the_end_of_the_url(){
+    public function admin_url_appends_path_starting_with_a_forward_slash_to_the_end_of_the_url()
+    {
         $activity = factory(Activity::class)->create(['slug' => 'activity-slug']);
         $moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'module-instance-slug']);
         $this->setActivity($activity);
@@ -205,7 +219,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function admin_url_appends_path_starting_without_a_forward_slash_to_the_end_of_the_url(){
+    public function admin_url_appends_path_starting_without_a_forward_slash_to_the_end_of_the_url()
+    {
         $activity = factory(Activity::class)->create(['slug' => 'activity-slug']);
         $moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'module-instance-slug']);
         $this->setActivity($activity);
@@ -216,7 +231,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function user_url_returns_the_correct_user_url(){
+    public function user_url_returns_the_correct_user_url()
+    {
         $activity = factory(Activity::class)->create(['slug' => 'activity-slug']);
         $moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'module-instance-slug']);
         $this->setActivity($activity);
@@ -224,11 +240,11 @@ class CreatesModuleEnvironmentTest extends TestCase
         $this->createModuleEnvironment('module-alias');
 
         $this->assertEquals('/p/activity-slug/module-instance-slug/module-alias/', $this->userUrl());
-
     }
 
     /** @test */
-    public function user_url_appends_path_starting_with_a_forward_slash_to_the_end_of_the_url(){
+    public function user_url_appends_path_starting_with_a_forward_slash_to_the_end_of_the_url()
+    {
         $activity = factory(Activity::class)->create(['slug' => 'activity-slug']);
         $moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'module-instance-slug']);
         $this->setActivity($activity);
@@ -239,7 +255,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function user_url_appends_path_starting_without_a_forward_slash_to_the_end_of_the_url(){
+    public function user_url_appends_path_starting_without_a_forward_slash_to_the_end_of_the_url()
+    {
         $activity = factory(Activity::class)->create(['slug' => 'activity-slug']);
         $moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'module-instance-slug']);
         $this->setActivity($activity);
@@ -250,7 +267,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function admin_api_url_returns_the_correct_admin_api_url(){
+    public function admin_api_url_returns_the_correct_admin_api_url()
+    {
         $activity = factory(Activity::class)->create(['slug' => 'activity-slug']);
         $moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'module-instance-slug']);
         $this->setActivity($activity);
@@ -258,11 +276,11 @@ class CreatesModuleEnvironmentTest extends TestCase
         $this->createModuleEnvironment('module-alias');
 
         $this->assertEquals('/api/a/activity-slug/module-instance-slug/module-alias/', $this->adminApiUrl());
-
     }
 
     /** @test */
-    public function admin_api_url_appends_path_starting_with_a_forward_slash_to_the_end_of_the_url(){
+    public function admin_api_url_appends_path_starting_with_a_forward_slash_to_the_end_of_the_url()
+    {
         $activity = factory(Activity::class)->create(['slug' => 'activity-slug']);
         $moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'module-instance-slug']);
         $this->setActivity($activity);
@@ -273,7 +291,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function admin_api_url_appends_path_starting_without_a_forward_slash_to_the_end_of_the_url(){
+    public function admin_api_url_appends_path_starting_without_a_forward_slash_to_the_end_of_the_url()
+    {
         $activity = factory(Activity::class)->create(['slug' => 'activity-slug']);
         $moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'module-instance-slug']);
         $this->setActivity($activity);
@@ -284,7 +303,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function user_api_url_returns_the_correct_user_api_url(){
+    public function user_api_url_returns_the_correct_user_api_url()
+    {
         $activity = factory(Activity::class)->create(['slug' => 'activity-slug']);
         $moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'module-instance-slug']);
         $this->setActivity($activity);
@@ -292,11 +312,11 @@ class CreatesModuleEnvironmentTest extends TestCase
         $this->createModuleEnvironment('module-alias');
 
         $this->assertEquals('/api/p/activity-slug/module-instance-slug/module-alias/', $this->userApiUrl());
-
     }
 
     /** @test */
-    public function user_api_url_appends_path_starting_with_a_forward_slash_to_the_end_of_the_url(){
+    public function user_api_url_appends_path_starting_with_a_forward_slash_to_the_end_of_the_url()
+    {
         $activity = factory(Activity::class)->create(['slug' => 'activity-slug']);
         $moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'module-instance-slug']);
         $this->setActivity($activity);
@@ -307,7 +327,8 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function user_api_url_appends_path_starting_without_a_forward_slash_to_the_end_of_the_url(){
+    public function user_api_url_appends_path_starting_without_a_forward_slash_to_the_end_of_the_url()
+    {
         $activity = factory(Activity::class)->create(['slug' => 'activity-slug']);
         $moduleInstance = factory(ModuleInstance::class)->create(['slug' => 'module-instance-slug']);
         $this->setActivity($activity);
@@ -318,13 +339,15 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function get_activity_returns_the_activity(){
+    public function get_activity_returns_the_activity()
+    {
         $this->createModuleEnvironment('alias1');
         $this->assertInstanceOf(Activity::class, $this->getActivity());
     }
 
     /** @test */
-    public function get_module_is_for_returns_the_activity_for_of_the_activity(){
+    public function get_module_is_for_returns_the_activity_for_of_the_activity()
+    {
         $this->setModuleIsFor('user');
         $this->createModuleEnvironment('alias1');
         $this->assertIsString($this->getModuleIsFor());
@@ -332,36 +355,39 @@ class CreatesModuleEnvironmentTest extends TestCase
     }
 
     /** @test */
-    public function get_activity_instance_returns_the_activity_instance(){
+    public function get_activity_instance_returns_the_activity_instance()
+    {
         $this->createModuleEnvironment('alias1');
         $this->assertInstanceOf(ActivityInstance::class, $this->getActivityInstance());
     }
 
     /** @test */
-    public function get_module_instance_returns_the_module_instance(){
+    public function get_module_instance_returns_the_module_instance()
+    {
         $this->createModuleEnvironment('alias1');
         $this->assertInstanceOf(ModuleInstance::class, $this->getModuleInstance());
     }
 
     /** @test */
-    public function get_control_user_returns_the_control_user(){
+    public function get_control_user_returns_the_control_user()
+    {
         $this->createModuleEnvironment('alias1');
         $this->assertInstanceOf(User::class, $this->getControlUser());
     }
 
     /** @test */
-    public function get_control_group_returns_the_control_user(){
+    public function get_control_group_returns_the_control_user()
+    {
         $this->setModuleIsFor('group');
         $this->createModuleEnvironment('alias1');
         $this->assertInstanceOf(Group::class, $this->getControlGroup());
     }
 
     /** @test */
-    public function get_control_role_returns_the_control_user(){
+    public function get_control_role_returns_the_control_user()
+    {
         $this->setModuleIsFor('role');
         $this->createModuleEnvironment('alias1');
         $this->assertInstanceOf(Role::class, $this->getControlRole());
     }
-
-
 }

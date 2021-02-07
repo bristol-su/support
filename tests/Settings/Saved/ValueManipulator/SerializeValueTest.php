@@ -7,7 +7,6 @@ use BristolSU\Support\Tests\TestCase;
 
 class SerializeValueTest extends TestCase
 {
-
     public function assertCanHandle(mixed $val)
     {
         $manipulator = new SerializeValue();
@@ -78,7 +77,6 @@ class SerializeValueTest extends TestCase
         $this->assertInstanceOf(TestSerializableClass::class, $decoded);
         $this->assertEquals('new', $decoded->test);
     }
-
 }
 
 class TestSerializableClass

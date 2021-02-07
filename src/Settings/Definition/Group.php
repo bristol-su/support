@@ -4,30 +4,29 @@ namespace BristolSU\Support\Settings\Definition;
 
 abstract class Group
 {
-
     /**
-     * The key of the group
+     * The key of the group.
      *
      * @return string
      */
     abstract public function key(): string;
 
     /**
-     * The name for the group
+     * The name for the group.
      *
      * @return string
      */
     abstract public function name(): string;
 
     /**
-     * A description for the group
+     * A description for the group.
      *
      * @return string
      */
     abstract public function description(): string;
 
     /**
-     * The icon for the group (optional)
+     * The icon for the group (optional).
      *
      * @return string|null
      */
@@ -37,7 +36,7 @@ abstract class Group
     }
 
     /**
-     * Get all settings registered in this group
+     * Get all settings registered in this group.
      *
      * @param Category $category The category to search in
      * @return Setting[]
@@ -48,7 +47,7 @@ abstract class Group
     }
 
     /**
-     * Get all user settings registered in this group
+     * Get all user settings registered in this group.
      *
      * @param Category $category The category to search in
      * @return UserSetting[]
@@ -59,7 +58,7 @@ abstract class Group
     }
 
     /**
-     * Get all global settings registered in this group
+     * Get all global settings registered in this group.
      *
      * @param Category $category The category to search in
      * @return GlobalSetting[]
@@ -67,7 +66,6 @@ abstract class Group
     public function globalSettings(Category $category): array
     {
         return app(SettingStore::class)->getGlobalSettingsInGroup($category, $this);
-
     }
 
     /**

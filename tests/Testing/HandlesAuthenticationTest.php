@@ -15,14 +15,16 @@ class HandlesAuthenticationTest extends TestCase
     use HandlesAuthentication;
 
     /** @test */
-    public function newUser_creates_a_new_user(){
+    public function new_user_creates_a_new_user()
+    {
         $user = $this->newUser();
 
         $this->assertInstanceOf(User::class, $user);
     }
 
     /** @test */
-    public function newUser_allows_attributes_to_be_overridden(){
+    public function new_user_allows_attributes_to_be_overridden()
+    {
         $user = $this->newUser(['data_provider_id' => 5]);
 
         $this->assertInstanceOf(User::class, $user);
@@ -30,14 +32,16 @@ class HandlesAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function newGroup_creates_a_new_group(){
+    public function new_group_creates_a_new_group()
+    {
         $group = $this->newGroup();
 
         $this->assertInstanceOf(Group::class, $group);
     }
 
     /** @test */
-    public function newGroup_allows_attributes_to_be_overridden(){
+    public function new_group_allows_attributes_to_be_overridden()
+    {
         $group = $this->newGroup(['data_provider_id' => 5]);
 
         $this->assertInstanceOf(Group::class, $group);
@@ -45,14 +49,16 @@ class HandlesAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function newRole_creates_a_new_role(){
+    public function new_role_creates_a_new_role()
+    {
         $role = $this->newRole();
 
         $this->assertInstanceOf(Role::class, $role);
     }
 
     /** @test */
-    public function newRole_allows_attributes_to_be_overridden(){
+    public function new_role_allows_attributes_to_be_overridden()
+    {
         $role = $this->newRole(['data_provider_id' => 5, 'position_id' => 1]);
 
         $this->assertInstanceOf(Role::class, $role);
@@ -61,10 +67,11 @@ class HandlesAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function setUser_sets_a_user_for_authentication(){
+    public function set_user_sets_a_user_for_authentication()
+    {
         $user = $this->newUser();
         $authentication = $this->prophesize(Authentication::class);
-        $authentication->setUser(Argument::that(function($actual) use ($user) {
+        $authentication->setUser(Argument::that(function ($actual) use ($user) {
             return $actual instanceof \BristolSU\ControlDB\Contracts\Models\User && $actual->id() === $user->id();
         }))->shouldBeCalled();
         $this->app->instance(Authentication::class, $authentication->reveal());
@@ -73,10 +80,11 @@ class HandlesAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function setGroup_sets_a_group_for_authentication(){
+    public function set_group_sets_a_group_for_authentication()
+    {
         $group = $this->newGroup();
         $authentication = $this->prophesize(Authentication::class);
-        $authentication->setGroup(Argument::that(function($actual) use ($group) {
+        $authentication->setGroup(Argument::that(function ($actual) use ($group) {
             return $actual instanceof \BristolSU\ControlDB\Contracts\Models\Group && $actual->id() === $group->id();
         }))->shouldBeCalled();
         $this->app->instance(Authentication::class, $authentication->reveal());
@@ -85,10 +93,11 @@ class HandlesAuthenticationTest extends TestCase
     }
 
     /** @test */
-    public function setRole_sets_a_role_for_authentication(){
+    public function set_role_sets_a_role_for_authentication()
+    {
         $role = $this->newRole();
         $authentication = $this->prophesize(Authentication::class);
-        $authentication->setRole(Argument::that(function($actual) use ($role) {
+        $authentication->setRole(Argument::that(function ($actual) use ($role) {
             return $actual instanceof \BristolSU\ControlDB\Contracts\Models\Role && $actual->id() === $role->id();
         }))->shouldBeCalled();
         $this->app->instance(Authentication::class, $authentication->reveal());

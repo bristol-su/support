@@ -20,7 +20,7 @@ class ActionInstance extends Model
     use HasRevisions;
 
     /**
-     * Fillable properties
+     * Fillable properties.
      *
      * @var array
      */
@@ -29,7 +29,7 @@ class ActionInstance extends Model
     ];
 
     /**
-     * Additional properties to compute dynamically
+     * Additional properties to compute dynamically.
      *
      * @var array
      */
@@ -38,10 +38,10 @@ class ActionInstance extends Model
     ];
 
     /**
-    * Properties to automatically cast
-    *
-    * @var array
-    */
+     * Properties to automatically cast.
+     *
+     * @var array
+     */
     protected $casts = [
         'should_queue' => 'boolean'
     ];
@@ -56,23 +56,24 @@ class ActionInstance extends Model
     public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
-        self::creating(function($model) {
-            if($model->user_id === null && app(Authentication::class)->hasUser()) {
+        self::creating(function ($model) {
+            if ($model->user_id === null && app(Authentication::class)->hasUser()) {
                 $model->user_id = app(Authentication::class)->getUser()->id();
             }
         });
     }
 
     /**
-     * Action Instance field relationships
+     * Action Instance field relationships.
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function actionInstanceFields() {
+    public function actionInstanceFields()
+    {
         return $this->hasMany(ActionInstanceField::class);
     }
 
     /**
-     * Get the field meta data for the event
+     * Get the field meta data for the event.
      *
      * @return mixed
      */
@@ -82,7 +83,7 @@ class ActionInstance extends Model
     }
 
     /**
-     * Get the field meta data for the action
+     * Get the field meta data for the action.
      *
      * @return mixed
      */
@@ -92,7 +93,7 @@ class ActionInstance extends Model
     }
 
     /**
-     * Module Instance relationship
+     * Module Instance relationship.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -102,16 +103,17 @@ class ActionInstance extends Model
     }
 
     /**
-     * Get the user who created the action instance
+     * Get the user who created the action instance.
      *
-     * @return \BristolSU\ControlDB\Contracts\Models\User
      * @throws \Exception If the user ID is null
+     * @return \BristolSU\ControlDB\Contracts\Models\User
      */
     public function user(): \BristolSU\ControlDB\Contracts\Models\User
     {
-        if($this->user_id === null) {
+        if ($this->user_id === null) {
             throw new \Exception(sprintf('Action Instance #%u is not owned by a user.', $this->id));
         }
+
         return app(User::class)->getById($this->user_id);
     }
 

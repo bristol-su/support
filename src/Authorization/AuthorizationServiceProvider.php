@@ -11,13 +11,12 @@ use BristolSU\Support\Authorization\Middleware\CheckModuleInstanceEnabled;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Authorization Service Provider
+ * Authorization Service Provider.
  */
 class AuthorizationServiceProvider extends ServiceProvider
 {
-
     /**
-     * Push middleware to groups
+     * Push middleware to groups.
      */
     public function boot()
     {
@@ -28,5 +27,4 @@ class AuthorizationServiceProvider extends ServiceProvider
         $this->app['router']->pushMiddlewareToGroup('module', CheckModuleInstanceActive::class);
         $this->app['router']->pushMiddlewareToGroup('administrator', CheckAdminActivityFor::class);
     }
-
 }

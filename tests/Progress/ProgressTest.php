@@ -9,9 +9,9 @@ use Carbon\Carbon;
 
 class ProgressTest extends TestCase
 {
-
     /** @test */
-    public function activityInstanceId_can_be_retrieved_and_set(){
+    public function activity_instance_id_can_be_retrieved_and_set()
+    {
         $progress = new Progress();
         $progress->setActivityInstanceId(1);
         $this->assertEquals(1, $progress->getActivityInstanceId());
@@ -21,7 +21,8 @@ class ProgressTest extends TestCase
     }
 
     /** @test */
-    public function activityId_can_be_retrieved_and_set(){
+    public function activity_id_can_be_retrieved_and_set()
+    {
         $progress = new Progress();
         $progress->setActivityId(1);
         $this->assertEquals(1, $progress->getActivityId());
@@ -31,7 +32,8 @@ class ProgressTest extends TestCase
     }
 
     /** @test */
-    public function timestamp_can_be_retrieved_and_set(){
+    public function timestamp_can_be_retrieved_and_set()
+    {
         $progress = new Progress();
         $progress->setTimestamp(Carbon::create(2020, 06, 12, 16, 20, 49));
         $this->assertTrue(
@@ -46,7 +48,8 @@ class ProgressTest extends TestCase
     }
 
     /** @test */
-    public function percentage_can_be_retrieved_and_set(){
+    public function percentage_can_be_retrieved_and_set()
+    {
         $progress = new Progress();
         $progress->setPercentage(1);
         $this->assertEquals(1, $progress->getPercentage());
@@ -56,7 +59,8 @@ class ProgressTest extends TestCase
     }
 
     /** @test */
-    public function complete_can_be_retrieved_and_set(){
+    public function complete_can_be_retrieved_and_set()
+    {
         $progress = new Progress();
         $progress->setComplete(true);
         $this->assertTrue($progress->isComplete());
@@ -66,7 +70,8 @@ class ProgressTest extends TestCase
     }
 
     /** @test */
-    public function modules_can_be_retrieved_and_set(){
+    public function modules_can_be_retrieved_and_set()
+    {
         $module1 = $this->prophesize(ModuleInstanceProgress::class);
         $module1->getPercentage()->shouldBeCalled()->willReturn(5);
         $module2 = $this->prophesize(ModuleInstanceProgress::class);
@@ -95,7 +100,8 @@ class ProgressTest extends TestCase
     }
     
     /** @test */
-    public function create_creates_a_model_with_the_given_values(){
+    public function create_creates_a_model_with_the_given_values()
+    {
         $progress = Progress::create(
             3,
             4,
@@ -112,5 +118,4 @@ class ProgressTest extends TestCase
             Carbon::create(2020, 06, 12, 16, 20, 49)->equalTo($progress->getTimestamp())
         );
     }
-    
 }

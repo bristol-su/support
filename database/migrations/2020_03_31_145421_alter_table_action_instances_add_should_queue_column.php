@@ -8,8 +8,7 @@ class AlterTableActionInstancesAddShouldQueueColumn extends Migration
 {
     /**
      * Run the migrations.
-     * 
-     * @return void
+     *
      */
     public function up()
     {
@@ -21,12 +20,11 @@ class AlterTableActionInstancesAddShouldQueueColumn extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
      */
     public function down()
     {
         Schema::table('action_instances', function (Blueprint $table) {
             $table->dropColumn('should_queue');
-        });    
+        });
     }
 }

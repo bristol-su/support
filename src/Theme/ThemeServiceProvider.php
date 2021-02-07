@@ -7,9 +7,6 @@ use BristolSU\Support\Theme\Settings\AppearanceCategory;
 use BristolSU\Support\Theme\Settings\ChosenTheme;
 use BristolSU\Support\Theme\Settings\ThemeGroup;
 use Illuminate\Database\QueryException;
-use Illuminate\Support\Facades\View;
-use Illuminate\View\Compilers\BladeCompiler;
-use Twigger\Blade\Foundation\AssetStore;
 use Twigger\Blade\Foundation\ThemeLoader;
 use Twigger\Blade\Foundation\ThemeStore;
 use Twigger\Blade\Themes\Bootstrap\BootstrapThemeServiceProvider;
@@ -40,11 +37,8 @@ class ThemeServiceProvider extends BladeThemeServiceProvider
         try {
             $theme = ChosenTheme::getValue();
             app(ThemeLoader::class)->load($theme);
-        }
-        catch (QueryException $e) {
+        } catch (QueryException $e) {
             // This will occur if the database hasn't yet been migrated
         }
-
     }
-
 }

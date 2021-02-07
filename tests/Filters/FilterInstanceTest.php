@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Tests\Filters;
 
-
 use BristolSU\Support\Filters\Contracts\FilterRepository as FilterRepositoryContract;
 use BristolSU\Support\Filters\Contracts\Filters\Filter;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
@@ -16,9 +15,9 @@ use FormSchema\Schema\Form;
 
 class FilterInstanceTest extends TestCase
 {
-
     /** @test */
-    public function it_has_a_logic(){
+    public function it_has_a_logic()
+    {
         $logic = factory(Logic::class)->create();
         $filterInstance = factory(FilterInstance::class)->create([
             'logic_id' => $logic->id
@@ -28,25 +27,29 @@ class FilterInstanceTest extends TestCase
     }
 
     /** @test */
-    public function name_returns_the_filter_instance_name(){
+    public function name_returns_the_filter_instance_name()
+    {
         $filterInstance = factory(FilterInstance::class)->create(['name' => 'A name']);
         $this->assertEquals('A name', $filterInstance->name());
     }
 
     /** @test */
-    public function alias_returns_the_filter_alias(){
+    public function alias_returns_the_filter_alias()
+    {
         $filterInstance = factory(FilterInstance::class)->create(['alias' => 'alias1']);
         $this->assertEquals('alias1', $filterInstance->alias());
     }
 
     /** @test */
-    public function settings_returns_the_filter_instance_settings(){
+    public function settings_returns_the_filter_instance_settings()
+    {
         $filterInstance = factory(FilterInstance::class)->create(['settings' => ['setting1' => 'A Value']]);
         $this->assertEquals(['setting1' => 'A Value'], $filterInstance->settings());
     }
 
     /** @test */
-    public function for_returns_user_if_the_filter_is_a_user_filter(){
+    public function for_returns_user_if_the_filter_is_a_user_filter()
+    {
         $filterRepository = $this->prophesize(FilterRepositoryContract::class);
         $filterRepository->getByAlias('alias1')->shouldBeCalled()->willReturn(
             $this->prophesize(UserFilter::class)->reveal()
@@ -56,7 +59,8 @@ class FilterInstanceTest extends TestCase
     }
 
     /** @test */
-    public function for_returns_group_if_the_filter_is_a_group_filter(){
+    public function for_returns_group_if_the_filter_is_a_group_filter()
+    {
         $filterRepository = $this->prophesize(FilterRepositoryContract::class);
         $filterRepository->getByAlias('alias1')->shouldBeCalled()->willReturn(
             $this->prophesize(GroupFilter::class)->reveal()
@@ -66,7 +70,8 @@ class FilterInstanceTest extends TestCase
     }
 
     /** @test */
-    public function for_returns_role_if_the_filter_is_a_role_filter(){
+    public function for_returns_role_if_the_filter_is_a_role_filter()
+    {
         $filterRepository = $this->prophesize(FilterRepositoryContract::class);
         $filterRepository->getByAlias('alias1')->shouldBeCalled()->willReturn(
             $this->prophesize(RoleFilter::class)->reveal()
@@ -76,7 +81,8 @@ class FilterInstanceTest extends TestCase
     }
 
     /** @test */
-    public function for_throws_an_exception_if_filter_not_correct_type(){
+    public function for_throws_an_exception_if_filter_not_correct_type()
+    {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Filter must extend Filter contract');
         $filterRepository = $this->prophesize(FilterRepositoryContract::class);
@@ -87,7 +93,8 @@ class FilterInstanceTest extends TestCase
     }
 
     /** @test */
-    public function for_can_be_called_through_a_magic_method(){
+    public function for_can_be_called_through_a_magic_method()
+    {
         $filterRepository = $this->prophesize(FilterRepositoryContract::class);
         $filterRepository->getByAlias('alias1')->shouldBeCalled()->willReturn(
             $this->prophesize(RoleFilter::class)->reveal()
@@ -97,7 +104,8 @@ class FilterInstanceTest extends TestCase
     }
 
     /** @test */
-    public function revisions_are_saved(){
+    public function revisions_are_saved()
+    {
         $user = $this->newUser();
         $this->beUser($user);
 
@@ -113,12 +121,11 @@ class FilterInstanceTest extends TestCase
         $this->assertEquals('OldName', $filterInstance->revisionHistory->first()->old_value);
         $this->assertEquals('NewName', $filterInstance->revisionHistory->first()->new_value);
     }
-
 }
 
 
-class DummyFilter extends Filter {
-
+class DummyFilter extends Filter
+{
     /**
      * @inheritDoc
      */

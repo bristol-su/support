@@ -4,30 +4,29 @@ namespace BristolSU\Support\Settings\Definition;
 
 abstract class Category
 {
-
     /**
-     * The key of the category
+     * The key of the category.
      *
      * @return string
      */
     abstract public function key(): string;
 
     /**
-     * The name for the category
+     * The name for the category.
      *
      * @return string
      */
     abstract public function name(): string;
 
     /**
-     * A description for the category
+     * A description for the category.
      *
      * @return string
      */
     abstract public function description(): string;
 
     /**
-     * The icon for the category (optional)
+     * The icon for the category (optional).
      *
      * @return string|null
      */
@@ -37,7 +36,7 @@ abstract class Category
     }
 
     /**
-     * All setting groups in this category
+     * All setting groups in this category.
      *
      * @return Group[]
      */
@@ -47,7 +46,7 @@ abstract class Category
     }
 
     /**
-     * All setting groups in this category with user settings
+     * All setting groups in this category with user settings.
      *
      * @return Group[]
      */
@@ -57,7 +56,7 @@ abstract class Category
     }
 
     /**
-     * All setting groups in this category with global settings
+     * All setting groups in this category with global settings.
      *
      * @return Group[]
      */
@@ -65,5 +64,4 @@ abstract class Category
     {
         return array_values(array_filter($this->groups(), fn (Group $group): bool => $group->hasGlobalSettings($this)));
     }
-
 }

@@ -4,7 +4,6 @@ namespace BristolSU\Support\Http;
 
 use BristolSU\Support\Http\View\InjectJavascriptVariables;
 use BristolSU\Support\Http\View\InjectOldInput;
-use BristolSU\Support\Http\View\InjectSiteSettings;
 use BristolSU\Support\Http\View\InjectValidationErrors;
 use BristolSU\Support\Http\View\Router\InjectNamedRoutes;
 use BristolSU\Support\Http\View\Router\NamedRouteRetriever;
@@ -16,21 +15,20 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Http Service Provider
+ * Http Service Provider.
  */
 class HttpServiceProvider extends ServiceProvider
 {
-
     public function register()
     {
         $this->app->bind(NamedRouteRetrieverInterface::class, NamedRouteRetriever::class);
-        $this->app->extend(NamedRouteRetrieverInterface::class, function(NamedRouteRetrieverInterface $service, Container $app) {
+        $this->app->extend(NamedRouteRetrieverInterface::class, function (NamedRouteRetrieverInterface $service, Container $app) {
             return new NamedRouteRetrieverCache($service, $app->make(Cache::class));
         });
     }
 
     /**
-     * Boot
+     * Boot.
      *
      * - Push the JS middleware to the module middleware group
      */
@@ -41,5 +39,4 @@ class HttpServiceProvider extends ServiceProvider
         View::composer(['bristolsu::base'], InjectOldInput::class);
         View::composer(['bristolsu::base'], InjectNamedRoutes::class);
     }
-
 }

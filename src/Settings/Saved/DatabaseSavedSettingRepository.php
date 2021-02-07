@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class DatabaseSavedSettingRepository implements SavedSettingRepository
 {
-
     public function __construct(protected Manipulator $manipulator)
     {
     }
 
     /**
-     * Check if a global setting has been saved with the given key
+     * Check if a global setting has been saved with the given key.
      *
      * @param $key
      * @return bool
@@ -27,17 +26,18 @@ class DatabaseSavedSettingRepository implements SavedSettingRepository
      * Get the specified setting value.
      *
      * @param array|string $key Key of the setting
-     * @return mixed Value of the setting, or the default value
      * @throws ModelNotFoundException
+     * @return mixed Value of the setting, or the default value
      */
     public function getGlobalValue(string $key)
     {
         $value = SavedSettingModel::global()->key($key)->firstOrFail()->getSettingValue();
+
         return $this->manipulator->decode($key, $value);
     }
 
     /**
-     * Check if a user setting has been saved with the given key
+     * Check if a user setting has been saved with the given key.
      *
      * @param string $key
      * @param int $userId
@@ -58,16 +58,17 @@ class DatabaseSavedSettingRepository implements SavedSettingRepository
      */
     public function getUserValue(string $key, int $userId)
     {
-        if(SavedSettingModel::user($userId)->key($key)->count() > 0) {
+        if (SavedSettingModel::user($userId)->key($key)->count() > 0) {
             $value = SavedSettingModel::user($userId)->key($key)->firstOrFail()->getSettingValue();
         } else {
             $value = SavedSettingModel::user()->key($key)->firstOrFail()->getSettingValue();
         }
+
         return $this->manipulator->decode($key, $value);
     }
 
     /**
-     * Set a setting value for a user
+     * Set a setting value for a user.
      *
      * @param string $key The key of the setting to set
      * @param mixed $value The value of the setting
@@ -113,7 +114,7 @@ class DatabaseSavedSettingRepository implements SavedSettingRepository
     }
 
     /**
-     * See if a user setting has a value for all users
+     * See if a user setting has a value for all users.
      *
      * These are for user settings that don't belong to any particular user, and can be thought of as the default value
      * for that setting.
@@ -138,6 +139,7 @@ class DatabaseSavedSettingRepository implements SavedSettingRepository
     public function getUserDefault(string $key)
     {
         $value = SavedSettingModel::user(null)->key($key)->firstOrFail()->getSettingValue();
+
         return $this->manipulator->decode($key, $value);
     }
 
@@ -152,12 +154,13 @@ class DatabaseSavedSettingRepository implements SavedSettingRepository
     public function getAllUserDefaults(): array
     {
         $defaults = [];
-        foreach(SavedSettingModel::user(null)->get() as $savedSettingModel) {
+        foreach (SavedSettingModel::user(null)->get() as $savedSettingModel) {
             $defaults[$savedSettingModel->getSettingKey()] = $this->manipulator->decode(
                 $savedSettingModel->getSettingKey(),
                 $savedSettingModel->getSettingValue()
             );
         }
+
         return $defaults;
     }
 }

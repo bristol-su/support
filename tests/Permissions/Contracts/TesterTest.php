@@ -12,7 +12,6 @@ use Closure;
 
 class TesterTest extends TestCase
 {
-
     /** @test */
     public function handle_calls_can_and_passes_the_correct_parameters()
     {
@@ -95,51 +94,59 @@ class TesterTest extends TestCase
             $tester->handle($permission, $user, $group, $role)
         );
     }
-
 }
 
 class DummyTester extends Tester
 {
-
     private $return = null;
+
     private $user = null;
+
     private $group = null;
+
     private $role = null;
+
     private $permission = null;
 
     public function returnNull()
     {
         $this->return = null;
+
         return $this;
     }
 
     public function return($bool)
     {
         $this->return = $bool;
+
         return $this;
     }
 
     public function assertPermission(Closure $closure)
     {
         $this->permission = $closure;
+
         return $this;
     }
 
     public function assertUser(Closure $closure)
     {
         $this->user = $closure;
+
         return $this;
     }
 
     public function assertGroup(Closure $closure)
     {
         $this->group = $closure;
+
         return $this;
     }
 
     public function assertRole(Closure $closure)
     {
         $this->role = $closure;
+
         return $this;
     }
 
@@ -166,7 +173,7 @@ class DummyTester extends Tester
         if ($this->role !== null) {
             ($this->role)($role);
         }
+
         return $this->return;
     }
 }
-

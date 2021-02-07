@@ -6,26 +6,24 @@ use BristolSU\Support\ModuleInstance\Contracts\Settings\ModuleSettingsStore as M
 use FormSchema\Schema\Form;
 
 /**
- * Store setting schemas for a module
+ * Store setting schemas for a module.
  */
 class ModuleSettingsStore implements ModuleSettingsStoreContract
 {
-
     /**
-     * Holds the form schemas for registered modules
-     * 
+     * Holds the form schemas for registered modules.
+     *
      * Held with the module alias as the index, and a FormSchema object as the value
-     * 
+     *
      * @var array
      */
     private $settings = [];
 
     /**
-     * Register a new required settings schema
+     * Register a new required settings schema.
      *
      * @param string $alias Alias of the module
      * @param Form $settings Settings schema
-     * @return void
      */
     public function register(string $alias, Form $settings)
     {
@@ -33,18 +31,19 @@ class ModuleSettingsStore implements ModuleSettingsStoreContract
     }
 
     /**
-     * Get the settings schema for a given alias
+     * Get the settings schema for a given alias.
      *
      * @param string $alias Module alias
+     * @throws \Exception If no schema registered
      * @return Form Settings Schema
      *
-     * @throws \Exception If no schema registered
      */
     public function get(string $alias): Form
     {
         if (array_key_exists($alias, $this->settings)) {
             return $this->settings[$alias];
         }
+
         throw new \Exception(sprintf('Settings not found for alias %s', $alias));
     }
 }

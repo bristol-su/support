@@ -10,9 +10,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class CompletionConditionRepositoryTest extends TestCase
 {
-    
     /** @test */
-    public function getByAlias_gets_and_resolves_a_completion_condition(){
+    public function get_by_alias_gets_and_resolves_a_completion_condition()
+    {
         $manager = $this->prophesize(CompletionConditionManager::class);
         $factory = $this->prophesize(CompletionConditionFactory::class);
         $completionCondition = $this->prophesize(CompletionCondition::class);
@@ -25,7 +25,8 @@ class CompletionConditionRepositoryTest extends TestCase
     }
     
     /** @test */
-    public function getAllForModule_gets_and_resolves_all_completion_conditions_for_a_module(){
+    public function get_all_for_module_gets_and_resolves_all_completion_conditions_for_a_module()
+    {
         $manager = $this->prophesize(CompletionConditionManager::class);
         $factory = $this->prophesize(CompletionConditionFactory::class);
         $completionCondition1 = $this->prophesize(CompletionCondition::class);
@@ -44,5 +45,4 @@ class CompletionConditionRepositoryTest extends TestCase
             $completionCondition3->reveal()
         ], $repository->getAllForModule('module1'));
     }
-    
 }

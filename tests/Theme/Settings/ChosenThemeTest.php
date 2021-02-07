@@ -5,29 +5,30 @@ namespace BristolSU\Support\Tests\Theme\Settings;
 use BristolSU\Support\Tests\TestCase;
 use BristolSU\Support\Theme\Settings\ChosenTheme;
 use FormSchema\Fields\SelectField;
-use FormSchema\Schema\Field;
 use Twigger\Blade\Foundation\ThemeDefinition;
 use Twigger\Blade\Foundation\ThemeStore;
 
 class ChosenThemeTest extends TestCase
 {
-
     /** @test */
-    public function the_class_can_be_created(){
+    public function the_class_can_be_created()
+    {
         $themeStore = $this->prophesize(ThemeStore::class);
         $setting = new ChosenTheme($themeStore->reveal());
         $this->assertInstanceOf(ChosenTheme::class, $setting);
     }
 
     /** @test */
-    public function key_returns_the_key(){
+    public function key_returns_the_key()
+    {
         $themeStore = $this->prophesize(ThemeStore::class);
         $setting = new ChosenTheme($themeStore->reveal());
         $this->assertEquals('appearance.theme.chosen-theme', $setting->key());
     }
 
     /** @test */
-    public function validation_fails_if_the_theme_is_not_registered(){
+    public function validation_fails_if_the_theme_is_not_registered()
+    {
         $themeStore = $this->prophesize(ThemeStore::class);
         $themeStore->hasTheme('bootstrap-test')->willReturn(false);
         $setting = new ChosenTheme($themeStore->reveal());
@@ -37,7 +38,8 @@ class ChosenThemeTest extends TestCase
     }
 
     /** @test */
-    public function validation_passes_if_the_theme_is_registered(){
+    public function validation_passes_if_the_theme_is_registered()
+    {
         $themeStore = $this->prophesize(ThemeStore::class);
         $themeStore->hasTheme('bootstrap-test')->willReturn(true);
         $setting = new ChosenTheme($themeStore->reveal());
@@ -47,7 +49,8 @@ class ChosenThemeTest extends TestCase
     }
 
     /** @test */
-    public function validation_fails_if_the_theme_is_null(){
+    public function validation_fails_if_the_theme_is_null()
+    {
         $themeStore = $this->prophesize(ThemeStore::class);
         $setting = new ChosenTheme($themeStore->reveal());
 
@@ -56,7 +59,8 @@ class ChosenThemeTest extends TestCase
     }
 
     /** @test */
-    public function defaultValue_returns_the_first_theme_in_the_store(){
+    public function default_value_returns_the_first_theme_in_the_store()
+    {
         $theme1 = $this->prophesize(ThemeDefinition::class);
         $theme1->id()->willReturn('bootstrap-test-1');
         $theme2 = $this->prophesize(ThemeDefinition::class);
@@ -70,7 +74,8 @@ class ChosenThemeTest extends TestCase
     }
 
     /** @test */
-    public function defaultValue_throws_an_exception_if_no_themes_are_registered(){
+    public function default_value_throws_an_exception_if_no_themes_are_registered()
+    {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('No theme has been registered');
 
@@ -82,7 +87,8 @@ class ChosenThemeTest extends TestCase
     }
 
     /** @test */
-    public function fieldOptions_returns_a_field_schema(){
+    public function field_options_returns_a_field_schema()
+    {
         $theme1 = $this->prophesize(ThemeDefinition::class);
         $theme1->id()->willReturn('test');
         $theme1->name()->willReturn('Test1');
@@ -96,7 +102,8 @@ class ChosenThemeTest extends TestCase
     }
 
     /** @test */
-    public function the_resulting_select_option_has_all_themes_as_options(){
+    public function the_resulting_select_option_has_all_themes_as_options()
+    {
         $theme1 = $this->prophesize(ThemeDefinition::class);
         $theme1->id()->willReturn('bootstrap-test-1');
         $theme1->name()->willReturn('BootStrap Test 1');
@@ -118,6 +125,4 @@ class ChosenThemeTest extends TestCase
             ['id' => 'bootstrap-test-3', 'name' => 'BootStrap Test 3'],
         ], $field->values());
     }
-
-
 }

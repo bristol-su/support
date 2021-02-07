@@ -8,9 +8,9 @@ use FormSchema\Schema\Field;
 
 class AdditionalAttributesGroupTest extends TestCase
 {
-
     /** @test */
-    public function it_has_the_right_key(){
+    public function it_has_the_right_key()
+    {
         $this->assertEquals('control.data-fields.group', AdditionalAttributesGroup::getKey());
     }
 
@@ -21,7 +21,8 @@ class AdditionalAttributesGroupTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_rules(){
+    public function it_returns_rules()
+    {
         $this->assertIsArray((new AdditionalAttributesGroup())->rules());
     }
 
@@ -30,5 +31,4 @@ class AdditionalAttributesGroupTest extends TestCase
     {
         $this->assertInstanceOf(Field::class, (new AdditionalAttributesGroup())->fieldOptions());
     }
-
 }

@@ -14,16 +14,16 @@ use Prophecy\Argument;
 
 class CachedAudienceMemberFactoryTest extends TestCase
 {
-
     /** @test */
-    public function withAccessToResource_is_cached(){
+    public function with_access_to_resource_is_cached()
+    {
         $user1 = $this->newUser();
         $user2 = $this->newUser();
         $group = $this->newGroup();
         $am1 = new AudienceMember($user1);
         $am2 = new AudienceMember($user2);
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
-        $audienceMemberFactory->withAccessToResource(Argument::that(function($arg) use ($group) {
+        $audienceMemberFactory->withAccessToResource(Argument::that(function ($arg) use ($group) {
             return $arg instanceof Group && $group->id() === $arg->id();
         }))->shouldBeCalled()->willReturn(collect([$am1, $am2]));
 
@@ -40,7 +40,8 @@ class CachedAudienceMemberFactoryTest extends TestCase
     }
 
     /** @test */
-    public function withAccessToLogicGroupWithResource_is_cached(){
+    public function with_access_to_logic_group_with_resource_is_cached()
+    {
         $user1 = $this->newUser();
         $user2 = $this->newUser();
         $group = $this->newGroup();
@@ -48,9 +49,9 @@ class CachedAudienceMemberFactoryTest extends TestCase
         $am1 = new AudienceMember($user1);
         $am2 = new AudienceMember($user2);
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
-        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use ($group) {
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function ($arg) use ($group) {
             return $arg instanceof Group && $group->id() === $arg->id();
-        }), Argument::that(function($arg) use ($logic) {
+        }), Argument::that(function ($arg) use ($logic) {
             return $arg instanceof Logic && $arg->id === $logic->id;
         }))->shouldBeCalled()->willReturn(collect([$am1, $am2]));
 
@@ -68,14 +69,15 @@ class CachedAudienceMemberFactoryTest extends TestCase
     }
 
     /** @test */
-    public function fromUserInLogic_is_cached(){
+    public function from_user_in_logic_is_cached()
+    {
         $user = $this->newUser();
         $logic = factory(Logic::class)->create();
         $am = new AudienceMember($user);
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
-        $audienceMemberFactory->fromUserInLogic(Argument::that(function($arg) use ($user) {
+        $audienceMemberFactory->fromUserInLogic(Argument::that(function ($arg) use ($user) {
             return $arg instanceof User && $user->id() === $arg->id();
-        }), Argument::that(function($arg) use ($logic) {
+        }), Argument::that(function ($arg) use ($logic) {
             return $arg instanceof Logic && $arg->id === $logic->id;
         }))->shouldBeCalled()->willReturn($am);
 
@@ -90,11 +92,12 @@ class CachedAudienceMemberFactoryTest extends TestCase
     }
 
     /** @test */
-    public function fromUser_is_not_cached(){
+    public function from_user_is_not_cached()
+    {
         $user = $this->newUser();
         $am = new AudienceMember($user);
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
-        $audienceMemberFactory->fromUser(Argument::that(function($arg) use ($user) {
+        $audienceMemberFactory->fromUser(Argument::that(function ($arg) use ($user) {
             return $arg instanceof User && $user->id() === $arg->id();
         }))->shouldBeCalled()->willReturn($am);
 
@@ -105,5 +108,4 @@ class CachedAudienceMemberFactoryTest extends TestCase
         $result = $cachedAudienceMemberFactory->fromUser($user);
         $this->assertEquals($am, $result);
     }
-
 }

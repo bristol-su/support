@@ -8,9 +8,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class GroupNameIsTest extends TestCase
 {
-
     /** @test */
-    public function options_returns_group_name_with_an_empty_string(){
+    public function options_returns_group_name_with_an_empty_string()
+    {
         $filter = new GroupNameIs();
         
         $this->assertEquals(1, count($filter->options()->fields()));
@@ -20,7 +20,8 @@ class GroupNameIsTest extends TestCase
     }
     
     /** @test */
-    public function evaluate_returns_true_if_the_group_name_is_equal_to_the_settings(){
+    public function evaluate_returns_true_if_the_group_name_is_equal_to_the_settings()
+    {
         $dataGroup = factory(DataGroup::class)->create(['name' => 'group name 1']);
         $group = $this->newGroup(['data_provider_id' => $dataGroup->id()]);
         
@@ -30,7 +31,8 @@ class GroupNameIsTest extends TestCase
     }
 
     /** @test */
-    public function evaluate_returns_false_if_the_group_name_is_different_to_the_settings(){
+    public function evaluate_returns_false_if_the_group_name_is_different_to_the_settings()
+    {
         $dataGroup = factory(DataGroup::class)->create(['name' => 'group name 1']);
         $group = $this->newGroup(['data_provider_id' => $dataGroup->id()]);
 
@@ -40,7 +42,8 @@ class GroupNameIsTest extends TestCase
     }
     
     /** @test */
-    public function evaluate_ignores_case(){
+    public function evaluate_ignores_case()
+    {
         $dataGroup = factory(DataGroup::class)->create(['name' => 'group name 1']);
         $group = $this->newGroup(['data_provider_id' => $dataGroup->id()]);
 
@@ -50,21 +53,23 @@ class GroupNameIsTest extends TestCase
     }
 
     /** @test */
-    public function name_returns_a_string(){
+    public function name_returns_a_string()
+    {
         $filter = new GroupNameIs();
         $this->assertIsString($filter->name());
     }
 
     /** @test */
-    public function description_returns_a_string(){
+    public function description_returns_a_string()
+    {
         $filter = new GroupNameIs();
         $this->assertIsString($filter->description());
     }
 
     /** @test */
-    public function alias_returns_a_string(){
+    public function alias_returns_a_string()
+    {
         $filter = new GroupNameIs();
         $this->assertIsString($filter->alias());
     }
-    
 }

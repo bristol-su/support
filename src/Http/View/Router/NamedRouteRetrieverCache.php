@@ -6,11 +6,11 @@ use Illuminate\Contracts\Cache\Repository;
 
 class NamedRouteRetrieverCache implements NamedRouteRetrieverInterface
 {
-
     /**
      * @var NamedRouteRetrieverInterface
      */
     private NamedRouteRetrieverInterface $retriever;
+
     /**
      * @var Repository
      */
@@ -24,7 +24,7 @@ class NamedRouteRetrieverCache implements NamedRouteRetrieverInterface
 
     public function all(): array
     {
-        return $this->cache->remember(NamedRouteRetrieverCache::class . '.all', 600, function() {
+        return $this->cache->remember(NamedRouteRetrieverCache::class . '.all', 600, function () {
             return $this->retriever->all();
         });
     }
@@ -33,5 +33,4 @@ class NamedRouteRetrieverCache implements NamedRouteRetrieverInterface
     {
         return $this->retriever->currentRouteName();
     }
-
 }

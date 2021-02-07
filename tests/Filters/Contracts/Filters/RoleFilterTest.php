@@ -8,9 +8,9 @@ use FormSchema\Schema\Form;
 
 class RoleFilterTest extends TestCase
 {
-
     /** @test */
-    public function getModel_returns_the_set_model(){
+    public function get_model_returns_the_set_model()
+    {
         $filter = new DummyRoleFilter();
         $role = $this->newRole();
         $filter->setModel($role);
@@ -18,7 +18,8 @@ class RoleFilterTest extends TestCase
     }
 
     /** @test */
-    public function hasModel_returns_true_if_the_role_is_set(){
+    public function has_model_returns_true_if_the_role_is_set()
+    {
         $filter = new DummyRoleFilter();
         $dummyRole = $this->newRole();
         $filter->setModel($dummyRole);
@@ -27,15 +28,18 @@ class RoleFilterTest extends TestCase
     }
 
     /** @test */
-    public function hasModel_returns_false_if_the_role_is_not_set(){
+    public function has_model_returns_false_if_the_role_is_not_set()
+    {
         $filter = new DummyRoleFilter();
 
         $this->assertFalse($filter->hasModel());
     }
 
     /** @test */
-    public function setModel_throws_exception_if_model_not_of_type_role(){
-        $fakeRole = new class {};
+    public function set_model_throws_exception_if_model_not_of_type_role()
+    {
+        $fakeRole = new class() {
+        };
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Cannot pass a class of type [' . get_class($fakeRole) . '] to a role filter');
         $filter = new DummyRoleFilter();
@@ -43,25 +47,24 @@ class RoleFilterTest extends TestCase
     }
 
     /** @test */
-    public function role_returns_the_role(){
+    public function role_returns_the_role()
+    {
         $filter = new DummyRoleFilter();
         $role = $this->newRole();
         $filter->setModel($role);
         $this->assertEquals($role, $filter->role());
     }
-
-
 }
 
 class DummyRoleFilter extends RoleFilter
 {
-
     public function options(): Form
     {
         return new Form();
     }
+
     /**
-     * Test if the filter passes
+     * Test if the filter passes.
      *
      * @param Object $model Role, Role or User
      * @param string $settings Key of the chosen option

@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Tests\Settings\Definition;
 
-
 use BristolSU\Support\Settings\Definition\Category;
 use BristolSU\Support\Settings\Definition\GlobalSetting;
 use BristolSU\Support\Settings\Definition\Group;
@@ -15,8 +14,6 @@ use Illuminate\Contracts\Validation\Validator;
 
 class GroupTest extends TestCase
 {
-
-
     public function newSettingCategory(string $key, $name = 'CategoryName', $description = 'CategoryDescription')
     {
         return new GroupTestDummyCategory($key, $name, $description);
@@ -29,23 +26,25 @@ class GroupTest extends TestCase
 
     public function newGlobalSetting(string $key, $defaultValue = 'DefaultValue', Field $field = null, Validator $validator = null)
     {
-        if($field === null) {
+        if ($field === null) {
             $field = $this->prophesize(Field::class)->reveal();
         }
-        if($validator === null) {
+        if ($validator === null) {
             $validator = $this->prophesize(Validator::class)->reveal();
         }
+
         return new GroupTestDummyGlobalSetting($key, $defaultValue, $field, $validator);
     }
 
     public function newUserSetting(string $key, $defaultValue = 'DefaultValue', Field $field = null, Validator $validator = null)
     {
-        if($field === null) {
+        if ($field === null) {
             $field = $this->prophesize(Field::class)->reveal();
         }
-        if($validator === null) {
+        if ($validator === null) {
             $validator = $this->prophesize(Validator::class)->reveal();
         }
+
         return new GroupTestDummyUserSetting($key, $defaultValue, $field, $validator);
     }
 
@@ -55,12 +54,14 @@ class GroupTest extends TestCase
     }
 
     /** @test */
-    public function icon_returns_null(){
+    public function icon_returns_null()
+    {
         $this->assertNull($this->newSettingGroup('gk')->icon());
     }
 
     /** @test */
-    public function settings_gets_all_settings_in_this_group(){
+    public function settings_gets_all_settings_in_this_group()
+    {
         $category = $this->newSettingCategory('ck');
         $group = $this->newSettingGroup('gk');
         $setting1 = $this->newUserSetting('s1');
@@ -79,7 +80,8 @@ class GroupTest extends TestCase
     }
 
     /** @test */
-    public function userSettings_gets_all_user_settings_for_the_group(){
+    public function user_settings_gets_all_user_settings_for_the_group()
+    {
         $category = $this->newSettingCategory('ck');
         $group = $this->newSettingGroup('gk');
         $setting1 = $this->newUserSetting('s1');
@@ -97,7 +99,8 @@ class GroupTest extends TestCase
     }
 
     /** @test */
-    public function globalSettings_gets_all_global_settings_for_the_group(){
+    public function global_settings_gets_all_global_settings_for_the_group()
+    {
         $category = $this->newSettingCategory('ck');
         $group = $this->newSettingGroup('gk');
         $setting3 = $this->newGlobalSetting('s3');
@@ -115,7 +118,8 @@ class GroupTest extends TestCase
     }
 
     /** @test */
-    public function hasUserSettings_returns_true_if_user_settings_were_found(){
+    public function has_user_settings_returns_true_if_user_settings_were_found()
+    {
         $category = $this->newSettingCategory('ck');
         $group = $this->newSettingGroup('gk');
         $setting1 = $this->newUserSetting('s1');
@@ -131,7 +135,8 @@ class GroupTest extends TestCase
     }
 
     /** @test */
-    public function hasUserSettings_returns_false_if_user_settings_were_not_found(){
+    public function has_user_settings_returns_false_if_user_settings_were_not_found()
+    {
         $category = $this->newSettingCategory('ck');
         $group = $this->newSettingGroup('gk');
 
@@ -145,7 +150,8 @@ class GroupTest extends TestCase
     }
 
     /** @test */
-    public function hasGlobalSettings_returns_true_if_user_settings_were_found(){
+    public function has_global_settings_returns_true_if_user_settings_were_found()
+    {
         $category = $this->newSettingCategory('ck');
         $group = $this->newSettingGroup('gk');
         $setting2 = $this->newGlobalSetting('s2');
@@ -161,7 +167,8 @@ class GroupTest extends TestCase
     }
 
     /** @test */
-    public function hasGlobalSettings_returns_false_if_user_settings_were_not_found(){
+    public function has_global_settings_returns_false_if_user_settings_were_not_found()
+    {
         $category = $this->newSettingCategory('ck');
         $group = $this->newSettingGroup('gk');
 
@@ -173,14 +180,14 @@ class GroupTest extends TestCase
 
         $this->assertFalse($group->hasGlobalSettings($category));
     }
-
 }
 
 class GroupTestDummyCategory extends Category
 {
-
     public string $key;
+
     public string $name;
+
     public string $description;
 
     public function __construct(string $key, string $name = 'SettingName', string $description = 'SettingDescription')
@@ -191,7 +198,7 @@ class GroupTestDummyCategory extends Category
     }
 
     /**
-     * The key of the category
+     * The key of the category.
      *
      * @return string
      */
@@ -201,7 +208,7 @@ class GroupTestDummyCategory extends Category
     }
 
     /**
-     * The name for the category
+     * The name for the category.
      *
      * @return string
      */
@@ -211,7 +218,7 @@ class GroupTestDummyCategory extends Category
     }
 
     /**
-     * A description for the category
+     * A description for the category.
      *
      * @return string
      */
@@ -223,9 +230,10 @@ class GroupTestDummyCategory extends Category
 
 class GroupTestDummyGroup extends Group
 {
-
     public string $key;
+
     public string $name;
+
     public string $description;
 
     public function __construct(string $key, string $name = 'SettingName', string $description = 'SettingDescription')
@@ -236,7 +244,7 @@ class GroupTestDummyGroup extends Group
     }
 
     /**
-     * The key of the group
+     * The key of the group.
      *
      * @return string
      */
@@ -246,7 +254,7 @@ class GroupTestDummyGroup extends Group
     }
 
     /**
-     * The name for the group
+     * The name for the group.
      *
      * @return string
      */
@@ -256,7 +264,7 @@ class GroupTestDummyGroup extends Group
     }
 
     /**
-     * A description for the group
+     * A description for the group.
      *
      * @return string
      */
@@ -268,13 +276,15 @@ class GroupTestDummyGroup extends Group
 
 class GroupTestDummyUserSetting extends UserSetting
 {
-
     public string $key;
+
     public $defaultValue;
+
     /**
      * @var Field
      */
     public Field $fieldOptions;
+
     /**
      * @var Validator
      */
@@ -289,7 +299,7 @@ class GroupTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * The key for the setting
+     * The key for the setting.
      *
      * @return string
      */
@@ -299,7 +309,7 @@ class GroupTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * The default value of the setting
+     * The default value of the setting.
      *
      * @return mixed
      */
@@ -309,7 +319,7 @@ class GroupTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * The field schema to show the user when editing the value
+     * The field schema to show the user when editing the value.
      *
      * @return Field
      */
@@ -319,7 +329,7 @@ class GroupTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * A validator to validate any new values
+     * A validator to validate any new values.
      *
      * @param mixed $value The new value
      * @return Validator
@@ -344,13 +354,15 @@ class GroupTestDummyUserSetting extends UserSetting
 
 class GroupTestDummyGlobalSetting extends GlobalSetting
 {
-
     public string $key;
+
     public $defaultValue;
+
     /**
      * @var Field
      */
     public Field $fieldOptions;
+
     /**
      * @var Validator
      */
@@ -365,7 +377,7 @@ class GroupTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * The key for the setting
+     * The key for the setting.
      *
      * @return string
      */
@@ -375,7 +387,7 @@ class GroupTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * The default value of the setting
+     * The default value of the setting.
      *
      * @return mixed
      */
@@ -385,7 +397,7 @@ class GroupTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * The field schema to show the global when editing the value
+     * The field schema to show the global when editing the value.
      *
      * @return Field
      */
@@ -395,7 +407,7 @@ class GroupTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * A validator to validate any new values
+     * A validator to validate any new values.
      *
      * @param mixed $value The new value
      * @return Validator

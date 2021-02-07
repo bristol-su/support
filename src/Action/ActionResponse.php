@@ -4,7 +4,6 @@ namespace BristolSU\Support\Action;
 
 class ActionResponse
 {
-
     /**
      * @var bool
      */
@@ -16,8 +15,8 @@ class ActionResponse
     protected $message;
 
     /**
-     * Set the response message
-     * 
+     * Set the response message.
+     *
      * @param string $message
      */
     public function setMessage(string $message): void
@@ -26,8 +25,8 @@ class ActionResponse
     }
 
     /**
-     * Get the response message
-     * 
+     * Get the response message.
+     *
      * @return string|null
      */
     public function getMessage(): ?string
@@ -36,8 +35,8 @@ class ActionResponse
     }
 
     /**
-     * Set if the action was successful
-     * 
+     * Set if the action was successful.
+     *
      * @param bool $success
      */
     public function setSuccess(bool $success): void
@@ -46,7 +45,7 @@ class ActionResponse
     }
 
     /**
-     * Get if the action was successful
+     * Get if the action was successful.
      * @return bool|null
      */
     public function getSuccess(): ?bool
@@ -55,31 +54,32 @@ class ActionResponse
     }
 
     /**
-     * Create a successful response with an optional message
-     * 
+     * Create a successful response with an optional message.
+     *
      * @param string $message Optional message
      * @return ActionResponse
      */
     public static function success(string $message = ''): ActionResponse
     {
-        $response = new self;
+        $response = new self();
         $response->setSuccess(true);
         $response->setMessage($message);
+
         return $response;
     }
 
     /**
-     * Create a failed response with an optional message
-     * 
+     * Create a failed response with an optional message.
+     *
      * @param string $message Optional message
      * @return ActionResponse
      */
     public static function failure(string $message = ''): ActionResponse
     {
-        $response = new self;
+        $response = new self();
         $response->setSuccess(false);
         $response->setMessage($message);
+
         return $response;
     }
-    
 }

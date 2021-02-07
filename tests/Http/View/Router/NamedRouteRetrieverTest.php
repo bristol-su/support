@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Tests\Http\View\Router;
 
-
 use BristolSU\Support\Http\View\Router\NamedRouteRetriever;
 use BristolSU\Support\Tests\TestCase;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -11,7 +10,6 @@ use Illuminate\Routing\Router;
 
 class NamedRouteRetrieverTest extends TestCase
 {
-
     /** @test */
     public function it_extracts_the_url_and_methods_from_the_router()
     {
@@ -23,8 +21,8 @@ class NamedRouteRetrieverTest extends TestCase
         $retriever = new NamedRouteRetriever($router);
 
         $this->assertEquals([
-          'test.name' => 'test/123',
-          'test.name.2' => 'test/456',
+            'test.name' => 'test/123',
+            'test.name.2' => 'test/456',
         ], $retriever->all());
     }
 
@@ -39,8 +37,8 @@ class NamedRouteRetrieverTest extends TestCase
         $retriever = new NamedRouteRetriever($router);
 
         $this->assertEquals([
-          'test.name' => 'test/123',
-          'test.name.2' => 'test/456/{testing}'
+            'test.name' => 'test/123',
+            'test.name.2' => 'test/456/{testing}'
         ], $retriever->all());
     }
 
@@ -56,13 +54,14 @@ class NamedRouteRetrieverTest extends TestCase
         $retriever = new NamedRouteRetriever($router);
 
         $this->assertEquals([
-          'test.name' => 'test/123',
-          'test.name.2' => 'test/456'
+            'test.name' => 'test/123',
+            'test.name.2' => 'test/456'
         ], $retriever->all());
     }
 
     /** @test */
-    public function it_gets_the_current_route_name_from_the_router(){
+    public function it_gets_the_current_route_name_from_the_router()
+    {
         $router = $this->prophesize(Router::class);
         $router->currentRouteName()->willReturn('route.name');
 
@@ -70,5 +69,4 @@ class NamedRouteRetrieverTest extends TestCase
 
         $this->assertEquals('route.name', $retriever->currentRouteName());
     }
-
 }

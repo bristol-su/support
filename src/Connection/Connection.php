@@ -7,14 +7,14 @@ use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Represents a connection to a third party
+ * Represents a connection to a third party.
  */
 class Connection extends Model
 {
     use HasRevisions;
 
     /**
-     * The table the data is stored in
+     * The table the data is stored in.
      *
      * @var string
      */
@@ -30,7 +30,7 @@ class Connection extends Model
     protected $appends = ['connector'];
 
     /**
-     * Fillable attributes
+     * Fillable attributes.
      *
      * @var array
      */
@@ -39,14 +39,14 @@ class Connection extends Model
     ];
 
     /**
-     * Hidden attributes. The settings attribute may contain API keys, so should stay hidden from requests
+     * Hidden attributes. The settings attribute may contain API keys, so should stay hidden from requests.
      *
      * @var array
      */
     protected $hidden = ['settings'];
 
     /**
-     * Cast the settings attribute to an array
+     * Cast the settings attribute to an array.
      *
      * @var array
      */
@@ -61,17 +61,17 @@ class Connection extends Model
     {
         parent::boot();
 
-        static::creating(function($model) {
-            if($model->user_id === null && app(Authentication::class)->hasUser()) {
+        static::creating(function ($model) {
+            if ($model->user_id === null && app(Authentication::class)->hasUser()) {
                 $model->user_id = app(Authentication::class)->getUser()->id();
             }
         });
 
-        static::addGlobalScope(new AccessibleConnectionScope);
+        static::addGlobalScope(new AccessibleConnectionScope());
     }
 
     /**
-     * Get the connector linked to this connection
+     * Get the connector linked to this connection.
      *
      * @return RegisteredConnector
      */
@@ -81,7 +81,7 @@ class Connection extends Model
     }
 
     /**
-     * Get the connector linked to this connection
+     * Get the connector linked to this connection.
      *
      * @return RegisteredConnector
      */

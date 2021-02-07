@@ -9,7 +9,6 @@ class RemoveTypeColumnFromSettingsTable extends Migration
     /**
      * Run the migrations.
      *
-     * @return void
      */
     public function up()
     {
@@ -21,11 +20,10 @@ class RemoveTypeColumnFromSettingsTable extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
      */
     public function down()
     {
-        Schema::table('settings', function(Blueprint $table) {
+        Schema::table('settings', function (Blueprint $table) {
             $table->string('type')->nullable();
         });
     }

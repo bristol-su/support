@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Settings\Facade;
 
-
 use BristolSU\Support\Settings\SettingRepository;
 use Illuminate\Support\Facades\Facade;
 
@@ -16,12 +15,8 @@ use Illuminate\Support\Facades\Facade;
  */
 class Setting extends Facade
 {
-
     protected static function getFacadeAccessor(): string
     {
         return SettingRepository::class;
     }
-
 }
-
-

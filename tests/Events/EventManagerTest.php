@@ -7,9 +7,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class EventManagerTest extends TestCase
 {
-
     /** @test */
-    public function an_event_can_be_registered(){
+    public function an_event_can_be_registered()
+    {
         $eventManager = new EventManager();
         
         $eventManager->registerEvent('alias1', 'Name1', 'Class1', 'Description1');
@@ -22,7 +22,8 @@ class EventManagerTest extends TestCase
     }
     
     /** @test */
-    public function all_returns_all_registered_events(){
+    public function all_returns_all_registered_events()
+    {
         $eventManager = new EventManager();
 
         $eventManager->registerEvent('alias1', 'Name1', 'Class1', 'Description1');
@@ -41,7 +42,8 @@ class EventManagerTest extends TestCase
     }
     
     /** @test */
-    public function allForModule_returns_all_events_for_a_module(){
+    public function all_for_module_returns_all_events_for_a_module()
+    {
         $eventManager = new EventManager();
 
         $eventManager->registerEvent('alias1', 'Name1', 'Class1', 'Description1');
@@ -55,7 +57,8 @@ class EventManagerTest extends TestCase
     }
     
     /** @test */
-    public function allForModule_returns_an_empty_array_if_no_events_registered_for_the_module(){
+    public function all_for_module_returns_an_empty_array_if_no_events_registered_for_the_module()
+    {
         $eventManager = new EventManager();
 
         $eventManager->registerEvent('alias1', 'Name1', 'Class1', 'Description1');
@@ -64,5 +67,4 @@ class EventManagerTest extends TestCase
 
         $this->assertEquals([], $eventManager->allForModule('alias5'));
     }
-    
 }

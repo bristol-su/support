@@ -13,16 +13,15 @@ use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Logic Service Provider
+ * Logic Service Provider.
  */
 class LogicServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
-     * 
+     *
      * - Bind implementations to interfaces
      *
-     * @return void
      */
     public function register()
     {
@@ -31,7 +30,7 @@ class LogicServiceProvider extends ServiceProvider
         $this->app->bind(LogicAudienceContract::class, LogicAudience::class);
         $this->app->bind(AudienceFactoryContract::class, AudienceMemberFactory::class);
         
-        $this->app->extend(AudienceFactoryContract::class, function(AudienceFactoryContract $audienceMemberFactory, $app) {
+        $this->app->extend(AudienceFactoryContract::class, function (AudienceFactoryContract $audienceMemberFactory, $app) {
             return new CachedAudienceMemberFactory($audienceMemberFactory, $app->make(Repository::class));
         });
     }

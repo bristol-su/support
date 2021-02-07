@@ -9,9 +9,9 @@ use Illuminate\Support\Collection;
 
 class ActionInstanceRepositoryTest extends TestCase
 {
-
     /** @test */
-    public function forEvent_returns_all_action_instances_with_the_given_module_instance_id_and_event(){
+    public function for_event_returns_all_action_instances_with_the_given_module_instance_id_and_event()
+    {
         factory(ActionInstance::class, 5)->create(['module_instance_id' => 1, 'event' => 'event1']);
         $actionInstances = factory(ActionInstance::class, 5)->create(['module_instance_id' => 2, 'event' => 'event2']);
         factory(ActionInstance::class, 5)->create(['module_instance_id' => 2, 'event' => 'event3']);
@@ -23,14 +23,14 @@ class ActionInstanceRepositoryTest extends TestCase
         $this->assertInstanceOf(Collection::class, $resolvedActionInstances);
         $this->assertContainsOnlyInstancesOf(ActionInstance::class, $resolvedActionInstances);
         $this->assertEquals(5, $resolvedActionInstances->count());
-        foreach($actionInstances as $actionInstance) {
+        foreach ($actionInstances as $actionInstance) {
             $this->assertModelEquals($actionInstance, $resolvedActionInstances->shift());
         }
-        
     }
     
     /** @test */
-    public function forModuleInstance_returns_all_action_instances_with_the_given_module_instance_id(){
+    public function for_module_instance_returns_all_action_instances_with_the_given_module_instance_id()
+    {
         factory(ActionInstance::class, 5)->create(['module_instance_id' => 1, 'event' => 'event1']);
         $actionInstances = factory(ActionInstance::class, 5)->create(['module_instance_id' => 2, 'event' => 'event2']);
         factory(ActionInstance::class, 5)->create(['module_instance_id' => 3, 'event' => 'event2']);
@@ -41,7 +41,7 @@ class ActionInstanceRepositoryTest extends TestCase
         $this->assertInstanceOf(Collection::class, $resolvedActionInstances);
         $this->assertContainsOnlyInstancesOf(ActionInstance::class, $resolvedActionInstances);
         $this->assertEquals(5, $resolvedActionInstances->count());
-        foreach($actionInstances as $actionInstance) {
+        foreach ($actionInstances as $actionInstance) {
             $this->assertModelEquals($actionInstance, $resolvedActionInstances->shift());
         }
     }
@@ -57,13 +57,14 @@ class ActionInstanceRepositoryTest extends TestCase
         $this->assertInstanceOf(Collection::class, $resolvedActionInstances);
         $this->assertContainsOnlyInstancesOf(ActionInstance::class, $resolvedActionInstances);
         $this->assertEquals(5, $resolvedActionInstances->count());
-        foreach($actionInstances as $actionInstance) {
+        foreach ($actionInstances as $actionInstance) {
             $this->assertModelEquals($actionInstance, $resolvedActionInstances->shift());
         }
     }
     
     /** @test */
-    public function getById_returns_an_action_instance_by_id(){
+    public function get_by_id_returns_an_action_instance_by_id()
+    {
         $actionInstance = factory(ActionInstance::class)->create();
         factory(ActionInstance::class, 5)->create();
         
@@ -75,7 +76,8 @@ class ActionInstanceRepositoryTest extends TestCase
     }
     
     /** @test */
-    public function update_updates_an_action_instance(){
+    public function update_updates_an_action_instance()
+    {
         $actionInstance = factory(ActionInstance::class)->create([
             'name' => 'OldName', 'description' => 'OldDescription', 'event' => 'OldEvent', 'action' => 'OldAction', 'module_instance_id' => 1, 'user_id' => 2
         ]);
@@ -104,7 +106,8 @@ class ActionInstanceRepositoryTest extends TestCase
     }
     
     /** @test */
-    public function delete_deletes_an_action_instance(){
+    public function delete_deletes_an_action_instance()
+    {
         $actionInstance = factory(ActionInstance::class)->create();
         factory(ActionInstance::class, 5)->create();
         $this->assertDatabaseHas('action_instances', ['id' => $actionInstance->id]);
@@ -113,10 +116,15 @@ class ActionInstanceRepositoryTest extends TestCase
         $repository->delete($actionInstance->id);
 
         $this->assertDatabaseMissing('action_instances', ['id' => $actionInstance->id]);
-
     }
 }
 
-class Dummy1_test {}
-class Dummy2_test {}
-class Dummy3_test {}
+class Dummy1_test
+{
+}
+class Dummy2_test
+{
+}
+class Dummy3_test
+{
+}

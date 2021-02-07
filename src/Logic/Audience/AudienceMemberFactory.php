@@ -10,19 +10,19 @@ use BristolSU\Support\Logic\Logic;
 use Illuminate\Support\Collection;
 
 /**
- * Creates an audience member
+ * Creates an audience member.
  */
 class AudienceMemberFactory implements AudienceMemberFactoryContract
 {
-
     /**
-     * Create an audience member from a user
+     * Create an audience member from a user.
      *
      * @param User $user User to create the audience member around
      *
      * @return AudienceMember
      */
-    public function fromUser(User $user): AudienceMember {
+    public function fromUser(User $user): AudienceMember
+    {
         return new AudienceMember($user);
     }
 
@@ -39,20 +39,21 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
         }
         if ($resource instanceof Group) {
             return $resource->members()->merge(
-                $resource->roles()->map(function(Role $role) {
+                $resource->roles()->map(function (Role $role) {
                     return $role->users();
                 })->values()->flatten(1)
-            )->unique(function($user) {
+            )->unique(function ($user) {
                 return $user->id();
-            })->map(function($user) {
+            })->map(function ($user) {
                 return $this->fromUser($user);
             });
         }
         if ($resource instanceof Role) {
-            return $resource->users()->map(function($user) {
+            return $resource->users()->map(function ($user) {
                 return $this->fromUser($user);
             });
         }
+
         return collect();
     }
 
@@ -67,23 +68,24 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
      */
     public function withAccessToLogicGroupWithResource($resource, Logic $logic)
     {
-        return $this->withAccessToResource($resource)->map(function(AudienceMember $audienceMember) use ($logic) {
+        return $this->withAccessToResource($resource)->map(function (AudienceMember $audienceMember) use ($logic) {
             $audienceMember->filterForLogic($logic);
+
             return $audienceMember;
-        })->filter(function(AudienceMember $audienceMember) use ($resource) {
+        })->filter(function (AudienceMember $audienceMember) use ($resource) {
             // Make sure the audience member has an audience with the given resource
             return ($audienceMember->hasAudience() && $resource instanceof User)
                 || ($audienceMember->hasAudience() && $resource instanceof Group && (
-                        in_array($resource->id(), $audienceMember->groups()->pluck('id')->toArray())
+                    in_array($resource->id(), $audienceMember->groups()->pluck('id')->toArray())
                         || in_array($resource->id(), $audienceMember->roles()->pluck('group.id')->toArray())
-                    ))
+                ))
                 || ($audienceMember->hasAudience() && $resource instanceof Role &&
                     in_array($resource->id(), $audienceMember->roles()->pluck('id')->toArray()));
         })->values();
     }
 
     /**
-     * Create an audience member from a user and filter it down to the given logic
+     * Create an audience member from a user and filter it down to the given logic.
      *
      * @param User $user User to create the audience member from
      *
@@ -94,6 +96,7 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
     {
         $audienceMember = $this->fromUser($user);
         $audienceMember->filterForLogic($logic);
+
         return $audienceMember;
     }
 }

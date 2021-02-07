@@ -31,25 +31,23 @@ class ControlServiceProvider extends ServiceProvider
             ->registerSetting(new AdditionalAttributesPosition());
 
         try {
-            foreach(AdditionalAttributesUser::getValue() as $attribute) {
+            foreach (AdditionalAttributesUser::getValue() as $attribute) {
                 (app(DataUser::class))::addProperty($attribute['key']);
             }
 
-            foreach(AdditionalAttributesGroup::getValue() as $attribute) {
+            foreach (AdditionalAttributesGroup::getValue() as $attribute) {
                 (app(DataGroup::class))::addProperty($attribute['key']);
             }
 
-            foreach(AdditionalAttributesRole::getValue() as $attribute) {
+            foreach (AdditionalAttributesRole::getValue() as $attribute) {
                 (app(DataRole::class))::addProperty($attribute['key']);
             }
 
-            foreach(AdditionalAttributesPosition::getValue() as $attribute) {
+            foreach (AdditionalAttributesPosition::getValue() as $attribute) {
                 (app(DataPosition::class))::addProperty($attribute['key']);
             }
         } catch (QueryException $e) {
             // Additional attributes couldn't be loaded as settings table hasn't yet been migrated.
         }
-
     }
-
 }

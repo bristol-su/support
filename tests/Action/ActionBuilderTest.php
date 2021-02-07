@@ -14,7 +14,6 @@ use Illuminate\Contracts\Foundation\Application;
 
 class ActionBuilderTest extends TestCase
 {
-
     /** @test */
     public function build_resolves_the_class_from_the_container()
     {
@@ -70,7 +69,6 @@ class ActionBuilderTest extends TestCase
         $builder = new ActionBuilder($app->reveal());
         $builder->build($actionInstance, (new ActionBuilderDummyEvent())->getFields());
     }
-
 
     /** @test */
     public function build_replaces_all_event_fields_with_the_correct_value()
@@ -161,14 +159,11 @@ class ActionBuilderTest extends TestCase
 
         $builder = new ActionBuilder($app->reveal());
         $action = $builder->build($actionInstance, ['key' => 'val1']);
-
     }
-
 }
 
 class ActionBuilderDummyAction extends Action
 {
-
     public function __construct(array $data)
     {
     }
@@ -189,7 +184,6 @@ class ActionBuilderDummyAction extends Action
 
 class ActionBuilderDummyActionMultiple extends Action
 {
-
     public function __construct(array $data)
     {
     }
@@ -210,7 +204,6 @@ class ActionBuilderDummyActionMultiple extends Action
 
 class ActionBuilderDummyEvent implements TriggerableEvent
 {
-
     public static function getFieldMetaData(): array
     {
         return [

@@ -4,11 +4,9 @@ namespace BristolSU\Support\Settings\Definition;
 
 use BristolSU\Support\Settings\SettingRepository;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Facades\Hash;
 
 abstract class UserSetting implements Setting
 {
-
     /**
      * Should the setting value be encrypted?
      *
@@ -17,7 +15,7 @@ abstract class UserSetting implements Setting
     protected bool $encrypt = false;
 
     /**
-     * Get the value for the given user, or the current user if no user given
+     * Get the value for the given user, or the current user if no user given.
      *
      * @param int|null $userId The ID of the user to check, or null to use the current user
      * @return mixed
@@ -29,7 +27,7 @@ abstract class UserSetting implements Setting
     }
 
     /**
-     * Get the value of the setting
+     * Get the value of the setting.
      *
      * @param int|null $userId The ID of the user to check, or null to use the current user
      * @return mixed
@@ -37,6 +35,7 @@ abstract class UserSetting implements Setting
     public static function getValue($userId = null)
     {
         $instance = resolve(static::class);
+
         return $instance->value($userId);
     }
 
@@ -45,7 +44,6 @@ abstract class UserSetting implements Setting
      *
      * @param mixed $value The value to set the setting to
      * @param int|null $userId The ID of the user to set the setting for, or null to use the current user
-     * @return void
      */
     public static function setValue($value, int $userId = null): void
     {
@@ -58,7 +56,6 @@ abstract class UserSetting implements Setting
      *
      * @param mixed $value The value to set the setting to
      * @param int|null $userId The ID of the user to set the setting for, or null to use the current user
-     * @return void
      */
     public function setSettingValue($value, int $userId = null): void
     {
@@ -70,7 +67,6 @@ abstract class UserSetting implements Setting
      * Set the setting default.
      *
      * @param mixed $value The value to set the setting to
-     * @return void
      */
     public static function setDefault($value): void
     {
@@ -79,10 +75,9 @@ abstract class UserSetting implements Setting
     }
 
     /**
-     * Set the setting default
+     * Set the setting default.
      *
      * @param mixed $value The value to set the setting default to
-     * @return void
      */
     public function setSettingDefault($value): void
     {
@@ -91,18 +86,19 @@ abstract class UserSetting implements Setting
     }
 
     /**
-     * Get the key of the setting
+     * Get the key of the setting.
      *
      * @return string The key
      */
     public static function getKey(): string
     {
         $instance = resolve(static::class);
+
         return $instance->key();
     }
 
     /**
-     * A validator to validate any new values
+     * A validator to validate any new values.
      *
      * @param mixed $value The new value
      * @return Validator
@@ -124,7 +120,7 @@ abstract class UserSetting implements Setting
     abstract public function rules(): array;
 
     /**
-     * The key to use for the field options
+     * The key to use for the field options.
      *
      * @return string
      */
@@ -137,5 +133,4 @@ abstract class UserSetting implements Setting
     {
         return $this->encrypt;
     }
-
 }

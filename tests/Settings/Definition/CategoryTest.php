@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Tests\Settings\Definition;
 
-
 use BristolSU\Support\Settings\Definition\Category;
 use BristolSU\Support\Settings\Definition\GlobalSetting;
 use BristolSU\Support\Settings\Definition\Group;
@@ -15,8 +14,6 @@ use Illuminate\Contracts\Validation\Validator;
 
 class CategoryTest extends TestCase
 {
-
-
     public function newSettingCategory(string $key, $name = 'CategoryName', $description = 'CategoryDescription')
     {
         return new CategoryTestDummyCategory($key, $name, $description);
@@ -29,34 +26,38 @@ class CategoryTest extends TestCase
 
     public function newGlobalSetting(string $key, $defaultValue = 'DefaultValue', Field $field = null, Validator $validator = null)
     {
-        if($field === null) {
+        if ($field === null) {
             $field = $this->prophesize(Field::class)->reveal();
         }
-        if($validator === null) {
+        if ($validator === null) {
             $validator = $this->prophesize(Validator::class)->reveal();
         }
+
         return new CategoryTestDummyGlobalSetting($key, $defaultValue, $field, $validator);
     }
 
     public function newUserSetting(string $key, $defaultValue = 'DefaultValue', Field $field = null, Validator $validator = null)
     {
-        if($field === null) {
+        if ($field === null) {
             $field = $this->prophesize(Field::class)->reveal();
         }
-        if($validator === null) {
+        if ($validator === null) {
             $validator = $this->prophesize(Validator::class)->reveal();
         }
+
         return new CategoryTestDummyUserSetting($key, $defaultValue, $field, $validator);
     }
 
     /** @test */
-    public function icon_returns_null(){
+    public function icon_returns_null()
+    {
         $category = $this->newSettingCategory('ck');
         $this->assertNull($category->icon());
     }
 
     /** @test */
-    public function groups_returns_the_groups_in_the_category(){
+    public function groups_returns_the_groups_in_the_category()
+    {
         $category = $this->newSettingCategory('ck');
         $group1 = $this->newSettingGroup('g1');
         $group2 = $this->newSettingGroup('g2');
@@ -76,7 +77,8 @@ class CategoryTest extends TestCase
     }
 
     /** @test */
-    public function groupWithUserSettings_returns_groups_that_have_user_settings(){
+    public function group_with_user_settings_returns_groups_that_have_user_settings()
+    {
         $category = $this->newSettingCategory('ck');
         $group1 = $this->prophesize(Group::class);
         $group1->hasUserSettings($category)->willReturn(false);
@@ -102,7 +104,8 @@ class CategoryTest extends TestCase
     }
 
     /** @test */
-    public function groupsWithGlobalSettings_returns_groups_that_have_global_settings(){
+    public function groups_with_global_settings_returns_groups_that_have_global_settings()
+    {
         $category = $this->newSettingCategory('ck');
         $group1 = $this->prophesize(Group::class);
         $group1->hasGlobalSettings($category)->willReturn(false);
@@ -126,15 +129,15 @@ class CategoryTest extends TestCase
             $category->groupsWithGlobalSettings()
         );
     }
-
 }
 
 
 class CategoryTestDummyCategory extends Category
 {
-
     public string $key;
+
     public string $name;
+
     public string $description;
 
     public function __construct(string $key, string $name = 'SettingName', string $description = 'SettingDescription')
@@ -145,7 +148,7 @@ class CategoryTestDummyCategory extends Category
     }
 
     /**
-     * The key of the category
+     * The key of the category.
      *
      * @return string
      */
@@ -155,7 +158,7 @@ class CategoryTestDummyCategory extends Category
     }
 
     /**
-     * The name for the category
+     * The name for the category.
      *
      * @return string
      */
@@ -165,7 +168,7 @@ class CategoryTestDummyCategory extends Category
     }
 
     /**
-     * A description for the category
+     * A description for the category.
      *
      * @return string
      */
@@ -177,9 +180,10 @@ class CategoryTestDummyCategory extends Category
 
 class CategoryTestDummyGroup extends Group
 {
-
     public string $key;
+
     public string $name;
+
     public string $description;
 
     public function __construct(string $key, string $name = 'SettingName', string $description = 'SettingDescription')
@@ -190,7 +194,7 @@ class CategoryTestDummyGroup extends Group
     }
 
     /**
-     * The key of the group
+     * The key of the group.
      *
      * @return string
      */
@@ -200,7 +204,7 @@ class CategoryTestDummyGroup extends Group
     }
 
     /**
-     * The name for the group
+     * The name for the group.
      *
      * @return string
      */
@@ -210,7 +214,7 @@ class CategoryTestDummyGroup extends Group
     }
 
     /**
-     * A description for the group
+     * A description for the group.
      *
      * @return string
      */
@@ -222,13 +226,15 @@ class CategoryTestDummyGroup extends Group
 
 class CategoryTestDummyUserSetting extends UserSetting
 {
-
     public string $key;
+
     public $defaultValue;
+
     /**
      * @var Field
      */
     public Field $fieldOptions;
+
     /**
      * @var Validator
      */
@@ -243,7 +249,7 @@ class CategoryTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * The key for the setting
+     * The key for the setting.
      *
      * @return string
      */
@@ -253,7 +259,7 @@ class CategoryTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * The default value of the setting
+     * The default value of the setting.
      *
      * @return mixed
      */
@@ -263,7 +269,7 @@ class CategoryTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * The field schema to show the user when editing the value
+     * The field schema to show the user when editing the value.
      *
      * @return Field
      */
@@ -273,7 +279,7 @@ class CategoryTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * A validator to validate any new values
+     * A validator to validate any new values.
      *
      * @param mixed $value The new value
      * @return Validator
@@ -298,13 +304,15 @@ class CategoryTestDummyUserSetting extends UserSetting
 
 class CategoryTestDummyGlobalSetting extends GlobalSetting
 {
-
     public string $key;
+
     public $defaultValue;
+
     /**
      * @var Field
      */
     public Field $fieldOptions;
+
     /**
      * @var Validator
      */
@@ -319,7 +327,7 @@ class CategoryTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * The key for the setting
+     * The key for the setting.
      *
      * @return string
      */
@@ -329,7 +337,7 @@ class CategoryTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * The default value of the setting
+     * The default value of the setting.
      *
      * @return mixed
      */
@@ -339,7 +347,7 @@ class CategoryTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * The field schema to show the global when editing the value
+     * The field schema to show the global when editing the value.
      *
      * @return Field
      */
@@ -349,7 +357,7 @@ class CategoryTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * A validator to validate any new values
+     * A validator to validate any new values.
      *
      * @param mixed $value The new value
      * @return Validator

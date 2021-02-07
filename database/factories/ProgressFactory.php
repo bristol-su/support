@@ -15,11 +15,11 @@ use Faker\Generator as Faker;
 | your application. Factories provide a convenient way to generate new
 | model instances for testing / seeding your application's database.
 |
-*/
+ */
 
-$factory->define(Progress::class, function(Faker $faker) {
+$factory->define(Progress::class, function (Faker $faker) {
     return [
-        'activity_instance_id' => function() {
+        'activity_instance_id' => function () {
             return factory(ActivityInstance::class)->create()->id;
         },
         'complete' => $faker->boolean,

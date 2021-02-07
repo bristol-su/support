@@ -6,9 +6,8 @@ use BristolSU\Support\Settings\Definition\Group;
 
 class AttributeGroup extends Group
 {
-
     /**
-     * The key of the group
+     * The key of the group.
      *
      * @return string
      */
@@ -18,7 +17,7 @@ class AttributeGroup extends Group
     }
 
     /**
-     * The name for the group
+     * The name for the group.
      *
      * @return string
      */
@@ -28,7 +27,7 @@ class AttributeGroup extends Group
     }
 
     /**
-     * A description for the group
+     * A description for the group.
      *
      * @return string
      */

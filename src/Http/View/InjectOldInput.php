@@ -7,11 +7,10 @@ use Illuminate\Http\Request;
 use Laracasts\Utilities\JavaScript\JavaScriptFacade;
 
 /**
- * Inject Javascript Variables
+ * Inject Javascript Variables.
  */
 class InjectOldInput
 {
-
     /**
      * @var Request
      */
@@ -25,9 +24,7 @@ class InjectOldInput
     public function compose(View $view)
     {
         JavaScriptFacade::put([
-          'old_input' => $this->request->old()
+            'old_input' => $this->request->old()
         ]);
-
     }
-
 }

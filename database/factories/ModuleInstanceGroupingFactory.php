@@ -13,9 +13,9 @@ use Faker\Generator as Faker;
 | your application. Factories provide a convenient way to generate new
 | model instances for testing / seeding your application's database.
 |
-*/
+ */
 
-$factory->define(\BristolSU\Support\ModuleInstance\ModuleInstanceGrouping::class, function(Faker $faker) {
+$factory->define(\BristolSU\Support\ModuleInstance\ModuleInstanceGrouping::class, function (Faker $faker) {
     return [
         'heading' => join(' ', $faker->words()),
     ];

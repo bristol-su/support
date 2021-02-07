@@ -11,11 +11,9 @@ use BristolSU\Support\Settings\Definition\UserSetting;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Schema\Field;
 use Illuminate\Contracts\Validation\Validator;
-use Prophecy\PhpUnit\ProphecyTrait;
 
 class SettingStoreTest extends TestCase
 {
-
     public function newSettingCategory(string $key, $name = 'CategoryName', $description = 'CategoryDescription')
     {
         return new SettingStoreTestDummyCategory($key, $name, $description);
@@ -28,28 +26,31 @@ class SettingStoreTest extends TestCase
 
     public function newGlobalSetting(string $key, $defaultValue = 'DefaultValue', Field $field = null, Validator $validator = null)
     {
-        if($field === null) {
+        if ($field === null) {
             $field = $this->prophesize(Field::class)->reveal();
         }
-        if($validator === null) {
+        if ($validator === null) {
             $validator = $this->prophesize(Validator::class)->reveal();
         }
+
         return new SettingStoreTestDummyGlobalSetting($key, $defaultValue, $field, $validator);
     }
 
     public function newUserSetting(string $key, $defaultValue = 'DefaultValue', Field $field = null, Validator $validator = null)
     {
-        if($field === null) {
+        if ($field === null) {
             $field = $this->prophesize(Field::class)->reveal();
         }
-        if($validator === null) {
+        if ($validator === null) {
             $validator = $this->prophesize(Validator::class)->reveal();
         }
+
         return new SettingStoreTestDummyUserSetting($key, $defaultValue, $field, $validator);
     }
 
     /** @test */
-    public function a_global_setting_can_be_registered_and_retrieved(){
+    public function a_global_setting_can_be_registered_and_retrieved()
+    {
         $category = $this->newSettingCategory('cat_key');
         $group = $this->newSettingGroup('group_key');
         $setting = $this->newGlobalSetting('setting_key');
@@ -61,7 +62,8 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function getSetting_throws_an_exception_if_the_setting_is_not_registered(){
+    public function get_setting_throws_an_exception_if_the_setting_is_not_registered()
+    {
         $this->expectException(\Exception::class);
         $this->expectDeprecationMessage('Setting definition with key [setting_key] could not be found');
 
@@ -71,7 +73,8 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function a_setting_can_be_registered_twice_and_retrieved(){
+    public function a_setting_can_be_registered_twice_and_retrieved()
+    {
         $category = $this->newSettingCategory('cat_key');
         $category2 = $this->newSettingCategory('cat2_key');
         $group = $this->newSettingGroup('group_key');
@@ -85,9 +88,9 @@ class SettingStoreTest extends TestCase
         $this->assertSame($setting, $store->getSetting('setting_key'));
     }
 
-
     /** @test */
-    public function a_group_can_be_registered_and_retrieved(){
+    public function a_group_can_be_registered_and_retrieved()
+    {
         $category = $this->newSettingCategory('cat_key');
         $group = $this->newSettingGroup('group_key');
         $setting = $this->newGlobalSetting('setting_key');
@@ -99,7 +102,8 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function a_group_can_be_registered_twice_and_retrieved(){
+    public function a_group_can_be_registered_twice_and_retrieved()
+    {
         $category = $this->newSettingCategory('cat_key');
         $category2 = $this->newSettingCategory('cat2_key');
         $group = $this->newSettingGroup('group_key');
@@ -114,7 +118,8 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function getGroup_throws_an_exception_if_the_group_is_not_registered(){
+    public function get_group_throws_an_exception_if_the_group_is_not_registered()
+    {
         $this->expectException(\Exception::class);
         $this->expectDeprecationMessage('Setting group [group_key] not registered');
 
@@ -124,7 +129,8 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function a_category_can_be_registered_and_retrieved(){
+    public function a_category_can_be_registered_and_retrieved()
+    {
         $category = $this->newSettingCategory('cat_key');
         $group = $this->newSettingGroup('group_key');
         $setting = $this->newGlobalSetting('setting_key');
@@ -136,7 +142,8 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function a_category_can_be_registered_twice_and_retrieved(){
+    public function a_category_can_be_registered_twice_and_retrieved()
+    {
         $category = $this->newSettingCategory('cat_key');
         $group = $this->newSettingGroup('group_key');
         $group2 = $this->newSettingGroup('group2_key');
@@ -151,7 +158,8 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function getCategory_throws_an_exception_if_the_category_is_not_registered(){
+    public function get_category_throws_an_exception_if_the_category_is_not_registered()
+    {
         $this->expectException(\Exception::class);
         $this->expectDeprecationMessage('Setting category [category_key] not registered');
 
@@ -161,7 +169,8 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function getGlobalSettingsInGroup_gets_all_global_setting_in_the_given_group_and_category(){
+    public function get_global_settings_in_group_gets_all_global_setting_in_the_given_group_and_category()
+    {
         $category = $this->newSettingCategory('cat_key');
         $group = $this->newSettingGroup('group_key');
         $setting = $this->newUserSetting('setting_key');
@@ -183,7 +192,8 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function getUserSettingsInGroup_gets_all_user_setting_in_the_given_group_and_category(){
+    public function get_user_settings_in_group_gets_all_user_setting_in_the_given_group_and_category()
+    {
         $category = $this->newSettingCategory('cat_key');
         $group = $this->newSettingGroup('group_key');
         $setting = $this->newUserSetting('setting_key');
@@ -205,7 +215,8 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function getAllSettingsInGroup_gets_all_the_settings_in_the_given_group_and_category(){
+    public function get_all_settings_in_group_gets_all_the_settings_in_the_given_group_and_category()
+    {
         $category = $this->newSettingCategory('cat_key');
         $group = $this->newSettingGroup('group_key');
         $setting = $this->newUserSetting('setting_key');
@@ -227,7 +238,8 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function getAllGroupsInCategory_gets_all_the_groups_in_the_given_category(){
+    public function get_all_groups_in_category_gets_all_the_groups_in_the_given_category()
+    {
         $category = $this->newSettingCategory('cat_key');
         $group = $this->newSettingGroup('group_key');
         $group2 = $this->newSettingGroup('group2_key');
@@ -247,7 +259,8 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function getCategories_gets_all_categories(){
+    public function get_categories_gets_all_categories()
+    {
         $category = $this->newSettingCategory('cat_key');
         $category2 = $this->newSettingCategory('cat2_key');
         $category3 = $this->newSettingCategory('cat3_key');
@@ -267,7 +280,8 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function getAllSettingsInGroup_returns_an_empty_array_if_category_not_registered(){
+    public function get_all_settings_in_group_returns_an_empty_array_if_category_not_registered()
+    {
         $category = $this->newSettingCategory('cat_key');
         $category2 = $this->newSettingCategory('cat2_key');
         $group = $this->newSettingGroup('group_key');
@@ -280,7 +294,8 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function getAllSettingsInGroup_returns_an_empty_array_if_group_not_registered(){
+    public function get_all_settings_in_group_returns_an_empty_array_if_group_not_registered()
+    {
         $category = $this->newSettingCategory('cat_key');
         $group = $this->newSettingGroup('group_key');
         $group2 = $this->newSettingGroup('group2_key');
@@ -293,7 +308,8 @@ class SettingStoreTest extends TestCase
     }
 
     /** @test */
-    public function getAllGroupsInCategory_returns_an_empty_array_if_category_not_registered(){
+    public function get_all_groups_in_category_returns_an_empty_array_if_category_not_registered()
+    {
         $category = $this->newSettingCategory('cat_key');
         $category2 = $this->newSettingCategory('cat2_key');
         $group = $this->newSettingGroup('group_key');
@@ -304,14 +320,14 @@ class SettingStoreTest extends TestCase
 
         $this->assertEquals([], $store->getAllGroupsInCategory($category2));
     }
-
 }
 
 class SettingStoreTestDummyCategory extends Category
 {
-
     public string $key;
+
     public string $name;
+
     public string $description;
 
     public function __construct(string $key, string $name = 'SettingName', string $description = 'SettingDescription')
@@ -322,7 +338,7 @@ class SettingStoreTestDummyCategory extends Category
     }
 
     /**
-     * The key of the category
+     * The key of the category.
      *
      * @return string
      */
@@ -332,7 +348,7 @@ class SettingStoreTestDummyCategory extends Category
     }
 
     /**
-     * The name for the category
+     * The name for the category.
      *
      * @return string
      */
@@ -342,7 +358,7 @@ class SettingStoreTestDummyCategory extends Category
     }
 
     /**
-     * A description for the category
+     * A description for the category.
      *
      * @return string
      */
@@ -354,9 +370,10 @@ class SettingStoreTestDummyCategory extends Category
 
 class SettingStoreTestDummyGroup extends Group
 {
-
     public string $key;
+
     public string $name;
+
     public string $description;
 
     public function __construct(string $key, string $name = 'SettingName', string $description = 'SettingDescription')
@@ -367,7 +384,7 @@ class SettingStoreTestDummyGroup extends Group
     }
 
     /**
-     * The key of the group
+     * The key of the group.
      *
      * @return string
      */
@@ -377,7 +394,7 @@ class SettingStoreTestDummyGroup extends Group
     }
 
     /**
-     * The name for the group
+     * The name for the group.
      *
      * @return string
      */
@@ -387,7 +404,7 @@ class SettingStoreTestDummyGroup extends Group
     }
 
     /**
-     * A description for the group
+     * A description for the group.
      *
      * @return string
      */
@@ -399,13 +416,15 @@ class SettingStoreTestDummyGroup extends Group
 
 class SettingStoreTestDummyUserSetting extends UserSetting
 {
-
     public string $key;
+
     public $defaultValue;
+
     /**
      * @var Field
      */
     public Field $fieldOptions;
+
     /**
      * @var Validator
      */
@@ -420,7 +439,7 @@ class SettingStoreTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * The key for the setting
+     * The key for the setting.
      *
      * @return string
      */
@@ -430,7 +449,7 @@ class SettingStoreTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * The default value of the setting
+     * The default value of the setting.
      *
      * @return mixed
      */
@@ -440,7 +459,7 @@ class SettingStoreTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * The field schema to show the user when editing the value
+     * The field schema to show the user when editing the value.
      *
      * @return Field
      */
@@ -450,7 +469,7 @@ class SettingStoreTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * A validator to validate any new values
+     * A validator to validate any new values.
      *
      * @param mixed $value The new value
      * @return Validator
@@ -475,13 +494,15 @@ class SettingStoreTestDummyUserSetting extends UserSetting
 
 class SettingStoreTestDummyGlobalSetting extends GlobalSetting
 {
-
     public string $key;
+
     public $defaultValue;
+
     /**
      * @var Field
      */
     public Field $fieldOptions;
+
     /**
      * @var Validator
      */
@@ -496,7 +517,7 @@ class SettingStoreTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * The key for the setting
+     * The key for the setting.
      *
      * @return string
      */
@@ -506,7 +527,7 @@ class SettingStoreTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * The default value of the setting
+     * The default value of the setting.
      *
      * @return mixed
      */
@@ -516,7 +537,7 @@ class SettingStoreTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * The field schema to show the global when editing the value
+     * The field schema to show the global when editing the value.
      *
      * @return Field
      */
@@ -526,7 +547,7 @@ class SettingStoreTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * A validator to validate any new values
+     * A validator to validate any new values.
      *
      * @param mixed $value The new value
      * @return Validator

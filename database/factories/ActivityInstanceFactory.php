@@ -4,7 +4,6 @@ namespace Database\Factories;
 
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
-use BristolSU\Support\Logic\Logic;
 use Faker\Generator as Faker;
 
 /*
@@ -16,13 +15,13 @@ use Faker\Generator as Faker;
 | your application. Factories provide a convenient way to generate new
 | model instances for testing / seeding your application's database.
 |
-*/
+ */
 
-$factory->define(ActivityInstance::class, function(Faker $faker) {
+$factory->define(ActivityInstance::class, function (Faker $faker) {
     return [
         'name' => $faker->word,
         'description' => $faker->text,
-        'activity_id' => function() {
+        'activity_id' => function () {
             return factory(Activity::class)->create()->id;
         },
         'resource_type' => 'user',

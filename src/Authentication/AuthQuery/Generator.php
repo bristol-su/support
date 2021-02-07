@@ -7,15 +7,15 @@ use BristolSU\Support\ActivityInstance\Exceptions\NotInActivityInstanceException
 use BristolSU\Support\Authentication\Contracts\Authentication;
 
 /**
- * Get information about credentials to use to reference the authenticated models
+ * Get information about credentials to use to reference the authenticated models.
  */
 class Generator
 {
-
     /**
      * @var Authentication
      */
     private Authentication $authentication;
+
     /**
      * @var ActivityInstanceResolver
      */
@@ -36,16 +36,17 @@ class Generator
     {
         $group = $this->authentication->getGroup();
         $role = $this->authentication->getRole();
+
         try {
             $activityId = $this->activityInstanceResolver->getActivityInstance()->id;
         } catch (NotInActivityInstanceException $e) {
             $activityId = null;
         }
+
         return new AuthCredentials(
             ($group === null ? null : $group->id()),
             ($role === null ? null : $role->id()),
             $activityId
         );
     }
-
 }

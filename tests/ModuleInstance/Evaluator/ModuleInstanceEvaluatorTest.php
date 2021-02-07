@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Tests\ModuleInstance\Evaluator;
 
-
 use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
@@ -17,14 +16,14 @@ use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation;
 use BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
-use Prophecy\Argument;
 use BristolSU\Support\Tests\TestCase;
+use Prophecy\Argument;
 
 class ModuleInstanceEvaluatorTest extends TestCase
 {
-
     /** @test */
-    public function admin_returns_an_evaluation_instance(){
+    public function admin_returns_an_evaluation_instance()
+    {
         $moduleInstance = factory(ModuleInstance::class)->make();
         $evaluation = $this->prophesize(Evaluation::class);
 
@@ -32,9 +31,9 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $this->assertInstanceOf(Evaluation::class, $moduleInstanceEvaluator->evaluateAdministrator($moduleInstance));
     }
 
-
     /** @test */
-    public function participant_returns_an_evaluation_instance(){
+    public function participant_returns_an_evaluation_instance()
+    {
         $activityInstance = factory(ActivityInstance::class)->create();
         $moduleInstance = factory(ModuleInstance::class)->make();
         $activityInstance->activity->moduleInstances()->save($moduleInstance);
@@ -44,9 +43,9 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $this->assertInstanceOf(Evaluation::class, $moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance));
     }
 
-
     /** @test */
-    public function admin_passes_the_correct_data_to_an_evaluation(){
+    public function admin_passes_the_correct_data_to_an_evaluation()
+    {
         $moduleInstance = factory(ModuleInstance::class)->make();
         $evaluation = $this->prophesize(Evaluation::class);
         $evaluation->setVisible(true)->shouldBeCalled();
@@ -61,7 +60,8 @@ class ModuleInstanceEvaluatorTest extends TestCase
     }
 
     /** @test */
-    public function participant_passes_the_correct_data_to_an_evaluation_for_a_completable_activity(){
+    public function participant_passes_the_correct_data_to_an_evaluation_for_a_completable_activity()
+    {
         $activity = factory(Activity::class)->create(['type' => 'completable']);
         $completionConditionInstance = factory(CompletionConditionInstance::class)->create();
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
@@ -84,14 +84,14 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $this->logicTester()->bind();
         
         $completionTester = $this->prophesize(CompletionConditionTester::class);
-        $completionTester->evaluate(Argument::that(function($actInst) use ($activityInstance) {
+        $completionTester->evaluate(Argument::that(function ($actInst) use ($activityInstance) {
             return $activityInstance->is($actInst);
-        }), Argument::that(function($arg) use ($completionConditionInstance) {
+        }), Argument::that(function ($arg) use ($completionConditionInstance) {
             return $completionConditionInstance->is($arg);
         }))->shouldBeCalled()->willReturn(true);
-        $completionTester->evaluatePercentage(Argument::that(function($actInst) use ($activityInstance) {
+        $completionTester->evaluatePercentage(Argument::that(function ($actInst) use ($activityInstance) {
             return $activityInstance->is($actInst);
-        }), Argument::that(function($arg) use ($completionConditionInstance) {
+        }), Argument::that(function ($arg) use ($completionConditionInstance) {
             return $completionConditionInstance->is($arg);
         }))->shouldBeCalled()->willReturn(100);
         $this->app->instance(CompletionConditionTester::class, $completionTester->reveal());
@@ -101,7 +101,8 @@ class ModuleInstanceEvaluatorTest extends TestCase
     }
 
     /** @test */
-    public function participant_passes_the_correct_data_to_an_evaluation_for_an_open_activity(){
+    public function participant_passes_the_correct_data_to_an_evaluation_for_an_open_activity()
+    {
         $activity = factory(Activity::class)->create(['type' => 'open']);
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
         $moduleInstance = factory(ModuleInstance::class)->make();
@@ -127,7 +128,8 @@ class ModuleInstanceEvaluatorTest extends TestCase
     }
 
     /** @test */
-    public function participant_passes_the_user_group_and_role_to_the_tester(){
+    public function participant_passes_the_user_group_and_role_to_the_tester()
+    {
         $activity = factory(Activity::class)->create(['type' => 'open']);
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
         $moduleInstance = factory(ModuleInstance::class)->make();
@@ -151,7 +153,8 @@ class ModuleInstanceEvaluatorTest extends TestCase
     }
 
     /** @test */
-    public function evaluateResource_returns_an_evaluation_contract(){
+    public function evaluate_resource_returns_an_evaluation_contract()
+    {
         $user = $this->newUser();
         $moduleInstance = factory(ModuleInstance::class)->create();
         $activityInstance = factory(ActivityInstance::class)->create([
@@ -169,11 +172,11 @@ class ModuleInstanceEvaluatorTest extends TestCase
         
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
         $this->assertEquals($evaluation->reveal(), $moduleInstanceEvaluator->evaluateResource($activityInstance, $moduleInstance));
-
     }
     
     /** @test */
-    public function evaluateResource_sets_visible_mandatory_active_complete_percentage_attributes_to_true_if_audience_members_returned(){
+    public function evaluate_resource_sets_visible_mandatory_active_complete_percentage_attributes_to_true_if_audience_members_returned()
+    {
         $user = $this->newUser();
         $completionCondition = factory(CompletionConditionInstance::class)->create();
         $activity = factory(Activity::class)->create(['type' => 'completable']);
@@ -186,32 +189,32 @@ class ModuleInstanceEvaluatorTest extends TestCase
         ]);
 
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
-        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function ($arg) use ($user) {
             return $arg instanceof User && $user->id() === $arg->id();
-        }), Argument::that(function($arg) use($moduleInstance) {
+        }), Argument::that(function ($arg) use ($moduleInstance) {
             return $arg instanceof Logic && $moduleInstance->visibleLogic->id === $arg->id;
         }))->shouldBeCalled()->willReturn($audienceMembers);
-        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function ($arg) use ($user) {
             return $arg instanceof User && $user->id() === $arg->id();
-        }), Argument::that(function($arg) use($moduleInstance) {
+        }), Argument::that(function ($arg) use ($moduleInstance) {
             return $arg instanceof Logic && $moduleInstance->activeLogic->id === $arg->id;
         }))->shouldBeCalled()->willReturn($audienceMembers);
-        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function ($arg) use ($user) {
             return $arg instanceof User && $user->id() === $arg->id();
-        }), Argument::that(function($arg) use($moduleInstance) {
+        }), Argument::that(function ($arg) use ($moduleInstance) {
             return $arg instanceof Logic && $moduleInstance->mandatoryLogic->id === $arg->id;
         }))->shouldBeCalled()->willReturn($audienceMembers);
         $this->instance(AudienceMemberFactory::class, $audienceMemberFactory->reveal());
 
         $completionTester = $this->prophesize(CompletionConditionTester::class);
-        $completionTester->evaluate(Argument::that(function($arg) use($activityInstance) {
+        $completionTester->evaluate(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $activityInstance->id === $arg->id;
-        }), Argument::that(function($arg) use($completionCondition) {
+        }), Argument::that(function ($arg) use ($completionCondition) {
             return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
         }))->shouldBeCalled()->willReturn(true);
-        $completionTester->evaluatePercentage(Argument::that(function($arg) use($activityInstance) {
+        $completionTester->evaluatePercentage(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $activityInstance->id === $arg->id;
-        }), Argument::that(function($arg) use($completionCondition) {
+        }), Argument::that(function ($arg) use ($completionCondition) {
             return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
         }))->shouldBeCalled()->willReturn(100);
         $this->instance(CompletionConditionTester::class, $completionTester->reveal());
@@ -226,11 +229,11 @@ class ModuleInstanceEvaluatorTest extends TestCase
 
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
         $moduleInstanceEvaluator->evaluateResource($activityInstance, $moduleInstance);
-
     }
 
     /** @test */
-    public function evaluateResource_sets_visible_mandatory_active_complete_percentage_attributes_to_false_if_audience_members_not_returned(){
+    public function evaluate_resource_sets_visible_mandatory_active_complete_percentage_attributes_to_false_if_audience_members_not_returned()
+    {
         $user = $this->newUser();
         $completionCondition = factory(CompletionConditionInstance::class)->create();
         $activity = factory(Activity::class)->create(['type' => 'completable']);
@@ -243,32 +246,32 @@ class ModuleInstanceEvaluatorTest extends TestCase
         ]);
 
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
-        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function ($arg) use ($user) {
             return $arg instanceof User && $user->id() === $arg->id();
-        }), Argument::that(function($arg) use($moduleInstance) {
+        }), Argument::that(function ($arg) use ($moduleInstance) {
             return $arg instanceof Logic && $moduleInstance->visibleLogic->id === $arg->id;
         }))->shouldBeCalled()->willReturn($audienceMembers);
-        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function ($arg) use ($user) {
             return $arg instanceof User && $user->id() === $arg->id();
-        }), Argument::that(function($arg) use($moduleInstance) {
+        }), Argument::that(function ($arg) use ($moduleInstance) {
             return $arg instanceof Logic && $moduleInstance->activeLogic->id === $arg->id;
         }))->shouldBeCalled()->willReturn($audienceMembers);
-        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function ($arg) use ($user) {
             return $arg instanceof User && $user->id() === $arg->id();
-        }), Argument::that(function($arg) use($moduleInstance) {
+        }), Argument::that(function ($arg) use ($moduleInstance) {
             return $arg instanceof Logic && $moduleInstance->mandatoryLogic->id === $arg->id;
         }))->shouldBeCalled()->willReturn($audienceMembers);
         $this->instance(AudienceMemberFactory::class, $audienceMemberFactory->reveal());
 
         $completionTester = $this->prophesize(CompletionConditionTester::class);
-        $completionTester->evaluate(Argument::that(function($arg) use($activityInstance) {
+        $completionTester->evaluate(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $activityInstance->id === $arg->id;
-        }), Argument::that(function($arg) use($completionCondition) {
+        }), Argument::that(function ($arg) use ($completionCondition) {
             return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
         }))->shouldBeCalled()->willReturn(false);
-        $completionTester->evaluatePercentage(Argument::that(function($arg) use($activityInstance) {
+        $completionTester->evaluatePercentage(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $activityInstance->id === $arg->id;
-        }), Argument::that(function($arg) use($completionCondition) {
+        }), Argument::that(function ($arg) use ($completionCondition) {
             return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
         }))->shouldBeCalled()->willReturn(40.4);
         $this->instance(CompletionConditionTester::class, $completionTester->reveal());
@@ -283,11 +286,11 @@ class ModuleInstanceEvaluatorTest extends TestCase
 
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
         $moduleInstanceEvaluator->evaluateResource($activityInstance, $moduleInstance);
-
     }
     
     /** @test */
-    public function evaluateResource_sets_mandatory_and_complete_to_false_if_a_non_completable_activity(){
+    public function evaluate_resource_sets_mandatory_and_complete_to_false_if_a_non_completable_activity()
+    {
         $user = $this->newUser();
         $completionCondition = factory(CompletionConditionInstance::class)->create();
         $activity = factory(Activity::class)->create(['type' => 'open']);
@@ -300,32 +303,32 @@ class ModuleInstanceEvaluatorTest extends TestCase
         ]);
 
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
-        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function ($arg) use ($user) {
             return $arg instanceof User && $user->id() === $arg->id();
-        }), Argument::that(function($arg) use($moduleInstance) {
+        }), Argument::that(function ($arg) use ($moduleInstance) {
             return $arg instanceof Logic && $moduleInstance->visibleLogic->id === $arg->id;
         }))->shouldBeCalled()->willReturn(collect());
-        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function ($arg) use ($user) {
             return $arg instanceof User && $user->id() === $arg->id();
-        }), Argument::that(function($arg) use($moduleInstance) {
+        }), Argument::that(function ($arg) use ($moduleInstance) {
             return $arg instanceof Logic && $moduleInstance->activeLogic->id === $arg->id;
         }))->shouldBeCalled()->willReturn(collect());
-        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function($arg) use($user) {
+        $audienceMemberFactory->withAccessToLogicGroupWithResource(Argument::that(function ($arg) use ($user) {
             return $arg instanceof User && $user->id() === $arg->id();
-        }), Argument::that(function($arg) use($moduleInstance) {
+        }), Argument::that(function ($arg) use ($moduleInstance) {
             return $arg instanceof Logic && $moduleInstance->mandatoryLogic->id === $arg->id;
         }))->shouldNotBeCalled();
         $this->instance(AudienceMemberFactory::class, $audienceMemberFactory->reveal());
 
         $completionTester = $this->prophesize(CompletionConditionTester::class);
-        $completionTester->evaluate(Argument::that(function($arg) use($activityInstance) {
+        $completionTester->evaluate(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $activityInstance->id === $arg->id;
-        }), Argument::that(function($arg) use($completionCondition) {
+        }), Argument::that(function ($arg) use ($completionCondition) {
             return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
         }))->shouldNotBeCalled();
-        $completionTester->evaluatePercentage(Argument::that(function($arg) use($activityInstance) {
+        $completionTester->evaluatePercentage(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $activityInstance->id === $arg->id;
-        }), Argument::that(function($arg) use($completionCondition) {
+        }), Argument::that(function ($arg) use ($completionCondition) {
             return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
         }))->shouldNotBeCalled();
         $this->instance(CompletionConditionTester::class, $completionTester->reveal());
@@ -340,7 +343,5 @@ class ModuleInstanceEvaluatorTest extends TestCase
 
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
         $moduleInstanceEvaluator->evaluateResource($activityInstance, $moduleInstance);
-
     }
-
 }

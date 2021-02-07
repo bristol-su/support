@@ -3,20 +3,16 @@
 namespace BristolSU\Support\Tests\Settings\Saved\ValueManipulator;
 
 use BristolSU\Support\Settings\Definition\GlobalSetting;
-use BristolSU\Support\Settings\Definition\Setting;
-use BristolSU\Support\Settings\Definition\SettingRegistrar;
 use BristolSU\Support\Settings\Definition\SettingStore;
 use BristolSU\Support\Settings\Saved\ValueManipulator\EncryptValue;
 use BristolSU\Support\Settings\Saved\ValueManipulator\Manipulator;
 use BristolSU\Support\Settings\Saved\ValueManipulator\SerializeValue;
 use BristolSU\Support\Tests\TestCase;
-use FormSchema\Schema\Field;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Support\Facades\Crypt;
 
 class EncryptValueTest extends TestCase
 {
-
     public \Prophecy\Prophecy\ObjectProphecy $settingStore;
 
     public function setUp(): void
@@ -33,7 +29,8 @@ class EncryptValueTest extends TestCase
     }
 
     /** @test */
-    public function encode_returns_the_result_of_the_given_manipulator_if_the_setting_should_not_be_encrypted(){
+    public function encode_returns_the_result_of_the_given_manipulator_if_the_setting_should_not_be_encrypted()
+    {
         $baseManipulator = $this->prophesize(Manipulator::class);
         $baseManipulator->encode('key1', 'original-value')->shouldBeCalled()->willReturn('base-encoded-value');
 
@@ -47,7 +44,8 @@ class EncryptValueTest extends TestCase
     }
 
     /** @test */
-    public function decode_returns_the_result_of_the_given_manipulator_if_the_setting_should_not_be_encrypted(){
+    public function decode_returns_the_result_of_the_given_manipulator_if_the_setting_should_not_be_encrypted()
+    {
         $baseManipulator = $this->prophesize(Manipulator::class);
         $baseManipulator->decode('key1', 'encoded-value')->shouldBeCalled()->willReturn('original-value');
 
@@ -61,7 +59,8 @@ class EncryptValueTest extends TestCase
     }
 
     /** @test */
-    public function encode_returns_the_encrypted_result_of_the_given_manipulator_if_the_setting_should_be_encrypted(){
+    public function encode_returns_the_encrypted_result_of_the_given_manipulator_if_the_setting_should_be_encrypted()
+    {
         $baseManipulator = $this->prophesize(Manipulator::class);
         $baseManipulator->encode('key1', 'original-value')->shouldBeCalled()->willReturn('base-encoded-value');
 
@@ -76,7 +75,8 @@ class EncryptValueTest extends TestCase
     }
 
     /** @test */
-    public function decode_returns_the_encrypted_result_of_the_given_manipulator_if_the_setting_should_be_encrypted(){
+    public function decode_returns_the_encrypted_result_of_the_given_manipulator_if_the_setting_should_be_encrypted()
+    {
         $baseManipulator = $this->prophesize(Manipulator::class);
         $baseManipulator->decode('key1', 'base-encoded-value')->shouldBeCalled()->willReturn('original-value');
 
@@ -91,7 +91,8 @@ class EncryptValueTest extends TestCase
     }
 
     /** @test */
-    public function it_works_with_serialize_value_manipulator(){
+    public function it_works_with_serialize_value_manipulator()
+    {
         $this->registerSetting('key1', 'some-random-value-doesnt-matter', false);
         $this->registerSetting('key2', 'some-random-value-doesnt-matter', true);
         $this->app->instance(SettingStore::class, $this->settingStore->reveal());

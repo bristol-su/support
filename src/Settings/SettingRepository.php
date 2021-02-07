@@ -4,9 +4,8 @@ namespace BristolSU\Support\Settings;
 
 interface SettingRepository
 {
-
     /**
-     * Get the value of a user setting for the given/authenticated user
+     * Get the value of a user setting for the given/authenticated user.
      *
      * @param string $key The key of the setting
      * @param int|null $userId The ID of the user, or null to use the authenticated user
@@ -15,7 +14,7 @@ interface SettingRepository
     public function getUserValue(string $key, int $userId = null);
 
     /**
-     * Get the value of a global setting
+     * Get the value of a global setting.
      *
      * @param string $key The setting key
      * @return mixed The value of the setting
@@ -23,7 +22,7 @@ interface SettingRepository
     public function getGlobalValue(string $key);
 
     /**
-     * Set a setting for a user
+     * Set a setting for a user.
      *
      * @param string $key The key of the setting
      * @param mixed $value The new value of the setting
@@ -32,7 +31,7 @@ interface SettingRepository
     public function setForUser(string $key, $value, int $userId);
 
     /**
-     * Set a setting for all user (this will be overridden by a user changing it, so acts as the default)
+     * Set a setting for all user (this will be overridden by a user changing it, so acts as the default).
      *
      * @param string $key The key of the setting
      * @param mixed $value The new value of the setting
@@ -40,11 +39,10 @@ interface SettingRepository
     public function setForAllUsers(string $key, $value);
 
     /**
-     * Set a global setting
+     * Set a global setting.
      *
      * @param string $key The key of the setting
      * @param mixed $value The new value of the setting
      */
     public function setGlobal(string $key, $value);
-
 }

@@ -7,21 +7,20 @@ use BristolSU\Support\Module\Contracts\ModuleManager as ModuleManagerContract;
 use BristolSU\Support\Module\Contracts\ModuleRepository as ModuleRepositoryContract;
 
 /**
- * Module Repository for retrieving registered modules
+ * Module Repository for retrieving registered modules.
  */
 class ModuleRepository implements ModuleRepositoryContract
 {
-
     /**
-     * Holds the module manager to retrieve modules from
-     * 
+     * Holds the module manager to retrieve modules from.
+     *
      * @var ModuleManagerContract
      */
     private $manager;
     
     /**
-     * Module factory to create modules
-     * 
+     * Module factory to create modules.
+     *
      * @var ModuleFactoryContract
      */
     private $factory;
@@ -37,8 +36,8 @@ class ModuleRepository implements ModuleRepositoryContract
     }
 
     /**
-     * Get all modules registered
-     * 
+     * Get all modules registered.
+     *
      * @return \BristolSU\Support\Module\Contracts\Module[]
      */
     public function all()
@@ -47,21 +46,22 @@ class ModuleRepository implements ModuleRepositoryContract
         foreach ($this->manager->aliases() as $alias) {
             $modules[$alias] = $this->factory->fromAlias($alias);
         }
+
         return $modules;
     }
 
     /**
-     * Get a module by alias
-     * 
+     * Get a module by alias.
+     *
      * @param string $alias Alias of the module
-     * @return \BristolSU\Support\Module\Contracts\Module|null Module or null if not registered 
+     * @return \BristolSU\Support\Module\Contracts\Module|null Module or null if not registered
      */
     public function findByAlias($alias)
     {
         if ($this->manager->exists($alias)) {
             return $this->factory->fromAlias($alias);
         }
+
         return null;
     }
-
 }

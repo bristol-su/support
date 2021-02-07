@@ -8,27 +8,26 @@ use BristolSU\ControlDB\Contracts\Models\User;
 use Illuminate\Testing\Assert;
 
 /**
- * Handles collecting and evaluating collections of user, group or role models
+ * Handles collecting and evaluating collections of user, group or role models.
  */
 class LogicTesterResult
 {
-
     /**
-     * Holds the user/group/role combinations which are in a logic group
+     * Holds the user/group/role combinations which are in a logic group.
      *
      * @var array Array of arrays: [$user, $group, $role]
      */
     private $passes = [];
 
     /**
-     * Holds the user/group/role combinations which are not in a logic group
+     * Holds the user/group/role combinations which are not in a logic group.
      *
      * @var array Array of arrays: [$user, $group, $role]
      */
     private $fails = [];
 
     /**
-     * Holds the user/group/role combinations which must be called
+     * Holds the user/group/role combinations which must be called.
      *
      * @var array Array of arrays: [$user, $group, $role]
      */
@@ -42,14 +41,14 @@ class LogicTesterResult
     private $overrideResult;
 
     /**
-     * Holds the default return value if the user/group/role combination have not been given a result
+     * Holds the default return value if the user/group/role combination have not been given a result.
      *
      * @var bool
      */
     private $default = false;
 
     /**
-     * The given combination of user, group and role should return true when tested
+     * The given combination of user, group and role should return true when tested.
      *
      * @param User|null $userModel User model
      * @param Group|null $groupModel Group model
@@ -59,6 +58,7 @@ class LogicTesterResult
     public function pass($userModel = null, $groupModel = null, $roleModel = null)
     {
         $this->passes[] = $this->parseArguments($userModel, $groupModel, $roleModel);
+
         return $this;
     }
 
@@ -76,7 +76,7 @@ class LogicTesterResult
     }
 
     /**
-     * The given combination of user, group and role should return false when tested
+     * The given combination of user, group and role should return false when tested.
      *
      * @param User|null $userModel User model
      * @param Group|null $groupModel Group model
@@ -86,11 +86,12 @@ class LogicTesterResult
     public function fail($userModel = null, $groupModel = null, $roleModel = null)
     {
         $this->fails[] = $this->parseArguments($userModel, $groupModel, $roleModel);
+
         return $this;
     }
 
     /**
-     * The given combination must be called for the assertion to pass
+     * The given combination must be called for the assertion to pass.
      *
      * @param User|null $userModel User model
      * @param Group|null $groupModel Group model
@@ -100,11 +101,12 @@ class LogicTesterResult
     public function shouldBeCalled($userModel = null, $groupModel = null, $roleModel = null)
     {
         $this->required[] = $this->parseArguments($userModel, $groupModel, $roleModel);
+
         return $this;
     }
 
     /**
-     * Set the default value if a user/group/role are given that haven't been previously registered
+     * Set the default value if a user/group/role are given that haven't been previously registered.
      *
      * @param bool $value Default value to return
      * @return LogicTesterResult
@@ -112,6 +114,7 @@ class LogicTesterResult
     public function otherwise(bool $value = true)
     {
         $this->default = $value;
+
         return $this;
     }
 
@@ -132,7 +135,7 @@ class LogicTesterResult
     }
 
     /**
-     * Evaluate a user/group/role combination
+     * Evaluate a user/group/role combination.
      *
      * @param User|null $userModel User model
      * @param Group|null $groupModel Group model
@@ -142,7 +145,7 @@ class LogicTesterResult
     public function evaluate($userModel = null, $groupModel = null, $roleModel = null): bool
     {
         $args = $this->parseArguments($userModel, $groupModel, $roleModel);
-        $this->required = array_filter($this->required, function($parameters) use ($args) {
+        $this->required = array_filter($this->required, function ($parameters) use ($args) {
             return $parameters !== $args;
         });
 
@@ -156,15 +159,15 @@ class LogicTesterResult
         if (in_array($args, $this->fails)) {
             return false;
         }
+
         return $this->default;
     }
 
     /**
-     * Test the required assertions have all been called
+     * Test the required assertions have all been called.
      */
     public function __destruct()
     {
         Assert::assertCount(0, $this->required, 'Not all logic tests have been called.');
     }
-
 }

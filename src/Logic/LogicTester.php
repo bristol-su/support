@@ -12,13 +12,12 @@ use BristolSU\Support\Logic\Specification\FilterTrueSpecification;
 use BristolSU\Support\Logic\Specification\OrSpecification;
 
 /**
- * Test if the given resources are in a logic group
+ * Test if the given resources are in a logic group.
  */
 class LogicTester implements LogicTesterContract
 {
-
     /**
-     * Test if the given resources are in a logic group
+     * Test if the given resources are in a logic group.
      *
      * @param Logic $logic Logic group to test
      * @param null|User $userModel The user model to test the logic group with
@@ -58,6 +57,4 @@ class LogicTester implements LogicTesterContract
             new OrSpecification(...$anyFalse)
         ))->isSatisfied();
     }
-
-
 }

@@ -6,14 +6,13 @@ use BristolSU\Support\Connection\Contracts\ConnectionRepository as ConnectionRep
 use Illuminate\Support\Collection;
 
 /**
- * Handles connections
+ * Handles connections.
  */
 class ConnectionRepository implements ConnectionRepositoryContract
 {
-
     /**
-     * Get all connections
-     * 
+     * Get all connections.
+     *
      * @return Connection[]|\Illuminate\Database\Eloquent\Collection
      */
     public function all()
@@ -22,8 +21,8 @@ class ConnectionRepository implements ConnectionRepositoryContract
     }
 
     /**
-     * Get a connection by ID
-     * 
+     * Get a connection by ID.
+     *
      * @param int $id ID of the connection
      * @return Connection
      */
@@ -33,18 +32,19 @@ class ConnectionRepository implements ConnectionRepositoryContract
     }
 
     /**
-     * Delete a connection
-     * 
+     * Delete a connection.
+     *
      * @param int $id ID of the connection
-     * @return bool|void|null
      * @throws \Exception If the connection could not be deleted
+     * @return bool|void|null
      */
-    public function delete(int $id) {
+    public function delete(int $id)
+    {
         return $this->get($id)->delete();
     }
 
     /**
-     * Create a connection
+     * Create a connection.
      *
      * Attributes should contain
      * [
@@ -67,7 +67,7 @@ class ConnectionRepository implements ConnectionRepositoryContract
     }
 
     /**
-     * Update a connection
+     * Update a connection.
      *
      * Attributes can contain
      * [
@@ -82,14 +82,15 @@ class ConnectionRepository implements ConnectionRepositoryContract
      *
      * @param int $id ID of the connection to update
      * @param array $attributes Attributes to change
-     * @return Connection Edited connection
      * @throws \Exception If the connection could not be updated
+     * @return Connection Edited connection
      */
     public function update(int $id, array $attributes): Connection
     {
         $connection = $this->get($id);
         $connection->fill($attributes);
         $connection->save();
+
         return $connection;
     }
 
@@ -101,13 +102,13 @@ class ConnectionRepository implements ConnectionRepositoryContract
      */
     public function getAllForService(string $service)
     {
-        return collect(app(\BristolSU\Support\Connection\Contracts\ConnectorRepository::class)->forService($service))->map(function(RegisteredConnector $connector) {
+        return collect(app(\BristolSU\Support\Connection\Contracts\ConnectorRepository::class)->forService($service))->map(function (RegisteredConnector $connector) {
             return $this->getAllForConnector($connector->getAlias());
         })->flatten(1)->values();
     }
 
     /**
-     * Get all connections for a specific connector
+     * Get all connections for a specific connector.
      *
      * @param string $alias Connector to return connections for
      * @return Connection[]

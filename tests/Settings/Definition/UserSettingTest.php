@@ -3,19 +3,17 @@
 
 namespace BristolSU\Support\Tests\Settings\Definition;
 
-
 use BristolSU\Support\Settings\Definition\UserSetting;
 use BristolSU\Support\Settings\SettingRepository;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Schema\Field;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Facades\Hash;
 
 class UserSettingTest extends TestCase
 {
-
     /** @test */
-    public function value_gets_the_value_of_the_setting_with_the_user_id(){
+    public function value_gets_the_value_of_the_setting_with_the_user_id()
+    {
         $settingRepository = $this->prophesize(SettingRepository::class);
         $settingRepository->getUserValue('my key', 2)->shouldBeCalled()->willReturn('Setting value');
         $this->instance(SettingRepository::class, $settingRepository->reveal());
@@ -25,7 +23,8 @@ class UserSettingTest extends TestCase
     }
 
     /** @test */
-    public function getValue_gets_the_value_of_the_setting(){
+    public function get_value_gets_the_value_of_the_setting()
+    {
         $settingRepository = $this->prophesize(SettingRepository::class);
         $settingRepository->getUserValue('my key', 3)->shouldBeCalled()->willReturn('Setting value');
         $this->instance(SettingRepository::class, $settingRepository->reveal());
@@ -34,12 +33,14 @@ class UserSettingTest extends TestCase
     }
 
     /** @test */
-    public function getKey_gets_the_key_of_the_setting(){
+    public function get_key_gets_the_key_of_the_setting()
+    {
         $this->assertEquals('my key', UserSettingTestDummyUserSetting::getKey());
     }
 
     /** @test */
-    public function validator_returns_a_validator_instance_with_the_right_rules(){
+    public function validator_returns_a_validator_instance_with_the_right_rules()
+    {
         $userSetting = new UserSettingTestDummyUserSetting();
         $validator = $userSetting->validator('sometest');
 
@@ -53,13 +54,15 @@ class UserSettingTest extends TestCase
     }
 
     /** @test */
-    public function inputName_hashes_the_key(){
+    public function input_name_hashes_the_key()
+    {
         $setting = new UserSettingTestDummyUserSetting();
         $this->assertEquals(sha1('my key'), $setting->inputName());
     }
 
     /** @test */
-    public function setValue_sets_the_value_for_a_specific_user(){
+    public function set_value_sets_the_value_for_a_specific_user()
+    {
         $settingRepository = $this->prophesize(SettingRepository::class);
         $settingRepository->setForUser('my key', 'value1', 2)->shouldBeCalled();
         $this->instance(SettingRepository::class, $settingRepository->reveal());
@@ -68,7 +71,8 @@ class UserSettingTest extends TestCase
     }
 
     /** @test */
-    public function setSettingValue_sets_the_value_for_a_specific_user(){
+    public function set_setting_value_sets_the_value_for_a_specific_user()
+    {
         $settingRepository = $this->prophesize(SettingRepository::class);
         $settingRepository->setForUser('my key', 'value1', 2)->shouldBeCalled();
         $this->instance(SettingRepository::class, $settingRepository->reveal());
@@ -78,7 +82,8 @@ class UserSettingTest extends TestCase
     }
 
     /** @test */
-    public function setDefault_sets_the_value_for_all_users(){
+    public function set_default_sets_the_value_for_all_users()
+    {
         $settingRepository = $this->prophesize(SettingRepository::class);
         $settingRepository->setForAllUsers('my key', 'value1')->shouldBeCalled();
         $this->instance(SettingRepository::class, $settingRepository->reveal());
@@ -87,7 +92,8 @@ class UserSettingTest extends TestCase
     }
 
     /** @test */
-    public function setSettingDefault_sets_the_value_for_all_users(){
+    public function set_setting_default_sets_the_value_for_all_users()
+    {
         $settingRepository = $this->prophesize(SettingRepository::class);
         $settingRepository->setForAllUsers('my key', 'value1')->shouldBeCalled();
         $this->instance(SettingRepository::class, $settingRepository->reveal());
@@ -97,7 +103,8 @@ class UserSettingTest extends TestCase
     }
 
     /** @test */
-    public function shouldEncrypt_returns_the_value_of_the_encrypt_property(){
+    public function should_encrypt_returns_the_value_of_the_encrypt_property()
+    {
         $setting = new UserSettingTestDummyUserSetting();
 
         $setting->setShouldEncrypt(true);
@@ -106,14 +113,12 @@ class UserSettingTest extends TestCase
         $setting->setShouldEncrypt(false);
         $this->assertFalse($setting->shouldEncrypt());
     }
-
 }
 
 class UserSettingTestDummyUserSetting extends UserSetting
 {
-
     /**
-     * The key for the setting
+     * The key for the setting.
      *
      * @return string
      */
@@ -123,7 +128,7 @@ class UserSettingTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * The default value of the setting
+     * The default value of the setting.
      *
      * @return mixed
      */
@@ -133,7 +138,7 @@ class UserSettingTestDummyUserSetting extends UserSetting
     }
 
     /**
-     * The field schema to show the user when editing the value
+     * The field schema to show the user when editing the value.
      *
      * @return Field
      */
@@ -141,7 +146,6 @@ class UserSettingTestDummyUserSetting extends UserSetting
     {
         return \FormSchema\Generator\Field::input($this->inputName())->inputType('text')->getSchema();
     }
-
 
     /**
      * Return the validation rules for the setting.

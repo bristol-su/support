@@ -4,12 +4,10 @@ namespace BristolSU\Support\Theme\Settings;
 
 use BristolSU\Support\Settings\Definition\GlobalSetting;
 use FormSchema\Schema\Field;
-use Twigger\Blade\Foundation\ThemeDefinition;
 use Twigger\Blade\Foundation\ThemeStore;
 
 class ChosenTheme extends GlobalSetting
 {
-
     /**
      * @var ThemeStore
      */
@@ -33,9 +31,9 @@ class ChosenTheme extends GlobalSetting
             $this->inputName() => [
                 'required',
                 'string',
-                function($attribute, $value, $fail) {
-                    if(!$this->themeStore->hasTheme($value)) {
-                        $fail('The '.$attribute.' is not a valid theme.');
+                function ($attribute, $value, $fail) {
+                    if (!$this->themeStore->hasTheme($value)) {
+                        $fail('The ' . $attribute . ' is not a valid theme.');
                     }
                 }
             ]
@@ -43,7 +41,7 @@ class ChosenTheme extends GlobalSetting
     }
 
     /**
-     * The key for the setting
+     * The key for the setting.
      *
      * @return string
      */
@@ -53,22 +51,23 @@ class ChosenTheme extends GlobalSetting
     }
 
     /**
-     * The default value of the setting
+     * The default value of the setting.
      *
-     * @return mixed
      * @throws \Exception
+     * @return mixed
      */
     public function defaultValue()
     {
         $themes = $this->themeStore->allThemes();
-        if(empty($themes)) {
+        if (empty($themes)) {
             throw new \Exception('No theme has been registered');
         }
+
         return $themes[array_keys($themes)[0]]->id();
     }
 
     /**
-     * The field schema to show the user when editing the value
+     * The field schema to show the user when editing the value.
      *
      * @return Field
      */
@@ -76,7 +75,7 @@ class ChosenTheme extends GlobalSetting
     {
         $themes = $this->themeStore->allThemes();
         $options = [];
-        foreach($themes as $theme) {
+        foreach ($themes as $theme) {
             $options[] = ['id' => $theme->id(), 'name' => $theme->name()];
         }
 
@@ -85,7 +84,8 @@ class ChosenTheme extends GlobalSetting
             ->default($this->defaultValue())
             ->hint('The theme to use to render your site')
             ->help('You can choose any theme, or register a new one.')
-            ->values($options
+            ->values(
+                $options
             )
             ->getSchema();
     }

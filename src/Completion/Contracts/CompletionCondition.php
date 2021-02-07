@@ -10,19 +10,19 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
 /**
- * Completion Condition class
+ * Completion Condition class.
  */
 abstract class CompletionCondition implements Arrayable, Jsonable
 {
     /**
      * The alias of the module the completion condition belongs to.
-     * 
+     *
      * @var string
      */
     private $moduleAlias;
 
     /**
-     * Initialise the condition
+     * Initialise the condition.
      *
      * @param string $moduleAlias The module alias of the condition. This is passed in so that a condition can be
      *  made exclusive to a module, or can be a global condition which changes its behaviour depending on the module.
@@ -33,8 +33,8 @@ abstract class CompletionCondition implements Arrayable, Jsonable
     }
 
     /**
-     * Get the module alias
-     * 
+     * Get the module alias.
+     *
      * @return string
      */
     public function moduleAlias()
@@ -43,21 +43,22 @@ abstract class CompletionCondition implements Arrayable, Jsonable
     }
 
     /**
-     * Return the percentage completion of the module
-     * 
+     * Return the percentage completion of the module.
+     *
      * By default, this function returns 0 if the condition is not complete, or 100 if the condition is complete.
      * You may override this method to provide more granular percentage settings
-     * 
+     *
      * @param array $settings Settings of the completion condition
      * @param ActivityInstance $activityInstance The activity instance being tested
      * @param ModuleInstance $moduleInstance The module instance being tested
      * @return int Percentage complete.
      */
-    public function percentage($settings, ActivityInstance $activityInstance, ModuleInstance $moduleInstance): int 
+    public function percentage($settings, ActivityInstance $activityInstance, ModuleInstance $moduleInstance): int
     {
         if ($this->isComplete($settings, $activityInstance, $moduleInstance)) {
             return 100;
         }
+
         return 0;
     }
 
@@ -65,7 +66,7 @@ abstract class CompletionCondition implements Arrayable, Jsonable
      * Is the condition fully complete?
      *
      * @param array $settings Settings of the completion condition
-     * @param ActivityInstance $activityInstance Activity instance to test 
+     * @param ActivityInstance $activityInstance Activity instance to test
      * @param ModuleInstance $moduleInstance Module instance to test
      * @return bool If the condition is complete
      */
@@ -73,33 +74,33 @@ abstract class CompletionCondition implements Arrayable, Jsonable
 
     /**
      * Options required by the completion condition.
-     * 
-     * This allows for you to get user input to modify the behaviour of this class. For example, you could give an 
+     *
+     * This allows for you to get user input to modify the behaviour of this class. For example, you could give an
      * option of a 'number of files' to be approved before the condition is complete.
      *
      * Any settings requested in here will be passed into the percentage or isComplete methods.
-     * 
+     *
      * @return Form
      */
     abstract public function options(): Form;
 
     /**
-     * A name for the completion condition
-     * 
+     * A name for the completion condition.
+     *
      * @return string
      */
     abstract public function name(): string;
 
     /**
-     * A description of the completion condition
-     * 
+     * A description of the completion condition.
+     *
      * @return string
      */
     abstract public function description(): string;
 
     /**
-     * The alias of the completion condition
-     * 
+     * The alias of the completion condition.
+     *
      * @return string
      */
     abstract public function alias(): string;

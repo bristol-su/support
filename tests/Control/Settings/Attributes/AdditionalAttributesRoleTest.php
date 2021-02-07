@@ -8,9 +8,9 @@ use FormSchema\Schema\Field;
 
 class AdditionalAttributesRoleTest extends TestCase
 {
-
     /** @test */
-    public function it_has_the_right_key(){
+    public function it_has_the_right_key()
+    {
         $this->assertEquals('control.data-fields.role', AdditionalAttributesRole::getKey());
     }
 
@@ -21,7 +21,8 @@ class AdditionalAttributesRoleTest extends TestCase
     }
 
     /** @test */
-    public function it_returns_rules(){
+    public function it_returns_rules()
+    {
         $this->assertIsArray((new AdditionalAttributesRole())->rules());
     }
 

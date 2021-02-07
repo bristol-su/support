@@ -10,22 +10,21 @@ use Illuminate\Http\Request;
  */
 class CheckActivityEnabled
 {
-
     /**
-     * Check if the activity is enabled
-     * 
+     * Check if the activity is enabled.
+     *
      * @param Request $request
      * @param \Closure $next
-     * @return mixed
      * @throws ActivityDisabled If the module is not active
+     * @return mixed
      */
     public function handle(Request $request, \Closure $next)
     {
         $activity = $request->route('activity_slug');
-        if(!$activity->enabled) {
+        if (!$activity->enabled) {
             throw ActivityDisabled::fromActivity($activity);
         }
+
         return $next($request);
     }
-    
 }

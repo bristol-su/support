@@ -2,9 +2,9 @@
 
 namespace BristolSU\Support\Authentication\Contracts;
 
+use \BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
-use \BristolSU\ControlDB\Contracts\Models\User;
 
 /**
  * Authentication manager interface.
@@ -16,47 +16,44 @@ use \BristolSU\ControlDB\Contracts\Models\User;
 interface Authentication
 {
     /**
-     * Get a group
+     * Get a group.
      *
      * @return Group|null
      */
     public function getGroup();
 
     /**
-     * Get a role
+     * Get a role.
      *
      * @return Role|null
      */
     public function getRole();
 
     /**
-     * Get a user
+     * Get a user.
      *
      * @return User|null
      */
     public function getUser();
 
     /**
-     * Set a group
+     * Set a group.
      *
      * @param Group $group
-     * @return void
      */
     public function setGroup(Group $group);
 
     /**
-     * Set a role
+     * Set a role.
      *
      * @param Role $role
-     * @return void
      */
     public function setRole(Role $role);
 
     /**
-     * Set a user
+     * Set a user.
      *
      * @param User $user
-     * @return void
      */
     public function setUser(User $user);
 
@@ -80,5 +77,4 @@ interface Authentication
      * @return bool
      */
     public function hasUser(): bool;
-
 }

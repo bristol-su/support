@@ -3,18 +3,16 @@
 
 namespace BristolSU\Support\Logic;
 
-
 use BristolSU\Support\Logic\Contracts\LogicRepository as LogicRepositoryContract;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
- * Handles saving and retrieving logic group information
+ * Handles saving and retrieving logic group information.
  */
 class LogicRepository implements LogicRepositoryContract
 {
-
     /**
-     * Create a logic group in the database
+     * Create a logic group in the database.
      *
      * The attributes should be a name and a description
      * [
@@ -31,7 +29,7 @@ class LogicRepository implements LogicRepositoryContract
     }
 
     /**
-     * Get all logic groups
+     * Get all logic groups.
      *
      * @return Logic[]
      */
@@ -41,11 +39,11 @@ class LogicRepository implements LogicRepositoryContract
     }
 
     /**
-     * Get a logic group by ID
+     * Get a logic group by ID.
      *
      * @param int $id
-     * @return Logic
      * @throws ModelNotFoundException
+     * @return Logic
      */
     public function getById(int $id): Logic
     {
@@ -53,23 +51,24 @@ class LogicRepository implements LogicRepositoryContract
     }
 
     /**
-     * Update a logic group
+     * Update a logic group.
      *
      * @param int $id ID of the logic group
      * @param array $attributes
-     * @return Logic
      * @throws ModelNotFoundException
+     * @return Logic
      */
     public function update(int $id, array $attributes): Logic
     {
         $logic = $this->getById($id);
         $logic->fill($attributes);
         $logic->save();
+
         return $logic;
     }
 
     /**
-     * Delete a logic group
+     * Delete a logic group.
      *
      * @param int $id
      * @throws ModelNotFoundException
@@ -80,6 +79,4 @@ class LogicRepository implements LogicRepositoryContract
         $logic = $this->getById($id);
         $logic->delete();
     }
-
-
 }

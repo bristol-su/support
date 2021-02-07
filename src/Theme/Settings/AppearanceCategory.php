@@ -6,9 +6,8 @@ use BristolSU\Support\Settings\Definition\Category;
 
 class AppearanceCategory extends Category
 {
-
     /**
-     * The key of the category
+     * The key of the category.
      *
      * @return string
      */
@@ -18,7 +17,7 @@ class AppearanceCategory extends Category
     }
 
     /**
-     * The name for the category
+     * The name for the category.
      *
      * @return string
      */
@@ -28,7 +27,7 @@ class AppearanceCategory extends Category
     }
 
     /**
-     * A description for the category
+     * A description for the category.
      *
      * @return string
      */

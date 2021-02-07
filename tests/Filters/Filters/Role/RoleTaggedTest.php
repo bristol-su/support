@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Tests\Filters\Filters\Role;
 
-
 use BristolSU\ControlDB\Contracts\Models\Tags\RoleTag as RoleTagModelContract;
 use BristolSU\ControlDB\Contracts\Repositories\Tags\RoleTag as RoleTagRepositoryContract;
 use BristolSU\ControlDB\Models\Role;
@@ -14,10 +13,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class RoleTaggedTest extends TestCase
 {
-    
     /** @test */
-    public function options_returns_a_list_of_possible_tags(){
-
+    public function options_returns_a_list_of_possible_tags()
+    {
         $roleTagCategory1 = factory(RoleTagCategory::class)->create(['name' => 'category1Name', 'reference' => 'cat1']);
         $roleTagCategory2 = factory(RoleTagCategory::class)->create(['name' => 'category2Name', 'reference' => 'cat2']);
 
@@ -57,7 +55,8 @@ class RoleTaggedTest extends TestCase
     }
     
     /** @test */
-    public function it_evaluates_to_true_if_role_tagged(){
+    public function it_evaluates_to_true_if_role_tagged()
+    {
         $roleTagRepository = $this->prophesize(RoleTagRepositoryContract::class);
 
         $role = $this->prophesize(Role::class);
@@ -79,7 +78,8 @@ class RoleTaggedTest extends TestCase
     }
 
     /** @test */
-    public function it_evaluates_to_false_if_role_not_tagged(){
+    public function it_evaluates_to_false_if_role_not_tagged()
+    {
         $roleTagRepository = $this->prophesize(RoleTagRepositoryContract::class);
 
         $role = $this->prophesize(Role::class);
@@ -102,7 +102,8 @@ class RoleTaggedTest extends TestCase
     }
 
     /** @test */
-    public function evaluate_returns_false_if_the_role_tag_repository_throws_an_error(){
+    public function evaluate_returns_false_if_the_role_tag_repository_throws_an_error()
+    {
         $role = $this->prophesize(Role::class);
         $roleTagRepository = $this->prophesize(RoleTagRepositoryContract::class);
         $role->tags()->shouldBeCalled()->willThrow(new \Exception());
@@ -113,19 +114,22 @@ class RoleTaggedTest extends TestCase
     }
 
     /** @test */
-    public function name_returns_a_string(){
+    public function name_returns_a_string()
+    {
         $filter = new RoleTagged($this->prophesize(RoleTagRepositoryContract::class)->reveal());
         $this->assertIsString($filter->name());
     }
 
     /** @test */
-    public function description_returns_a_string(){
+    public function description_returns_a_string()
+    {
         $filter = new RoleTagged($this->prophesize(RoleTagRepositoryContract::class)->reveal());
         $this->assertIsString($filter->description());
     }
 
     /** @test */
-    public function alias_returns_a_string(){
+    public function alias_returns_a_string()
+    {
         $filter = new RoleTagged($this->prophesize(RoleTagRepositoryContract::class)->reveal());
         $this->assertIsString($filter->alias());
     }

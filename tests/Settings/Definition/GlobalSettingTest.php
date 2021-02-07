@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Tests\Settings\Definition;
 
-
 use BristolSU\Support\Settings\Definition\GlobalSetting;
 use BristolSU\Support\Settings\SettingRepository;
 use BristolSU\Support\Tests\TestCase;
@@ -12,9 +11,9 @@ use Illuminate\Contracts\Validation\Validator;
 
 class GlobalSettingTest extends TestCase
 {
-
     /** @test */
-    public function value_gets_the_value_of_the_setting(){
+    public function value_gets_the_value_of_the_setting()
+    {
         $settingRepository = $this->prophesize(SettingRepository::class);
         $settingRepository->getGlobalValue('my key')->shouldBeCalled()->willReturn('Setting value');
         $this->instance(SettingRepository::class, $settingRepository->reveal());
@@ -24,7 +23,8 @@ class GlobalSettingTest extends TestCase
     }
 
     /** @test */
-    public function getValue_gets_the_value_of_the_setting(){
+    public function get_value_gets_the_value_of_the_setting()
+    {
         $settingRepository = $this->prophesize(SettingRepository::class);
         $settingRepository->getGlobalValue('my key')->shouldBeCalled()->willReturn('Setting value');
         $this->instance(SettingRepository::class, $settingRepository->reveal());
@@ -33,12 +33,14 @@ class GlobalSettingTest extends TestCase
     }
 
     /** @test */
-    public function getKey_gets_the_key_of_the_setting(){
+    public function get_key_gets_the_key_of_the_setting()
+    {
         $this->assertEquals('my key', GlobalSettingTestDummyGlobalSetting::getKey());
     }
 
     /** @test */
-    public function validator_returns_a_validator_instance_with_the_right_rules(){
+    public function validator_returns_a_validator_instance_with_the_right_rules()
+    {
         $globalSetting = new GlobalSettingTestDummyGlobalSetting();
         $validator = $globalSetting->validator('sometest');
 
@@ -53,13 +55,15 @@ class GlobalSettingTest extends TestCase
     }
 
     /** @test */
-    public function inputName_hashes_the_key(){
+    public function input_name_hashes_the_key()
+    {
         $setting = new GlobalSettingTestDummyGlobalSetting();
         $this->assertEquals(sha1('my key'), $setting->inputName());
     }
 
     /** @test */
-    public function setValue_sets_the_value(){
+    public function set_value_sets_the_value()
+    {
         $settingRepository = $this->prophesize(SettingRepository::class);
         $settingRepository->setGlobal('my key', 'value1')->shouldBeCalled();
         $this->instance(SettingRepository::class, $settingRepository->reveal());
@@ -68,7 +72,8 @@ class GlobalSettingTest extends TestCase
     }
 
     /** @test */
-    public function setSettingValue_sets_the_value(){
+    public function set_setting_value_sets_the_value()
+    {
         $settingRepository = $this->prophesize(SettingRepository::class);
         $settingRepository->setGlobal('my key', 'value1')->shouldBeCalled();
         $this->instance(SettingRepository::class, $settingRepository->reveal());
@@ -78,7 +83,8 @@ class GlobalSettingTest extends TestCase
     }
 
     /** @test */
-    public function shouldEncrypt_returns_the_value_of_the_encrypt_property(){
+    public function should_encrypt_returns_the_value_of_the_encrypt_property()
+    {
         $setting = new GlobalSettingTestDummyGlobalSetting();
 
         $setting->setShouldEncrypt(true);
@@ -87,14 +93,12 @@ class GlobalSettingTest extends TestCase
         $setting->setShouldEncrypt(false);
         $this->assertFalse($setting->shouldEncrypt());
     }
-
 }
 
 class GlobalSettingTestDummyGlobalSetting extends GlobalSetting
 {
-
     /**
-     * The key for the setting
+     * The key for the setting.
      *
      * @return string
      */
@@ -104,7 +108,7 @@ class GlobalSettingTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * The default value of the setting
+     * The default value of the setting.
      *
      * @return mixed
      */
@@ -114,7 +118,7 @@ class GlobalSettingTestDummyGlobalSetting extends GlobalSetting
     }
 
     /**
-     * The field schema to show the user when editing the value
+     * The field schema to show the user when editing the value.
      *
      * @return Field
      */
@@ -122,7 +126,6 @@ class GlobalSettingTestDummyGlobalSetting extends GlobalSetting
     {
         return \FormSchema\Generator\Field::input($this->inputName())->inputType('text')->getSchema();
     }
-
 
     /**
      * Return the validation rules for the setting.

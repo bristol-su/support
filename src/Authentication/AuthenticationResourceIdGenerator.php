@@ -6,20 +6,19 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Authentication\Contracts\ResourceIdGenerator;
 
 /**
- * Generates a resource ID from the authentication
+ * Generates a resource ID from the authentication.
  */
 class AuthenticationResourceIdGenerator implements ResourceIdGenerator
 {
-
     /**
-     * Authentication implementation
+     * Authentication implementation.
      *
      * @var Authentication
      */
     private $authentication;
 
     /**
-     * Initialise the authentication resource id generator
+     * Initialise the authentication resource id generator.
      *
      * @param Authentication $authentication Authentication implementation
      */
@@ -29,14 +28,14 @@ class AuthenticationResourceIdGenerator implements ResourceIdGenerator
     }
 
     /**
-     * Generate a resource id
+     * Generate a resource id.
      *
      * Passing a resource type (user, group or role) will get the corresponding model from authentication and return the id
      *
      * @param string $resourceType User, group or role
+     * @throws \Exception If not logged into the resourceType model
      * @return int ID of the authenticated model
      *
-     * @throws \Exception If not logged into the resourceType model
      */
     public function fromString(string $resourceType): int
     {
@@ -50,6 +49,7 @@ class AuthenticationResourceIdGenerator implements ResourceIdGenerator
         if ($model === null) {
             throw new \Exception('Not logged into correct model');
         }
+
         return $model->id();
     }
 }

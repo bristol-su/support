@@ -5,11 +5,10 @@ namespace BristolSU\Support\Revision;
 use Venturecraft\Revisionable\RevisionableServiceProvider as BaseServiceProvider;
 
 /**
- * Override the default revision service provider
+ * Override the default revision service provider.
  */
 class RevisionServiceProvider extends BaseServiceProvider
 {
-
     public function boot()
     {
         $this->publishes([
@@ -23,8 +22,5 @@ class RevisionServiceProvider extends BaseServiceProvider
         ], 'migrations');
 
         $this->loadMigrationsFrom(__DIR__ . '/../../migrations/');
-
-
     }
-
 }

@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Tests\Permissions;
 
-
 use BristolSU\Support\Permissions\Contracts\PermissionStore;
 use BristolSU\Support\Permissions\Facade\Permission as PermissionFacade;
 use BristolSU\Support\Permissions\Models\Permission;
@@ -12,9 +11,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class PermissionRepositoryTest extends TestCase
 {
-
     /** @test */
-    public function it_calls_the_get_function_on_permission_store(){
+    public function it_calls_the_get_function_on_permission_store()
+    {
         $ability = 'ability';
         $name = 'name';
         $description = 'description';
@@ -33,7 +32,8 @@ class PermissionRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function it_gets_a_permission_by_ability(){
+    public function it_gets_a_permission_by_ability()
+    {
         PermissionFacade::registerSitePermission('a1', 'n1', 'd1');
         PermissionFacade::registerSitePermission('a2', 'n2', 'd2');
 
@@ -50,7 +50,8 @@ class PermissionRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function forModule_returns_all_permissions_for_the_given_module_alias(){
+    public function for_module_returns_all_permissions_for_the_given_module_alias()
+    {
         $permission1 = new Permission('a1', 'n1', 'd1', 'module', 'al1');
         $permission2 = new Permission('a2', 'n2', 'd2', 'module', 'al1');
         $permission3 = new Permission('a3', 'n3', 'd3', 'module', 'al2');
@@ -72,7 +73,8 @@ class PermissionRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function all_returns_all_permissions(){
+    public function all_returns_all_permissions()
+    {
         $permission1 = new Permission('a1', 'n1', 'd1', 'module', 'al1');
         $permission2 = new Permission('a2', 'n2', 'd2', 'module', 'al1');
         $permission3 = new Permission('a3', 'n3', 'd3', 'module', 'al2');
@@ -94,5 +96,4 @@ class PermissionRepositoryTest extends TestCase
         $this->assertEquals($permission4, $modulePermissions[3]);
         $this->assertEquals($permission5, $modulePermissions[4]);
     }
-    
 }

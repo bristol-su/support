@@ -11,15 +11,15 @@ use Illuminate\Contracts\Cache\Repository;
 use Illuminate\Support\Collection;
 
 /**
- * Creates an audience member
+ * Creates an audience member.
  */
 class CachedAudienceMemberFactory implements AudienceMemberFactoryContract
 {
-
     /**
      * @var AudienceMemberFactoryContract
      */
     private $audienceMemberFactory;
+
     /**
      * @var Repository
      */
@@ -42,7 +42,7 @@ class CachedAudienceMemberFactory implements AudienceMemberFactoryContract
         return $this->cache->remember(
             static::class . '@withAccessToResource:' . get_class($resource) . ':' . $resource->id(),
             86400,
-            function() use ($resource) {
+            function () use ($resource) {
                 return $this->audienceMemberFactory->withAccessToResource($resource);
             }
         );
@@ -62,14 +62,14 @@ class CachedAudienceMemberFactory implements AudienceMemberFactoryContract
         return $this->cache->remember(
             static::class . '@withAccessToLogicGroupWithResource:' . get_class($resource) . ':' . $resource->id() . ':' . $logic->id,
             86400,
-            function() use ($resource, $logic) {
+            function () use ($resource, $logic) {
                 return $this->audienceMemberFactory->withAccessToLogicGroupWithResource($resource, $logic);
             }
         );
     }
 
     /**
-     * Create an audience member from a user and filter it down to the given logic
+     * Create an audience member from a user and filter it down to the given logic.
      *
      * @param User $user User to create the audience member from
      *
@@ -81,14 +81,14 @@ class CachedAudienceMemberFactory implements AudienceMemberFactoryContract
         return $this->cache->remember(
             static::class . '@fromUserInLogic' . ':' . $user->id() . ':' . $logic->id,
             86400,
-            function() use ($user, $logic) {
+            function () use ($user, $logic) {
                 return $this->audienceMemberFactory->fromUserInLogic($user, $logic);
             }
         );
     }
 
     /**
-     * Create an audience member from a user
+     * Create an audience member from a user.
      *
      * @param User $user User to create the audience member from
      *

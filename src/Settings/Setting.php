@@ -2,7 +2,6 @@
 
 namespace BristolSU\Support\Settings;
 
-
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Settings\Definition\SettingStore;
 use BristolSU\Support\Settings\Saved\SavedSettingRepository;
@@ -10,16 +9,15 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class Setting implements SettingRepository
 {
-
     /**
-     * The setting object store
+     * The setting object store.
      *
      * @var SettingStore
      */
     private SettingStore $settingStore;
 
     /**
-     * The repository for accessing saved setting values
+     * The repository for accessing saved setting values.
      *
      * @var SavedSettingRepository
      */
@@ -36,7 +34,7 @@ class Setting implements SettingRepository
     }
 
     /**
-     * Get the value of a user setting for the given/authenticated user
+     * Get the value of a user setting for the given/authenticated user.
      *
      * @param string $key The key of the setting
      * @param int|null $userId The ID of the user, or null to use the authenticated user
@@ -44,21 +42,23 @@ class Setting implements SettingRepository
      */
     public function getUserValue(string $key, int $userId = null)
     {
-        if($userId === null) {
+        if ($userId === null) {
             $userId = $this->currentUserId();
         }
+
         try {
-            if($userId !== null) {
+            if ($userId !== null) {
                 return $this->savedSettingRepository->getUserValue($key, $userId);
             }
         } catch (ModelNotFoundException $e) {
             // Handled by using the default value
         }
+
         return $this->getDefaultValue($key);
     }
 
     /**
-     * Get the value of a global setting
+     * Get the value of a global setting.
      *
      * @param string $key The setting key
      * @return mixed The value of the setting
@@ -73,7 +73,7 @@ class Setting implements SettingRepository
     }
 
     /**
-     * Set a setting for a user
+     * Set a setting for a user.
      *
      * @param string $key The key of the setting
      * @param mixed $value The new value of the setting
@@ -81,14 +81,14 @@ class Setting implements SettingRepository
      */
     public function setForUser(string $key, $value, ?int $userId = null)
     {
-        if($userId === null) {
+        if ($userId === null) {
             $userId = $this->currentUserId();
         }
         $this->savedSettingRepository->setForUser($key, $value, $userId);
     }
 
     /**
-     * Set a setting for all user (this will be overridden by a user changing it, so acts as the default)
+     * Set a setting for all user (this will be overridden by a user changing it, so acts as the default).
      *
      * @param string $key The key of the setting
      * @param mixed $value The new value of the setting
@@ -99,7 +99,7 @@ class Setting implements SettingRepository
     }
 
     /**
-     * Set a global setting
+     * Set a global setting.
      *
      * @param string $key The key of the setting
      * @param mixed $value The new value of the setting
@@ -110,11 +110,11 @@ class Setting implements SettingRepository
     }
 
     /**
-     * Get the default value for a setting
+     * Get the default value for a setting.
      *
      * @param string $key
-     * @return mixed
      * @throws \Exception
+     * @return mixed
      */
     private function getDefaultValue(string $key)
     {
@@ -122,15 +122,15 @@ class Setting implements SettingRepository
     }
 
     /**
-     * Get the current user ID
+     * Get the current user ID.
      * @return int|null The user id, or null if no user logged in
      */
     private function currentUserId()
     {
-        if(app(Authentication::class)->hasUser()) {
+        if (app(Authentication::class)->hasUser()) {
             return app(Authentication::class)->getUser()->id();
         }
+
         return null;
     }
-
 }

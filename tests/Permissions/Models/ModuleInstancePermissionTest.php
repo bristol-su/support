@@ -11,9 +11,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class ModuleInstancePermissionTest extends TestCase
 {
-
     /** @test */
-    public function it_belongs_to_a_module_instance(){
+    public function it_belongs_to_a_module_instance()
+    {
         $moduleInstance = factory(ModuleInstance::class)->create();
         $moduleInstancePermission = factory(ModuleInstancePermission::class)->create(['module_instance_id' => $moduleInstance->id]);
 
@@ -22,7 +22,8 @@ class ModuleInstancePermissionTest extends TestCase
     }
     
     /** @test */
-    public function it_has_a_logic_group(){
+    public function it_has_a_logic_group()
+    {
         $logic = factory(Logic::class)->create();
         $moduleInstancePermission = factory(ModuleInstancePermission::class)->create(['logic_id' => $logic->id]);
 
@@ -31,7 +32,8 @@ class ModuleInstancePermissionTest extends TestCase
     }
     
     /** @test */
-    public function it_retrieves_a_permission_model(){
+    public function it_retrieves_a_permission_model()
+    {
         $permission = new Permission('ability-1', 'Name1', 'Description1');
         $permissionRepository = $this->prophesize(PermissionRepository::class);
         $permissionRepository->get('ability-1')->shouldBeCalled()->willReturn($permission);
@@ -43,7 +45,8 @@ class ModuleInstancePermissionTest extends TestCase
     }
     
     /** @test */
-    public function it_has_a_type_attribute_from_the_permission(){
+    public function it_has_a_type_attribute_from_the_permission()
+    {
         $permission = new Permission('ability-1', 'Name1', 'Description1');
         $permission->setType('module');
         $permissionRepository = $this->prophesize(PermissionRepository::class);

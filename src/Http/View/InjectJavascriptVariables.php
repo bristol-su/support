@@ -10,19 +10,20 @@ use Illuminate\Http\Request;
 use Laracasts\Utilities\JavaScript\JavaScriptFacade;
 
 /**
- * Inject Javascript Variables
+ * Inject Javascript Variables.
  */
 class InjectJavascriptVariables
 {
-
     /**
      * @var Authentication
      */
     private Authentication $authentication;
+
     /**
      * @var ActivityInstanceResolver
      */
     private ActivityInstanceResolver $activityInstanceResolver;
+
     /**
      * @var Request
      */
@@ -38,13 +39,13 @@ class InjectJavascriptVariables
     public function compose(View $view)
     {
         JavaScriptFacade::put([
-          'admin' => $this->request->is('a/*'),
-          'user' => $this->authentication->getUser(),
-          'group' => $this->authentication->getGroup(),
-          'role' => $this->authentication->getRole(),
-          'activity' => ($this->request->has('activity_slug') ? $this->request->route('activity_slug') : null),
-          'activity_instance' => $this->getActivityInstance(),
-          'module_instance' => ($this->request->has('module_instance_slug') ? $this->request->route('module_instance_slug') : null)
+            'admin' => $this->request->is('a/*'),
+            'user' => $this->authentication->getUser(),
+            'group' => $this->authentication->getGroup(),
+            'role' => $this->authentication->getRole(),
+            'activity' => ($this->request->has('activity_slug') ? $this->request->route('activity_slug') : null),
+            'activity_instance' => $this->getActivityInstance(),
+            'module_instance' => ($this->request->has('module_instance_slug') ? $this->request->route('module_instance_slug') : null)
         ]);
     }
 
@@ -56,5 +57,4 @@ class InjectJavascriptVariables
             return null;
         }
     }
-
 }

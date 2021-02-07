@@ -5,13 +5,11 @@ namespace BristolSU\Support\Control\Settings\Attributes;
 use BristolSU\Support\Settings\Definition\GlobalSetting;
 use FormSchema\Schema\Field;
 use Illuminate\Contracts\Validation\Validator;
-use Illuminate\Support\Facades\Hash;
 
 class AdditionalAttributesPosition extends GlobalSetting
 {
-
     /**
-     * The key for the setting
+     * The key for the setting.
      *
      * @return string
      */
@@ -21,7 +19,7 @@ class AdditionalAttributesPosition extends GlobalSetting
     }
 
     /**
-     * The default value of the setting
+     * The default value of the setting.
      *
      * @return mixed
      */
@@ -31,10 +29,10 @@ class AdditionalAttributesPosition extends GlobalSetting
     }
 
     /**
-     * The field schema to show the user when editing the value
+     * The field schema to show the user when editing the value.
      *
-     * @return Field
      * @throws \Exception
+     * @return Field
      */
     public function fieldOptions(): Field
     {
