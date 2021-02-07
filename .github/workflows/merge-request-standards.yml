@@ -5,7 +5,7 @@ on:
   pull_request:
 
 jobs:
-  build:
+  test-suite:
     runs-on: ubuntu-latest
 
     steps:
@@ -31,10 +31,7 @@ jobs:
       - name: Install dependencies
         if: steps.composer-cache.outputs.cache-hit != 'true'
         run: composer install --prefer-dist --no-progress --no-suggest
-  test-suite:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
+
       - name: Run test suite
         uses: bristol-su/portal-code-style/src/PHPUnit@wip
 
@@ -44,3 +41,69 @@ jobs:
         with:
           percentage: "100"
           filename: "coverage.xml"
+
+  code-style:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP 7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: php-cs-fixer check
+        uses: bristol-su/portal-code-style/src/PhpCs@wip
+
+      - name: Rector check
+        uses: bristol-su/portal-code-style/src/Rector@wip
+
+  security:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Setup PHP 7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+
+      - name: Validate composer.json and composer.lock
+        run: composer validate
+
+      - name: Cache Composer packages
+        id: composer-cache
+        uses: actions/cache@v2
+        with:
+          path: vendor
+          key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-php-
+
+      - name: Install dependencies
+        if: steps.composer-cache.outputs.cache-hit != 'true'
+        run: composer install --prefer-dist --no-progress --no-suggest
+
+      - name: Dependency check
+        uses: bristol-su/portal-code-style/src/SecurityChecker@wip
+
+      - name: Rector check
+        uses: bristol-su/portal-code-style/src/Rector@wip
