@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c7394767d7299915291df74f0d409fdd",
+    "content-hash": "6efb0c94ad2a904dac67f4e0c2b522fc",
     "packages": [
         {
             "name": "bristol-su/control",
@@ -5554,16 +5554,16 @@
         },
         {
             "name": "bristol-su/portal-code-style",
-            "version": "dev-wip",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bristol-su/portal-code-style.git",
-                "reference": "85294009cd4ea2079d0bb99687466c45fb86d513"
+                "reference": "61f8804ef2319540a58c8e71edb3b513c9f72a77"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bristol-su/portal-code-style/zipball/85294009cd4ea2079d0bb99687466c45fb86d513",
-                "reference": "85294009cd4ea2079d0bb99687466c45fb86d513",
+                "url": "https://api.github.com/repos/bristol-su/portal-code-style/zipball/61f8804ef2319540a58c8e71edb3b513c9f72a77",
+                "reference": "61f8804ef2319540a58c8e71edb3b513c9f72a77",
                 "shasum": ""
             },
             "require": {
@@ -5595,9 +5595,9 @@
             "description": "Styles for the Bristol SU Portal",
             "support": {
                 "issues": "https://github.com/bristol-su/portal-code-style/issues",
-                "source": "https://github.com/bristol-su/portal-code-style/tree/wip"
+                "source": "https://github.com/bristol-su/portal-code-style/tree/develop"
             },
-            "time": "2021-02-07T02:11:22+00:00"
+            "time": "2021-02-07T02:24:34+00:00"
         },
         {
             "name": "composer/package-versions-deprecated",

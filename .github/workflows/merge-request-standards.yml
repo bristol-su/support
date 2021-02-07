@@ -33,7 +33,7 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Run test suite
-        uses: bristol-su/portal-code-style/src/PHPUnit@wip
+        uses: bristol-su/portal-code-style/src/PHPUnit@develop
 
       - name: Check test coverage
         id: coverage_parse
@@ -70,13 +70,13 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: php-cs-fixer check
-        uses: bristol-su/portal-code-style/src/PhpCS@wip
+        uses: bristol-su/portal-code-style/src/PhpCS@develop
 
       - name: Rector check
-        uses: bristol-su/portal-code-style/src/Rector@wip
+        uses: bristol-su/portal-code-style/src/Rector@develop
 
       - name: Static Analysis
-        uses: bristol-su/portal-code-style/src/PHPStan@wip
+        uses: bristol-su/portal-code-style/src/PHPStan@develop
 
   security:
     runs-on: ubuntu-latest
@@ -106,4 +106,4 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: Dependency check
-        uses: bristol-su/portal-code-style/src/SecurityChecker@wip
+        uses: bristol-su/portal-code-style/src/SecurityChecker@develop
