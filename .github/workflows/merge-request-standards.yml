@@ -70,7 +70,7 @@ jobs:
         run: composer install --prefer-dist --no-progress --no-suggest
 
       - name: php-cs-fixer check
-        uses: bristol-su/portal-code-style/src/PhpCs@wip
+        uses: bristol-su/portal-code-style/src/PhpCS@wip
 
       - name: Rector check
         uses: bristol-su/portal-code-style/src/Rector@wip
