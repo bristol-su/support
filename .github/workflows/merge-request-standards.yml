@@ -1,4 +1,4 @@
-name: Test build and validate code style
+name: Ensure new code meets standards
 
 on:
   push:
@@ -37,4 +37,8 @@ jobs:
         uses: bristol-su/portal-code-style/src/PHPUnit@wip
 
       - name: Check test coverage
-        uses: bristol-su/portal-code-style/src/Coverage@wip
+        id: coverage_parse
+        uses: johanvanhelden/gha-clover-test-coverage-check@v1
+        with:
+          percentage: "100"
+          filename: "coverage.xml"
