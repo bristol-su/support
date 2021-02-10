@@ -42,28 +42,6 @@ class Snapshot
         }
 
         return null;
-
-//        $storedProgress = ProgressHashes::find($itemKey);
-//
-//        // Check if data is missing from Cache:
-//        if(! $storedProgress){
-//            // Return all Progress to be Saved to stored:
-//            $this->ProgressUpdateRepository->saveHash($itemKey, $Progress);
-//            return $Progress;
-//        }
-//
-//        // Check if data is different: Hash::check($this->concatActivityInstance($currentProgress), $storedProgress->hash)
-//        if(! $this->ProgressUpdateRepository->checkHash(
-//            $this->ProgressUpdateRepository->generateHash($progressArrayHash),
-//            $storedProgress->hash
-//        )) {
-//            // Return all Progress to be Saved to stored:
-//            $this->ProgressUpdateRepository->saveHash($itemKey, $progressArrayHash);
-//
-//            return $Progress;
-//        }
-//
-//        return null;
     }
 
     /**
