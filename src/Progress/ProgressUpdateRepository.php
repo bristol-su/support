@@ -32,17 +32,14 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
      * @param array $Items
      * @return string
      */
-    protected function generateHash(array $Items): string
+    protected function generateHash(string $str): string
     {
-        $str = '';
-        foreach ($Items as $item) { $str .= '_' . $item; }
-
         return Hash::make($str);
     }
 
-    protected function generateActivityHash(Progress $Activity): string
+    protected function generateActivityString(Progress $Activity): string
     {
-        return $this->generateHash([
+        $activityData = [
             $Activity->getActivityInstanceId(),
             $Activity->getPercentage(),
             $Activity->isComplete(),
@@ -56,7 +53,12 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
                         'visible' => $moduleInstanceProgress->isVisible()
                     ], $Activity->getModules())
                 )
-        ]);
+       ];
+
+        $str = '';
+        foreach ($activityData as $item) { $str .= '_' . $item; }
+
+        return $str;
     }
 
     /**
@@ -71,17 +73,19 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
 
     public function hasChanged($id, $caller, Progress $currentProgress): bool
     {
+        // Generate ItemKey:
         $itemKey = $this->getItemKey($id, $caller);
 
-        $storedProgress = ProgressHashes::find($id);
-        // Check if $itemKey exists:
+        // Try to retrieve item from Cache:
+        $storedProgress = ProgressHashes::find($itemKey);
+
+        // If Item doesn't exist then return true as has changed:
         if(! $storedProgress) {
             return true;
         }
 
-        // TODO : Check this as I think that it needs the Hash or the Array passing through to work properly!
-        // If exists check current against stored:
-        return $this->checkHash($this->generateActivityHash($currentProgress), $storedProgress);
+        // If item exists, then check the $currentProgress against the $storedProgress
+        return $this->checkHash($this->generateActivityString($currentProgress), $storedProgress);
     }
 
     /**
@@ -94,7 +98,7 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
     {
         ProgressHashes::updateOrcreate(
             [ 'item_key' => $this->getItemKey($id, $caller) ],
-            [ 'hash' => $this->generateActivityHash($currentProgress) ]
+            [ 'hash' => $this->generateHash($this->generateActivityString($currentProgress)) ]
         );
     }
 
