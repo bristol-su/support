@@ -371,7 +371,19 @@ class SnapshotTest extends TestCase
         $this->assertEquals($activity->id, $progresses[2]->getActivityId());
     }
 
-    public function createModuleInstanceEvaluation(bool $active, bool $visible, bool $complete, bool $mandatory, int $percentage): Evaluation
+    public function createModuleInstanceProgress(int $module, bool $active, bool $visible, bool $complete, bool $mandatory, int $percentage): ModuleInstanceProgress
+    {
+        $moduleEvaluation = new ModuleInstanceProgress();
+        $moduleEvaluation->setModuleInstanceId($module);
+        $moduleEvaluation->setActive($active);
+        $moduleEvaluation->setVisible($visible);
+        $moduleEvaluation->setComplete($complete);
+        $moduleEvaluation->setMandatory($mandatory);
+        $moduleEvaluation->setPercentage($percentage);
+        return $moduleEvaluation;
+    }
+
+    public function createModuleEvaluationInstance(bool $active, bool $visible, bool $complete, bool $mandatory, int $percentage): Evaluation
     {
         $moduleEvaluation = new Evaluation();
         $moduleEvaluation->setActive($active);
@@ -390,50 +402,175 @@ class SnapshotTest extends TestCase
         $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
 
-        // These are the way we calculate progress. We create an evaluation for the module instance
-        $module1Evaluation = $this->createModuleInstanceEvaluation(true, true, true, true, 100);
+        $module1Progress = $this->createModuleInstanceProgress($moduleInstance->id, true, true, true, true, 100);
+        $module1Evaluation = $this->createModuleEvaluationInstance(true, true, true, true, 100);
 
-        // We then mock the evaluator (which usually calculates the evaluation) and tell it to return our created evaluations.
-        // This way, we have lots of control over what the evaluation contains.
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
         $this->useEvaluationForModuleInstance($moduleInstanceEvaluator, $activityInstance, $moduleInstance, $module1Evaluation);
         \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
 
-        // Here, we mock the progress update repository. It's obvious we need to because Snapshot needs it as a dependency, therefore we mock
         $progressUpdateRepository = $this->prophesize(ProgressUpdateRepository::class);
-        // The progress update repository should return false for hasChanged for this test. We don't care how it's calculated, just that it's false, so we mock it
+
         $progressUpdateRepository->hasChanged(
             $activityInstance->id,
             'my-caller',
-            Argument::that(function($progress) use ($module1Evaluation) {
-                return $progress->getModules[0] === $module1Evaluation;
+            Argument::that(function($progress) use ($module1Progress) {
+                return $progress->getModules()[0] == $module1Progress;
         }))->willReturn(false);
 
         $snapshot = new Snapshot($progressUpdateRepository->reveal());
+
         $this->assertNull(
             $snapshot->ofUpdateToActivityInstance($activityInstance, 'my-caller')
         );
-
     }
 
     /** @test */
     public function ofUpdatesToActivityInstance_returns_progress_if_the_progress_has_changed(){
-        $this->markTestIncomplete('Like above but make two module instance evaluations, and change the prophecy to use saveChanges too');
+        Carbon::setTestNow(Carbon::now());
+        $activity = factory(Activity::class)->create();
+        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
+        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+
+        $module1Progress = $this->createModuleInstanceProgress($moduleInstance->id, true, true, false, true, 50);
+
+        $module1Evaluation = $this->createModuleEvaluationInstance(true, true, true, true, 100);
+
+        $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
+        $this->useEvaluationForModuleInstance($moduleInstanceEvaluator, $activityInstance, $moduleInstance, $module1Evaluation);
+        \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
+
+        $progressUpdateRepository = $this->prophesize(ProgressUpdateRepository::class);
+
+        $progressUpdateRepository->hasChanged(
+            $activityInstance->id,
+            'my-caller',
+            Argument::that(function($progress) use ($module1Progress) {
+                return $progress->getModules()[0] != $module1Progress;
+            }))->willReturn(true);
+
+        $progressUpdateRepository->saveChanges(
+            $activityInstance->id,
+            'my-caller',
+            Argument::that(function($progress) use ($module1Progress) {
+                return $progress->getModules()[0] != $module1Progress;
+            })
+        );
+
+        $snapshot = new Snapshot($progressUpdateRepository->reveal());
+
+        $this->assertNotNull(
+            $snapshot->ofUpdateToActivityInstance($activityInstance, 'my-caller')
+        );
     }
 
     /** @test */
     public function ofUpdatesToActivityInstance_saves_an_updated_progress_and_returns_it(){
-        $this->markTestIncomplete('use shouldBeCalled to assert it should be saved');
+        Carbon::setTestNow(Carbon::now());
+        $activity = factory(Activity::class)->create();
+        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
+        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+
+        $module1Progress = $this->createModuleInstanceProgress($moduleInstance->id, true, true, false, true, 50);
+
+        $module1Evaluation = $this->createModuleEvaluationInstance(true, true, true, true, 100);
+
+        $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
+        $this->useEvaluationForModuleInstance($moduleInstanceEvaluator, $activityInstance, $moduleInstance, $module1Evaluation);
+        \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
+
+        $progressUpdateRepository = $this->prophesize(ProgressUpdateRepository::class);
+
+        $progressUpdateRepository->hasChanged(
+            $activityInstance->id,
+            'my-caller',
+            Argument::that(function($progress) use ($module1Progress) {
+                return $progress->getModules()[0] != $module1Progress;
+            }))->willReturn(true);
+
+        $progressUpdateRepository->saveChanges(
+            $activityInstance->id,
+            'my-caller',
+            Argument::that(function($progress) use ($module1Progress) {
+                return $progress->getModules()[0] != $module1Progress;
+            })
+        )->shouldBeCalled();
+
+        $snapshot = new Snapshot($progressUpdateRepository->reveal());
+
+        $this->assertNotNull(
+            $snapshot->ofUpdateToActivityInstance($activityInstance, 'my-caller')
+        );
     }
 
     /** @test */
     public function ofUpdatesToActivity_returns_an_empty_array_if_no_progress_has_changed(){
-        $this->markTestIncomplete();
+        Carbon::setTestNow(Carbon::now());
+        $activity = factory(Activity::class)->create();
+        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
+        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+
+        $module1Progress = $this->createModuleInstanceProgress($moduleInstance->id, true, true, true, true, 100);
+
+        $module1Evaluation = $this->createModuleEvaluationInstance(true, true, true, true, 100);
+
+        $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
+        $this->useEvaluationForModuleInstance($moduleInstanceEvaluator, $activityInstance, $moduleInstance, $module1Evaluation);
+        \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
+
+        $progressUpdateRepository = $this->prophesize(ProgressUpdateRepository::class);
+
+        $progressUpdateRepository->hasChanged(
+            $activityInstance->id,
+            'my-caller',
+            Argument::that(function($progress) use ($module1Progress) {
+                return $progress->getModules()[0] == $module1Progress;
+            }))->willReturn(false);
+
+        $snapshot = new Snapshot($progressUpdateRepository->reveal());
+
+        $this->assertEmpty(
+            $snapshot->ofUpdatesToActivity($activity, 'my-caller')
+        );
     }
 
     /** @test */
     public function ofUpdatesToActivity_returns_only_changed_progresses(){
-        $this->markTestIncomplete();
+        Carbon::setTestNow(Carbon::now());
+        $activity = factory(Activity::class)->create();
+        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
+        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+
+        $module1Progress = $this->createModuleInstanceProgress($moduleInstance->id, true, true, true, true, 50);
+
+        $module1Evaluation = $this->createModuleEvaluationInstance(true, true, true, true, 100);
+
+        $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
+        $this->useEvaluationForModuleInstance($moduleInstanceEvaluator, $activityInstance, $moduleInstance, $module1Evaluation);
+        \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
+
+        $progressUpdateRepository = $this->prophesize(ProgressUpdateRepository::class);
+
+        $progressUpdateRepository->hasChanged(
+            $activityInstance->id,
+            'my-caller',
+            Argument::that(function($progress) use ($module1Progress) {
+                return $progress->getModules()[0] != $module1Progress;
+            }))->willReturn(true);
+
+        $progressUpdateRepository->saveChanges(
+            $activityInstance->id,
+            'my-caller',
+            Argument::that(function($progress) use ($module1Progress) {
+                return $progress->getModules()[0] != $module1Progress;
+            })
+        )->shouldBeCalled();
+
+        $snapshot = new Snapshot($progressUpdateRepository->reveal());
+
+        $this->assertNotEmpty(
+            $snapshot->ofUpdatesToActivity($activity, 'my-caller')
+        );
     }
 
     private function useEvaluationForModuleInstance(\Prophecy\Prophecy\ObjectProphecy $moduleInstanceEvaluator, ActivityInstance $activityInstance, ModuleInstance $moduleInstance, Evaluation $moduleEvaluation)
