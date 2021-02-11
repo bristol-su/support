@@ -17,4 +17,28 @@ class ProgressHashes extends Model {
         'hash'
     ];
 
+    /**
+     * Get the Progress Hash Value
+     *
+     * @return string
+     */
+    public function getHash(): string
+    {
+        return $this->hash;
+    }
+
+    /**
+     * Get Progress Item Key Value
+     *
+     * @return string
+     */
+    public function getItemKey(): string
+    {
+        return $this->item_key;
+    }
+
+    public function getByHash($hash = null, $first = false)
+    {
+        $query = $this->where('hash', $hash);
+    }
 }
