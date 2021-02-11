@@ -9,23 +9,17 @@ use Illuminate\Support\Facades\Hash;
 class ProgressUpdateRepository implements ProgressUpdateContract {
 
     /**
-     * @param $id
-     * @param $caller
-     * @return string
-     */
-    protected function getItemKey($id, $caller): string
-    {
-        return $this->generateItemKey($id, $caller);
-    }
-
-    /**
+     *
+     * Generate ItemKey to be used within ProgressHashes Table.
+     * This must return a unique value and may require a prefix if used by other models.
+     *
      * @param $id
      * @param $caller
      * @return string
      */
     protected function generateItemKey($id, $caller): string
     {
-        return sprintf("%s_%b", $caller, $id);
+        return sprintf("%s_%u", $caller, $id);
     }
 
     /**
@@ -37,6 +31,10 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
         return Hash::make($str);
     }
 
+    /**
+     * @param Progress $Activity
+     * @return string
+     */
     protected function generateActivityString(Progress $Activity): string
     {
         $activityData = [
@@ -71,20 +69,22 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
         return ! Hash::check($actual, $expected);
     }
 
+    /**
+     * @param int $id
+     * @param string $caller
+     * @param Progress $currentProgress
+     * @return bool
+     */
     public function hasChanged($id, $caller, Progress $currentProgress): bool
     {
-        // Generate ItemKey:
-        $itemKey = $this->getItemKey($id, $caller);
+        $itemKey = $this->generateItemKey($id, $caller);
 
-        // Try to retrieve item from Cache:
         $storedProgress = ProgressHashes::find($itemKey);
 
-        // If Item doesn't exist then return true as has changed:
         if(! $storedProgress) {
             return true;
         }
 
-        // If item exists, then check the $currentProgress against the $storedProgress
         return $this->checkHash($this->generateActivityString($currentProgress), $storedProgress->hash);
     }
 
@@ -97,7 +97,7 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
     public function saveChanges($id, $caller, Progress $currentProgress): void
     {
         ProgressHashes::updateOrcreate(
-            [ 'item_key' => $this->getItemKey($id, $caller) ],
+            [ 'item_key' => $this->generateItemKey($id, $caller) ],
             [ 'hash' => $this->generateHash($this->generateActivityString($currentProgress)) ]
         );
     }

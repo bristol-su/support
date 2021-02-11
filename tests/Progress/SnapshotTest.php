@@ -22,7 +22,7 @@ class SnapshotTest extends TestCase
     {
         $activity = factory(Activity::class)->create();
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-        $progress = (new Snapshot(new ProgressUpdateRepository()))->ofActivityInstance($activityInstance, 'called_id');
+        $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofActivityInstance($activityInstance, 'called_id');
         $this->assertCount(0, $progress->getModules());
     }
     
@@ -33,7 +33,7 @@ class SnapshotTest extends TestCase
         $modules = factory(ModuleInstance::class, 5)->create(['activity_id' => $activity->id]);
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
         
-        $progress = (new Snapshot(new ProgressUpdateRepository()))->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofActivityInstance($activityInstance);
         $this->assertCount(5, $progress->getModules());
         $this->assertContainsOnlyInstancesOf(ModuleInstanceProgress::class, $progress->getModules());
     }
@@ -46,7 +46,7 @@ class SnapshotTest extends TestCase
         $modules = factory(ModuleInstance::class, 5)->create(['activity_id' => $activity->id]);
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
 
-        $progress = (new Snapshot(new ProgressUpdateRepository()))->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofActivityInstance($activityInstance);
         $this->assertEquals($activityInstance->id, $progress->getActivityInstanceId());
         $this->assertEquals($activity->id, $progress->getActivityId());
         $this->assertEquals(Carbon::now(), $progress->getTimestamp());
@@ -87,7 +87,7 @@ class SnapshotTest extends TestCase
 
         \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
         
-        $progress = (new Snapshot(new ProgressUpdateRepository()))->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofActivityInstance($activityInstance);
         $module1Progress = $progress->getModules()[0];
         $this->assertTrue($module1Progress->isActive());
         $this->assertTrue($module1Progress->isVisible());
@@ -148,7 +148,7 @@ class SnapshotTest extends TestCase
 
         \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
 
-        $progress = (new Snapshot(new ProgressUpdateRepository()))->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofActivityInstance($activityInstance);
         $this->assertTrue($progress->isComplete());
     }
 
@@ -198,7 +198,7 @@ class SnapshotTest extends TestCase
 
         \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
 
-        $progress = (new Snapshot(new ProgressUpdateRepository()))->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofActivityInstance($activityInstance);
         $this->assertFalse($progress->isComplete());
     }
 
@@ -248,7 +248,7 @@ class SnapshotTest extends TestCase
 
         \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
 
-        $progress = (new Snapshot(new ProgressUpdateRepository()))->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofActivityInstance($activityInstance);
         $this->assertTrue($progress->isComplete());
     }
 
@@ -298,7 +298,7 @@ class SnapshotTest extends TestCase
 
         \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
 
-        $progress = (new Snapshot(new ProgressUpdateRepository()))->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofActivityInstance($activityInstance);
         $this->assertEqualsWithDelta(53.3333, $progress->getPercentage(), 0.0001);
     }
 
@@ -348,7 +348,7 @@ class SnapshotTest extends TestCase
 
         \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
 
-        $progress = (new Snapshot(new ProgressUpdateRepository()))->ofActivityInstance($activityInstance);
+        $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofActivityInstance($activityInstance);
         $this->assertEquals(55, $progress->getPercentage());
     }
 
@@ -361,7 +361,7 @@ class SnapshotTest extends TestCase
         $activityInstance2 = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
         $activityInstance3 = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
 
-        $progresses = (new Snapshot(new ProgressUpdateRepository()))->ofActivity($activity);
+        $progresses = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofActivity($activity);
         $this->assertEquals($activityInstance1->id, $progresses[0]->getActivityInstanceId());
         $this->assertEquals($activityInstance2->id, $progresses[1]->getActivityInstanceId());
 
@@ -459,9 +459,14 @@ class SnapshotTest extends TestCase
 
         $snapshot = new Snapshot($progressUpdateRepository->reveal());
 
+        $progress = $snapshot->ofUpdateToActivityInstance($activityInstance, 'my-caller');
+
         $this->assertNotNull(
-            $snapshot->ofUpdateToActivityInstance($activityInstance, 'my-caller')
+            $progress
         );
+
+        $this->assertTrue($progress->isComplete());
+        $this->assertEquals($progress->getPercentage(), 100.0);
     }
 
     /** @test */
@@ -529,6 +534,10 @@ class SnapshotTest extends TestCase
 
         $snapshot = new Snapshot($progressUpdateRepository->reveal());
 
+        $this->assertIsArray(
+            $snapshot->ofUpdatesToActivity($activity, 'my-caller')
+        );
+
         $this->assertEmpty(
             $snapshot->ofUpdatesToActivity($activity, 'my-caller')
         );
@@ -542,8 +551,10 @@ class SnapshotTest extends TestCase
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
 
         $module1Progress = $this->createModuleInstanceProgress($moduleInstance->id, true, true, true, true, 50);
+        $module2Progress = $this->createModuleInstanceProgress($moduleInstance->id, true, true, true, true, 50);
 
         $module1Evaluation = $this->createModuleEvaluationInstance(true, true, true, true, 100);
+        $module2Evaluation = $this->createModuleEvaluationInstance(true, true, true, true, 50);
 
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
         $this->useEvaluationForModuleInstance($moduleInstanceEvaluator, $activityInstance, $moduleInstance, $module1Evaluation);
@@ -558,6 +569,13 @@ class SnapshotTest extends TestCase
                 return $progress->getModules()[0] != $module1Progress;
             }))->willReturn(true);
 
+        $progressUpdateRepository->hasChanged(
+            $activityInstance->id,
+            'my-caller',
+            Argument::that(function($progress) use ($module2Progress) {
+                return $progress->getModules()[0] === $module2Progress;
+            }))->willReturn(true);
+
         $progressUpdateRepository->saveChanges(
             $activityInstance->id,
             'my-caller',
@@ -568,9 +586,15 @@ class SnapshotTest extends TestCase
 
         $snapshot = new Snapshot($progressUpdateRepository->reveal());
 
+        dd($snapshot->ofUpdatesToActivity($activity, 'my-caller'));
+
         $this->assertNotEmpty(
             $snapshot->ofUpdatesToActivity($activity, 'my-caller')
         );
+
+        // Assert that no Item in the Array is null:
+
+
     }
 
     private function useEvaluationForModuleInstance(\Prophecy\Prophecy\ObjectProphecy $moduleInstanceEvaluator, ActivityInstance $activityInstance, ModuleInstance $moduleInstance, Evaluation $moduleEvaluation)

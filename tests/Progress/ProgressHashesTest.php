@@ -5,6 +5,7 @@ namespace BristolSU\Support\Tests\Progress;
 use BristolSU\Support\Progress\ProgressHashes;
 use BristolSU\Support\Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Facades\Hash;
 
 class ProgressHashesTest extends TestCase
 {
@@ -24,8 +25,8 @@ class ProgressHashesTest extends TestCase
     public function getModelData()
     {
         return [
-            'item_key' => $this->faker('en_UK')->slug,
-            'hash' => $this->faker('en_UK')->uuid
+            'item_key' => 'caller_1',
+            'hash' => Hash::make('item_hash')
         ];
     }
 
@@ -37,7 +38,7 @@ class ProgressHashesTest extends TestCase
 
         $this->assertDatabaseHas($this->Table, $data);
 
-        $dbValue = $this->Model->getByHash($data['hash'])->first(['item_key', 'hash'])->toArray();
+        $dbValue = $this->Model->byHash($data['hash'])->first(['item_key', 'hash'])->toArray();
 
         $this->assertEquals($data, $dbValue);
     }
@@ -46,7 +47,7 @@ class ProgressHashesTest extends TestCase
     public function a_model_can_be_saved_and_retrieved_by_the_item_id(){
         $data = $this->getModelData();
 
-        $this->Model->create($data);
+        $Model = $this->Model->create($data);
 
         $this->assertDatabaseHas($this->Table, $data);
 

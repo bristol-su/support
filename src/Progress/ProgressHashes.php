@@ -37,8 +37,8 @@ class ProgressHashes extends Model {
         return $this->item_key;
     }
 
-    public function getByHash($hash = null, $first = false)
+    public function scopeByHash($query, string $hash = null)
     {
-        $query = $this->where('hash', $hash);
+        return $query->where('hash', $hash);
     }
 }

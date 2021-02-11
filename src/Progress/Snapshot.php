@@ -16,20 +16,38 @@ class Snapshot
 
     protected $ProgressUpdateRepository;
 
+    /**
+     * Snapshot constructor.
+     * @param ProgressUpdateContract $ProgressUpdateRepository
+     */
     public function __construct(ProgressUpdateContract $ProgressUpdateRepository)
     {
         $this->ProgressUpdateRepository = $ProgressUpdateRepository;
     }
 
+    /**
+     * Generates any progress of an Activity (All NULL values are excluded)
+     *
+     * @param Activity $activity
+     * @param $caller
+     * @return array
+     */
     public function ofUpdatesToActivity(Activity $activity, $caller) : array
     {
         $progresses = [];
         foreach(app(ActivityInstanceRepository::class)->allForActivity($activity->id) as $activityInstance) {
-            array_push($progresses, $this->ofUpdateToActivityInstance($activityInstance, $caller));
+            $progresses[] = $this->ofUpdateToActivityInstance($activityInstance, $caller);
         }
         return array_filter($progresses);
     }
 
+    /**
+     * Returns Progress for an Activity Instance
+     *
+     * @param ActivityInstance $activityInstance
+     * @param $caller
+     * @return Progress|null
+     */
     public function ofUpdateToActivityInstance(ActivityInstance $activityInstance, $caller) : ?Progress
     {
         // Get the Current Progress:
