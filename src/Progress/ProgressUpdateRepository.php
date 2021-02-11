@@ -25,7 +25,7 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
      */
     protected function generateItemKey($id, $caller): string
     {
-        return sprintf("%c_%i", $caller, $id);
+        return sprintf("%s_%b", $caller, $id);
     }
 
     /**
@@ -68,7 +68,7 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
      */
     protected function checkHash($actual, $expected): bool
     {
-        return Hash::check($actual, $expected);
+        return ! Hash::check($actual, $expected);
     }
 
     public function hasChanged($id, $caller, Progress $currentProgress): bool
@@ -85,7 +85,7 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
         }
 
         // If item exists, then check the $currentProgress against the $storedProgress
-        return $this->checkHash($this->generateActivityString($currentProgress), $storedProgress);
+        return $this->checkHash($this->generateActivityString($currentProgress), $storedProgress->hash);
     }
 
     /**

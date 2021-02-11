@@ -50,69 +50,80 @@ class ProgressUpdateRepositoryTest extends TestCase
 
     /**
      * @test
-     * @dataProvider progressChangeProvider()
+     * @dataProvider progressChangeProvider
      */
-    public function saving_progress_updates_a_hash_when_a_progress_is_changed(Progress $firstProgress, Progress $changedProgress)
+    public function saving_progress_updates_a_hash_when_a_progress_is_changed(\Closure $getData)
     {
-//        $Progress = $this->progressChangeProvider();
-//        $firstProgress = $Progress[0][0];
-//        $changedProgress = $Progress[0][1];
+        [$firstProgress, $changedProgress] = $getData();
 
-        /*
-         * We need to check every thing that can change to make sure it works. Use a data provider for this
-         */
         $this->repository->saveChanges($this->activityInstance->id, 'some_caller',  $firstProgress);
 
-        dd(
-            $firstProgress,
-            $changedProgress,
+        $this->assertTrue(
             $this->repository->hasChanged($this->activityInstance->id, 'some_caller', $changedProgress)
         );
-
-        $this->assertTrue(
-            true
-        );
-
     }
 
     public function progressChangeProvider(): array
     {
-        /*
-         * Add one of these for every thing that can be changed for the progress and both module instance progresses
-         */
         return [
-            [
-                $this->createProgress(),
-                $this->createProgress(function (Progress $progress): Progress {
-                    $progress->setActivityId(factory(Activity::class)->create()->id);
-                    return $progress;
-                }),
+            'Return two set of Activities with Modules' => [
+                function () {
+                    return [
+                        $this->createProgress(),
+                        $this->createProgress(function (Progress $progress): Progress {
+                            $progress->setActivityId(factory(Activity::class)->create()->id);
+                            $progress->setActivityInstanceId(factory(ActivityInstance::class)->create()->id);
+                            return $progress;
+                        })
+                    ];
+                }
             ],
-            [
-                $this->createProgress(),
-                $this->createProgress(function (Progress $progress): Progress {
-                    $progress->setActivityInstanceId(factory(Activity::class)->create()->id);
-                    return $progress;
-                }),
+            'Return two set of Activities with different percentages' => [
+                function () {
+                    return [
+                        $this->createProgress(),
+                        $this->createProgress(function (Progress $progress): Progress {
+                            $progress->setActivityId(factory(Activity::class)->create()->id);
+                            $progress->setPercentage(50);
+                            return $progress;
+                        })
+                    ];
+                }
+            ],
+            'Return two set of Activities with different complete statuses' => [
+                function () {
+                    return [
+                        $this->createProgress(),
+                        $this->createProgress(function (Progress $progress): Progress {
+                            $progress->setActivityId(factory(Activity::class)->create()->id);
+                            $progress->isComplete(false);
+                            return $progress;
+                        })
+                    ];
+                }
             ]
         ];
     }
 
     public function createProgress(\Closure $callback = null): Progress
     {
+        $activity = factory(Activity::class)->create();
+        $modules = factory(ModuleInstance::class, 5)->create(['activity_id' => $activity->id]);
+
         $progress = Progress::create(
-            factory(Activity::class)->create()->id,
-            $this->activityInstance->id,
+            $activity->id,
+            factory(ActivityInstance::class)->create()->id,
             Carbon::now(),
             true,
             80
         );
+
         $moduleProgress1 = ModuleInstanceProgress::create(
-            $this->modules[0]->id,
+            $modules[0]->id,
             true, true, 100, true, true
         );
         $moduleProgress2 = ModuleInstanceProgress::create(
-            $this->modules[0]->id,
+            $modules[0]->id,
             true, true, 100, true, true
         );
         $progress->pushModule($moduleProgress1);
@@ -128,21 +139,45 @@ class ProgressUpdateRepositoryTest extends TestCase
     /** @test */
     public function hasChanged_returns_false_if_progress_has_not_changed_since_last_save()
     {
-        // Create a new Snapshot:
-        (new Snapshot($this->repository))->ofUpdateToActivityInstance($this->activityInstance, 'caller');
-
-//        $this->repository->hasChanged($this->activityInstance)
-
+        $progress = $this->createProgress();
+        // Ensure that first pass returns true:
+        $this->assertTrue($this->repository->hasChanged($this->activityInstance->id, 'caller', $progress));
+        // Trigger Save of Progress:
+        $this->repository->saveChanges($this->activityInstance->id, 'caller', $progress);
+        // Ensure that second pass is false as no changes
+        $this->assertFalse($this->repository->hasChanged($this->activityInstance->id, 'caller', $progress));
     }
 
-    /** @test */
+    /**
+     *
+     * @test
+     */
     public function hasChanged_returns_true_if_progress_has_changed_since_last_save()
     {
+        $progress = $this->createProgress();
 
+        // Ensure that first pass returns true:
+        $this->assertTrue($this->repository->hasChanged($this->activityInstance->id, 'caller', $progress));
+        // Trigger Save of Progress:
+        $this->repository->saveChanges($this->activityInstance->id, 'caller', $progress);
+
+        $updatedProgress = $this->createProgress(function (Progress $progress): Progress {
+            $progress->setPercentage(50);
+            return $progress;
+        });
+
+        // Ensure that second pass is false as no changes
+        $this->assertTrue($this->repository->hasChanged($this->activityInstance->id, 'caller', $updatedProgress));
     }
 
-    /** @test */
-    public function hasChanged_returns_false_if_the_progress_is_not_saved(){
+    /**
+     * @dataProvider progressChangeProvider
+     * @test
+     */
+    public function hasChanged_returns_true_if_the_progress_is_not_saved(\Closure $getData)
+    {
+        [$progress] = $getData();
 
+        $this->assertTrue($this->repository->hasChanged($this->activity->id, 'caller', $progress));
     }
 }
