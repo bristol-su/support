@@ -26,9 +26,9 @@ class CachedAudienceMemberFactoryTest extends TestCase
         $audienceMemberFactory->withAccessToResource(Argument::that(function ($arg) use ($group) {
             return $arg instanceof Group && $group->id() === $arg->id();
         }))->shouldBeCalled()->willReturn(collect([$am1, $am2]));
-        
+
         $cache = app(Repository::class);
-        
+
         $cachedAudienceMemberFactory = new CachedAudienceMemberFactory($audienceMemberFactory->reveal(), $cache);
         $result = $cachedAudienceMemberFactory->withAccessToResource($group);
         $this->assertCount(2, $result);
@@ -67,7 +67,7 @@ class CachedAudienceMemberFactoryTest extends TestCase
             . $group->id() . ':' . $logic->id
         ));
     }
-    
+
     /** @test */
     public function from_user_in_logic_is_cached()
     {
@@ -90,7 +90,7 @@ class CachedAudienceMemberFactoryTest extends TestCase
             'BristolSU\Support\Logic\Audience\CachedAudienceMemberFactory@fromUserInLogic:' . $user->id() . ':' . $logic->id
         ));
     }
-    
+
     /** @test */
     public function from_user_is_not_cached()
     {
@@ -103,7 +103,7 @@ class CachedAudienceMemberFactoryTest extends TestCase
 
         $cache = $this->prophesize(Repository::class);
         $cache->remember(Argument::any(), Argument::any(), Argument::any())->shouldNotBeCalled();
-        
+
         $cachedAudienceMemberFactory = new CachedAudienceMemberFactory($audienceMemberFactory->reveal(), $cache->reveal());
         $result = $cachedAudienceMemberFactory->fromUser($user);
         $this->assertEquals($am, $result);

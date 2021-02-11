@@ -76,3 +76,34 @@ if (!function_exists('hasPermission')) {
         return \BristolSU\Support\Permissions\Facade\PermissionTester::evaluateFor($ability, $userModel, $group, $role);
     }
 }
+
+
+
+if (!function_exists('globalSetting')) {
+
+    /**
+     * Get the value of a global setting.
+     *
+     * @param string $key The key of the setting
+     * @return mixed
+     */
+    function globalSetting(string $key)
+    {
+        return \BristolSU\Support\Settings\Facade\Setting::getGlobalValue($key);
+    }
+}
+
+if (!function_exists('userSetting')) {
+
+    /**
+     * Get the value of a user setting.
+     *
+     * @param string $key The key of the setting
+     * @param int|null $userId The user ID, or null to use the current user
+     * @return mixed
+     */
+    function userSetting(string $key, ?int $userId = null)
+    {
+        return \BristolSU\Support\Settings\Facade\Setting::getUserValue($key, $userId);
+    }
+}

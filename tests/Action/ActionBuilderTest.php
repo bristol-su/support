@@ -148,15 +148,15 @@ class ActionBuilderTest extends TestCase
             'action' => ActionBuilderDummyAction::class,
             'event' => ActionBuilderDummyEvent::class
         ]);
-        
+
         $action = $this->prophesize(Action::class);
         $action->setActionInstanceId($actionInstance->id)->shouldBeCalled();
         $action->setEventFields(['key' => 'val1'])->shouldBeCalled();
         $action->setSettings([])->shouldBeCalled();
-        
+
         $app = $this->prophesize(Application::class);
         $app->make(ActionBuilderDummyAction::class, ['data' => []])->shouldBeCalled()->willReturn($action->reveal());
-        
+
         $builder = new ActionBuilder($app->reveal());
         $action = $builder->build($actionInstance, ['key' => 'val1']);
     }

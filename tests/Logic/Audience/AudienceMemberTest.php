@@ -19,14 +19,14 @@ class AudienceMemberTest extends TestCase
 
         $user->addGroup($group1);
         $user->addGroup($group2);
-        
+
         $audienceMember = new AudienceMember($user);
         $this->assertInstanceOf(Collection::class, $audienceMember->groups());
         $this->assertCount(2, $audienceMember->groups());
         $this->assertModelEquals($group1, $audienceMember->groups()[0]);
         $this->assertModelEquals($group2, $audienceMember->groups()[1]);
     }
-    
+
     /** @test */
     public function roles_loads_the_users_roles_if_not_already_loaded()
     {
@@ -37,14 +37,14 @@ class AudienceMemberTest extends TestCase
 
         $user->addRole($role1);
         $user->addRole($role2);
-        
+
         $audienceMember = new AudienceMember($user);
         $this->assertInstanceOf(Collection::class, $audienceMember->roles());
         $this->assertCount(2, $audienceMember->roles());
         $this->assertModelEquals($role1, $audienceMember->roles()[0]);
         $this->assertModelEquals($role2, $audienceMember->roles()[1]);
     }
-    
+
     /** @test */
     public function user_returns_the_user()
     {
@@ -59,14 +59,14 @@ class AudienceMemberTest extends TestCase
     {
         $logic = factory(Logic::class)->create();
         $user = $this->newUser();
-        
+
         $audienceMember = new AudienceMember($user);
-        
+
         $this->logicTester()->forLogic($logic)->pass($user);
         $this->logicTester()->bind();
-        
+
         $audienceMember->filterForLogic($logic);
-        
+
         $this->assertTrue($audienceMember->canBeUser());
         $this->assertInstanceOf(Collection::class, $audienceMember->roles());
         $this->assertCount(0, $audienceMember->roles());
@@ -85,7 +85,7 @@ class AudienceMemberTest extends TestCase
 
         $user->addGroup($group1);
         $user->addGroup($group2);
-        
+
         $audienceMember = new AudienceMember($user);
 
         $this->logicTester()->forLogic($logic)->pass($user, $group1);
@@ -112,7 +112,7 @@ class AudienceMemberTest extends TestCase
 
         $user->addRole($role1);
         $user->addRole($role2);
-        
+
         $audienceMember = new AudienceMember($user);
 
         $this->logicTester()->forLogic($logic)->pass($user, $role1->group(), $role1);
@@ -139,7 +139,7 @@ class AudienceMemberTest extends TestCase
 
         $this->logicTester()->forLogic($logic)->pass($user);
         $this->logicTester()->bind();
-        
+
         $audienceMember->filterForLogic($logic);
 
         $this->assertTrue($audienceMember->canBeUser());
@@ -160,12 +160,12 @@ class AudienceMemberTest extends TestCase
 
         $user->addGroup($group1);
         $user->addGroup($group2);
-            
+
         $audienceMember = new AudienceMember($user);
 
         $this->logicTester()->forLogic($logic)->pass($user, $group1);
         $this->logicTester()->forLogic($logic)->fail($user, $group2);
-        
+
         $this->logicTester()->bind();
 
         $audienceMember->filterForLogic($logic);
@@ -189,7 +189,7 @@ class AudienceMemberTest extends TestCase
 
         $user->addRole($role1);
         $user->addRole($role2);
-        
+
         $audienceMember = new AudienceMember($user);
 
         $this->logicTester()->forLogic($logic)->pass($user, $role1->group(), $role1);
@@ -223,12 +223,12 @@ class AudienceMemberTest extends TestCase
         $user->addRole($role2);
         $user->addGroup($group1);
         $user->addGroup($group2);
-        
+
         $audienceMember = new AudienceMember($user);
 
         $this->logicTester()->forLogic($logic)->alwaysFail();
         $this->logicTester()->bind();
-        
+
         $audienceMember->filterForLogic($logic);
 
         $this->assertFalse($audienceMember->canBeUser());
@@ -238,7 +238,7 @@ class AudienceMemberTest extends TestCase
         $this->assertCount(0, $audienceMember->roles());
         $this->assertFalse($audienceMember->hasAudience());
     }
-    
+
     /** @test */
     public function to_array_to_json_and_to_string_returns_attributes()
     {
@@ -272,7 +272,7 @@ class AudienceMemberTest extends TestCase
         $this->assertCount(2, $audienceMember->toArray()['roles']);
         $this->assertModelEquals($role1, $audienceMember->toArray()['roles'][0]);
         $this->assertModelEquals($role2, $audienceMember->toArray()['roles'][1]);
-        
+
         $this->assertJson($audienceMember->toJson());
         $this->assertArrayHasKey('user', json_decode($audienceMember->toJson(), true));
         $this->assertArrayHasKey('can_be_user', json_decode($audienceMember->toJson(), true));
@@ -286,7 +286,7 @@ class AudienceMemberTest extends TestCase
         $this->assertCount(2, json_decode($audienceMember->toJson(), true)['roles']);
         $this->assertEquals($role1->id(), json_decode($audienceMember->toJson(), true)['roles'][0]['id']);
         $this->assertEquals($role2->id(), json_decode($audienceMember->toJson(), true)['roles'][1]['id']);
-        
+
         $this->assertJson((string) $audienceMember);
         $this->assertArrayHasKey('user', json_decode((string) $audienceMember, true));
         $this->assertArrayHasKey('can_be_user', json_decode((string) $audienceMember, true));
@@ -301,7 +301,7 @@ class AudienceMemberTest extends TestCase
         $this->assertEquals($role1->id(), json_decode((string) $audienceMember, true)['roles'][0]['id']);
         $this->assertEquals($role2->id(), json_decode((string) $audienceMember, true)['roles'][1]['id']);
     }
-    
+
     /** @test */
     public function can_be_user_defaults_to_true()
     {

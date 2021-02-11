@@ -9,7 +9,6 @@ use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
-use BristolSU\Support\User\Contracts\UserAuthentication;
 use Carbon\Carbon;
 use Exception;
 
@@ -190,10 +189,7 @@ class ActivityTest extends TestCase
     public function user_id_is_automatically_added_on_creation()
     {
         $user = $this->newUser();
-        $dbUser = factory(\BristolSU\Support\User\User::class)->create(['control_id' => $user->id()]);
-        $authentication = $this->prophesize(UserAuthentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn($dbUser);
-        $this->instance(UserAuthentication::class, $authentication->reveal());
+        $this->beUser($user);
 
         $logic = factory(Logic::class)->create();
         $activity = Activity::create([
@@ -252,5 +248,15 @@ class ActivityTest extends TestCase
         $this->assertEquals('name', $activity->revisionHistory->first()->key);
         $this->assertEquals('OldName', $activity->revisionHistory->first()->old_value);
         $this->assertEquals('NewName', $activity->revisionHistory->first()->new_value);
+    }
+
+    /** @test */
+    public function activities_have_a_module_url()
+    {
+        $activity = factory(Activity::class)->create([
+            'image_url' => 'https://testimage.com/image-1'
+        ]);
+
+        $this->assertEquals('https://testimage.com/image-1', $activity->image_url);
     }
 }

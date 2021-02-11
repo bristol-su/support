@@ -1,6 +1,6 @@
 <?php
 
-namespace BristolSU\Support\Tests\Module;
+namespace BristolSU\Support\Tests\ModuleInstance;
 
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
@@ -14,13 +14,16 @@ class ModuleInstanceRepositoryTest extends TestCase
     public function it_retrieves_a_module_instance_by_id()
     {
         $moduleInstance = factory(ModuleInstance::class)->create();
-        $this->assertDatabaseHas('module_instances', $moduleInstance->toArray());
+        $this->assertDatabaseHas('module_instances', [
+            'id' => $moduleInstance->id,
+            'alias' => $moduleInstance->alias
+        ]);
 
         $repository = new ModuleInstanceRepository();
         $foundInstance = $repository->getById($moduleInstance->id);
 
         $this->assertInstanceOf(ModuleInstance::class, $foundInstance);
-        $this->assertTrue($moduleInstance->is($foundInstance));
+        $this->assertModelEquals($moduleInstance, $foundInstance);
     }
 
     /** @test */
@@ -37,7 +40,7 @@ class ModuleInstanceRepositoryTest extends TestCase
     {
         $repository = new ModuleInstanceRepository();
         $activity = factory(Activity::class)->create();
-        
+
         $instance = $repository->create([
             'alias' => 'alias',
             'activity_id' => $activity->id,
@@ -66,22 +69,22 @@ class ModuleInstanceRepositoryTest extends TestCase
             'user_id' => 5
         ]);
     }
-    
+
     /** @test */
     public function all_returns_all_module_instances()
     {
         $moduleInstances = factory(ModuleInstance::class, 5)->create();
-        
+
         $repository = new ModuleInstanceRepository();
         $foundModuleInstances = $repository->all();
-        
+
         $this->assertEquals(5, $foundModuleInstances->count());
         $this->assertContainsOnlyInstancesOf(ModuleInstance::class, $foundModuleInstances);
         foreach ($moduleInstances as $moduleInstance) {
             $this->assertModelEquals($moduleInstance, $foundModuleInstances->shift());
         }
     }
-    
+
     /** @test */
     public function all_with_alias_returns_all_module_instances_with_the_alias()
     {
@@ -98,20 +101,20 @@ class ModuleInstanceRepositoryTest extends TestCase
             $this->assertModelEquals($moduleInstance, $foundModuleInstances->shift());
         }
     }
-    
+
     /** @test */
     public function it_retrieves_all_module_instances_through_an_activity()
     {
         $activity = factory(Activity::class)->create();
         $activity2 = factory(Activity::class)->create();
-        
+
         $moduleInstances = factory(ModuleInstance::class, 10)->create(['activity_id' => $activity->id]);
         $otherModuleInstances = factory(ModuleInstance::class, 4)->create(['activity_id' => $activity2->id]);
-        
+
         $repository = new ModuleInstanceRepository();
         $foundModuleInstances = $repository->allThroughActivity($activity);
         $this->assertEquals(10, $foundModuleInstances->count());
-        
+
         foreach ($moduleInstances as $moduleInstance) {
             $this->assertModelEquals($moduleInstance, $foundModuleInstances->shift());
         }
@@ -215,15 +218,15 @@ class ModuleInstanceRepositoryTest extends TestCase
         $this->assertEquals(false, $newInstance->enabled);
         $this->assertEquals(12, $newInstance->user_id);
     }
-    
+
     /** @test */
     public function it_deletes_a_module_instance()
     {
         $instance = factory(ModuleInstance::class)->create();
         $repository = new ModuleInstanceRepository();
-        
+
         $this->assertDatabaseHas('module_instances', ['id' => $instance->id]);
-        
+
         $repository->delete($instance->id);
         $this->assertDatabaseMissing('module_instances', ['id' => $instance->id]);
     }

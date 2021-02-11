@@ -9,6 +9,7 @@ use BristolSU\Support\Authentication\AuthenticationServiceProvider;
 use BristolSU\Support\Authorization\AuthorizationServiceProvider;
 use BristolSU\Support\Completion\CompletionConditionServiceProvider;
 use BristolSU\Support\Connection\ConnectionServiceProvider;
+use BristolSU\Support\Control\ControlServiceProvider;
 use BristolSU\Support\Events\EventsServiceProvider;
 use BristolSU\Support\Filters\FilterServiceProvider;
 use BristolSU\Support\Http\HttpServiceProvider;
@@ -18,7 +19,8 @@ use BristolSU\Support\ModuleInstance\ModuleInstanceServiceProvider;
 use BristolSU\Support\Permissions\PermissionServiceProvider;
 use BristolSU\Support\Progress\ProgressServiceProvider;
 use BristolSU\Support\Revision\RevisionServiceProvider;
-use BristolSU\Support\User\UserServiceProvider;
+use BristolSU\Support\Settings\SettingsServiceProvider;
+use BristolSU\Support\Theme\ThemeServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -35,6 +37,7 @@ class SupportServiceProvider extends ServiceProvider
         ActivityServiceProvider::class,
         EventsServiceProvider::class,
         ActivityInstanceServiceProvider::class,
+        AuthenticationServiceProvider::class,
         AuthorizationServiceProvider::class,
         CompletionConditionServiceProvider::class,
         ConnectionServiceProvider::class,
@@ -42,12 +45,13 @@ class SupportServiceProvider extends ServiceProvider
         LogicServiceProvider::class,
         ProgressServiceProvider::class,
         PermissionServiceProvider::class,
-        AuthenticationServiceProvider::class,
         ModuleFrameworkServiceProvider::class,
         ModuleInstanceServiceProvider::class,
-        UserServiceProvider::class,
         HttpServiceProvider::class,
-        RevisionServiceProvider::class
+        RevisionServiceProvider::class,
+        SettingsServiceProvider::class,
+        ControlServiceProvider::class,
+        ThemeServiceProvider::class
     ];
 
     public function register()
@@ -58,7 +62,7 @@ class SupportServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerRoutes();
     }
-    
+
     public function registerProviders()
     {
         foreach ($this->providers as $provider) {

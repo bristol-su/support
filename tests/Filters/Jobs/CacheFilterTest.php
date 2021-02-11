@@ -18,12 +18,12 @@ class CacheFilterTest extends TestCase
             'alias' => 'alias1',
             'settings' => ['key1' => 'val1', 'key2' => 'val2']
         ]);
-        
+
         $filterTester = $this->prophesize(FilterTester::class);
         $filterTester->evaluate(Argument::that(function ($arg) use ($filterInstance) {
             return $arg instanceof FilterInstance && $filterInstance->id === $arg->id;
         }), $model)->shouldBeCalled()->willReturn(true);
-        
+
         $job = new CacheFilter($filterInstance, $model);
         $job->handle($filterTester->reveal());
     }

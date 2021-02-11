@@ -6,27 +6,12 @@ parameters:
 			path: database/factories/ActionHistoryFactory.php
 
 		-
-			message: "#^Function factory invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: database/factories/ActionHistoryFactory.php
-
-		-
 			message: "#^Variable \\$factory might not be defined\\.$#"
 			count: 1
 			path: database/factories/ActionInstanceFactory.php
 
 		-
-			message: "#^Function factory invoked with 1 parameter, 0 required\\.$#"
-			count: 2
-			path: database/factories/ActionInstanceFactory.php
-
-		-
 			message: "#^Variable \\$factory might not be defined\\.$#"
-			count: 1
-			path: database/factories/ActionInstanceFieldFactory.php
-
-		-
-			message: "#^Function factory invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: database/factories/ActionInstanceFieldFactory.php
 
@@ -36,18 +21,8 @@ parameters:
 			path: database/factories/ActivityFactory.php
 
 		-
-			message: "#^Function factory invoked with 1 parameter, 0 required\\.$#"
-			count: 3
-			path: database/factories/ActivityFactory.php
-
-		-
 			message: "#^Variable \\$factory might not be defined\\.$#"
 			count: 4
-			path: database/factories/ActivityInstanceFactory.php
-
-		-
-			message: "#^Function factory invoked with 1 parameter, 0 required\\.$#"
-			count: 1
 			path: database/factories/ActivityInstanceFactory.php
 
 		-
@@ -61,17 +36,7 @@ parameters:
 			path: database/factories/ConnectionInstanceFactory.php
 
 		-
-			message: "#^Function factory invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: database/factories/FilterInstanceFactory.php
-
-		-
 			message: "#^Variable \\$factory might not be defined\\.$#"
-			count: 1
-			path: database/factories/LogicFactory.php
-
-		-
-			message: "#^Function factory invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: database/factories/LogicFactory.php
 
@@ -81,18 +46,8 @@ parameters:
 			path: database/factories/ModelPermissionFactory.php
 
 		-
-			message: "#^Function factory invoked with 1 parameter, 0 required\\.$#"
-			count: 4
-			path: database/factories/ModelPermissionFactory.php
-
-		-
 			message: "#^Variable \\$factory might not be defined\\.$#"
 			count: 1
-			path: database/factories/ModuleInstanceFactory.php
-
-		-
-			message: "#^Function factory invoked with 1 parameter, 0 required\\.$#"
-			count: 6
 			path: database/factories/ModuleInstanceFactory.php
 
 		-
@@ -106,18 +61,8 @@ parameters:
 			path: database/factories/ModuleInstancePermissionsFactory.php
 
 		-
-			message: "#^Function factory invoked with 1 parameter, 0 required\\.$#"
-			count: 2
-			path: database/factories/ModuleInstancePermissionsFactory.php
-
-		-
 			message: "#^Variable \\$factory might not be defined\\.$#"
 			count: 1
-			path: database/factories/ModuleInstanceProgressFactory.php
-
-		-
-			message: "#^Function factory invoked with 1 parameter, 0 required\\.$#"
-			count: 2
 			path: database/factories/ModuleInstanceProgressFactory.php
 
 		-
@@ -126,17 +71,7 @@ parameters:
 			path: database/factories/ModuleInstanceServiceFactory.php
 
 		-
-			message: "#^Function factory invoked with 1 parameter, 0 required\\.$#"
-			count: 2
-			path: database/factories/ModuleInstanceServiceFactory.php
-
-		-
 			message: "#^Variable \\$factory might not be defined\\.$#"
-			count: 1
-			path: database/factories/ModuleInstanceSettingsFactory.php
-
-		-
-			message: "#^Function factory invoked with 1 parameter, 0 required\\.$#"
 			count: 1
 			path: database/factories/ModuleInstanceSettingsFactory.php
 
@@ -146,19 +81,9 @@ parameters:
 			path: database/factories/ProgressFactory.php
 
 		-
-			message: "#^Function factory invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: database/factories/ProgressFactory.php
-
-		-
 			message: "#^Variable \\$factory might not be defined\\.$#"
 			count: 1
-			path: database/factories/UserFactory.php
-
-		-
-			message: "#^Function factory invoked with 1 parameter, 0 required\\.$#"
-			count: 1
-			path: database/factories/UserFactory.php
+			path: database/factories/SavedSettingModel.php
 
 		-
 			message: "#^Method CreateRevisionsTable\\:\\:up\\(\\) has no return typehint specified\\.$#"
@@ -169,26 +94,6 @@ parameters:
 			message: "#^Method CreateRevisionsTable\\:\\:down\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: database/migrations/2013_04_09_062329_create_revisions_table.php
-
-		-
-			message: "#^Method CreateUsersTable\\:\\:up\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: database/migrations/2014_10_12_000000_create_users_table.php
-
-		-
-			message: "#^Method CreateUsersTable\\:\\:down\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: database/migrations/2014_10_12_000000_create_users_table.php
-
-		-
-			message: "#^Method CreatePasswordResetsTable\\:\\:up\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: database/migrations/2014_10_12_100000_create_password_resets_table.php
-
-		-
-			message: "#^Method CreatePasswordResetsTable\\:\\:down\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: database/migrations/2014_10_12_100000_create_password_resets_table.php
 
 		-
 			message: "#^Method CreateLogicsTable\\:\\:up\\(\\) has no return typehint specified\\.$#"
@@ -321,14 +226,14 @@ parameters:
 			path: database/migrations/2019_12_10_194235_create_module_instance_services_table.php
 
 		-
-			message: "#^Method RemoveDataFromUsersTable\\:\\:up\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method CreateSettingsTable\\:\\:up\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: database/migrations/2020_02_02_000000_remove_data_from_users_table.php
+			path: database/migrations/2020_02_02_014110_create_settings_table.php
 
 		-
-			message: "#^Method RemoveDataFromUsersTable\\:\\:down\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method CreateSettingsTable\\:\\:down\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: database/migrations/2020_02_02_000000_remove_data_from_users_table.php
+			path: database/migrations/2020_02_02_014110_create_settings_table.php
 
 		-
 			message: "#^Method AddEnabledColumnToActivitiesTable\\:\\:up\\(\\) has no return typehint specified\\.$#"
@@ -464,6 +369,46 @@ parameters:
 			message: "#^Method CreateModuleInstanceProgressTable\\:\\:down\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: database/migrations/2020_06_09_102228_create_module_instance_progress_table.php
+
+		-
+			message: "#^Method AddImagesToActivitiesAndModuleInstancesTable\\:\\:up\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: database/migrations/2020_09_21_205455_add_images_to_activities_and_module_instances_table.php
+
+		-
+			message: "#^Method AddImagesToActivitiesAndModuleInstancesTable\\:\\:down\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: database/migrations/2020_09_21_205455_add_images_to_activities_and_module_instances_table.php
+
+		-
+			message: "#^Method AddUserIdAndVisibilityToSettingsTable\\:\\:up\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: database/migrations/2020_12_13_225959_add_user_id_and_visibility_to_settings_table.php
+
+		-
+			message: "#^Method AddUserIdAndVisibilityToSettingsTable\\:\\:down\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: database/migrations/2020_12_13_225959_add_user_id_and_visibility_to_settings_table.php
+
+		-
+			message: "#^Method MakeKeyColumnNotUniqueOnSettingsTable\\:\\:up\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: database/migrations/2020_12_14_225959_make_key_column_not_unique_on_settings_table.php
+
+		-
+			message: "#^Method MakeKeyColumnNotUniqueOnSettingsTable\\:\\:down\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: database/migrations/2020_12_14_225959_make_key_column_not_unique_on_settings_table.php
+
+		-
+			message: "#^Method RemoveTypeColumnFromSettingsTable\\:\\:up\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: database/migrations/2021_01_17_234009_remove_type_column_from_settings_table.php
+
+		-
+			message: "#^Method RemoveTypeColumnFromSettingsTable\\:\\:down\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: database/migrations/2021_01_17_234009_remove_type_column_from_settings_table.php
 
 		-
 			message: "#^Method BristolSU\\\\Support\\\\Action\\\\ActionBuilder\\:\\:build\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
@@ -749,11 +694,6 @@ parameters:
 			message: "#^Method BristolSU\\\\Support\\\\Action\\\\Contracts\\\\TriggerableEvent\\:\\:getFieldMetaData\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Action/Contracts/TriggerableEvent.php
-
-		-
-			message: "#^Property BristolSU\\\\Support\\\\Action\\\\History\\\\ActionHistory\\:\\:\\$fillable type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Action/History/ActionHistory.php
 
 		-
 			message: "#^Property BristolSU\\\\Support\\\\Action\\\\History\\\\ActionHistory\\:\\:\\$casts type has no value type specified in iterable type array\\.$#"
@@ -1061,21 +1001,6 @@ parameters:
 			path: src/ActivityInstance/ApiActivityInstanceResolver.php
 
 		-
-			message: "#^Method BristolSU\\\\Support\\\\ActivityInstance\\\\AuthenticationProvider\\\\ActivityInstanceProvider\\:\\:updateRememberToken\\(\\) with return type void returns null but should not return anything\\.$#"
-			count: 1
-			path: src/ActivityInstance/AuthenticationProvider/ActivityInstanceProvider.php
-
-		-
-			message: "#^Method BristolSU\\\\Support\\\\ActivityInstance\\\\AuthenticationProvider\\\\ActivityInstanceProvider\\:\\:retrieveByCredentials\\(\\) has parameter \\$credentials with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/ActivityInstance/AuthenticationProvider/ActivityInstanceProvider.php
-
-		-
-			message: "#^Method BristolSU\\\\Support\\\\ActivityInstance\\\\AuthenticationProvider\\\\ActivityInstanceProvider\\:\\:validateCredentials\\(\\) has parameter \\$credentials with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/ActivityInstance/AuthenticationProvider/ActivityInstanceProvider.php
-
-		-
 			message: "#^Method BristolSU\\\\Support\\\\ActivityInstance\\\\Contracts\\\\ActivityInstanceRepository\\:\\:allFor\\(\\) return type has no value type specified in iterable type Illuminate\\\\Support\\\\Collection\\.$#"
 			count: 1
 			path: src/ActivityInstance/Contracts/ActivityInstanceRepository.php
@@ -1151,24 +1076,39 @@ parameters:
 			path: src/ActivityInstance/WebRequestActivityInstanceResolver.php
 
 		-
+			message: "#^Parameter \\#1 \\$id of method BristolSU\\\\Support\\\\ActivityInstance\\\\Contracts\\\\ActivityInstanceRepository\\:\\:getById\\(\\) expects int, string\\|null given\\.$#"
+			count: 1
+			path: src/ActivityInstance/WebRequestActivityInstanceResolver.php
+
+		-
 			message: "#^Method BristolSU\\\\Support\\\\ActivityInstance\\\\WebRequestActivityInstanceResolver\\:\\:clearActivityInstance\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/ActivityInstance/WebRequestActivityInstanceResolver.php
 
 		-
-			message: "#^Method BristolSU\\\\Support\\\\Authentication\\\\ApiAuthentication\\:\\:setGroup\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method BristolSU\\\\Support\\\\Authentication\\\\AuthQuery\\\\AuthCredentials\\:\\:toArray\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/Authentication/ApiAuthentication.php
+			path: src/Authentication/AuthQuery/AuthCredentials.php
 
 		-
-			message: "#^Method BristolSU\\\\Support\\\\Authentication\\\\ApiAuthentication\\:\\:setRole\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method BristolSU\\\\Support\\\\Authentication\\\\AuthQuery\\\\AuthCredentials\\:\\:groupId\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: src/Authentication/ApiAuthentication.php
+			path: src/Authentication/AuthQuery/AuthCredentials.php
 
 		-
-			message: "#^Method BristolSU\\\\Support\\\\Authentication\\\\ApiAuthentication\\:\\:setUser\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method BristolSU\\\\Support\\\\Authentication\\\\AuthQuery\\\\AuthCredentials\\:\\:roleId\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: src/Authentication/ApiAuthentication.php
+			path: src/Authentication/AuthQuery/AuthCredentials.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Authentication\\\\AuthQuery\\\\AuthCredentials\\:\\:activityInstanceId\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Authentication/AuthQuery/AuthCredentials.php
+
+		-
+			message: "#^Access to an undefined property BristolSU\\\\Support\\\\ActivityInstance\\\\ActivityInstance\\:\\:\\$id\\.$#"
+			count: 1
+			path: src/Authentication/AuthQuery/Generator.php
 
 		-
 			message: "#^Variable \\$model might not be defined\\.$#"
@@ -1177,16 +1117,6 @@ parameters:
 
 		-
 			message: "#^Method BristolSU\\\\Support\\\\Authentication\\\\AuthenticationServiceProvider\\:\\:boot\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Authentication/AuthenticationServiceProvider.php
-
-		-
-			message: "#^Call to an undefined static method Illuminate\\\\Routing\\\\UrlGenerator\\:\\:getAuthQueryArray\\(\\)\\.$#"
-			count: 1
-			path: src/Authentication/AuthenticationServiceProvider.php
-
-		-
-			message: "#^Method BristolSU\\\\Support\\\\Authentication\\\\AuthenticationServiceProvider\\:\\:registerAuthentication\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Authentication/AuthenticationServiceProvider.php
 
@@ -1204,26 +1134,6 @@ parameters:
 			message: "#^Method BristolSU\\\\Support\\\\Authentication\\\\Contracts\\\\Authentication\\:\\:setUser\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Authentication/Contracts/Authentication.php
-
-		-
-			message: "#^Call to an undefined static method Illuminate\\\\Support\\\\Facades\\\\Cookie\\:\\:forget\\(\\)\\.$#"
-			count: 1
-			path: src/Authentication/PassportServiceProvider.php
-
-		-
-			message: "#^Method BristolSU\\\\Support\\\\Authentication\\\\WebRequestAuthentication\\:\\:setGroup\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Authentication/WebRequestAuthentication.php
-
-		-
-			message: "#^Method BristolSU\\\\Support\\\\Authentication\\\\WebRequestAuthentication\\:\\:setRole\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Authentication/WebRequestAuthentication.php
-
-		-
-			message: "#^Method BristolSU\\\\Support\\\\Authentication\\\\WebRequestAuthentication\\:\\:setUser\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Authentication/WebRequestAuthentication.php
 
 		-
 			message: "#^Method BristolSU\\\\Support\\\\Authorization\\\\AuthorizationServiceProvider\\:\\:boot\\(\\) has no return typehint specified\\.$#"
@@ -1676,6 +1586,51 @@ parameters:
 			path: src/Connection/ServiceRequest.php
 
 		-
+			message: "#^Method BristolSU\\\\Support\\\\Control\\\\ControlServiceProvider\\:\\:boot\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Control/ControlServiceProvider.php
+
+		-
+			message: "#^Call to an undefined method FormSchema\\\\Generator\\\\Field\\:\\:inputType\\(\\)\\.$#"
+			count: 1
+			path: src/Control/Settings/Attributes/AdditionalAttributesGroup.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Control\\\\Settings\\\\Attributes\\\\AdditionalAttributesGroup\\:\\:rules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Control/Settings/Attributes/AdditionalAttributesGroup.php
+
+		-
+			message: "#^Call to an undefined method FormSchema\\\\Generator\\\\Field\\:\\:inputType\\(\\)\\.$#"
+			count: 1
+			path: src/Control/Settings/Attributes/AdditionalAttributesPosition.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Control\\\\Settings\\\\Attributes\\\\AdditionalAttributesPosition\\:\\:rules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Control/Settings/Attributes/AdditionalAttributesPosition.php
+
+		-
+			message: "#^Call to an undefined method FormSchema\\\\Generator\\\\Field\\:\\:inputType\\(\\)\\.$#"
+			count: 1
+			path: src/Control/Settings/Attributes/AdditionalAttributesRole.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Control\\\\Settings\\\\Attributes\\\\AdditionalAttributesRole\\:\\:rules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Control/Settings/Attributes/AdditionalAttributesRole.php
+
+		-
+			message: "#^Call to an undefined method FormSchema\\\\Generator\\\\Field\\:\\:inputType\\(\\)\\.$#"
+			count: 1
+			path: src/Control/Settings/Attributes/AdditionalAttributesUser.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Control\\\\Settings\\\\Attributes\\\\AdditionalAttributesUser\\:\\:rules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Control/Settings/Attributes/AdditionalAttributesUser.php
+
+		-
 			message: "#^Method BristolSU\\\\Support\\\\Events\\\\Contracts\\\\EventManager\\:\\:registerEvent\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Events/Contracts/EventManager.php
@@ -1986,19 +1941,64 @@ parameters:
 			path: src/Http/HttpServiceProvider.php
 
 		-
+			message: "#^Method BristolSU\\\\Support\\\\Http\\\\View\\\\InjectJavascriptVariables\\:\\:compose\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Http/View/InjectJavascriptVariables.php
+
+		-
 			message: "#^Call to an undefined static method Laracasts\\\\Utilities\\\\JavaScript\\\\JavaScriptFacade\\:\\:put\\(\\)\\.$#"
 			count: 1
-			path: src/Http/Middleware/InjectJavascriptVariables.php
+			path: src/Http/View/InjectJavascriptVariables.php
 
 		-
-			message: "#^Cannot access property \\$alias on object\\|string\\.$#"
+			message: "#^Method BristolSU\\\\Support\\\\Http\\\\View\\\\InjectJavascriptVariables\\:\\:getActivityInstance\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: src/Http/Middleware/InjectJavascriptVariables.php
+			path: src/Http/View/InjectJavascriptVariables.php
 
 		-
-			message: "#^Cannot access property \\$slug on object\\|string\\.$#"
-			count: 2
-			path: src/Http/Middleware/InjectJavascriptVariables.php
+			message: "#^Method BristolSU\\\\Support\\\\Http\\\\View\\\\InjectOldInput\\:\\:compose\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Http/View/InjectOldInput.php
+
+		-
+			message: "#^Call to an undefined static method Laracasts\\\\Utilities\\\\JavaScript\\\\JavaScriptFacade\\:\\:put\\(\\)\\.$#"
+			count: 1
+			path: src/Http/View/InjectOldInput.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Http\\\\View\\\\InjectValidationErrors\\:\\:compose\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Http/View/InjectValidationErrors.php
+
+		-
+			message: "#^Call to an undefined static method Laracasts\\\\Utilities\\\\JavaScript\\\\JavaScriptFacade\\:\\:put\\(\\)\\.$#"
+			count: 1
+			path: src/Http/View/InjectValidationErrors.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Http\\\\View\\\\Router\\\\InjectNamedRoutes\\:\\:compose\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Http/View/Router/InjectNamedRoutes.php
+
+		-
+			message: "#^Call to an undefined static method Laracasts\\\\Utilities\\\\JavaScript\\\\JavaScriptFacade\\:\\:put\\(\\)\\.$#"
+			count: 1
+			path: src/Http/View/Router/InjectNamedRoutes.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Http\\\\View\\\\Router\\\\NamedRouteRetriever\\:\\:all\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Http/View/Router/NamedRouteRetriever.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Http\\\\View\\\\Router\\\\NamedRouteRetrieverCache\\:\\:all\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Http/View/Router/NamedRouteRetrieverCache.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Http\\\\View\\\\Router\\\\NamedRouteRetrieverInterface\\:\\:all\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Http/View/Router/NamedRouteRetrieverInterface.php
 
 		-
 			message: "#^Property BristolSU\\\\Support\\\\Logic\\\\Audience\\\\AudienceMember\\:\\:\\$roles type has no value type specified in iterable type Illuminate\\\\Support\\\\Collection\\.$#"
@@ -2836,11 +2836,6 @@ parameters:
 			path: src/ModuleInstance/ModuleInstance.php
 
 		-
-			message: "#^Property BristolSU\\\\Support\\\\ModuleInstance\\\\ModuleInstanceGrouping\\:\\:\\$fillable type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/ModuleInstance/ModuleInstanceGrouping.php
-
-		-
 			message: "#^Method BristolSU\\\\Support\\\\ModuleInstance\\\\ModuleInstanceGrouping\\:\\:heading\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/ModuleInstance/ModuleInstanceGrouping.php
@@ -3146,11 +3141,6 @@ parameters:
 			path: src/Progress/Handlers/Database/DatabaseHandler.php
 
 		-
-			message: "#^Property BristolSU\\\\Support\\\\Progress\\\\Handlers\\\\Database\\\\Models\\\\ModuleInstanceProgress\\:\\:\\$fillable type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Progress/Handlers/Database/Models/ModuleInstanceProgress.php
-
-		-
 			message: "#^Method BristolSU\\\\Support\\\\Progress\\\\Handlers\\\\Database\\\\Models\\\\ModuleInstanceProgress\\:\\:progress\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Progress/Handlers/Database/Models/ModuleInstanceProgress.php
@@ -3159,11 +3149,6 @@ parameters:
 			message: "#^Method BristolSU\\\\Support\\\\Progress\\\\Handlers\\\\Database\\\\Models\\\\ModuleInstanceProgress\\:\\:moduleInstance\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Progress/Handlers/Database/Models/ModuleInstanceProgress.php
-
-		-
-			message: "#^Property BristolSU\\\\Support\\\\Progress\\\\Handlers\\\\Database\\\\Models\\\\Progress\\:\\:\\$fillable type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/Progress/Handlers/Database/Models/Progress.php
 
 		-
 			message: "#^Property BristolSU\\\\Support\\\\Progress\\\\Handlers\\\\Database\\\\Models\\\\Progress\\:\\:\\$casts type has no value type specified in iterable type array\\.$#"
@@ -3356,6 +3341,166 @@ parameters:
 			path: src/Progress/Snapshot.php
 
 		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Definition\\\\GlobalSetting\\:\\:rules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Settings/Definition/GlobalSetting.php
+
+		-
+			message: "#^Property BristolSU\\\\Support\\\\Settings\\\\Definition\\\\SettingStore\\:\\:\\$map type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Settings/Definition/SettingStore.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Definition\\\\SettingStore\\:\\:addSetting\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/Definition/SettingStore.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Definition\\\\UserSetting\\:\\:rules\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Settings/Definition/UserSetting.php
+
+		-
+			message: "#^PHPDoc tag @param has invalid value \\(\\$key\\)\\: Unexpected token \"\\$key\", expected type at offset 93$#"
+			count: 1
+			path: src/Settings/Saved/DatabaseSavedSettingRepository.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:key\\(\\)\\.$#"
+			count: 9
+			path: src/Settings/Saved/DatabaseSavedSettingRepository.php
+
+		-
+			message: "#^PHPDoc tag @param for parameter \\$key with type array\\|string is not subtype of native type string\\.$#"
+			count: 2
+			path: src/Settings/Saved/DatabaseSavedSettingRepository.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Saved\\\\DatabaseSavedSettingRepository\\:\\:setForUser\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/Saved/DatabaseSavedSettingRepository.php
+
+		-
+			message: "#^Call to an undefined static method BristolSU\\\\Support\\\\Settings\\\\Saved\\\\SavedSettingModel\\:\\:updateOrCreate\\(\\)\\.$#"
+			count: 3
+			path: src/Settings/Saved/DatabaseSavedSettingRepository.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Saved\\\\DatabaseSavedSettingRepository\\:\\:setForAllUsers\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/Saved/DatabaseSavedSettingRepository.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Saved\\\\DatabaseSavedSettingRepository\\:\\:setGlobal\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/Saved/DatabaseSavedSettingRepository.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Saved\\\\DatabaseSavedSettingRepository\\:\\:getAllUserDefaults\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Settings/Saved/DatabaseSavedSettingRepository.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:getSettingKey\\(\\)\\.$#"
+			count: 2
+			path: src/Settings/Saved/DatabaseSavedSettingRepository.php
+
+		-
+			message: "#^Call to an undefined method Illuminate\\\\Database\\\\Eloquent\\\\Builder\\:\\:getSettingValue\\(\\)\\.$#"
+			count: 1
+			path: src/Settings/Saved/DatabaseSavedSettingRepository.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Saved\\\\SavedSettingModel\\:\\:scopeGlobal\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/Saved/SavedSettingModel.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Saved\\\\SavedSettingModel\\:\\:scopeUser\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/Saved/SavedSettingModel.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Saved\\\\SavedSettingModel\\:\\:scopeKey\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/Saved/SavedSettingModel.php
+
+		-
+			message: "#^Access to an undefined property BristolSU\\\\Support\\\\Settings\\\\Saved\\\\SavedSettingModel\\:\\:\\$value\\.$#"
+			count: 1
+			path: src/Settings/Saved/SavedSettingModel.php
+
+		-
+			message: "#^Access to an undefined property BristolSU\\\\Support\\\\Settings\\\\Saved\\\\SavedSettingModel\\:\\:\\$key\\.$#"
+			count: 1
+			path: src/Settings/Saved/SavedSettingModel.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Saved\\\\SavedSettingRepository\\:\\:setForUser\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/Saved/SavedSettingRepository.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Saved\\\\SavedSettingRepository\\:\\:setForAllUsers\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/Saved/SavedSettingRepository.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Saved\\\\SavedSettingRepository\\:\\:setGlobal\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/Saved/SavedSettingRepository.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Saved\\\\SavedSettingRepository\\:\\:getAllUserDefaults\\(\\) return type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Settings/Saved/SavedSettingRepository.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Setting\\:\\:setForUser\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/Setting.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Setting\\:\\:setForAllUsers\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/Setting.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\Setting\\:\\:setGlobal\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/Setting.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\SettingRepository\\:\\:setForUser\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/SettingRepository.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\SettingRepository\\:\\:setForAllUsers\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/SettingRepository.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\SettingRepository\\:\\:setGlobal\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/SettingRepository.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\SettingValidation\\:\\:setForUser\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/SettingValidation.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\SettingValidation\\:\\:setForAllUsers\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/SettingValidation.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Settings\\\\SettingValidation\\:\\:setGlobal\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Settings/SettingValidation.php
+
+		-
 			message: "#^Property BristolSU\\\\Support\\\\SupportServiceProvider\\:\\:\\$providers type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/SupportServiceProvider.php
@@ -3386,34 +3531,19 @@ parameters:
 			path: src/SupportServiceProvider.php
 
 		-
-			message: "#^Method BristolSU\\\\Support\\\\Testing\\\\ActivityInstance\\\\LaravelAuthActivityInstanceResolver\\:\\:setActivityInstance\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method BristolSU\\\\Support\\\\Testing\\\\ActivityInstance\\\\SessionActivityInstanceResolver\\:\\:setActivityInstance\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: src/Testing/ActivityInstance/LaravelAuthActivityInstanceResolver.php
+			path: src/Testing/ActivityInstance/SessionActivityInstanceResolver.php
 
 		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Auth\\\\Guard\\:\\:login\\(\\)\\.$#"
+			message: "#^Access to an undefined property BristolSU\\\\Support\\\\ActivityInstance\\\\ActivityInstance\\:\\:\\$id\\.$#"
 			count: 1
-			path: src/Testing/ActivityInstance/LaravelAuthActivityInstanceResolver.php
+			path: src/Testing/ActivityInstance/SessionActivityInstanceResolver.php
 
 		-
-			message: "#^Method BristolSU\\\\Support\\\\Testing\\\\ActivityInstance\\\\LaravelAuthActivityInstanceResolver\\:\\:getActivityInstance\\(\\) should return BristolSU\\\\Support\\\\ActivityInstance\\\\ActivityInstance but returns Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null\\.$#"
+			message: "#^Method BristolSU\\\\Support\\\\Testing\\\\ActivityInstance\\\\SessionActivityInstanceResolver\\:\\:clearActivityInstance\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: src/Testing/ActivityInstance/LaravelAuthActivityInstanceResolver.php
-
-		-
-			message: "#^Method BristolSU\\\\Support\\\\Testing\\\\ActivityInstance\\\\LaravelAuthActivityInstanceResolver\\:\\:clearActivityInstance\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/Testing/ActivityInstance/LaravelAuthActivityInstanceResolver.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Auth\\\\Guard\\:\\:logout\\(\\)\\.$#"
-			count: 1
-			path: src/Testing/ActivityInstance/LaravelAuthActivityInstanceResolver.php
-
-		-
-			message: "#^PHPDoc tag @param references unknown parameter\\: \\$userAuthentication$#"
-			count: 1
-			path: src/Testing/Authentication/SessionAuthentication.php
+			path: src/Testing/ActivityInstance/SessionActivityInstanceResolver.php
 
 		-
 			message: "#^Method BristolSU\\\\Support\\\\Testing\\\\Authentication\\\\SessionAuthentication\\:\\:setGroup\\(\\) has no return typehint specified\\.$#"
@@ -3481,92 +3611,17 @@ parameters:
 			path: src/Testing/LogicTester/LogicTesterResult.php
 
 		-
-			message: "#^Method BristolSU\\\\Support\\\\User\\\\Contracts\\\\UserAuthentication\\:\\:setUser\\(\\) has no return typehint specified\\.$#"
+			message: "#^Method BristolSU\\\\Support\\\\Theme\\\\Settings\\\\ChosenTheme\\:\\:rules\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/User/Contracts/UserAuthentication.php
+			path: src/Theme/Settings/ChosenTheme.php
 
 		-
-			message: "#^Method BristolSU\\\\Support\\\\User\\\\Contracts\\\\UserRepository\\:\\:create\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
+			message: "#^Call to an undefined method FormSchema\\\\Generator\\\\Field\\:\\:values\\(\\)\\.$#"
 			count: 1
-			path: src/User/Contracts/UserRepository.php
+			path: src/Theme/Settings/ChosenTheme.php
 
 		-
-			message: "#^Property BristolSU\\\\Support\\\\User\\\\User\\:\\:\\$fillable type has no value type specified in iterable type array\\.$#"
+			message: "#^Method BristolSU\\\\Support\\\\Theme\\\\ThemeServiceProvider\\:\\:boot\\(\\) has no return typehint specified\\.$#"
 			count: 1
-			path: src/User/User.php
-
-		-
-			message: "#^Property BristolSU\\\\Support\\\\User\\\\User\\:\\:\\$hidden type has no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/User/User.php
-
-		-
-			message: "#^Access to an undefined property BristolSU\\\\Support\\\\User\\\\User\\:\\:\\$control_id\\.$#"
-			count: 1
-			path: src/User/User.php
-
-		-
-			message: "#^Method BristolSU\\\\Support\\\\User\\\\User\\:\\:findForPassport\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/User/User.php
-
-		-
-			message: "#^Method BristolSU\\\\Support\\\\User\\\\UserApiAuthentication\\:\\:getUser\\(\\) should return BristolSU\\\\Support\\\\User\\\\User\\|null but returns Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null\\.$#"
-			count: 1
-			path: src/User/UserApiAuthentication.php
-
-		-
-			message: "#^Method BristolSU\\\\Support\\\\User\\\\UserApiAuthentication\\:\\:setUser\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/User/UserApiAuthentication.php
-
-		-
-			message: "#^Call to an undefined static method BristolSU\\\\Support\\\\User\\\\User\\:\\:where\\(\\)\\.$#"
-			count: 2
-			path: src/User/UserRepository.php
-
-		-
-			message: "#^Method BristolSU\\\\Support\\\\User\\\\UserRepository\\:\\:create\\(\\) has parameter \\$attributes with no value type specified in iterable type array\\.$#"
-			count: 1
-			path: src/User/UserRepository.php
-
-		-
-			message: "#^Call to an undefined static method BristolSU\\\\Support\\\\User\\\\User\\:\\:create\\(\\)\\.$#"
-			count: 1
-			path: src/User/UserRepository.php
-
-		-
-			message: "#^Call to an undefined static method BristolSU\\\\Support\\\\User\\\\User\\:\\:findOrFail\\(\\)\\.$#"
-			count: 1
-			path: src/User/UserRepository.php
-
-		-
-			message: "#^Method BristolSU\\\\Support\\\\User\\\\UserServiceProvider\\:\\:registerUserAuthentication\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/User/UserServiceProvider.php
-
-		-
-			message: "#^Method BristolSU\\\\Support\\\\User\\\\UserServiceProvider\\:\\:boot\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/User/UserServiceProvider.php
-
-		-
-			message: "#^Method BristolSU\\\\Support\\\\User\\\\UserWebAuthentication\\:\\:getUser\\(\\) should return BristolSU\\\\Support\\\\User\\\\User\\|null but returns Illuminate\\\\Contracts\\\\Auth\\\\Authenticatable\\|null\\.$#"
-			count: 1
-			path: src/User/UserWebAuthentication.php
-
-		-
-			message: "#^Method BristolSU\\\\Support\\\\User\\\\UserWebAuthentication\\:\\:setUser\\(\\) has no return typehint specified\\.$#"
-			count: 1
-			path: src/User/UserWebAuthentication.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Auth\\\\Guard\\:\\:login\\(\\)\\.$#"
-			count: 1
-			path: src/User/UserWebAuthentication.php
-
-		-
-			message: "#^Call to an undefined method Illuminate\\\\Contracts\\\\Auth\\\\Guard\\:\\:logout\\(\\)\\.$#"
-			count: 1
-			path: src/User/UserWebAuthentication.php
+			path: src/Theme/ThemeServiceProvider.php
 

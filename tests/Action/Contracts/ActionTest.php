@@ -63,7 +63,7 @@ class ActionTest extends TestCase
         $action->setActionInstanceId(1);
         $action->exceptionMessage = 'An exception message';
         $action->handle();
-        
+
         $response = $action->getResponse();
         $this->assertEquals('An exception message', $response->getMessage());
         $this->assertFalse($response->getSuccess());
@@ -80,7 +80,7 @@ class ActionTest extends TestCase
         $this->assertEquals('An error was thrown during processing', $response->getMessage());
         $this->assertFalse($response->getSuccess());
     }
-    
+
     /** @test */
     public function it_creates_a_history_when_the_response_is_returned()
     {
@@ -88,9 +88,9 @@ class ActionTest extends TestCase
         $action->setActionInstanceId(1);
         $response = ActionResponse::success('Message Here');
         $action->responseToReturn = $response;
-        
+
         $action->handle();
-        
+
         $this->assertDatabaseHas('action_histories', [
             'action_instance_id' => 1,
             'success' => 1,
@@ -124,7 +124,7 @@ class DummyAction extends Action
 class DummyActionWithException extends Action
 {
     public $exceptionMessage = '';
-    
+
     public static function options(): Form
     {
         // TODO: Implement options() method.

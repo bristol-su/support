@@ -11,7 +11,6 @@ use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Tests\TestCase;
-use BristolSU\Support\User\Contracts\UserAuthentication;
 use FormSchema\Schema\Form;
 use Illuminate\Support\Collection;
 
@@ -203,7 +202,7 @@ class LogicTest extends TestCase
         app(FilterManager::class)->register('dummyrole_1', DummyRoleFilter::class);
         $logic = factory(Logic::class)->create();
         $filter = factory(FilterInstance::class)->create(['logic_id' => $logic->id, 'alias' => 'dummyrole_1']);
-        
+
         $this->assertEquals('role', $logic->lowestResource);
     }
 
@@ -299,14 +298,11 @@ class LogicTest extends TestCase
     public function user_id_is_automatically_added_on_creation()
     {
         $user = $this->newUser();
-        $dbUser = factory(\BristolSU\Support\User\User::class)->create(['control_id' => $user->id()]);
-        $authentication = $this->prophesize(UserAuthentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn($dbUser);
-        $this->instance(UserAuthentication::class, $authentication->reveal());
+        $this->beUser($user);
 
         $logic = factory(Logic::class)->create();
         $logic = factory(Logic::class)->create(['user_id' => null]);
-        
+
 
         $this->assertNotNull($logic->user_id);
         $this->assertEquals($user->id(), $logic->user_id);

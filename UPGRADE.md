@@ -1,3 +1,4 @@
+
 # Upgrade
 
 Any major updates which include breaking changes will be documented here.
@@ -5,6 +6,18 @@ Any major updates which include breaking changes will be documented here.
 If you are upgrading a major version, you should always refer to this document to ensure you make all necessary changes.
 
 When upgrading, you should upgrade one version at a time.
+
+## Unreleased
+
+- Anything from laravel 6->7 or 7->8
+- Changed the variable names to be injected for JavaScript use, and do so through a view composer for all Bristol SU bases
+- Changed some of the variable names being injected for JavaScript use
+- Add `hasUser`, `hasGroup` and `hasRole` to the Authentication contract.
+- `BristolSU\Support\User\Contracts\UserAuthentication` should no longer be used, instead use Authentication and control directly. Same with
+  `BristolSU\Support\User\Contracts\UserRepository`, `BristolSU\Support\User\User`.
+- Removed `getDatabaseUser()` and `setDatabaseUser()` from testing - tests no longer use database users
+- Deleted `BristolSU\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider` as now handled through `WebRequestActivityInstanceResolver` and `ApiActivityInstanceResolver`
+- $request->user() now returns a control user
 
 ## v4.0
 

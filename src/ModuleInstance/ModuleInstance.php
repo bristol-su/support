@@ -5,6 +5,7 @@ namespace BristolSU\Support\ModuleInstance;
 use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Completion\CompletionConditionInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
@@ -13,7 +14,6 @@ use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\Progress\Handlers\Database\Models\ModuleInstanceProgress;
 use BristolSU\Support\Revision\HasRevisions;
-use BristolSU\Support\User\Contracts\UserAuthentication;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -44,7 +44,8 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         'enabled',
         'user_id',
         'order',
-        'grouping_id'
+        'grouping_id',
+        'image_url'
     ];
 
     /**
@@ -68,8 +69,8 @@ class ModuleInstance extends Model implements ModuleInstanceContract
             if ($model->slug === null) {
                 $model->slug = Str::slug($model->name);
             }
-            if ($model->user_id === null && ($user = app(UserAuthentication::class)->getUser()) !== null) {
-                $model->user_id = $user->controlId();
+            if ($model->user_id === null && app(Authentication::class)->hasUser()) {
+                $model->user_id = app(Authentication::class)->getUser()->id();
             }
         });
     }

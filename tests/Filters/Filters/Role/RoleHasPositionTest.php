@@ -38,7 +38,7 @@ class RoleHasPositionTest extends TestCase
     public function it_evaluates_to_true_if_role_has_position()
     {
         $roleHasPositionFilter = new RoleHasPosition($this->prophesize(PositionRepository::class)->reveal());
-        
+
         $role = $this->newRole([
             'position_id' => 1
         ]);

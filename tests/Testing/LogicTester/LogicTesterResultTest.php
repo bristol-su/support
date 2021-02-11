@@ -17,10 +17,10 @@ class LogicTesterResultTest extends TestCase
         $user = factory(User::class)->create();
         $group = factory(Group::class)->create();
         $role = factory(Role::class)->create();
-            
+
         $logicTesterResult = new LogicTesterResult();
         $logicTesterResult->pass($user, $group, $role);
-        
+
         $this->assertTrue($logicTesterResult->evaluate($user, $group, $role));
     }
 
@@ -36,7 +36,7 @@ class LogicTesterResultTest extends TestCase
 
         $this->assertFalse($logicTesterResult->evaluate($user, $group, $role));
     }
-    
+
     /** @test */
     public function if_credentials_are_given_to_pass_and_fail_pass_will_be_preferred()
     {
@@ -83,17 +83,17 @@ class LogicTesterResultTest extends TestCase
         $this->assertFalse($logicTesterResult->evaluate($user1, $group1, $role1));
         $this->assertFalse($logicTesterResult->evaluate($user2, $group2, $role2));
     }
-    
+
     /** @test */
     public function if_credentials_do_not_match_the_default_is_given()
     {
         $user = factory(User::class)->create();
         $group = factory(Group::class)->create();
         $role = factory(Role::class)->create();
-        
+
         $logicTesterResult = new LogicTesterResult();
         $logicTesterResult->otherwise(true);
-        
+
         $this->assertTrue($logicTesterResult->evaluate($user, $group, $role));
     }
 
@@ -108,14 +108,14 @@ class LogicTesterResultTest extends TestCase
 
         $this->assertFalse($logicTesterResult->evaluate($user, $group, $role));
     }
-    
+
     /** @test */
     public function it_asserts_incorrect_if_required_logic_test_not_called()
     {
         $this->expectException(ExpectationFailedException::class);
         $user1 = factory(User::class)->create();
         $user2 = factory(User::class)->create();
-        
+
         (new LogicTesterResult())
             ->pass($user1)
             ->fail($user2)
@@ -130,16 +130,16 @@ class LogicTesterResultTest extends TestCase
         $logicTesterResult = (new LogicTesterResult())
             ->fail($user)
             ->shouldBeCalled($user);
-        
+
         $logicTesterResult->evaluate($user);
     }
-    
+
     /** @test */
     public function always_true_always_returns_true_from_evaluate()
     {
         $logicTesterResult = (new LogicTesterResult());
         $logicTesterResult->pass()->alwaysFail();
-        
+
         $this->assertFalse($logicTesterResult->evaluate());
     }
 

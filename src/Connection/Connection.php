@@ -2,8 +2,8 @@
 
 namespace BristolSU\Support\Connection;
 
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Revision\HasRevisions;
-use BristolSU\Support\User\Contracts\UserAuthentication;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 class Connection extends Model
 {
     use HasRevisions;
-    
+
     /**
      * The table the data is stored in.
      *
@@ -62,11 +62,11 @@ class Connection extends Model
         parent::boot();
 
         static::creating(function ($model) {
-            if ($model->user_id === null) {
-                $model->user_id = app(UserAuthentication::class)->getUser()->control_id;
+            if ($model->user_id === null && app(Authentication::class)->hasUser()) {
+                $model->user_id = app(Authentication::class)->getUser()->id();
             }
         });
-        
+
         static::addGlobalScope(new AccessibleConnectionScope());
     }
 

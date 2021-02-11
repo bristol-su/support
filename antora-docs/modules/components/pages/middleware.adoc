@@ -39,9 +39,4 @@ for logic group
 
 |activity |InjectActivity |Inject the activity into the container
 
-| |CheckDatabaseUserOwnsControlUser |Check the database user, if logged
-in, owns the control user in the authentication
-
-| |CheckAdditionalCredentialsOwnedByUser |Check the group and role, if
-logged in, are owned by the current user
 |===

@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Factories;
+
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Logic\Logic;
 use Faker\Generator as Faker;
@@ -32,7 +34,8 @@ $factory->define(Activity::class, function (Faker $faker) {
         'enabled' => true,
         'user_id' => function () {
             return factory(\BristolSU\ControlDB\Models\User::class)->create()->id();
-        }
+        },
+        'image_url' => $faker->imageUrl()
     ];
 });
 

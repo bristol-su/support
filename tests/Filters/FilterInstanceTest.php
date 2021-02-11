@@ -46,7 +46,7 @@ class FilterInstanceTest extends TestCase
         $filterInstance = factory(FilterInstance::class)->create(['settings' => ['setting1' => 'A Value']]);
         $this->assertEquals(['setting1' => 'A Value'], $filterInstance->settings());
     }
-    
+
     /** @test */
     public function for_returns_user_if_the_filter_is_a_user_filter()
     {
@@ -79,7 +79,7 @@ class FilterInstanceTest extends TestCase
         $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
         $this->assertEquals('role', factory(FilterInstance::class)->create(['alias' => 'alias1'])->for());
     }
-    
+
     /** @test */
     public function for_throws_an_exception_if_filter_not_correct_type()
     {
@@ -91,7 +91,7 @@ class FilterInstanceTest extends TestCase
         $filterInstance = factory(FilterInstance::class)->create(['alias' => 'alias1']);
         $filterInstance->for();
     }
-    
+
     /** @test */
     public function for_can_be_called_through_a_magic_method()
     {

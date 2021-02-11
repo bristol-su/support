@@ -36,7 +36,7 @@ class CreatesModuleEnvironmentTest extends TestCase
         $this->assertInstanceOf(Activity::class, $this->app->make(Activity::class));
         $this->assertModelEquals($activity, $this->app->make(Activity::class));
     }
-    
+
     /** @test */
     public function create_module_environment_creates_and_logs_in_an_activity_instance_with_the_correct_parameters_for_a_user_activity()
     {
@@ -44,7 +44,7 @@ class CreatesModuleEnvironmentTest extends TestCase
         $this->setActivity($activity);
         $this->setModuleIsFor('user');
         $this->createModuleEnvironment('alias1');
-        
+
         $activityInstance = $this->app->make(ActivityInstanceResolver::class)->getActivityInstance();
         $this->assertInstanceOf(ActivityInstance::class, $activityInstance);
         $this->assertEquals($activity->id, $activityInstance->activity_id);
@@ -91,7 +91,7 @@ class CreatesModuleEnvironmentTest extends TestCase
             [
                 'resource_type' => 'user', 'resource_id'=> $user->id, 'activity_id' => $activity->id]
         );
-        
+
         $this->setActivity($activity);
         $this->setActivityInstance($activityInstance);
         $this->setModuleIsFor('user');
@@ -119,12 +119,12 @@ class CreatesModuleEnvironmentTest extends TestCase
         $moduleInstance = factory(ModuleInstance::class)->create();
         $this->setModuleInstance($moduleInstance);
         $this->createModuleEnvironment('alias1');
-        
+
         $resolvedModuleInstance = $this->app->make(ModuleInstance::class);
         $this->assertInstanceOf(ModuleInstance::class, $resolvedModuleInstance);
         $this->assertModelEquals($moduleInstance, $resolvedModuleInstance);
     }
-    
+
     /** @test */
     public function create_module_environment_creates_and_logs_in_a_control_user_only_when_for_is_user()
     {
@@ -193,18 +193,6 @@ class CreatesModuleEnvironmentTest extends TestCase
         $this->assertInstanceOf(Role::class, $this->app->make(Authentication::class)->getRole());
         $this->assertModelEquals($role, $this->app->make(Authentication::class)->getRole());
     }
-    
-    /** @test */
-    public function create_module_environment_creates_and_logs_into_a_database_user_with_the_control_id_of_the_control_user()
-    {
-        $user = factory(User::class)->create(['id' => 2]);
-        $this->setControlUser($user);
-        $this->setModuleIsFor('user');
-        $this->createModuleEnvironment('alias1');
-        
-        $this->assertInstanceOf(\BristolSU\Support\User\User::class, $this->getDatabaseUser());
-        $this->assertEquals(2, $this->getDatabaseUser()->control_id);
-    }
 
     /** @test */
     public function admin_url_returns_the_correct_admin_url()
@@ -214,7 +202,7 @@ class CreatesModuleEnvironmentTest extends TestCase
         $this->setActivity($activity);
         $this->setModuleInstance($moduleInstance);
         $this->createModuleEnvironment('module-alias');
-        
+
         $this->assertEquals('/a/activity-slug/module-instance-slug/module-alias/', $this->adminUrl());
     }
 
@@ -349,7 +337,7 @@ class CreatesModuleEnvironmentTest extends TestCase
 
         $this->assertEquals('/api/p/activity-slug/module-instance-slug/module-alias/test-page/1', $this->userApiUrl('test-page/1'));
     }
-    
+
     /** @test */
     public function get_activity_returns_the_activity()
     {
@@ -401,22 +389,5 @@ class CreatesModuleEnvironmentTest extends TestCase
         $this->setModuleIsFor('role');
         $this->createModuleEnvironment('alias1');
         $this->assertInstanceOf(Role::class, $this->getControlRole());
-    }
-
-    /** @test */
-    public function get_database_user_returns_the_database_user()
-    {
-        $this->createModuleEnvironment('alias1');
-        $this->assertInstanceOf(\BristolSU\Support\User\User::class, $this->getDatabaseUser());
-    }
-
-    /** @test */
-    public function set_database_user_sets_the_database_user_to_use()
-    {
-        $user = factory(\BristolSU\Support\User\User::class)->create();
-        $this->setDatabaseUser($user);
-        $this->createModuleEnvironment('alias1');
-        $this->assertInstanceOf(\BristolSU\Support\User\User::class, $this->getDatabaseUser());
-        $this->assertModelEquals($user, $this->getDatabaseUser());
     }
 }

@@ -3,7 +3,6 @@
 namespace BristolSU\Support\Tests\Logic\Audience;
 
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
-use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Logic\Audience\AudienceMember;
 use BristolSU\Support\Logic\Audience\LogicAudience;
 use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory;
@@ -17,7 +16,7 @@ class LogicAudienceTest extends TestCase
     public function it_creates_an_audience_member_for_each_user()
     {
         $logic = factory(Logic::class)->create();
-        
+
         $user1 = $this->newUser();
         $user2 = $this->newUser();
         $user3 = $this->newUser();
@@ -28,7 +27,7 @@ class LogicAudienceTest extends TestCase
         $users = collect([$user1, $user2, $user3]);
         $userRepository = $this->prophesize(UserRepository::class);
         $userRepository->all()->shouldBeCalled()->willReturn($users);
-        
+
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
         $audienceMemberFactory->fromUserInLogic($user1, Argument::that(function ($arg) use ($logic) {
             return $arg->id === $logic->id;
@@ -39,11 +38,11 @@ class LogicAudienceTest extends TestCase
         $audienceMemberFactory->fromUserInLogic($user3, Argument::that(function ($arg) use ($logic) {
             return $arg->id === $logic->id;
         }))->shouldBeCalled()->willReturn($audienceMember3->reveal());
-        
+
         $logicAudience = new LogicAudience($userRepository->reveal(), $audienceMemberFactory->reveal());
         $logicAudience->audience($logic);
     }
-    
+
     /** @test */
     public function it_calls_filter_for_logic_on_each_audience_member()
     {
@@ -78,7 +77,7 @@ class LogicAudienceTest extends TestCase
         $logicAudience = new LogicAudience($userRepository->reveal(), $audienceMemberFactory->reveal());
         $logicAudience->audience($logic);
     }
-    
+
     /** @test */
     public function it_calls_has_audience_on_each_audience_member_and_returns_them_if_true()
     {
@@ -113,7 +112,7 @@ class LogicAudienceTest extends TestCase
         $logicAudience = new LogicAudience($userRepository->reveal(), $audienceMemberFactory->reveal());
         $this->assertEquals([$audienceMember2->reveal(), $audienceMember3->reveal()], $logicAudience->audience($logic));
     }
-    
+
     /** @test */
     public function it_returns_an_empty_array_if_no_audience_found()
     {
@@ -148,14 +147,14 @@ class LogicAudienceTest extends TestCase
         $logicAudience = new LogicAudience($userRepository->reveal(), $audienceMemberFactory->reveal());
         $this->assertEquals([], $logicAudience->audience($logic));
     }
-    
+
     /** @test */
     public function user_audience_gets_all_unique_users_from_the_audience()
     {
         $logic = factory(Logic::class)->create();
         $user1 = $this->newUser();
         $user2 = $this->newUser();
-        
+
         // Has a unique user #1
         $audience1 = $this->prophesize(AudienceMember::class);
         $audience1->hasAudience()->shouldBeCalled()->willReturn(true);
@@ -173,7 +172,7 @@ class LogicAudienceTest extends TestCase
         $audience4 = $this->prophesize(AudienceMember::class);
         $audience4->hasAudience()->shouldBeCalled()->willReturn(false);
         $audience4->user()->shouldNotBeCalled();
-        
+
         $logicAudience = new DummyLogicAudience();
         $logicAudience->addAudience($audience1->reveal());
         $logicAudience->addAudience($audience2->reveal());
@@ -181,7 +180,7 @@ class LogicAudienceTest extends TestCase
         $logicAudience->addAudience($audience4->reveal());
 
         $extractedUsers = $logicAudience->userAudience($logic);
-        
+
         $this->assertEquals(2, $extractedUsers->count());
         $this->assertContainsOnlyInstancesOf(\BristolSU\ControlDB\Contracts\Models\User::class, $extractedUsers);
         $this->assertModelEquals($user1, $extractedUsers->offsetGet(0));
@@ -230,7 +229,7 @@ class LogicAudienceTest extends TestCase
         $audience7 = $this->prophesize(AudienceMember::class);
         $audience7->groups()->shouldBeCalled()->willReturn(collect());
         $audience7->roles()->shouldBeCalled()->willReturn(collect());
-        
+
         $logicAudience = new DummyLogicAudience();
         $logicAudience->addAudience($audience1->reveal());
         $logicAudience->addAudience($audience2->reveal());
@@ -239,9 +238,9 @@ class LogicAudienceTest extends TestCase
         $logicAudience->addAudience($audience5->reveal());
         $logicAudience->addAudience($audience6->reveal());
         $logicAudience->addAudience($audience7->reveal());
-        
+
         $extractedGroups = $logicAudience->groupAudience($logic);
-        
+
         $this->assertEquals(6, $extractedGroups->count());
         $this->assertContainsOnlyInstancesOf(\BristolSU\ControlDB\Contracts\Models\Group::class, $extractedGroups);
         $this->assertModelEquals($group1, $extractedGroups->offsetGet(0));
@@ -294,7 +293,7 @@ class LogicAudienceTest extends TestCase
 class DummyLogicAudience extends \BristolSU\Support\Logic\Contracts\Audience\LogicAudience
 {
     private $audience;
-    
+
     /**
      * @inheritDoc
      */

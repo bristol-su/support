@@ -16,7 +16,7 @@ class LogTest extends TestCase
         $logFake = $this->prophesize(LoggerInterface::class);
         $logFake->info('Log Me')->shouldBeCalled();
         $this->instance('log', $logFake->reveal());
-        
+
         $log = new Log(['text' => 'Log Me']);
         $log->setActionInstanceId(1);
         $log->handle();
@@ -27,7 +27,7 @@ class LogTest extends TestCase
     {
         $this->assertInstanceOf(Form::class, Log::options());
     }
-    
+
     /** @test */
     public function it_returns_a_failed_response_if_logging_threw_exception()
     {

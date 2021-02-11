@@ -67,7 +67,7 @@ class LogicTesterTest extends TestCase
             'group' => $this->prophesize(GroupFilter::class),
             'role' => $this->prophesize(RoleFilter::class)
         ][$filterType])->reveal());
-        
+
         $modelKey = 'fake' . ucfirst($filterType);
         $this->filterTester->evaluate(Argument::that(function ($arg) use ($filter) {
             return $arg->id === $filter->id;
@@ -80,7 +80,7 @@ class LogicTesterTest extends TestCase
     {
         return (new LogicTester())->evaluate($logic, $this->fakeUser, $this->fakeGroup, $this->fakeRole);
     }
-   
+
     /** @test */
     public function it_returns_true_when_all_fields_match_what_they_should_do()
     {

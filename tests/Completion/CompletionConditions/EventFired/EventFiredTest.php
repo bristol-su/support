@@ -17,7 +17,7 @@ class EventFiredTest extends TestCase
         $condition = new EventFired('module1', $this->prophesize(EventRepository::class)->reveal());
         $this->assertTrue($condition->isComplete([], $activityInstance, $moduleInstance));
     }
-    
+
     /** @test */
     public function options_returns_a_list_of_events()
     {
@@ -26,11 +26,11 @@ class EventFiredTest extends TestCase
             ['event' => 'event1', 'name' => 'name1'],
             ['event' => 'event2', 'name' => 'name2']
         ]);
-        
+
         $condition = new EventFired('module1', $eventRepository->reveal());
 
-        
-        
+
+
         $this->assertEquals(1, count($condition->options()->fields()));
         $this->assertEquals('event_type', $condition->options()->fields()[0]->model());
         $this->assertEquals('select', $condition->options()->fields()[0]->type());
@@ -39,7 +39,7 @@ class EventFiredTest extends TestCase
             ['id' => 'event2', 'name' => 'name2'],
         ], $condition->options()->fields()[0]->values());
     }
-    
+
     /** @test */
     public function name_returns_a_string()
     {

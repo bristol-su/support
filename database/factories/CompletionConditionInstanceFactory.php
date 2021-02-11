@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Factories;
+
 use BristolSU\Support\Completion\CompletionConditionInstance;
 use Faker\Generator as Faker;
 

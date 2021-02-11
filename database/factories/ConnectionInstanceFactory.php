@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Factories;
+
 use BristolSU\Support\Connection\Connection;
 use Faker\Generator as Faker;
 
