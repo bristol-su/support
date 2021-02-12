@@ -12,17 +12,17 @@ class ProgressUpdateRepository implements ProgressUpdateContract
      * Generate ItemKey to be used within ProgressHashes Table.
      * This must return a unique value and may require a prefix if used by other models.
      *
-     * @param $id
-     * @param $caller
+     * @param int $id
+     * @param string $caller
      * @return string
      */
-    protected function generateItemKey($id, $caller): string
+    protected function generateItemKey(int $id, string $caller): string
     {
         return sprintf('%s_%u', $caller, $id);
     }
 
     /**
-     * @param array $Items
+     * @param string $str
      * @return string
      */
     protected function generateHash(string $str): string
@@ -61,11 +61,11 @@ class ProgressUpdateRepository implements ProgressUpdateContract
     }
 
     /**
-     * @param $actual
-     * @param $expected
+     * @param string $actual
+     * @param string $expected
      * @return bool
      */
-    protected function checkHash($actual, $expected): bool
+    protected function checkHash(string $actual, string $expected): bool
     {
         return ! Hash::check($actual, $expected);
     }
@@ -76,7 +76,7 @@ class ProgressUpdateRepository implements ProgressUpdateContract
      * @param Progress $currentProgress
      * @return bool
      */
-    public function hasChanged($id, $caller, Progress $currentProgress): bool
+    public function hasChanged(int $id, string $caller, Progress $currentProgress): bool
     {
         $itemKey = $this->generateItemKey($id, $caller);
 
@@ -92,12 +92,11 @@ class ProgressUpdateRepository implements ProgressUpdateContract
     /**
      * Save Hashed Data into Database.
      *
-     * @param $Key
-     * @param array $Hash
-     * @param mixed $id
-     * @param mixed $caller
+     * @param int $id
+     * @param string $caller
+     * @param Progress $currentProgress
      */
-    public function saveChanges($id, $caller, Progress $currentProgress): void
+    public function saveChanges(int $id, string $caller, Progress $currentProgress): void
     {
         ProgressHashes::updateOrcreate(
             [ 'item_key' => $this->generateItemKey($id, $caller) ],

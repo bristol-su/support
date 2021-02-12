@@ -3,6 +3,7 @@
 namespace BristolSU\Support\Progress;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class ProgressHashes extends Model
 {
@@ -16,6 +17,20 @@ class ProgressHashes extends Model
         'item_key',
         'hash'
     ];
+
+    /**
+     * Primary key for Model
+     *
+     * @var string
+     */
+    private $item_key;
+
+    /**
+     * Hash of the saved progress
+     *
+     * @var string
+     */
+    private $hash;
 
     /**
      * Get the Progress Hash Value.
@@ -37,8 +52,8 @@ class ProgressHashes extends Model
         return $this->item_key;
     }
 
-    public function scopeByHash($query, string $hash = null)
+    public function scopeByHash(Builder $query, string $hash = null) :void
     {
-        return $query->where('hash', $hash);
+        $query->where('hash', $hash);
     }
 }

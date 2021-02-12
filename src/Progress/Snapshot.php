@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 class Snapshot
 {
-    protected $ProgressUpdateRepository;
+    protected ProgressUpdateContract $ProgressUpdateRepository;
 
     /**
      * Snapshot constructor.
@@ -27,10 +27,10 @@ class Snapshot
      * Generates any progress of an Activity (All NULL values are excluded).
      *
      * @param Activity $activity
-     * @param $caller
+     * @param string $caller
      * @return array
      */
-    public function ofUpdatesToActivity(Activity $activity, $caller): array
+    public function ofUpdatesToActivity(Activity $activity, string $caller): array
     {
         $progresses = [];
         foreach (app(ActivityInstanceRepository::class)->allForActivity($activity->id) as $activityInstance) {
@@ -44,10 +44,10 @@ class Snapshot
      * Returns Progress for an Activity Instance.
      *
      * @param ActivityInstance $activityInstance
-     * @param $caller
+     * @param string $caller
      * @return Progress|null
      */
-    public function ofUpdateToActivityInstance(ActivityInstance $activityInstance, $caller): ?Progress
+    public function ofUpdateToActivityInstance(ActivityInstance $activityInstance, string $caller): ?Progress
     {
         // Get the Current Progress:
         $currentProgress = $this->ofActivityInstance($activityInstance);
