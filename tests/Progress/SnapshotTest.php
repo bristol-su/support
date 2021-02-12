@@ -586,13 +586,15 @@ class SnapshotTest extends TestCase
 
         $snapshot = new Snapshot($progressUpdateRepository->reveal());
 
-        dd($snapshot->ofUpdatesToActivity($activity, 'my-caller'));
+        $response = $snapshot->ofUpdatesToActivity($activity, 'my-caller');
 
-        $this->assertNotEmpty(
-            $snapshot->ofUpdatesToActivity($activity, 'my-caller')
-        );
+        $this->assertNotEmpty($response);
 
         // Assert that no Item in the Array is null:
+        foreach($response as $item)
+        {
+            $this->assertNotNull($item);
+        }
 
 
     }
