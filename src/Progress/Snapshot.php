@@ -9,11 +9,9 @@ use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator;
 use BristolSU\Support\Progress\Contracts\ProgressUpdateContract;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Hash;
 
 class Snapshot
 {
-
     protected $ProgressUpdateRepository;
 
     /**
@@ -26,36 +24,38 @@ class Snapshot
     }
 
     /**
-     * Generates any progress of an Activity (All NULL values are excluded)
+     * Generates any progress of an Activity (All NULL values are excluded).
      *
      * @param Activity $activity
      * @param $caller
      * @return array
      */
-    public function ofUpdatesToActivity(Activity $activity, $caller) : array
+    public function ofUpdatesToActivity(Activity $activity, $caller): array
     {
         $progresses = [];
-        foreach(app(ActivityInstanceRepository::class)->allForActivity($activity->id) as $activityInstance) {
+        foreach (app(ActivityInstanceRepository::class)->allForActivity($activity->id) as $activityInstance) {
             $progresses[] = $this->ofUpdateToActivityInstance($activityInstance, $caller);
         }
+
         return array_filter($progresses);
     }
 
     /**
-     * Returns Progress for an Activity Instance
+     * Returns Progress for an Activity Instance.
      *
      * @param ActivityInstance $activityInstance
      * @param $caller
      * @return Progress|null
      */
-    public function ofUpdateToActivityInstance(ActivityInstance $activityInstance, $caller) : ?Progress
+    public function ofUpdateToActivityInstance(ActivityInstance $activityInstance, $caller): ?Progress
     {
         // Get the Current Progress:
         $currentProgress = $this->ofActivityInstance($activityInstance);
 
-        if($this->ProgressUpdateRepository->hasChanged($activityInstance->id, $caller, $currentProgress)){
+        if ($this->ProgressUpdateRepository->hasChanged($activityInstance->id, $caller, $currentProgress)) {
             // Save Changes and return Progress
             $this->ProgressUpdateRepository->saveChanges($activityInstance->id, $caller, $currentProgress);
+
             return $currentProgress;
         }
 
@@ -63,16 +63,16 @@ class Snapshot
     }
 
     /**
-     * Take a snapshot of an entire activity
-     * 
+     * Take a snapshot of an entire activity.
+     *
      * @param Activity $activity
-     * 
+     *
      * @return array|Progress[]
      */
     public function ofActivity(Activity $activity): array
     {
         $progresses = [];
-        foreach(app(ActivityInstanceRepository::class)->allForActivity($activity->id) as $activityInstance) {
+        foreach (app(ActivityInstanceRepository::class)->allForActivity($activity->id) as $activityInstance) {
             $progresses[] = $this->ofActivityInstance($activityInstance);
         }
 

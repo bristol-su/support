@@ -4,8 +4,8 @@ namespace BristolSU\Support\Progress;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ProgressHashes extends Model {
-
+class ProgressHashes extends Model
+{
     protected $table = 'progress_change_hashes';
 
     protected $primaryKey = 'item_key';
@@ -18,7 +18,7 @@ class ProgressHashes extends Model {
     ];
 
     /**
-     * Get the Progress Hash Value
+     * Get the Progress Hash Value.
      *
      * @return string
      */
@@ -28,7 +28,7 @@ class ProgressHashes extends Model {
     }
 
     /**
-     * Get Progress Item Key Value
+     * Get Progress Item Key Value.
      *
      * @return string
      */

@@ -4,11 +4,11 @@ namespace BristolSU\Support\Progress\Contracts;
 
 use BristolSU\Support\Progress\Progress;
 
-interface ProgressUpdateContract {
-
+interface ProgressUpdateContract
+{
     /**
      * Checks whether the Progress is hashed and held within the ProgressHashes
-     * Table and returns a boolean
+     * Table and returns a boolean.
      *
      * @param int $id
      * @param string $caller
@@ -19,7 +19,7 @@ interface ProgressUpdateContract {
 
     /**
      *
-     * Generates a new hash of Progress and saves to DB (ProgressHashes Table)
+     * Generates a new hash of Progress and saves to DB (ProgressHashes Table).
      *
      * @param int $id
      * @param string $caller

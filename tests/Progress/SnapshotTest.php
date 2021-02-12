@@ -12,7 +12,6 @@ use BristolSU\Support\Progress\ProgressUpdateRepository;
 use BristolSU\Support\Progress\Snapshot;
 use BristolSU\Support\Tests\TestCase;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Cache;
 use Prophecy\Argument;
 
 class SnapshotTest extends TestCase
@@ -39,7 +38,7 @@ class SnapshotTest extends TestCase
     }
 
     /** @test */
-    public function ofActivityInstance_builds_the_progress_correctly_excluding_completion_and_percentage()
+    public function of_activity_instance_builds_the_progress_correctly_excluding_completion_and_percentage()
     {
         Carbon::setTestNow(Carbon::now());
         $activity = factory(Activity::class)->create();
@@ -380,6 +379,7 @@ class SnapshotTest extends TestCase
         $moduleEvaluation->setComplete($complete);
         $moduleEvaluation->setMandatory($mandatory);
         $moduleEvaluation->setPercentage($percentage);
+
         return $moduleEvaluation;
     }
 
@@ -391,12 +391,13 @@ class SnapshotTest extends TestCase
         $moduleEvaluation->setComplete($complete);
         $moduleEvaluation->setMandatory($mandatory);
         $moduleEvaluation->setPercentage($percentage);
+
         return $moduleEvaluation;
     }
 
-
     /** @test */
-    public function ofUpdatesToActivityInstance_returns_null_if_the_progress_has_not_changed(){
+    public function of_updates_to_activity_instance_returns_null_if_the_progress_has_not_changed()
+    {
         Carbon::setTestNow(Carbon::now());
         $activity = factory(Activity::class)->create();
         $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
@@ -414,9 +415,10 @@ class SnapshotTest extends TestCase
         $progressUpdateRepository->hasChanged(
             $activityInstance->id,
             'my-caller',
-            Argument::that(function($progress) use ($module1Progress) {
+            Argument::that(function ($progress) use ($module1Progress) {
                 return $progress->getModules()[0] == $module1Progress;
-        }))->willReturn(false);
+            })
+        )->willReturn(false);
 
         $snapshot = new Snapshot($progressUpdateRepository->reveal());
 
@@ -426,7 +428,8 @@ class SnapshotTest extends TestCase
     }
 
     /** @test */
-    public function ofUpdatesToActivityInstance_returns_progress_if_the_progress_has_changed(){
+    public function of_updates_to_activity_instance_returns_progress_if_the_progress_has_changed()
+    {
         Carbon::setTestNow(Carbon::now());
         $activity = factory(Activity::class)->create();
         $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
@@ -445,14 +448,15 @@ class SnapshotTest extends TestCase
         $progressUpdateRepository->hasChanged(
             $activityInstance->id,
             'my-caller',
-            Argument::that(function($progress) use ($module1Progress) {
+            Argument::that(function ($progress) use ($module1Progress) {
                 return $progress->getModules()[0] != $module1Progress;
-            }))->willReturn(true);
+            })
+        )->willReturn(true);
 
         $progressUpdateRepository->saveChanges(
             $activityInstance->id,
             'my-caller',
-            Argument::that(function($progress) use ($module1Progress) {
+            Argument::that(function ($progress) use ($module1Progress) {
                 return $progress->getModules()[0] != $module1Progress;
             })
         );
@@ -470,7 +474,8 @@ class SnapshotTest extends TestCase
     }
 
     /** @test */
-    public function ofUpdatesToActivityInstance_saves_an_updated_progress_and_returns_it(){
+    public function of_updates_to_activity_instance_saves_an_updated_progress_and_returns_it()
+    {
         Carbon::setTestNow(Carbon::now());
         $activity = factory(Activity::class)->create();
         $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
@@ -489,14 +494,15 @@ class SnapshotTest extends TestCase
         $progressUpdateRepository->hasChanged(
             $activityInstance->id,
             'my-caller',
-            Argument::that(function($progress) use ($module1Progress) {
+            Argument::that(function ($progress) use ($module1Progress) {
                 return $progress->getModules()[0] != $module1Progress;
-            }))->willReturn(true);
+            })
+        )->willReturn(true);
 
         $progressUpdateRepository->saveChanges(
             $activityInstance->id,
             'my-caller',
-            Argument::that(function($progress) use ($module1Progress) {
+            Argument::that(function ($progress) use ($module1Progress) {
                 return $progress->getModules()[0] != $module1Progress;
             })
         )->shouldBeCalled();
@@ -509,7 +515,8 @@ class SnapshotTest extends TestCase
     }
 
     /** @test */
-    public function ofUpdatesToActivity_returns_an_empty_array_if_no_progress_has_changed(){
+    public function of_updates_to_activity_returns_an_empty_array_if_no_progress_has_changed()
+    {
         Carbon::setTestNow(Carbon::now());
         $activity = factory(Activity::class)->create();
         $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
@@ -528,9 +535,10 @@ class SnapshotTest extends TestCase
         $progressUpdateRepository->hasChanged(
             $activityInstance->id,
             'my-caller',
-            Argument::that(function($progress) use ($module1Progress) {
+            Argument::that(function ($progress) use ($module1Progress) {
                 return $progress->getModules()[0] == $module1Progress;
-            }))->willReturn(false);
+            })
+        )->willReturn(false);
 
         $snapshot = new Snapshot($progressUpdateRepository->reveal());
 
@@ -544,7 +552,8 @@ class SnapshotTest extends TestCase
     }
 
     /** @test */
-    public function ofUpdatesToActivity_returns_only_changed_progresses(){
+    public function of_updates_to_activity_returns_only_changed_progresses()
+    {
         Carbon::setTestNow(Carbon::now());
         $activity = factory(Activity::class)->create();
         $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
@@ -565,21 +574,23 @@ class SnapshotTest extends TestCase
         $progressUpdateRepository->hasChanged(
             $activityInstance->id,
             'my-caller',
-            Argument::that(function($progress) use ($module1Progress) {
+            Argument::that(function ($progress) use ($module1Progress) {
                 return $progress->getModules()[0] != $module1Progress;
-            }))->willReturn(true);
+            })
+        )->willReturn(true);
 
         $progressUpdateRepository->hasChanged(
             $activityInstance->id,
             'my-caller',
-            Argument::that(function($progress) use ($module2Progress) {
+            Argument::that(function ($progress) use ($module2Progress) {
                 return $progress->getModules()[0] === $module2Progress;
-            }))->willReturn(true);
+            })
+        )->willReturn(true);
 
         $progressUpdateRepository->saveChanges(
             $activityInstance->id,
             'my-caller',
-            Argument::that(function($progress) use ($module1Progress) {
+            Argument::that(function ($progress) use ($module1Progress) {
                 return $progress->getModules()[0] != $module1Progress;
             })
         )->shouldBeCalled();
@@ -591,12 +602,9 @@ class SnapshotTest extends TestCase
         $this->assertNotEmpty($response);
 
         // Assert that no Item in the Array is null:
-        foreach($response as $item)
-        {
+        foreach ($response as $item) {
             $this->assertNotNull($item);
         }
-
-
     }
 
     private function useEvaluationForModuleInstance(\Prophecy\Prophecy\ObjectProphecy $moduleInstanceEvaluator, ActivityInstance $activityInstance, ModuleInstance $moduleInstance, Evaluation $moduleEvaluation)

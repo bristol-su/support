@@ -9,20 +9,22 @@ use BristolSU\Support\Progress\ModuleInstanceProgress;
 use BristolSU\Support\Progress\Progress;
 use BristolSU\Support\Progress\ProgressHashes;
 use BristolSU\Support\Progress\ProgressUpdateRepository;
-use BristolSU\Support\Progress\Snapshot;
 use BristolSU\Support\Tests\TestCase;
 use Carbon\Carbon;
 
 class ProgressUpdateRepositoryTest extends TestCase
 {
     protected ProgressUpdateRepository $repository;
+
     protected $activity;
 
     /**
      * @var ModuleInstance[] $modules
      */
     protected $modules;
+
     protected $activityInstance;
+
     protected $hashesTableName;
 
     public function setUp(): void
@@ -35,7 +37,7 @@ class ProgressUpdateRepositoryTest extends TestCase
         $this->modules = factory(ModuleInstance::class, 5)->create(['activity_id' => $this->activity->id]);
         $this->activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $this->activity->id]);
 
-        $this->hashesTableName = (new ProgressHashes)->getTable();
+        $this->hashesTableName = (new ProgressHashes())->getTable();
     }
 
     /** @test */
@@ -55,7 +57,7 @@ class ProgressUpdateRepositoryTest extends TestCase
     {
         [$firstProgress, $changedProgress] = $getData();
 
-        $this->repository->saveChanges($this->activityInstance->id, 'some_caller',  $firstProgress);
+        $this->repository->saveChanges($this->activityInstance->id, 'some_caller', $firstProgress);
 
         $this->assertTrue(
             $this->repository->hasChanged($this->activityInstance->id, 'some_caller', $changedProgress)
@@ -72,6 +74,7 @@ class ProgressUpdateRepositoryTest extends TestCase
                         $this->createProgress(function (Progress $progress): Progress {
                             $progress->setActivityId(factory(Activity::class)->create()->id);
                             $progress->setActivityInstanceId(factory(ActivityInstance::class)->create()->id);
+
                             return $progress;
                         })
                     ];
@@ -84,6 +87,7 @@ class ProgressUpdateRepositoryTest extends TestCase
                         $this->createProgress(function (Progress $progress): Progress {
                             $progress->setActivityId(factory(Activity::class)->create()->id);
                             $progress->setPercentage(50);
+
                             return $progress;
                         })
                     ];
@@ -96,6 +100,7 @@ class ProgressUpdateRepositoryTest extends TestCase
                         $this->createProgress(function (Progress $progress): Progress {
                             $progress->setActivityId(factory(Activity::class)->create()->id);
                             $progress->isComplete(false);
+
                             return $progress;
                         })
                     ];
@@ -108,6 +113,7 @@ class ProgressUpdateRepositoryTest extends TestCase
                         $this->createProgress(function (Progress $progress): Progress {
                             $progress->setActivityId(factory(Activity::class)->create()->id);
                             $progress->getModules()[0]->setMandatory(false);
+
                             return $progress;
                         })
                     ];
@@ -120,6 +126,7 @@ class ProgressUpdateRepositoryTest extends TestCase
                         $this->createProgress(function (Progress $progress): Progress {
                             $progress->setActivityId(factory(Activity::class)->create()->id);
                             $progress->getModules()[0]->setComplete(false);
+
                             return $progress;
                         })
                     ];
@@ -132,6 +139,7 @@ class ProgressUpdateRepositoryTest extends TestCase
                         $this->createProgress(function (Progress $progress): Progress {
                             $progress->setActivityId(factory(Activity::class)->create()->id);
                             $progress->getModules()[0]->setPercentage(10);
+
                             return $progress;
                         })
                     ];
@@ -144,6 +152,7 @@ class ProgressUpdateRepositoryTest extends TestCase
                         $this->createProgress(function (Progress $progress): Progress {
                             $progress->setActivityId(factory(Activity::class)->create()->id);
                             $progress->getModules()[0]->setActive(false);
+
                             return $progress;
                         })
                     ];
@@ -156,6 +165,7 @@ class ProgressUpdateRepositoryTest extends TestCase
                         $this->createProgress(function (Progress $progress): Progress {
                             $progress->setActivityId(factory(Activity::class)->create()->id);
                             $progress->getModules()[0]->setVisible(false);
+
                             return $progress;
                         })
                     ];
@@ -179,24 +189,32 @@ class ProgressUpdateRepositoryTest extends TestCase
 
         $moduleProgress1 = ModuleInstanceProgress::create(
             $modules[0]->id,
-            true, true, 100, true, true
+            true,
+            true,
+            100,
+            true,
+            true
         );
         $moduleProgress2 = ModuleInstanceProgress::create(
             $modules[1]->id,
-            true, true, 100, true, true
+            true,
+            true,
+            100,
+            true,
+            true
         );
         $progress->pushModule($moduleProgress1);
         $progress->pushModule($moduleProgress2);
 
-        if($callback === null) {
-            $callback = fn(Progress $progress): Progress => $progress;
+        if ($callback === null) {
+            $callback = fn (Progress $progress): Progress => $progress;
         }
 
         return $callback($progress);
     }
 
     /** @test */
-    public function hasChanged_returns_false_if_progress_has_not_changed_since_last_save()
+    public function has_changed_returns_false_if_progress_has_not_changed_since_last_save()
     {
         $progress = $this->createProgress();
         // Ensure that first pass returns true:
@@ -211,7 +229,7 @@ class ProgressUpdateRepositoryTest extends TestCase
      *
      * @test
      */
-    public function hasChanged_returns_true_if_progress_has_changed_since_last_save()
+    public function has_changed_returns_true_if_progress_has_changed_since_last_save()
     {
         $progress = $this->createProgress();
 
@@ -228,7 +246,7 @@ class ProgressUpdateRepositoryTest extends TestCase
      * @dataProvider progressChangeProvider
      * @test
      */
-    public function hasChanged_returns_true_if_the_progress_is_not_saved(\Closure $getData)
+    public function has_changed_returns_true_if_the_progress_is_not_saved(\Closure $getData)
     {
         [$progress] = $getData();
 

@@ -12,13 +12,14 @@ class ProgressHashesTest extends TestCase
     use WithFaker;
 
     protected $Model;
+
     protected $Table;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->Model = (new ProgressHashes);
+        $this->Model = (new ProgressHashes());
         $this->Table = $this->Model->getTable();
     }
 
@@ -31,7 +32,8 @@ class ProgressHashesTest extends TestCase
     }
 
     /** @test */
-    public function a_model_can_be_saved_and_retrieved_by_the_hash(){
+    public function a_model_can_be_saved_and_retrieved_by_the_hash()
+    {
         $data = $this->getModelData();
 
         $this->Model->create($data);
@@ -44,7 +46,8 @@ class ProgressHashesTest extends TestCase
     }
 
     /** @test */
-    public function a_model_can_be_saved_and_retrieved_by_the_item_id(){
+    public function a_model_can_be_saved_and_retrieved_by_the_item_id()
+    {
         $data = $this->getModelData();
 
         $Model = $this->Model->create($data);

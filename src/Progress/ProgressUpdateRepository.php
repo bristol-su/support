@@ -3,11 +3,10 @@
 namespace BristolSU\Support\Progress;
 
 use BristolSU\Support\Progress\Contracts\ProgressUpdateContract;
-use BristolSU\Support\Progress\ModuleInstanceProgress;
 use Illuminate\Support\Facades\Hash;
 
-class ProgressUpdateRepository implements ProgressUpdateContract {
-
+class ProgressUpdateRepository implements ProgressUpdateContract
+{
     /**
      *
      * Generate ItemKey to be used within ProgressHashes Table.
@@ -19,7 +18,7 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
      */
     protected function generateItemKey($id, $caller): string
     {
-        return sprintf("%s_%u", $caller, $id);
+        return sprintf('%s_%u', $caller, $id);
     }
 
     /**
@@ -41,20 +40,22 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
             $Activity->getActivityInstanceId(),
             $Activity->getPercentage(),
             $Activity->isComplete(),
-                json_encode(
-                    array_map(fn(ModuleInstanceProgress $moduleInstanceProgress): array => [
-                        'moduleInstanceId' => $moduleInstanceProgress->getModuleInstanceId(),
-                        'mandatory' => $moduleInstanceProgress->isMandatory(),
-                        'complete' => $moduleInstanceProgress->isComplete(),
-                        'percentage' => $moduleInstanceProgress->getPercentage(),
-                        'active' => $moduleInstanceProgress->isActive(),
-                        'visible' => $moduleInstanceProgress->isVisible()
-                    ], $Activity->getModules())
-                )
-       ];
+            json_encode(
+                array_map(fn (ModuleInstanceProgress $moduleInstanceProgress): array => [
+                    'moduleInstanceId' => $moduleInstanceProgress->getModuleInstanceId(),
+                    'mandatory' => $moduleInstanceProgress->isMandatory(),
+                    'complete' => $moduleInstanceProgress->isComplete(),
+                    'percentage' => $moduleInstanceProgress->getPercentage(),
+                    'active' => $moduleInstanceProgress->isActive(),
+                    'visible' => $moduleInstanceProgress->isVisible()
+                ], $Activity->getModules())
+            )
+        ];
 
         $str = '';
-        foreach ($activityData as $item) { $str .= '_' . $item; }
+        foreach ($activityData as $item) {
+            $str .= '_' . $item;
+        }
 
         return $str;
     }
@@ -81,7 +82,7 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
 
         $storedProgress = ProgressHashes::find($itemKey);
 
-        if(! $storedProgress) {
+        if (! $storedProgress) {
             return true;
         }
 
@@ -89,10 +90,12 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
     }
 
     /**
-     * Save Hashed Data into Database
+     * Save Hashed Data into Database.
      *
      * @param $Key
      * @param array $Hash
+     * @param mixed $id
+     * @param mixed $caller
      */
     public function saveChanges($id, $caller, Progress $currentProgress): void
     {
@@ -101,6 +104,4 @@ class ProgressUpdateRepository implements ProgressUpdateContract {
             [ 'hash' => $this->generateHash($this->generateActivityString($currentProgress)) ]
         );
     }
-
-
 }
