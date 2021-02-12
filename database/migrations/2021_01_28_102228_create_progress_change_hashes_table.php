@@ -10,7 +10,7 @@ class CreateProgressChangeHashesTable extends Migration
      * Run the migrations.
      *
      */
-    public function up() :void
+    public function up(): void
     {
         Schema::create('progress_change_hashes', function (Blueprint $table) {
             $table->string('item_key')->primary();
@@ -23,7 +23,7 @@ class CreateProgressChangeHashesTable extends Migration
      * Reverse the migrations.
      *
      */
-    public function down() :void
+    public function down(): void
     {
         Schema::drop('progress_change_hashes');
     }
