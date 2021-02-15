@@ -153,7 +153,7 @@ parameters:
 		-
 			message: "#^Variable \\$factory might not be defined\\.$#"
 			count: 1
-			path: database/factories/ProgressHashesFactory.php
+			path: database/factories/ProgressHashFactory.php
 
 		-
 			message: "#^Variable \\$factory might not be defined\\.$#"
@@ -3291,19 +3291,19 @@ parameters:
 			path: src/Progress/Progress.php
 
 		-
-			message: "#^Property BristolSU\\\\Support\\\\Progress\\\\ProgressHashes\\:\\:\\$fillable type has no value type specified in iterable type array\\.$#"
+			message: "#^Property BristolSU\\\\Support\\\\Progress\\\\ProgressHash\\:\\:\\$fillable type has no value type specified in iterable type array\\.$#"
 			count: 1
-			path: src/Progress/ProgressHashes.php
+			path: src/Progress/ProgressHash.php
 
 		-
-			message: "#^Access to an undefined property BristolSU\\\\Support\\\\Progress\\\\ProgressHashes\\:\\:\\$hash\\.$#"
+			message: "#^Access to an undefined property BristolSU\\\\Support\\\\Progress\\\\ProgressHash\\:\\:\\$hash\\.$#"
 			count: 1
-			path: src/Progress/ProgressHashes.php
+			path: src/Progress/ProgressHash.php
 
 		-
-			message: "#^Access to an undefined property BristolSU\\\\Support\\\\Progress\\\\ProgressHashes\\:\\:\\$item_key\\.$#"
+			message: "#^Access to an undefined property BristolSU\\\\Support\\\\Progress\\\\ProgressHash\\:\\:\\$item_key\\.$#"
 			count: 1
-			path: src/Progress/ProgressHashes.php
+			path: src/Progress/ProgressHash.php
 
 		-
 			message: "#^Property BristolSU\\\\Support\\\\Progress\\\\ProgressManager\\:\\:\\$customCreators type has no value type specified in iterable type array\\.$#"
@@ -3361,12 +3361,12 @@ parameters:
 			path: src/Progress/ProgressServiceProvider.php
 
 		-
-			message: "#^Call to an undefined static method BristolSU\\\\Support\\\\Progress\\\\ProgressHashes\\:\\:find\\(\\)\\.$#"
+			message: "#^Call to an undefined static method BristolSU\\\\Support\\\\Progress\\\\ProgressHash\\:\\:find\\(\\)\\.$#"
 			count: 1
 			path: src/Progress/ProgressUpdateRepository.php
 
 		-
-			message: "#^Call to an undefined static method BristolSU\\\\Support\\\\Progress\\\\ProgressHashes\\:\\:updateOrcreate\\(\\)\\.$#"
+			message: "#^Call to an undefined static method BristolSU\\\\Support\\\\Progress\\\\ProgressHash\\:\\:updateOrcreate\\(\\)\\.$#"
 			count: 1
 			path: src/Progress/ProgressUpdateRepository.php
 
