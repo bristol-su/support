@@ -19,20 +19,6 @@ class ProgressHashes extends Model
     ];
 
     /**
-     * Primary key for Model.
-     *
-     * @var string
-     */
-    private $item_key;
-
-    /**
-     * Hash of the saved progress.
-     *
-     * @var string
-     */
-    private $hash;
-
-    /**
      * Get the Progress Hash Value.
      *
      * @return string

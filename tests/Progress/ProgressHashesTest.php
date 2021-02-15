@@ -58,4 +58,30 @@ class ProgressHashesTest extends TestCase
 
         $this->assertEquals($data, $dbValue);
     }
+
+    /** @test */
+    public function getItemKey_returns_the_item_key(){
+        $progressHash = factory(ProgressHashes::class)->create([
+            'item_key' => '1_199'
+        ]);
+
+        $this->assertDatabaseHas('progress_change_hashes', [
+            'item_key' => '1_199'
+        ]);
+
+        $this->assertEquals('1_199', $progressHash->getItemKey());
+    }
+
+    /** @test */
+    public function getHash_returns_the_hash(){
+        $progressHash = factory(ProgressHashes::class)->create([
+            'hash' => 'kjflhskdfjhlakfcjbelcjhbwdbja'
+        ]);
+
+        $this->assertDatabaseHas('progress_change_hashes', [
+            'hash' => 'kjflhskdfjhlakfcjbelcjhbwdbja'
+        ]);
+
+        $this->assertEquals('kjflhskdfjhlakfcjbelcjhbwdbja', $progressHash->getHash());
+    }
 }
