@@ -193,7 +193,7 @@ class ProgressUpdateRepositoryTest extends TestCase
         $progress->pushModule($moduleProgress2);
 
         if ($callback === null) {
-            $callback = fn(Progress $progress): Progress => $progress;
+            $callback = fn (Progress $progress): Progress => $progress;
         }
 
         return $callback($progress);
