@@ -2,12 +2,12 @@
 
 namespace BristolSU\Support\Tests\Progress;
 
-use BristolSU\Support\Progress\ProgressHashes;
+use BristolSU\Support\Progress\ProgressHash;
 use BristolSU\Support\Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Facades\Hash;
 
-class ProgressHashesTest extends TestCase
+class ProgressHashTest extends TestCase
 {
     use WithFaker;
 
@@ -19,7 +19,7 @@ class ProgressHashesTest extends TestCase
     {
         parent::setUp();
 
-        $this->Model = (new ProgressHashes());
+        $this->Model = (new ProgressHash());
         $this->Table = $this->Model->getTable();
     }
 
@@ -62,7 +62,7 @@ class ProgressHashesTest extends TestCase
     /** @test */
     public function get_item_key_returns_the_item_key()
     {
-        $progressHash = factory(ProgressHashes::class)->create([
+        $progressHash = factory(ProgressHash::class)->create([
             'item_key' => '1_199'
         ]);
 
@@ -76,7 +76,7 @@ class ProgressHashesTest extends TestCase
     /** @test */
     public function get_hash_returns_the_hash()
     {
-        $progressHash = factory(ProgressHashes::class)->create([
+        $progressHash = factory(ProgressHash::class)->create([
             'hash' => 'kjflhskdfjhlakfcjbelcjhbwdbja'
         ]);
 

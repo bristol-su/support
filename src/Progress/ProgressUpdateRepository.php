@@ -80,7 +80,7 @@ class ProgressUpdateRepository implements ProgressUpdateContract
     {
         $itemKey = $this->generateItemKey($id, $caller);
 
-        $storedProgress = ProgressHashes::find($itemKey);
+        $storedProgress = ProgressHash::find($itemKey);
 
         if (! $storedProgress) {
             return true;
@@ -98,7 +98,7 @@ class ProgressUpdateRepository implements ProgressUpdateContract
      */
     public function saveChanges(int $id, string $caller, Progress $currentProgress): void
     {
-        ProgressHashes::updateOrcreate(
+        ProgressHash::updateOrcreate(
             [ 'item_key' => $this->generateItemKey($id, $caller) ],
             [ 'hash' => $this->generateHash($this->generateActivityString($currentProgress)) ]
         );

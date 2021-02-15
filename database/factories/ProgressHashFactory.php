@@ -1,6 +1,6 @@
 <?php
 
-use BristolSU\Support\Progress\ProgressHashes;
+use BristolSU\Support\Progress\ProgressHash;
 use Faker\Generator as Faker;
 
 /*
@@ -14,7 +14,7 @@ use Faker\Generator as Faker;
 |
  */
 
-$factory->define(ProgressHashes::class, function (Faker $faker) {
+$factory->define(ProgressHash::class, function (Faker $faker) {
     return [
         'item_key' => sprintf('%s_%u', $faker->word, $faker->numberBetween(0, 100)),
         'hash' => $faker->sha1

@@ -7,7 +7,7 @@ use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Progress\ModuleInstanceProgress;
 use BristolSU\Support\Progress\Progress;
-use BristolSU\Support\Progress\ProgressHashes;
+use BristolSU\Support\Progress\ProgressHash;
 use BristolSU\Support\Progress\ProgressUpdateRepository;
 use BristolSU\Support\Tests\TestCase;
 use Carbon\Carbon;
@@ -37,7 +37,7 @@ class ProgressUpdateRepositoryTest extends TestCase
         $this->modules = factory(ModuleInstance::class, 5)->create(['activity_id' => $this->activity->id]);
         $this->activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $this->activity->id]);
 
-        $this->hashesTableName = (new ProgressHashes())->getTable();
+        $this->hashesTableName = (new ProgressHash())->getTable();
     }
 
     /** @test */

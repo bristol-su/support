@@ -5,7 +5,7 @@ namespace BristolSU\Support\Progress;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 
-class ProgressHashes extends Model
+class ProgressHash extends Model
 {
     protected $table = 'progress_change_hashes';
 
