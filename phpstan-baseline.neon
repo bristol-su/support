@@ -153,6 +153,11 @@ parameters:
 		-
 			message: "#^Variable \\$factory might not be defined\\.$#"
 			count: 1
+			path: database/factories/ProgressHashFactory.php
+
+		-
+			message: "#^Variable \\$factory might not be defined\\.$#"
+			count: 1
 			path: database/factories/UserFactory.php
 
 		-
@@ -3286,6 +3291,21 @@ parameters:
 			path: src/Progress/Progress.php
 
 		-
+			message: "#^Property BristolSU\\\\Support\\\\Progress\\\\ProgressHash\\:\\:\\$fillable type has no value type specified in iterable type array\\.$#"
+			count: 1
+			path: src/Progress/ProgressHash.php
+
+		-
+			message: "#^Access to an undefined property BristolSU\\\\Support\\\\Progress\\\\ProgressHash\\:\\:\\$hash\\.$#"
+			count: 1
+			path: src/Progress/ProgressHash.php
+
+		-
+			message: "#^Access to an undefined property BristolSU\\\\Support\\\\Progress\\\\ProgressHash\\:\\:\\$item_key\\.$#"
+			count: 1
+			path: src/Progress/ProgressHash.php
+
+		-
 			message: "#^Property BristolSU\\\\Support\\\\Progress\\\\ProgressManager\\:\\:\\$customCreators type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Progress/ProgressManager.php
@@ -3341,17 +3361,32 @@ parameters:
 			path: src/Progress/ProgressServiceProvider.php
 
 		-
-			message: "#^Access to an undefined property BristolSU\\\\Support\\\\Activity\\\\Activity\\:\\:\\$id\\.$#"
+			message: "#^Call to an undefined static method BristolSU\\\\Support\\\\Progress\\\\ProgressHash\\:\\:find\\(\\)\\.$#"
+			count: 1
+			path: src/Progress/ProgressUpdateRepository.php
+
+		-
+			message: "#^Call to an undefined static method BristolSU\\\\Support\\\\Progress\\\\ProgressHash\\:\\:updateOrcreate\\(\\)\\.$#"
+			count: 1
+			path: src/Progress/ProgressUpdateRepository.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Progress\\\\Snapshot\\:\\:ofUpdatesToActivity\\(\\) return type has no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Progress/Snapshot.php
 
 		-
-			message: "#^Access to an undefined property BristolSU\\\\Support\\\\ActivityInstance\\\\ActivityInstance\\:\\:\\$activity\\.$#"
-			count: 1
+			message: "#^Access to an undefined property BristolSU\\\\Support\\\\Activity\\\\Activity\\:\\:\\$id\\.$#"
+			count: 2
 			path: src/Progress/Snapshot.php
 
 		-
 			message: "#^Access to an undefined property BristolSU\\\\Support\\\\ActivityInstance\\\\ActivityInstance\\:\\:\\$id\\.$#"
+			count: 3
+			path: src/Progress/Snapshot.php
+
+		-
+			message: "#^Access to an undefined property BristolSU\\\\Support\\\\ActivityInstance\\\\ActivityInstance\\:\\:\\$activity\\.$#"
 			count: 1
 			path: src/Progress/Snapshot.php
 
