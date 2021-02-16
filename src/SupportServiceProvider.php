@@ -18,6 +18,7 @@ use BristolSU\Support\ModuleInstance\ModuleInstanceServiceProvider;
 use BristolSU\Support\Permissions\PermissionServiceProvider;
 use BristolSU\Support\Progress\ProgressServiceProvider;
 use BristolSU\Support\Revision\RevisionServiceProvider;
+use BristolSU\Support\Search\SearchServiceProvider;
 use BristolSU\Support\User\UserServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -47,7 +48,8 @@ class SupportServiceProvider extends ServiceProvider
         ModuleInstanceServiceProvider::class,
         UserServiceProvider::class,
         HttpServiceProvider::class,
-        RevisionServiceProvider::class
+        RevisionServiceProvider::class,
+        SearchServiceProvider::class
     ];
 
     public function register()
@@ -58,7 +60,7 @@ class SupportServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerRoutes();
     }
-    
+
     public function registerProviders()
     {
         foreach ($this->providers as $provider) {

@@ -10,7 +10,9 @@ use BristolSU\Support\Testing\ActivityInstance\LaravelAuthActivityInstanceResolv
 use BristolSU\Support\Testing\Authentication\SessionAuthentication;
 use Illuminate\Foundation\Application;
 use Laracasts\Utilities\JavaScript\JavaScriptServiceProvider;
+use Laravel\Scout\ScoutServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
+use TeamTNT\Scout\TNTSearchScoutServiceProvider;
 
 /**
  * Test Case.
@@ -67,7 +69,9 @@ class TestCase extends BaseTestCase
         return [
             SupportServiceProvider::class,
             JavaScriptServiceProvider::class,
-            ControlDBServiceProvider::class
+            ControlDBServiceProvider::class,
+            ScoutServiceProvider::class,
+            TNTSearchScoutServiceProvider::class
         ];
     }
 }
