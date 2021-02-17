@@ -11,8 +11,10 @@ use BristolSU\Support\Testing\Authentication\SessionAuthentication;
 use Illuminate\Foundation\Application;
 use Laracasts\Utilities\JavaScript\JavaScriptServiceProvider;
 use Laravel\Scout\ScoutServiceProvider;
+use Meilisearch\Scout\MeilisearchServiceProvider;
 use Orchestra\Testbench\TestCase as BaseTestCase;
 use TeamTNT\Scout\TNTSearchScoutServiceProvider;
+use Yab\MySQLScout\Providers\MySQLScoutServiceProvider;
 
 /**
  * Test Case.
@@ -53,6 +55,7 @@ class TestCase extends BaseTestCase
             'prefix' => '',
         ]);
         $app['config']->set('app.key', 'base64:UTyp33UhGolgzCK5CJmT+hNHcA+dJyp3+oINtX+VoPI=');
+        $app['config']->set('scout.driver', 'tntsearch');
         $this->createSdkEnvironment($app);
         $app->bind(Authentication::class, SessionAuthentication::class);
         $app->bind(ActivityInstanceResolver::class, LaravelAuthActivityInstanceResolver::class);

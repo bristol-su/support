@@ -9,6 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - portal-85: Only update progress snapshots when changes have been made
 
+### Added
+- portal-281: Support for Laravel Scout (TNTSearch and Meilisearch drivers)
+
 ## [4.7.4] - (09/09/2020)
 
 ### Fixed
