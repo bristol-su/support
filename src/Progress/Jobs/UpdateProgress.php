@@ -21,7 +21,7 @@ class UpdateProgress implements ShouldQueue
      * @var Activity
      */
     private $activity;
-    
+
     private string $driver;
 
     public function __construct(Activity $activity, string $driver = 'database')
@@ -32,8 +32,10 @@ class UpdateProgress implements ShouldQueue
 
     public function handle(Snapshot $snapshot)
     {
-        $progresses = $snapshot->ofActivity($this->activity);
-        
-        ProgressExport::driver($this->driver)->saveMany($progresses);
+        $progresses = $snapshot->ofUpdatesToActivity($this->activity, $this->driver);
+
+        if($progresses) {
+            ProgressExport::driver($this->driver)->saveMany($progresses);
+        }
     }
 }
