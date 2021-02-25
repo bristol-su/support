@@ -34,7 +34,7 @@ class UpdateProgress implements ShouldQueue
     {
         $progresses = $snapshot->ofUpdatesToActivity($this->activity, $this->driver);
 
-        if($progresses) {
+        if ($progresses) {
             ProgressExport::driver($this->driver)->saveMany($progresses);
         }
     }

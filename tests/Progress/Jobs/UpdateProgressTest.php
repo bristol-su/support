@@ -26,9 +26,9 @@ class UpdateProgressTest extends TestCase
         ];
         
         $snapshot = $this->prophesize(Snapshot::class);
-        $snapshot->ofActivity(Argument::that(function ($arg) use ($activity) {
+        $snapshot->ofUpdatesToActivity(Argument::that(function ($arg) use ($activity) {
             return $arg instanceof Activity && $activity->is($arg);
-        }))->shouldBeCalled()->willReturn($progresses);
+        }), 'fake-setup')->shouldBeCalled()->willReturn($progresses);
         
         $handler = $this->prophesize(Handler::class);
         $handler->saveMany($progresses)->shouldBeCalled();
