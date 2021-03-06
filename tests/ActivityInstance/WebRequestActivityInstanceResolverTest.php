@@ -3,18 +3,18 @@
 namespace BristolSU\Support\Tests\ActivityInstance;
 
 use BristolSU\Support\ActivityInstance\ActivityInstance;
-use BristolSU\Support\ActivityInstance\WebRequestActivityInstanceResolver;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use BristolSU\Support\ActivityInstance\Exceptions\NotInActivityInstanceException;
+use BristolSU\Support\ActivityInstance\WebRequestActivityInstanceResolver;
 use BristolSU\Support\Tests\TestCase;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\ParameterBag;
 
 class WebRequestActivityInstanceResolverTest extends TestCase
 {
-
     /** @test */
-    public function setActivityInstance_sets_the_exception_and_overrides_the_global_variables(){
+    public function set_activity_instance_sets_the_exception_and_overrides_the_global_variables()
+    {
         $activityInstance = factory(ActivityInstance::class)->create();
         
         $parameterBag = $this->prophesize(ParameterBag::class);
@@ -28,7 +28,8 @@ class WebRequestActivityInstanceResolverTest extends TestCase
     }
 
     /** @test */
-    public function clearActivityInstance_clears_the_activity_instance(){
+    public function clear_activity_instance_clears_the_activity_instance()
+    {
         $activityInstance = factory(ActivityInstance::class)->create();
 
         $parameterBag = $this->prophesize(ParameterBag::class);
@@ -42,7 +43,8 @@ class WebRequestActivityInstanceResolverTest extends TestCase
     }
     
     /** @test */
-    public function getActivityInstance_returns_an_activity_instance_using_the_request(){
+    public function get_activity_instance_returns_an_activity_instance_using_the_request()
+    {
         $activityInstance = factory(ActivityInstance::class)->create();
 
         $parameterBag = $this->prophesize(ParameterBag::class);
@@ -62,7 +64,8 @@ class WebRequestActivityInstanceResolverTest extends TestCase
     }
 
     /** @test */
-    public function getActivityInstance_throws_an_exception_if_activity_instance_not_passed_in_request(){
+    public function get_activity_instance_throws_an_exception_if_activity_instance_not_passed_in_request()
+    {
         $this->expectException(NotInActivityInstanceException::class);
         $request = $this->prophesize(Request::class);
 
@@ -77,7 +80,4 @@ class WebRequestActivityInstanceResolverTest extends TestCase
         $resolver = new WebRequestActivityInstanceResolver($request->reveal(), $this->prophesize(ActivityInstanceRepository::class)->reveal());
         $resolver->getActivityInstance();
     }
-    
-    
-    
 }

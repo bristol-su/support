@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Tests\Progress;
 
-
 use BristolSU\Support\Progress\Handlers\Handler;
 use BristolSU\Support\Progress\ProgressExport;
 use BristolSU\Support\Progress\ProgressManager;
@@ -12,9 +11,9 @@ use Illuminate\Support\Facades\Facade;
 
 class ProgressExportTest extends TestCase
 {
-
     /** @test */
-    public function it_returns_the_underlying_instance(){
+    public function it_returns_the_underlying_instance()
+    {
         $handler = $this->prophesize(Handler::class);
         $progressManger = $this->prophesize(ProgressManager::class);
         $progressManger->driver('test')->shouldBeCalled()->willReturn($handler->reveal());
@@ -26,5 +25,4 @@ class ProgressExportTest extends TestCase
         $this->assertInstanceOf(ProgressManager::class, $resolvedProgressManager);
         $this->assertInstanceOf(Handler::class, $resolvedProgressManager->driver('test'));
     }
-    
 }

@@ -10,7 +10,6 @@ use Illuminate\Support\Collection;
 
 class UpdateProgress extends Command
 {
-
     /**
      * The name and signature of the console command.
      *
@@ -35,16 +34,17 @@ class UpdateProgress extends Command
     }
 
     /**
-     * Get all activities
+     * Get all activities.
      *
      * @return Collection|Activity[]
      */
     private function activities(): Collection
     {
         $repository = app(Repository::class);
-        if($this->argument('activity') !== null) {
+        if ($this->argument('activity') !== null) {
             return collect([$repository->getById($this->argument('activity'))]);
         }
+
         return $repository->all();
     }
 

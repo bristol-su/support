@@ -8,8 +8,7 @@ class CreateActionHistoriesTable extends Migration
 {
     /**
      * Run the migrations.
-     * 
-     * @return void
+     *
      */
     public function up()
     {
@@ -27,7 +26,6 @@ class CreateActionHistoriesTable extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
      */
     public function down()
     {

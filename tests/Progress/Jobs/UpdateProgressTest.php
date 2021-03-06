@@ -14,9 +14,9 @@ use Prophecy\Argument;
 
 class UpdateProgressTest extends TestCase
 {
-
     /** @test */
-    public function it_takes_a_snapshot_and_passes_it_to_the_driver_to_save(){
+    public function it_takes_a_snapshot_and_passes_it_to_the_driver_to_save()
+    {
         $activity = factory(Activity::class)->create();
         
         $progresses = [
@@ -26,9 +26,9 @@ class UpdateProgressTest extends TestCase
         ];
         
         $snapshot = $this->prophesize(Snapshot::class);
-        $snapshot->ofActivity(Argument::that(function($arg) use ($activity) {
+        $snapshot->ofUpdatesToActivity(Argument::that(function ($arg) use ($activity) {
             return $arg instanceof Activity && $activity->is($arg);
-        }))->shouldBeCalled()->willReturn($progresses);
+        }), 'fake-setup')->shouldBeCalled()->willReturn($progresses);
         
         $handler = $this->prophesize(Handler::class);
         $handler->saveMany($progresses)->shouldBeCalled();
@@ -37,14 +37,12 @@ class UpdateProgressTest extends TestCase
             'driver' => 'fake',
         ]);
         
-        ProgressExport::extend('fake', function($app, $config) use ($handler) {
+        ProgressExport::extend('fake', function ($app, $config) use ($handler) {
             return $handler->reveal();
         });
         
         $job = new UpdateProgress($activity, 'fake-setup');
 
         $job->handle($snapshot->reveal());
-        
     }
-    
 }

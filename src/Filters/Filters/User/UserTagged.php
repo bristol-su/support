@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Filters\Filters\User;
 
-
 use BristolSU\ControlDB\Contracts\Repositories\Tags\UserTag as UserTagRepositoryContract;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use FormSchema\Schema\Form;
@@ -13,10 +12,9 @@ use FormSchema\Schema\Form;
  */
 class UserTagged extends UserFilter
 {
-
     /**
-     * User Tag Repository, for retrieving all tags as options
-     * 
+     * User Tag Repository, for retrieving all tags as options.
+     *
      * @var UserTagRepositoryContract
      */
     private $userTagRepository;
@@ -30,10 +28,10 @@ class UserTagged extends UserFilter
     }
 
     /**
-     * See if the user is tagged
-     * 
+     * See if the user is tagged.
+     *
      * @param string $settings [ 'tag' => 'full.reference' ]
-     * 
+     *
      * @return bool
      */
     public function evaluate($settings): bool
@@ -48,17 +46,18 @@ class UserTagged extends UserFilter
                 return true;
             }
         }
+
         return false;
     }
 
     /**
-     * Get all user tags as a select list
+     * Get all user tags as a select list.
      *
      * You should return a form schema which represents the available options for the filter
      *
+     * @throws \Exception
      * @return Form Options
      *
-     * @throws \Exception
      */
     public function options(): Form
     {
@@ -71,6 +70,7 @@ class UserTagged extends UserFilter
                 'user' => $tag->category()->name()
             ];
         }
+
         return \FormSchema\Generator\Form::make()->withField(
             \FormSchema\Generator\Field::select('tag')->values($values)->label('User Name')
                 ->required(true)
@@ -78,8 +78,8 @@ class UserTagged extends UserFilter
     }
 
     /**
-     * Get the filter name
-     * 
+     * Get the filter name.
+     *
      * @return string Filter name
      */
     public function name()
@@ -88,8 +88,8 @@ class UserTagged extends UserFilter
     }
 
     /**
-     * Get a description of the filter
-     * 
+     * Get a description of the filter.
+     *
      * @return string Filter description
      */
     public function description()
@@ -98,8 +98,8 @@ class UserTagged extends UserFilter
     }
 
     /**
-     * Get an alias for the filter
-     * 
+     * Get an alias for the filter.
+     *
      * @return string Filter alias
      */
     public function alias()

@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Filters;
 
+use BristolSU\Support\Filters\Commands\CacheFilters;
 use BristolSU\Support\Filters\Contracts\FilterFactory as FilterFactoryContract;
 use BristolSU\Support\Filters\Contracts\FilterInstance as FilterInstanceContract;
 use BristolSU\Support\Filters\Contracts\FilterInstanceRepository as FilterInstanceRepositoryContract;
@@ -13,20 +14,19 @@ use BristolSU\Support\Filters\Filters\Group\GroupTagged;
 use BristolSU\Support\Filters\Filters\Role\RoleHasPosition;
 use BristolSU\Support\Filters\Filters\Role\RoleTagged;
 use BristolSU\Support\Filters\Filters\User\UserEmailIs;
-use BristolSU\Support\Filters\Commands\CacheFilters;
 use BristolSU\Support\Filters\Filters\User\UserTagged;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Filter service provider
+ * Filter service provider.
  */
 class FilterServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
-     * 
+     *
      * - Bind implementations of contracts
      * - Set up filter tester caching
      * - Set up the filter manager as a singleton
@@ -40,19 +40,17 @@ class FilterServiceProvider extends ServiceProvider
         $this->app->bind(FilterInstanceContract::class, FilterInstance::class);
         $this->app->bind(FilterInstanceRepositoryContract::class, FilterInstanceRepository::class);
         $this->app->singleton(FilterManagerContract::class, FilterManager::class);
-        
     }
 
     /**
      * Bootstrap services.
      *
-     * @return void
      * @throws BindingResolutionException
      */
     public function boot()
     {
-        if($this->app['config']->get('support.caching.filters.enabled', true)) {
-            $this->app->extend(FilterTesterContract::class, function(FilterTesterContract $filterTester) {
+        if ($this->app['config']->get('support.caching.filters.enabled', true)) {
+            $this->app->extend(FilterTesterContract::class, function (FilterTesterContract $filterTester) {
                 return new CachedFilterTesterDecorator($filterTester, $this->app->make(Cache::class));
             });
         }

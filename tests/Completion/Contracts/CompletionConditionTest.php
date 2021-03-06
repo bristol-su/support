@@ -10,15 +10,16 @@ use FormSchema\Schema\Form;
 
 class CompletionConditionTest extends TestCase
 {
-
     /** @test */
-    public function moduleAlias_returns_the_module_alias(){
+    public function module_alias_returns_the_module_alias()
+    {
         $condition = new DummyCondition('alias1');
         $this->assertEquals('alias1', $condition->moduleAlias());
     }
     
     /** @test */
-    public function percentage_returns_100_if_condition_is_complete(){
+    public function percentage_returns_100_if_condition_is_complete()
+    {
         $activityInstance = $this->prophesize(ActivityInstance::class)->reveal();
         $moduleInstance = $this->prophesize(ModuleInstance::class)->reveal();
         
@@ -30,7 +31,8 @@ class CompletionConditionTest extends TestCase
     }
 
     /** @test */
-    public function percentage_returns_0_if_condition_is_not_complete(){
+    public function percentage_returns_0_if_condition_is_not_complete()
+    {
         $activityInstance = $this->prophesize(ActivityInstance::class)->reveal();
         $moduleInstance = $this->prophesize(ModuleInstance::class)->reveal();
         $condition = new DummyCondition('alias1');
@@ -40,7 +42,8 @@ class CompletionConditionTest extends TestCase
     }
     
     /** @test */
-    public function toArray_returns_an_array_representation_of_the_condition(){
+    public function to_array_returns_an_array_representation_of_the_condition()
+    {
         $condition = new DummyCondition('alias1');
         
         $array = $condition->toArray();
@@ -57,11 +60,11 @@ class CompletionConditionTest extends TestCase
         $this->assertArrayHasKey('options', $array);
         $this->assertIsArray($array['options']);
         $this->assertArrayHasKey('schema', $array['options']);
-    
     }
     
     /** @test */
-    public function toJson_returns_a_json_representation_of_the_condition(){
+    public function to_json_returns_a_json_representation_of_the_condition()
+    {
         $condition = new DummyCondition('alias1');
 
         $json = $condition->toJson();
@@ -82,12 +85,11 @@ class CompletionConditionTest extends TestCase
         $this->assertArrayHasKey('options', $arrayable);
         $this->assertIsArray($arrayable['options']);
         $this->assertArrayHasKey('schema', $arrayable['options']);
-
     }
 }
 
-class DummyCondition extends CompletionCondition {
-
+class DummyCondition extends CompletionCondition
+{
     protected $complete = false;
     
     public function complete()

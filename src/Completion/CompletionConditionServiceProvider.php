@@ -11,18 +11,17 @@ use BristolSU\Support\Completion\Contracts\CompletionConditionTester as Completi
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Completion Service Provider
+ * Completion Service Provider.
  */
 class CompletionConditionServiceProvider extends ServiceProvider
 {
-
     protected $completionConditions = [
-//        'portalsystem_event_fired' => EventFired::class
+        //        'portalsystem_event_fired' => EventFired::class
     ];
 
     /**
-     * Register
-     * 
+     * Register.
+     *
      * - Bind contracts to implementations
      * - Set up the manager as a singleton
      */
@@ -37,8 +36,8 @@ class CompletionConditionServiceProvider extends ServiceProvider
     }
 
     /**
-     * Boot
-     * 
+     * Boot.
+     *
      * - Register global conditions provided by the framework
      */
     public function boot()
@@ -47,6 +46,4 @@ class CompletionConditionServiceProvider extends ServiceProvider
             app(CompletionConditionManagerContract::class)->registerGlobalCondition($alias, $class);
         }
     }
-
-
 }

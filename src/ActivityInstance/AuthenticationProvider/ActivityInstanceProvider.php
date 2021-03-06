@@ -1,4 +1,5 @@
 <?php
+
 namespace BristolSU\Support\ActivityInstance\AuthenticationProvider;
 
 use BristolSU\Support\ActivityInstance\ActivityInstance;
@@ -8,20 +9,19 @@ use Illuminate\Contracts\Auth\UserProvider;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
- * Provider for the current Activity Instance
+ * Provider for the current Activity Instance.
  */
 class ActivityInstanceProvider implements UserProvider
 {
-
     /**
-     * Holds the Activity Instance repository
-     * 
+     * Holds the Activity Instance repository.
+     *
      * @var ActivityInstanceRepository
      */
     private $repository;
 
     /**
-     * Initialise the Activity Instance provider 
+     * Initialise the Activity Instance provider.
      *
      * @param ActivityInstanceRepository $repository Repository from which to retrieve the activity instances
      */
@@ -31,23 +31,22 @@ class ActivityInstanceProvider implements UserProvider
     }
 
     /**
-     * Retrieve an Activity Instance by ID
-     * 
+     * Retrieve an Activity Instance by ID.
+     *
      * @param mixed $identifier
      * @return ActivityInstance|null
      */
     public function retrieveById($identifier)
     {
         return $this->repository->getById($identifier);
-
     }
 
     /**
-     * Retrieve an Activity Instance by the remember token
-     * 
+     * Retrieve an Activity Instance by the remember token.
+     *
      * @param mixed $identifier ID of the activity instance
      * @param string $token Remember Token the activity instance needs to have
-     * 
+     *
      * @return Authenticatable|void|null
      */
     public function retrieveByToken($identifier, $token)
@@ -56,11 +55,10 @@ class ActivityInstanceProvider implements UserProvider
     }
 
     /**
-     * Update the remember token for the Activity Instance
+     * Update the remember token for the Activity Instance.
      *
      * @param Authenticatable $activityInstance Activity Instance
      * @param string $token New remember token to be set
-     * @return null
      */
     public function updateRememberToken(Authenticatable $activityInstance, $token)
     {
@@ -69,12 +67,12 @@ class ActivityInstanceProvider implements UserProvider
 
     /**
      * Retrieve an Activity Instance by the credentials.
-     * 
+     *
      * When given correct credentials, will return the Activity Instance.
      * e.g. $credentials = [
      *      'activity_instance_id' => 1
      * ]
-     * 
+     *
      * @param array $credentials
      * @return ActivityInstance|null
      */
@@ -83,14 +81,16 @@ class ActivityInstanceProvider implements UserProvider
         if (isset($credentials['activity_instance_id'])) {
             try {
                 return $this->retrieveById($credentials['activity_instance_id']);
-            } catch (ModelNotFoundException $e) {}
+            } catch (ModelNotFoundException $e) {
+            }
         }
+
         return null;
     }
 
     /**
      * Check the credentials for the Activity Instance.
-     * 
+     *
      * Returns true if credentials are valid. Credentials should look like
      * [
      *      'activity_instance_id' => 1
@@ -105,10 +105,12 @@ class ActivityInstanceProvider implements UserProvider
         if (isset($credentials['activity_instance_id'])) {
             try {
                 $this->retrieveById($credentials['activity_instance_id']);
+
                 return true;
             } catch (\Exception $e) {
             }
         }
+
         return false;
     }
 }

@@ -13,7 +13,8 @@ use Illuminate\Http\Request;
 class CheckActivityInstanceForActivityTest extends TestCase
 {
     /** @test */
-    public function handle_throws_an_exception_if_the_activity_instance_activity_id_is_not_equal_to_the_activity_id(){
+    public function handle_throws_an_exception_if_the_activity_instance_activity_id_is_not_equal_to_the_activity_id()
+    {
         $this->expectException(NotInActivityInstanceException::class);
         $this->expectExceptionMessage('Not logged into the correct activity instance for the activity');
         
@@ -28,13 +29,13 @@ class CheckActivityInstanceForActivityTest extends TestCase
         $request->route('activity_slug')->willReturn($activity2);
         
         $middleware = new CheckActivityInstanceForActivity($resolver->reveal());
-        $middleware->handle($request->reveal(), function($request) {
-            
+        $middleware->handle($request->reveal(), function ($request) {
         });
     }
     
     /** @test */
-    public function handle_calls_the_callback_if_the_activity_instance_activity_id_is_equal_to_the_activity_id(){
+    public function handle_calls_the_callback_if_the_activity_instance_activity_id_is_equal_to_the_activity_id()
+    {
         $activity1 = factory(Activity::class)->create();
         $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity1->id]);
 
@@ -46,7 +47,7 @@ class CheckActivityInstanceForActivityTest extends TestCase
         $request->route('test_callback_is_called')->shouldBeCalled()->willReturn(true);
 
         $middleware = new CheckActivityInstanceForActivity($resolver->reveal());
-        $middleware->handle($request->reveal(), function($request) {
+        $middleware->handle($request->reveal(), function ($request) {
             $this->assertTrue(
                 $request->route('test_callback_is_called')
             );

@@ -3,18 +3,17 @@
 
 namespace BristolSU\Support\Events;
 
-
 use BristolSU\Support\Events\Contracts\EventManager as EventManagerContract;
 use BristolSU\Support\Events\Contracts\EventRepository as EventRepositoryContract;
 
 /**
- * Event repository using the event manager to resolve events
+ * Event repository using the event manager to resolve events.
  */
 class EventRepository implements EventRepositoryContract
 {
     /**
-     * Holds the event manager to retrieve events from
-     * 
+     * Holds the event manager to retrieve events from.
+     *
      * @var EventManagerContract
      */
     private $manager;
@@ -28,7 +27,7 @@ class EventRepository implements EventRepositoryContract
     }
 
     /**
-     * Get all events a module has registered with the manager
+     * Get all events a module has registered with the manager.
      *
      * Returns events in the form
      * [

@@ -1,19 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateFilterInstancesTable extends Migration
 {
     /**
      * Run the migrations.
      *
-     * @return void
      */
     public function up()
     {
-        Schema::create('filter_instances', function(Blueprint $table) {
+        Schema::create('filter_instances', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('alias');
             $table->string('name');
@@ -27,7 +26,6 @@ class CreateFilterInstancesTable extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
      */
     public function down()
     {

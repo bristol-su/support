@@ -9,7 +9,8 @@ use BristolSU\Support\Tests\TestCase;
 class ConnectorStoreTest extends TestCase
 {
     /** @test */
-    public function registered_connectors_can_be_registered_and_retrieved(){
+    public function registered_connectors_can_be_registered_and_retrieved()
+    {
         $registeredConnector = $this->prophesize(RegisteredConnector::class);
         $registeredConnector->getAlias()->shouldBeCalled()->willReturn('alias1');
         
@@ -20,7 +21,8 @@ class ConnectorStoreTest extends TestCase
     }
     
     /** @test */
-    public function an_exception_is_thrown_if_a_retrieved_registered_connector_does_not_exist(){
+    public function an_exception_is_thrown_if_a_retrieved_registered_connector_does_not_exist()
+    {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Connector alias1 not registered');
 
@@ -29,7 +31,8 @@ class ConnectorStoreTest extends TestCase
     }
     
     /** @test */
-    public function all_registered_connectors_can_be_retrieved(){
+    public function all_registered_connectors_can_be_retrieved()
+    {
         $registeredConnector1 = $this->prophesize(RegisteredConnector::class);
         $registeredConnector1->getAlias()->shouldBeCalled()->willReturn('alias1');
         $registeredConnector2 = $this->prophesize(RegisteredConnector::class);
@@ -49,7 +52,8 @@ class ConnectorStoreTest extends TestCase
     }
     
     /** @test */
-    public function registered_connectors_can_be_registered_using_attributes(){
+    public function registered_connectors_can_be_registered_using_attributes()
+    {
         $store = new ConnectorStore();
         $store->register('name1', 'description1', 'alias1', 'service1', 'connector1');
 
@@ -60,5 +64,4 @@ class ConnectorStoreTest extends TestCase
         $this->assertEquals('service1', $registeredConnector->getService());
         $this->assertEquals('connector1', $registeredConnector->getConnector());
     }
-    
 }

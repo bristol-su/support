@@ -3,20 +3,15 @@
 
 namespace BristolSU\Support\Tests\Module;
 
-
-use BristolSU\Support\Completion\Contracts\EventRepository;
 use BristolSU\Support\Module\Module;
-use BristolSU\Support\Permissions\Contracts\PermissionRepository;
-use Illuminate\Config\Repository;
 use BristolSU\Support\Tests\TestCase;
 
 class ModuleTest extends TestCase
 {
-
     /** @test */
     public function alias_has_setters_and_getters()
     {
-        $module = new Module;
+        $module = new Module();
         $module->setAlias('alias1');
         $this->assertEquals('alias1', $module->getAlias());
     }
@@ -24,7 +19,7 @@ class ModuleTest extends TestCase
     /** @test */
     public function name_has_setters_and_getters()
     {
-        $module = new Module;
+        $module = new Module();
         $module->setName('name1');
         $this->assertEquals('name1', $module->getName());
     }
@@ -32,7 +27,7 @@ class ModuleTest extends TestCase
     /** @test */
     public function description_has_setters_and_getters()
     {
-        $module = new Module;
+        $module = new Module();
         $module->setDescription('description1');
         $this->assertEquals('description1', $module->getDescription());
     }
@@ -40,7 +35,7 @@ class ModuleTest extends TestCase
     /** @test */
     public function permissions_have_setters_and_getters()
     {
-        $module = new Module;
+        $module = new Module();
         $module->setPermissions([
             'permission1'
         ]);
@@ -50,7 +45,7 @@ class ModuleTest extends TestCase
     /** @test */
     public function settings_have_setters_and_getters()
     {
-        $module = new Module;
+        $module = new Module();
         $module->setSettings([
             'setting1'
         ]);
@@ -60,7 +55,7 @@ class ModuleTest extends TestCase
     /** @test */
     public function triggers_have_setters_and_getters()
     {
-        $module = new Module;
+        $module = new Module();
         $module->setTriggers([
             'trigger1', 'trigger2'
         ]);
@@ -70,7 +65,7 @@ class ModuleTest extends TestCase
     /** @test */
     public function completion_conditions_have_setters_and_getters()
     {
-        $module = new Module;
+        $module = new Module();
         $module->setCompletionConditions([
             'cc1', 'cc2'
         ]);
@@ -80,15 +75,15 @@ class ModuleTest extends TestCase
     /** @test */
     public function service_request_has_setters_and_getters()
     {
-        $module = new Module;
+        $module = new Module();
         $module->setServices(['required' => ['facebook'], 'optional' => []]);
         $this->assertEquals(['required' => ['facebook'], 'optional' => []], $module->getServices());
     }
 
     /** @test */
-    public function toArray_returns_an_array_of_parameters()
+    public function to_array_returns_an_array_of_parameters()
     {
-        $module = new Module;
+        $module = new Module();
         $module->setAlias('alias1');
         $module->setName('name1');
         $module->setDescription('description1');
@@ -113,9 +108,9 @@ class ModuleTest extends TestCase
     }
 
     /** @test */
-    public function toJson_returns_a_json_encoded_array_of_parameters()
+    public function to_json_returns_a_json_encoded_array_of_parameters()
     {
-        $module = new Module;
+        $module = new Module();
         $module->setAlias('alias1');
         $module->setName('name1');
         $module->setDescription('description1');
@@ -140,9 +135,9 @@ class ModuleTest extends TestCase
     }
 
     /** @test */
-    public function __toString_returns_a_json_encoded_array_of_parameters()
+    public function __to_string_returns_a_json_encoded_array_of_parameters()
     {
-        $module = new Module;
+        $module = new Module();
         $module->setAlias('alias1');
         $module->setName('name1');
         $module->setDescription('description1');
@@ -163,13 +158,13 @@ class ModuleTest extends TestCase
             'completionConditions' => ['cc1'],
             'services' => ['required' => ['facebook'], 'optional' => []],
             'for' => 'role'
-        ]), (string)$module);
+        ]), (string) $module);
     }
 
     /** @test */
     public function for_has_setters_and_getters()
     {
-        $module = new Module;
+        $module = new Module();
         $module->setFor('group');
         $this->assertEquals('group', $module->getFor());
     }

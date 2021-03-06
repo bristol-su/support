@@ -6,23 +6,21 @@ namespace BristolSU\Support\Filters\Contracts\Filters;
 use BristolSU\ControlDB\Contracts\Models\Role;
 
 /**
- * A filter for a role
+ * A filter for a role.
  */
 abstract class RoleFilter extends Filter
 {
-
     /**
-     * Holds the role if set
+     * Holds the role if set.
      *
      * @var Role|null
      */
     private $role;
 
     /**
-     * Set the role
+     * Set the role.
      *
      * @param Role $model Role to set
-     * @return void
      *
      * @throws \Exception If model is not a role
      */
@@ -47,7 +45,7 @@ abstract class RoleFilter extends Filter
     }
 
     /**
-     * Get the role
+     * Get the role.
      *
      * @return Role|null
      */
@@ -57,7 +55,7 @@ abstract class RoleFilter extends Filter
     }
 
     /**
-     * Get the role
+     * Get the role.
      *
      * @return Role|null
      */
@@ -65,5 +63,4 @@ abstract class RoleFilter extends Filter
     {
         return $this->model();
     }
-
 }

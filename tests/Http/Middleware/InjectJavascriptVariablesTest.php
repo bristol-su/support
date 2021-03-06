@@ -5,7 +5,6 @@ namespace BristolSU\Support\Tests\Http\Middleware;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use BristolSU\Support\ActivityInstance\Exceptions\NotInActivityInstanceException;
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Http\Middleware\InjectJavascriptVariables;
 use BristolSU\Support\Testing\CreatesModuleEnvironment;
 use BristolSU\Support\Tests\TestCase;
@@ -15,7 +14,6 @@ use Prophecy\Argument;
 
 class InjectJavascriptVariablesTest extends TestCase
 {
-
     use CreatesModuleEnvironment;
 
     public function setUp(): void
@@ -81,7 +79,6 @@ class InjectJavascriptVariablesTest extends TestCase
         $injector->handle($request->reveal(), function ($request) {
         });
     }
-
 
     /** @test */
     public function it_sets_the_user_from_authentication()
@@ -205,7 +202,6 @@ class InjectJavascriptVariablesTest extends TestCase
         $injector->handle($request->reveal(), function ($request) {
         });
     }
-
 
     /** @test */
     public function it_sets_the_activity_instance_to_null_if_no_activity_instance_found()

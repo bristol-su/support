@@ -9,21 +9,20 @@ use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
 
 /**
- * A Logic Tester implementation used for manually setting logic group results
+ * A Logic Tester implementation used for manually setting logic group results.
  */
 class LogicTesterFake implements LogicTester
 {
-
     /**
-     * Holds the logic tester results
-     * 
+     * Holds the logic tester results.
+     *
      * @var LogicTesterResult[]
      */
     private $results = [];
 
     /**
-     * Create a logic tester for a specific logic group
-     * 
+     * Create a logic tester for a specific logic group.
+     *
      * @param Logic $logic
      * @return LogicTesterResult
      */
@@ -32,6 +31,7 @@ class LogicTesterFake implements LogicTester
         if (!array_key_exists($logic->id, $this->results)) {
             $this->results[$logic->id] = new LogicTesterResult();
         }
+
         return $this->results[$logic->id];
     }
 
@@ -40,10 +40,9 @@ class LogicTesterFake implements LogicTester
         app()->instance(LogicTester::class, $this);
     }
 
-
     /**
-     * See if the given credentials have a predetermined result for the given logic
-     * 
+     * See if the given credentials have a predetermined result for the given logic.
+     *
      * @param Logic $logic Logic to test
      * @param User|null $userModel User to test against
      * @param Group|null $groupModel Group to test against

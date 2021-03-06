@@ -10,7 +10,6 @@ use Illuminate\Support\Collection;
 
 class ActionRepositoryTest extends TestCase
 {
-
     /** @test */
     public function all_returns_all_actions_as_registered_actions()
     {
@@ -39,7 +38,7 @@ class ActionRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function fromClass_returns_a_single_action_as_a_registered_action()
+    public function from_class_returns_a_single_action_as_a_registered_action()
     {
         $manager = $this->prophesize(ActionManager::class);
         $manager->fromClass('Class\One')->shouldBeCalled()->willReturn([
@@ -57,7 +56,7 @@ class ActionRepositoryTest extends TestCase
     }
 
     /** @test */
-    public function fromClass_throws_an_exception_if_action_not_registered()
+    public function from_class_throws_an_exception_if_action_not_registered()
     {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Action [Class\One] not found');

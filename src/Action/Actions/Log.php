@@ -2,21 +2,20 @@
 
 namespace BristolSU\Support\Action\Actions;
 
-use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Action\ActionResponse;
+use BristolSU\Support\Action\Contracts\Action;
 use FormSchema\Generator\Field;
 use FormSchema\Schema\Form;
 
 /**
  * Logging Action.
- * 
+ *
  * Logs a message to the PHP log.
  */
 class Log extends Action
 {
-
     /**
-     * Handle logging the message to the log
+     * Handle logging the message to the log.
      */
     public function run(): ActionResponse
     {
@@ -25,6 +24,7 @@ class Log extends Action
         } catch (\Exception $e) {
             return ActionResponse::failure(($e->getMessage() === '' ? 'Could not log the text' : $e->getMessage()));
         }
+
         return ActionResponse::success('Text saved to the log file');
     }
 

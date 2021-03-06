@@ -11,14 +11,13 @@ use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
 
 /**
- * Authentication Service Provider
+ * Authentication Service Provider.
  */
 class AuthenticationServiceProvider extends ServiceProvider
 {
-
     /**
-     * Register
-     * 
+     * Register.
+     *
      * - Bind the resource ID generator
      * - Bind the authentication contract
      * - Register the passport service provider. The normal service provider should be disabled.
@@ -31,39 +30,39 @@ class AuthenticationServiceProvider extends ServiceProvider
     }
 
     /**
-     * Boot
+     * Boot.
      */
     public function boot()
     {
-        UrlGenerator::macro('getAuthQueryArray', function() {
+        UrlGenerator::macro('getAuthQueryArray', function () {
             $query = [];
-            if(app(Authentication::class)->getUser() !== null) {
+            if (app(Authentication::class)->getUser() !== null) {
                 $query['u'] = app(Authentication::class)->getUser()->id();
             }
-            if(app(Authentication::class)->getGroup() !== null) {
+            if (app(Authentication::class)->getGroup() !== null) {
                 $query['g'] = app(Authentication::class)->getGroup()->id();
             }
-            if(app(Authentication::class)->getRole() !== null) {
+            if (app(Authentication::class)->getRole() !== null) {
                 $query['r'] = app(Authentication::class)->getRole()->id();
             }
+
             try {
                 $query['a'] = app(ActivityInstanceResolver::class)->getActivityInstance()->id;
-            } catch (NotInActivityInstanceException $e) {}
+            } catch (NotInActivityInstanceException $e) {
+            }
+
             return $query;
         });
-        UrlGenerator::macro('getAuthQueryString', function() {
+        UrlGenerator::macro('getAuthQueryString', function () {
             return http_build_query(UrlGenerator::getAuthQueryArray(), '', '&', PHP_QUERY_RFC3986);
         });
     }
 
     public function registerAuthentication(Request $request)
     {
-        $this->app->bind(Authentication::class, function($app) use ($request) {
+        $this->app->bind(Authentication::class, function ($app) use ($request) {
             return ($request->is('api/*') ?
                 $app->make(ApiAuthentication::class) : $app->make(WebRequestAuthentication::class));
         });
-
     }
-    
-
 }

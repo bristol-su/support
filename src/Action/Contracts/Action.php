@@ -16,7 +16,9 @@ use Illuminate\Foundation\Bus\Dispatchable;
  */
 abstract class Action implements ShouldQueue, RecordsHistory
 {
-    use Dispatchable, Queueable, HasHistory;
+    use Dispatchable;
+    use Queueable;
+    use HasHistory;
 
     /**
      * @var array
@@ -34,7 +36,7 @@ abstract class Action implements ShouldQueue, RecordsHistory
     }
 
     /**
-     * A form schema describing the settings the actions need
+     * A form schema describing the settings the actions need.
      *
      * Any options here will be shown to the user on setup. The results will be passed into the construct of this class.
      *
@@ -55,8 +57,8 @@ abstract class Action implements ShouldQueue, RecordsHistory
     }
 
     /**
-     * Get the response as given by the action after running
-     * 
+     * Get the response as given by the action after running.
+     *
      * @return ActionResponse|null
      */
     public function getResponse(): ?ActionResponse
@@ -65,8 +67,8 @@ abstract class Action implements ShouldQueue, RecordsHistory
     }
 
     /**
-     * Get a piece of information from the settings
-     * 
+     * Get a piece of information from the settings.
+     *
      * @param string $key
      * @param null $default
      * @return mixed|null
@@ -76,12 +78,13 @@ abstract class Action implements ShouldQueue, RecordsHistory
         if (array_key_exists($key, $this->data)) {
             return $this->data[$key];
         }
+
         return $default;
     }
 
     /**
-     * Get all setting values
-     * 
+     * Get all setting values.
+     *
      * @return array
      */
     public function getData(): array
@@ -90,10 +93,9 @@ abstract class Action implements ShouldQueue, RecordsHistory
     }
 
     /**
-     * Run the action
-     * 
+     * Run the action.
+     *
      * @return ActionResponse
      */
     abstract public function run(): ActionResponse;
-
 }

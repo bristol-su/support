@@ -8,9 +8,9 @@ use BristolSU\Support\Tests\TestCase;
 
 class ModuleInactiveTest extends TestCase
 {
-
     /** @test */
-    public function getModuleInstance_returns_the_moduleInstance(){
+    public function get_module_instance_returns_the_module_instance()
+    {
         $moduleInstance = factory(ModuleInstance::class)->create();
         $exception = new ModuleInactive('message', 500, null, $moduleInstance);
         
@@ -18,7 +18,8 @@ class ModuleInactiveTest extends TestCase
     }
 
     /** @test */
-    public function createWithModuleInstance_creates_the_exception_with_a_module_instance(){
+    public function create_with_module_instance_creates_the_exception_with_a_module_instance()
+    {
         $moduleInstance = factory(ModuleInstance::class)->create();
         $exception = ModuleInactive::createWithModuleInstance($moduleInstance, 'A Message', 404);
 
@@ -26,5 +27,4 @@ class ModuleInactiveTest extends TestCase
         $this->assertEquals(404, $exception->getCode());
         $this->assertEquals('A Message', $exception->getMessage());
     }
-    
 }

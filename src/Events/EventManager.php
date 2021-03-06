@@ -5,34 +5,32 @@ namespace BristolSU\Support\Events;
 use BristolSU\Support\Events\Contracts\EventManager as EventManagerContract;
 
 /**
- * Class EventManager
+ * Class EventManager.
  */
 class EventManager implements EventManagerContract
 {
-
     /**
-     * Stores registered events
-     * 
+     * Stores registered events.
+     *
      * Stores events in the form
      * [
      *      'name' => 'Event Name',
      *      'description' => 'Event Description',
      *      'event' => 'Event Class Name'
      * ]
-     * 
+     *
      * @var array
      */
     protected $events = [];
 
     /**
-     * Register an event
+     * Register an event.
      *
      * @param string $alias Module alias registering the event
      * @param string $name Event Name
      * @param string $class Event Class
      * @param string $description Event Description
-     * 
-     * @return void
+     *
      */
     public function registerEvent($alias, $name, $class, $description)
     {
@@ -47,7 +45,7 @@ class EventManager implements EventManagerContract
     }
 
     /**
-     * Get all events
+     * Get all events.
      *
      * Returns all events, each one in the form
      * [
@@ -55,7 +53,7 @@ class EventManager implements EventManagerContract
      *      'description' => 'Event Description',
      *      'event' => 'Event Class Name'
      * ]
-     * 
+     *
      * @return array All events
      */
     public function all()
@@ -64,7 +62,7 @@ class EventManager implements EventManagerContract
     }
 
     /**
-     * Get all events for a given module
+     * Get all events for a given module.
      *
      * Returns all events, each one in the form
      * [
@@ -80,5 +78,4 @@ class EventManager implements EventManagerContract
     {
         return (array_key_exists($alias, $this->events) ? $this->events[$alias] : []);
     }
-    
 }

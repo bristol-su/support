@@ -2,20 +2,19 @@
 
 namespace BristolSU\Support\Permissions\Testers;
 
+use BristolSU\ControlDB\Contracts\Models\Group;
+use BristolSU\ControlDB\Contracts\Models\Role;
+use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
 use BristolSU\Support\Permissions\Contracts\Tester;
 use BristolSU\Support\Permissions\Models\ModelPermission;
-use BristolSU\ControlDB\Contracts\Models\Group;
-use BristolSU\ControlDB\Contracts\Models\Role;
-use BristolSU\ControlDB\Contracts\Models\User;
 
 /**
- * Check if a module permission is owned by a user
+ * Check if a module permission is owned by a user.
  */
 class ModuleInstanceUserOverridePermission extends Tester
 {
-    
     /**
      * Do the given models have the ability?
      *

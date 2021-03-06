@@ -12,10 +12,8 @@ use Illuminate\Support\Facades\Facade;
  */
 class ProgressExport extends Facade
 {
-
-    public static function getFacadeAccessor()
+    protected static function getFacadeAccessor()
     {
         return 'progress-exporter';
     }
-    
 }

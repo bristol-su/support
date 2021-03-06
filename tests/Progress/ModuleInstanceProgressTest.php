@@ -3,16 +3,14 @@
 
 namespace BristolSU\Support\Tests\Progress;
 
-
 use BristolSU\Support\Progress\ModuleInstanceProgress;
-use BristolSU\Support\Progress\Progress;
 use BristolSU\Support\Tests\TestCase;
 
 class ModuleInstanceProgressTest extends TestCase
 {
-
     /** @test */
-    public function moduleInstanceId_can_be_got_and_set(){
+    public function module_instance_id_can_be_got_and_set()
+    {
         $progress = new ModuleInstanceProgress();
         $progress->setModuleInstanceId(4);
         $this->assertEquals(4, $progress->getModuleInstanceId());
@@ -22,7 +20,8 @@ class ModuleInstanceProgressTest extends TestCase
     }
 
     /** @test */
-    public function mandatory_can_be_got_and_set(){
+    public function mandatory_can_be_got_and_set()
+    {
         $progress = new ModuleInstanceProgress();
         $progress->setMandatory(true);
         $this->assertTrue($progress->isMandatory());
@@ -32,7 +31,8 @@ class ModuleInstanceProgressTest extends TestCase
     }
 
     /** @test */
-    public function visible_can_be_got_and_set(){
+    public function visible_can_be_got_and_set()
+    {
         $progress = new ModuleInstanceProgress();
         $progress->setVisible(true);
         $this->assertTrue($progress->isVisible());
@@ -42,7 +42,8 @@ class ModuleInstanceProgressTest extends TestCase
     }
 
     /** @test */
-    public function active_can_be_got_and_set(){
+    public function active_can_be_got_and_set()
+    {
         $progress = new ModuleInstanceProgress();
         $progress->setActive(true);
         $this->assertTrue($progress->isActive());
@@ -52,17 +53,19 @@ class ModuleInstanceProgressTest extends TestCase
     }
 
     /** @test */
-    public function complete_can_be_got_and_set(){
+    public function complete_can_be_got_and_set()
+    {
         $progress = new ModuleInstanceProgress();
         $progress->setComplete(true);
         $this->assertTrue($progress->isComplete());
 
         $progress->setComplete(false);
-    $this->assertFalse($progress->isComplete());
+        $this->assertFalse($progress->isComplete());
     }
 
     /** @test */
-    public function progress_can_be_got_and_set(){
+    public function progress_can_be_got_and_set()
+    {
         $progress = new ModuleInstanceProgress();
         $progress->setPercentage(40);
         $this->assertEquals(40, $progress->getPercentage());
@@ -72,9 +75,10 @@ class ModuleInstanceProgressTest extends TestCase
     }
     
     /** @test */
-    public function create_creates_a_progress_model_with_filled_in_values(){
+    public function create_creates_a_progress_model_with_filled_in_values()
+    {
         $progress = ModuleInstanceProgress::create(
-            5, 
+            5,
             true,
             false,
             10,
@@ -90,5 +94,4 @@ class ModuleInstanceProgressTest extends TestCase
         $this->assertEquals(5, $progress->getModuleInstanceId());
         $this->assertEquals(10, $progress->getPercentage());
     }
-    
 }

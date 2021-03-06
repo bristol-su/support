@@ -13,7 +13,6 @@ use Prophecy\Argument;
 
 class CompletionConditionTesterTest extends TestCase
 {
-
     /** @test */
     public function it_tests_the_completion_condition()
     {
@@ -124,7 +123,8 @@ class CompletionConditionTesterTest extends TestCase
         $repository->getByAlias($moduleInstance->alias, 'ccalias1')->willReturn($completionCondition->reveal());
 
         $tester = new CompletionConditionTester($repository->reveal());
-        $this->assertEquals(40, 
+        $this->assertEquals(
+            40,
             $tester->evaluatePercentage($activityInstance, $completionConditionInstance)
         );
     }

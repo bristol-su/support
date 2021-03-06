@@ -12,10 +12,9 @@ use Illuminate\Http\Request;
  */
 class CheckModuleInstanceActive
 {
-
     /**
-     * Holds the authentication
-     * 
+     * Holds the authentication.
+     *
      * @var Authentication
      */
     private $authentication;
@@ -31,12 +30,12 @@ class CheckModuleInstanceActive
     }
 
     /**
-     * Check if th module instance is active
-     * 
+     * Check if th module instance is active.
+     *
      * @param Request $request
      * @param \Closure $next
-     * @return mixed
      * @throws ModuleInactive If the module is not active
+     * @return mixed
      */
     public function handle(Request $request, \Closure $next)
     {
@@ -47,5 +46,4 @@ class CheckModuleInstanceActive
         
         return $next($request);
     }
-    
 }

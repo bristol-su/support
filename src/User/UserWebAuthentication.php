@@ -6,14 +6,13 @@ use BristolSU\Support\User\Contracts\UserAuthentication;
 use Illuminate\Contracts\Auth\Factory as AuthFactory;
 
 /**
- * Resolve users using the Laravel authentication
+ * Resolve users using the Laravel authentication.
  */
 class UserWebAuthentication implements UserAuthentication
 {
-
     /**
-     * Authentication factory for resolving and setting users
-     * 
+     * Authentication factory for resolving and setting users.
+     *
      * @var AuthFactory
      */
     private $auth;
@@ -27,8 +26,8 @@ class UserWebAuthentication implements UserAuthentication
     }
 
     /**
-     * Get the currently logged in user
-     * 
+     * Get the currently logged in user.
+     *
      * @return User|null Null if no user found
      */
     public function getUser(): ?User
@@ -36,12 +35,13 @@ class UserWebAuthentication implements UserAuthentication
         if ($this->auth->guard('web')->check()) {
             return $this->auth->guard('web')->user();
         }
+
         return null;
     }
 
     /**
-     * Set the logged in user
-     * 
+     * Set the logged in user.
+     *
      * @param User $user User to set
      */
     public function setUser(User $user)
@@ -50,9 +50,8 @@ class UserWebAuthentication implements UserAuthentication
     }
 
     /**
-     * Log out of the current user
+     * Log out of the current user.
      *
-     * @return void
      */
     public function logout(): void
     {

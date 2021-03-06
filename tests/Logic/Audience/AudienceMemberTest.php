@@ -2,10 +2,6 @@
 
 namespace BristolSU\Support\Tests\Logic\Audience;
 
-use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\ControlDB\Contracts\Repositories\Position as PositionRepository;
-use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
-use BristolSU\ControlDB\Models\Position;
 use BristolSU\Support\Logic\Audience\AudienceMember;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Tests\TestCase;
@@ -13,9 +9,9 @@ use Illuminate\Support\Collection;
 
 class AudienceMemberTest extends TestCase
 {
-
     /** @test */
-    public function groups_loads_the_users_groups_if_not_already_loaded(){
+    public function groups_loads_the_users_groups_if_not_already_loaded()
+    {
         $user = $this->newUser();
         $group1 = $this->newGroup();
         $group2 = $this->newGroup();
@@ -32,7 +28,8 @@ class AudienceMemberTest extends TestCase
     }
     
     /** @test */
-    public function roles_loads_the_users_roles_if_not_already_loaded(){
+    public function roles_loads_the_users_roles_if_not_already_loaded()
+    {
         $user = $this->newUser();
         $role1 = $this->newRole();
         $role2 = $this->newRole();
@@ -49,7 +46,8 @@ class AudienceMemberTest extends TestCase
     }
     
     /** @test */
-    public function user_returns_the_user(){
+    public function user_returns_the_user()
+    {
         $user = $this->newUser();
 
         $audienceMember = new AudienceMember($user);
@@ -57,7 +55,8 @@ class AudienceMemberTest extends TestCase
     }
 
     /** @test */
-    public function filterForLogic_evaluates_the_user(){
+    public function filter_for_logic_evaluates_the_user()
+    {
         $logic = factory(Logic::class)->create();
         $user = $this->newUser();
         
@@ -73,11 +72,11 @@ class AudienceMemberTest extends TestCase
         $this->assertCount(0, $audienceMember->roles());
         $this->assertInstanceOf(Collection::class, $audienceMember->groups());
         $this->assertCount(0, $audienceMember->groups());
-
     }
 
     /** @test */
-    public function filterForLogic_evaluates_each_group(){
+    public function filter_for_logic_evaluates_each_group()
+    {
         $logic = factory(Logic::class)->create();
         $user = $this->newUser();
         $group1 = $this->newGroup();
@@ -100,11 +99,11 @@ class AudienceMemberTest extends TestCase
         $this->assertInstanceOf(Collection::class, $audienceMember->groups());
         $this->assertCount(1, $audienceMember->groups());
         $this->assertModelEquals($group1, $audienceMember->groups()[0]);
-
     }
 
     /** @test */
-    public function filterForLogic_evaluates_each_role(){
+    public function filter_for_logic_evaluates_each_role()
+    {
         $logic = factory(Logic::class)->create();
         $user = $this->newUser();
         $role1 = $this->newRole();
@@ -130,9 +129,9 @@ class AudienceMemberTest extends TestCase
         $this->assertModelEquals($role1, $audienceMember->roles()[0]);
     }
 
-
     /** @test */
-    public function hasAudience_returns_true_if_a_user_can_act_as_themselves(){
+    public function has_audience_returns_true_if_a_user_can_act_as_themselves()
+    {
         $logic = factory(Logic::class)->create();
         $user = $this->newUser();
 
@@ -152,7 +151,8 @@ class AudienceMemberTest extends TestCase
     }
 
     /** @test */
-    public function hasAudience_returns_true_if_a_user_has_groups(){
+    public function has_audience_returns_true_if_a_user_has_groups()
+    {
         $logic = factory(Logic::class)->create();
         $user = $this->newUser();
         $group1 = $this->newGroup();
@@ -179,7 +179,8 @@ class AudienceMemberTest extends TestCase
     }
 
     /** @test */
-    public function hasAudience_returns_true_if_a_user_has_roles(){
+    public function has_audience_returns_true_if_a_user_has_roles()
+    {
         $logic = factory(Logic::class)->create();
         $user = $this->newUser();
         $role1 = $this->newRole();
@@ -207,7 +208,8 @@ class AudienceMemberTest extends TestCase
     }
 
     /** @test */
-    public function hasAudience_returns_false_if_a_user_cannot_be_themselves_or_any_group_or_role(){
+    public function has_audience_returns_false_if_a_user_cannot_be_themselves_or_any_group_or_role()
+    {
         $logic = factory(Logic::class)->create();
         $user = $this->newUser();
         $group1 = $this->newGroup();
@@ -238,7 +240,8 @@ class AudienceMemberTest extends TestCase
     }
     
     /** @test */
-    public function toArray_toJson_and_toString_returns_attributes(){
+    public function to_array_to_json_and_to_string_returns_attributes()
+    {
         $logic = factory(Logic::class)->create();
         $user = $this->newUser();
         $group1 = $this->newGroup();
@@ -297,12 +300,11 @@ class AudienceMemberTest extends TestCase
         $this->assertCount(2, json_decode((string) $audienceMember, true)['roles']);
         $this->assertEquals($role1->id(), json_decode((string) $audienceMember, true)['roles'][0]['id']);
         $this->assertEquals($role2->id(), json_decode((string) $audienceMember, true)['roles'][1]['id']);
-        
-        
     }
     
     /** @test */
-    public function canBeUser_defaults_to_true(){
+    public function can_be_user_defaults_to_true()
+    {
         $user = $this->newUser();
         $audienceMember = new AudienceMember($user);
         $this->assertTrue($audienceMember->canBeUser());

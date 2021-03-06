@@ -1,19 +1,18 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateModuleInstancesTable extends Migration
 {
     /**
      * Run the migrations.
      *
-     * @return void
      */
     public function up()
     {
-        Schema::create('module_instances', function(Blueprint $table) {
+        Schema::create('module_instances', function (Blueprint $table) {
             $table->increments('id');
             $table->string('alias');
             $table->unsignedInteger('activity_id');
@@ -31,7 +30,6 @@ class CreateModuleInstancesTable extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
      */
     public function down()
     {

@@ -6,42 +6,47 @@ use BristolSU\Support\Module\Contracts\Module as ModuleContract;
 use BristolSU\Support\Permissions\Contracts\Models\Permission;
 
 /**
- * Represents a module
+ * Represents a module.
  */
 class Module implements ModuleContract
 {
     /**
-     * Alias of the module
+     * Alias of the module.
      *
      * @var string
      */
     protected $alias;
+
     /**
-     * Name of the module
+     * Name of the module.
      *
      * @var string
      */
     protected $name;
+
     /**
-     * Description of the module
+     * Description of the module.
      *
      * @var string
      */
     protected $description;
+
     /**
-     * Permissions associated with the module
+     * Permissions associated with the module.
      *
      * @var Permission[]
      */
     protected $permissions;
+
     /**
-     * Settings associated with the module
+     * Settings associated with the module.
      *
      * @var array Form schema
      */
     protected $settings;
+
     /**
-     * Triggerable events fired by the module for use with actions
+     * Triggerable events fired by the module for use with actions.
      *
      * [
      *      'name' => 'Event Name',
@@ -52,8 +57,9 @@ class Module implements ModuleContract
      * @var array
      */
     protected $triggers;
+
     /**
-     * Services the module requires or can use
+     * Services the module requires or can use.
      *
      * Held in the form
      * [
@@ -66,14 +72,14 @@ class Module implements ModuleContract
     protected $services;
 
     /**
-     * Who the module is for. One of user, group or role
-     * 
+     * Who the module is for. One of user, group or role.
+     *
      * @var string Who the module is for.
      */
     protected $for;
     
     /**
-     * Completion conditions used by the module
+     * Completion conditions used by the module.
      *
      * [
      *      'name' => '',
@@ -91,7 +97,6 @@ class Module implements ModuleContract
      *
      * @param string $for One of user, group or role
      *
-     * @return void
      */
     public function setFor(string $for = 'user')
     {
@@ -109,7 +114,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Return the module as a json representation
+     * Return the module as a json representation.
      *
      * @return false|string
      */
@@ -119,7 +124,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Return the module as a json representation
+     * Return the module as a json representation.
      *
      * @param int $options
      * @return false|string
@@ -130,7 +135,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Cast the module to an array
+     * Cast the module to an array.
      *
      * Returns an array of the form
      * [
@@ -162,7 +167,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Get the alias of the module
+     * Get the alias of the module.
      *
      * @return string
      */
@@ -172,7 +177,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Set the alias of the module
+     * Set the alias of the module.
      *
      * @param string $alias Alias of the module
      */
@@ -182,7 +187,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Get the name of the module
+     * Get the name of the module.
      *
      * @return string Name
      */
@@ -192,7 +197,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Set the name of the module
+     * Set the name of the module.
      *
      * @param string $name
      */
@@ -202,7 +207,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Get the description for the module
+     * Get the description for the module.
      *
      * @return string
      */
@@ -212,7 +217,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Set the description for the module
+     * Set the description for the module.
      *
      * @param string $description
      */
@@ -222,7 +227,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Get the permissions for the module
+     * Get the permissions for the module.
      *
      * @return array
      */
@@ -232,7 +237,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Set the permissions for the module
+     * Set the permissions for the module.
      *
      * @param array $permissions
      */
@@ -242,7 +247,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Get the settings for the module
+     * Get the settings for the module.
      *
      * @return array
      */
@@ -252,7 +257,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Set the settings for the module
+     * Set the settings for the module.
      *
      * @param array $settings
      */
@@ -262,7 +267,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Get the triggers for the module
+     * Get the triggers for the module.
      *
      * [
      *      'name' => 'Event Name',
@@ -278,7 +283,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Set the triggers for the module
+     * Set the triggers for the module.
      *
      * [
      *      'name' => 'Event Name',
@@ -294,7 +299,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Get the completion conditions used by the module
+     * Get the completion conditions used by the module.
      *
      * @return array
      */
@@ -304,7 +309,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Set the completion conditions used by the module
+     * Set the completion conditions used by the module.
      *
      * @param array $completionConditions
      */
@@ -314,7 +319,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Get the services for the module
+     * Get the services for the module.
      *
      * [
      *      'required' => ['typeform', 'facebook', ... ],
@@ -329,7 +334,7 @@ class Module implements ModuleContract
     }
 
     /**
-     * Set the services for the module
+     * Set the services for the module.
      *
      * [
      *      'required' => ['typeform', 'facebook', ... ],
@@ -337,7 +342,6 @@ class Module implements ModuleContract
      * ]
      *
      * @param array $services Services for the module
-     * @return void
      */
     public function setServices(array $services): void
     {

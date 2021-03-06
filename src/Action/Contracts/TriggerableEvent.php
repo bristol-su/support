@@ -3,18 +3,16 @@
 
 namespace BristolSU\Support\Action\Contracts;
 
-
 /**
- * Interface TriggerableEvent
+ * Interface TriggerableEvent.
  */
 interface TriggerableEvent
 {
-
     /**
      * Get the fields that the event registers.
      *
      * If the event has parameters which should be used in the framework, return them here.
-     * 
+     *
      * e.g. [
      *      'user_id' => 1,
      *      'comment_id' => 4,
@@ -38,5 +36,4 @@ interface TriggerableEvent
      * @return array
      */
     public static function getFieldMetaData(): array;
-    
 }

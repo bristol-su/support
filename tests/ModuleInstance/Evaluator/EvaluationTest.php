@@ -3,16 +3,15 @@
 
 namespace BristolSU\Support\Tests\ModuleInstance\Evaluator;
 
-
 use BristolSU\Support\ModuleInstance\Evaluator\Evaluation;
 use BristolSU\Support\Tests\TestCase;
 
 class EvaluationTest extends TestCase
 {
-
     /** @test */
-    public function the_active_status_can_be_set(){
-        $evaluation = new Evaluation;
+    public function the_active_status_can_be_set()
+    {
+        $evaluation = new Evaluation();
         $evaluation->setActive(true);
         $this->assertTrue($evaluation->active());
 
@@ -21,8 +20,9 @@ class EvaluationTest extends TestCase
     }
 
     /** @test */
-    public function the_visible_status_can_be_set(){
-        $evaluation = new Evaluation;
+    public function the_visible_status_can_be_set()
+    {
+        $evaluation = new Evaluation();
         $evaluation->setVisible(true);
         $this->assertTrue($evaluation->visible());
 
@@ -31,8 +31,9 @@ class EvaluationTest extends TestCase
     }
 
     /** @test */
-    public function the_mandatory_status_can_be_set(){
-        $evaluation = new Evaluation;
+    public function the_mandatory_status_can_be_set()
+    {
+        $evaluation = new Evaluation();
         $evaluation->setMandatory(true);
         $this->assertTrue($evaluation->mandatory());
 
@@ -41,8 +42,9 @@ class EvaluationTest extends TestCase
     }
 
     /** @test */
-    public function the_complete_status_can_be_set(){
-        $evaluation = new Evaluation;
+    public function the_complete_status_can_be_set()
+    {
+        $evaluation = new Evaluation();
         $evaluation->setComplete(true);
         $this->assertTrue($evaluation->complete());
 
@@ -51,8 +53,9 @@ class EvaluationTest extends TestCase
     }
 
     /** @test */
-    public function the_percentage_can_be_set(){
-        $evaluation = new Evaluation;
+    public function the_percentage_can_be_set()
+    {
+        $evaluation = new Evaluation();
         $evaluation->setPercentage(5.99);
         $this->assertEquals(5.99, $evaluation->percentage());
 
@@ -61,8 +64,9 @@ class EvaluationTest extends TestCase
     }
 
     /** @test */
-    public function all_properties_are_false_or_0_by_default(){
-        $evaluation = new Evaluation;
+    public function all_properties_are_false_or_0_by_default()
+    {
+        $evaluation = new Evaluation();
         $this->assertFalse($evaluation->active());
         $this->assertFalse($evaluation->visible());
         $this->assertFalse($evaluation->mandatory());
@@ -71,8 +75,9 @@ class EvaluationTest extends TestCase
     }
     
     /** @test */
-    public function all_properties_are_returned_as_an_array(){
-        $evaluation = new Evaluation;
+    public function all_properties_are_returned_as_an_array()
+    {
+        $evaluation = new Evaluation();
         $evaluation->setActive(true);
         $evaluation->setVisible(true);
         $evaluation->setMandatory(true);
@@ -94,8 +99,9 @@ class EvaluationTest extends TestCase
     }
 
     /** @test */
-    public function all_properties_are_returned_as_a_string(){
-        $evaluation = new Evaluation;
+    public function all_properties_are_returned_as_a_string()
+    {
+        $evaluation = new Evaluation();
         $evaluation->setActive(true);
         $evaluation->setVisible(true);
         $evaluation->setMandatory(true);
@@ -121,6 +127,4 @@ class EvaluationTest extends TestCase
             'active' => false, 'visible' => false, 'mandatory' => false, 'complete' => false, 'percentage' => 89
         ]), (string) $evaluation);
     }
-
-
 }

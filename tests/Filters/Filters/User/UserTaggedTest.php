@@ -3,21 +3,19 @@
 
 namespace BristolSU\Support\Tests\Filters\Filters\User;
 
-
 use BristolSU\ControlDB\Contracts\Models\Tags\UserTag as UserTagModelContract;
 use BristolSU\ControlDB\Contracts\Repositories\Tags\UserTag as UserTagRepositoryContract;
-use BristolSU\ControlDB\Models\User;
 use BristolSU\ControlDB\Models\Tags\UserTag;
 use BristolSU\ControlDB\Models\Tags\UserTagCategory;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Filters\Filters\User\UserTagged;
 use BristolSU\Support\Tests\TestCase;
 
 class UserTaggedTest extends TestCase
 {
-    
     /** @test */
-    public function options_returns_a_list_of_possible_tags(){
-
+    public function options_returns_a_list_of_possible_tags()
+    {
         $userTagCategory1 = factory(UserTagCategory::class)->create(['name' => 'category1Name', 'reference' => 'cat1']);
         $userTagCategory2 = factory(UserTagCategory::class)->create(['name' => 'category2Name', 'reference' => 'cat2']);
 
@@ -57,7 +55,8 @@ class UserTaggedTest extends TestCase
     }
     
     /** @test */
-    public function it_evaluates_to_true_if_user_tagged(){
+    public function it_evaluates_to_true_if_user_tagged()
+    {
         $userTagRepository = $this->prophesize(UserTagRepositoryContract::class);
 
         $user = $this->prophesize(User::class);
@@ -79,7 +78,8 @@ class UserTaggedTest extends TestCase
     }
 
     /** @test */
-    public function it_evaluates_to_false_if_user_not_tagged(){
+    public function it_evaluates_to_false_if_user_not_tagged()
+    {
         $userTagRepository = $this->prophesize(UserTagRepositoryContract::class);
 
         $user = $this->prophesize(User::class);
@@ -102,7 +102,8 @@ class UserTaggedTest extends TestCase
     }
 
     /** @test */
-    public function evaluate_returns_false_if_the_user_tag_repository_throws_an_error(){
+    public function evaluate_returns_false_if_the_user_tag_repository_throws_an_error()
+    {
         $user = $this->prophesize(User::class);
         $userTagRepository = $this->prophesize(UserTagRepositoryContract::class);
         $user->tags()->shouldBeCalled()->willThrow(new \Exception());
@@ -113,19 +114,22 @@ class UserTaggedTest extends TestCase
     }
 
     /** @test */
-    public function name_returns_a_string(){
+    public function name_returns_a_string()
+    {
         $filter = new UserTagged($this->prophesize(UserTagRepositoryContract::class)->reveal());
         $this->assertIsString($filter->name());
     }
 
     /** @test */
-    public function description_returns_a_string(){
+    public function description_returns_a_string()
+    {
         $filter = new UserTagged($this->prophesize(UserTagRepositoryContract::class)->reveal());
         $this->assertIsString($filter->description());
     }
 
     /** @test */
-    public function alias_returns_a_string(){
+    public function alias_returns_a_string()
+    {
         $filter = new UserTagged($this->prophesize(UserTagRepositoryContract::class)->reveal());
         $this->assertIsString($filter->alias());
     }

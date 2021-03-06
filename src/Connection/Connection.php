@@ -7,48 +7,48 @@ use BristolSU\Support\User\Contracts\UserAuthentication;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Represents a connection to a third party
+ * Represents a connection to a third party.
  */
 class Connection extends Model
 {
     use HasRevisions;
     
     /**
-     * The table the data is stored in
-     * 
-     * @var string 
+     * The table the data is stored in.
+     *
+     * @var string
      */
     protected $table = 'connection_instances';
 
     /**
      * Additional attributes for the model.
-     * 
+     *
      * - Connector: returns the registered connector
-     * 
-     * @var array 
+     *
+     * @var array
      */
     protected $appends = ['connector'];
 
     /**
-     * Fillable attributes
-     * 
-     * @var array 
+     * Fillable attributes.
+     *
+     * @var array
      */
     protected $fillable = [
         'name', 'description', 'alias', 'settings'
     ];
 
     /**
-     * Hidden attributes. The settings attribute may contain API keys, so should stay hidden from requests
-     * 
-     * @var array 
+     * Hidden attributes. The settings attribute may contain API keys, so should stay hidden from requests.
+     *
+     * @var array
      */
     protected $hidden = ['settings'];
 
     /**
-     * Cast the settings attribute to an array
-     * 
-     * @var array 
+     * Cast the settings attribute to an array.
+     *
+     * @var array
      */
     protected $casts = [
         'settings' => 'array'
@@ -61,18 +61,18 @@ class Connection extends Model
     {
         parent::boot();
 
-        static::creating(function($model) {
+        static::creating(function ($model) {
             if ($model->user_id === null) {
                 $model->user_id = app(UserAuthentication::class)->getUser()->control_id;
             }
         });
         
-        static::addGlobalScope(new AccessibleConnectionScope);
+        static::addGlobalScope(new AccessibleConnectionScope());
     }
 
     /**
-     * Get the connector linked to this connection
-     * 
+     * Get the connector linked to this connection.
+     *
      * @return RegisteredConnector
      */
     public function getConnectorAttribute()
@@ -81,8 +81,8 @@ class Connection extends Model
     }
 
     /**
-     * Get the connector linked to this connection
-     * 
+     * Get the connector linked to this connection.
+     *
      * @return RegisteredConnector
      */
     public function connector()

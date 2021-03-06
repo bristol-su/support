@@ -3,27 +3,24 @@
 namespace BristolSU\Support\Action;
 
 use BristolSU\Support\Action\Contracts\ActionBuilder as ActionBuilderContract;
-use BristolSU\Support\Action\Contracts\ActionRepository as ActionRepositoryContract;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
-use BristolSU\Support\Action\History\RecordsHistory;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 
 /**
- * Dispatches actions when TriggerableEvents are fired
+ * Dispatches actions when TriggerableEvents are fired.
  */
-class ActionDispatcher 
+class ActionDispatcher
 {
-
     /**
-     * Holds an Action Builder to build actions
-     * 
+     * Holds an Action Builder to build actions.
+     *
      * @var ActionBuilderContract
      */
     private $builder;
 
     /**
-     * Initialise the Action Dispatcher
-     * 
+     * Initialise the Action Dispatcher.
+     *
      * @param ActionBuilderContract $builder
      */
     public function __construct(ActionBuilderContract $builder)
@@ -33,25 +30,25 @@ class ActionDispatcher
 
     /**
      * Dispatch any actions.
-     * 
+     *
      * Finds all action instances in the database, builds each one and dispatches them
-     * 
+     *
      * @param TriggerableEvent $event Event that has been fired.
      */
     public function handle(TriggerableEvent $event)
     {
         $actionInstances = app(\BristolSU\Support\Action\Contracts\ActionInstanceRepository::class)->forEvent(
-            (int) app(ModuleInstance::class)->id, get_class($event)
+            (int) app(ModuleInstance::class)->id,
+            get_class($event)
         );
         
         foreach ($actionInstances as $actionInstance) {
             $action = $this->builder->build($actionInstance, $event->getFields());
-            if($actionInstance->should_queue) {
+            if ($actionInstance->should_queue) {
                 dispatch($action);
             } else {
                 dispatch_now($action);
             }
         }
     }
-    
 }

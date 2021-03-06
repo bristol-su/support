@@ -3,25 +3,23 @@
 
 namespace BristolSU\Support\ModuleInstance\Evaluator;
 
-
-use BristolSU\Support\Activity\Activity;
-use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
+use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ActivityInstanceEvaluator as ActivityEvaluatorContract;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation as EvaluationContract;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator as ModuleInstanceEvaluatorContract;
 
 /**
- * Evaluates all module instances belonging to an activity
+ * Evaluates all module instances belonging to an activity.
  */
 class ActivityInstanceEvaluator implements ActivityEvaluatorContract
 {
-
     /**
-     * Holds the module instance evaluator
-     * 
+     * Holds the module instance evaluator.
+     *
      * @var ModuleInstanceEvaluatorContract
      */
     private $moduleInstanceEvaluator;
@@ -35,7 +33,7 @@ class ActivityInstanceEvaluator implements ActivityEvaluatorContract
     }
 
     /**
-     * Evaluate an activity instance for a participant
+     * Evaluate an activity instance for a participant.
      *
      * @param ActivityInstance $activityInstance Activity instance to evaluate
      * @param User|null $user User to evaluate for
@@ -44,16 +42,18 @@ class ActivityInstanceEvaluator implements ActivityEvaluatorContract
      *
      * @return EvaluationContract[] Array of evaluations with the module instance id as the index
      */
-    public function evaluateParticipant(ActivityInstance $activityInstance, ?User $user = null, ?Group $group = null, ?Role $role = null) {
+    public function evaluateParticipant(ActivityInstance $activityInstance, ?User $user = null, ?Group $group = null, ?Role $role = null)
+    {
         $evaluated = [];
         foreach ($activityInstance->activity->moduleInstances as $moduleInstance) {
             $evaluated[$moduleInstance->id] = clone $this->moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance, $user, $group, $role);
         }
+
         return $evaluated;
     }
 
     /**
-     * Evaluate the activity instance as a whole
+     * Evaluate the activity instance as a whole.
      *
      * As opposed to the evaluateParticipant and evaluateAdministrator methods, which evaluate an activity instance
      * for a specific user/group/role, evaluateResource will consider all users/groups/roles able to access the activity instance.
@@ -67,7 +67,7 @@ class ActivityInstanceEvaluator implements ActivityEvaluatorContract
         foreach ($activityInstance->activity->moduleInstances as $moduleInstance) {
             $evaluated[$moduleInstance->id] = clone $this->moduleInstanceEvaluator->evaluateResource($activityInstance, $moduleInstance);
         }
+
         return $evaluated;
     }
-
 }

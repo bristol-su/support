@@ -1,8 +1,8 @@
 <?php
 
-$factory->define(\BristolSU\Support\Action\History\ActionHistory::class, function(\Faker\Generator $faker) {
+$factory->define(\BristolSU\Support\Action\History\ActionHistory::class, function (Faker\Generator $faker) {
     return [
-        'action_instance_id' => function() {
+        'action_instance_id' => function () {
             return factory(\BristolSU\Support\Action\ActionInstance::class)->create()->id;
         },
         'event_fields' => [],

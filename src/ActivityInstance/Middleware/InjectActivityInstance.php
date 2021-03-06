@@ -10,27 +10,26 @@ use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
 
 /**
- * Inject the activity instance into the container
+ * Inject the activity instance into the container.
  */
 class InjectActivityInstance
 {
-
     /**
-     * Container to bind the activity instance in to
+     * Container to bind the activity instance in to.
      * @var Container
      */
     private $container;
     
     /**
-     * Holds the activity instance resolver to resolve the activity instance from
-     * 
+     * Holds the activity instance resolver to resolve the activity instance from.
+     *
      * @var ActivityInstanceResolver
      */
     private $activityInstanceResolver;
 
     /**
-     * Middleware initialiser
-     * 
+     * Middleware initialiser.
+     *
      * @param Container $container Container to bind the activity instance in to
      * @param ActivityInstanceResolver $activityInstanceResolver Resolver to get the activity instance
      */
@@ -41,12 +40,12 @@ class InjectActivityInstance
     }
 
     /**
-     * Binds the activity instance from the resolver into the container
-     * 
+     * Binds the activity instance from the resolver into the container.
+     *
      * @param Request $request
      * @param Closure $next
-     * @return mixed
      * @throws NotInActivityInstanceException
+     * @return mixed
      */
     public function handle(Request $request, Closure $next)
     {
@@ -55,5 +54,4 @@ class InjectActivityInstance
 
         return $next($request);
     }
-
 }

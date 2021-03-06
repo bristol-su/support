@@ -12,9 +12,9 @@ use Prophecy\Argument;
 
 class CheckAdminIsAtLeastUserTest extends TestCase
 {
-
     /** @test */
-    public function it_sets_the_user_if_none_logged_in(){
+    public function it_sets_the_user_if_none_logged_in()
+    {
         $controlUser = $this->newUser();
         $databaseUser = factory(User::class)->create(['control_id' => $controlUser->id()]);
         
@@ -23,7 +23,7 @@ class CheckAdminIsAtLeastUserTest extends TestCase
         
         $authentication->getUser()->shouldBeCalled()->willReturn(null);
         $userAuthentication->getUser()->shouldBeCalled()->willReturn($databaseUser);
-        $authentication->setUser(Argument::that(function($arg) use ($controlUser) {
+        $authentication->setUser(Argument::that(function ($arg) use ($controlUser) {
             return $arg instanceof \BristolSU\ControlDB\Contracts\Models\User && $arg->id() === $controlUser->id();
         }))->shouldBeCalled();
         
@@ -31,13 +31,14 @@ class CheckAdminIsAtLeastUserTest extends TestCase
         $request->route('test_callback_called')->shouldBeCalled()->willReturn(true);
         
         $middleware = new CheckAdminIsAtLeastUser($authentication->reveal(), $userAuthentication->reveal());
-        $middleware->handle($request->reveal(), function($request) {
+        $middleware->handle($request->reveal(), function ($request) {
             $this->assertTrue($request->route('test_callback_called'));
         });
     }
 
     /** @test */
-    public function it_calls_the_callback_if_a_user_is_already_logged_in(){
+    public function it_calls_the_callback_if_a_user_is_already_logged_in()
+    {
         $controlUser = $this->newUser();
 
         $authentication = $this->prophesize(Authentication::class);
@@ -50,7 +51,7 @@ class CheckAdminIsAtLeastUserTest extends TestCase
         $request->route('test_callback_called')->shouldBeCalled()->willReturn(true);
 
         $middleware = new CheckAdminIsAtLeastUser($authentication->reveal(), $userAuthentication->reveal());
-        $middleware->handle($request->reveal(), function($request) {
+        $middleware->handle($request->reveal(), function ($request) {
             $this->assertTrue($request->route('test_callback_called'));
         });
     }

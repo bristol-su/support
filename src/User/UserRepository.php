@@ -12,9 +12,8 @@ use Illuminate\Support\Collection;
  */
 class UserRepository implements UserRepositoryContract
 {
-
     /**
-     * Get all users registered in the database
+     * Get all users registered in the database.
      *
      * @return User[]|Collection
      */
@@ -24,11 +23,11 @@ class UserRepository implements UserRepositoryContract
     }
 
     /**
-     * Get a user matching the given control ID
+     * Get a user matching the given control ID.
      *
      * @param int $controlId Control ID of the user
-     * @return User
      * @throws ModelNotFoundException
+     * @return User
      */
     public function getFromControlId(int $controlId): User
     {
@@ -52,27 +51,28 @@ class UserRepository implements UserRepositoryContract
     }
 
     /**
-     * Get a user matching the given email address
+     * Get a user matching the given email address.
      *
      * @param string $email Email address of the user
-     * @return User
      * @throws ModelNotFoundException
+     * @return User
      */
     public function getWhereEmail($email): User
     {
         $dataUser = app(DataUser::class)->getWhere(['email' => $email]);
         $controlUser = app(\BristolSU\ControlDB\Contracts\Repositories\User::class)->getByDataProviderId($dataUser->id());
+
         return $this->getFromControlId($controlUser->id());
     }
 
     /**
-     * Get a user by remember token
+     * Get a user by remember token.
      *
      * @param string $token Remember token
-     * @return User
      * @throws ModelNotFoundException
+     * @return User
      */
-    public function getFromRememberToken(string $token): User 
+    public function getFromRememberToken(string $token): User
     {
         return User::where('remember_token', $token)->firstOrFail();
     }
@@ -86,7 +86,7 @@ class UserRepository implements UserRepositoryContract
     }
 
     /**
-     * Set the remember token of a user
+     * Set the remember token of a user.
      *
      * @param int $id ID of the user
      * @param mixed $token New token for the user
@@ -97,6 +97,4 @@ class UserRepository implements UserRepositoryContract
         $user->setRememberToken($token);
         $user->save();
     }
-
-
 }

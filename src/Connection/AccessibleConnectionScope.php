@@ -8,14 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Scope;
 
 /**
- * Scope for connections accessible to the current user
+ * Scope for connections accessible to the current user.
  */
 class AccessibleConnectionScope implements Scope
 {
-
     /**
-     * Only return connections which are accessible by the current user
-     * 
+     * Only return connections which are accessible by the current user.
+     *
      * @param Builder $builder Query builder
      * @param Model $model Model being scoped
      */

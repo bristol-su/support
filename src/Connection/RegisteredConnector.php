@@ -7,49 +7,48 @@ use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
 /**
- * A class to hold a connector and its metadata, and gracefully cast to json or array
+ * A class to hold a connector and its metadata, and gracefully cast to json or array.
  */
 class RegisteredConnector implements Arrayable, Jsonable
 {
-
     /**
-     * The name of the connector
-     * 
+     * The name of the connector.
+     *
      * @var string
      */
     private $name;
 
     /**
-     * A description for the connector
-     * 
+     * A description for the connector.
+     *
      * @var string
      */
     private $description;
 
     /**
-     * The service of the connector
-     * 
+     * The service of the connector.
+     *
      * @var string
      */
     private $service;
 
     /**
-     * The alias of the connector
-     * 
+     * The alias of the connector.
+     *
      * @var string
      */
     private $alias;
 
     /**
-     * The class name of the connector
-     * 
+     * The class name of the connector.
+     *
      * @var string
      */
     private $connector;
 
     /**
-     * Get the name of the connector
-     * 
+     * Get the name of the connector.
+     *
      * @return string Name of the connector
      */
     public function getName(): string
@@ -58,10 +57,9 @@ class RegisteredConnector implements Arrayable, Jsonable
     }
 
     /**
-     * Set the name of the connector
-     * 
+     * Set the name of the connector.
+     *
      * @param string $name Name of the connector
-     * @return void
      */
     public function setName(string $name): void
     {
@@ -69,8 +67,8 @@ class RegisteredConnector implements Arrayable, Jsonable
     }
 
     /**
-     * Get the description of the connector
-     * 
+     * Get the description of the connector.
+     *
      * @return string Description of the connector
      */
     public function getDescription(): string
@@ -79,10 +77,9 @@ class RegisteredConnector implements Arrayable, Jsonable
     }
 
     /**
-     * Set the description of the connector
-     * 
+     * Set the description of the connector.
+     *
      * @param string $description Description of the connector
-     * @return void
      */
     public function setDescription(string $description): void
     {
@@ -90,8 +87,8 @@ class RegisteredConnector implements Arrayable, Jsonable
     }
 
     /**
-     * Get the service the connector supplies
-     * 
+     * Get the service the connector supplies.
+     *
      * @return string Service the connector supplies
      */
     public function getService(): string
@@ -100,10 +97,9 @@ class RegisteredConnector implements Arrayable, Jsonable
     }
 
     /**
-     * Set the service the connector supplies
-     * 
+     * Set the service the connector supplies.
+     *
      * @param string $service Service the connector supplies
-     * @return void
      */
     public function setService(string $service): void
     {
@@ -111,8 +107,8 @@ class RegisteredConnector implements Arrayable, Jsonable
     }
 
     /**
-     * Get the alias of the connector
-     * 
+     * Get the alias of the connector.
+     *
      * @return string Alias of the connector
      */
     public function getAlias(): string
@@ -121,10 +117,9 @@ class RegisteredConnector implements Arrayable, Jsonable
     }
 
     /**
-     * Set the alias of the connector
-     * 
+     * Set the alias of the connector.
+     *
      * @param string $alias Alias of the connector
-     * @return void
      */
     public function setAlias(string $alias): void
     {
@@ -132,8 +127,8 @@ class RegisteredConnector implements Arrayable, Jsonable
     }
 
     /**
-     * Get the connector class name
-     * 
+     * Get the connector class name.
+     *
      * @return string Class name of the connector
      */
     public function getConnector(): string
@@ -142,10 +137,9 @@ class RegisteredConnector implements Arrayable, Jsonable
     }
 
     /**
-     * Set the class name
-     * 
+     * Set the class name.
+     *
      * @param string $connector Class name of the connector
-     * @return void
      */
     public function setConnector(string $connector): void
     {
@@ -153,8 +147,8 @@ class RegisteredConnector implements Arrayable, Jsonable
     }
 
     /**
-     * Cast the registered connector to an array
-     * 
+     * Cast the registered connector to an array.
+     *
      * @return array Representation of the registered connector as an array
      */
     public function toArray()
@@ -164,15 +158,15 @@ class RegisteredConnector implements Arrayable, Jsonable
             'description' => $this->getDescription(),
             'service' => $this->getService(),
             'alias' => $this->getAlias(),
-            'settings' => (new VFGTransformer)->transformToArray($this->getConnector()::settingsSchema())
+            'settings' => (new VFGTransformer())->transformToArray($this->getConnector()::settingsSchema())
         ];
     }
 
     /**
-     * Cast the registered connector to json
+     * Cast the registered connector to json.
      *
      * @param int $options Options for json encoding
-     * 
+     *
      * @return string Representation of the registered connector as json
      */
     public function toJson($options = 0): string
@@ -181,7 +175,7 @@ class RegisteredConnector implements Arrayable, Jsonable
     }
 
     /**
-     * Cast the registered connector to a string
+     * Cast the registered connector to a string.
      *
      * @return string Representation of the registered connector as json (a string)
      */
@@ -189,5 +183,4 @@ class RegisteredConnector implements Arrayable, Jsonable
     {
         return $this->toJson();
     }
-    
 }

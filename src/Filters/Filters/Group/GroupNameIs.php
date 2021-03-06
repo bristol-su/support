@@ -7,20 +7,18 @@ use FormSchema\Generator\Field;
 use FormSchema\Schema\Form;
 
 /**
- * Test the group name matches
+ * Test the group name matches.
  */
 class GroupNameIs extends GroupFilter
 {
-
-
     /**
-     * Get possible options as an array
+     * Get possible options as an array.
      *
      * You should return a form schema which represents the available options for the filter
      *
-     * @return Form Options
-     * 
      * @throws \Exception
+     * @return Form Options
+     *
      */
     public function options(): Form
     {
@@ -31,7 +29,7 @@ class GroupNameIs extends GroupFilter
     }
 
     /**
-     * Test if the group has the given name
+     * Test if the group has the given name.
      *
      * @param string $settings [ 'Group Name' => 'name' ]
      *
@@ -43,8 +41,8 @@ class GroupNameIs extends GroupFilter
     }
 
     /**
-     * Get the filter name
-     * 
+     * Get the filter name.
+     *
      * @return string Name
      */
     public function name()
@@ -53,8 +51,8 @@ class GroupNameIs extends GroupFilter
     }
 
     /**
-     * Filter description
-     * 
+     * Filter description.
+     *
      * @return string Description
      */
     public function description()
@@ -63,8 +61,8 @@ class GroupNameIs extends GroupFilter
     }
 
     /**
-     * Filter alias
-     * 
+     * Filter alias.
+     *
      * @return string Alias
      */
     public function alias()

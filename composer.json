@@ -30,7 +30,8 @@
         "orchestra/testbench": "^4.0",
         "phpstan/phpstan": "^0.12.3",
         "brianium/paratest": "^4.0",
-        "phpspec/prophecy-phpunit": "^2.0"
+        "phpspec/prophecy-phpunit": "^2.0",
+        "bristol-su/portal-pipeline": "^1.0.0"
     },
     "autoload": {
         "files": [
@@ -59,5 +60,18 @@
                 "venturecraft/revisionable"
             ]
         }
+    },
+    "scripts": {
+        "test": [
+            "vendor/bristol-su/portal-code-style/src/PHPUnit/phpunit.sh"
+        ],
+        "code-style": [
+            "vendor/bristol-su/portal-code-style/src/PhpCS/phpcs_fixer.sh",
+            "vendor/bristol-su/portal-code-style/src/Rector/rector.sh",
+            "vendor/bristol-su/portal-code-style/src/SecurityChecker/security.sh"
+        ],
+        "fix-code-style": "vendor/bin/php-cs-fixer fix --config .php_cs --verbose --using-cache=no",
+        "phpstan":  "vendor/bristol-su/portal-code-style/src/PHPStan/phpstan.sh",
+        "coverage": "vendor/bin/phpunit --colors=always --process-isolation --verbose --configuration phpunit.xml --coverage-html coverage"
     }
 }

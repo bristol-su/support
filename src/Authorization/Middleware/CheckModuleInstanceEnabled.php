@@ -10,22 +10,21 @@ use Illuminate\Http\Request;
  */
 class CheckModuleInstanceEnabled
 {
-
     /**
-     * Check if the module instance is enabled
-     * 
+     * Check if the module instance is enabled.
+     *
      * @param Request $request
      * @param \Closure $next
-     * @return mixed
      * @throws ModuleInstanceDisabled If the module is not active
+     * @return mixed
      */
     public function handle(Request $request, \Closure $next)
     {
         $moduleInstance = $request->route('module_instance_slug');
-        if(!$moduleInstance->enabled) {
+        if (!$moduleInstance->enabled) {
             throw ModuleInstanceDisabled::fromModuleInstance($moduleInstance);
         }
+
         return $next($request);
     }
-    
 }

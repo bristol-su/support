@@ -3,7 +3,6 @@
 
 namespace BristolSU\Support\Logic\Specification;
 
-
 use BristolSU\Support\Logic\Contracts\Specification;
 
 /**
@@ -11,10 +10,9 @@ use BristolSU\Support\Logic\Contracts\Specification;
  */
 class AndSpecification implements Specification
 {
-
     /**
-     * Holds the specifications
-     * 
+     * Holds the specifications.
+     *
      * @var array
      */
     private $specifications;
@@ -29,10 +27,10 @@ class AndSpecification implements Specification
 
     /**
      * Are all the given specifications satisfied?
-     * 
+     *
      * @return bool If all the specifications are satisfied
      */
-    public function isSatisfied() : bool
+    public function isSatisfied(): bool
     {
         foreach ($this->specifications as $specification) {
             if (!$specification->isSatisfied()) {
@@ -42,5 +40,4 @@ class AndSpecification implements Specification
 
         return true;
     }
-
 }

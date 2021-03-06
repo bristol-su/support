@@ -3,32 +3,30 @@
 namespace BristolSU\Support\Tests\User;
 
 use BristolSU\ControlDB\Models\DataUser;
-use BristolSU\Support\User\UserRepository;
-use BristolSU\Support\User\User;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use BristolSU\Support\Tests\TestCase;
+use BristolSU\Support\User\User;
+use BristolSU\Support\User\UserRepository;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserRepositoryTest extends TestCase
 {
-    
-   
     /** @test */
-    public function getFromControlId_gets_the_user_with_the_control_id()
+    public function get_from_control_id_gets_the_user_with_the_control_id()
     {
         $user = factory(User::class)->create();
 
-        $userRepository = new UserRepository;
+        $userRepository = new UserRepository();
         $resolvedUser = $userRepository->getFromControlId($user->control_id);
         $this->assertInstanceOf(User::class, $resolvedUser);
         $this->assertModelEquals($user, $resolvedUser);
     }
 
     /** @test */
-    public function getFromControlId_throws_an_exception_if_no_user_found()
+    public function get_from_control_id_throws_an_exception_if_no_user_found()
     {
         $this->expectException(ModelNotFoundException::class);
 
-        $userRepository = new UserRepository;
+        $userRepository = new UserRepository();
         $resolvedUser = $userRepository->getFromControlId(6);
     }
 
@@ -39,7 +37,7 @@ class UserRepositoryTest extends TestCase
             'control_id' => 1,
         ];
 
-        $userRepository = new UserRepository;
+        $userRepository = new UserRepository();
         $user = $userRepository->create($userParams);
 
         $this->assertInstanceOf(User::class, $user);
@@ -53,90 +51,95 @@ class UserRepositoryTest extends TestCase
     {
         $users = factory(User::class, 10)->create();
 
-        $userRepository = new UserRepository;
+        $userRepository = new UserRepository();
         $allUsers = $userRepository->all();
 
-        foreach($users as $user) {
+        foreach ($users as $user) {
             $this->assertModelEquals($user, $allUsers->shift());
         }
     }
 
     /** @test */
-    public function getWhereEmail_throws_an_exception_if_no_data_user_found(){
+    public function get_where_email_throws_an_exception_if_no_data_user_found()
+    {
         $this->expectException(ModelNotFoundException::class);
 
-        $userRepository = new UserRepository;
+        $userRepository = new UserRepository();
         $resolvedUser = $userRepository->getWhereEmail('tobytwigger@example.com');
     }
 
     /** @test */
-    public function getWhereEmail_throws_an_exception_if_no_control_user_found(){
+    public function get_where_email_throws_an_exception_if_no_control_user_found()
+    {
         $this->expectException(ModelNotFoundException::class);
 
         $dataUser = factory(DataUser::class)->create(['email' => 'tobytwigger@example.com']);
 
-        $userRepository = new UserRepository;
+        $userRepository = new UserRepository();
         $resolvedUser = $userRepository->getWhereEmail('tobytwigger@example.com');
     }
 
     /** @test */
-    public function getWhereEmail_throws_an_exception_if_no_user_found(){
+    public function get_where_email_throws_an_exception_if_no_user_found()
+    {
         $this->expectException(ModelNotFoundException::class);
 
         $dataUser = factory(DataUser::class)->create(['email' => 'tobytwigger@example.com']);
         $controlUser = factory(\BristolSU\ControlDB\Models\User::class)->create(['data_provider_id' => $dataUser->id()]);
 
-        $userRepository = new UserRepository;
+        $userRepository = new UserRepository();
         $resolvedUser = $userRepository->getWhereEmail('tobytwigger@example.com');
     }
 
     /** @test */
-    public function getWhereEmail_returns_a_user_with_a_given_email(){
+    public function get_where_email_returns_a_user_with_a_given_email()
+    {
         $dataUser = factory(DataUser::class)->create(['email' => 'tobytwigger@example.com']);
         $controlUser = factory(\BristolSU\ControlDB\Models\User::class)->create(['data_provider_id' => $dataUser->id()]);
         $user = factory(User::class)->create(['control_id' => $controlUser->id()]);
 
-        $userRepository = new UserRepository;
+        $userRepository = new UserRepository();
         $resolvedUser = $userRepository->getWhereEmail('tobytwigger@example.com');
         $this->assertModelEquals($user, $resolvedUser);
     }
 
     /** @test */
-    public function getFromRememberToken_gets_the_user_with_the_control_id()
+    public function get_from_remember_token_gets_the_user_with_the_control_id()
     {
         $user = factory(User::class)->create(['remember_token' => 'abc123']);
 
-        $userRepository = new UserRepository;
+        $userRepository = new UserRepository();
         $resolvedUser = $userRepository->getFromRememberToken('abc123');
         $this->assertInstanceOf(User::class, $resolvedUser);
         $this->assertModelEquals($user, $resolvedUser);
     }
 
     /** @test */
-    public function getFromRememberToken_throws_an_exception_if_no_user_found()
+    public function get_from_remember_token_throws_an_exception_if_no_user_found()
     {
         $this->expectException(ModelNotFoundException::class);
 
-        $userRepository = new UserRepository;
+        $userRepository = new UserRepository();
         $resolvedUser = $userRepository->getFromrememberToken('abc1234');
     }
     
     /** @test */
-    public function getById_returns_a_user_by_id(){
+    public function get_by_id_returns_a_user_by_id()
+    {
         $user = factory(User::class)->create(['id' => 1]);
 
-        $userRepository = new UserRepository;
+        $userRepository = new UserRepository();
         $resolvedUser = $userRepository->getById(1);
         $this->assertInstanceOf(User::class, $resolvedUser);
         $this->assertModelEquals($user, $resolvedUser);
     }
 
     /** @test */
-    public function setRememberToken_sets_the_remember_token_of_the_user()
+    public function set_remember_token_sets_the_remember_token_of_the_user()
     {
         $user = factory(User::class)->create(['remember_token' => 'abc123']);
 
-        $userRepository = new UserRepository;
+        $userRepository = new UserRepository();
         $resolvedUser = $userRepository->setRememberToken($user->id, 'abc1234');
         
         $this->assertDatabaseHas('users', [

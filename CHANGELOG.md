@@ -5,6 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+## [4.7.5] - (06/03/2021)
+
+### Changed
+- portal-85: Only update progress snapshots when changes have been made
+
 ## [4.7.4] - (09/09/2020)
 
 ### Fixed
@@ -281,24 +288,25 @@ BristolSU\Support\Testing\HandlesAuthorization to help with testing modules with
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/support/compare/v4.7.4...HEAD
-[4.7.4]: https://github.com/bristol-su/support-compare/v4.7.3...v4.7.4
-[4.7.3]: https://github.com/bristol-su/support-compare/v4.7.2...v4.7.3
-[4.7.2]: https://github.com/bristol-su/support-compare/v4.7.1...v4.7.2
-[4.7.1]: https://github.com/bristol-su/support-compare/v4.7.0...v4.7.1
-[4.7.0]: https://github.com/bristol-su/support-compare/v4.6.1...v4.7.0
-[4.6.1]: https://github.com/bristol-su/support-compare/v4.6.0...v4.6.1
-[4.6.0]: https://github.com/bristol-su/support-compare/v4.5.1...v4.6.0
-[4.5.1]: https://github.com/bristol-su/support-compare/v4.5...v4.5.1
-[4.5]: https://github.com/bristol-su/support-compare/v4.4.1...v4.5
-[4.4.1]: https://github.com/bristol-su/support-compare/v4.4...v4.4.1
-[4.4]: https://github.com/bristol-su/support-compare/v4.3.3...v4.4
-[4.3.3]: https://github.com/bristol-su/support-compare/v4.3.2...v4.3.3
-[4.3.2]: https://github.com/bristol-su/support-compare/v4.3.1...v4.3.2
-[4.3.1]: https://github.com/bristol-su/support-compare/v4.3...v4.3.1
-[4.3]: https://github.com/bristol-su/support-compare/v4.2...v4.3
-[4.2]: https://github.com/bristol-su/support-compare/v4.1...v4.2
-[4.1]: https://github.com/bristol-su/support-compare/v4.0...v4.1
+[Unreleased]: https://github.com/bristol-su/support/compare/v4.7.5...HEAD
+[4.7.5]: https://github.com/bristol-su/support/compare/v4.7.4...v4.7.5
+[4.7.4]: https://github.com/bristol-su/support/compare/v4.7.3...v4.7.4
+[4.7.3]: https://github.com/bristol-su/support/compare/v4.7.2...v4.7.3
+[4.7.2]: https://github.com/bristol-su/support/compare/v4.7.1...v4.7.2
+[4.7.1]: https://github.com/bristol-su/support/compare/v4.7.0...v4.7.1
+[4.7.0]: https://github.com/bristol-su/support/compare/v4.6.1...v4.7.0
+[4.6.1]: https://github.com/bristol-su/support/compare/v4.6.0...v4.6.1
+[4.6.0]: https://github.com/bristol-su/support/compare/v4.5.1...v4.6.0
+[4.5.1]: https://github.com/bristol-su/support/compare/v4.5...v4.5.1
+[4.5]: https://github.com/bristol-su/support/compare/v4.4.1...v4.5
+[4.4.1]: https://github.com/bristol-su/support/compare/v4.4...v4.4.1
+[4.4]: https://github.com/bristol-su/support/compare/v4.3.3...v4.4
+[4.3.3]: https://github.com/bristol-su/support/compare/v4.3.2...v4.3.3
+[4.3.2]: https://github.com/bristol-su/support/compare/v4.3.1...v4.3.2
+[4.3.1]: https://github.com/bristol-su/support/compare/v4.3...v4.3.1
+[4.3]: https://github.com/bristol-su/support/compare/v4.2...v4.3
+[4.2]: https://github.com/bristol-su/support/compare/v4.1...v4.2
+[4.1]: https://github.com/bristol-su/support/compare/v4.0...v4.1
 [4.0]: https://github.com/bristol-su/support/compare/v3.1.1...v4.0
 [3.1.1]: https://github.com/bristol-su/support/compare/v3.1...v3.1.1
 [3.1]: https://github.com/bristol-su/support/compare/v3.0.2...v3.1

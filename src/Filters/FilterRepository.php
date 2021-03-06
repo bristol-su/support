@@ -3,29 +3,26 @@
 
 namespace BristolSU\Support\Filters;
 
-
 use BristolSU\Support\Filters\Contracts\FilterFactory as FilterFactoryContract;
 use BristolSU\Support\Filters\Contracts\FilterManager as FilterManagerContract;
 use BristolSU\Support\Filters\Contracts\FilterRepository as FilterRepositoryContract;
 use BristolSU\Support\Filters\Contracts\Filters\Filter;
-use Illuminate\Contracts\Config\Repository as ConfigRepository;
 
 /**
- * Repository to retrieve filters
+ * Repository to retrieve filters.
  */
 class FilterRepository implements FilterRepositoryContract
 {
-
     /**
-     * Holds the filter manager contract
-     * 
+     * Holds the filter manager contract.
+     *
      * @var FilterManagerContract
      */
     private $manager;
     
     /**
-     * Hold the filter factory to create a filter
-     * 
+     * Hold the filter factory to create a filter.
+     *
      * @var FilterFactoryContract
      */
     private $filterFactory;
@@ -41,15 +38,16 @@ class FilterRepository implements FilterRepositoryContract
     }
 
     /**
-     * Get a filter by alias
-     * 
+     * Get a filter by alias.
+     *
      * @param string $alias Alias of the filter
-     * @return Filter Filter class with the given alias
      * @throws \Exception If the filter is not registered
+     * @return Filter Filter class with the given alias
      */
     public function getByAlias($alias)
     {
         $class = $this->manager->getClassFromAlias($alias);
+
         return $this->filterFactory->createFilterFromClassName($class);
     }
 
@@ -66,6 +64,7 @@ class FilterRepository implements FilterRepositoryContract
         foreach ($classes as $class) {
             $filters[] = $this->filterFactory->createFilterFromClassName($class);
         }
+
         return $filters;
     }
 }
