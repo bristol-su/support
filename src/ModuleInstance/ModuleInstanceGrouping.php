@@ -12,7 +12,8 @@ class ModuleInstanceGrouping extends Model
     protected $table = 'module_instance_grouping';
     
     protected $fillable = [
-        'heading'
+        'heading',
+        'order'
     ];
 
     public function heading()
