@@ -18,13 +18,19 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;
+use Spatie\EloquentSortable\SortableTrait;
 
 /**
  * Represents a module instance in the database.
  */
 class ModuleInstance extends Model implements ModuleInstanceContract
 {
-    use HasRevisions;
+    use HasRevisions, SortableTrait;
+
+    public $sortable = [
+        'order_column_name' => 'order',
+        'sort_when_creating' => true,
+    ];
 
     /**
      * Fillable attributes.
@@ -234,5 +240,10 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     public function moduleInstanceProgress()
     {
         return $this->hasMany(ModuleInstanceProgress::class);
+    }
+
+    public function buildSortQuery()
+    {
+        return static::query()->where('activity_id', $this->activity_id);
     }
 }

@@ -24,7 +24,8 @@
         "tobytwigger/form-schema-generator": "^1.1",
         "bristol-su/control": "^2.0",
         "doctrine/dbal": "^2.10",
-        "venturecraft/revisionable": "^1.33"
+        "venturecraft/revisionable": "^1.33",
+        "spatie/eloquent-sortable": "^3.11"
     },
     "require-dev": {
         "orchestra/testbench": "^4.0",
