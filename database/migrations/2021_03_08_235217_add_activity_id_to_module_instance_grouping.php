@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Schema;
 
 class AddActivityIdToModuleInstanceGrouping extends Migration
 {
-
     private ActivityRepository $activityRepository;
 
     private ModuleInstanceRepositoryContract $moduleInstanceRepository;
@@ -23,7 +22,6 @@ class AddActivityIdToModuleInstanceGrouping extends Migration
     /**
      * Run the migrations.
      *
-     * @return void
      */
     public function up()
     {
@@ -31,7 +29,7 @@ class AddActivityIdToModuleInstanceGrouping extends Migration
             $table->unsignedBigInteger('activity_id')->nullable();
         });
 
-        foreach($this->activityRepository->all() as $activity) {
+        foreach ($this->activityRepository->all() as $activity) {
             $groupingIds = collect();
             foreach ($this->moduleInstanceRepository->allThroughActivity($activity) as $moduleInstance) {
                 if ($moduleInstance->grouping_id === null) {
@@ -53,7 +51,6 @@ class AddActivityIdToModuleInstanceGrouping extends Migration
     /**
      * Reverse the migrations.
      *
-     * @return void
      */
     public function down()
     {

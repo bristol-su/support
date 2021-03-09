@@ -18,12 +18,13 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;
+use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
 /**
  * Represents a module instance in the database.
  */
-class ModuleInstance extends Model implements ModuleInstanceContract
+class ModuleInstance extends Model implements ModuleInstanceContract, Sortable
 {
     use HasRevisions, SortableTrait;
 

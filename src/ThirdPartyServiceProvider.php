@@ -6,7 +6,6 @@ use Illuminate\Support\ServiceProvider;
 
 class ThirdPartyServiceProvider extends ServiceProvider
 {
-
     public function register()
     {
         $this->app->register(\Spatie\EloquentSortable\EloquentSortableServiceProvider::class);
@@ -15,5 +14,4 @@ class ThirdPartyServiceProvider extends ServiceProvider
     public function boot()
     {
     }
-
 }

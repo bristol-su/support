@@ -3,13 +3,13 @@
 namespace BristolSU\Support\ModuleInstance;
 
 use BristolSU\Support\Activity\Activity;
-use BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository as ModuleInstanceRepositoryContract;
 use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
 
-class ModuleInstanceGrouping extends Model
+class ModuleInstanceGrouping extends Model implements Sortable
 {
     use SortableTrait, HasRevisions;
 
