@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Fixed
+- portal-19: Set action history messages to a text not string
+
 ## [4.7.5] - (06/03/2021)
 
 ### Changed
