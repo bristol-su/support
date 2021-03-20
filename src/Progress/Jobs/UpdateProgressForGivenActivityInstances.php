@@ -20,10 +20,15 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
     /**
      * @var ActivityInstance[]
      */
-    private $activityInstances;
+    private array $activityInstances;
 
     private string $driver;
 
+    /**
+     * UpdateProgressForGivenActivityInstances constructor.
+     * @param ActivityInstance[] $activityInstances
+     * @param string $driver
+     */
     public function __construct(array $activityInstances, string $driver = 'database')
     {
         $this->activityInstances = $activityInstances;

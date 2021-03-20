@@ -3291,6 +3291,16 @@ parameters:
 			path: src/Progress/Jobs/UpdateProgress.php
 
 		-
+			message: "#^Access to an undefined property BristolSU\\\\Support\\\\Activity\\\\Activity\\:\\:\\$id\\.$#"
+			count: 1
+			path: src/Progress/Jobs/UpdateProgress.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Progress\\\\Jobs\\\\UpdateProgressForGivenActivityInstances\\:\\:handle\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Progress/Jobs/UpdateProgressForGivenActivityInstances.php
+
+		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
 			count: 1
 			path: src/Progress/ModuleInstanceProgress.php
