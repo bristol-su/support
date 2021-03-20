@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [4.7.6] - (20/03/2021)
+
 ### Fixed
 - portal-19: Set action history messages to a text not string
 - portal-330: Stop UpdateProgress from timing out by chunking resulting jobs
@@ -292,7 +294,8 @@ BristolSU\Support\Testing\HandlesAuthorization to help with testing modules with
 ### Added
 - Initial Release
 
-[Unreleased]: https://github.com/bristol-su/support/compare/v4.7.5...HEAD
+[Unreleased]: https://github.com/bristol-su/support/compare/v4.7.6...HEAD
+[4.7.6]: https://github.com/bristol-su/support/compare/v4.7.5...v4.7.6
 [4.7.5]: https://github.com/bristol-su/support/compare/v4.7.4...v4.7.5
 [4.7.4]: https://github.com/bristol-su/support/compare/v4.7.3...v4.7.4
 [4.7.3]: https://github.com/bristol-su/support/compare/v4.7.2...v4.7.3
