@@ -23,6 +23,9 @@ class UpdateProgress implements ShouldQueue
 
     private string $driver;
 
+    /**
+     * @var int
+     */
     const CHUNK_SIZE = 20;
 
     public function __construct(Activity $activity, string $driver = 'database')
