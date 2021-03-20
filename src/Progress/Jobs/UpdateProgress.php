@@ -5,8 +5,6 @@ namespace BristolSU\Support\Progress\Jobs;
 
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
-use BristolSU\Support\Progress\ProgressExport;
-use BristolSU\Support\Progress\Snapshot;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -38,15 +36,14 @@ class UpdateProgress implements ShouldQueue
         $activityInstances = [];
         foreach ($activityInstanceRepository->allForActivity($this->activity->id) as $activityInstance) {
             $activityInstances[] = $activityInstance;
-            if(count($activityInstances) >= static::CHUNK_SIZE) {
+            if (count($activityInstances) >= static::CHUNK_SIZE) {
                 UpdateProgressForGivenActivityInstances::dispatch($activityInstances, $this->driver);
                 $activityInstances = [];
             }
         }
 
-        if(count($activityInstances) > 0) {
+        if (count($activityInstances) > 0) {
             UpdateProgressForGivenActivityInstances::dispatch($activityInstances, $this->driver);
         }
-
     }
 }

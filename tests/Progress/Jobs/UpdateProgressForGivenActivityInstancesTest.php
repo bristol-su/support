@@ -5,7 +5,6 @@ namespace BristolSU\Support\Tests\Progress\Jobs;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Progress\Handlers\Handler;
-use BristolSU\Support\Progress\Jobs\UpdateProgress;
 use BristolSU\Support\Progress\Jobs\UpdateProgressForGivenActivityInstances;
 use BristolSU\Support\Progress\Progress;
 use BristolSU\Support\Progress\ProgressExport;
