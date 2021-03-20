@@ -471,6 +471,16 @@ parameters:
 			path: database/migrations/2020_06_09_102228_create_module_instance_progress_table.php
 
 		-
+			message: "#^Method SetMessageToTextInActionHistoriesTable\\:\\:up\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: database/migrations/2021_03_20_134007_set_message_to_text_in_action_histories_table.php
+
+		-
+			message: "#^Method SetMessageToTextInActionHistoriesTable\\:\\:down\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: database/migrations/2021_03_20_134007_set_message_to_text_in_action_histories_table.php
+
+		-
 			message: "#^Method BristolSU\\\\Support\\\\Action\\\\ActionBuilder\\:\\:build\\(\\) has parameter \\$data with no value type specified in iterable type array\\.$#"
 			count: 1
 			path: src/Action/ActionBuilder.php
@@ -3279,6 +3289,16 @@ parameters:
 			message: "#^Method BristolSU\\\\Support\\\\Progress\\\\Jobs\\\\UpdateProgress\\:\\:handle\\(\\) has no return typehint specified\\.$#"
 			count: 1
 			path: src/Progress/Jobs/UpdateProgress.php
+
+		-
+			message: "#^Access to an undefined property BristolSU\\\\Support\\\\Activity\\\\Activity\\:\\:\\$id\\.$#"
+			count: 1
+			path: src/Progress/Jobs/UpdateProgress.php
+
+		-
+			message: "#^Method BristolSU\\\\Support\\\\Progress\\\\Jobs\\\\UpdateProgressForGivenActivityInstances\\:\\:handle\\(\\) has no return typehint specified\\.$#"
+			count: 1
+			path: src/Progress/Jobs/UpdateProgressForGivenActivityInstances.php
 
 		-
 			message: "#^Unsafe usage of new static\\(\\)\\.$#"
