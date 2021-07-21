@@ -20,7 +20,6 @@ use BristolSU\Support\Permissions\PermissionServiceProvider;
 use BristolSU\Support\Progress\ProgressServiceProvider;
 use BristolSU\Support\Revision\RevisionServiceProvider;
 use BristolSU\Support\Settings\SettingsServiceProvider;
-use BristolSU\Support\Theme\ThemeServiceProvider;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -50,8 +49,7 @@ class SupportServiceProvider extends ServiceProvider
         HttpServiceProvider::class,
         RevisionServiceProvider::class,
         SettingsServiceProvider::class,
-        ControlServiceProvider::class,
-        ThemeServiceProvider::class
+        ControlServiceProvider::class
     ];
 
     public function register()
