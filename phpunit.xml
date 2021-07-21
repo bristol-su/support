@@ -72,8 +72,5 @@
         <testsuite name="Settings">
             <directory suffix="Test.php">./tests/Settings</directory>
         </testsuite>
-        <testsuite name="Theme">
-            <directory suffix="Test.php">./tests/Theme</directory>
-        </testsuite>
     </testsuites>
 </phpunit>

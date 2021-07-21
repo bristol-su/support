@@ -5,6 +5,7 @@ namespace BristolSU\Support\Authorization;
 use BristolSU\Support\Authorization\Middleware\CheckActivityEnabled;
 use BristolSU\Support\Authorization\Middleware\CheckActivityFor;
 use BristolSU\Support\Authorization\Middleware\CheckAdminActivityFor;
+use BristolSU\Support\Authorization\Middleware\CheckIsAuthenticated;
 use BristolSU\Support\Authorization\Middleware\CheckLoggedIntoActivityForType;
 use BristolSU\Support\Authorization\Middleware\CheckModuleInstanceActive;
 use BristolSU\Support\Authorization\Middleware\CheckModuleInstanceEnabled;
@@ -26,5 +27,6 @@ class AuthorizationServiceProvider extends ServiceProvider
         $this->app['router']->pushMiddlewareToGroup('module', CheckModuleInstanceEnabled::class);
         $this->app['router']->pushMiddlewareToGroup('module', CheckModuleInstanceActive::class);
         $this->app['router']->pushMiddlewareToGroup('administrator', CheckAdminActivityFor::class);
+        $this->app['router']->aliasMiddleware('auth.portal', CheckIsAuthenticated::class);
     }
 }
