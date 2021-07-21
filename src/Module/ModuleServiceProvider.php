@@ -333,7 +333,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function mapParticipantRoutes()
     {
         Route::prefix('/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
-            ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
+            ->middleware(['web', 'auth.portal', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
             ->namespace($this->namespace())
             ->group($this->baseDirectory() . '/routes/participant/web.php');
     }
@@ -344,7 +344,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function mapAdminRoutes()
     {
         Route::prefix('/a/{activity_slug}/{module_instance_slug}/' . $this->alias())
-            ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'administrator'])
+            ->middleware(['web', 'auth.portal', 'verified', 'module', 'activity', 'administrator'])
             ->namespace($this->namespace())
             ->group($this->baseDirectory() . '/routes/admin/web.php');
     }
@@ -355,7 +355,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function mapParticipantApiRoutes()
     {
         Route::prefix('/api/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
-            ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
+            ->middleware(['api', 'auth.portal', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
             ->namespace($this->namespace())
             ->group($this->baseDirectory() . '/routes/participant/api.php');
     }
@@ -366,7 +366,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function mapAdminApiRoutes()
     {
         Route::prefix('/api/a/{activity_slug}/{module_instance_slug}/' . $this->alias())
-            ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'administrator'])
+            ->middleware(['api', 'auth.portal', 'verified', 'module', 'activity', 'administrator'])
             ->namespace($this->namespace())
             ->group($this->baseDirectory() . '/routes/admin/api.php');
     }
