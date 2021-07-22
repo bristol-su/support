@@ -40,7 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
         - `BristolSU\Support\User\UserRepository` -> `BristolSU\Auth\User\AuthenticationUserRepository`
         - `BristolSU\Support\User\Contracts\UserRepository` -> `BristolSU\Auth\User\Contracts\AuthenticationUserRepository`
         - User authentication resolvers for both API and Web
-        - `BristolSU\Support\User\Contracts\UserAuthentication` -> `BristolSU\Auth\User\Contracts\UserAuthentication`
+        - `BristolSU\Support\User\Contracts\UserAuthentication` -> `BristolSU\Auth\User\Contracts\AuthenticationUserResolver`
     - CheckAdminIsAtLeastUser obsolete because now handled in the Authentication
     - `getDatabaseUser()` and `setDatabaseUser()` from testing - tests no longer use database users
     - Deleted `BristolSU\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider` as now handled through `WebRequestActivityInstanceResolver` and `ApiActivityInstanceResolver`
