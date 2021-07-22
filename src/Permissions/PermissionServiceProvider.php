@@ -18,6 +18,7 @@ use BristolSU\Support\Permissions\Testers\SystemUserPermission;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 /**
  * Permission Service Provider.
@@ -60,6 +61,10 @@ class PermissionServiceProvider extends ServiceProvider
         PermissionTesterFacade::register($this->app->make(ModuleInstanceRoleOverridePermission::class));
         // Check default module instance permissions
         PermissionTesterFacade::register($this->app->make(ModuleInstancePermissions::class));
+
+        Gate::before(function ($user, $ability) {
+            return app()->make(PermissionTesterContract::class)->evaluate($ability);
+        });
 
         Route::bind('module_instance_permission', function ($id) {
             return ModuleInstancePermission::findOrFail($id);
