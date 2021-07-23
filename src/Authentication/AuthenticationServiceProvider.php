@@ -21,7 +21,7 @@ class AuthenticationServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->app['router']->pushMiddlewareToGroup('portal-auth', IsAuthenticated::class);
+        $this->app['router']->prependMiddlewareToGroup('portal-auth', IsAuthenticated::class);
         $this->app['router']->pushMiddlewareToGroup('portal-auth', CheckAdditionalCredentialsOwnedByUser::class);
         $this->app['router']->pushMiddlewareToGroup('portal-guest', IsGuest::class);
         $this->app['router']->pushMiddlewareToGroup('portal-confirmed', HasConfirmedPassword::class);
