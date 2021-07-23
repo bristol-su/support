@@ -172,4 +172,13 @@ class SessionAuthentication implements AuthenticationContract
     {
         return $this->session->has('user_id');
     }
+
+    /**
+     * Clear the current user
+     */
+    public function clearUser()
+    {
+        $this->session->forget('user_id');
+    }
+
 }
