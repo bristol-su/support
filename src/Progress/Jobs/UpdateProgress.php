@@ -4,8 +4,7 @@
 namespace BristolSU\Support\Progress\Jobs;
 
 use BristolSU\Support\Activity\Activity;
-use BristolSU\Support\Progress\ProgressExport;
-use BristolSU\Support\Progress\Snapshot;
+use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -21,8 +20,13 @@ class UpdateProgress implements ShouldQueue
      * @var Activity
      */
     private $activity;
-    
+
     private string $driver;
+
+    /**
+     * @var int
+     */
+    const CHUNK_SIZE = 20;
 
     public function __construct(Activity $activity, string $driver = 'database')
     {
@@ -30,10 +34,19 @@ class UpdateProgress implements ShouldQueue
         $this->driver = $driver;
     }
 
-    public function handle(Snapshot $snapshot)
+    public function handle(ActivityInstanceRepository $activityInstanceRepository)
     {
-        $progresses = $snapshot->ofActivity($this->activity);
-        
-        ProgressExport::driver($this->driver)->saveMany($progresses);
+        $activityInstances = [];
+        foreach ($activityInstanceRepository->allForActivity($this->activity->id) as $activityInstance) {
+            $activityInstances[] = $activityInstance;
+            if (count($activityInstances) >= static::CHUNK_SIZE) {
+                UpdateProgressForGivenActivityInstances::dispatch($activityInstances, $this->driver);
+                $activityInstances = [];
+            }
+        }
+
+        if (count($activityInstances) > 0) {
+            UpdateProgressForGivenActivityInstances::dispatch($activityInstances, $this->driver);
+        }
     }
 }
