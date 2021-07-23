@@ -14,6 +14,7 @@ use BristolSU\Support\Control\Settings\Attributes\AttributeGroup;
 use BristolSU\Support\Control\Settings\ControlCategory;
 use BristolSU\Support\Settings\Concerns\RegistersSettings;
 use Illuminate\Database\QueryException;
+use Illuminate\Encryption\MissingAppKeyException;
 use Illuminate\Support\ServiceProvider;
 
 class ControlServiceProvider extends ServiceProvider
@@ -48,6 +49,8 @@ class ControlServiceProvider extends ServiceProvider
             }
         } catch (QueryException $e) {
             // Additional attributes couldn't be loaded as settings table hasn't yet been migrated.
+        } catch (MissingAppKeyException $e) {
+            // No app key set 
         }
     }
 }

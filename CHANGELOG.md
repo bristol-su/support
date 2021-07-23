@@ -13,6 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Fixed
 - Redirect to module includes query string
+- Error thrown by the ControlServiceProvider when settings retrieved in the service provider due to no set app key
 
 ### Added
 - Image URL for module instance and activity
