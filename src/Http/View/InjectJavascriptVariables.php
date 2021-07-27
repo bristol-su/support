@@ -43,9 +43,9 @@ class InjectJavascriptVariables
             'user' => $this->authentication->getUser(),
             'group' => $this->authentication->getGroup(),
             'role' => $this->authentication->getRole(),
-            'activity' => ($this->request->has('activity_slug') ? $this->request->route('activity_slug') : null),
+            'activity' => ($this->request->route()->hasParameter('activity_slug') ? $this->request->route('activity_slug') : null),
             'activity_instance' => $this->getActivityInstance(),
-            'module_instance' => ($this->request->has('module_instance_slug') ? $this->request->route('module_instance_slug') : null)
+            'module_instance' => ($this->request->route()->hasParameter('module_instance_slug') ? $this->request->route('module_instance_slug') : null)
         ]);
     }
 

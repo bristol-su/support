@@ -12,6 +12,7 @@ use BristolSU\Support\Testing\CreatesModuleEnvironment;
 use BristolSU\Support\Tests\TestCase;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 use Laracasts\Utilities\JavaScript\Transformers\Transformer;
 use Prophecy\Argument;
 
@@ -46,10 +47,12 @@ class InjectJavascriptVariablesTest extends TestCase
             $activityInstanceResolver = $activityInstanceResolver->reveal();
         }
         if ($request === null) {
+            $route = $this->prophesize(Route::class);
+            $route->hasParameter('module_instance_slug')->shouldBeCalled()->willReturn(true);
+            $route->hasParameter('activity_slug')->shouldBeCalled()->willReturn(true);
             $request = $this->prophesize(Request::class);
-            $request->has('module_instance_slug')->willReturn(true);
+            $request->route()->shouldBeCalled()->willReturn($route->reveal());
             $request->route('module_instance_slug')->willReturn($this->getModuleInstance());
-            $request->has('activity_slug')->willReturn(true);
             $request->route('activity_slug')->willReturn($this->getActivity());
             $request->is(Argument::any())->willReturn(false);
             $request = $request->reveal();
@@ -73,10 +76,12 @@ class InjectJavascriptVariablesTest extends TestCase
     /** @test */
     public function it_sets_admin_to_true_if_route_matches_the_test()
     {
+        $route = $this->prophesize(Route::class);
+        $route->hasParameter('module_instance_slug')->shouldBeCalled()->willReturn(true);
+        $route->hasParameter('activity_slug')->shouldBeCalled()->willReturn(false);
         $request = $this->prophesize(Request::class);
-        $request->has('module_instance_slug')->shouldBeCalled()->willReturn(true);
+        $request->route()->shouldBeCalled()->willReturn($route->reveal());
         $request->route('module_instance_slug')->shouldBeCalled()->willReturn($this->getModuleInstance());
-        $request->has('activity_slug')->shouldBeCalled()->willReturn(false);
         $request->is(Argument::any())->willReturn(true);
 
         $this->assertViewComposerInjects([
@@ -87,10 +92,12 @@ class InjectJavascriptVariablesTest extends TestCase
     /** @test */
     public function it_sets_admin_to_true_if_route_does_not_match_the_test()
     {
+        $route = $this->prophesize(Route::class);
+        $route->hasParameter('module_instance_slug')->shouldBeCalled()->willReturn(true);
+        $route->hasParameter('activity_slug')->shouldBeCalled()->willReturn(false);
         $request = $this->prophesize(Request::class);
-        $request->has('module_instance_slug')->shouldBeCalled()->willReturn(true);
+        $request->route()->shouldBeCalled()->willReturn($route->reveal());
         $request->route('module_instance_slug')->shouldBeCalled()->willReturn($this->getModuleInstance());
-        $request->has('activity_slug')->shouldBeCalled()->willReturn(false);
         $request->is(Argument::any())->willReturn(false);
 
         $this->assertViewComposerInjects([
@@ -158,10 +165,12 @@ class InjectJavascriptVariablesTest extends TestCase
     /** @test */
     public function it_injects_the_module_instance_from_the_resolver()
     {
+        $route = $this->prophesize(Route::class);
+        $route->hasParameter('module_instance_slug')->shouldBeCalled()->willReturn(true);
+        $route->hasParameter('activity_slug')->shouldBeCalled()->willReturn(false);
         $request = $this->prophesize(Request::class);
-        $request->has('module_instance_slug')->shouldBeCalled()->willReturn(true);
+        $request->route()->shouldBeCalled()->willReturn($route->reveal());
         $request->route('module_instance_slug')->shouldBeCalled()->willReturn($this->getModuleInstance());
-        $request->has('activity_slug')->shouldBeCalled()->willReturn(false);
         $request->is(Argument::any())->willReturn(false);
 
         $this->assertViewComposerInjects([
@@ -172,10 +181,12 @@ class InjectJavascriptVariablesTest extends TestCase
     /** @test */
     public function it_injects_null_for_the_module_instance_if_the_resolver_throws_the_exception()
     {
+        $route = $this->prophesize(Route::class);
+        $route->hasParameter('module_instance_slug')->shouldBeCalled()->willReturn(false);
+        $route->hasParameter('activity_slug')->shouldBeCalled()->willReturn(false);
         $request = $this->prophesize(Request::class);
-        $request->has('module_instance_slug')->shouldBeCalled()->willReturn(false);
+        $request->route()->shouldBeCalled()->willReturn($route->reveal());
         $request->route('module_instance_slug')->shouldNotBeCalled();
-        $request->has('activity_slug')->shouldBeCalled()->willReturn(false);
         $request->is(Argument::any())->willReturn(false);
 
         $this->assertViewComposerInjects([
@@ -187,9 +198,11 @@ class InjectJavascriptVariablesTest extends TestCase
     public function it_injects_the_activity_from_the_resolver()
     {
         $activity = factory(Activity::class)->create();
+        $route = $this->prophesize(Route::class);
+        $route->hasParameter('module_instance_slug')->shouldBeCalled()->willReturn(false);
+        $route->hasParameter('activity_slug')->shouldBeCalled()->willReturn(true);
         $request = $this->prophesize(Request::class);
-        $request->has('module_instance_slug')->shouldBeCalled()->willReturn(false);
-        $request->has('activity_slug')->shouldBeCalled()->willReturn(true);
+        $request->route()->shouldBeCalled()->willReturn($route->reveal());
         $request->route('activity_slug')->shouldBeCalled()->willReturn($activity);
         $request->is(Argument::any())->willReturn(false);
 
@@ -201,9 +214,11 @@ class InjectJavascriptVariablesTest extends TestCase
     /** @test */
     public function it_injects_null_for_the_activity_if_the_resolver_throws_the_exception()
     {
+        $route = $this->prophesize(Route::class);
+        $route->hasParameter('module_instance_slug')->shouldBeCalled()->willReturn(false);
+        $route->hasParameter('activity_slug')->shouldBeCalled()->willReturn(false);
         $request = $this->prophesize(Request::class);
-        $request->has('module_instance_slug')->shouldBeCalled()->willReturn(false);
-        $request->has('activity_slug')->shouldBeCalled()->willReturn(false);
+        $request->route()->shouldBeCalled()->willReturn($route->reveal());
         $request->route('activity_slug')->shouldNotBeCalled();
         $request->is(Argument::any())->willReturn(false);
 
