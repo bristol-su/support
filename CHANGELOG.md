@@ -8,8 +8,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Updated
-- Upgraded to Laravel 8.0 from Laravel 7.0
-- Upgraded to Laravel 7.0 from Laravel 6.0
+- Upgraded to PHP 8.0 from PHP 7.4
+- Upgraded to Laravel 8.0 from Laravel 6.0
 
 ### Fixed
 - Redirect to module includes query string
