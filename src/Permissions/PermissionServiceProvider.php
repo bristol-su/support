@@ -62,7 +62,13 @@ class PermissionServiceProvider extends ServiceProvider
         // Check default module instance permissions
         PermissionTesterFacade::register($this->app->make(ModuleInstancePermissions::class));
 
-        Gate::before(function ($user, $ability) {
+        /*
+        * We need to allow the user to be null, so the gate can be considered anonymous.
+        */
+        Gate::before(function ($user = null, $ability = null) {
+            if($ability === null) {
+                return false;
+            }
             return app()->make(PermissionTesterContract::class)->evaluate($ability);
         });
 
