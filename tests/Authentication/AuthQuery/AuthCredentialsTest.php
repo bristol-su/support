@@ -3,6 +3,7 @@
 namespace BristolSU\Support\Tests\Authentication\AuthQuery;
 
 use BristolSU\Support\Authentication\AuthQuery\AuthCredentials;
+use BristolSU\Support\Authentication\AuthQuery\Generator;
 use BristolSU\Support\Tests\TestCase;
 
 class AuthCredentialsTest extends TestCase
@@ -140,5 +141,31 @@ class AuthCredentialsTest extends TestCase
 
         $this->assertEquals(5000, $authCredentialsNotNull->activityInstanceId());
         $this->assertNull($authCredentialsNull->activityInstanceId());
+    }
+
+    /** @test */
+    public function urlGenerator_getAuthQueryArray_gets_the_query_array()
+    {
+        $credentials = $this->prophesize(AuthCredentials::class);
+        $credentials->toArray()->shouldBeCalled()->willReturn(['u' => 1]);
+        $generator = $this->prophesize(Generator::class);
+        $generator->getAuthCredentials()->shouldBeCalled()->willReturn($credentials->reveal());
+        $this->instance(Generator::class, $generator->reveal());
+
+        $this->assertEquals([
+            'u' => 1
+        ], url()->getAuthQueryArray());
+    }
+
+    /** @test */
+    public function urlGenerator_getAuthQueryString_gets_the_query_string_as_a_query()
+    {
+        $credentials = $this->prophesize(AuthCredentials::class);
+        $credentials->toQuery()->shouldBeCalled()->willReturn('u=1&g=4&a=2');
+        $generator = $this->prophesize(Generator::class);
+        $generator->getAuthCredentials()->shouldBeCalled()->willReturn($credentials->reveal());
+        $this->instance(Generator::class, $generator->reveal());
+
+        $this->assertEquals('u=1&g=4&a=2', url()->getAuthQueryString());
     }
 }

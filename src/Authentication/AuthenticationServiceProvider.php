@@ -31,7 +31,7 @@ class AuthenticationServiceProvider extends ServiceProvider
             return app(Generator::class)->getAuthCredentials()->toArray();
         });
         UrlGenerator::macro('getAuthQueryString', function () {
-            return app(Generator::class)->getAuthCredentials()->toString();
+            return app(Generator::class)->getAuthCredentials()->toQuery();
         });
     }
 }
