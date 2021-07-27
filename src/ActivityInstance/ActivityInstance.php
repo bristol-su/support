@@ -42,6 +42,15 @@ class ActivityInstance extends Model implements Authenticatable
     ];
 
     /**
+     * Casted properties
+     *
+     * @var array
+     */
+    protected $casts = [
+        'activity_id' => 'integer'
+    ];
+
+    /**
      * Get the run number of the activity instance as a Laravel attribute.
      *
      * If there are multiple run throughs of an activity, this ID will number them from oldest to newest.
