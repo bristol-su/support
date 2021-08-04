@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Settings;
 
+use BristolSU\Support\Settings\Commands\GenerateSettingsKey;
 use BristolSU\Support\Settings\Definition\SettingStore;
 use BristolSU\Support\Settings\Saved\DatabaseSavedSettingRepository;
 use BristolSU\Support\Settings\Saved\SavedSettingRepository;
@@ -28,5 +29,8 @@ class SettingsServiceProvider extends ServiceProvider
                 'manipulator' => $service
             ]);
         });
+        $this->commands([
+            GenerateSettingsKey::class
+        ]);
     }
 }
