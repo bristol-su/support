@@ -20,7 +20,7 @@ class ActionBuilderTest extends TestCase
         $app = $this->prophesize(Application::class);
         $app->make(ActionBuilderDummyAction::class, ['data' => []])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction([]));
 
-        $actionInstance = factory(ActionInstance::class)->create([
+        $actionInstance = ActionInstance::factory()->create([
             'action' => ActionBuilderDummyAction::class,
             'event' => ActionBuilderDummyEvent::class
         ]);
@@ -34,12 +34,12 @@ class ActionBuilderTest extends TestCase
         $app = $this->prophesize(Application::class);
         $app->make(ActionBuilderDummyAction::class, ['data' => ['action1' => 'field1value']])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction([]));
 
-        $actionInstance = factory(ActionInstance::class)->create([
+        $actionInstance = ActionInstance::factory()->create([
             'action' => ActionBuilderDummyAction::class,
             'event' => ActionBuilderDummyEvent::class
         ]);
 
-        $actionInstanceField = factory(ActionInstanceField::class)->create([
+        $actionInstanceField = ActionInstanceField::factory()->create([
             'action_value' => 'field1value',
             'action_field' => 'action1',
             'action_instance_id' => $actionInstance->id
@@ -55,12 +55,12 @@ class ActionBuilderTest extends TestCase
         $app = $this->prophesize(Application::class);
         $app->make(ActionBuilderDummyAction::class, ['data' => ['action1' => 'field1value with an event field of field1valueFromEvent']])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction([]));
 
-        $actionInstance = factory(ActionInstance::class)->create([
+        $actionInstance = ActionInstance::factory()->create([
             'action' => ActionBuilderDummyAction::class,
             'event' => ActionBuilderDummyEvent::class
         ]);
 
-        $actionInstanceField = factory(ActionInstanceField::class)->create([
+        $actionInstanceField = ActionInstanceField::factory()->create([
             'action_value' => 'field1value with an event field of {{event:field1}}',
             'action_field' => 'action1',
             'action_instance_id' => $actionInstance->id
@@ -76,12 +76,12 @@ class ActionBuilderTest extends TestCase
         $app = $this->prophesize(Application::class);
         $app->make(ActionBuilderDummyAction::class, ['data' => ['action1' => 'field1value with field1valueFromEvent an event field of field1valueFromEvent']])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction([]));
 
-        $actionInstance = factory(ActionInstance::class)->create([
+        $actionInstance = ActionInstance::factory()->create([
             'action' => ActionBuilderDummyAction::class,
             'event' => ActionBuilderDummyEvent::class
         ]);
 
-        $actionInstanceField = factory(ActionInstanceField::class)->create([
+        $actionInstanceField = ActionInstanceField::factory()->create([
             'action_value' => 'field1value with {{event:field1}} an event field of {{event:field1}}',
             'action_field' => 'action1',
             'action_instance_id' => $actionInstance->id
@@ -97,12 +97,12 @@ class ActionBuilderTest extends TestCase
         $app = $this->prophesize(Application::class);
         $app->make(ActionBuilderDummyAction::class, ['data' => ['action1' => 'field1value with field2valueFromEvent an event field of field1valueFromEvent field1valueFromEvent']])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction([]));
 
-        $actionInstance = factory(ActionInstance::class)->create([
+        $actionInstance = ActionInstance::factory()->create([
             'action' => ActionBuilderDummyAction::class,
             'event' => ActionBuilderDummyEvent::class
         ]);
 
-        $actionInstanceField = factory(ActionInstanceField::class)->create([
+        $actionInstanceField = ActionInstanceField::factory()->create([
             'action_value' => 'field1value with {{event:field2}} an event field of {{event:field1}} {{event:field1}}',
             'action_field' => 'action1',
             'action_instance_id' => $actionInstance->id
@@ -121,17 +121,17 @@ class ActionBuilderTest extends TestCase
             'action2' => 'Val of field2valueFromEvent field1valueFromEvent'
         ]])->shouldBeCalled()->willReturn(new ActionBuilderDummyActionMultiple([]));
 
-        $actionInstance = factory(ActionInstance::class)->create([
+        $actionInstance = ActionInstance::factory()->create([
             'action' => ActionBuilderDummyActionMultiple::class,
             'event' => ActionBuilderDummyEvent::class
         ]);
 
-        $actionInstanceField = factory(ActionInstanceField::class)->create([
+        $actionInstanceField = ActionInstanceField::factory()->create([
             'action_value' => 'field1value with {{event:field2}} an event field of {{event:field1}} {{event:field1}}',
             'action_field' => 'action1',
             'action_instance_id' => $actionInstance->id
         ]);
-        $actionInstanceField2 = factory(ActionInstanceField::class)->create([
+        $actionInstanceField2 = ActionInstanceField::factory()->create([
             'action_value' => 'Val of {{event:field2}} {{event:field1}}',
             'action_field' => 'action2',
             'action_instance_id' => $actionInstance->id
@@ -144,7 +144,7 @@ class ActionBuilderTest extends TestCase
     /** @test */
     public function it_sets_the_correct_information_for_history()
     {
-        $actionInstance = factory(ActionInstance::class)->create([
+        $actionInstance = ActionInstance::factory()->create([
             'action' => ActionBuilderDummyAction::class,
             'event' => ActionBuilderDummyEvent::class
         ]);

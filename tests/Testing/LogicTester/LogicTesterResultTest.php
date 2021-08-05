@@ -14,9 +14,9 @@ class LogicTesterResultTest extends TestCase
     /** @test */
     public function if_credentials_are_given_to_pass_evaluate_will_return_true()
     {
-        $user = factory(User::class)->create();
-        $group = factory(Group::class)->create();
-        $role = factory(Role::class)->create();
+        $user = User::factory()->create();
+        $group = Group::factory()->create();
+        $role = Role::factory()->create();
 
         $logicTesterResult = new LogicTesterResult();
         $logicTesterResult->pass($user, $group, $role);
@@ -27,9 +27,9 @@ class LogicTesterResultTest extends TestCase
     /** @test */
     public function if_credentials_are_given_to_fail_evaluate_will_return_true()
     {
-        $user = factory(User::class)->create();
-        $group = factory(Group::class)->create();
-        $role = factory(Role::class)->create();
+        $user = User::factory()->create();
+        $group = Group::factory()->create();
+        $role = Role::factory()->create();
 
         $logicTesterResult = new LogicTesterResult();
         $logicTesterResult->fail($user, $group, $role);
@@ -40,9 +40,9 @@ class LogicTesterResultTest extends TestCase
     /** @test */
     public function if_credentials_are_given_to_pass_and_fail_pass_will_be_preferred()
     {
-        $user = factory(User::class)->create();
-        $group = factory(Group::class)->create();
-        $role = factory(Role::class)->create();
+        $user = User::factory()->create();
+        $group = Group::factory()->create();
+        $role = Role::factory()->create();
 
         $logicTesterResult = new LogicTesterResult();
         $logicTesterResult->pass($user, $group, $role)->fail($user, $group, $role);
@@ -53,12 +53,12 @@ class LogicTesterResultTest extends TestCase
     /** @test */
     public function multiple_credentials_can_be_given_to_pass()
     {
-        $user1 = factory(User::class)->create();
-        $group1 = factory(Group::class)->create();
-        $role1 = factory(Role::class)->create();
-        $user2 = factory(User::class)->create();
-        $group2 = factory(Group::class)->create();
-        $role2 = factory(Role::class)->create();
+        $user1 = User::factory()->create();
+        $group1 = Group::factory()->create();
+        $role1 = Role::factory()->create();
+        $user2 = User::factory()->create();
+        $group2 = Group::factory()->create();
+        $role2 = Role::factory()->create();
 
         $logicTesterResult = new LogicTesterResult();
         $logicTesterResult->pass($user1, $group1, $role1)->pass($user2, $group2, $role2);
@@ -70,12 +70,12 @@ class LogicTesterResultTest extends TestCase
     /** @test */
     public function multiple_credentials_can_be_given_to_fail()
     {
-        $user1 = factory(User::class)->create();
-        $group1 = factory(Group::class)->create();
-        $role1 = factory(Role::class)->create();
-        $user2 = factory(User::class)->create();
-        $group2 = factory(Group::class)->create();
-        $role2 = factory(Role::class)->create();
+        $user1 = User::factory()->create();
+        $group1 = Group::factory()->create();
+        $role1 = Role::factory()->create();
+        $user2 = User::factory()->create();
+        $group2 = Group::factory()->create();
+        $role2 = Role::factory()->create();
 
         $logicTesterResult = new LogicTesterResult();
         $logicTesterResult->fail($user1, $group1, $role1)->fail($user2, $group2, $role2);
@@ -87,9 +87,9 @@ class LogicTesterResultTest extends TestCase
     /** @test */
     public function if_credentials_do_not_match_the_default_is_given()
     {
-        $user = factory(User::class)->create();
-        $group = factory(Group::class)->create();
-        $role = factory(Role::class)->create();
+        $user = User::factory()->create();
+        $group = Group::factory()->create();
+        $role = Role::factory()->create();
 
         $logicTesterResult = new LogicTesterResult();
         $logicTesterResult->otherwise(true);
@@ -100,9 +100,9 @@ class LogicTesterResultTest extends TestCase
     /** @test */
     public function if_credentials_do_not_match_and_no_default_is_given_false_is_returned()
     {
-        $user = factory(User::class)->create();
-        $group = factory(Group::class)->create();
-        $role = factory(Role::class)->create();
+        $user = User::factory()->create();
+        $group = Group::factory()->create();
+        $role = Role::factory()->create();
 
         $logicTesterResult = new LogicTesterResult();
 
@@ -113,8 +113,8 @@ class LogicTesterResultTest extends TestCase
     public function it_asserts_incorrect_if_required_logic_test_not_called()
     {
         $this->expectException(ExpectationFailedException::class);
-        $user1 = factory(User::class)->create();
-        $user2 = factory(User::class)->create();
+        $user1 = User::factory()->create();
+        $user2 = User::factory()->create();
 
         (new LogicTesterResult())
             ->pass($user1)
@@ -125,7 +125,7 @@ class LogicTesterResultTest extends TestCase
     /** @test */
     public function it_asserts_correct_if_required_logic_test_called()
     {
-        $user = factory(User::class)->create();
+        $user = User::factory()->create();
 
         $logicTesterResult = (new LogicTesterResult())
             ->fail($user)

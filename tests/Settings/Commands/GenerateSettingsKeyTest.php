@@ -14,10 +14,9 @@ use Prophecy\Argument;
 
 class GenerateSettingsKeyTest extends TestCase
 {
-
     /** @test */
-    public function it_generates_the_correct_information(){
-
+    public function it_generates_the_correct_information()
+    {
         $setting1 = $this->prophesize(UserSetting::class);
         $setting1->key()->willReturn('cat1.group1.setting1');
         $setting2 = $this->prophesize(GlobalSetting::class);
@@ -30,15 +29,15 @@ class GenerateSettingsKeyTest extends TestCase
         $setting5->key()->willReturn('cat2.group3.setting5');
 
         $group1 = $this->prophesize(Group::class);
-        $group1->settings(Argument::that(fn($arg) => $arg instanceof Category && $arg->key() === 'cat1'))->willReturn([
+        $group1->settings(Argument::that(fn ($arg) => $arg instanceof Category && $arg->key() === 'cat1'))->willReturn([
             $setting1->reveal(), $setting2->reveal()
         ]);
         $group2 = $this->prophesize(Group::class);
-        $group2->settings(Argument::that(fn($arg) => $arg instanceof Category && $arg->key() === 'cat1'))->willReturn([
+        $group2->settings(Argument::that(fn ($arg) => $arg instanceof Category && $arg->key() === 'cat1'))->willReturn([
             $setting3->reveal()
         ]);
         $group3 = $this->prophesize(Group::class);
-        $group3->settings(Argument::that(fn($arg) => $arg instanceof Category && $arg->key() === 'cat2'))->willReturn([
+        $group3->settings(Argument::that(fn ($arg) => $arg instanceof Category && $arg->key() === 'cat2'))->willReturn([
             $setting4->reveal(), $setting5->reveal()
         ]);
 
@@ -79,7 +78,5 @@ class GenerateSettingsKeyTest extends TestCase
         $command = new GenerateSettingsKey();
         $command->setOutput($output->reveal());
         $command->handle($filesystem->reveal(), $settingStore->reveal());
-
     }
-
 }

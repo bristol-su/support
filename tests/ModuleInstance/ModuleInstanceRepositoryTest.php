@@ -13,7 +13,7 @@ class ModuleInstanceRepositoryTest extends TestCase
     /** @test */
     public function it_retrieves_a_module_instance_by_id()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $this->assertDatabaseHas('module_instances', [
             'id' => $moduleInstance->id,
             'alias' => $moduleInstance->alias
@@ -39,7 +39,7 @@ class ModuleInstanceRepositoryTest extends TestCase
     public function it_creates_a_module_instance()
     {
         $repository = new ModuleInstanceRepository();
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
 
         $instance = $repository->create([
             'alias' => 'alias',
@@ -73,7 +73,7 @@ class ModuleInstanceRepositoryTest extends TestCase
     /** @test */
     public function all_returns_all_module_instances()
     {
-        $moduleInstances = factory(ModuleInstance::class, 5)->create();
+        $moduleInstances = ModuleInstance::factory()->count(5)->create();
 
         $repository = new ModuleInstanceRepository();
         $foundModuleInstances = $repository->all();
@@ -88,9 +88,9 @@ class ModuleInstanceRepositoryTest extends TestCase
     /** @test */
     public function all_with_alias_returns_all_module_instances_with_the_alias()
     {
-        factory(ModuleInstance::class, 5)->create();
-        $moduleInstances = factory(ModuleInstance::class, 3)->create(['alias' => 'an-alias-here']);
-        factory(ModuleInstance::class, 3)->create();
+        ModuleInstance::factory()->count(5)->create();
+        $moduleInstances = ModuleInstance::factory()->count(3)->create(['alias' => 'an-alias-here']);
+        ModuleInstance::factory()->count(3)->create();
 
         $repository = new ModuleInstanceRepository();
         $foundModuleInstances = $repository->allWithAlias('an-alias-here');
@@ -105,11 +105,11 @@ class ModuleInstanceRepositoryTest extends TestCase
     /** @test */
     public function it_retrieves_all_module_instances_through_an_activity()
     {
-        $activity = factory(Activity::class)->create();
-        $activity2 = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
+        $activity2 = Activity::factory()->create();
 
-        $moduleInstances = factory(ModuleInstance::class, 10)->create(['activity_id' => $activity->id]);
-        $otherModuleInstances = factory(ModuleInstance::class, 4)->create(['activity_id' => $activity2->id]);
+        $moduleInstances = ModuleInstance::factory()->count(10)->create(['activity_id' => $activity->id]);
+        $otherModuleInstances = ModuleInstance::factory()->count(4)->create(['activity_id' => $activity2->id]);
 
         $repository = new ModuleInstanceRepository();
         $foundModuleInstances = $repository->allThroughActivity($activity);
@@ -130,10 +130,10 @@ class ModuleInstanceRepositoryTest extends TestCase
     /** @test */
     public function it_retrieves_all_enabled_module_instances_through_an_activity()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
 
-        $moduleInstances = factory(ModuleInstance::class, 10)->create(['activity_id' => $activity->id, 'enabled' => true]);
-        $otherModuleInstances = factory(ModuleInstance::class, 4)->create(['activity_id' => $activity->id, 'enabled' => false]);
+        $moduleInstances = ModuleInstance::factory()->count(10)->create(['activity_id' => $activity->id, 'enabled' => true]);
+        $otherModuleInstances = ModuleInstance::factory()->count(4)->create(['activity_id' => $activity->id, 'enabled' => false]);
 
         $repository = new ModuleInstanceRepository();
         $foundModuleInstances = $repository->allEnabledThroughActivity($activity);
@@ -149,7 +149,7 @@ class ModuleInstanceRepositoryTest extends TestCase
     {
         $repository = new ModuleInstanceRepository();
 
-        $instance = factory(ModuleInstance::class)->create([
+        $instance = ModuleInstance::factory()->create([
             'alias' => 'alias',
             'activity_id' => 1,
             'name' => 'name',
@@ -222,7 +222,7 @@ class ModuleInstanceRepositoryTest extends TestCase
     /** @test */
     public function it_deletes_a_module_instance()
     {
-        $instance = factory(ModuleInstance::class)->create();
+        $instance = ModuleInstance::factory()->create();
         $repository = new ModuleInstanceRepository();
 
         $this->assertDatabaseHas('module_instances', ['id' => $instance->id]);

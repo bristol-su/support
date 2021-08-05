@@ -4,6 +4,8 @@ namespace BristolSU\Support\Connection;
 
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Revision\HasRevisions;
+use Database\Factories\ConnectionFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,7 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Connection extends Model
 {
-    use HasRevisions;
+    use HasRevisions, HasFactory;
 
     /**
      * The table the data is stored in.
@@ -88,5 +90,15 @@ class Connection extends Model
     public function connector()
     {
         return app(\BristolSU\Support\Connection\Contracts\ConnectorRepository::class)->get($this->alias);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new ConnectionFactory();
     }
 }

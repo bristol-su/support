@@ -12,7 +12,9 @@ use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Progress\Handlers\Database\Models\Progress;
 use BristolSU\Support\Revision\HasRevisions;
+use Database\Factories\ActivityInstanceFactory;
 use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -20,7 +22,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ActivityInstance extends Model implements Authenticatable
 {
-    use HasRevisions;
+    use HasRevisions, HasFactory;
 
     /**
      * Additional attributes to add to the model.
@@ -42,7 +44,7 @@ class ActivityInstance extends Model implements Authenticatable
     ];
 
     /**
-     * Casted properties
+     * Casted properties.
      *
      * @var array
      */
@@ -222,5 +224,15 @@ class ActivityInstance extends Model implements Authenticatable
     public function progress()
     {
         return $this->hasMany(Progress::class);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new ActivityInstanceFactory();
     }
 }

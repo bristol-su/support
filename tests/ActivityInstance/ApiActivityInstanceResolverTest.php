@@ -19,7 +19,7 @@ class ApiActivityInstanceResolverTest extends TestCase
         
         $resolver = new ApiActivityInstanceResolver($this->prophesize(Request::class)->reveal(), $this->prophesize(ActivityInstanceRepository::class)->reveal());
         
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
         $resolver->setActivityInstance($activityInstance);
     }
 
@@ -39,7 +39,7 @@ class ApiActivityInstanceResolverTest extends TestCase
     {
         $request = $this->prophesize(Request::class);
         $repository = $this->prophesize(ActivityInstanceRepository::class);
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
         
         $repository->getById($activityInstance->id)->shouldBeCalled()->willReturn($activityInstance);
         

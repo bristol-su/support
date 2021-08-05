@@ -21,21 +21,21 @@ class RepositoryTest extends TestCase
      */
     public function active_returns_all_active_activities()
     {
-        $activeActivities = factory(Activity::class, 2)->create([
+        $activeActivities = Activity::factory()->count(2)->create([
             'start_date' => null, 'end_date' => null
         ]);
-        $activeActivities->push(factory(Activity::class)->create([
+        $activeActivities->push(Activity::factory()->create([
             'start_date' => Carbon::now()->subDay(),
             'end_date' => Carbon::now()->addDay()
         ]));
-        $activeActivities->push(factory(Activity::class)->create(['enabled' => true, 'start_date' => null, 'end_date' => null]));
+        $activeActivities->push(Activity::factory()->create(['enabled' => true, 'start_date' => null, 'end_date' => null]));
 
-        $inactiveActivities = factory(Activity::class, 2)->create([
+        $inactiveActivities = Activity::factory()->count(2)->create([
             'start_date' => Carbon::now()->addDay(),
             'end_date' => Carbon::now()->addWeek()
         ]);
 
-        $inactiveActivities->push(factory(Activity::class)->create(['enabled' => false, 'start_date' => null, 'end_date' => null]));
+        $inactiveActivities->push(Activity::factory()->create(['enabled' => false, 'start_date' => null, 'end_date' => null]));
 
         $activities = (new ActivityRepository())->active();
 
@@ -50,9 +50,9 @@ class RepositoryTest extends TestCase
      */
     public function get_for_participant_returns_all_activities_relevant_to_a_participant()
     {
-        $participantActivity = factory(Activity::class)->create();
-        $adminActivity = factory(Activity::class)->create();
-        $neitherActivity = factory(Activity::class)->create();
+        $participantActivity = Activity::factory()->create();
+        $adminActivity = Activity::factory()->create();
+        $neitherActivity = Activity::factory()->create();
 
         $this->logicTester()->forLogic($participantActivity->forLogic)->alwaysPass();
         $this->logicTester()->forLogic($adminActivity->forLogic)->alwaysFail();
@@ -69,9 +69,9 @@ class RepositoryTest extends TestCase
      */
     public function get_for_administrator_returns_all_activities_relevant_to_an_administrator()
     {
-        $participantActivity = factory(Activity::class)->create();
-        $adminActivity = factory(Activity::class)->create();
-        $neitherActivity = factory(Activity::class)->create();
+        $participantActivity = Activity::factory()->create();
+        $adminActivity = Activity::factory()->create();
+        $neitherActivity = Activity::factory()->create();
 
         $this->logicTester()->forLogic($adminActivity->adminLogic)->alwaysPass();
         $this->logicTester()->forLogic($participantActivity->adminLogic)->alwaysFail();
@@ -88,8 +88,8 @@ class RepositoryTest extends TestCase
      */
     public function get_for_participant_returns_an_empty_collection_if_no_participant_activities_are_found()
     {
-        $adminActivity = factory(Activity::class)->create();
-        $neitherActivity = factory(Activity::class)->create();
+        $adminActivity = Activity::factory()->create();
+        $neitherActivity = Activity::factory()->create();
 
         $this->logicTester()->forLogic($adminActivity->forLogic)->alwaysFail();
         $this->logicTester()->forLogic($neitherActivity->forLogic)->alwaysFail();
@@ -105,8 +105,8 @@ class RepositoryTest extends TestCase
      */
     public function get_for_administrator_returns_an_empty_collection_if_no_administrator_activities_are_found()
     {
-        $participantActivity = factory(Activity::class)->create();
-        $neitherActivity = factory(Activity::class)->create();
+        $participantActivity = Activity::factory()->create();
+        $neitherActivity = Activity::factory()->create();
 
         $this->logicTester()->forLogic($participantActivity->adminLogic)->alwaysFail();
         $this->logicTester()->forLogic($neitherActivity->adminLogic)->alwaysFail();
@@ -120,9 +120,9 @@ class RepositoryTest extends TestCase
     /** @test */
     public function all_retrieves_all_activities()
     {
-        $activities = factory(Activity::class, 10)->create();
-        $activities->push(factory(Activity::class)->state('always_active')->create());
-        $activities->push(factory(Activity::class)->state('inactive')->create());
+        $activities = Activity::factory()->count(10)->create();
+        $activities->push(Activity::factory()->alwaysActive()->create());
+        $activities->push(Activity::factory()->inactive()->create());
         $repository = new ActivityRepository();
         $allActivities = $repository->all();
         foreach ($activities as $activity) {
@@ -138,8 +138,8 @@ class RepositoryTest extends TestCase
             'description' => 'This is some activity here',
             'activity_for' => 'user',
             'type' => 'open',
-            'for_logic' => factory(Logic::class)->create()->id,
-            'admin_logic' => factory(Logic::class)->create()->id,
+            'for_logic' => Logic::factory()->create()->id,
+            'admin_logic' => Logic::factory()->create()->id,
             'start_date' => Carbon::now()->subDay()->toDateTimeString(),
             'end_date' => Carbon::now()->addDay()->toDateTimeString(),
         ];
@@ -152,7 +152,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function get_for_administrator_passes_a_user_to_the_logic_tester()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
         $user = $this->newUser();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function ($arg) use ($activity) {
@@ -169,7 +169,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function get_for_administrator_passes_a_group_to_the_logic_tester()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
         $group = $this->newGroup();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function ($arg) use ($activity) {
@@ -184,7 +184,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function get_for_administrator_passes_a_role_to_the_logic_tester()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
         $role = $this->newRole();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function ($arg) use ($activity) {
@@ -199,7 +199,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function get_for_administrator_passes_null_to_the_logic_tester_if_no_user_group_and_role_given()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function ($arg) use ($activity) {
             return $arg->id === $activity->adminLogic->id;
@@ -213,7 +213,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function get_for_participant_passes_a_user_to_the_logic_tester()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
         $user = $this->newUser();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function ($arg) use ($activity) {
@@ -230,7 +230,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function get_for_participant_passes_a_group_to_the_logic_tester()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
         $group = $this->newGroup();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function ($arg) use ($activity) {
@@ -245,7 +245,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function get_for_participant_passes_a_role_to_the_logic_tester()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
         $role = $this->newRole();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function ($arg) use ($activity) {
@@ -260,7 +260,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function get_for_participant_passes_null_to_the_logic_tester_if_no_user_group_and_role_given()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function ($arg) use ($activity) {
             return $arg->id === $activity->forLogic->id;
@@ -274,7 +274,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function get_by_id_returns_an_activity_by_id()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
         $repository = new ActivityRepository();
 
         $this->assertModelEquals($activity, $repository->getById($activity->id));
@@ -291,7 +291,7 @@ class RepositoryTest extends TestCase
     /** @test */
     public function delete_deletes_an_activity()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
         $repository = new ActivityRepository();
 
         $this->assertDatabaseHas('activities', [
@@ -330,7 +330,7 @@ class RepositoryTest extends TestCase
             'end_date' => '2020-02-01 01:01:01',
         ];
 
-        $activity = factory(Activity::class)->create($attributesOld);
+        $activity = Activity::factory()->create($attributesOld);
         $this->assertDatabaseHas('activities', $attributesOld);
 
         $repository = new ActivityRepository();
@@ -344,9 +344,9 @@ class RepositoryTest extends TestCase
      */
     public function get_for_participant_returns_only_active_activities()
     {
-        $participantActivity = factory(Activity::class)->create();
-        $disabledActivity = factory(Activity::class)->create(['enabled' => false]);
-        $outOfTimeActivity = factory(Activity::class)->create(['start_date' => Carbon::now()->subYear(), 'end_date' => Carbon::now()->subMonth()]);
+        $participantActivity = Activity::factory()->create();
+        $disabledActivity = Activity::factory()->create(['enabled' => false]);
+        $outOfTimeActivity = Activity::factory()->create(['start_date' => Carbon::now()->subYear(), 'end_date' => Carbon::now()->subMonth()]);
 
         $this->logicTester()->forLogic($participantActivity->forLogic)->alwaysPass();
         $this->logicTester()->forLogic($disabledActivity->forLogic)->alwaysPass();
@@ -363,9 +363,9 @@ class RepositoryTest extends TestCase
      */
     public function get_for_administrator_returns_activities_including_enabled_and_out_of_time()
     {
-        $adminActivity = factory(Activity::class)->create();
-        $disabledActivity = factory(Activity::class)->create(['enabled' => false]);
-        $outOfTimeActivity = factory(Activity::class)->create(['start_date' => Carbon::now()->subYear(), 'end_date' => Carbon::now()->subMonth()]);
+        $adminActivity = Activity::factory()->create();
+        $disabledActivity = Activity::factory()->create(['enabled' => false]);
+        $outOfTimeActivity = Activity::factory()->create(['start_date' => Carbon::now()->subYear(), 'end_date' => Carbon::now()->subMonth()]);
 
 
         $this->logicTester()->forLogic($adminActivity->adminLogic)->alwaysPass();

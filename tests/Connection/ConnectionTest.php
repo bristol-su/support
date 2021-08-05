@@ -18,7 +18,7 @@ class ConnectionTest extends TestCase
         $connectorRepository->get('connector-alias')->shouldBeCalled()->willReturn($connector);
         $this->instance(ConnectorRepository::class, $connectorRepository->reveal());
 
-        $connection = factory(Connection::class)->create(['alias' => 'connector-alias']);
+        $connection = Connection::factory()->create(['alias' => 'connector-alias']);
         $this->assertSame($connector, $connection->connector());
     }
 
@@ -30,7 +30,7 @@ class ConnectionTest extends TestCase
         $connectorRepository->get('connector-alias')->shouldBeCalled()->willReturn($connector);
         $this->instance(ConnectorRepository::class, $connectorRepository->reveal());
 
-        $connection = factory(Connection::class)->create(['alias' => 'connector-alias']);
+        $connection = Connection::factory()->create(['alias' => 'connector-alias']);
         $this->assertSame($connector, $connection->connector);
     }
 
@@ -41,8 +41,8 @@ class ConnectionTest extends TestCase
         $user2 = $this->newUser();
         $this->beUser($user1);
 
-        $connection1 = factory(Connection::class)->create(['user_id' => $user1->id()]);
-        factory(Connection::class)->create(['user_id' => $user2->id()]);
+        $connection1 = Connection::factory()->create(['user_id' => $user1->id()]);
+        Connection::factory()->create(['user_id' => $user2->id()]);
 
         $availableConnections = Connection::all();
         $this->assertInstanceOf(Collection::class, $availableConnections);
@@ -57,7 +57,7 @@ class ConnectionTest extends TestCase
         $user1 = $this->newUser();
         $this->beUser($user1);
 
-        $connection = factory(Connection::class)->create(['user_id' => null]);
+        $connection = Connection::factory()->create(['user_id' => null]);
 
         $this->assertTrue($connection->exists());
         $this->assertEquals($user1->id(), $connection->user_id);
@@ -69,7 +69,7 @@ class ConnectionTest extends TestCase
         $user = $this->newUser();
         $this->beUser($user);
 
-        $connection = factory(Connection::class)->create(['name' => 'OldName']);
+        $connection = Connection::factory()->create(['name' => 'OldName']);
 
         $connection->name = 'NewName';
         $connection->save();

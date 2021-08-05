@@ -16,10 +16,10 @@ class ModuleInstanceEvaluatorTest extends TestCase
     /** @test */
     public function the_facade_calls_the_underlying_instance()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $evaluation = $this->prophesize(Evaluation::class);
-        
+
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
         $moduleInstanceEvaluator->evaluateParticipant(Argument::that(function ($arg) use ($activityInstance) {
             return $activityInstance->is($arg);
@@ -27,7 +27,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
             return $moduleInstance->is($arg);
         }))->shouldBeCalled()->willReturn($evaluation->reveal());
         $this->app->instance(ModuleInstanceEvaluator::class, $moduleInstanceEvaluator->reveal());
-        
+
         $this->assertEquals(
             $evaluation->reveal(),
             ModuleInstanceEvaluatorFacade::evaluateParticipant($activityInstance, $moduleInstance)

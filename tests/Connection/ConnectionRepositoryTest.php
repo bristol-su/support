@@ -17,7 +17,7 @@ class ConnectionRepositoryTest extends TestCase
         $user = $this->newUser();
         $this->beUser($user);
 
-        $connections = factory(Connection::class, 5)->create(['user_id' => $user->id()]);
+        $connections = Connection::factory()->count(5)->create(['user_id' => $user->id()]);
 
         $repository = new ConnectionRepository();
         $allConnections = $repository->all();
@@ -35,7 +35,7 @@ class ConnectionRepositoryTest extends TestCase
         $user = $this->newUser();
         $this->beUser($user);
 
-        $connection = factory(Connection::class)->create(['user_id' => $user->id()]);
+        $connection = Connection::factory()->create(['user_id' => $user->id()]);
 
         $repository = new ConnectionRepository();
         $retrievedConnection = $repository->get($connection->id);
@@ -50,7 +50,7 @@ class ConnectionRepositoryTest extends TestCase
         $user = $this->newUser();
         $this->beUser($user);
 
-        $connection = factory(Connection::class)->create(['user_id' => $user->id()]);
+        $connection = Connection::factory()->create(['user_id' => $user->id()]);
 
         $this->assertDatabaseHas('connection_instances', ['id' => $connection->id]);
 
@@ -91,7 +91,7 @@ class ConnectionRepositoryTest extends TestCase
         $user = $this->newUser();
         $this->beUser($user);
 
-        $connection = factory(Connection::class)->create([
+        $connection = Connection::factory()->create([
             'name' => 'Name1',
             'description' => 'Description1',
             'alias' => 'conn-alias',
@@ -134,10 +134,10 @@ class ConnectionRepositoryTest extends TestCase
         $connectorRepository->forService('service-alias')->willReturn([$connector1->reveal(), $connector2->reveal()]);
         $this->instance(ConnectorRepository::class, $connectorRepository->reveal());
 
-        $connection1 = factory(Connection::class)->create(['alias' => 'alias1', 'user_id' => $user->id()]);
-        $connection2 = factory(Connection::class)->create(['alias' => 'alias1', 'user_id' => $user->id()]);
-        $connection3 = factory(Connection::class)->create(['alias' => 'alias2', 'user_id' => $user->id()]);
-        $connection4 = factory(Connection::class)->create(['alias' => 'alias2', 'user_id' => $user->id()]);
+        $connection1 = Connection::factory()->create(['alias' => 'alias1', 'user_id' => $user->id()]);
+        $connection2 = Connection::factory()->create(['alias' => 'alias1', 'user_id' => $user->id()]);
+        $connection3 = Connection::factory()->create(['alias' => 'alias2', 'user_id' => $user->id()]);
+        $connection4 = Connection::factory()->create(['alias' => 'alias2', 'user_id' => $user->id()]);
 
         $repository = new ConnectionRepository();
         $connections = $repository->getAllForService('service-alias');
@@ -156,8 +156,8 @@ class ConnectionRepositoryTest extends TestCase
         $user = $this->newUser();
         $this->beUser($user);
 
-        $connection1 = factory(Connection::class)->create(['alias' => 'alias1', 'user_id' => $user->id()]);
-        $connection2 = factory(Connection::class)->create(['alias' => 'alias1', 'user_id' => $user->id()]);
+        $connection1 = Connection::factory()->create(['alias' => 'alias1', 'user_id' => $user->id()]);
+        $connection2 = Connection::factory()->create(['alias' => 'alias1', 'user_id' => $user->id()]);
 
         $repository = new ConnectionRepository();
         $connections = $repository->getAllForConnector('alias1');

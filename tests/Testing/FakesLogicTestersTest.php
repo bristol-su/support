@@ -31,10 +31,10 @@ class FakesLogicTestersTest extends TestCase
     /** @test */
     public function logic_tester_can_be_bound_and_used_in_the_system()
     {
-        $logic = factory(Logic::class)->create();
-        $user = factory(User::class)->create();
-        $group = factory(Group::class)->create();
-        $role = factory(Role::class)->create();
+        $logic = Logic::factory()->create();
+        $user = User::factory()->create();
+        $group = Group::factory()->create();
+        $role = Role::factory()->create();
 
         $this->logicTester()->forLogic($logic)
             ->fail([$user, $group, $role]);

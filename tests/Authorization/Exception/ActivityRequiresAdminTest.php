@@ -11,7 +11,7 @@ class ActivityRequiresAdminTest extends TestCase
     /** @test */
     public function get_activity_returns_the_activity()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
         $exception = new ActivityRequiresAdmin('message', 500, null, $activity);
         
         $this->assertModelEquals($activity, $exception->getActivity());
@@ -20,7 +20,7 @@ class ActivityRequiresAdminTest extends TestCase
     /** @test */
     public function create_with_activity_creates_the_exception_with_an_activity()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
         $exception = ActivityRequiresAdmin::createWithActivity($activity, 'A Message', 404);
 
         $this->assertModelEquals($activity, $exception->getActivity());

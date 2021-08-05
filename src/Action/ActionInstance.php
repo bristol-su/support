@@ -7,7 +7,9 @@ use BristolSU\Support\Action\History\ActionHistory;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
+use Database\Factories\ActionInstanceFactory;
 use FormSchema\Transformers\VFGTransformer;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -17,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ActionInstance extends Model
 {
-    use HasRevisions;
+    use HasRevisions, HasFactory;
 
     /**
      * Fillable properties.
@@ -121,4 +123,15 @@ class ActionInstance extends Model
     {
         return $this->hasMany(ActionHistory::class);
     }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new ActionInstanceFactory();
+    }
+
 }

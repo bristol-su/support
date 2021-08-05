@@ -24,7 +24,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
     /** @test */
     public function admin_returns_an_evaluation_instance()
     {
-        $moduleInstance = factory(ModuleInstance::class)->make();
+        $moduleInstance = ModuleInstance::factory()->make();
         $evaluation = $this->prophesize(Evaluation::class);
 
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
@@ -34,8 +34,8 @@ class ModuleInstanceEvaluatorTest extends TestCase
     /** @test */
     public function participant_returns_an_evaluation_instance()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->make();
+        $activityInstance = ActivityInstance::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->make();
         $activityInstance->activity->moduleInstances()->save($moduleInstance);
         $evaluation = $this->prophesize(Evaluation::class);
 
@@ -46,7 +46,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
     /** @test */
     public function admin_passes_the_correct_data_to_an_evaluation()
     {
-        $moduleInstance = factory(ModuleInstance::class)->make();
+        $moduleInstance = ModuleInstance::factory()->make();
         $evaluation = $this->prophesize(Evaluation::class);
         $evaluation->setVisible(true)->shouldBeCalled();
         $evaluation->setMandatory(false)->shouldBeCalled();
@@ -62,10 +62,10 @@ class ModuleInstanceEvaluatorTest extends TestCase
     /** @test */
     public function participant_passes_the_correct_data_to_an_evaluation_for_a_completable_activity()
     {
-        $activity = factory(Activity::class)->create(['type' => 'completable']);
-        $completionConditionInstance = factory(CompletionConditionInstance::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-        $moduleInstance = factory(ModuleInstance::class)->make(['completion_condition_instance_id' => $completionConditionInstance->id]);
+        $activity = Activity::factory()->create(['type' => 'completable']);
+        $completionConditionInstance = CompletionConditionInstance::factory()->create();
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
+        $moduleInstance = ModuleInstance::factory()->make(['completion_condition_instance_id' => $completionConditionInstance->id]);
         $activityInstance->activity->moduleInstances()->save($moduleInstance);
         $evaluation = $this->prophesize(Evaluation::class);
         $evaluation->setVisible(true)->shouldBeCalled();
@@ -82,7 +82,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $this->logicTester()->forLogic($moduleInstance->mandatoryLogic)->pass($user, $group, $role);
         $this->logicTester()->forLogic($moduleInstance->activeLogic)->fail($user, $group, $role);
         $this->logicTester()->bind();
-        
+
         $completionTester = $this->prophesize(CompletionConditionTester::class);
         $completionTester->evaluate(Argument::that(function ($actInst) use ($activityInstance) {
             return $activityInstance->is($actInst);
@@ -95,7 +95,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
             return $completionConditionInstance->is($arg);
         }))->shouldBeCalled()->willReturn(100);
         $this->app->instance(CompletionConditionTester::class, $completionTester->reveal());
-        
+
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
         $moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance, $user, $group, $role);
     }
@@ -103,9 +103,9 @@ class ModuleInstanceEvaluatorTest extends TestCase
     /** @test */
     public function participant_passes_the_correct_data_to_an_evaluation_for_an_open_activity()
     {
-        $activity = factory(Activity::class)->create(['type' => 'open']);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-        $moduleInstance = factory(ModuleInstance::class)->make();
+        $activity = Activity::factory()->create(['type' => 'open']);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
+        $moduleInstance = ModuleInstance::factory()->make();
         $activityInstance->activity->moduleInstances()->save($moduleInstance);
         $evaluation = $this->prophesize(Evaluation::class);
         $evaluation->setVisible(true)->shouldBeCalled();
@@ -122,7 +122,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $this->logicTester()->forLogic($moduleInstance->visibleLogic)->pass($user, $group, $role);
         $this->logicTester()->forLogic($moduleInstance->activeLogic)->fail($user, $group, $role);
         $this->logicTester()->bind();
-        
+
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
         $moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance, $user, $group, $role);
     }
@@ -130,9 +130,9 @@ class ModuleInstanceEvaluatorTest extends TestCase
     /** @test */
     public function participant_passes_the_user_group_and_role_to_the_tester()
     {
-        $activity = factory(Activity::class)->create(['type' => 'open']);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-        $moduleInstance = factory(ModuleInstance::class)->make();
+        $activity = Activity::factory()->create(['type' => 'open']);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
+        $moduleInstance = ModuleInstance::factory()->make();
         $activityInstance->activity->moduleInstances()->save($moduleInstance);
         $evaluation = $this->prophesize(Evaluation::class);
 
@@ -147,7 +147,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
             return $moduleInstance->activeLogic->is($arg);
         }), $user, $group, $role)->shouldBeCalled()->willReturn(true);
         $this->app->instance(LogicTester::class, $logicTester->reveal());
-        
+
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
         $moduleInstanceEvaluator->evaluateParticipant($activityInstance, $moduleInstance, $user, $group, $role);
     }
@@ -156,8 +156,8 @@ class ModuleInstanceEvaluatorTest extends TestCase
     public function evaluate_resource_returns_an_evaluation_contract()
     {
         $user = $this->newUser();
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create([
+        $moduleInstance = ModuleInstance::factory()->create();
+        $activityInstance = ActivityInstance::factory()->create([
             'activity_id' => $moduleInstance->activity_id,
             'resource_id' => $user->id(),
             'resource_type' => 'user'
@@ -169,20 +169,20 @@ class ModuleInstanceEvaluatorTest extends TestCase
 
         $evaluation = $this->prophesize(Evaluation::class);
         $this->app->instance(Evaluation::class, $evaluation->reveal());
-        
+
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
         $this->assertEquals($evaluation->reveal(), $moduleInstanceEvaluator->evaluateResource($activityInstance, $moduleInstance));
     }
-    
+
     /** @test */
     public function evaluate_resource_sets_visible_mandatory_active_complete_percentage_attributes_to_true_if_audience_members_returned()
     {
         $user = $this->newUser();
-        $completionCondition = factory(CompletionConditionInstance::class)->create();
-        $activity = factory(Activity::class)->create(['type' => 'completable']);
-        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id, 'completion_condition_instance_id' => $completionCondition->id]);
+        $completionCondition = CompletionConditionInstance::factory()->create();
+        $activity = Activity::factory()->create(['type' => 'completable']);
+        $moduleInstance = ModuleInstance::factory()->create(['activity_id' => $activity->id, 'completion_condition_instance_id' => $completionCondition->id]);
         $audienceMembers = collect([$this->prophesize(AudienceMember::class)->reveal()]);
-        $activityInstance = factory(ActivityInstance::class)->create([
+        $activityInstance = ActivityInstance::factory()->create([
             'activity_id' => $moduleInstance->activity_id,
             'resource_id' => $user->id(),
             'resource_type' => 'user'
@@ -218,7 +218,7 @@ class ModuleInstanceEvaluatorTest extends TestCase
             return $arg instanceof CompletionConditionInstance && $completionCondition->id === $arg->id;
         }))->shouldBeCalled()->willReturn(100);
         $this->instance(CompletionConditionTester::class, $completionTester->reveal());
-        
+
         $evaluation = $this->prophesize(Evaluation::class);
         $evaluation->setVisible(true)->shouldBeCalled();
         $evaluation->setActive(true)->shouldBeCalled();
@@ -235,11 +235,11 @@ class ModuleInstanceEvaluatorTest extends TestCase
     public function evaluate_resource_sets_visible_mandatory_active_complete_percentage_attributes_to_false_if_audience_members_not_returned()
     {
         $user = $this->newUser();
-        $completionCondition = factory(CompletionConditionInstance::class)->create();
-        $activity = factory(Activity::class)->create(['type' => 'completable']);
-        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id, 'completion_condition_instance_id' => $completionCondition->id]);
+        $completionCondition = CompletionConditionInstance::factory()->create();
+        $activity = Activity::factory()->create(['type' => 'completable']);
+        $moduleInstance = ModuleInstance::factory()->create(['activity_id' => $activity->id, 'completion_condition_instance_id' => $completionCondition->id]);
         $audienceMembers = collect();
-        $activityInstance = factory(ActivityInstance::class)->create([
+        $activityInstance = ActivityInstance::factory()->create([
             'activity_id' => $moduleInstance->activity_id,
             'resource_id' => $user->id(),
             'resource_type' => 'user'
@@ -287,16 +287,16 @@ class ModuleInstanceEvaluatorTest extends TestCase
         $moduleInstanceEvaluator = new ModuleInstanceEvaluator();
         $moduleInstanceEvaluator->evaluateResource($activityInstance, $moduleInstance);
     }
-    
+
     /** @test */
     public function evaluate_resource_sets_mandatory_and_complete_to_false_if_a_non_completable_activity()
     {
         $user = $this->newUser();
-        $completionCondition = factory(CompletionConditionInstance::class)->create();
-        $activity = factory(Activity::class)->create(['type' => 'open']);
-        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id, 'completion_condition_instance_id' => $completionCondition->id]);
+        $completionCondition = CompletionConditionInstance::factory()->create();
+        $activity = Activity::factory()->create(['type' => 'open']);
+        $moduleInstance = ModuleInstance::factory()->create(['activity_id' => $activity->id, 'completion_condition_instance_id' => $completionCondition->id]);
         $audienceMembers = collect([$this->prophesize(AudienceMember::class)->reveal()]);
-        $activityInstance = factory(ActivityInstance::class)->create([
+        $activityInstance = ActivityInstance::factory()->create([
             'activity_id' => $moduleInstance->activity_id,
             'resource_id' => $user->id(),
             'resource_type' => 'user'

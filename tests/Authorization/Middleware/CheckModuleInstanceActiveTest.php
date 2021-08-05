@@ -17,8 +17,8 @@ class CheckModuleInstanceActiveTest extends TestCase
     {
         $this->expectException(ModuleInactive::class);
 
-        $logic = factory(Logic::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create(['active' => $logic->id]);
+        $logic = Logic::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create(['active' => $logic->id]);
         $request = $this->prophesize(Request::class);
         $request->route('module_instance_slug')->willReturn($moduleInstance);
         
@@ -41,8 +41,8 @@ class CheckModuleInstanceActiveTest extends TestCase
     /** @test */
     public function it_calls_the_callback_if_the_module_is_active()
     {
-        $logic = factory(Logic::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create(['active' => $logic->id]);
+        $logic = Logic::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create(['active' => $logic->id]);
         $request = $this->prophesize(Request::class);
         $request->route('module_instance_slug')->willReturn($moduleInstance);
         $request->route('test_callback_is_called')->shouldBeCalled()->willReturn(true);

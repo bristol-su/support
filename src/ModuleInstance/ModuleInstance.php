@@ -14,7 +14,9 @@ use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\Progress\Handlers\Database\Models\ModuleInstanceProgress;
 use BristolSU\Support\Revision\HasRevisions;
+use Database\Factories\ModuleInstanceFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;
@@ -24,7 +26,7 @@ use Illuminate\Support\Str;
  */
 class ModuleInstance extends Model implements ModuleInstanceContract
 {
-    use HasRevisions;
+    use HasRevisions, HasFactory;
 
     /**
      * Fillable attributes.
@@ -235,5 +237,15 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     public function moduleInstanceProgress()
     {
         return $this->hasMany(ModuleInstanceProgress::class);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new ModuleInstanceFactory();
     }
 }

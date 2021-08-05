@@ -9,7 +9,9 @@ use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
 use Carbon\Carbon;
+use Database\Factories\ActivityFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
@@ -18,7 +20,7 @@ use Illuminate\Support\Str;
  */
 class Activity extends Model
 {
-    use HasRevisions;
+    use HasRevisions, HasFactory;
 
     /**
      * Fillable attributes.
@@ -166,5 +168,15 @@ class Activity extends Model
         }
 
         return app(User::class)->getById($this->user_id);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new ActivityFactory();
     }
 }

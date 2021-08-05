@@ -12,7 +12,7 @@ class AccessibleConnectionScopeTest extends TestCase
     /** @test */
     public function apply_applies_a_where_constraint_for_user_id()
     {
-        $connection = factory(Connection::class)->create();
+        $connection = Connection::factory()->create();
         $user = $this->newUser();
         $this->beUser($user);
 

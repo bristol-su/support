@@ -30,9 +30,9 @@ class ModuleInstanceServiceRepositoryTest extends TestCase
         $user = $this->newUser();
         $this->beUser($user);
 
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $connection = factory(Connection::class)->create();
-        $moduleInstanceService = factory(ModuleInstanceService::class)->create([
+        $moduleInstance = ModuleInstance::factory()->create();
+        $connection = Connection::factory()->create();
+        $moduleInstanceService = ModuleInstanceService::factory()->create([
             'module_instance_id' => $moduleInstance->id, 'service' => 'test-service-alias', 'connection_id' => $connection->id
         ]);
 
@@ -52,7 +52,7 @@ class ModuleInstanceServiceRepositoryTest extends TestCase
     /** @test */
     public function all_returns_all_module_instance_services()
     {
-        $moduleInstanceServices = factory(ModuleInstanceService::class, 10)->create();
+        $moduleInstanceServices = ModuleInstanceService::factory()->count(10)->create();
 
         $repository = new ModuleInstanceServiceRepository();
         $foundServices = $repository->all();

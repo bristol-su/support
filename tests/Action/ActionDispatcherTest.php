@@ -21,9 +21,9 @@ class ActionDispatcherTest extends TestCase
     /** @test */
     public function handle_builds_each_relevant_action()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $this->instance(ModuleInstance::class, $moduleInstance);
-        $actionInstances = factory(ActionInstance::class, 4)->create([
+        $actionInstances = ActionInstance::factory()->count(4)->create([
             'module_instance_id' => $moduleInstance->id,
             'event' => DispatcherDummyEvent::class
         ]);
@@ -44,9 +44,9 @@ class ActionDispatcherTest extends TestCase
     {
         Bus::swap($fake = new BusFakeWithDispatchNow(Bus::getFacadeRoot()));
 
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $this->instance(ModuleInstance::class, $moduleInstance);
-        $actionInstances = factory(ActionInstance::class, 4)->create([
+        $actionInstances = ActionInstance::factory()->count(4)->create([
             'module_instance_id' => $moduleInstance->id,
             'event' => DispatcherDummyEvent::class
         ]);
@@ -66,9 +66,9 @@ class ActionDispatcherTest extends TestCase
     public function it_dispatches_now_if_should_queue_is_false()
     {
         Bus::swap($fake = new BusFakeWithDispatchNow(Bus::getFacadeRoot()));
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $this->instance(ModuleInstance::class, $moduleInstance);
-        $actionInstances = factory(ActionInstance::class, 4)->create([
+        $actionInstances = ActionInstance::factory()->count(4)->create([
             'module_instance_id' => $moduleInstance->id,
             'event' => DispatcherDummyEvent::class,
             'should_queue' => false

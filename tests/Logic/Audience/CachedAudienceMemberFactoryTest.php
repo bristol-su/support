@@ -45,7 +45,7 @@ class CachedAudienceMemberFactoryTest extends TestCase
         $user1 = $this->newUser();
         $user2 = $this->newUser();
         $group = $this->newGroup();
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $am1 = new AudienceMember($user1);
         $am2 = new AudienceMember($user2);
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
@@ -72,7 +72,7 @@ class CachedAudienceMemberFactoryTest extends TestCase
     public function from_user_in_logic_is_cached()
     {
         $user = $this->newUser();
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $am = new AudienceMember($user);
         $audienceMemberFactory = $this->prophesize(AudienceMemberFactory::class);
         $audienceMemberFactory->fromUserInLogic(Argument::that(function ($arg) use ($user) {

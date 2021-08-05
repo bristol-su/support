@@ -14,7 +14,7 @@ class ModuleInstanceUserOverridePermissionTest extends TestCase
     public function can_returns_null_if_no_user_given()
     {
         $tester = new ModuleInstanceUserOverridePermission();
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
         
         $this->assertNull(
@@ -37,7 +37,7 @@ class ModuleInstanceUserOverridePermissionTest extends TestCase
     {
         $tester = new ModuleInstanceUserOverridePermission();
         $user = $this->newUser();
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
         
         $this->assertNull(
@@ -50,7 +50,7 @@ class ModuleInstanceUserOverridePermissionTest extends TestCase
     {
         $tester = new ModuleInstanceUserOverridePermission();
         $user = $this->newUser();
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
         ModelPermission::create([
@@ -71,7 +71,7 @@ class ModuleInstanceUserOverridePermissionTest extends TestCase
     {
         $tester = new ModuleInstanceUserOverridePermission();
         $user = $this->newUser();
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
         ModelPermission::create([
@@ -103,7 +103,7 @@ class ModuleInstanceUserOverridePermissionTest extends TestCase
     {
         $tester = new ModuleInstanceUserOverridePermission();
         $user = $this->newUser();
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
         ModelPermission::create([

@@ -22,7 +22,7 @@ class GroupNameIsTest extends TestCase
     /** @test */
     public function evaluate_returns_true_if_the_group_name_is_equal_to_the_settings()
     {
-        $dataGroup = factory(DataGroup::class)->create(['name' => 'group name 1']);
+        $dataGroup = DataGroup::factory()->create(['name' => 'group name 1']);
         $group = $this->newGroup(['data_provider_id' => $dataGroup->id()]);
         
         $filter = new GroupNameIs();
@@ -33,7 +33,7 @@ class GroupNameIsTest extends TestCase
     /** @test */
     public function evaluate_returns_false_if_the_group_name_is_different_to_the_settings()
     {
-        $dataGroup = factory(DataGroup::class)->create(['name' => 'group name 1']);
+        $dataGroup = DataGroup::factory()->create(['name' => 'group name 1']);
         $group = $this->newGroup(['data_provider_id' => $dataGroup->id()]);
 
         $filter = new GroupNameIs();
@@ -44,7 +44,7 @@ class GroupNameIsTest extends TestCase
     /** @test */
     public function evaluate_ignores_case()
     {
-        $dataGroup = factory(DataGroup::class)->create(['name' => 'group name 1']);
+        $dataGroup = DataGroup::factory()->create(['name' => 'group name 1']);
         $group = $this->newGroup(['data_provider_id' => $dataGroup->id()]);
 
         $filter = new GroupNameIs();

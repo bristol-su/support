@@ -15,7 +15,7 @@ class CheckActivityEnabledTest extends TestCase
     {
         $this->expectException(ActivityDisabled::class);
         
-        $activity = factory(Activity::class)->create(['enabled' => false]);
+        $activity = Activity::factory()->create(['enabled' => false]);
         
         $request = $this->prophesize(Request::class);
         $request->route('activity_slug')->shouldBeCalled()->willReturn($activity);
@@ -30,7 +30,7 @@ class CheckActivityEnabledTest extends TestCase
     /** @test */
     public function it_calls_the_callback_if_the_activity_is_enabled()
     {
-        $activity = factory(Activity::class)->create(['enabled' => true]);
+        $activity = Activity::factory()->create(['enabled' => true]);
 
         $request = $this->prophesize(Request::class);
         $request->route('activity_slug')->shouldBeCalled()->willReturn($activity);

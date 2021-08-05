@@ -8,7 +8,6 @@ use Illuminate\Http\Request;
 
 class IsAuthenticated
 {
-
     /**
      * @var Authentication
      */
@@ -20,19 +19,19 @@ class IsAuthenticated
     }
 
     /**
-     * Check the user is logged in
+     * Check the user is logged in.
      *
      * @param Request $request
      * @param \Closure $next
-     * @return mixed
      * @throws AuthenticationException If a user is not logged in
+     * @return mixed
      */
     public function handle(Request $request, \Closure $next)
     {
-        if($this->authentication->hasUser()) {
+        if ($this->authentication->hasUser()) {
             return $next($request);
         }
+
         throw new AuthenticationException();
     }
-
 }

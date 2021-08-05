@@ -10,9 +10,9 @@ use Illuminate\Http\Request;
 
 class IsAuthenticatedTest extends TestCase
 {
-
     /** @test */
-    public function it_calls_the_callback_if_a_user_is_logged_in(){
+    public function it_calls_the_callback_if_a_user_is_logged_in()
+    {
         $request = Request::create('/test');
 
         $authentication = $this->prophesize(Authentication::class);
@@ -21,15 +21,17 @@ class IsAuthenticatedTest extends TestCase
         $middleware = new IsAuthenticated($authentication->reveal());
 
         $this->assertTrue(
-            $middleware->handle($request, function($paramRequest) use ($request) {
+            $middleware->handle($request, function ($paramRequest) use ($request) {
                 $this->assertSame($paramRequest, $request);
+
                 return true;
             })
         );
     }
 
     /** @test */
-    public function it_throws_an_exception_if_a_user_is_not_logged_in(){
+    public function it_throws_an_exception_if_a_user_is_not_logged_in()
+    {
         $this->expectException(AuthenticationException::class);
 
         $request = Request::create('/test');
@@ -39,9 +41,8 @@ class IsAuthenticatedTest extends TestCase
 
         $middleware = new IsAuthenticated($authentication->reveal());
 
-        $middleware->handle($request, function($paramRequest) use ($request) {
+        $middleware->handle($request, function ($paramRequest) use ($request) {
             $this->assertTrue(false, 'The callback was called.');
         });
     }
-
 }

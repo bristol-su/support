@@ -4,31 +4,33 @@ namespace Database\Factories;
 
 use BristolSU\Support\Progress\Handlers\Database\Models\ModuleInstanceProgress;
 use BristolSU\Support\Progress\Handlers\Database\Models\Progress;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
- */
+class ModuleInstanceProgressFactory extends Factory
+{
 
-$factory->define(ModuleInstanceProgress::class, function (Faker $faker) {
-    return [
-        'module_instance_id' => function () {
-            return factory(\BristolSU\Support\ModuleInstance\ModuleInstance::class)->create()->id;
-        },
-        'progress_id' => function () {
-            return factory(Progress::class)->create()->id;
-        },
-        'mandatory' => $faker->boolean,
-        'complete' => $faker->boolean,
-        'percentage' => $faker->numberBetween(0, 100),
-        'active' => $faker->boolean,
-        'visible' => $faker->boolean
-    ];
-});
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ModuleInstanceProgress::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'module_instance_id' => fn() =>\BristolSU\Support\ModuleInstance\ModuleInstance::factory()->create()->id,
+            'progress_id' => fn() => Progress::factory()->create()->id,
+            'mandatory' => $this->faker->boolean,
+            'complete' => $this->faker->boolean,
+            'percentage' => $this->faker->numberBetween(0, 100),
+            'active' => $this->faker->boolean,
+            'visible' => $this->faker->boolean
+        ];
+    }
+}

@@ -18,7 +18,7 @@ class HasResourceTest extends TestCase
     /** @test */
     public function activity_instance_id_returns_the_activity_instance_id()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
 
         $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
         $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willReturn(($activityInstance));
@@ -30,7 +30,7 @@ class HasResourceTest extends TestCase
     /** @test */
     public function module_instance_id_returns_the_module_instance_id()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
 
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
@@ -40,11 +40,11 @@ class HasResourceTest extends TestCase
     /** @test */
     public function for_resource_scope_applies_correct_queries()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
         $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
         $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willReturn(($activityInstance));
         $this->app->instance(ActivityInstanceResolver::class, $activityInstanceResolver->reveal());
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
         $builder = $this->prophesize(Builder::class);
@@ -67,7 +67,7 @@ class HasResourceTest extends TestCase
     /** @test */
     public function for_module_instance_scope_applies_correct_queries()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
         $builder = $this->prophesize(Builder::class);
@@ -88,11 +88,11 @@ class HasResourceTest extends TestCase
     /** @test */
     public function activity_and_module_instance_id_are_set_on_save()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
         $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
         $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willReturn(($activityInstance));
         $this->app->instance(ActivityInstanceResolver::class, $activityInstanceResolver->reveal());
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
         $this->getConnection()->getSchemaBuilder()->create('testtable_hasresource', function (Blueprint $table) {

@@ -2,19 +2,16 @@
 
 namespace BristolSU\Support\Tests\Authentication\Middleware;
 
-use BristolSU\Auth\User\AuthenticationUser;
-use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Testing\Authentication\SessionAuthentication;
 use BristolSU\Support\Tests\TestCase;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 class ThrottleRequestsTest extends TestCase
 {
-
     /** @test */
-    public function it_throttles_based_on_ip_address_if_user_not_logged_in(){
-        Route::middleware(['portal-throttle:3,2'])->name('test')->get('test', fn() => response('Test', 200));
+    public function it_throttles_based_on_ip_address_if_user_not_logged_in()
+    {
+        Route::middleware(['portal-throttle:3,2'])->name('test')->get('test', fn () => response('Test', 200));
 
 
         for ($i = 0; $i < 3; $i++) {
@@ -30,11 +27,12 @@ class ThrottleRequestsTest extends TestCase
     }
 
     /** @test */
-    public function it_throttles_based_on_user_id(){
+    public function it_throttles_based_on_user_id()
+    {
         $user = $this->newUser();
         $this->beUser($user);
 
-        Route::middleware(['portal-throttle:3,2'])->name('test')->get('test', fn() => response('Test', 200));
+        Route::middleware(['portal-throttle:3,2'])->name('test')->get('test', fn () => response('Test', 200));
 
         for ($i = 0; $i < 3; $i++) {
             $response = $this->get('/test');
@@ -49,5 +47,4 @@ class ThrottleRequestsTest extends TestCase
         $response = $this->get('/test');
         $response->assertStatus(200);
     }
-
 }

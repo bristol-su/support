@@ -10,6 +10,8 @@ use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Revision\HasRevisions;
+use Database\Factories\FilterInstanceFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
@@ -18,8 +20,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
  */
 class FilterInstance extends Model implements FilterInstanceContract
 {
-    use HasRevisions;
-    
+    use HasRevisions, HasFactory;
+
     /**
      * Fillable attributes.
      *
@@ -46,7 +48,7 @@ class FilterInstance extends Model implements FilterInstanceContract
     protected $appends = [
         'for'
     ];
-    
+
     /**
      * Return the filter instance name.
      *
@@ -88,7 +90,7 @@ class FilterInstance extends Model implements FilterInstanceContract
 
         throw new \Exception('Filter must extend Filter contract');
     }
-    
+
     /**
      * Logic relationship.
      *
@@ -118,5 +120,15 @@ class FilterInstance extends Model implements FilterInstanceContract
     public function alias()
     {
         return $this->alias;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new FilterInstanceFactory();
     }
 }

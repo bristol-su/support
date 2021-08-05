@@ -24,13 +24,12 @@ class TestCase extends BaseTestCase
     /**
      * Initialise the test case.
      *
-     * Loads migrations and factories for the sdk
+     * Loads migrations for the sdk
      */
     protected function setUp(): void
     {
         parent::setUp();
         $this->loadMigrationsFrom(realpath(__DIR__ . '/../database/migrations'));
-        $this->withFactories(__DIR__ . '/../../database/factories');
     }
 
     /**

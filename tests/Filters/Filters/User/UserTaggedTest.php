@@ -16,22 +16,22 @@ class UserTaggedTest extends TestCase
     /** @test */
     public function options_returns_a_list_of_possible_tags()
     {
-        $userTagCategory1 = factory(UserTagCategory::class)->create(['name' => 'category1Name', 'reference' => 'cat1']);
-        $userTagCategory2 = factory(UserTagCategory::class)->create(['name' => 'category2Name', 'reference' => 'cat2']);
+        $userTagCategory1 = UserTagCategory::factory()->create(['name' => 'category1Name', 'reference' => 'cat1']);
+        $userTagCategory2 = UserTagCategory::factory()->create(['name' => 'category2Name', 'reference' => 'cat2']);
 
-        $userTag1 = factory(UserTag::class)->create([
+        $userTag1 = UserTag::factory()->create([
             'tag_category_id' => $userTagCategory1->id(),
             'name' => 'Name1',
             'reference' => 'ref1'
         ]);
 
-        $userTag2 = factory(UserTag::class)->create([
+        $userTag2 = UserTag::factory()->create([
             'tag_category_id' => $userTagCategory2->id(),
             'name' => 'Name2',
             'reference' => 'ref2'
         ]);
 
-        $userTag3 = factory(UserTag::class)->create([
+        $userTag3 = UserTag::factory()->create([
             'tag_category_id' => $userTagCategory1->id(),
             'name' => 'Name3',
             'reference' => 'ref3'

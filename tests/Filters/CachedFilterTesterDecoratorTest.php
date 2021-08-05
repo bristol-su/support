@@ -14,7 +14,7 @@ class CachedFilterTesterDecoratorTest extends TestCase
     /** @test */
     public function it_caches_and_returns_the_result_of_evaluate()
     {
-        $filterInstance = factory(FilterInstance::class)->create();
+        $filterInstance = FilterInstance::factory()->create();
         $model = $this->newUser();
 
         $realTester = $this->prophesize(FilterTester::class);
@@ -34,8 +34,8 @@ class CachedFilterTesterDecoratorTest extends TestCase
     /** @test */
     public function the_cache_key_changes_if_filter_instance_changes()
     {
-        $filterInstance1 = factory(FilterInstance::class)->create();
-        $filterInstance2 = factory(FilterInstance::class)->create();
+        $filterInstance1 = FilterInstance::factory()->create();
+        $filterInstance2 = FilterInstance::factory()->create();
         $model = $this->newUser();
 
         $realTester = $this->prophesize(FilterTester::class);
@@ -60,7 +60,7 @@ class CachedFilterTesterDecoratorTest extends TestCase
     /** @test */
     public function the_cache_key_changes_if_model_id_changes()
     {
-        $filterInstance = factory(FilterInstance::class)->create();
+        $filterInstance = FilterInstance::factory()->create();
         $model1 = $this->newUser();
         $model2 = $this->newUser();
 
@@ -86,7 +86,7 @@ class CachedFilterTesterDecoratorTest extends TestCase
     /** @test */
     public function the_cache_key_changes_if_model_type_changes()
     {
-        $filterInstance = factory(FilterInstance::class)->create();
+        $filterInstance = FilterInstance::factory()->create();
         $model1 = $this->newUser();
         $model2 = $this->newGroup();
 

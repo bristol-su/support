@@ -4,47 +4,61 @@ namespace Database\Factories;
 
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Logic\Logic;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
- */
+class ActivityFactory extends Factory
+{
 
-$factory->define(Activity::class, function (Faker $faker) {
-    return [
-        'name' => $faker->word,
-        'description' => $faker->text,
-        'activity_for' => 'user',
-        'for_logic' => function () {
-            return factory(Logic::class)->create()->id;
-        },
-        'admin_logic' => function () {
-            return factory(Logic::class)->create()->id;
-        },
-        'type' => 'open',
-        'start_date' => $faker->dateTimeInInterval('-1 year', '-5 days'),
-        'end_date' => $faker->dateTimeInInterval('+5 days', '+1 year'),
-        'enabled' => true,
-        'user_id' => function () {
-            return factory(\BristolSU\ControlDB\Models\User::class)->create()->id();
-        },
-        'image_url' => $faker->imageUrl()
-    ];
-});
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Activity::class;
 
-$factory->state(Activity::class, 'user', ['activity_for' => 'user']);
-$factory->state(Activity::class, 'group', ['activity_for' => 'group']);
-$factory->state(Activity::class, 'always_active', ['start_date' => null, 'end_date' => null]);
-$factory->state(Activity::class, 'inactive', function (Faker $faker) {
-    return [
-        'start_date' => $faker->dateTimeInInterval('-30 days', '-3 days'),
-        'end_date' => $faker->dateTimeInInterval('-3 days', '-1 day')
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'name' => $this->faker->word,
+            'description' => $this->faker->text,
+            'activity_for' => 'user',
+            'for_logic' => Logic::factory()->create()->id,
+            'admin_logic' => Logic::factory()->create()->id,
+            'type' => 'open',
+            'start_date' => $this->faker->dateTimeInInterval('-1 year', '-5 days'),
+            'end_date' => $this->faker->dateTimeInInterval('+5 days', '+1 year'),
+            'enabled' => true,
+            'user_id' => \BristolSU\ControlDB\Models\User::factory()->create()->id(),
+            'image_url' => $this->faker->imageUrl()
+        ];
+    }
+
+    public function user()
+    {
+        return $this->state(fn(array $attributes) => ['activity_for' => 'user']);
+    }
+
+    public function group()
+    {
+        return $this->state(fn(array $attributes) => ['activity_for' => 'group']);
+    }
+
+    public function alwaysActive()
+    {
+        return $this->state(fn(array $attributes) => ['start_date' => null, 'end_date' => null]);
+    }
+
+    public function inactive()
+    {
+        return $this->state(fn(array $attributes) => [
+            'start_date' => $this->faker->dateTimeInInterval('-30 days', '-3 days'),
+            'end_date' => $this->faker->dateTimeInInterval('-3 days', '-1 day')
+        ]);
+    }
+
+}

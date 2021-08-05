@@ -57,7 +57,7 @@ class AudienceMemberTest extends TestCase
     /** @test */
     public function filter_for_logic_evaluates_the_user()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $user = $this->newUser();
 
         $audienceMember = new AudienceMember($user);
@@ -77,7 +77,7 @@ class AudienceMemberTest extends TestCase
     /** @test */
     public function filter_for_logic_evaluates_each_group()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $user = $this->newUser();
         $group1 = $this->newGroup();
         $group2 = $this->newGroup();
@@ -104,7 +104,7 @@ class AudienceMemberTest extends TestCase
     /** @test */
     public function filter_for_logic_evaluates_each_role()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $user = $this->newUser();
         $role1 = $this->newRole();
         $role2 = $this->newRole();
@@ -132,7 +132,7 @@ class AudienceMemberTest extends TestCase
     /** @test */
     public function has_audience_returns_true_if_a_user_can_act_as_themselves()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $user = $this->newUser();
 
         $audienceMember = new AudienceMember($user);
@@ -153,7 +153,7 @@ class AudienceMemberTest extends TestCase
     /** @test */
     public function has_audience_returns_true_if_a_user_has_groups()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $user = $this->newUser();
         $group1 = $this->newGroup();
         $group2 = $this->newGroup();
@@ -181,7 +181,7 @@ class AudienceMemberTest extends TestCase
     /** @test */
     public function has_audience_returns_true_if_a_user_has_roles()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $user = $this->newUser();
         $role1 = $this->newRole();
         $role2 = $this->newRole();
@@ -210,7 +210,7 @@ class AudienceMemberTest extends TestCase
     /** @test */
     public function has_audience_returns_false_if_a_user_cannot_be_themselves_or_any_group_or_role()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $user = $this->newUser();
         $group1 = $this->newGroup();
         $group2 = $this->newGroup();
@@ -242,7 +242,7 @@ class AudienceMemberTest extends TestCase
     /** @test */
     public function to_array_to_json_and_to_string_returns_attributes()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $user = $this->newUser();
         $group1 = $this->newGroup();
         $group2 = $this->newGroup();

@@ -20,7 +20,7 @@ class GeneratorTest extends TestCase
         $this->beGroup($group);
         $this->beRole($role);
 
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
         $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
         $activityInstanceResolver->getActivityInstance()->willReturn($activityInstance);
 
@@ -66,7 +66,7 @@ class GeneratorTest extends TestCase
     /** @test */
     public function get_auth_credentials_passes_just_the_activity_instance_if_given_by_the_resolver()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
         $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
         $activityInstanceResolver->getActivityInstance()->willReturn($activityInstance);
 

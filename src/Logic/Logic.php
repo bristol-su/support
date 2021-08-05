@@ -6,6 +6,8 @@ use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Revision\HasRevisions;
+use Database\Factories\LogicFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -14,7 +16,7 @@ use Illuminate\Support\Collection;
  */
 class Logic extends Model
 {
-    use HasRevisions;
+    use HasRevisions, HasFactory;
 
     /**
      * Fillable properties.
@@ -150,5 +152,15 @@ class Logic extends Model
         }
 
         return app(User::class)->getById($this->user_id);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new LogicFactory();
     }
 }

@@ -15,7 +15,7 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     {
         $manipulator = $this->prophesize(Manipulator::class);
 
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'global', 'user_id' => null, 'key' => 'mykey1', 'value' => 'testvalue1'
         ]);
 
@@ -42,7 +42,7 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->decode('mykey1', 'abc123')->shouldBeCalled()->willReturn('realvalue1');
 
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'global', 'user_id' => null, 'key' => 'mykey1', 'value' => 'abc123'
         ]);
 
@@ -82,7 +82,7 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
         $manipulator = $this->prophesize(Manipulator::class);
 
         $user = $this->newUser();
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => $user->id(), 'key' => 'mykey1', 'value' => 'testvalue1'
         ]);
 
@@ -98,7 +98,7 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
         $manipulator = $this->prophesize(Manipulator::class);
 
         $user = $this->newUser();
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => null, 'key' => 'mykey1', 'value' => 'testvalue1'
         ]);
 
@@ -114,10 +114,10 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
         $manipulator = $this->prophesize(Manipulator::class);
 
         $user = $this->newUser();
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => null, 'key' => 'mykey1', 'value' => 'testvalue1'
         ]);
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => $user->id(), 'key' => 'mykey1', 'value' => 'testvalue12'
         ]);
 
@@ -134,7 +134,7 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
         $manipulator->decode('mykey1', 'abc123')->shouldBeCalled()->willReturn('testvalue1');
 
         $user = $this->newUser();
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => $user->id(), 'key' => 'mykey1', 'value' => 'abc123'
         ]);
 
@@ -152,7 +152,7 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
         $manipulator->decode('mykey1', 'abc123')->shouldBeCalled()->willReturn('testvalue2');
 
         $user = $this->newUser();
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => null, 'key' => 'mykey1', 'value' => 'abc123'
         ]);
 
@@ -170,10 +170,10 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
         $manipulator->decode('mykey1', 'abc1')->shouldBeCalled()->willReturn('testvalue1');
 
         $user = $this->newUser();
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => $user->id(), 'key' => 'mykey1', 'value' => 'abc1'
         ]);
-        $defaultSetting = factory(SavedSettingModel::class)->create([
+        $defaultSetting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => null, 'key' => 'mykey1', 'value' => 'abc2'
         ]);
 
@@ -206,7 +206,7 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
         $manipulator->encode('mykey1', 'testvalue2')->shouldBeCalled()->willReturn('abc123');
 
         $user = $this->newUser();
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => $user->id(), 'key' => 'mykey1', 'value' => 'testvalue1'
         ]);
         $this->assertDatabaseHas('settings', [
@@ -252,7 +252,7 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->encode('mykey1', 'testvalue2')->shouldBeCalled()->willReturn('abc123');
 
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => null, 'key' => 'mykey1', 'value' => 'testvalue1'
         ]);
         $this->assertDatabaseHas('settings', [
@@ -301,10 +301,10 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
         $manipulator->encode('mykey1', 'testvalue3')->shouldBeCalled()->willReturn('abc123');
 
         $user = $this->newUser();
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => $user->id(), 'key' => 'mykey1', 'value' => 'testvalue1'
         ]);
-        $defaultSetting = factory(SavedSettingModel::class)->create([
+        $defaultSetting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => null, 'key' => 'mykey1', 'value' => 'testvalue2'
         ]);
 
@@ -333,10 +333,10 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
         $manipulator->encode('mykey1', 'testvalue3')->shouldBeCalled()->willReturn('abc123');
 
         $user = $this->newUser();
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => $user->id(), 'key' => 'mykey1', 'value' => 'testvalue1'
         ]);
-        $defaultSetting = factory(SavedSettingModel::class)->create([
+        $defaultSetting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => null, 'key' => 'mykey1', 'value' => 'testvalue2'
         ]);
 
@@ -364,7 +364,7 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->encode('mykey1', 'testvalue2')->shouldBeCalled()->willReturn('abc123');
 
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'global', 'user_id' => null, 'key' => 'mykey1', 'value' => 'testvalue1'
         ]);
         $this->assertDatabaseHas('settings', [
@@ -412,7 +412,7 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
     {
         $manipulator = $this->prophesize(Manipulator::class);
 
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => null, 'key' => 'mykey1', 'value' => 'testvalue2'
         ]);
 
@@ -439,7 +439,7 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
         $manipulator = $this->prophesize(Manipulator::class);
         $manipulator->decode('mykey1', 'testvalue2')->shouldBeCalled()->willReturn('abc123');
 
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => null, 'key' => 'mykey1', 'value' => 'testvalue2'
         ]);
 
@@ -470,16 +470,16 @@ class DatabaseSavedSettingRepositoryTest extends TestCase
         $manipulator->decode('mykey3', 'testvalue3')->shouldBeCalled()->willReturn('testvalue3-decoded');
         $manipulator->decode('mykey4', 'testvalue4')->shouldBeCalled()->willReturn('testvalue4-decoded');
 
-        factory(SavedSettingModel::class)->create([
+        SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => null, 'key' => 'mykey1', 'value' => 'testvalue1'
         ]);
-        factory(SavedSettingModel::class)->create([
+        SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => null, 'key' => 'mykey2', 'value' => 'testvalue2'
         ]);
-        factory(SavedSettingModel::class)->create([
+        SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => null, 'key' => 'mykey3', 'value' => 'testvalue3'
         ]);
-        factory(SavedSettingModel::class)->create([
+        SavedSettingModel::factory()->create([
             'visibility' => 'user', 'user_id' => null, 'key' => 'mykey4', 'value' => 'testvalue4'
         ]);
 

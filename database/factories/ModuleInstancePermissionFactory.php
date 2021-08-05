@@ -2,10 +2,10 @@
 
 namespace Database\Factories;
 
-use BristolSU\Support\Filters\FilterInstance;
+use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class FilterInstanceFactory extends Factory
+class ModuleInstancePermissionFactory extends Factory
 {
 
     /**
@@ -13,7 +13,7 @@ class FilterInstanceFactory extends Factory
      *
      * @var string
      */
-    protected $model = FilterInstance::class;
+    protected $model = ModuleInstancePermission::class;
 
     /**
      * Define the model's default state.
@@ -23,11 +23,9 @@ class FilterInstanceFactory extends Factory
     public function definition(): array
     {
         return [
-            'alias' => $this->faker->word,
-            'name' => $this->faker->word,
-            'settings' => $this->faker->randomElements(),
+            'ability' => '',
             'logic_id' => fn() => \BristolSU\Support\Logic\Logic::factory()->create()->id,
-            'logic_type' => 'all_true'
+            'module_instance_id' => fn() => \BristolSU\Support\ModuleInstance\ModuleInstance::factory()->create()->id
         ];
     }
 }

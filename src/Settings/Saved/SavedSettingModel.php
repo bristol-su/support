@@ -2,7 +2,9 @@
 
 namespace BristolSU\Support\Settings\Saved;
 
+use Database\Factories\SavedSettingModelFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -12,6 +14,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class SavedSettingModel extends Model
 {
+    use HasFactory;
+
     /**
      * The table name to use.
      *
@@ -86,5 +90,15 @@ class SavedSettingModel extends Model
     public function getSettingKey()
     {
         return $this->key;
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new SavedSettingModelFactory();
     }
 }

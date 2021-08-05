@@ -2,14 +2,12 @@
 
 namespace BristolSU\Support\Authentication\Middleware;
 
-use BristolSU\Auth\Settings\Access\DefaultHome;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Authentication\Exception\IsAuthenticatedException;
 use Illuminate\Http\Request;
 
 class IsGuest
 {
-
     /**
      * @var Authentication
      */
@@ -21,19 +19,19 @@ class IsGuest
     }
 
     /**
-     * Check a user is not logged in
+     * Check a user is not logged in.
      *
      * @param Request $request
      * @param \Closure $next
-     * @return mixed
      * @throws IsAuthenticatedException If the user is logged in
+     * @return mixed
      */
     public function handle(Request $request, \Closure $next)
     {
-        if($this->authentication->hasUser()) {
+        if ($this->authentication->hasUser()) {
             throw new IsAuthenticatedException();
         }
+
         return $next($request);
     }
-
 }

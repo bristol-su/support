@@ -41,7 +41,7 @@ class InjectJavascriptVariablesTest extends TestCase
             $authentication = $authentication->reveal();
         }
         if ($activityInstanceResolver === null) {
-            $activityInstance = factory(ActivityInstance::class)->create();
+            $activityInstance = ActivityInstance::factory()->create();
             $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
             $activityInstanceResolver->getActivityInstance()->willReturn($activityInstance);
             $activityInstanceResolver = $activityInstanceResolver->reveal();
@@ -142,7 +142,7 @@ class InjectJavascriptVariablesTest extends TestCase
     /** @test */
     public function it_injects_the_activity_instance_from_the_resolver()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
         $activityInstanceResolver = $this->prophesize(ActivityInstanceResolver::class);
         $activityInstanceResolver->getActivityInstance()->shouldBeCalled()->willReturn($activityInstance);
 
@@ -197,7 +197,7 @@ class InjectJavascriptVariablesTest extends TestCase
     /** @test */
     public function it_injects_the_activity_from_the_resolver()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
         $route = $this->prophesize(Route::class);
         $route->hasParameter('module_instance_slug')->shouldBeCalled()->willReturn(false);
         $route->hasParameter('activity_slug')->shouldBeCalled()->willReturn(true);

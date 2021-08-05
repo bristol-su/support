@@ -29,9 +29,9 @@ class FilterInstanceRepositoryTest extends TestCase
     /** @test */
     public function all_returns_all_filter_instances()
     {
-        $filterInstance1 = factory(FilterInstance::class)->create();
-        $filterInstance2 = factory(FilterInstance::class)->create();
-        $filterInstance3 = factory(FilterInstance::class)->create();
+        $filterInstance1 = FilterInstance::factory()->create();
+        $filterInstance2 = FilterInstance::factory()->create();
+        $filterInstance3 = FilterInstance::factory()->create();
         $repository = new FilterInstanceRepository();
         $filterInstances = $repository->all();
 
@@ -43,37 +43,37 @@ class FilterInstanceRepositoryTest extends TestCase
     /** @test */
     public function get_by_id_returns_a_filter_instance_by_id()
     {
-        $filterInstance = factory(FilterInstance::class)->create();
-        factory(FilterInstance::class, 5)->create();
+        $filterInstance = FilterInstance::factory()->create();
+        FilterInstance::factory()->count(5)->create();
 
         $repository = new FilterInstanceRepository();
         $resolvedFilterInstance = $repository->getById($filterInstance->id);
-        
+
         $this->assertInstanceOf(FilterInstance::class, $resolvedFilterInstance);
         $this->assertModelEquals($filterInstance, $resolvedFilterInstance);
     }
-    
+
     /** @test */
     public function delete_deletes_the_filter_instance()
     {
-        $filterInstance = factory(FilterInstance::class)->create();
-        factory(FilterInstance::class, 5)->create();
+        $filterInstance = FilterInstance::factory()->create();
+        FilterInstance::factory()->count(5)->create();
 
         $this->assertDatabaseHas('filter_instances', ['id' => $filterInstance->id]);
-        
+
         $repository = new FilterInstanceRepository();
         $repository->delete($filterInstance->id);
-        
+
         $this->assertDatabaseMissing('filter_instances', ['id' => $filterInstance->id]);
     }
-    
+
     /** @test */
     public function update_updates_a_filter_instance()
     {
-        $filterInstance = factory(FilterInstance::class)->create([
+        $filterInstance = FilterInstance::factory()->create([
             'alias' => 'OldAlias', 'name' => 'OldName', 'settings' => ['val' => 'OldVal']
         ]);
-        factory(FilterInstance::class, 5)->create();
+        FilterInstance::factory()->count(5)->create();
 
         $this->assertDatabaseHas('filter_instances', [
             'id' => $filterInstance->id, 'alias' => 'OldAlias', 'name' => 'OldName', 'settings' => json_encode(['val' => 'OldVal'])

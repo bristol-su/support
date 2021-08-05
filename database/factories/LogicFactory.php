@@ -3,25 +3,29 @@
 namespace Database\Factories;
 
 use BristolSU\Support\Logic\Logic;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
- */
+class LogicFactory extends Factory
+{
 
-$factory->define(Logic::class, function (Faker $faker) {
-    return [
-        'name' => $faker->word,
-        'description' => $faker->text,
-        'user_id' => function () {
-            return factory(\BristolSU\ControlDB\Models\User::class)->create()->id();
-        }
-    ];
-});
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Logic::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'name' => $this->faker->word,
+            'description' => $this->faker->text,
+            'user_id' => fn () => \BristolSU\ControlDB\Models\User::factory()->create()->id()
+        ];
+    }
+}

@@ -14,7 +14,7 @@ class SessionActivityInstanceResolverTest extends TestCase
     /** @test */
     public function set_activity_instance_sets_the_activity_instance()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
 
         $session = $this->prophesize(Session::class);
         $session->put('activity-instance', $activityInstance->id)->shouldBeCalled();
@@ -29,7 +29,7 @@ class SessionActivityInstanceResolverTest extends TestCase
     /** @test */
     public function get_activity_instance_returns_the_activity_instance_if_set()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
 
         $session = $this->prophesize(Session::class);
         $session->has('activity-instance')->willReturn(true);

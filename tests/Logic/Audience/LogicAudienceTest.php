@@ -15,7 +15,7 @@ class LogicAudienceTest extends TestCase
     /** @test */
     public function it_creates_an_audience_member_for_each_user()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
 
         $user1 = $this->newUser();
         $user2 = $this->newUser();
@@ -46,7 +46,7 @@ class LogicAudienceTest extends TestCase
     /** @test */
     public function it_calls_filter_for_logic_on_each_audience_member()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
 
         $user1 = $this->newUser();
         $user2 = $this->newUser();
@@ -81,7 +81,7 @@ class LogicAudienceTest extends TestCase
     /** @test */
     public function it_calls_has_audience_on_each_audience_member_and_returns_them_if_true()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
 
         $user1 = $this->newUser();
         $user2 = $this->newUser();
@@ -116,7 +116,7 @@ class LogicAudienceTest extends TestCase
     /** @test */
     public function it_returns_an_empty_array_if_no_audience_found()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
 
         $user1 = $this->newUser();
         $user2 = $this->newUser();
@@ -151,7 +151,7 @@ class LogicAudienceTest extends TestCase
     /** @test */
     public function user_audience_gets_all_unique_users_from_the_audience()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $user1 = $this->newUser();
         $user2 = $this->newUser();
 
@@ -190,7 +190,7 @@ class LogicAudienceTest extends TestCase
     /** @test */
     public function group_audience_gets_all_groups_from_the_audience()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $group1 = $this->newGroup();
         $group2 = $this->newGroup();
         $group3 = $this->newGroup();
@@ -254,7 +254,7 @@ class LogicAudienceTest extends TestCase
     /** @test */
     public function role_audience_gets_all_roles_from_the_audience()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $role1 = $this->newRole();
         $role2 = $this->newRole();
         $role3 = $this->newRole();

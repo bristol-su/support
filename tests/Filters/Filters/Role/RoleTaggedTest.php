@@ -16,22 +16,22 @@ class RoleTaggedTest extends TestCase
     /** @test */
     public function options_returns_a_list_of_possible_tags()
     {
-        $roleTagCategory1 = factory(RoleTagCategory::class)->create(['name' => 'category1Name', 'reference' => 'cat1']);
-        $roleTagCategory2 = factory(RoleTagCategory::class)->create(['name' => 'category2Name', 'reference' => 'cat2']);
+        $roleTagCategory1 = RoleTagCategory::factory()->create(['name' => 'category1Name', 'reference' => 'cat1']);
+        $roleTagCategory2 = RoleTagCategory::factory()->create(['name' => 'category2Name', 'reference' => 'cat2']);
 
-        $roleTag1 = factory(RoleTag::class)->create([
+        $roleTag1 = RoleTag::factory()->create([
             'tag_category_id' => $roleTagCategory1->id(),
             'name' => 'Name1',
             'reference' => 'ref1'
         ]);
 
-        $roleTag2 = factory(RoleTag::class)->create([
+        $roleTag2 = RoleTag::factory()->create([
             'tag_category_id' => $roleTagCategory2->id(),
             'name' => 'Name2',
             'reference' => 'ref2'
         ]);
 
-        $roleTag3 = factory(RoleTag::class)->create([
+        $roleTag3 = RoleTag::factory()->create([
             'tag_category_id' => $roleTagCategory1->id(),
             'name' => 'Name3',
             'reference' => 'ref3'
@@ -43,7 +43,7 @@ class RoleTaggedTest extends TestCase
         ]));
 
         $roleTagFilter = new RoleTagged($roleTagRepository->reveal());
-        
+
         $this->assertEquals(1, count($roleTagFilter->options()->fields()));
         $this->assertEquals('tag', $roleTagFilter->options()->fields()[0]->model());
         $this->assertEquals('select', $roleTagFilter->options()->fields()[0]->type());
@@ -53,7 +53,7 @@ class RoleTaggedTest extends TestCase
             ['id' => 'cat1.ref3', 'name' => 'Name3 (cat1.ref3)', 'role' => 'category1Name'],
         ], $roleTagFilter->options()->fields()[0]->values());
     }
-    
+
     /** @test */
     public function it_evaluates_to_true_if_role_tagged()
     {

@@ -13,9 +13,9 @@ class helpersTest extends TestCase
     /** @test */
     public function settings_returns_the_given_setting_for_the_module_instance()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        factory(ModuleInstanceSetting::class)->create(['key' => 'setting1', 'value' => 'value1', 'module_instance_id' => $moduleInstance->id]);
-        factory(ModuleInstanceSetting::class)->create(['key' => 'setting2', 'value' => 'value2', 'module_instance_id' => $moduleInstance->id]);
+        $moduleInstance = ModuleInstance::factory()->create();
+        ModuleInstanceSetting::factory()->create(['key' => 'setting1', 'value' => 'value1', 'module_instance_id' => $moduleInstance->id]);
+        ModuleInstanceSetting::factory()->create(['key' => 'setting2', 'value' => 'value2', 'module_instance_id' => $moduleInstance->id]);
 
         $this->instance(ModuleInstance::class, $moduleInstance);
         $this->assertEquals('value1', settings('setting1'));
@@ -25,9 +25,9 @@ class helpersTest extends TestCase
     /** @test */
     public function settings_returns_the_default_setting_if_setting_not_found()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        factory(ModuleInstanceSetting::class)->create(['key' => 'setting1', 'value' => 'value1', 'module_instance_id' => $moduleInstance->id]);
-        factory(ModuleInstanceSetting::class)->create(['key' => 'setting2', 'value' => 'value2', 'module_instance_id' => $moduleInstance->id]);
+        $moduleInstance = ModuleInstance::factory()->create();
+        ModuleInstanceSetting::factory()->create(['key' => 'setting1', 'value' => 'value1', 'module_instance_id' => $moduleInstance->id]);
+        ModuleInstanceSetting::factory()->create(['key' => 'setting2', 'value' => 'value2', 'module_instance_id' => $moduleInstance->id]);
 
         $this->instance(ModuleInstance::class, $moduleInstance);
         $this->assertEquals('default', settings('setting3', 'default'));
@@ -36,9 +36,9 @@ class helpersTest extends TestCase
     /** @test */
     public function settings_returns_all_settings_if_no_key_given()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        factory(ModuleInstanceSetting::class)->create(['key' => 'setting1', 'value' => 'value1', 'module_instance_id' => $moduleInstance->id]);
-        factory(ModuleInstanceSetting::class)->create(['key' => 'setting2', 'value' => 'value2', 'module_instance_id' => $moduleInstance->id]);
+        $moduleInstance = ModuleInstance::factory()->create();
+        ModuleInstanceSetting::factory()->create(['key' => 'setting1', 'value' => 'value1', 'module_instance_id' => $moduleInstance->id]);
+        ModuleInstanceSetting::factory()->create(['key' => 'setting2', 'value' => 'value2', 'module_instance_id' => $moduleInstance->id]);
 
         $this->instance(ModuleInstance::class, $moduleInstance);
         $this->assertEquals([
@@ -50,7 +50,7 @@ class helpersTest extends TestCase
     /** @test */
     public function alias_returns_the_alias_of_a_module()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create(['alias' => 'alias1']);
+        $moduleInstance = ModuleInstance::factory()->create(['alias' => 'alias1']);
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
         $this->assertEquals('alias1', alias());

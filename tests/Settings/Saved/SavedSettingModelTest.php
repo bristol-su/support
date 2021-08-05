@@ -10,7 +10,7 @@ class SavedSettingModelTest extends TestCase
     /** @test */
     public function it_can_be_created()
     {
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'key' => 'key1',
             'value' => 'val1',
             'visibility' => 'global'
@@ -27,8 +27,8 @@ class SavedSettingModelTest extends TestCase
     public function scope_key_returns_a_model_with_the_given_key()
     {
         $uniqueKey = 'some.unique.key.12345abjskdhfsdafdfs-aba';
-        factory(SavedSettingModel::class, 10)->create();
-        $setting = factory(SavedSettingModel::class)->create([
+        SavedSettingModel::factory()->count(10)->create();
+        $setting = SavedSettingModel::factory()->create([
             'key' => $uniqueKey,
             'value' => 'some-value'
         ]);
@@ -43,15 +43,15 @@ class SavedSettingModelTest extends TestCase
     {
         $user = $this->newUser();
 
-        $globalSettings = factory(SavedSettingModel::class, 5)->create([
+        $globalSettings = SavedSettingModel::factory()->count(5)->create([
             'user_id' => null, 'visibility' => 'global'
         ]);
 
-        $userSettings = factory(SavedSettingModel::class, 6)->create([
+        $userSettings = SavedSettingModel::factory()->count(6)->create([
             'user_id' => $user->id(), 'visibility' => 'user'
         ]);
 
-        $userDefaultSettings = factory(SavedSettingModel::class, 7)->create([
+        $userDefaultSettings = SavedSettingModel::factory()->count(7)->create([
             'user_id' => null, 'visibility' => 'user'
         ]);
 
@@ -67,15 +67,15 @@ class SavedSettingModelTest extends TestCase
     {
         $user = $this->newUser();
 
-        $globalSettings = factory(SavedSettingModel::class, 5)->create([
+        $globalSettings = SavedSettingModel::factory()->count(5)->create([
             'user_id' => null, 'visibility' => 'global'
         ]);
 
-        $userSettings = factory(SavedSettingModel::class, 6)->create([
+        $userSettings = SavedSettingModel::factory()->count(6)->create([
             'user_id' => $user->id(), 'visibility' => 'user'
         ]);
 
-        $userDefaultSettings = factory(SavedSettingModel::class, 7)->create([
+        $userDefaultSettings = SavedSettingModel::factory()->count(7)->create([
             'user_id' => null, 'visibility' => 'user'
         ]);
 
@@ -91,15 +91,15 @@ class SavedSettingModelTest extends TestCase
     {
         $user = $this->newUser();
 
-        $globalSettings = factory(SavedSettingModel::class, 5)->create([
+        $globalSettings = SavedSettingModel::factory()->count(5)->create([
             'user_id' => null, 'visibility' => 'global'
         ]);
 
-        $userSettings = factory(SavedSettingModel::class, 6)->create([
+        $userSettings = SavedSettingModel::factory()->count(6)->create([
             'user_id' => $user->id(), 'visibility' => 'user'
         ]);
 
-        $userDefaultSettings = factory(SavedSettingModel::class, 7)->create([
+        $userDefaultSettings = SavedSettingModel::factory()->count(7)->create([
             'user_id' => null, 'visibility' => 'user'
         ]);
 
@@ -113,7 +113,7 @@ class SavedSettingModelTest extends TestCase
     /** @test */
     public function get_setting_value_returns_the_setting_value()
     {
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'key' => 'some-key',
             'value' => 'some-value'
         ]);
@@ -124,7 +124,7 @@ class SavedSettingModelTest extends TestCase
     /** @test */
     public function get_setting_key_returns_the_setting_key()
     {
-        $setting = factory(SavedSettingModel::class)->create([
+        $setting = SavedSettingModel::factory()->create([
             'key' => 'some-key',
             'value' => 'some-value'
         ]);

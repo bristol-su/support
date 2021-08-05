@@ -16,9 +16,9 @@ use BristolSU\Support\Permissions\Testers\ModuleInstanceRoleOverridePermission;
 use BristolSU\Support\Permissions\Testers\ModuleInstanceUserOverridePermission;
 use BristolSU\Support\Permissions\Testers\SystemUserPermission;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Support\Facades\Gate;
 
 /**
  * Permission Service Provider.
@@ -63,12 +63,13 @@ class PermissionServiceProvider extends ServiceProvider
         PermissionTesterFacade::register($this->app->make(ModuleInstancePermissions::class));
 
         /*
-        * We need to allow the user to be null, so the gate can be considered anonymous.
-        */
+         * We need to allow the user to be null, so the gate can be considered anonymous.
+         */
         Gate::before(function ($user = null, $ability = null) {
-            if($ability === null) {
+            if ($ability === null) {
                 return false;
             }
+
             return app()->make(PermissionTesterContract::class)->evaluate($ability);
         });
 

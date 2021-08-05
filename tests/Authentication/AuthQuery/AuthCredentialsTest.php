@@ -144,7 +144,7 @@ class AuthCredentialsTest extends TestCase
     }
 
     /** @test */
-    public function urlGenerator_getAuthQueryArray_gets_the_query_array()
+    public function url_generator_get_auth_query_array_gets_the_query_array()
     {
         $credentials = $this->prophesize(AuthCredentials::class);
         $credentials->toArray()->shouldBeCalled()->willReturn(['u' => 1]);
@@ -158,7 +158,7 @@ class AuthCredentialsTest extends TestCase
     }
 
     /** @test */
-    public function urlGenerator_getAuthQueryString_gets_the_query_string_as_a_query()
+    public function url_generator_get_auth_query_string_gets_the_query_string_as_a_query()
     {
         $credentials = $this->prophesize(AuthCredentials::class);
         $credentials->toQuery()->shouldBeCalled()->willReturn('u=1&g=4&a=2');

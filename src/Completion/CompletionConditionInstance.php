@@ -6,6 +6,8 @@ namespace BristolSU\Support\Completion;
 use BristolSU\Support\Completion\Contracts\CompletionConditionInstance as CompletionConditionInstanceContract;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
+use Database\Factories\CompletionConditionInstanceFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,8 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class CompletionConditionInstance extends Model implements CompletionConditionInstanceContract
 {
-    use HasRevisions;
-    
+    use HasRevisions, HasFactory;
+
     /**
      * Fillable properties.
      *
@@ -71,5 +73,15 @@ class CompletionConditionInstance extends Model implements CompletionConditionIn
     public function moduleInstance()
     {
         return $this->hasOne(ModuleInstance::class);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new CompletionConditionInstanceFactory();
     }
 }

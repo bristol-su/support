@@ -16,12 +16,12 @@ class CompletionConditionTesterTest extends TestCase
     /** @test */
     public function it_tests_the_completion_condition()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
-        $completionConditionInstance = factory(CompletionConditionInstance::class)->create([
+        $activityInstance = ActivityInstance::factory()->create();
+        $completionConditionInstance = CompletionConditionInstance::factory()->create([
             'settings' => ['setting1' => 'val1'],
             'alias' => 'ccalias1'
         ]);
-        $moduleInstance = factory(ModuleInstance::class)->create([
+        $moduleInstance = ModuleInstance::factory()->create([
             'activity_id' => $activityInstance->activity_id,
             'completion_condition_instance_id' => $completionConditionInstance->id
         ]);
@@ -43,13 +43,13 @@ class CompletionConditionTesterTest extends TestCase
     /** @test */
     public function it_returns_true_if_the_completion_condition_is_true()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
-        $completionConditionInstance = factory(CompletionConditionInstance::class)->create([
+        $activityInstance = ActivityInstance::factory()->create();
+        $completionConditionInstance = CompletionConditionInstance::factory()->create([
             'settings' => ['setting1' => 'val1'],
             'alias' => 'ccalias1'
         ]);
-        
-        $moduleInstance = factory(ModuleInstance::class)->create([
+
+        $moduleInstance = ModuleInstance::factory()->create([
             'activity_id' => $activityInstance->activity_id,
             'completion_condition_instance_id' => $completionConditionInstance->id
         ]);
@@ -73,12 +73,12 @@ class CompletionConditionTesterTest extends TestCase
     /** @test */
     public function it_returns_false_if_the_completion_condition_is_false()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
-        $completionConditionInstance = factory(CompletionConditionInstance::class)->create([
+        $activityInstance = ActivityInstance::factory()->create();
+        $completionConditionInstance = CompletionConditionInstance::factory()->create([
             'settings' => ['setting1' => 'val1'],
             'alias' => 'ccalias1'
         ]);
-        $moduleInstance = factory(ModuleInstance::class)->create([
+        $moduleInstance = ModuleInstance::factory()->create([
             'activity_id' => $activityInstance->activity_id,
             'completion_condition_instance_id' => $completionConditionInstance->id
         ]);
@@ -102,12 +102,12 @@ class CompletionConditionTesterTest extends TestCase
     /** @test */
     public function it_returns_the_percentage_given_by_the_condition()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
-        $completionConditionInstance = factory(CompletionConditionInstance::class)->create([
+        $activityInstance = ActivityInstance::factory()->create();
+        $completionConditionInstance = CompletionConditionInstance::factory()->create([
             'settings' => ['setting1' => 'val1'],
             'alias' => 'ccalias1'
         ]);
-        $moduleInstance = factory(ModuleInstance::class)->create([
+        $moduleInstance = ModuleInstance::factory()->create([
             'activity_id' => $activityInstance->activity_id,
             'completion_condition_instance_id' => $completionConditionInstance->id
         ]);

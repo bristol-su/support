@@ -2,7 +2,6 @@
 
 namespace BristolSU\Support\Authentication\Middleware;
 
-use BristolSU\Auth\Settings\Security\PasswordConfirmationTimeout;
 use BristolSU\Support\Authentication\Exception\PasswordUnconfirmed;
 use Carbon\Carbon;
 use Closure;
@@ -10,14 +9,13 @@ use Illuminate\Http\Request;
 
 class HasConfirmedPassword
 {
-
     /**
      * Handle an incoming request.
      *
      * @param Request $request
      * @param Closure $next
-     * @return mixed
      * @throws PasswordUnconfirmed
+     * @return mixed
      */
     public function handle($request, Closure $next)
     {
@@ -41,7 +39,4 @@ class HasConfirmedPassword
 
         return $confirmedAt > 1800;
     }
-
 }
-
-

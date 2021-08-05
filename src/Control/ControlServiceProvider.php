@@ -50,7 +50,7 @@ class ControlServiceProvider extends ServiceProvider
         } catch (QueryException $e) {
             // Additional attributes couldn't be loaded as settings table hasn't yet been migrated.
         } catch (MissingAppKeyException $e) {
-            // No app key set 
+            // No app key set
         }
     }
 }

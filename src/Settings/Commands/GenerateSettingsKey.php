@@ -6,8 +6,8 @@ use BristolSU\Support\Settings\Definition\SettingStore;
 use Illuminate\Console\Command;
 use Illuminate\Filesystem\Filesystem;
 
-class GenerateSettingsKey extends Command {
-
+class GenerateSettingsKey extends Command
+{
     /**
      * The name and signature of the console command.
      *
@@ -42,14 +42,14 @@ class GenerateSettingsKey extends Command {
     public function getSettings(SettingStore $settingStore): array
     {
         $settings = [];
-        foreach($settingStore->getCategories() as $category) {
-            foreach($category->groups() as $group) {
-                foreach($group->settings($category) as $setting) {
+        foreach ($settingStore->getCategories() as $category) {
+            foreach ($category->groups() as $group) {
+                foreach ($group->settings($category) as $setting) {
                     data_set($settings, $setting->key(), $setting->key());
                 }
             }
         }
+
         return $settings;
     }
-
 }

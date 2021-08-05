@@ -14,7 +14,7 @@ class CacheFilterTest extends TestCase
     public function it_evaluates_the_given_filter_with_the_given_model()
     {
         $model = $this->newUser();
-        $filterInstance = factory(FilterInstance::class)->create([
+        $filterInstance = FilterInstance::factory()->create([
             'alias' => 'alias1',
             'settings' => ['key1' => 'val1', 'key2' => 'val2']
         ]);

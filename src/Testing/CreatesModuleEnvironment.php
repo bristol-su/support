@@ -239,20 +239,20 @@ trait CreatesModuleEnvironment
     private function setUpModule()
     {
         $this->activity = ($this->activity
-            ?? factory(Activity::class)->create([
+            ?? Activity::factory()->create([
                 'slug' => Str::random(5),
                 'activity_for' => ($this->for??'user')
             ]));
 
         $this->moduleInstance = ($this->moduleInstance
-            ?? factory(ModuleInstance::class)->create([
+            ?? ModuleInstance::factory()->create([
                 'slug' => Str::random(5),
                 'activity_id' => $this->activity->id,
                 'alias' => $this->alias
             ]));
 
         $this->activityInstance = ($this->activityInstance
-            ?? factory(ActivityInstance::class)->create([
+            ?? ActivityInstance::factory()->create([
                 'activity_id' => $this->activity->id,
                 'resource_id' => (
                     $this->for === 'role' ? $this->controlRole->id() : ($this->for === 'group' ? $this->controlGroup->id() : $this->controlUser->id())
