@@ -7,10 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-### Updated
-- Upgraded to PHP 8.0 from PHP 7.4
-- Upgraded to Laravel 8.0 from Laravel 6.0
-
 ### Fixed
 - Redirect to module includes query string
 - Error thrown by the ControlServiceProvider when settings retrieved in the service provider due to no set app key
@@ -28,6 +24,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Standardised all middleware classes
 
 ### Changed
+- Upgraded to PHP 8.0 from PHP 7.4
+- Upgraded to Laravel 8.0 from Laravel 6.0
+- Use modern factories for everything rather than legacy factories
 - Changed the variable names to be injected for JavaScript use, and do so through a view composer for all Bristol SU bases.
 - Add `hasUser`, `hasGroup` and `hasRole` to the Authentication contract.
 - Neatened up middleware groups to only those documented

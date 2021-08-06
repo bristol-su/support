@@ -19,6 +19,7 @@ When upgrading, you should upgrade one version at a time.
 - $request->user() now returns a control user
 - Middleware classes have been standardised
 - Removed support for the blade partials cookies_warning and analytics
+- Ensure you only use modern factories, including with reference to control
 
 ## v4.0
 
