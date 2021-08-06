@@ -178,7 +178,6 @@ abstract class ModuleServiceProvider extends ServiceProvider
         $this->registerPermissions();
         $this->registerEvents();
         $this->registerViews();
-        $this->registerFactories();
         $this->loadMigrations();
         $this->registerCommands();
         $this->registerAssets();
@@ -305,18 +304,6 @@ abstract class ModuleServiceProvider extends ServiceProvider
         ], ['module', 'module-views', 'views']);
 
         $this->loadViewsFrom($this->baseDirectory() . '/resources/views', $this->alias());
-    }
-
-    /**
-     * Register factories in a non-production environment.
-     *
-     * @throws BindingResolutionException
-     */
-    public function registerFactories()
-    {
-        if (!app()->environment('production')) {
-            $this->app->make(Factory::class)->load($this->baseDirectory() . '/database/factories');
-        }
     }
 
     /**
