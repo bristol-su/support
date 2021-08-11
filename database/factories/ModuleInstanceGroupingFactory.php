@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ModuleInstance\ModuleInstanceGrouping;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -24,6 +25,8 @@ class ModuleInstanceGroupingFactory extends Factory
     {
         return [
             'heading' => join(' ', $this->faker->words()),
+            'order' => null,
+            'activity_id' => fn() => Activity::factory()->create()->id
         ];
     }
 }

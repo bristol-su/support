@@ -37,7 +37,7 @@ class ModuleInstanceFactory extends Factory
             'completion_condition_instance_id' => null,
             'enabled' => true,
             'user_id' => fn() => User::factory()->create()->id(),
-            'order' => 1,
+            'order' => null,
             'grouping_id' => fn() => ModuleInstanceGrouping::factory()->create()->id,
             'image_url' => $this->faker->imageUrl()
         ];

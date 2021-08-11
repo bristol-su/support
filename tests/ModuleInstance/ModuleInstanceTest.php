@@ -270,11 +270,27 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function the_order_is_accessible_through_the_module_instance_array()
     {
-        $moduleInstance = ModuleInstance::factory()->create(['order' => 5]);
+        $moduleInstance = ModuleInstance::factory()->create(['order' => 1]);
         $array = $moduleInstance->toArray();
 
         $this->assertArrayHasKey('order', $array);
-        $this->assertEquals(5, $array['order']);
+        $this->assertEquals(1, $array['order']);
+    }
+
+    /** @test */
+    public function moduleInstances_are_ordered_by_default()
+    {
+        $activity = Activity::factory()->create();
+        $moduleInstance1 = ModuleInstance::factory()->create(['activity_id' => $activity->id]);
+        $moduleInstance2 = ModuleInstance::factory()->create(['activity_id' => $activity->id]);
+        $moduleInstance3 = ModuleInstance::factory()->create(['activity_id' => $activity->id]);
+
+        ModuleInstance::setNewOrder([$moduleInstance2->id, $moduleInstance3->id, $moduleInstance1->id]);
+
+        $retrievedInstances = ModuleInstance::ordered()->get();
+        $this->assertModelEquals($moduleInstance2, $retrievedInstances->shift());
+        $this->assertModelEquals($moduleInstance3, $retrievedInstances->shift());
+        $this->assertModelEquals($moduleInstance1, $retrievedInstances->shift());
     }
 
     /** @test */
