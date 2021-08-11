@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ModuleInstanceProgressFactory extends Factory
 {
-
     /**
      * The name of the factory's corresponding model.
      *
@@ -24,8 +23,8 @@ class ModuleInstanceProgressFactory extends Factory
     public function definition(): array
     {
         return [
-            'module_instance_id' => fn() =>\BristolSU\Support\ModuleInstance\ModuleInstance::factory()->create()->id,
-            'progress_id' => fn() => Progress::factory()->create()->id,
+            'module_instance_id' => fn () =>\BristolSU\Support\ModuleInstance\ModuleInstance::factory()->create()->id,
+            'progress_id' => fn () => Progress::factory()->create()->id,
             'mandatory' => $this->faker->boolean,
             'complete' => $this->faker->boolean,
             'percentage' => $this->faker->numberBetween(0, 100),

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ModuleInstanceGroupingFactory extends Factory
 {
-
     /**
      * The name of the factory's corresponding model.
      *
@@ -26,7 +25,7 @@ class ModuleInstanceGroupingFactory extends Factory
         return [
             'heading' => join(' ', $this->faker->words()),
             'order' => null,
-            'activity_id' => fn() => Activity::factory()->create()->id
+            'activity_id' => fn () => Activity::factory()->create()->id
         ];
     }
 }

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ActionInstanceFactory extends Factory
 {
-
     /**
      * The name of the factory's corresponding model.
      *
@@ -28,8 +27,8 @@ class ActionInstanceFactory extends Factory
             'description' => $this->faker->text,
             'event' => $this->faker->word,
             'action' => $this->faker->word,
-            'module_instance_id' => fn() => ModuleInstance::factory()->create()->id,
-            'user_id' => fn() => \BristolSU\ControlDB\Models\User::factory()->create()->id()
+            'module_instance_id' => fn () => ModuleInstance::factory()->create()->id,
+            'user_id' => fn () => \BristolSU\ControlDB\Models\User::factory()->create()->id()
         ];
     }
 }

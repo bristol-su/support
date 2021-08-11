@@ -39,7 +39,8 @@ class ModuleInstanceGroupingTest extends TestCase
     }
 
     /** @test */
-    public function groups_can_be_ordered(){
+    public function groups_can_be_ordered()
+    {
         $activity = Activity::factory()->create();
         $grouping1 = ModuleInstanceGrouping::factory()->create(['activity_id' => $activity->id]);
         $grouping2 = ModuleInstanceGrouping::factory()->create(['activity_id' => $activity->id]);

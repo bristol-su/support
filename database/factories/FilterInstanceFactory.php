@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class FilterInstanceFactory extends Factory
 {
-
     /**
      * The name of the factory's corresponding model.
      *
@@ -26,7 +25,7 @@ class FilterInstanceFactory extends Factory
             'alias' => $this->faker->word,
             'name' => $this->faker->word,
             'settings' => $this->faker->randomElements(),
-            'logic_id' => fn() => \BristolSU\Support\Logic\Logic::factory()->create()->id,
+            'logic_id' => fn () => \BristolSU\Support\Logic\Logic::factory()->create()->id,
             'logic_type' => 'all_true'
         ];
     }

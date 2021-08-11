@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ModuleInstancePermissionFactory extends Factory
 {
-
     /**
      * The name of the factory's corresponding model.
      *
@@ -24,8 +23,8 @@ class ModuleInstancePermissionFactory extends Factory
     {
         return [
             'ability' => '',
-            'logic_id' => fn() => \BristolSU\Support\Logic\Logic::factory()->create()->id,
-            'module_instance_id' => fn() => \BristolSU\Support\ModuleInstance\ModuleInstance::factory()->create()->id
+            'logic_id' => fn () => \BristolSU\Support\Logic\Logic::factory()->create()->id,
+            'module_instance_id' => fn () => \BristolSU\Support\ModuleInstance\ModuleInstance::factory()->create()->id
         ];
     }
 }

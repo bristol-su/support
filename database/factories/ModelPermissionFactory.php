@@ -12,7 +12,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ModelPermissionFactory extends Factory
 {
-
     /**
      * The name of the factory's corresponding model.
      *
@@ -30,7 +29,7 @@ class ModelPermissionFactory extends Factory
         return [
             'ability' => $this->faker->word,
             'model' => 'user',
-            'model_id' => fn() => User::factory()->create()->id(),
+            'model_id' => fn () => User::factory()->create()->id(),
             'result' => $this->faker->boolean,
             'module_instance_id' => null
         ];
@@ -38,51 +37,50 @@ class ModelPermissionFactory extends Factory
 
     public function user()
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'model' => 'user',
-            'model_id' => fn() => User::factory()->create()->id()
+            'model_id' => fn () => User::factory()->create()->id()
         ]);
     }
 
     public function group()
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'model' => 'group',
-            'model_id' => fn() => Group::factory()->create()->id()
+            'model_id' => fn () => Group::factory()->create()->id()
         ]);
     }
 
     public function role()
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'model' => 'role',
-            'model_id' => fn() => Role::factory()->create()->id()
+            'model_id' => fn () => Role::factory()->create()->id()
         ]);
     }
 
     public function logic()
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'model' => 'logic',
-            'model_id' => fn() => Logic::factory()->create()->id
+            'model_id' => fn () => Logic::factory()->create()->id
         ]);
     }
 
     public function module()
     {
-        return $this->state(fn(array $attributes) => [
-            'module_instance_id' => fn() => ModuleInstance::factory()->create()->id
+        return $this->state(fn (array $attributes) => [
+            'module_instance_id' => fn () => ModuleInstance::factory()->create()->id
         ]);
     }
 
     public function true()
     {
-        return $this->state(fn(array $attributes) => ['result' => true]);
+        return $this->state(fn (array $attributes) => ['result' => true]);
     }
 
     public function false()
     {
-        return $this->state(fn(array $attributes) => ['result' => false]);
+        return $this->state(fn (array $attributes) => ['result' => false]);
     }
-
 }

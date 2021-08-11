@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ActivityInstanceFactory extends Factory
 {
-
     /**
      * The name of the factory's corresponding model.
      *
@@ -26,7 +25,7 @@ class ActivityInstanceFactory extends Factory
         return [
             'name' => $this->faker->word,
             'description' => $this->faker->text,
-            'activity_id' => fn() => Activity::factory()->create()->id,
+            'activity_id' => fn () => Activity::factory()->create()->id,
             'resource_type' => 'user',
             'resource_id' => 1
         ];
@@ -34,21 +33,21 @@ class ActivityInstanceFactory extends Factory
 
     public function user()
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'resource_type' => 'user'
         ]);
     }
 
     public function group()
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'resource_type' => 'group'
         ]);
     }
 
     public function role()
     {
-        return $this->state(fn(array $attributes) => [
+        return $this->state(fn (array $attributes) => [
             'resource_type' => 'role'
         ]);
     }

@@ -3,9 +3,8 @@
 namespace BristolSU\Support\ModuleInstance;
 
 use BristolSU\Support\Activity\Activity;
-use BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository as ModuleInstanceRepositoryContract;
-use Database\Factories\ModuleInstanceGroupingFactory;
 use BristolSU\Support\Revision\HasRevisions;
+use Database\Factories\ModuleInstanceGroupingFactory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;

@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class SavedSettingModelFactory extends Factory
 {
-
     /**
      * The name of the factory's corresponding model.
      *
@@ -26,9 +25,8 @@ class SavedSettingModelFactory extends Factory
         return [
             'key' => $this->faker->unique()->word,
             'value' => $this->faker->word,
-            'user_id' => fn() => User::factory()->create()->id(),
+            'user_id' => fn () => User::factory()->create()->id(),
             'visibility' => 'global'
         ];
     }
-
 }

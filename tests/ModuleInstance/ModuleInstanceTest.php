@@ -278,7 +278,7 @@ class ModuleInstanceTest extends TestCase
     }
 
     /** @test */
-    public function moduleInstances_are_ordered_by_default()
+    public function module_instances_are_ordered_by_default()
     {
         $activity = Activity::factory()->create();
         $moduleInstance1 = ModuleInstance::factory()->create(['activity_id' => $activity->id]);

@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ModuleInstanceSettingFactory extends Factory
 {
-
     /**
      * The name of the factory's corresponding model.
      *
@@ -25,7 +24,7 @@ class ModuleInstanceSettingFactory extends Factory
         return [
             'key' => $this->faker->word,
             'value' => $this->faker->word,
-            'module_instance_id' => fn() => \BristolSU\Support\ModuleInstance\ModuleInstance::factory()->create()->id,
+            'module_instance_id' => fn () => \BristolSU\Support\ModuleInstance\ModuleInstance::factory()->create()->id,
             'encoded' => false
         ];
     }

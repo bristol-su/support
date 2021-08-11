@@ -133,5 +133,4 @@ class ActionInstance extends Model
     {
         return new ActionInstanceFactory();
     }
-
 }

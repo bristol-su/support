@@ -16,7 +16,6 @@ use BristolSU\Support\Permissions\Facade\Permission;
 use Exception;
 use FormSchema\Schema\Form;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;

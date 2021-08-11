@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ProgressFactory extends Factory
 {
-
     /**
      * The name of the factory's corresponding model.
      *
@@ -24,7 +23,7 @@ class ProgressFactory extends Factory
     public function definition(): array
     {
         return [
-            'activity_instance_id' => fn() => ActivityInstance::factory()->create()->id,
+            'activity_instance_id' => fn () => ActivityInstance::factory()->create()->id,
             'complete' => $this->faker->boolean,
             'percentage' => $this->faker->numberBetween(0, 100),
             'timestamp' => $this->faker->dateTime

@@ -9,7 +9,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ModuleInstanceServiceFactory extends Factory
 {
-
     /**
      * The name of the factory's corresponding model.
      *
@@ -26,8 +25,8 @@ class ModuleInstanceServiceFactory extends Factory
     {
         return [
             'service' => $this->faker->word,
-            'connection_id' => fn() =>Connection::factory()->create()->id,
-            'module_instance_id' => fn() => ModuleInstance::factory()->create()->id
+            'connection_id' => fn () =>Connection::factory()->create()->id,
+            'module_instance_id' => fn () => ModuleInstance::factory()->create()->id
         ];
     }
 }

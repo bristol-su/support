@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class ConnectionFactory extends Factory
 {
-
     /**
      * The name of the factory's corresponding model.
      *
