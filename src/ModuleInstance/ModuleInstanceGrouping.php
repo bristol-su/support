@@ -5,18 +5,28 @@ namespace BristolSU\Support\ModuleInstance;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstanceRepository as ModuleInstanceRepositoryContract;
 use Database\Factories\ModuleInstanceGroupingFactory;
+use BristolSU\Support\Revision\HasRevisions;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
-class ModuleInstanceGrouping extends Model
+class ModuleInstanceGrouping extends Model implements Sortable
 {
-    use HasFactory;
+    use HasFactory, SortableTrait, HasRevisions;
 
     protected $table = 'module_instance_grouping';
 
+    public $sortable = [
+        'order_column_name' => 'order',
+        'sort_when_creating' => true,
+    ];
+
     protected $fillable = [
-        'heading'
+        'heading',
+        'order',
+        'activity_id'
     ];
 
     public function heading()
@@ -24,17 +34,14 @@ class ModuleInstanceGrouping extends Model
         return $this->heading;
     }
 
+    public function buildSortQuery()
+    {
+        return static::query()->where('activity_id', $this->activity_id);
+    }
+
     public function scopeForActivity(Builder $query, Activity $activity)
     {
-        $groupingIds = collect();
-        foreach (app(ModuleInstanceRepositoryContract::class)->allThroughActivity($activity) as $moduleInstance) {
-            if ($moduleInstance->grouping_id === null) {
-                continue;
-            }
-            $groupingIds->push($moduleInstance->grouping_id);
-        }
-
-        return $query->whereIn('id', $groupingIds->unique());
+        return $query->where('activity_id', $activity->id);
     }
 
     /**

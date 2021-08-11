@@ -49,7 +49,8 @@ class SupportServiceProvider extends ServiceProvider
         HttpServiceProvider::class,
         RevisionServiceProvider::class,
         SettingsServiceProvider::class,
-        ControlServiceProvider::class
+        ControlServiceProvider::class,
+        ThirdPartyServiceProvider::class
     ];
 
     public function register()

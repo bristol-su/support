@@ -20,13 +20,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
 /**
  * Represents a module instance in the database.
  */
-class ModuleInstance extends Model implements ModuleInstanceContract
+class ModuleInstance extends Model implements ModuleInstanceContract, Sortable
 {
-    use HasRevisions, HasFactory;
+    use HasRevisions, HasFactory, SortableTrait;
+
+    public $sortable = [
+        'order_column_name' => 'order',
+        'sort_when_creating' => true,
+    ];
 
     /**
      * Fillable attributes.
@@ -247,5 +254,10 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     protected static function newFactory()
     {
         return new ModuleInstanceFactory();
+    }
+
+    public function buildSortQuery()
+    {
+        return static::query()->where('activity_id', $this->activity_id);
     }
 }
