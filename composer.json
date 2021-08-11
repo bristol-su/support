@@ -21,7 +21,7 @@
         "laracasts/utilities": "^3.0",
         "ext-json": "*",
         "tobytwigger/form-schema-generator": "^1.3",
-        "bristol-su/control": "dev-develop as 3.0.0",
+        "bristol-su/control": "^3.0.1",
         "doctrine/dbal": "^2.10",
         "venturecraft/revisionable": "^1.33",
         "guzzlehttp/guzzle": "^7.0.0",
