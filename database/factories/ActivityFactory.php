@@ -27,13 +27,13 @@ class ActivityFactory extends Factory
             'name' => $this->faker->word,
             'description' => $this->faker->text,
             'activity_for' => 'user',
-            'for_logic' => Logic::factory()->create()->id,
-            'admin_logic' => Logic::factory()->create()->id,
+            'for_logic' => fn() => Logic::factory()->create()->id,
+            'admin_logic' => fn() => Logic::factory()->create()->id,
             'type' => 'open',
             'start_date' => $this->faker->dateTimeInInterval('-1 year', '-5 days'),
             'end_date' => $this->faker->dateTimeInInterval('+5 days', '+1 year'),
             'enabled' => true,
-            'user_id' => \BristolSU\ControlDB\Models\User::factory()->create()->id(),
+            'user_id' => fn() => \BristolSU\ControlDB\Models\User::factory()->create()->id(),
             'image_url' => $this->faker->imageUrl()
         ];
     }

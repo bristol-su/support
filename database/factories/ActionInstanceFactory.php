@@ -28,8 +28,8 @@ class ActionInstanceFactory extends Factory
             'description' => $this->faker->text,
             'event' => $this->faker->word,
             'action' => $this->faker->word,
-            'module_instance_id' => ModuleInstance::factory()->create()->id,
-            'user_id' => \BristolSU\ControlDB\Models\User::factory()->create()->id()
+            'module_instance_id' => fn() => ModuleInstance::factory()->create()->id,
+            'user_id' => fn() => \BristolSU\ControlDB\Models\User::factory()->create()->id()
         ];
     }
 }

@@ -23,7 +23,7 @@ class ActionHistoryFactory extends Factory
     public function definition(): array
     {
         return [
-            'action_instance_id' => \BristolSU\Support\Action\ActionInstance::factory()->create()->id,
+            'action_instance_id' => fn() => \BristolSU\Support\Action\ActionInstance::factory()->create()->id,
             'event_fields' => [],
             'settings' => [],
             'message' => $this->faker->sentence,
