@@ -3,6 +3,8 @@
 namespace BristolSU\Support\Action;
 
 use BristolSU\Support\Revision\HasRevisions;
+use Database\Factories\ActionInstanceFieldFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -10,8 +12,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ActionInstanceField extends Model
 {
-    use HasRevisions;
-    
+    use HasRevisions, HasFactory;
+
     /**
      * Fillable Properties.
      *
@@ -29,5 +31,15 @@ class ActionInstanceField extends Model
     public function actionInstance()
     {
         return $this->belongsTo(ActionInstance::class);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new ActionInstanceFieldFactory();
     }
 }

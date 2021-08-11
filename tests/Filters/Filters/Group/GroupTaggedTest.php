@@ -16,22 +16,22 @@ class GroupTaggedTest extends TestCase
     /** @test */
     public function options_returns_a_list_of_possible_tags()
     {
-        $groupTagCategory1 = factory(GroupTagCategory::class)->create(['name' => 'category1Name', 'reference' => 'cat1']);
-        $groupTagCategory2 = factory(GroupTagCategory::class)->create(['name' => 'category2Name', 'reference' => 'cat2']);
+        $groupTagCategory1 = GroupTagCategory::factory()->create(['name' => 'category1Name', 'reference' => 'cat1']);
+        $groupTagCategory2 = GroupTagCategory::factory()->create(['name' => 'category2Name', 'reference' => 'cat2']);
 
-        $groupTag1 = factory(GroupTag::class)->create([
+        $groupTag1 = GroupTag::factory()->create([
             'tag_category_id' => $groupTagCategory1->id(),
             'name' => 'Name1',
             'reference' => 'ref1'
         ]);
 
-        $groupTag2 = factory(GroupTag::class)->create([
+        $groupTag2 = GroupTag::factory()->create([
             'tag_category_id' => $groupTagCategory2->id(),
             'name' => 'Name2',
             'reference' => 'ref2'
         ]);
 
-        $groupTag3 = factory(GroupTag::class)->create([
+        $groupTag3 = GroupTag::factory()->create([
             'tag_category_id' => $groupTagCategory1->id(),
             'name' => 'Name3',
             'reference' => 'ref3'
@@ -43,7 +43,7 @@ class GroupTaggedTest extends TestCase
         ]));
 
         $groupTagFilter = new GroupTagged($groupTagRepository->reveal());
-        
+
         $this->assertEquals(1, count($groupTagFilter->options()->fields()));
         $this->assertEquals('tag', $groupTagFilter->options()->fields()[0]->model());
         $this->assertEquals('select', $groupTagFilter->options()->fields()[0]->type());
@@ -53,7 +53,7 @@ class GroupTaggedTest extends TestCase
             ['id' => 'cat1.ref3', 'name' => 'Name3 (cat1.ref3)', 'group' => 'category1Name'],
         ], $groupTagFilter->options()->fields()[0]->values());
     }
-    
+
     /** @test */
     public function it_evaluates_to_true_if_group_tagged()
     {

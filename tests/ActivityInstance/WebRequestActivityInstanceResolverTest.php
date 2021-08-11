@@ -15,7 +15,7 @@ class WebRequestActivityInstanceResolverTest extends TestCase
     /** @test */
     public function set_activity_instance_sets_the_exception_and_overrides_the_global_variables()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
         
         $parameterBag = $this->prophesize(ParameterBag::class);
         $parameterBag->set('a', $activityInstance->id)->shouldBeCalled();
@@ -30,7 +30,7 @@ class WebRequestActivityInstanceResolverTest extends TestCase
     /** @test */
     public function clear_activity_instance_clears_the_activity_instance()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
 
         $parameterBag = $this->prophesize(ParameterBag::class);
         $parameterBag->remove('a')->shouldBeCalled();
@@ -45,7 +45,7 @@ class WebRequestActivityInstanceResolverTest extends TestCase
     /** @test */
     public function get_activity_instance_returns_an_activity_instance_using_the_request()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
 
         $parameterBag = $this->prophesize(ParameterBag::class);
         $parameterBag->has('a')->willReturn(true);

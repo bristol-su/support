@@ -7,16 +7,60 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.0.0-rc1] - (11/08/2021)
+
+### Fixed
+- When support redirects to a module page, the query string is added to the new redirection
+- Handle error thrown by the `ControlServiceProvider` when settings retrieved in the service provider due to no set app key
+
+### Added
+- Image URL for module instance and activity models
+- Added a blade wrapper around content and the frontend body, to allow for further html customisations
+- Added Setting framework for global and user settings (portal-147, portal-265)
+- Add more injected data that js can access
+  - Old input
+  - Validation errors
+  - All named routes
+- config values `support.url` and `support.api_url` that can be used to get the base url or api url.
+
+### Changed
+- Upgraded from PHP 7.4 to PHP 8.0
+- Upgraded from Laravel 6.0 to Laravel 8.0
+- Use modern factories for everything rather than legacy factories. If your tests use any factories from Control or the SDK, you'll need to change them to use modern factories.
+- Changed the variable names to be injected for JavaScript use, and do so through a view composer for all Bristol SU bases.
+- Add `hasUser`, `hasGroup` and `hasRole` to the Authentication contract.
+- Neatened up middleware groups to only those documented
+
+### Removed
+- Moved authentication to the portal-auth package
+    - Moved Passport Service provider
+    - Moved the `BristolSU\Support\Authentication\Contracts\Authentication implementations
+    - Moved the request->user() function override to the portal-auth package
+    - Moved everything in the `BristolSU\Support\User` namespace to package.
+        - `BristolSU\Support\User\User` -> `BristolSU\Auth\User\AuthenticationUser`
+        - `BristolSU\Support\User\UserRepository` -> `BristolSU\Auth\User\AuthenticationUserRepository`
+        - `BristolSU\Support\User\Contracts\UserRepository` -> `BristolSU\Auth\User\Contracts\AuthenticationUserRepository`
+        - User authentication resolvers for both API and Web
+        - `BristolSU\Support\User\Contracts\UserAuthentication` -> `BristolSU\Auth\User\Contracts\AuthenticationUserResolver`
+    - CheckAdminIsAtLeastUser obsolete because now handled in the Authentication
+    - `getDatabaseUser()` and `setDatabaseUser()` from testing - tests no longer use database users
+    - Deleted `BristolSU\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider` as now handled through `WebRequestActivityInstanceResolver` and `ApiActivityInstanceResolver`
+    - `BristolSU\Testing\ActivityInstance\LaravelAuthActivityInstanceResolver` changed to use session rather than the whole laravel auth system, and renamed to `BristolSU\Testing\ActivityInstance\SessionActivityInstanceResolver`
+- Simplified default header (portal-226)
+- Removed the passport dependency
+- Removed support for the blade partials cookies_warning and analytics
+
 ## [4.7.6] - (20/03/2021)
 
 ### Fixed
 - portal-19: Set action history messages to a text not string
 - portal-330: Stop UpdateProgress from timing out by chunking resulting jobs
-
+- 
 ## [4.7.5] - (06/03/2021)
 
 ### Changed
 - portal-85: Only update progress snapshots when changes have been made
+>>>>>>> develop
 
 ## [4.7.4] - (09/09/2020)
 

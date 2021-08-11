@@ -6,7 +6,7 @@ use BristolSU\ControlDB\ControlDBServiceProvider;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\SupportServiceProvider;
-use BristolSU\Support\Testing\ActivityInstance\LaravelAuthActivityInstanceResolver;
+use BristolSU\Support\Testing\ActivityInstance\SessionActivityInstanceResolver;
 use BristolSU\Support\Testing\Authentication\SessionAuthentication;
 use Illuminate\Foundation\Application;
 use Laracasts\Utilities\JavaScript\JavaScriptServiceProvider;
@@ -24,13 +24,12 @@ class TestCase extends BaseTestCase
     /**
      * Initialise the test case.
      *
-     * Loads migrations and factories for the sdk
+     * Loads migrations for the sdk
      */
     protected function setUp(): void
     {
         parent::setUp();
         $this->loadMigrationsFrom(realpath(__DIR__ . '/../database/migrations'));
-        $this->withFactories(__DIR__ . '/../../database/factories');
     }
 
     /**
@@ -53,7 +52,7 @@ class TestCase extends BaseTestCase
         $app['config']->set('app.key', 'base64:UTyp33UhGolgzCK5CJmT+hNHcA+dJyp3+oINtX+VoPI=');
         $this->createSdkEnvironment($app);
         $app->bind(Authentication::class, SessionAuthentication::class);
-        $app->bind(ActivityInstanceResolver::class, LaravelAuthActivityInstanceResolver::class);
+        $app->bind(ActivityInstanceResolver::class, SessionActivityInstanceResolver::class);
     }
 
     /**

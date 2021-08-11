@@ -33,9 +33,9 @@ class ProgressUpdateRepositoryTest extends TestCase
 
         $this->repository = new ProgressUpdateRepository();
 
-        $this->activity = factory(Activity::class)->create();
-        $this->modules = factory(ModuleInstance::class, 5)->create(['activity_id' => $this->activity->id]);
-        $this->activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $this->activity->id]);
+        $this->activity = Activity::factory()->create();
+        $this->modules = ModuleInstance::factory()->count(5)->create(['activity_id' => $this->activity->id]);
+        $this->activityInstance = ActivityInstance::factory()->create(['activity_id' => $this->activity->id]);
 
         $this->hashesTableName = (new ProgressHash())->getTable();
     }
@@ -73,8 +73,8 @@ class ProgressUpdateRepositoryTest extends TestCase
                 [
                     $this->createProgress(),
                     $this->createProgress(function (Progress $progress): Progress {
-                        $progress->setActivityId(factory(Activity::class)->create()->id);
-                        $progress->setActivityInstanceId(factory(ActivityInstance::class)->create()->id);
+                        $progress->setActivityId(Activity::factory()->create()->id);
+                        $progress->setActivityInstanceId(ActivityInstance::factory()->create()->id);
 
                         return $progress;
                     })
@@ -84,7 +84,7 @@ class ProgressUpdateRepositoryTest extends TestCase
                 [
                     $this->createProgress(),
                     $this->createProgress(function (Progress $progress): Progress {
-                        $progress->setActivityId(factory(Activity::class)->create()->id);
+                        $progress->setActivityId(Activity::factory()->create()->id);
                         $progress->setPercentage(50);
 
                         return $progress;
@@ -95,7 +95,7 @@ class ProgressUpdateRepositoryTest extends TestCase
                 [
                     $this->createProgress(),
                     $this->createProgress(function (Progress $progress): Progress {
-                        $progress->setActivityId(factory(Activity::class)->create()->id);
+                        $progress->setActivityId(Activity::factory()->create()->id);
                         $progress->setComplete(false);
 
                         return $progress;
@@ -106,7 +106,7 @@ class ProgressUpdateRepositoryTest extends TestCase
                 [
                     $this->createProgress(),
                     $this->createProgress(function (Progress $progress): Progress {
-                        $progress->setActivityId(factory(Activity::class)->create()->id);
+                        $progress->setActivityId(Activity::factory()->create()->id);
                         $progress->getModules()[0]->setMandatory(false);
 
                         return $progress;
@@ -117,7 +117,7 @@ class ProgressUpdateRepositoryTest extends TestCase
                 [
                     $this->createProgress(),
                     $this->createProgress(function (Progress $progress): Progress {
-                        $progress->setActivityId(factory(Activity::class)->create()->id);
+                        $progress->setActivityId(Activity::factory()->create()->id);
                         $progress->getModules()[0]->setComplete(false);
 
                         return $progress;
@@ -128,7 +128,7 @@ class ProgressUpdateRepositoryTest extends TestCase
                 [
                     $this->createProgress(),
                     $this->createProgress(function (Progress $progress): Progress {
-                        $progress->setActivityId(factory(Activity::class)->create()->id);
+                        $progress->setActivityId(Activity::factory()->create()->id);
                         $progress->getModules()[0]->setPercentage(10);
 
                         return $progress;
@@ -139,7 +139,7 @@ class ProgressUpdateRepositoryTest extends TestCase
                 [
                     $this->createProgress(),
                     $this->createProgress(function (Progress $progress): Progress {
-                        $progress->setActivityId(factory(Activity::class)->create()->id);
+                        $progress->setActivityId(Activity::factory()->create()->id);
                         $progress->getModules()[0]->setActive(false);
 
                         return $progress;
@@ -150,7 +150,7 @@ class ProgressUpdateRepositoryTest extends TestCase
                 [
                     $this->createProgress(),
                     $this->createProgress(function (Progress $progress): Progress {
-                        $progress->setActivityId(factory(Activity::class)->create()->id);
+                        $progress->setActivityId(Activity::factory()->create()->id);
                         $progress->getModules()[0]->setVisible(false);
 
                         return $progress;
@@ -162,12 +162,12 @@ class ProgressUpdateRepositoryTest extends TestCase
 
     public function createProgress(\Closure $callback = null): Progress
     {
-        $activity = factory(Activity::class)->create();
-        $modules = factory(ModuleInstance::class, 5)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $modules = ModuleInstance::factory()->count(5)->create(['activity_id' => $activity->id]);
 
         $progress = Progress::create(
             $activity->id,
-            factory(ActivityInstance::class)->create()->id,
+            ActivityInstance::factory()->create()->id,
             Carbon::now(),
             true,
             80

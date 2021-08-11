@@ -1,26 +1,31 @@
 <?php
 
+namespace Database\Factories;
+
 use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Action\ActionInstanceField;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
- */
+class ActionInstanceFieldFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ActionInstanceField::class;
 
-$factory->define(ActionInstanceField::class, function (Faker $faker) {
-    return [
-        'action_value' => $faker->word,
-        'action_field' => $faker->text,
-        'action_instance_id' => function () {
-            return factory(ActionInstance::class)->create()->id;
-        },
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'action_value' => $this->faker->word,
+            'action_field' => $this->faker->text,
+            'action_instance_id' => fn () => ActionInstance::factory()->create()->id
+        ];
+    }
+}

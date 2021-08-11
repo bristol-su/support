@@ -1,46 +1,44 @@
 <?php
 
+namespace Database\Factories;
+
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
-use Faker\Generator as Faker;
+use BristolSU\Support\ModuleInstance\ModuleInstanceGrouping;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
- */
+class ModuleInstanceFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ModuleInstance::class;
 
-$factory->define(ModuleInstance::class, function (Faker $faker) {
-    return [
-        'alias' => $faker->word,
-        'activity_id' => function () {
-            return factory(Activity::class)->create()->id;
-        },
-        'name' => $faker->word,
-        'description' => $faker->text,
-        'active' => function () {
-            return factory(Logic::class)->create()->id;
-        },
-        'visible' => function () {
-            return factory(Logic::class)->create()->id;
-        },
-        'mandatory' => function () {
-            return factory(Logic::class)->create()->id;
-        },
-        'completion_condition_instance_id' => null,
-        'enabled' => true,
-        'user_id' => function () {
-            return factory(\BristolSU\ControlDB\Models\User::class)->create()->id();
-        },
-        'order' => 1,
-        'grouping_id' => function () {
-            return factory(\BristolSU\Support\ModuleInstance\ModuleInstanceGrouping::class)->create()->id;
-        }
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'alias' => $this->faker->word,
+            'activity_id' => fn () => Activity::factory()->create()->id,
+            'name' => $this->faker->word,
+            'description' => $this->faker->text,
+            'active' => fn () => Logic::factory()->create()->id,
+            'visible' => fn () => Logic::factory()->create()->id,
+            'mandatory' => fn () => Logic::factory()->create()->id,
+            'completion_condition_instance_id' => null,
+            'enabled' => true,
+            'user_id' => fn () => User::factory()->create()->id(),
+            'order' => null,
+            'grouping_id' => fn () => ModuleInstanceGrouping::factory()->create()->id,
+            'image_url' => $this->faker->imageUrl()
+        ];
+    }
+}

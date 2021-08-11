@@ -1,32 +1,54 @@
 <?php
 
+namespace Database\Factories;
+
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
- */
+class ActivityInstanceFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ActivityInstance::class;
 
-$factory->define(ActivityInstance::class, function (Faker $faker) {
-    return [
-        'name' => $faker->word,
-        'description' => $faker->text,
-        'activity_id' => function () {
-            return factory(Activity::class)->create()->id;
-        },
-        'resource_type' => 'user',
-        'resource_id' => 1
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'name' => $this->faker->word,
+            'description' => $this->faker->text,
+            'activity_id' => fn () => Activity::factory()->create()->id,
+            'resource_type' => 'user',
+            'resource_id' => 1
+        ];
+    }
 
-$factory->state(Activity::class, 'user', ['resource_type' => 'user']);
-$factory->state(Activity::class, 'group', ['resource_type' => 'group']);
-$factory->state(Activity::class, 'role', ['resource_type' => 'role']);
+    public function user()
+    {
+        return $this->state(fn (array $attributes) => [
+            'resource_type' => 'user'
+        ]);
+    }
+
+    public function group()
+    {
+        return $this->state(fn (array $attributes) => [
+            'resource_type' => 'group'
+        ]);
+    }
+
+    public function role()
+    {
+        return $this->state(fn (array $attributes) => [
+            'resource_type' => 'role'
+        ]);
+    }
+}

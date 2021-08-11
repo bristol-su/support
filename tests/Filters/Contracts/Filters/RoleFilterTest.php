@@ -2,7 +2,6 @@
 
 namespace BristolSU\Support\Tests\Filters\Contracts\Filters;
 
-use BristolSU\ControlDB\Models\Role;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Schema\Form;

@@ -3,9 +3,11 @@
 namespace BristolSU\Support\Logic;
 
 use BristolSU\ControlDB\Contracts\Repositories\User;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Revision\HasRevisions;
-use BristolSU\Support\User\Contracts\UserAuthentication;
+use Database\Factories\LogicFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
@@ -14,8 +16,8 @@ use Illuminate\Support\Collection;
  */
 class Logic extends Model
 {
-    use HasRevisions;
-    
+    use HasRevisions, HasFactory;
+
     /**
      * Fillable properties.
      *
@@ -52,12 +54,12 @@ class Logic extends Model
     {
         parent::__construct($attributes);
         self::creating(function ($model) {
-            if ($model->user_id === null && ($user = app(UserAuthentication::class)->getUser()) !== null) {
-                $model->user_id = $user->controlId();
+            if ($model->user_id === null && app(Authentication::class)->hasUser()) {
+                $model->user_id = app(Authentication::class)->getUser()->id();
             }
         });
     }
-    
+
     /**
      * Filter relationship.
      *
@@ -150,5 +152,15 @@ class Logic extends Model
         }
 
         return app(User::class)->getById($this->user_id);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new LogicFactory();
     }
 }

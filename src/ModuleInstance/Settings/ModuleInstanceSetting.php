@@ -4,6 +4,8 @@ namespace BristolSU\Support\ModuleInstance\Settings;
 
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
+use Database\Factories\ModuleInstanceSettingFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -11,8 +13,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ModuleInstanceSetting extends Model
 {
-    use HasRevisions;
-    
+    use HasRevisions, HasFactory;
+
     /**
      * Fillable attributes for mass assignment.
      *
@@ -59,5 +61,15 @@ class ModuleInstanceSetting extends Model
         }
 
         return $this->attributes['value'];
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new ModuleInstanceSettingFactory();
     }
 }

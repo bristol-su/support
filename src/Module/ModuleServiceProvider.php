@@ -16,7 +16,6 @@ use BristolSU\Support\Permissions\Facade\Permission;
 use Exception;
 use FormSchema\Schema\Form;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Database\Eloquent\Factory;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\View;
@@ -178,7 +177,6 @@ abstract class ModuleServiceProvider extends ServiceProvider
         $this->registerPermissions();
         $this->registerEvents();
         $this->registerViews();
-        $this->registerFactories();
         $this->loadMigrations();
         $this->registerCommands();
         $this->registerAssets();
@@ -308,18 +306,6 @@ abstract class ModuleServiceProvider extends ServiceProvider
     }
 
     /**
-     * Register factories in a non-production environment.
-     *
-     * @throws BindingResolutionException
-     */
-    public function registerFactories()
-    {
-        if (!app()->environment('production')) {
-            $this->app->make(Factory::class)->load($this->baseDirectory() . '/database/factories');
-        }
-    }
-
-    /**
      * Load migrations to be used.
      */
     public function loadMigrations()
@@ -333,7 +319,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function mapParticipantRoutes()
     {
         Route::prefix('/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
-            ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
+            ->middleware(['web', 'portal-auth', 'module', 'activity', 'participant'])
             ->namespace($this->namespace())
             ->group($this->baseDirectory() . '/routes/participant/web.php');
     }
@@ -344,7 +330,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function mapAdminRoutes()
     {
         Route::prefix('/a/{activity_slug}/{module_instance_slug}/' . $this->alias())
-            ->middleware(['web', 'auth', 'verified', 'module', 'activity', 'administrator'])
+            ->middleware(['web', 'portal-auth', 'module', 'activity', 'administrator'])
             ->namespace($this->namespace())
             ->group($this->baseDirectory() . '/routes/admin/web.php');
     }
@@ -355,7 +341,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function mapParticipantApiRoutes()
     {
         Route::prefix('/api/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
-            ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'participant', 'moduleparticipant'])
+            ->middleware(['api', 'portal-auth', 'module', 'activity', 'participant'])
             ->namespace($this->namespace())
             ->group($this->baseDirectory() . '/routes/participant/api.php');
     }
@@ -366,7 +352,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function mapAdminApiRoutes()
     {
         Route::prefix('/api/a/{activity_slug}/{module_instance_slug}/' . $this->alias())
-            ->middleware(['api', 'auth', 'verified', 'module', 'activity', 'administrator'])
+            ->middleware(['api', 'portal-auth', 'module', 'activity', 'administrator'])
             ->namespace($this->namespace())
             ->group($this->baseDirectory() . '/routes/admin/api.php');
     }

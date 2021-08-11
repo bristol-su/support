@@ -13,15 +13,15 @@ use Prophecy\Argument;
 class HandlesAuthenticationTest extends TestCase
 {
     use HandlesAuthentication;
-    
+
     /** @test */
     public function new_user_creates_a_new_user()
     {
         $user = $this->newUser();
-        
+
         $this->assertInstanceOf(User::class, $user);
     }
-    
+
     /** @test */
     public function new_user_allows_attributes_to_be_overridden()
     {

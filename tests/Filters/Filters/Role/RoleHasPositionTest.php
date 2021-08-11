@@ -16,10 +16,10 @@ class RoleHasPositionTest extends TestCase
     {
         $positionRepository = $this->prophesize(PositionRepository::class);
 
-        $dataPosition1 = factory(DataPosition::class)->create(['name' => 'Position 1']);
-        $dataPosition2 = factory(DataPosition::class)->create(['name' => 'Position 2']);
-        $position1 = factory(Position::class)->create(['id' => 1, 'data_provider_id' => $dataPosition1->id()]);
-        $position2 = factory(Position::class)->create(['id' => 2, 'data_provider_id' => $dataPosition2->id()]);
+        $dataPosition1 = DataPosition::factory()->create(['name' => 'Position 1']);
+        $dataPosition2 = DataPosition::factory()->create(['name' => 'Position 2']);
+        $position1 = Position::factory()->create(['id' => 1, 'data_provider_id' => $dataPosition1->id()]);
+        $position2 = Position::factory()->create(['id' => 2, 'data_provider_id' => $dataPosition2->id()]);
 
         $positionRepository->all()->shouldBeCalled()->willReturn(collect([$position1, $position2]));
 
@@ -38,7 +38,7 @@ class RoleHasPositionTest extends TestCase
     public function it_evaluates_to_true_if_role_has_position()
     {
         $roleHasPositionFilter = new RoleHasPosition($this->prophesize(PositionRepository::class)->reveal());
-        
+
         $role = $this->newRole([
             'position_id' => 1
         ]);

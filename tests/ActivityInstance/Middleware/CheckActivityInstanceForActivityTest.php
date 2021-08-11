@@ -18,9 +18,9 @@ class CheckActivityInstanceForActivityTest extends TestCase
         $this->expectException(NotInActivityInstanceException::class);
         $this->expectExceptionMessage('Not logged into the correct activity instance for the activity');
         
-        $activity1 = factory(Activity::class)->create();
-        $activity2 = factory(Activity::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity1->id]);
+        $activity1 = Activity::factory()->create();
+        $activity2 = Activity::factory()->create();
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity1->id]);
         
         $resolver = $this->prophesize(ActivityInstanceResolver::class);
         $resolver->getActivityInstance()->willReturn($activityInstance);
@@ -36,8 +36,8 @@ class CheckActivityInstanceForActivityTest extends TestCase
     /** @test */
     public function handle_calls_the_callback_if_the_activity_instance_activity_id_is_equal_to_the_activity_id()
     {
-        $activity1 = factory(Activity::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity1->id]);
+        $activity1 = Activity::factory()->create();
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity1->id]);
 
         $resolver = $this->prophesize(ActivityInstanceResolver::class);
         $resolver->getActivityInstance()->willReturn($activityInstance);

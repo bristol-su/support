@@ -18,12 +18,12 @@ class UpdateProgressForGivenActivityInstancesTest extends TestCase
     /** @test */
     public function it_takes_snapshots_and_passes_them_to_the_driver_to_save()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
 
-        $activityInstance1 = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-        $activityInstance2 = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-        $activityInstance3 = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-        $activityInstance4 = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activityInstance1 = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
+        $activityInstance2 = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
+        $activityInstance3 = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
+        $activityInstance4 = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
 
         $progress1 = Progress::create($activity->id, $activityInstance1->id, Carbon::now(), true, 100);
         $progress2 = Progress::create($activity->id, $activityInstance2->id, Carbon::now(), false, 50);

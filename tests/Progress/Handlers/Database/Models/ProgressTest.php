@@ -33,8 +33,8 @@ class ProgressTest extends TestCase
     /** @test */
     public function the_module_instance_progresses_can_be_retrieved()
     {
-        $progress = factory(Progress::class)->create();
-        $moduleInstanceProgresses = factory(ModuleInstanceProgress::class, 5)->create([
+        $progress = Progress::factory()->create();
+        $moduleInstanceProgresses = ModuleInstanceProgress::factory()->count(5)->create([
             'progress_id' => $progress->id,
         ]);
 
@@ -49,9 +49,9 @@ class ProgressTest extends TestCase
     /** @test */
     public function the_activity_instance_can_be_retrieved()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
-        factory(ActivityInstance::class, 3)->create();
-        $progress = factory(Progress::class)->create(['activity_instance_id' => $activityInstance->id]);
+        $activityInstance = ActivityInstance::factory()->create();
+        ActivityInstance::factory()->count(3)->create();
+        $progress = Progress::factory()->create(['activity_instance_id' => $activityInstance->id]);
 
         $this->assertModelEquals($activityInstance, $progress->activityInstance);
     }

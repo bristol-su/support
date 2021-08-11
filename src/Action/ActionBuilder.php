@@ -53,7 +53,7 @@ class ActionBuilder implements ActionBuilderContract
             $action->setEventFields($data);
             $action->setSettings($mappedFields);
         }
-        
+
         return $action;
     }
 

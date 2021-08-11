@@ -1,27 +1,32 @@
 <?php
 
+namespace Database\Factories;
+
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Progress\Handlers\Database\Models\Progress;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
- */
+class ProgressFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Progress::class;
 
-$factory->define(Progress::class, function (Faker $faker) {
-    return [
-        'activity_instance_id' => function () {
-            return factory(ActivityInstance::class)->create()->id;
-        },
-        'complete' => $faker->boolean,
-        'percentage' => $faker->numberBetween(0, 100),
-        'timestamp' => $faker->dateTime
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'activity_instance_id' => fn () => ActivityInstance::factory()->create()->id,
+            'complete' => $this->faker->boolean,
+            'percentage' => $this->faker->numberBetween(0, 100),
+            'timestamp' => $this->faker->dateTime
+        ];
+    }
+}

@@ -41,7 +41,7 @@ class ActionDispatcher
             (int) app(ModuleInstance::class)->id,
             get_class($event)
         );
-        
+
         foreach ($actionInstances as $actionInstance) {
             $action = $this->builder->build($actionInstance, $event->getFields());
             if ($actionInstance->should_queue) {

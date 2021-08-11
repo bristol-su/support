@@ -13,9 +13,9 @@ class UpdateProgressTest extends TestCase
     public function the_job_dispatches_a_job_per_activity_with_the_database_exporter_if_no_options_given()
     {
         Bus::fake(UpdateProgressJob::class);
-        
-        $activities = factory(Activity::class, 5)->create();
-        
+
+        $activities = Activity::factory()->count(5)->create();
+
         $this->artisan('progress:snapshot');
 
         Bus::assertDispatched(UpdateProgressJob::class, 5);
@@ -37,15 +37,15 @@ class UpdateProgressTest extends TestCase
             return $driverProperty->getValue($job) === 'database';
         });
     }
-    
+
     /** @test */
     public function the_job_dispatches_the_activity_job_if_the_activity_id_is_given()
     {
         Bus::fake(UpdateProgressJob::class);
 
-        $activities = factory(Activity::class, 5)->create();
-        $activity = factory(Activity::class)->create();
-        
+        $activities = Activity::factory()->count(5)->create();
+        $activity = Activity::factory()->create();
+
         $this->artisan(sprintf('progress:snapshot %s', $activity->id));
 
         $reflectionClass = new \ReflectionClass(UpdateProgressJob::class);
@@ -67,7 +67,7 @@ class UpdateProgressTest extends TestCase
     {
         Bus::fake(UpdateProgressJob::class);
 
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
 
         $this->artisan(sprintf('progress:snapshot %s -E new-exporter', $activity->id));
 
@@ -78,13 +78,13 @@ class UpdateProgressTest extends TestCase
             return $driverProperty->getValue($job) === 'new-exporter';
         });
     }
-    
+
     /** @test */
     public function the_exporter_method_can_be_changed()
     {
         Bus::fake(UpdateProgressJob::class);
 
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
 
         $this->artisan(sprintf('progress:snapshot %s --exporter=new-exporter', $activity->id));
 

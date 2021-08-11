@@ -6,30 +6,28 @@ use BristolSU\Support\Connection\Connection;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
-use BristolSU\Support\User\User;
 
 class ModuleInstanceServiceTest extends TestCase
 {
     /** @test */
     public function it_belongs_to_a_module_instance()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $moduleInstanceService = factory(ModuleInstanceService::class)->create(['module_instance_id' => $moduleInstance->id]);
-        
+        $moduleInstance = ModuleInstance::factory()->create();
+        $moduleInstanceService = ModuleInstanceService::factory()->create(['module_instance_id' => $moduleInstance->id]);
+
         $this->assertInstanceOf(ModuleInstance::class, $moduleInstanceService->moduleInstance);
         $this->assertModelEquals($moduleInstance, $moduleInstanceService->moduleInstance);
     }
-    
+
     /** @test */
     public function it_belongs_to_a_connection()
     {
         $user = $this->newUser();
         $this->beUser($user);
-        $this->be(factory(User::class)->create(['control_id' => $user->id()]));
-        
-        $connection = factory(Connection::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $moduleInstanceService = factory(ModuleInstanceService::class)->create([
+
+        $connection = Connection::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create();
+        $moduleInstanceService = ModuleInstanceService::factory()->create([
             'module_instance_id' => $moduleInstance->id, 'connection_id' => $connection->id
         ]);
 
@@ -43,11 +41,10 @@ class ModuleInstanceServiceTest extends TestCase
         $user = $this->newUser();
         $user2 = $this->newUser();
         $this->beUser($user);
-        $this->be(factory(User::class)->create(['control_id' => $user->id()]));
 
-        $connection = factory(Connection::class)->create(['user_id' => $user2->id()]);
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $moduleInstanceService = factory(ModuleInstanceService::class)->create([
+        $connection = Connection::factory()->create(['user_id' => $user2->id()]);
+        $moduleInstance = ModuleInstance::factory()->create();
+        $moduleInstanceService = ModuleInstanceService::factory()->create([
             'module_instance_id' => $moduleInstance->id, 'connection_id' => $connection->id
         ]);
 
@@ -61,7 +58,7 @@ class ModuleInstanceServiceTest extends TestCase
         $user = $this->newUser();
         $this->beUser($user);
 
-        $moduleInstanceService = factory(ModuleInstanceService::class)->create(['service' => 'OldService']);
+        $moduleInstanceService = ModuleInstanceService::factory()->create(['service' => 'OldService']);
 
         $moduleInstanceService->service = 'NewService';
         $moduleInstanceService->save();

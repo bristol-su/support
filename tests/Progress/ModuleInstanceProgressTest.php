@@ -73,7 +73,7 @@ class ModuleInstanceProgressTest extends TestCase
         $progress->setPercentage(58);
         $this->assertEquals(58, $progress->getPercentage());
     }
-    
+
     /** @test */
     public function create_creates_a_progress_model_with_filled_in_values()
     {
@@ -90,7 +90,7 @@ class ModuleInstanceProgressTest extends TestCase
         $this->assertTrue($progress->isVisible());
         $this->assertFalse($progress->isComplete());
         $this->assertFalse($progress->isActive());
-        
+
         $this->assertEquals(5, $progress->getModuleInstanceId());
         $this->assertEquals(10, $progress->getPercentage());
     }
