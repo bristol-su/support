@@ -54,9 +54,7 @@
                 "BristolSU\\Support\\SupportServiceProvider"
             ],
             "dont-discover": [
-                "laravel/passport",
-                "venturecraft/revisionable",
-                "twigger/blade-themes"
+                "venturecraft/revisionable"
             ]
         }
     },
