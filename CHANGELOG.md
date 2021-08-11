@@ -22,7 +22,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Inject old input to js
 - Inject all named routes to js
 - Standardised all middleware classes
-
+- config values `support.url` and `support.api_url`
+- 
 ### Changed
 - Upgraded to PHP 8.0 from PHP 7.4
 - Upgraded to Laravel 8.0 from Laravel 6.0
