@@ -7,13 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [4.7.6] - (20/03/2021)
+## [5.0.0-rc1] - (11/08/2021)
 
 ### Fixed
 - When support redirects to a module page, the query string is added to the new redirection
 - Handle error thrown by the `ControlServiceProvider` when settings retrieved in the service provider due to no set app key
-- portal-19: Set action history messages to a text not string
-- portal-330: Stop UpdateProgress from timing out by chunking resulting jobs
 
 ### Added
 - Image URL for module instance and activity models
@@ -52,6 +50,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Removed the passport dependency
 - Removed support for the blade partials cookies_warning and analytics
 
+## [4.7.6] - (20/03/2021)
+
+### Fixed
+- portal-19: Set action history messages to a text not string
+- portal-330: Stop UpdateProgress from timing out by chunking resulting jobs
+- 
 ## [4.7.5] - (06/03/2021)
 
 ### Changed
