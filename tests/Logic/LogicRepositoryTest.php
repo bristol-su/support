@@ -27,7 +27,7 @@ class LogicRepositoryTest extends TestCase
     /** @test */
     public function it_retrieves_all_logic()
     {
-        $logics = factory(Logic::class, 10)->create();
+        $logics = Logic::factory()->count(10)->create();
         $logicRepository = new LogicRepository();
         $allLogics = $logicRepository->all();
 
@@ -39,8 +39,8 @@ class LogicRepositoryTest extends TestCase
     /** @test */
     public function get_by_id_returns_a_filter_instance_by_id()
     {
-        $logic = factory(Logic::class)->create();
-        factory(Logic::class, 5)->create();
+        $logic = Logic::factory()->create();
+        Logic::factory()->count(5)->create();
 
         $repository = new LogicRepository();
         $resolvedLogic = $repository->getById($logic->id);
@@ -52,8 +52,8 @@ class LogicRepositoryTest extends TestCase
     /** @test */
     public function delete_deletes_the_filter_instance()
     {
-        $logic = factory(Logic::class)->create();
-        factory(Logic::class, 5)->create();
+        $logic = Logic::factory()->create();
+        Logic::factory()->count(5)->create();
 
         $this->assertDatabaseHas('logics', ['id' => $logic->id]);
 
@@ -66,10 +66,10 @@ class LogicRepositoryTest extends TestCase
     /** @test */
     public function update_updates_a_filter_instance()
     {
-        $logic = factory(Logic::class)->create([
+        $logic = Logic::factory()->create([
             'name' => 'OldName', 'description' => 'OldDescription', 'user_id' => 1
         ]);
-        factory(Logic::class, 5)->create();
+        Logic::factory()->count(5)->create();
 
         $this->assertDatabaseHas('logics', [
             'id' => $logic->id, 'name' => 'OldName', 'description' => 'OldDescription', 'user_id' => 1
@@ -83,7 +83,7 @@ class LogicRepositoryTest extends TestCase
         $this->assertDatabaseHas('logics', [
             'id' => $logic->id, 'name' => 'NewName', 'description' => 'NewDescription', 'user_id' => 2
         ]);
-        
+
         $this->assertEquals($logic->id, $resolvedLogic->id);
         $this->assertEquals('NewName', $resolvedLogic->name);
         $this->assertEquals('NewDescription', $resolvedLogic->description);

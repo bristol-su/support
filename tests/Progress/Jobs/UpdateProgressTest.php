@@ -17,8 +17,8 @@ class UpdateProgressTest extends TestCase
     {
         Bus::fake(UpdateProgressForGivenActivityInstances::class);
 
-        $activity = factory(Activity::class)->create();
-        $activityInstances = factory(ActivityInstance::class, 83)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $activityInstances = ActivityInstance::factory()->count(83)->create(['activity_id' => $activity->id]);
 
         $activityInstanceRepository = $this->prophesize(ActivityInstanceRepository::class);
         $activityInstanceRepository->allForActivity($activity->id)->shouldBeCalled()->willReturn($activityInstances);

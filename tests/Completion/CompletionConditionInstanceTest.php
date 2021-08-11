@@ -11,29 +11,29 @@ class CompletionConditionInstanceTest extends TestCase
     /** @test */
     public function name_returns_the_completion_condition_instance_name()
     {
-        $cCI = factory(CompletionConditionInstance::class)->create(['name' => 'name1']);
+        $cCI = CompletionConditionInstance::factory()->create(['name' => 'name1']);
         $this->assertEquals('name1', $cCI->name());
     }
 
     /** @test */
     public function settings_returns_the_completion_condition_instance_settings()
     {
-        $cCI = factory(CompletionConditionInstance::class)->create(['settings' => ['val' => 'settings1']]);
+        $cCI = CompletionConditionInstance::factory()->create(['settings' => ['val' => 'settings1']]);
         $this->assertEquals(['val' => 'settings1'], $cCI->settings());
     }
 
     /** @test */
     public function alias_returns_the_completion_condition_instance_alias()
     {
-        $cCI = factory(CompletionConditionInstance::class)->create(['alias' => 'alias1']);
+        $cCI = CompletionConditionInstance::factory()->create(['alias' => 'alias1']);
         $this->assertEquals('alias1', $cCI->alias());
     }
-    
+
     /** @test */
     public function it_has_a_module_instance()
     {
-        $cCI = factory(CompletionConditionInstance::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create(['completion_condition_instance_id' => $cCI->id]);
+        $cCI = CompletionConditionInstance::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create(['completion_condition_instance_id' => $cCI->id]);
 
         $this->assertModelEquals($moduleInstance, $cCI->moduleInstance);
     }
@@ -44,7 +44,7 @@ class CompletionConditionInstanceTest extends TestCase
         $user = $this->newUser();
         $this->beUser($user);
 
-        $completionConditionInstance = factory(CompletionConditionInstance::class)->create(['name' => 'OldName']);
+        $completionConditionInstance = CompletionConditionInstance::factory()->create(['name' => 'OldName']);
 
         $completionConditionInstance->name = 'NewName';
         $completionConditionInstance->save();

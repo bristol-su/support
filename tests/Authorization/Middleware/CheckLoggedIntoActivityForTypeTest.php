@@ -21,7 +21,7 @@ class CheckLoggedIntoActivityForTypeTest extends TestCase
         $authentication->getUser()->willReturn(null);
         $request = $this->prophesize(Request::class);
         $request->route('activity_slug')->willReturn(
-            factory(Activity::class)->create(['activity_for' => 'user'])
+            Activity::factory()->create(['activity_for' => 'user'])
         );
 
         $middleware = new CheckLoggedIntoActivityForType($authentication->reveal());
@@ -38,7 +38,7 @@ class CheckLoggedIntoActivityForTypeTest extends TestCase
         $authentication->getGroup()->willReturn(null);
         $request = $this->prophesize(Request::class);
         $request->route('activity_slug')->willReturn(
-            factory(Activity::class)->create(['activity_for' => 'group'])
+            Activity::factory()->create(['activity_for' => 'group'])
         );
         $middleware = new CheckLoggedIntoActivityForType($authentication->reveal());
         $middleware->handle($request->reveal(), function ($request) {
@@ -53,7 +53,7 @@ class CheckLoggedIntoActivityForTypeTest extends TestCase
         $authentication->getRole()->willReturn(null);
         $request = $this->prophesize(Request::class);
         $request->route('activity_slug')->willReturn(
-            factory(Activity::class)->create(['activity_for' => 'role'])
+            Activity::factory()->create(['activity_for' => 'role'])
         );
         $middleware = new CheckLoggedIntoActivityForType($authentication->reveal());
         $middleware->handle($request->reveal(), function ($request) {
@@ -63,7 +63,7 @@ class CheckLoggedIntoActivityForTypeTest extends TestCase
     /** @test */
     public function it_calls_the_callback()
     {
-        $activity = factory(Activity::class)->create([
+        $activity = Activity::factory()->create([
             'activity_for' => 'user'
         ]);
         $authentication = $this->prophesize(Authentication::class);

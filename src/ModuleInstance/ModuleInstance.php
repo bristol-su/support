@@ -5,6 +5,7 @@ namespace BristolSU\Support\ModuleInstance;
 use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Action\ActionInstance;
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Completion\CompletionConditionInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
@@ -13,18 +14,26 @@ use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\Progress\Handlers\Database\Models\ModuleInstanceProgress;
 use BristolSU\Support\Revision\HasRevisions;
-use BristolSU\Support\User\Contracts\UserAuthentication;
+use Database\Factories\ModuleInstanceFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Str;
+use Spatie\EloquentSortable\Sortable;
+use Spatie\EloquentSortable\SortableTrait;
 
 /**
  * Represents a module instance in the database.
  */
-class ModuleInstance extends Model implements ModuleInstanceContract
+class ModuleInstance extends Model implements ModuleInstanceContract, Sortable
 {
-    use HasRevisions;
+    use HasRevisions, HasFactory, SortableTrait;
+
+    public $sortable = [
+        'order_column_name' => 'order',
+        'sort_when_creating' => true,
+    ];
 
     /**
      * Fillable attributes.
@@ -44,7 +53,8 @@ class ModuleInstance extends Model implements ModuleInstanceContract
         'enabled',
         'user_id',
         'order',
-        'grouping_id'
+        'grouping_id',
+        'image_url'
     ];
 
     /**
@@ -68,8 +78,8 @@ class ModuleInstance extends Model implements ModuleInstanceContract
             if ($model->slug === null) {
                 $model->slug = Str::slug($model->name);
             }
-            if ($model->user_id === null && ($user = app(UserAuthentication::class)->getUser()) !== null) {
-                $model->user_id = $user->controlId();
+            if ($model->user_id === null && app(Authentication::class)->hasUser()) {
+                $model->user_id = app(Authentication::class)->getUser()->id();
             }
         });
     }
@@ -234,5 +244,20 @@ class ModuleInstance extends Model implements ModuleInstanceContract
     public function moduleInstanceProgress()
     {
         return $this->hasMany(ModuleInstanceProgress::class);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new ModuleInstanceFactory();
+    }
+
+    public function buildSortQuery()
+    {
+        return static::query()->where('activity_id', $this->activity_id);
     }
 }

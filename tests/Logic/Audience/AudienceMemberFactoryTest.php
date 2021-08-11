@@ -88,7 +88,7 @@ class AudienceMemberFactoryTest extends TestCase
     public function with_access_to_logic_group_with_resource_returns_a_single_audience_member_if_resource_is_a_user()
     {
         $resource = $this->newUser();
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
 
         $this->logicTester()->forLogic($logic)->shouldBeCalled($resource)->pass($resource);
         $this->logicTester()->bind();
@@ -107,7 +107,7 @@ class AudienceMemberFactoryTest extends TestCase
         $resource = $this->newGroup();
         $role1 = $this->newRole(['group_id' => $resource->id]);
         $role2 = $this->newRole(['group_id' => $resource->id]);
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
 
         $user1 = $this->newUser();
         $user2 = $this->newUser();
@@ -139,7 +139,7 @@ class AudienceMemberFactoryTest extends TestCase
     {
         $resource = $this->newRole();
         $role2 = $this->newRole();
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
 
         $user1 = $this->newUser();
         $user2 = $this->newUser();
@@ -187,7 +187,7 @@ class AudienceMemberFactoryTest extends TestCase
         app(UserRole::class)->addUserToRole($user, $role1);
         app(UserRole::class)->addUserToRole($user, $role2);
 
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $this->logicTester()->forLogic($logic)->pass($user)->shouldBeCalled($user);
         $this->logicTester()->forLogic($logic)->pass($user, $group1)->shouldBeCalled($user, $group1);
         $this->logicTester()->forLogic($logic)->pass($user, $group2)->shouldBeCalled($user, $group2);

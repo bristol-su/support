@@ -22,8 +22,8 @@ class CheckActivityInstanceAccessibleTest extends TestCase
         $request->route('test_callback_called')->shouldNotBeCalled();
 
         $group = $this->newGroup();
-        $activity = factory(Activity::class)->create(['activity_for' => 'group']);
-        $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'group', 'resource_id' => $group->id(), 'activity_id' => $activity->id]);
+        $activity = Activity::factory()->create(['activity_for' => 'group']);
+        $activityInstance = ActivityInstance::factory()->create(['resource_type' => 'group', 'resource_id' => $group->id(), 'activity_id' => $activity->id]);
         
         app(ActivityInstanceResolver::class)->setActivityInstance($activityInstance);
         $this->beGroup($this->newGroup());
@@ -44,8 +44,8 @@ class CheckActivityInstanceAccessibleTest extends TestCase
         $request->route('test_callback_called')->shouldNotBeCalled();
 
         $user = $this->newUser();
-        $activity = factory(Activity::class)->create(['activity_for' => 'user']);
-        $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'user', 'resource_id' => $user->id(), 'activity_id' => $activity->id]);
+        $activity = Activity::factory()->create(['activity_for' => 'user']);
+        $activityInstance = ActivityInstance::factory()->create(['resource_type' => 'user', 'resource_id' => $user->id(), 'activity_id' => $activity->id]);
 
         app(ActivityInstanceResolver::class)->setActivityInstance($activityInstance);
         $this->beUser($this->newUser());
@@ -66,8 +66,8 @@ class CheckActivityInstanceAccessibleTest extends TestCase
         $request->route('test_callback_called')->shouldNotBeCalled();
 
         $role = $this->newRole();
-        $activity = factory(Activity::class)->create(['activity_for' => 'role']);
-        $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'role', 'resource_id' => $role->id(), 'activity_id' => $activity->id]);
+        $activity = Activity::factory()->create(['activity_for' => 'role']);
+        $activityInstance = ActivityInstance::factory()->create(['resource_type' => 'role', 'resource_id' => $role->id(), 'activity_id' => $activity->id]);
 
         app(ActivityInstanceResolver::class)->setActivityInstance($activityInstance);
         $this->beRole($this->newRole());
@@ -85,8 +85,8 @@ class CheckActivityInstanceAccessibleTest extends TestCase
         $request->route('test_callback_called')->shouldBeCalled()->willReturn(true);
         
         $user = $this->newUser();
-        $activity = factory(Activity::class)->create(['activity_for' => 'user']);
-        $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'user', 'resource_id' => $user->id(), 'activity_id' => $activity->id]);
+        $activity = Activity::factory()->create(['activity_for' => 'user']);
+        $activityInstance = ActivityInstance::factory()->create(['resource_type' => 'user', 'resource_id' => $user->id(), 'activity_id' => $activity->id]);
 
         app(ActivityInstanceResolver::class)->setActivityInstance($activityInstance);
         $this->beUser($user);
@@ -104,8 +104,8 @@ class CheckActivityInstanceAccessibleTest extends TestCase
         $request->route('test_callback_called')->shouldBeCalled()->willReturn(true);
 
         $group = $this->newGroup();
-        $activity = factory(Activity::class)->create(['activity_for' => 'group']);
-        $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'group', 'resource_id' => $group->id(), 'activity_id' => $activity->id]);
+        $activity = Activity::factory()->create(['activity_for' => 'group']);
+        $activityInstance = ActivityInstance::factory()->create(['resource_type' => 'group', 'resource_id' => $group->id(), 'activity_id' => $activity->id]);
 
         app(ActivityInstanceResolver::class)->setActivityInstance($activityInstance);
         $this->beGroup($group);
@@ -123,8 +123,8 @@ class CheckActivityInstanceAccessibleTest extends TestCase
         $request->route('test_callback_called')->shouldBeCalled()->willReturn(true);
 
         $role = $this->newRole();
-        $activity = factory(Activity::class)->create(['activity_for' => 'role']);
-        $activityInstance = factory(ActivityInstance::class)->create(['resource_type' => 'role', 'resource_id' => $role->id(), 'activity_id' => $activity->id]);
+        $activity = Activity::factory()->create(['activity_for' => 'role']);
+        $activityInstance = ActivityInstance::factory()->create(['resource_type' => 'role', 'resource_id' => $role->id(), 'activity_id' => $activity->id]);
 
         app(ActivityInstanceResolver::class)->setActivityInstance($activityInstance);
         $this->beRole($role);

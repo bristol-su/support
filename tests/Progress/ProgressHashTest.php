@@ -62,7 +62,7 @@ class ProgressHashTest extends TestCase
     /** @test */
     public function get_item_key_returns_the_item_key()
     {
-        $progressHash = factory(ProgressHash::class)->create([
+        $progressHash = ProgressHash::factory()->create([
             'item_key' => '1_199'
         ]);
 
@@ -76,7 +76,7 @@ class ProgressHashTest extends TestCase
     /** @test */
     public function get_hash_returns_the_hash()
     {
-        $progressHash = factory(ProgressHash::class)->create([
+        $progressHash = ProgressHash::factory()->create([
             'hash' => 'kjflhskdfjhlakfcjbelcjhbwdbja'
         ]);
 

@@ -22,7 +22,7 @@ class FilterTesterTest extends TestCase
         $repository = $this->prophesize(FilterRepository::class);
         $repository->getByAlias('alias1')->shouldBeCalled()->willReturn($filter->reveal());
 
-        $filterInstance = factory(FilterInstance::class)->create(['alias' => 'alias1']);
+        $filterInstance = FilterInstance::factory()->create(['alias' => 'alias1']);
 
         $filterTester = new FilterTester($repository->reveal());
         $filterTester->evaluate($filterInstance, new class() {
@@ -43,12 +43,12 @@ class FilterTesterTest extends TestCase
         $repository = $this->prophesize(FilterRepository::class);
         $repository->getByAlias('alias1')->shouldBeCalled()->willReturn($filter->reveal());
 
-        $filterInstance = factory(FilterInstance::class)->create(['alias' => 'alias1']);
+        $filterInstance = FilterInstance::factory()->create(['alias' => 'alias1']);
 
         $filterTester = new FilterTester($repository->reveal());
         $filterTester->evaluate($filterInstance, $user);
     }
-    
+
     /** @test */
     public function evaluate_passes_the_settings_to_the_filter()
     {
@@ -63,7 +63,7 @@ class FilterTesterTest extends TestCase
         $repository = $this->prophesize(FilterRepository::class);
         $repository->getByAlias('alias1')->shouldBeCalled()->willReturn($filter->reveal());
 
-        $filterInstance = factory(FilterInstance::class)->create([
+        $filterInstance = FilterInstance::factory()->create([
             'alias' => 'alias1',
             'settings' => ['key1' => 'val1', 'key2' => 'val2']
         ]);
@@ -86,7 +86,7 @@ class FilterTesterTest extends TestCase
         $repository = $this->prophesize(FilterRepository::class);
         $repository->getByAlias('alias1')->shouldBeCalled()->willReturn($filter->reveal());
 
-        $filterInstance = factory(FilterInstance::class)->create([
+        $filterInstance = FilterInstance::factory()->create([
             'alias' => 'alias1',
             'settings' => ['key1' => 'val1', 'key2' => 'val2']
         ]);
@@ -111,7 +111,7 @@ class FilterTesterTest extends TestCase
         $repository = $this->prophesize(FilterRepository::class);
         $repository->getByAlias('alias1')->shouldBeCalled()->willReturn($filter->reveal());
 
-        $filterInstance = factory(FilterInstance::class)->create([
+        $filterInstance = FilterInstance::factory()->create([
             'alias' => 'alias1',
             'settings' => ['key1' => 'val1', 'key2' => 'val2']
         ]);

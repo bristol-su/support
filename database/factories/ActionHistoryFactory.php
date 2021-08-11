@@ -1,13 +1,32 @@
 <?php
 
-$factory->define(\BristolSU\Support\Action\History\ActionHistory::class, function (Faker\Generator $faker) {
-    return [
-        'action_instance_id' => function () {
-            return factory(\BristolSU\Support\Action\ActionInstance::class)->create()->id;
-        },
-        'event_fields' => [],
-        'settings' => [],
-        'message' => $faker->sentence,
-        'success' => $faker->boolean
-    ];
-});
+namespace Database\Factories;
+
+use BristolSU\Support\Action\History\ActionHistory;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ActionHistoryFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ActionHistory::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'action_instance_id' => fn () => \BristolSU\Support\Action\ActionInstance::factory()->create()->id,
+            'event_fields' => [],
+            'settings' => [],
+            'message' => $this->faker->sentence,
+            'success' => $this->faker->boolean
+        ];
+    }
+}

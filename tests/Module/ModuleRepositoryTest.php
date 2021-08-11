@@ -17,10 +17,10 @@ class ModuleRepositoryTest extends TestCase
         $module = $this->prophesize(ModuleContract::class);
         $manager = $this->prophesize(ModuleManager::class);
         $factory = $this->prophesize(ModuleFactory::class);
-        
+
         $manager->exists('alias1')->shouldBeCalled()->willReturn(true);
         $factory->fromAlias('alias1')->shouldBeCalled()->willReturn($module->reveal());
-        
+
         $moduleRepository = new ModuleRepository($manager->reveal(), $factory->reveal());
 
         $createdModule = $moduleRepository->findByAlias('alias1');

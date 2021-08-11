@@ -4,7 +4,9 @@ namespace BristolSU\Support\Permissions\Models;
 
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
+use Database\Factories\ModelPermissionFactory;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -17,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ModelPermission extends Model
 {
-    use HasRevisions;
-    
+    use HasRevisions, HasFactory;
+
     /**
      * The table to use in the database.
      *
@@ -158,5 +160,15 @@ class ModelPermission extends Model
         }
 
         return $query->where($constraints);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new ModelPermissionFactory();
     }
 }

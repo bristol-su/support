@@ -14,8 +14,8 @@ class ModuleInstancePermissionTest extends TestCase
     /** @test */
     public function it_belongs_to_a_module_instance()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $moduleInstancePermission = factory(ModuleInstancePermission::class)->create(['module_instance_id' => $moduleInstance->id]);
+        $moduleInstance = ModuleInstance::factory()->create();
+        $moduleInstancePermission = ModuleInstancePermission::factory()->create(['module_instance_id' => $moduleInstance->id]);
 
         $this->assertInstanceOf(ModuleInstance::class, $moduleInstancePermission->moduleInstance);
         $this->assertModelEquals($moduleInstance, $moduleInstancePermission->moduleInstance);
@@ -24,8 +24,8 @@ class ModuleInstancePermissionTest extends TestCase
     /** @test */
     public function it_has_a_logic_group()
     {
-        $logic = factory(Logic::class)->create();
-        $moduleInstancePermission = factory(ModuleInstancePermission::class)->create(['logic_id' => $logic->id]);
+        $logic = Logic::factory()->create();
+        $moduleInstancePermission = ModuleInstancePermission::factory()->create(['logic_id' => $logic->id]);
 
         $this->assertInstanceOf(Logic::class, $moduleInstancePermission->logic);
         $this->assertModelEquals($logic, $moduleInstancePermission->logic);
@@ -38,7 +38,7 @@ class ModuleInstancePermissionTest extends TestCase
         $permissionRepository = $this->prophesize(PermissionRepository::class);
         $permissionRepository->get('ability-1')->shouldBeCalled()->willReturn($permission);
         $this->app->instance(PermissionRepository::class, $permissionRepository->reveal());
-        $moduleInstancePermission = factory(ModuleInstancePermission::class)->create(['ability' => 'ability-1']);
+        $moduleInstancePermission = ModuleInstancePermission::factory()->create(['ability' => 'ability-1']);
 
         $this->assertInstanceOf(Permission::class, $moduleInstancePermission->permission);
         $this->assertSame($permission, $moduleInstancePermission->permission);
@@ -53,7 +53,7 @@ class ModuleInstancePermissionTest extends TestCase
         $permissionRepository->get('ability-1')->shouldBeCalled()->willReturn($permission);
         $this->app->instance(PermissionRepository::class, $permissionRepository->reveal());
         
-        $moduleInstancePermission = factory(ModuleInstancePermission::class)->create(['ability' => 'ability-1']);
+        $moduleInstancePermission = ModuleInstancePermission::factory()->create(['ability' => 'ability-1']);
 
         $this->assertEquals('module', $moduleInstancePermission->type);
     }
@@ -64,7 +64,7 @@ class ModuleInstancePermissionTest extends TestCase
         $user = $this->newUser();
         $this->beUser($user);
 
-        $moduleInstancePermission = factory(ModuleInstancePermission::class)->create(['ability' => 'OldAbility']);
+        $moduleInstancePermission = ModuleInstancePermission::factory()->create(['ability' => 'OldAbility']);
 
         $moduleInstancePermission->ability = 'NewAbility';
         $moduleInstancePermission->save();

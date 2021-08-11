@@ -16,7 +16,7 @@ class ConnectorFactoryTest extends TestCase
     /** @test */
     public function create_from_connection_sets_the_settings_on_the_connector()
     {
-        $connection = factory(Connection::class)->create(['alias' => 'alias1', 'settings' => ['test1' => 'val1']]);
+        $connection = Connection::factory()->create(['alias' => 'alias1', 'settings' => ['test1' => 'val1']]);
         
         $this->instance(Client::class, $this->prophesize(Client::class)->reveal());
         

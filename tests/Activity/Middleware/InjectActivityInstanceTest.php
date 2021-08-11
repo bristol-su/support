@@ -15,7 +15,7 @@ class InjectActivityInstanceTest extends TestCase
     /** @test */
     public function it_passes_the_activity_in_the_request_to_the_container()
     {
-        $activity = factory(Activity::class)->create();
+        $activity = Activity::factory()->create();
         $request = $this->prophesize(Request::class);
         $request->route('activity_slug')->shouldBeCalled()->willReturn($activity);
 

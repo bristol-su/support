@@ -1,22 +1,29 @@
 <?php
 
+namespace Database\Factories;
+
 use BristolSU\Support\Progress\ProgressHash;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
- */
+class ProgressHashFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ProgressHash::class;
 
-$factory->define(ProgressHash::class, function (Faker $faker) {
-    return [
-        'item_key' => sprintf('%s_%u', $faker->word, $faker->numberBetween(0, 100)),
-        'hash' => $faker->sha1
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'item_key' => sprintf('%s_%u', $this->faker->word, $this->faker->numberBetween(0, 100)),
+            'hash' => $this->faker->sha1
+        ];
+    }
+}

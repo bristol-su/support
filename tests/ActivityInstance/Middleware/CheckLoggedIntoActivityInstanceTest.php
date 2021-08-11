@@ -16,7 +16,7 @@ class CheckLoggedIntoActivityInstanceTest extends TestCase
     {
         $this->expectException(NotInActivityInstanceException::class);
         
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
 
         $resolver = $this->prophesize(ActivityInstanceResolver::class);
         $resolver->getActivityInstance()->willThrow(new NotInActivityInstanceException());
@@ -31,7 +31,7 @@ class CheckLoggedIntoActivityInstanceTest extends TestCase
     /** @test */
     public function handle_calls_the_callback_if_the_activity_instance_is_found()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
 
         $resolver = $this->prophesize(ActivityInstanceResolver::class);
         $resolver->getActivityInstance()->willReturn($activityInstance);

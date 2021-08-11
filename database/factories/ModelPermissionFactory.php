@@ -1,72 +1,86 @@
 <?php
 
+namespace Database\Factories;
+
+use BristolSU\ControlDB\Models\Group;
+use BristolSU\ControlDB\Models\Role;
+use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Logic\Logic;
+use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Models\ModelPermission;
-use BristolSU\Support\User\User;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
- */
+class ModelPermissionFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ModelPermission::class;
 
-$factory->define(ModelPermission::class, function (Faker $faker) {
-    return [
-        'ability' => $faker->word,
-        'model' => 'user',
-        'model_id' => function () {
-            return factory(User::class)->create()->id;
-        },
-        'result' => $faker->boolean,
-        'module_instance_id' => null
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'ability' => $this->faker->word,
+            'model' => 'user',
+            'model_id' => fn () => User::factory()->create()->id(),
+            'result' => $this->faker->boolean,
+            'module_instance_id' => null
+        ];
+    }
 
-$factory->state(ModelPermission::class, 'user', function () {
-    return [
-        'model' => 'user',
-        'model_id' => function () {
-            return factory(User::class)->create()->id;
-        },
-    ];
-});
+    public function user()
+    {
+        return $this->state(fn (array $attributes) => [
+            'model' => 'user',
+            'model_id' => fn () => User::factory()->create()->id()
+        ]);
+    }
 
-$factory->state(ModelPermission::class, 'group', function () {
-    return [
-        'model' => 'group',
-        'model_id' => 1,
-    ];
-});
+    public function group()
+    {
+        return $this->state(fn (array $attributes) => [
+            'model' => 'group',
+            'model_id' => fn () => Group::factory()->create()->id()
+        ]);
+    }
 
-$factory->state(ModelPermission::class, 'role', function () {
-    return [
-        'model' => 'role',
-        'model_id' => 1,
-    ];
-});
+    public function role()
+    {
+        return $this->state(fn (array $attributes) => [
+            'model' => 'role',
+            'model_id' => fn () => Role::factory()->create()->id()
+        ]);
+    }
 
-$factory->state(ModelPermission::class, 'logic', function () {
-    return [
-        'model' => 'logic',
-        'model_id' => function () {
-            return factory(Logic::class)->create()->id;
-        },
-    ];
-});
+    public function logic()
+    {
+        return $this->state(fn (array $attributes) => [
+            'model' => 'logic',
+            'model_id' => fn () => Logic::factory()->create()->id
+        ]);
+    }
 
-$factory->state(ModelPermission::class, 'module', function () {
-    return [
-        'module_instance_id' => function () {
-            return factory(\BristolSU\Support\ModuleInstance\ModuleInstance::class)->create()->id;
-        }
-    ];
-});
+    public function module()
+    {
+        return $this->state(fn (array $attributes) => [
+            'module_instance_id' => fn () => ModuleInstance::factory()->create()->id
+        ]);
+    }
 
-$factory->state(ModelPermission::class, 'true', ['result' => true]);
-$factory->state(ModelPermission::class, 'false', ['result' => false]);
+    public function true()
+    {
+        return $this->state(fn (array $attributes) => ['result' => true]);
+    }
+
+    public function false()
+    {
+        return $this->state(fn (array $attributes) => ['result' => false]);
+    }
+}

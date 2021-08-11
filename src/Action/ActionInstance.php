@@ -4,10 +4,12 @@ namespace BristolSU\Support\Action;
 
 use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Action\History\ActionHistory;
+use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
-use BristolSU\Support\User\Contracts\UserAuthentication;
+use Database\Factories\ActionInstanceFactory;
 use FormSchema\Transformers\VFGTransformer;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -17,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ActionInstance extends Model
 {
-    use HasRevisions;
-    
+    use HasRevisions, HasFactory;
+
     /**
      * Fillable properties.
      *
@@ -57,8 +59,8 @@ class ActionInstance extends Model
     {
         parent::__construct($attributes);
         self::creating(function ($model) {
-            if ($model->user_id === null && ($user = app(UserAuthentication::class)->getUser()) !== null) {
-                $model->user_id = $user->controlId();
+            if ($model->user_id === null && app(Authentication::class)->hasUser()) {
+                $model->user_id = app(Authentication::class)->getUser()->id();
             }
         });
     }
@@ -120,5 +122,15 @@ class ActionInstance extends Model
     public function history()
     {
         return $this->hasMany(ActionHistory::class);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new ActionInstanceFactory();
     }
 }

@@ -6,6 +6,8 @@ use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use BristolSU\Support\Revision\HasRevisions;
+use Database\Factories\ModuleInstancePermissionFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,8 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ModuleInstancePermission extends Model
 {
-    use HasRevisions;
-    
+    use HasRevisions, HasFactory;
+
     /**
      * Fillable attributes.
      *
@@ -72,5 +74,15 @@ class ModuleInstancePermission extends Model
     public function getTypeAttribute()
     {
         return $this->permission->getType();
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new ModuleInstancePermissionFactory();
     }
 }

@@ -11,7 +11,7 @@ class SettingsListenerTest extends TestCase
     /** @test */
     public function handle_returns_false_if_key_not_the_same_as_the_setting_key()
     {
-        $setting = factory(ModuleInstanceSetting::class)->create(['key' => 'not-a-key']);
+        $setting = ModuleInstanceSetting::factory()->create(['key' => 'not-a-key']);
         
         $listener = new Listener();
         $this->assertFalse(
@@ -23,7 +23,7 @@ class SettingsListenerTest extends TestCase
     /** @test */
     public function handle_calls_the_correct_functions_and_passes_the_correct_attribute()
     {
-        $setting = factory(ModuleInstanceSetting::class)->create(['key' => 'a-key']);
+        $setting = ModuleInstanceSetting::factory()->create(['key' => 'a-key']);
 
         $listener = new Listener();
         
@@ -37,7 +37,7 @@ class SettingsListenerTest extends TestCase
     /** @test */
     public function handle_returns_null_if_method_not_defined()
     {
-        $setting = factory(ModuleInstanceSetting::class)->create(['key' => 'a-key']);
+        $setting = ModuleInstanceSetting::factory()->create(['key' => 'a-key']);
 
         $listener = new Listener();
 
@@ -48,7 +48,7 @@ class SettingsListenerTest extends TestCase
     /** @test */
     public function handle_returns_function_result_if_method_defined()
     {
-        $setting = factory(ModuleInstanceSetting::class)->create(['key' => 'a-key']);
+        $setting = ModuleInstanceSetting::factory()->create(['key' => 'a-key']);
 
         $listener = new Listener();
         $listener->return = true;

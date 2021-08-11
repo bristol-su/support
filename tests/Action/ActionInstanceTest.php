@@ -9,10 +9,8 @@ use BristolSU\Support\Action\ActionResponse;
 use BristolSU\Support\Action\Contracts\Action;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
 use BristolSU\Support\Action\History\ActionHistory;
-use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
-use BristolSU\Support\User\Contracts\UserAuthentication;
 use FormSchema\Schema\Form;
 use Illuminate\Support\Collection;
 
@@ -21,36 +19,36 @@ class ActionInstanceTest extends TestCase
     /** @test */
     public function action_instance_has_many_action_instance_fields()
     {
-        $actionInstance = factory(ActionInstance::class)->create();
-        $actionInstanceFieldsFactory = factory(ActionInstanceField::class, 10)->create([
+        $actionInstance = ActionInstance::factory()->create();
+        $actionInstanceFieldsFactory = ActionInstanceField::factory()->count(10)->create([
             'action_instance_id' => $actionInstance->id
         ]);
-        
+
         $actionInstanceFields = $actionInstance->actionInstanceFields;
         foreach ($actionInstanceFieldsFactory as $field) {
             $this->assertModelEquals($field, $actionInstanceFields->shift());
         }
     }
-    
+
     /** @test */
     public function action_instance_has_an_event_fields_attribute()
     {
-        $actionInstance = factory(ActionInstance::class)->create([
+        $actionInstance = ActionInstance::factory()->create([
             'event' => ActionInstanceDummyEvent::class,
             'action' => ActionInstanceDummyAction::class
         ]);
-        
+
         $this->assertEquals([
             'eventfield1' => [
                 'label' => 'Event Field 1'
             ]
         ], $actionInstance->event_fields);
     }
-    
+
     /** @test */
     public function action_instance_has_an_action_schema_attribute()
     {
-        $actionInstance = factory(ActionInstance::class)->create([
+        $actionInstance = ActionInstance::factory()->create([
             'event' => ActionInstanceDummyEvent::class,
             'action' => ActionInstanceDummyAction::class
         ]);
@@ -62,15 +60,15 @@ class ActionInstanceTest extends TestCase
         $this->assertEquals([], $actionInstance->action_schema['schema']['fields']);
         $this->assertEquals([], $actionInstance->action_schema['schema']['groups']);
     }
-    
+
     /** @test */
     public function action_instance_has_a_module_instance()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $actionInstance = factory(ActionInstance::class)->create([
+        $moduleInstance = ModuleInstance::factory()->create();
+        $actionInstance = ActionInstance::factory()->create([
             'module_instance_id' => $moduleInstance->id
         ]);
-        
+
         $this->assertInstanceOf(ModuleInstance::class, $actionInstance->moduleInstance);
         $this->assertModelEquals($moduleInstance, $actionInstance->moduleInstance);
     }
@@ -83,7 +81,7 @@ class ActionInstanceTest extends TestCase
         $userRepository->getById($user->id())->shouldBeCalled()->willReturn($user);
         $this->instance(User::class, $userRepository->reveal());
 
-        $actionInstance = factory(ActionInstance::class)->create(['user_id' => $user->id()]);
+        $actionInstance = ActionInstance::factory()->create(['user_id' => $user->id()]);
         $this->assertInstanceOf(\BristolSU\ControlDB\Models\User::class, $actionInstance->user());
         $this->assertModelEquals($user, $actionInstance->user());
     }
@@ -91,7 +89,7 @@ class ActionInstanceTest extends TestCase
     /** @test */
     public function user_throws_an_exception_if_user_id_is_null()
     {
-        $actionInstance = factory(ActionInstance::class)->create(['user_id' => null, 'id' => 2000]);
+        $actionInstance = ActionInstance::factory()->create(['user_id' => null, 'id' => 2000]);
 
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Action Instance #2000 is not owned by a user');
@@ -103,14 +101,10 @@ class ActionInstanceTest extends TestCase
     public function user_id_is_automatically_added_on_creation()
     {
         $user = $this->newUser();
-        $dbUser = factory(\BristolSU\Support\User\User::class)->create(['control_id' => $user->id()]);
-        $authentication = $this->prophesize(UserAuthentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn($dbUser);
-        $this->instance(UserAuthentication::class, $authentication->reveal());
+        $this->beUser($user);
 
-        $logic = factory(Logic::class)->create();
-        $actionInstance = factory(ActionInstance::class)->create(['user_id' => null]);
-        
+        $actionInstance = ActionInstance::factory()->create(['user_id' => null]);
+
         $this->assertNotNull($actionInstance->user_id);
         $this->assertEquals($user->id(), $actionInstance->user_id);
     }
@@ -119,22 +113,22 @@ class ActionInstanceTest extends TestCase
     public function user_id_is_not_overridden_if_given()
     {
         $user = $this->newUser();
+        $this->beUser($user);
 
-        $logic = factory(Logic::class)->create();
-        $actionInstance = factory(ActionInstance::class)->create(['user_id' => $user->id()]);
-        
+        $actionInstance = ActionInstance::factory()->create(['user_id' => $user->id()]);
+
 
         $this->assertNotNull($actionInstance->user_id);
         $this->assertEquals($user->id(), $actionInstance->user_id);
     }
-    
+
     /** @test */
     public function revisions_are_saved()
     {
         $user = $this->newUser();
         $this->beUser($user);
-        
-        $actionInstance = factory(ActionInstance::class)->create(['name' => 'OldName']);
+
+        $actionInstance = ActionInstance::factory()->create(['name' => 'OldName']);
 
         $actionInstance->name = 'NewName';
         $actionInstance->save();
@@ -146,16 +140,16 @@ class ActionInstanceTest extends TestCase
         $this->assertEquals('OldName', $actionInstance->revisionHistory->first()->old_value);
         $this->assertEquals('NewName', $actionInstance->revisionHistory->first()->new_value);
     }
-    
+
     /** @test */
     public function it_has_history()
     {
-        $actionInstance = factory(ActionInstance::class)->create();
-        $histories = factory(ActionHistory::class, 10)->create([
+        $actionInstance = ActionInstance::factory()->create();
+        $histories = ActionHistory::factory()->count(10)->create([
             'action_instance_id' => $actionInstance->id
         ]);
-        factory(ActionHistory::class, 5)->create();
-        
+        ActionHistory::factory()->count(5)->create();
+
         $resolvedHistory = $actionInstance->history;
         $this->assertInstanceOf(Collection::class, $resolvedHistory);
         $this->assertContainsOnlyInstancesOf(ActionHistory::class, $resolvedHistory);

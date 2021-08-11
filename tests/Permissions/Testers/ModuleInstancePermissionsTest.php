@@ -27,9 +27,9 @@ class ModuleInstancePermissionsTest extends TestCase
         $logicTester = $this->prophesize(LogicTester::class);
         $tester = new ModuleInstancePermissions($logicTester->reveal());
         
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $moduleInstancePermission = factory(ModuleInstancePermission::class)->create([
-            'ability' => 'permission1', 'logic_id' => factory(Logic::class)->create(), 'module_instance_id' => $moduleInstance->id
+        $moduleInstance = ModuleInstance::factory()->create();
+        $moduleInstancePermission = ModuleInstancePermission::factory()->create([
+            'ability' => 'permission1', 'logic_id' => Logic::factory()->create(), 'module_instance_id' => $moduleInstance->id
         ]);
         $this->app->instance(ModuleInstance::class, $moduleInstance);
 
@@ -44,8 +44,8 @@ class ModuleInstancePermissionsTest extends TestCase
         $logicTester = $this->prophesize(LogicTester::class);
         $tester = new ModuleInstancePermissions($logicTester->reveal());
 
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $moduleInstancePermission = factory(ModuleInstancePermission::class)->create([
+        $moduleInstance = ModuleInstance::factory()->create();
+        $moduleInstancePermission = ModuleInstancePermission::factory()->create([
             'ability' => 'permission1', 'logic_id' => 100, 'module_instance_id' => $moduleInstance->id
         ]);
         $this->app->instance(ModuleInstance::class, $moduleInstance);
@@ -64,12 +64,12 @@ class ModuleInstancePermissionsTest extends TestCase
         $group = $this->newGroup();
         $role = $this->newRole();
 
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $this->logicTester()->forLogic($logic)->pass($user, $group, $role);
         $tester = new ModuleInstancePermissions($this->logicTester());
 
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $moduleInstancePermission = factory(ModuleInstancePermission::class)->create([
+        $moduleInstance = ModuleInstance::factory()->create();
+        $moduleInstancePermission = ModuleInstancePermission::factory()->create([
             'ability' => 'permission1', 'logic_id' => $logic->id, 'module_instance_id' => $moduleInstance->id
         ]);
         $this->app->instance(ModuleInstance::class, $moduleInstance);
@@ -86,12 +86,12 @@ class ModuleInstancePermissionsTest extends TestCase
         $group = $this->newGroup();
         $role = $this->newRole();
 
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $this->logicTester()->forLogic($logic)->fail($user, $group, $role);
         $tester = new ModuleInstancePermissions($this->logicTester());
 
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $moduleInstancePermission = factory(ModuleInstancePermission::class)->create([
+        $moduleInstance = ModuleInstance::factory()->create();
+        $moduleInstancePermission = ModuleInstancePermission::factory()->create([
             'ability' => 'permission1', 'logic_id' => $logic->id, 'module_instance_id' => $moduleInstance->id
         ]);
         $this->app->instance(ModuleInstance::class, $moduleInstance);

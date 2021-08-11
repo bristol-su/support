@@ -6,7 +6,7 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Authentication\Contracts\ResourceIdGenerator;
 
 /**
- * Generates a resource ID from the authenticatoin.
+ * Generates a resource ID from the authentication.
  */
 class AuthenticationResourceIdGenerator implements ResourceIdGenerator
 {
