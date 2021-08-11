@@ -8,35 +8,34 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [Unreleased]
 
 ### Fixed
-- Redirect to module includes query string
-- Error thrown by the ControlServiceProvider when settings retrieved in the service provider due to no set app key
+- When support redirects to a module page, the query string is added to the new redirection
+- Handle error thrown by the `ControlServiceProvider` when settings retrieved in the service provider due to no set app key
 - portal-19: Set action history messages to a text not string
 - portal-330: Stop UpdateProgress from timing out by chunking resulting jobs
 
 ### Added
-- Image URL for module instance and activity
-- Wrapper around body of frontend.
-- Wrapper around content
+- Image URL for module instance and activity models
+- Added a blade wrapper around content and the frontend body, to allow for further html customisations
 - Added Setting framework for global and user settings (portal-147, portal-265)
-- Inject validation from the server to js
-- Inject old input to js
-- Inject all named routes to js
-- Standardised all middleware classes
-- config values `support.url` and `support.api_url`
-- 
+- Add more injected data that js can access
+  - Old input
+  - Validation errors
+  - All named routes
+- config values `support.url` and `support.api_url` that can be used to get the base url or api url.
+
 ### Changed
-- Upgraded to PHP 8.0 from PHP 7.4
-- Upgraded to Laravel 8.0 from Laravel 6.0
-- Use modern factories for everything rather than legacy factories
+- Upgraded from PHP 7.4 to PHP 8.0
+- Upgraded from Laravel 6.0 to Laravel 8.0
+- Use modern factories for everything rather than legacy factories. If your tests use any factories from Control or the SDK, you'll need to change them to use modern factories.
 - Changed the variable names to be injected for JavaScript use, and do so through a view composer for all Bristol SU bases.
 - Add `hasUser`, `hasGroup` and `hasRole` to the Authentication contract.
 - Neatened up middleware groups to only those documented
-- Moved the request->user() function override to the portal-auth package
 
 ### Removed
 - Moved authentication to the portal-auth package
     - Moved Passport Service provider
     - Moved the `BristolSU\Support\Authentication\Contracts\Authentication implementations
+    - Moved the request->user() function override to the portal-auth package
     - Moved everything in the `BristolSU\Support\User` namespace to package.
         - `BristolSU\Support\User\User` -> `BristolSU\Auth\User\AuthenticationUser`
         - `BristolSU\Support\User\UserRepository` -> `BristolSU\Auth\User\AuthenticationUserRepository`
