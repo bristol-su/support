@@ -11,7 +11,7 @@ use BristolSU\Support\Module\Contracts\ModuleBuilder as ModuleBuilderContract;
 use BristolSU\Support\ModuleInstance\Contracts\Settings\ModuleSettingsStore;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use Exception;
-use FormSchema\Transformers\VFGTransformer;
+use FormSchema\Transformers\Transformer;
 use Illuminate\Contracts\Config\Repository;
 
 /**
@@ -181,7 +181,7 @@ class ModuleBuilder implements ModuleBuilderContract
     public function setSettings()
     {
         $this->module->setSettings(
-            (new VFGTransformer())->transformToArray(
+            app(Transformer::class)->transformToArray(
                 $this->moduleSettingsStore->get($this->getAlias())
             )
         );

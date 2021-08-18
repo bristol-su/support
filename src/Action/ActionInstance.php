@@ -8,7 +8,7 @@ use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
 use Database\Factories\ActionInstanceFactory;
-use FormSchema\Transformers\VFGTransformer;
+use FormSchema\Transformers\Transformer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -91,7 +91,7 @@ class ActionInstance extends Model
      */
     public function getActionSchemaAttribute()
     {
-        return (new VFGTransformer())->transformToArray($this->action::options());
+        return app(Transformer::class)->transformToArray($this->action::options());
     }
 
     /**

@@ -20,6 +20,8 @@ use BristolSU\Support\Permissions\PermissionServiceProvider;
 use BristolSU\Support\Progress\ProgressServiceProvider;
 use BristolSU\Support\Revision\RevisionServiceProvider;
 use BristolSU\Support\Settings\SettingsServiceProvider;
+use FormSchema\Transformers\PortalUiKitTransformer;
+use FormSchema\Transformers\Transformer;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -60,6 +62,8 @@ class SupportServiceProvider extends ServiceProvider
         $this->registerMigrations();
         $this->registerViews();
         $this->registerRoutes();
+
+        $this->app->singleton(Transformer::class,  PortalUiKitTransformer::class);
     }
 
     public function registerProviders()

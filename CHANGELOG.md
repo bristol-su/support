@@ -7,7 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.0.0-rc1] - (11/08/2021)
+### Changed
+- Resolve Transformer contract rather than using VFGTransformer.
+
+## [5.0.0] - (11/08/2021)
 
 ### Fixed
 - When support redirects to a module page, the query string is added to the new redirection
