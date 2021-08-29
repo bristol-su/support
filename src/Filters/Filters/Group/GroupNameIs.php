@@ -23,8 +23,8 @@ class GroupNameIs extends GroupFilter
     public function options(): Form
     {
         return \FormSchema\Generator\Form::make()->withField(
-            Field::input('Group Name')->inputType('text')->label('Group Name')
-                ->required(true)->placeholder('Full name of the group')
+            Field::textInput('Group Name')->setLabel('Group Name')
+                ->setRequired(true)->setValue('Full name of the group')
         )->getSchema();
     }
 

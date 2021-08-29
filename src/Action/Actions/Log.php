@@ -34,9 +34,9 @@ class Log extends Action
     public static function options(): Form
     {
         return \FormSchema\Generator\Form::make()->withField(
-            Field::input('text')->inputType('text')->label('Message')
-                ->required(true)->default('')->hint('The message to save to the log')
-                ->help('When triggered, this message will be saved to the php logs')
+            Field::textInput('text')->setLabel('Message')
+                ->setRequired(true)->setValue('')->setHint('The message to save to the log')
+                ->setTooltip('When triggered, this message will be saved to the php logs')
         )->getSchema();
     }
 }

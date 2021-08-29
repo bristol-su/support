@@ -3,6 +3,7 @@
 
 namespace BristolSU\Support\Filters\Filters\Role;
 
+use BristolSU\ControlDB\Contracts\Models\Tags\RoleTag;
 use BristolSU\ControlDB\Contracts\Repositories\Tags\RoleTag as RoleTagRepositoryContract;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use FormSchema\Schema\Form;
@@ -61,20 +62,9 @@ class RoleTagged extends RoleFilter
      */
     public function options(): Form
     {
-        $tags = $this->roleTagRepository->all();
-        $values = [];
-        foreach ($tags as $tag) {
-            $values[] = [
-                'id' => $tag->fullReference(),
-                'name' => sprintf('%s (%s)', $tag->name(), $tag->fullReference()),
-                'role' => $tag->category()->name()
-            ];
-        }
-
-        return \FormSchema\Generator\Form::make()->withField(
-            \FormSchema\Generator\Field::select('tag')->values($values)->label('Role Name')
-                ->required(true)
-        )->getSchema();
+        $field = \FormSchema\Generator\Field::select('tag')->setLabel('Role Name')->setRequired(true);
+        $this->roleTagRepository->all()->each(fn(RoleTag $roleTag) => $field->withOption($roleTag->fullReference(), sprintf('%s (%s)', $roleTag->name(), $roleTag->fullReference()), $roleTag->category()->name()));
+        return \FormSchema\Generator\Form::make()->withField($field)->getSchema();
     }
 
     /**

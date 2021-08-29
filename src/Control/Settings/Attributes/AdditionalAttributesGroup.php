@@ -35,7 +35,7 @@ class AdditionalAttributesGroup extends GlobalSetting
      */
     public function fieldOptions(): Field
     {
-        return \FormSchema\Generator\Field::input($this->inputName())->inputType('text')->getSchema();
+        return \FormSchema\Generator\Field::textInput($this->inputName());
     }
 
     /**
