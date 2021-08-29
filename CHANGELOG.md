@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - Resolve Transformer contract rather than using VFGTransformer.
 - PR-344: Use new form schema
+- Fix client caching not properly caching response
 
 ## [5.0.0] - (11/08/2021)
 
