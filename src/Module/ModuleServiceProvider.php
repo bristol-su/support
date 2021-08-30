@@ -319,7 +319,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function mapParticipantRoutes()
     {
         Route::prefix('/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
-            ->middleware(['web', 'portal-auth', 'module', 'activity', 'participant'])
+            ->middleware(['web', 'portal-auth', 'module', 'activity', 'participant', 'participant-activity', 'participant-module'])
             ->namespace($this->namespace())
             ->group($this->baseDirectory() . '/routes/participant/web.php');
     }
@@ -341,7 +341,7 @@ abstract class ModuleServiceProvider extends ServiceProvider
     public function mapParticipantApiRoutes()
     {
         Route::prefix('/api/p/{activity_slug}/{module_instance_slug}/' . $this->alias())
-            ->middleware(['api', 'portal-auth', 'module', 'activity', 'participant'])
+            ->middleware(['api', 'portal-auth', 'module', 'activity', 'participant', 'participant-activity', 'participant-module'])
             ->namespace($this->namespace())
             ->group($this->baseDirectory() . '/routes/participant/api.php');
     }
