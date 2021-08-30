@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Resolve Transformer contract rather than using VFGTransformer.
 - PR-344: Use new form schema
 
+### Added
+
+- Add position to js variables
+
 ## [5.0.0] - (11/08/2021)
 
 ### Fixed
