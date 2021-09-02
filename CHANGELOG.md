@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add position to js variables
 - `participant-activity` and `participant-module` middleware groups
+- Migration to update settings
+
 ## [5.0.0] - (11/08/2021)
 
 ### Fixed
