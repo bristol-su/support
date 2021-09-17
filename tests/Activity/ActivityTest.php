@@ -259,4 +259,18 @@ class ActivityTest extends TestCase
 
         $this->assertEquals('https://testimage.com/image-1', $activity->image_url);
     }
+
+    /** @test */
+    public function an_activity_can_be_soft_deleted()
+    {
+        $activity = Activity::factory()->create();
+
+        $activity->delete();
+
+        $activities = Activity::trashed();
+
+        dd($activity, $activities);
+
+        $this->assertNotEmpty();
+    }
 }
