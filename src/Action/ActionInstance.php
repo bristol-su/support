@@ -23,7 +23,7 @@ class ActionInstance extends Model
 {
     use HasRevisions, HasFactory, SoftDeletes, CascadeSoftDeletes;
 
-    protected $cascadeDeletes = ['actionInstanceFields'];
+    protected $cascadeDeletes = ['actionInstanceFields', 'history'];
 
     /**
      * Fillable properties.
