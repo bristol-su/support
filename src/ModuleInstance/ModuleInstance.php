@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
@@ -28,7 +29,7 @@ use Spatie\EloquentSortable\SortableTrait;
  */
 class ModuleInstance extends Model implements ModuleInstanceContract, Sortable
 {
-    use HasRevisions, HasFactory, SortableTrait;
+    use HasRevisions, HasFactory, SortableTrait, SoftDeletes;
 
     public $sortable = [
         'order_column_name' => 'order',

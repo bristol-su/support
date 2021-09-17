@@ -16,13 +16,14 @@ use Database\Factories\ActivityInstanceFactory;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * An eloquent model representing an Activity Instance.
  */
 class ActivityInstance extends Model implements Authenticatable
 {
-    use HasRevisions, HasFactory;
+    use HasRevisions, HasFactory, SoftDeletes;
 
     /**
      * Additional attributes to add to the model.
