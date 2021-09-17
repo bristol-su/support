@@ -10,6 +10,7 @@ use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
 use Carbon\Carbon;
 use Database\Factories\ActivityFactory;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -21,8 +22,9 @@ use Illuminate\Support\Str;
  */
 class Activity extends Model
 {
-    use HasRevisions, HasFactory, SoftDeletes;
+    use HasRevisions, HasFactory, SoftDeletes, CascadeSoftDeletes;
 
+    protected $cascadeDeletes = ['activityInstances', 'moduleInstances'];
     /**
      * Fillable attributes.
      *
