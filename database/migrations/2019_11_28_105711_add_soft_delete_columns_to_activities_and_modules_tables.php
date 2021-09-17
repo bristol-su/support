@@ -24,10 +24,6 @@ class AddSoftDeleteColumnsToActivitiesAndModulesTables extends Migration
         Schema::table('module_instances', function(Blueprint $table) {
             $table->softDeletes();
         });
-
-        Schema::table('module_instance_grouping', function(Blueprint $table) {
-            $table->softDeletes();
-        });
     }
 
     /**
@@ -46,10 +42,6 @@ class AddSoftDeleteColumnsToActivitiesAndModulesTables extends Migration
         });
 
         Schema::table('module_instances', function(Blueprint $table) {
-            $table->dropSoftDeletes();
-        });
-
-        Schema::table('module_instance_grouping', function(Blueprint $table) {
             $table->dropSoftDeletes();
         });
     }
