@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Removed
+- Cookies warning blade template is no longer included with the SDK
+
 ## [5.0.0-rc1] - (11/08/2021)
 
 ### Fixed
