@@ -95,8 +95,7 @@ class SupportServiceProvider extends ServiceProvider
 
     public function registerRoutes()
     {
-        Route::middleware(['web', 'module', 'activity'])
-            ->namespace('\BristolSU\Support\Http\Controllers')
+        Route::middleware(['web', 'portal-auth'])
             ->group(__DIR__ . '/../routes/web.php');
     }
 }
