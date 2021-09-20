@@ -19,6 +19,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Migration to update settings
 - Added a title prefix to resource
 - Name the main module route 'module.admin' and 'module.participant'
+- Soft deletes on most models, and ability to restore the models and their children
 
 ## [5.0.0] - (11/08/2021)
 
