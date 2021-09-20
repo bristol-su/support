@@ -12,7 +12,9 @@ use BristolSU\Support\Action\History\ActionHistory;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Schema\Form;
+use FormSchema\Transformers\Transformer;
 use Illuminate\Support\Collection;
+use Prophecy\Argument;
 
 class ActionInstanceTest extends TestCase
 {
@@ -53,12 +55,11 @@ class ActionInstanceTest extends TestCase
             'action' => ActionInstanceDummyAction::class
         ]);
 
-        $this->assertIsArray($actionInstance->action_schema);
-        $this->assertArrayHasKey('schema', $actionInstance->action_schema);
-        $this->assertArrayHasKey('fields', $actionInstance->action_schema['schema']);
-        $this->assertArrayHasKey('groups', $actionInstance->action_schema['schema']);
-        $this->assertEquals([], $actionInstance->action_schema['schema']['fields']);
-        $this->assertEquals([], $actionInstance->action_schema['schema']['groups']);
+        $transformer = $this->prophesize(Transformer::class);
+        $transformer->transformToArray(Argument::type(Form::class))->shouldBeCalled()->willReturn(['test-form']);
+        $this->app->instance(Transformer::class, $transformer->reveal());
+
+        $this->assertEquals(['test-form'], $actionInstance->action_schema);
     }
 
     /** @test */

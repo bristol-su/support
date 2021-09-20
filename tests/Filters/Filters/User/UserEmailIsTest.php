@@ -7,6 +7,7 @@ use BristolSU\ControlDB\Contracts\Repositories\DataUser as DataUserRepository;
 use BristolSU\ControlDB\Models\DataUser;
 use BristolSU\Support\Filters\Filters\User\UserEmailIs;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Fields\EmailField;
 
 class UserEmailIsTest extends TestCase
 {
@@ -15,9 +16,14 @@ class UserEmailIsTest extends TestCase
     {
         $filter = new UserEmailIs();
 
-        $this->assertEquals(1, count($filter->options()->fields()));
-        $this->assertEquals('email', $filter->options()->fields()[0]->model());
-        $this->assertEquals('email', $filter->options()->fields()[0]->inputType());
+        $groups = $filter->options()->groups();
+        $this->assertCount(1, $groups);
+        $fields = $groups[0]->fields();
+        $this->assertCount(1, $fields);
+        $field = $fields[0];
+
+        $this->assertInstanceOf(EmailField::class, $field);
+        $this->assertEquals('email', $field->getId());
     }
 
     /** @test */
