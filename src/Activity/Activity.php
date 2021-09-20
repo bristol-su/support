@@ -9,7 +9,7 @@ use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\ModuleInstance\ModuleInstanceGrouping;
 use BristolSU\Support\Revision\HasRevisions;
-use BristolSU\Support\Traits\CascadeRestoreDeletes;
+use BristolSU\Support\Eloquent\CascadeRestoreDeletes;
 use Carbon\Carbon;
 use Database\Factories\ActivityFactory;
 use Dyrynda\Database\Support\CascadeSoftDeletes;

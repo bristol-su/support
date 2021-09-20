@@ -1,6 +1,6 @@
 <?php
 
-namespace BristolSU\Support\Traits;
+namespace BristolSU\Support\Eloquent;
 
 use Dyrynda\Database\Support\CascadeSoftDeleteException;
 use Illuminate\Database\Eloquent\Relations\Relation;

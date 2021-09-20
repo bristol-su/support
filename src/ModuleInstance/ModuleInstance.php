@@ -14,7 +14,7 @@ use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\Progress\Handlers\Database\Models\ModuleInstanceProgress;
 use BristolSU\Support\Revision\HasRevisions;
-use BristolSU\Support\Traits\CascadeRestoreDeletes;
+use BristolSU\Support\Eloquent\CascadeRestoreDeletes;
 use Database\Factories\ModuleInstanceFactory;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
