@@ -28,7 +28,7 @@ if (!function_exists('settings')) {
         }
 
         try {
-            return app()->make(ModuleInstance::class)->moduleInstanceSettings()->where('key', $key)->firstOrFail()->value;
+            return app()->make(ModuleInstance::class)->moduleInstanceSettings()->where('key', $key)->firstOrFail()->value ?? $default;
         } catch (ModelNotFoundException $e) {
             return $default;
         }
