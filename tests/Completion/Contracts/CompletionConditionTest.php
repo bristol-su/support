@@ -7,6 +7,8 @@ use BristolSU\Support\Completion\Contracts\CompletionCondition;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Schema\Form;
+use FormSchema\Transformers\Transformer;
+use Prophecy\Argument;
 
 class CompletionConditionTest extends TestCase
 {
@@ -16,16 +18,16 @@ class CompletionConditionTest extends TestCase
         $condition = new DummyCondition('alias1');
         $this->assertEquals('alias1', $condition->moduleAlias());
     }
-    
+
     /** @test */
     public function percentage_returns_100_if_condition_is_complete()
     {
         $activityInstance = $this->prophesize(ActivityInstance::class)->reveal();
         $moduleInstance = $this->prophesize(ModuleInstance::class)->reveal();
-        
+
         $condition = new DummyCondition('alias1');
         $condition->complete();
-        
+
         $this->assertTrue($condition->isComplete([], $activityInstance, $moduleInstance));
         $this->assertEquals(100, $condition->percentage([], $activityInstance, $moduleInstance));
     }
@@ -40,37 +42,44 @@ class CompletionConditionTest extends TestCase
         $this->assertFalse($condition->isComplete([], $activityInstance, $moduleInstance));
         $this->assertEquals(0, $condition->percentage([], $activityInstance, $moduleInstance));
     }
-    
+
     /** @test */
     public function to_array_returns_an_array_representation_of_the_condition()
     {
         $condition = new DummyCondition('alias1');
-        
+
+        $transformer = $this->prophesize(Transformer::class);
+        $transformer->transformToArray(Argument::type(Form::class))->shouldBeCalled()->willReturn(['test-form']);
+        $this->app->instance(Transformer::class, $transformer->reveal());
+
         $array = $condition->toArray();
 
         $this->assertArrayHasKey('name', $array);
         $this->assertEquals('Name1', $array['name']);
-        
+
         $this->assertArrayHasKey('description', $array);
         $this->assertEquals('Desc1', $array['description']);
 
         $this->assertArrayHasKey('alias', $array);
         $this->assertEquals('alias1', $array['alias']);
-        
+
         $this->assertArrayHasKey('options', $array);
-        $this->assertIsArray($array['options']);
-        $this->assertArrayHasKey('schema', $array['options']);
+        $this->assertEquals(['test-form'], $array['options']);
     }
-    
+
     /** @test */
     public function to_json_returns_a_json_representation_of_the_condition()
     {
         $condition = new DummyCondition('alias1');
 
+        $transformer = $this->prophesize(Transformer::class);
+        $transformer->transformToArray(Argument::type(Form::class))->shouldBeCalled()->willReturn(['test-form']);
+        $this->app->instance(Transformer::class, $transformer->reveal());
+
         $json = $condition->toJson();
 
         $this->assertJson($json);
-        
+
         $arrayable = json_decode($json, true);
 
         $this->assertArrayHasKey('name', $arrayable);
@@ -83,20 +92,19 @@ class CompletionConditionTest extends TestCase
         $this->assertEquals('alias1', $arrayable['alias']);
 
         $this->assertArrayHasKey('options', $arrayable);
-        $this->assertIsArray($arrayable['options']);
-        $this->assertArrayHasKey('schema', $arrayable['options']);
+        $this->assertEquals(['test-form'], $array['options']);
     }
 }
 
 class DummyCondition extends CompletionCondition
 {
     protected $complete = false;
-    
+
     public function complete()
     {
         $this->complete = true;
     }
-    
+
     public function isComplete($settings, ActivityInstance $activityInstance, ModuleInstance $moduleInstance): bool
     {
         return $this->complete;

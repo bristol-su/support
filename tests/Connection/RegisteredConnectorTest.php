@@ -7,6 +7,7 @@ use BristolSU\Support\Connection\RegisteredConnector;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Generator\Group;
 use FormSchema\Schema\Form;
+use FormSchema\Transformers\Transformer;
 use FormSchema\Transformers\VFGTransformer;
 
 class RegisteredConnectorTest extends TestCase
@@ -50,7 +51,7 @@ class RegisteredConnectorTest extends TestCase
         $registeredConnector->setConnector('connector1');
         $this->assertEquals('connector1', $registeredConnector->getConnector());
     }
-    
+
     /** @test */
     public function __to_string_to_array_and_to_json_returns_the_connector()
     {
@@ -60,13 +61,13 @@ class RegisteredConnectorTest extends TestCase
         $registeredConnector->setService('service1');
         $registeredConnector->setAlias('alias1');
         $registeredConnector->setConnector(DummyConnector_RegisteredConnector::class);
-        
+
         $this->assertEquals([
             'name' => 'name1',
             'description' => 'description1',
             'service' => 'service1',
             'alias' => 'alias1',
-            'settings' => (new VFGTransformer())->transformToArray(DummyConnector_RegisteredConnector::settingsSchema())
+            'settings' => app(Transformer::class)->transformToArray(DummyConnector_RegisteredConnector::settingsSchema())
         ], $registeredConnector->toArray());
 
         $this->assertEquals(json_encode([
@@ -74,7 +75,7 @@ class RegisteredConnectorTest extends TestCase
             'description' => 'description1',
             'service' => 'service1',
             'alias' => 'alias1',
-            'settings' => (new VFGTransformer())->transformToArray(DummyConnector_RegisteredConnector::settingsSchema())
+            'settings' => app(Transformer::class)->transformToArray(DummyConnector_RegisteredConnector::settingsSchema())
         ]), $registeredConnector->toJson());
 
         $this->assertEquals(json_encode([
@@ -82,7 +83,7 @@ class RegisteredConnectorTest extends TestCase
             'description' => 'description1',
             'service' => 'service1',
             'alias' => 'alias1',
-            'settings' => (new VFGTransformer())->transformToArray(DummyConnector_RegisteredConnector::settingsSchema())
+            'settings' => app(Transformer::class)->transformToArray(DummyConnector_RegisteredConnector::settingsSchema())
         ]), (string) $registeredConnector);
     }
 }

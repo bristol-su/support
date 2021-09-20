@@ -10,6 +10,7 @@ use BristolSU\ControlDB\Models\Tags\UserTagCategory;
 use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Filters\Filters\User\UserTagged;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Fields\SelectField;
 
 class UserTaggedTest extends TestCase
 {
@@ -43,15 +44,19 @@ class UserTaggedTest extends TestCase
         ]));
 
         $userTagFilter = new UserTagged($userTagRepository->reveal());
+        $users = $userTagFilter->options()->groups();
+        $this->assertCount(1, $users);
+        $fields = $users[0]->fields();
+        $this->assertCount(1, $fields);
+        $field = $fields[0];
 
-        $this->assertEquals(1, count($userTagFilter->options()->fields()));
-        $this->assertEquals('tag', $userTagFilter->options()->fields()[0]->model());
-        $this->assertEquals('select', $userTagFilter->options()->fields()[0]->type());
+        $this->assertInstanceOf(SelectField::class, $field);
+        $this->assertEquals('tag', $field->getId());
         $this->assertEquals([
-            ['id' => 'cat1.ref1', 'name' => 'Name1 (cat1.ref1)', 'user' => 'category1Name'],
-            ['id' => 'cat2.ref2', 'name' => 'Name2 (cat2.ref2)', 'user' => 'category2Name'],
-            ['id' => 'cat1.ref3', 'name' => 'Name3 (cat1.ref3)', 'user' => 'category1Name'],
-        ], $userTagFilter->options()->fields()[0]->values());
+            ['id' => 'cat1.ref1', 'value' => 'Name1 (cat1.ref1)', 'group' => 'category1Name'],
+            ['id' => 'cat2.ref2', 'value' => 'Name2 (cat2.ref2)', 'group' => 'category2Name'],
+            ['id' => 'cat1.ref3', 'value' => 'Name3 (cat1.ref3)', 'group' => 'category1Name'],
+        ], $field->getSelectOptions());
     }
 
     /** @test */

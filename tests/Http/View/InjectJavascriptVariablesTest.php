@@ -36,8 +36,11 @@ class InjectJavascriptVariablesTest extends TestCase
         if ($authentication === null) {
             $authentication = $this->prophesize(Authentication::class);
             $authentication->getUser()->willReturn(null);
+            $authentication->hasUser()->willReturn(false);
             $authentication->getGroup()->willReturn(null);
+            $authentication->hasGroup()->willReturn(false);
             $authentication->getRole()->willReturn(null);
+            $authentication->hasRole()->willReturn(false);
             $authentication = $authentication->reveal();
         }
         if ($activityInstanceResolver === null) {
@@ -109,9 +112,12 @@ class InjectJavascriptVariablesTest extends TestCase
     public function it_injects_authentication_as_null_if_not_logged_in()
     {
         $authentication = $this->prophesize(Authentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn(null);
-        $authentication->getGroup()->shouldBeCalled()->willReturn(null);
-        $authentication->getRole()->shouldBeCalled()->willReturn(null);
+        $authentication->getUser()->willReturn(null);
+        $authentication->hasUser()->willReturn(false);
+        $authentication->getGroup()->willReturn(null);
+        $authentication->hasGroup()->willReturn(false);
+        $authentication->getRole()->willReturn(null);
+        $authentication->hasRole()->willReturn(false);
 
         $this->assertViewComposerInjects([
             'user' => null,
@@ -131,6 +137,9 @@ class InjectJavascriptVariablesTest extends TestCase
         $authentication->getUser()->shouldBeCalled()->willReturn($user);
         $authentication->getGroup()->shouldBeCalled()->willReturn($group);
         $authentication->getRole()->shouldBeCalled()->willReturn($role);
+        $authentication->hasUser()->willReturn(true);
+        $authentication->hasGroup()->willReturn(true);
+        $authentication->hasRole()->willReturn(true);
 
         $this->assertViewComposerInjects([
             'user' => $user,

@@ -8,6 +8,7 @@ use BristolSU\ControlDB\Models\DataPosition;
 use BristolSU\ControlDB\Models\Position;
 use BristolSU\Support\Filters\Filters\Role\RoleHasPosition;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Fields\SelectField;
 
 class RoleHasPositionTest extends TestCase
 {
@@ -25,13 +26,18 @@ class RoleHasPositionTest extends TestCase
 
         $roleHasPositionFilter = new RoleHasPosition($positionRepository->reveal());
 
-        $this->assertEquals(1, count($roleHasPositionFilter->options()->fields()));
-        $this->assertEquals('position', $roleHasPositionFilter->options()->fields()[0]->model());
-        $this->assertEquals('select', $roleHasPositionFilter->options()->fields()[0]->type());
+        $groups = $roleHasPositionFilter->options()->groups();
+        $this->assertCount(1, $groups);
+        $fields = $groups[0]->fields();
+        $this->assertCount(1, $fields);
+        $field = $fields[0];
+
+        $this->assertInstanceOf(SelectField::class, $field);
+        $this->assertEquals('position', $field->getId());
         $this->assertEquals([
-            ['id' => 1, 'name' => 'Position 1'],
-            ['id' => 2, 'name' => 'Position 2'],
-        ], $roleHasPositionFilter->options()->fields()[0]->values());
+            ['id' => '1', 'value' => 'Position 1'],
+            ['id' => '2', 'value' => 'Position 2']
+        ], $field->getSelectOptions());
     }
 
     /** @test */
