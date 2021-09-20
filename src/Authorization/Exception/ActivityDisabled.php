@@ -20,7 +20,7 @@ class ActivityDisabled extends \Exception
      */
     public static function fromActivity(Activity $activity)
     {
-        $exception = new self();
+        $exception = new self(sprintf('%s has been disabled', $activity->name), 403);
         $exception->setActivity($activity);
 
         return $exception;
