@@ -92,7 +92,7 @@ class CompletionConditionTest extends TestCase
         $this->assertEquals('alias1', $arrayable['alias']);
 
         $this->assertArrayHasKey('options', $arrayable);
-        $this->assertEquals(['test-form'], $array['options']);
+        $this->assertEquals(['test-form'], $arrayable['options']);
     }
 }
 
