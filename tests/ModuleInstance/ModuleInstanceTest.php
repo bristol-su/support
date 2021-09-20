@@ -5,7 +5,10 @@ namespace BristolSU\Support\Tests\ModuleInstance;
 
 use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Action\ActionInstance;
+use BristolSU\Support\Action\ActionInstanceField;
+use BristolSU\Support\Action\History\ActionHistory;
 use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\Connection\ModuleInstanceService;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
@@ -315,5 +318,72 @@ class ModuleInstanceTest extends TestCase
         ]);
 
         $this->assertEquals('https://testimage.com/image-1', $moduleInstance->image_url);
+    }
+
+    public function setupModuleInstance($moduleId, $activityId)
+    {
+        $actionInstance = ActionInstance::factory(['module_instance_id' => $moduleId])->create()->id;
+
+        return [
+            'moduleInstanceSetting' => ModuleInstanceSetting::factory(['module_instance_id' => $moduleId])->create()->id,
+            'moduleInstancePermission' => ModuleInstancePermission::factory(['module_instance_id' => $moduleId])->create()->id,
+            'moduleInstanceProgress' => ModuleInstanceProgress::factory(['module_instance_id' => $moduleId])->create()->id,
+            'moduleInstanceService' => ModuleInstanceService::factory(['module_instance_id' => $moduleId])->create()->id,
+            'actionHistory' => ActionHistory::factory(['action_instance_id' => $actionInstance])->create()->id,
+            'actionInstance' => $actionInstance,
+            'actionInstanceField' => ActionInstanceField::factory(['action_instance_id' => $actionInstance])->create()->id
+        ];
+    }
+
+    /** @test */
+    public function a_module_can_be_deleted_and_its_relations_are_auto_deleted_as_well_but_not_the_parent_activity()
+    {
+        $activity = Activity::factory()->create();
+        $activityInstance = ActivityInstance::factory(['activity_id' => $activity->id])->create();
+        $moduleInstance = ModuleInstance::factory()->activityId($activity->id)->create();
+        $setup = $this->setupModuleInstance($moduleInstance->id, $activity->id);
+
+        ModuleInstance::find($moduleInstance->id)->delete();
+
+        $deletedModule = ModuleInstance::withTrashed()->find($moduleInstance->id);
+
+        // Activity:
+        $this->assertNotEmpty($deletedModule->deleted_at);
+
+        // Activity Instances:
+        $this->assertNotEmpty($deletedModule->activity()->get());
+        $this->assertCount(1, $deletedModule->activity()->get());
+
+        // Module Instances:
+        $this->assertEmpty($deletedModule->get());
+        $this->assertCount(1, $deletedModule->withTrashed()->get());
+
+        // Module Instance Settings:
+        $this->assertEmpty(ModuleInstanceSetting::where('module_instance_id', '=', $moduleInstance->id)->get());
+        $this->assertCount(1, ModuleInstanceSetting::where('module_instance_id', '=', $moduleInstance->id)->withTrashed()->get());
+
+        // Module Instance Permissions:
+        $this->assertEmpty(ModuleInstancePermission::where('module_instance_id', '=', $moduleInstance->id)->get());
+        $this->assertCount(1, ModuleInstancePermission::where('module_instance_id', '=', $moduleInstance->id)->withTrashed()->get());
+
+        // Module Instance Progress:
+        $this->assertEmpty(ModuleInstanceProgress::where('module_instance_id', '=', $moduleInstance->id)->get());
+        $this->assertCount(1, ModuleInstanceProgress::where('module_instance_id', '=', $moduleInstance->id)->withTrashed()->get());
+
+        // Module Instance Services
+        $this->assertEmpty(ModuleInstanceService::where('module_instance_id', '=', $moduleInstance->id)->get());
+        $this->assertCount(1, ModuleInstanceService::where('module_instance_id', '=', $moduleInstance->id)->withTrashed()->get());
+
+        // Module Instance Actions:
+        $this->assertEmpty(ActionInstance::where('module_instance_id', '=', $moduleInstance->id)->get());
+        $this->assertCount(1, ActionInstance::where('module_instance_id', '=', $moduleInstance->id)->withTrashed()->get());
+
+        // Action Histories:
+        $this->assertEmpty(ActionHistory::where('action_instance_id', '=', $setup['actionInstance'])->get());
+        $this->assertCount(1, ActionHistory::where('action_instance_id', '=', $setup['actionInstance'])->withTrashed()->get());
+
+        // Action Instance Fields:
+        $this->assertEmpty(ActionInstanceField::where('action_instance_id', '=', $setup['actionInstance'])->get());
+        $this->assertCount(1, ActionInstanceField::where('action_instance_id', '=', $setup['actionInstance'])->withTrashed()->get());
     }
 }

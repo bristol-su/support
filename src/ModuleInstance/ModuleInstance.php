@@ -14,6 +14,7 @@ use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\Progress\Handlers\Database\Models\ModuleInstanceProgress;
 use BristolSU\Support\Revision\HasRevisions;
+use BristolSU\Support\Traits\CascadeRestoreDeletes;
 use Database\Factories\ModuleInstanceFactory;
 use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
@@ -30,7 +31,12 @@ use Spatie\EloquentSortable\SortableTrait;
  */
 class ModuleInstance extends Model implements ModuleInstanceContract, Sortable
 {
-    use HasRevisions, HasFactory, SortableTrait, SoftDeletes, CascadeSoftDeletes;
+    use HasRevisions,
+        HasFactory,
+        SortableTrait,
+        SoftDeletes,
+        CascadeSoftDeletes,
+        CascadeRestoreDeletes;
 
     protected $cascadeDeletes = [
         'moduleInstanceSettings',

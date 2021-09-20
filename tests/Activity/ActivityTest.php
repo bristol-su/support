@@ -348,4 +348,66 @@ class ActivityTest extends TestCase
         $this->assertEmpty(ActionInstanceField::where('action_instance_id', '=', $setup['actionInstance'])->get());
         $this->assertCount(1, ActionInstanceField::where('action_instance_id', '=', $setup['actionInstance'])->withTrashed()->get());
     }
+
+    /** @test */
+    public function when_an_activity_is_restored_all_of_the_sub_modules_are_restored()
+    {
+        $activity = Activity::factory()->create();
+        $activityInstance = ActivityInstance::factory(['activity_id' => $activity->id])->create();
+        $moduleInstance = ModuleInstance::factory()->activityId($activity->id)->create();
+        $setup = $this->setupModuleInstance($moduleInstance->id, $activity->id);
+
+        Activity::find($activity->id)->delete();
+
+        $deletedActivity = Activity::withTrashed()->find($activity->id);
+
+        $this->assertNotEmpty($deletedActivity->deleted_at);
+
+        $deletedActivity->restore();
+
+        $restoredActivity = Activity::find($activity->id);
+
+        $this->assertEmpty($restoredActivity->deleted_at);
+
+        // Activity Instances:
+        $this->assertIsObject($restoredActivity->activityInstances()->get());
+        $this->assertCount(1, $restoredActivity->activityInstances()->get());
+
+        // Module Instances:
+        $this->assertIsObject($restoredActivity->moduleInstances()->get());
+        $this->assertCount(1, $restoredActivity->moduleInstances()->get());
+
+        // Module Instance Groups:
+        $this->assertNotEmpty(ModuleInstanceGrouping::where('activity_id', '=', $restoredActivity->id)->get());
+        $this->assertCount(1, ModuleInstanceGrouping::where('activity_id', '=', $restoredActivity->id)->get());
+
+        // Module Instance Settings:
+        $this->assertIsObject(ModuleInstanceSetting::where('module_instance_id', '=', $restoredActivity->id)->get());
+        $this->assertCount(1, ModuleInstanceSetting::where('module_instance_id', '=', $restoredActivity->id)->get());
+
+        // Module Instance Permissions:
+        $this->assertNotEmpty(ModuleInstancePermission::where('module_instance_id', '=', $restoredActivity->id)->get());
+        $this->assertCount(1, ModuleInstancePermission::where('module_instance_id', '=', $restoredActivity->id)->get());
+
+        // Module Instance Progress:
+        $this->assertNotEmpty(ModuleInstanceProgress::where('module_instance_id', '=', $restoredActivity->id)->get());
+        $this->assertCount(1, ModuleInstanceProgress::where('module_instance_id', '=', $restoredActivity->id)->get());
+
+        // Module Instance Services
+        $this->assertNotEmpty(ModuleInstanceService::where('module_instance_id', '=', $restoredActivity->id)->get());
+        $this->assertCount(1, ModuleInstanceService::where('module_instance_id', '=', $restoredActivity->id)->get());
+
+        // Module Instance Actions:
+        $this->assertNotEmpty(ActionInstance::where('module_instance_id', '=', $restoredActivity->id)->get());
+        $this->assertCount(1, ActionInstance::where('module_instance_id', '=', $restoredActivity->id)->get());
+
+        // Action Histories:
+        $this->assertIsObject(ActionHistory::where('action_instance_id', '=', $setup['actionInstance'])->get());
+        $this->assertCount(1, ActionHistory::where('action_instance_id', '=', $setup['actionInstance'])->get());
+
+        // Action Instance Fields:
+        $this->assertNotEmpty(ActionInstanceField::where('action_instance_id', '=', $setup['actionInstance'])->get());
+        $this->assertCount(1, ActionInstanceField::where('action_instance_id', '=', $setup['actionInstance'])->get());
+
+    }
 }
