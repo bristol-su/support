@@ -7,6 +7,7 @@ use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\ModuleInstance\ModuleInstanceGrouping;
 use BristolSU\Support\Revision\HasRevisions;
 use Carbon\Carbon;
 use Database\Factories\ActivityFactory;
@@ -24,7 +25,7 @@ class Activity extends Model
 {
     use HasRevisions, HasFactory, SoftDeletes, CascadeSoftDeletes;
 
-    protected $cascadeDeletes = ['activityInstances', 'moduleInstances'];
+    protected $cascadeDeletes = ['activityInstances', 'moduleInstances', 'moduleGrouping'];
     /**
      * Fillable attributes.
      *
@@ -85,6 +86,11 @@ class Activity extends Model
     public function moduleInstances()
     {
         return $this->hasMany(ModuleInstance::class);
+    }
+
+    public function moduleGrouping()
+    {
+        return $this->hasMany(ModuleInstanceGrouping::class);
     }
 
     /**

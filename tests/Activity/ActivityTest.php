@@ -285,7 +285,6 @@ class ActivityTest extends TestCase
         return [
             'moduleInstanceSetting' => ModuleInstanceSetting::factory(['module_instance_id' => $moduleId])->create()->id,
             'moduleInstancePermission' => ModuleInstancePermission::factory(['module_instance_id' => $moduleId])->create()->id,
-            'moduleInstanceGrouping' => ModuleInstanceGrouping::factory(['activity_id' => $activityId])->create()->id,
             'moduleInstanceProgress' => ModuleInstanceProgress::factory(['module_instance_id' => $moduleId])->create()->id,
             'moduleInstanceService' => ModuleInstanceService::factory(['module_instance_id' => $moduleId])->create()->id,
             'actionHistory' => ActionHistory::factory(['action_instance_id' => $actionInstance])->create()->id,
@@ -318,7 +317,8 @@ class ActivityTest extends TestCase
         $this->assertCount(1, $deletedActivity->moduleInstances()->withTrashed()->get());
 
         // Module Instance Groups:
-
+        $this->assertEmpty(ModuleInstanceGrouping::where('activity_id', '=', $activity->id)->get());
+        $this->assertCount(1, ModuleInstanceGrouping::where('activity_id', '=', $activity->id)->withTrashed()->get());
 
         // Module Instance Settings:
         $this->assertEmpty(ModuleInstanceSetting::where('module_instance_id', '=', $moduleInstance->id)->get());

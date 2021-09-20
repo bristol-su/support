@@ -35,7 +35,6 @@ class ModuleInstance extends Model implements ModuleInstanceContract, Sortable
     protected $cascadeDeletes = [
         'moduleInstanceSettings',
         'moduleInstancePermissions',
-        'grouping',
         'moduleInstanceProgress',
         'moduleInstanceServices',
         'actionInstances'
