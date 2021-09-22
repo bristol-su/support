@@ -16,7 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Add position to js variables
 - `participant-activity` and `participant-module` middleware groups
-- Migration to update settings
+- Migrations to update settings
 - Added a title prefix to resource
 - Name the main module route 'module.admin' and 'module.participant'
 

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "96622f632713524ed1478862f7811808",
+    "content-hash": "841f4b23113f2c4cad73bb68e1f7092a",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.194.1",
+            "version": "3.194.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "67bdee05acef9e8ad60098090996690b49babd09"
+                "reference": "1f0a0cec5721b6346c968533fba9b44e462fc728"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/67bdee05acef9e8ad60098090996690b49babd09",
-                "reference": "67bdee05acef9e8ad60098090996690b49babd09",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1f0a0cec5721b6346c968533fba9b44e462fc728",
+                "reference": "1f0a0cec5721b6346c968533fba9b44e462fc728",
                 "shasum": ""
             },
             "require": {
@@ -143,9 +143,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.194.1"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.194.2"
             },
-            "time": "2021-09-17T18:15:42+00:00"
+            "time": "2021-09-21T18:14:06+00:00"
         },
         {
             "name": "brick/math",
@@ -7375,16 +7375,16 @@
         },
         {
             "name": "tobytwigger/form-schema-generator",
-            "version": "dev-PR-361",
+            "version": "v2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tobytwigger/form-schema-generator.git",
-                "reference": "73d65d16c95797393507373fccce2763ece08b78"
+                "reference": "85f5c31b7beb089078035a768d11854f5d590baa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tobytwigger/form-schema-generator/zipball/73d65d16c95797393507373fccce2763ece08b78",
-                "reference": "73d65d16c95797393507373fccce2763ece08b78",
+                "url": "https://api.github.com/repos/tobytwigger/form-schema-generator/zipball/85f5c31b7beb089078035a768d11854f5d590baa",
+                "reference": "85f5c31b7beb089078035a768d11854f5d590baa",
                 "shasum": ""
             },
             "require": {
@@ -7414,9 +7414,9 @@
             "description": "JSON schema generator in php, for vue-form-generator",
             "support": {
                 "issues": "https://github.com/tobytwigger/form-schema-generator/issues",
-                "source": "https://github.com/tobytwigger/form-schema-generator/tree/PR-361"
+                "source": "https://github.com/tobytwigger/form-schema-generator/tree/v2.0"
             },
-            "time": "2021-09-09T13:37:08+00:00"
+            "time": "2021-09-22T10:50:30+00:00"
         },
         {
             "name": "venturecraft/revisionable",
@@ -11601,9 +11601,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "tobytwigger/form-schema-generator": 20
-    },
+    "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

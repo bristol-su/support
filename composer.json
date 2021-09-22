@@ -20,7 +20,7 @@
         "laravel/framework": "^8.0",
         "laracasts/utilities": "^3.0",
         "ext-json": "*",
-        "tobytwigger/form-schema-generator": "dev-PR-361",
+        "tobytwigger/form-schema-generator": "^2.0",
         "bristol-su/control": "^3.0.1",
         "doctrine/dbal": "^2.10",
         "venturecraft/revisionable": "^1.33",
