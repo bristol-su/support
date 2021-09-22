@@ -3,10 +3,14 @@
 namespace BristolSU\Support\Progress\Handlers\Database\Models;
 
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use Database\Factories\ModuleInstanceProgressFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class ModuleInstanceProgress extends Model
 {
+    use HasFactory;
+
     protected $table = 'module_instance_progress';
 
     protected $fillable = [
@@ -27,5 +31,15 @@ class ModuleInstanceProgress extends Model
     public function moduleInstance()
     {
         return $this->belongsTo(ModuleInstance::class);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new ModuleInstanceProgressFactory();
     }
 }

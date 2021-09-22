@@ -10,28 +10,29 @@ use BristolSU\ControlDB\Models\Tags\RoleTag;
 use BristolSU\ControlDB\Models\Tags\RoleTagCategory;
 use BristolSU\Support\Filters\Filters\Role\RoleTagged;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Fields\SelectField;
 
 class RoleTaggedTest extends TestCase
 {
     /** @test */
     public function options_returns_a_list_of_possible_tags()
     {
-        $roleTagCategory1 = factory(RoleTagCategory::class)->create(['name' => 'category1Name', 'reference' => 'cat1']);
-        $roleTagCategory2 = factory(RoleTagCategory::class)->create(['name' => 'category2Name', 'reference' => 'cat2']);
+        $roleTagCategory1 = RoleTagCategory::factory()->create(['name' => 'category1Name', 'reference' => 'cat1']);
+        $roleTagCategory2 = RoleTagCategory::factory()->create(['name' => 'category2Name', 'reference' => 'cat2']);
 
-        $roleTag1 = factory(RoleTag::class)->create([
+        $roleTag1 = RoleTag::factory()->create([
             'tag_category_id' => $roleTagCategory1->id(),
             'name' => 'Name1',
             'reference' => 'ref1'
         ]);
 
-        $roleTag2 = factory(RoleTag::class)->create([
+        $roleTag2 = RoleTag::factory()->create([
             'tag_category_id' => $roleTagCategory2->id(),
             'name' => 'Name2',
             'reference' => 'ref2'
         ]);
 
-        $roleTag3 = factory(RoleTag::class)->create([
+        $roleTag3 = RoleTag::factory()->create([
             'tag_category_id' => $roleTagCategory1->id(),
             'name' => 'Name3',
             'reference' => 'ref3'
@@ -43,17 +44,22 @@ class RoleTaggedTest extends TestCase
         ]));
 
         $roleTagFilter = new RoleTagged($roleTagRepository->reveal());
-        
-        $this->assertEquals(1, count($roleTagFilter->options()->fields()));
-        $this->assertEquals('tag', $roleTagFilter->options()->fields()[0]->model());
-        $this->assertEquals('select', $roleTagFilter->options()->fields()[0]->type());
+
+        $roles = $roleTagFilter->options()->groups();
+        $this->assertCount(1, $roles);
+        $fields = $roles[0]->fields();
+        $this->assertCount(1, $fields);
+        $field = $fields[0];
+
+        $this->assertInstanceOf(SelectField::class, $field);
+        $this->assertEquals('tag', $field->getId());
         $this->assertEquals([
-            ['id' => 'cat1.ref1', 'name' => 'Name1 (cat1.ref1)', 'role' => 'category1Name'],
-            ['id' => 'cat2.ref2', 'name' => 'Name2 (cat2.ref2)', 'role' => 'category2Name'],
-            ['id' => 'cat1.ref3', 'name' => 'Name3 (cat1.ref3)', 'role' => 'category1Name'],
-        ], $roleTagFilter->options()->fields()[0]->values());
+            ['id' => 'cat1.ref1', 'value' => 'Name1 (cat1.ref1)', 'group' => 'category1Name'],
+            ['id' => 'cat2.ref2', 'value' => 'Name2 (cat2.ref2)', 'group' => 'category2Name'],
+            ['id' => 'cat1.ref3', 'value' => 'Name3 (cat1.ref3)', 'group' => 'category1Name'],
+        ], $field->getSelectOptions());
     }
-    
+
     /** @test */
     public function it_evaluates_to_true_if_role_tagged()
     {

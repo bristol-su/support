@@ -15,7 +15,7 @@ class InjectActivityInstanceTest extends TestCase
     /** @test */
     public function it_injects_the_activity_instance()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
         
         $app = $this->prophesize(Application::class);
         $app->instance(ActivityInstance::class, Argument::that(function ($arg) use ($activityInstance) {
@@ -35,7 +35,7 @@ class InjectActivityInstanceTest extends TestCase
     /** @test */
     public function it_calls_the_callback()
     {
-        $activityInstance = factory(ActivityInstance::class)->create();
+        $activityInstance = ActivityInstance::factory()->create();
 
         $app = $this->prophesize(Application::class);
 

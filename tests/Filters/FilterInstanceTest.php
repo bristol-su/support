@@ -18,8 +18,8 @@ class FilterInstanceTest extends TestCase
     /** @test */
     public function it_has_a_logic()
     {
-        $logic = factory(Logic::class)->create();
-        $filterInstance = factory(FilterInstance::class)->create([
+        $logic = Logic::factory()->create();
+        $filterInstance = FilterInstance::factory()->create([
             'logic_id' => $logic->id
         ]);
 
@@ -29,24 +29,24 @@ class FilterInstanceTest extends TestCase
     /** @test */
     public function name_returns_the_filter_instance_name()
     {
-        $filterInstance = factory(FilterInstance::class)->create(['name' => 'A name']);
+        $filterInstance = FilterInstance::factory()->create(['name' => 'A name']);
         $this->assertEquals('A name', $filterInstance->name());
     }
 
     /** @test */
     public function alias_returns_the_filter_alias()
     {
-        $filterInstance = factory(FilterInstance::class)->create(['alias' => 'alias1']);
+        $filterInstance = FilterInstance::factory()->create(['alias' => 'alias1']);
         $this->assertEquals('alias1', $filterInstance->alias());
     }
 
     /** @test */
     public function settings_returns_the_filter_instance_settings()
     {
-        $filterInstance = factory(FilterInstance::class)->create(['settings' => ['setting1' => 'A Value']]);
+        $filterInstance = FilterInstance::factory()->create(['settings' => ['setting1' => 'A Value']]);
         $this->assertEquals(['setting1' => 'A Value'], $filterInstance->settings());
     }
-    
+
     /** @test */
     public function for_returns_user_if_the_filter_is_a_user_filter()
     {
@@ -55,7 +55,7 @@ class FilterInstanceTest extends TestCase
             $this->prophesize(UserFilter::class)->reveal()
         );
         $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
-        $this->assertEquals('user', factory(FilterInstance::class)->create(['alias' => 'alias1'])->for());
+        $this->assertEquals('user', FilterInstance::factory()->create(['alias' => 'alias1'])->for());
     }
 
     /** @test */
@@ -66,7 +66,7 @@ class FilterInstanceTest extends TestCase
             $this->prophesize(GroupFilter::class)->reveal()
         );
         $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
-        $this->assertEquals('group', factory(FilterInstance::class)->create(['alias' => 'alias1'])->for());
+        $this->assertEquals('group', FilterInstance::factory()->create(['alias' => 'alias1'])->for());
     }
 
     /** @test */
@@ -77,9 +77,9 @@ class FilterInstanceTest extends TestCase
             $this->prophesize(RoleFilter::class)->reveal()
         );
         $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
-        $this->assertEquals('role', factory(FilterInstance::class)->create(['alias' => 'alias1'])->for());
+        $this->assertEquals('role', FilterInstance::factory()->create(['alias' => 'alias1'])->for());
     }
-    
+
     /** @test */
     public function for_throws_an_exception_if_filter_not_correct_type()
     {
@@ -88,10 +88,10 @@ class FilterInstanceTest extends TestCase
         $filterRepository = $this->prophesize(FilterRepositoryContract::class);
         $filterRepository->getByAlias('alias1')->shouldBeCalled()->willReturn(new DummyFilter());
         $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
-        $filterInstance = factory(FilterInstance::class)->create(['alias' => 'alias1']);
+        $filterInstance = FilterInstance::factory()->create(['alias' => 'alias1']);
         $filterInstance->for();
     }
-    
+
     /** @test */
     public function for_can_be_called_through_a_magic_method()
     {
@@ -100,7 +100,7 @@ class FilterInstanceTest extends TestCase
             $this->prophesize(RoleFilter::class)->reveal()
         );
         $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
-        $this->assertEquals('role', factory(FilterInstance::class)->create(['alias' => 'alias1'])->for);
+        $this->assertEquals('role', FilterInstance::factory()->create(['alias' => 'alias1'])->for);
     }
 
     /** @test */
@@ -109,7 +109,7 @@ class FilterInstanceTest extends TestCase
         $user = $this->newUser();
         $this->beUser($user);
 
-        $filterInstance = factory(FilterInstance::class)->create(['name' => 'OldName']);
+        $filterInstance = FilterInstance::factory()->create(['name' => 'OldName']);
 
         $filterInstance->name = 'NewName';
         $filterInstance->save();

@@ -11,11 +11,11 @@ class ActionInstanceFieldTest extends TestCase
     /** @test */
     public function action_instance_field_has_an_action_instance()
     {
-        $actionInstance = factory(ActionInstance::class)->create();
-        $actionInstanceField = factory(ActionInstanceField::class)->create([
+        $actionInstance = ActionInstance::factory()->create();
+        $actionInstanceField = ActionInstanceField::factory()->create([
             'action_instance_id' => $actionInstance->id
         ]);
-        
+
         $this->assertModelEquals($actionInstance, $actionInstanceField->actionInstance);
     }
 
@@ -25,7 +25,7 @@ class ActionInstanceFieldTest extends TestCase
         $user = $this->newUser();
         $this->beUser($user);
 
-        $actionInstanceField = factory(ActionInstanceField::class)->create(['action_instance_id' => 1]);
+        $actionInstanceField = ActionInstanceField::factory()->create(['action_instance_id' => 1]);
 
         $actionInstanceField->action_instance_id = 2;
         $actionInstanceField->save();

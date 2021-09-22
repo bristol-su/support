@@ -8,6 +8,7 @@ use BristolSU\ControlDB\Models\DataPosition;
 use BristolSU\ControlDB\Models\Position;
 use BristolSU\Support\Filters\Filters\Role\RoleHasPosition;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Fields\SelectField;
 
 class RoleHasPositionTest extends TestCase
 {
@@ -16,29 +17,34 @@ class RoleHasPositionTest extends TestCase
     {
         $positionRepository = $this->prophesize(PositionRepository::class);
 
-        $dataPosition1 = factory(DataPosition::class)->create(['name' => 'Position 1']);
-        $dataPosition2 = factory(DataPosition::class)->create(['name' => 'Position 2']);
-        $position1 = factory(Position::class)->create(['id' => 1, 'data_provider_id' => $dataPosition1->id()]);
-        $position2 = factory(Position::class)->create(['id' => 2, 'data_provider_id' => $dataPosition2->id()]);
+        $dataPosition1 = DataPosition::factory()->create(['name' => 'Position 1']);
+        $dataPosition2 = DataPosition::factory()->create(['name' => 'Position 2']);
+        $position1 = Position::factory()->create(['id' => 1, 'data_provider_id' => $dataPosition1->id()]);
+        $position2 = Position::factory()->create(['id' => 2, 'data_provider_id' => $dataPosition2->id()]);
 
         $positionRepository->all()->shouldBeCalled()->willReturn(collect([$position1, $position2]));
 
         $roleHasPositionFilter = new RoleHasPosition($positionRepository->reveal());
 
-        $this->assertEquals(1, count($roleHasPositionFilter->options()->fields()));
-        $this->assertEquals('position', $roleHasPositionFilter->options()->fields()[0]->model());
-        $this->assertEquals('select', $roleHasPositionFilter->options()->fields()[0]->type());
+        $groups = $roleHasPositionFilter->options()->groups();
+        $this->assertCount(1, $groups);
+        $fields = $groups[0]->fields();
+        $this->assertCount(1, $fields);
+        $field = $fields[0];
+
+        $this->assertInstanceOf(SelectField::class, $field);
+        $this->assertEquals('position', $field->getId());
         $this->assertEquals([
-            ['id' => 1, 'name' => 'Position 1'],
-            ['id' => 2, 'name' => 'Position 2'],
-        ], $roleHasPositionFilter->options()->fields()[0]->values());
+            ['id' => '1', 'value' => 'Position 1'],
+            ['id' => '2', 'value' => 'Position 2']
+        ], $field->getSelectOptions());
     }
 
     /** @test */
     public function it_evaluates_to_true_if_role_has_position()
     {
         $roleHasPositionFilter = new RoleHasPosition($this->prophesize(PositionRepository::class)->reveal());
-        
+
         $role = $this->newRole([
             'position_id' => 1
         ]);

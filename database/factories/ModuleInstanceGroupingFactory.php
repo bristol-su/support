@@ -1,20 +1,31 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
- */
+use BristolSU\Support\Activity\Activity;
+use BristolSU\Support\ModuleInstance\ModuleInstanceGrouping;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(\BristolSU\Support\ModuleInstance\ModuleInstanceGrouping::class, function (Faker $faker) {
-    return [
-        'heading' => join(' ', $faker->words()),
-    ];
-});
+class ModuleInstanceGroupingFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = ModuleInstanceGrouping::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'heading' => join(' ', $this->faker->words()),
+            'order' => null,
+            'activity_id' => fn () => Activity::factory()->create()->id
+        ];
+    }
+}

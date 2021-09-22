@@ -1,18 +1,32 @@
- <?php
+<?php
 
-/** @var \Illuminate\Database\Eloquent\Factory $factory */
+namespace Database\Factories;
 
 use BristolSU\Support\Filters\FilterInstance;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-$factory->define(FilterInstance::class, function (Faker $faker) {
-    return [
-        'alias' => $faker->word,
-        'name' => $faker->word,
-        'settings' => $faker->randomElements(),
-        'logic_id' => function () {
-            return factory(\BristolSU\Support\Logic\Logic::class)->create()->id;
-        },
-        'logic_type' => 'all_true'
-    ];
-});
+class FilterInstanceFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = FilterInstance::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'alias' => $this->faker->word,
+            'name' => $this->faker->word,
+            'settings' => $this->faker->randomElements(),
+            'logic_id' => fn () => \BristolSU\Support\Logic\Logic::factory()->create()->id,
+            'logic_type' => 'all_true'
+        ];
+    }
+}

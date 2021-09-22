@@ -14,7 +14,7 @@ class InjectModuleInstanceTest extends TestCase
     /** @test */
     public function it_passes_the_module_in_the_request_to_the_container()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $request = $this->prophesize(Request::class);
         $request->route('module_instance_slug')->shouldBeCalled()->willReturn($moduleInstance);
 

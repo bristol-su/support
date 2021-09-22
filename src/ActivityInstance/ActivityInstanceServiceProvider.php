@@ -2,18 +2,14 @@
 
 namespace BristolSU\Support\ActivityInstance;
 
-use BristolSU\Support\ActivityInstance\AuthenticationProvider\ActivityInstanceProvider;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository as ActivityInstanceRepositoryContract;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceResolver;
 use BristolSU\Support\ActivityInstance\Contracts\DefaultActivityInstanceGenerator as DefaultActivityInstanceGeneratorContract;
 use BristolSU\Support\ActivityInstance\Middleware\CheckActivityInstanceAccessible;
 use BristolSU\Support\ActivityInstance\Middleware\CheckActivityInstanceForActivity;
 use BristolSU\Support\ActivityInstance\Middleware\CheckLoggedIntoActivityInstance;
-use BristolSU\Support\ActivityInstance\Middleware\ClearActivityInstance;
 use BristolSU\Support\ActivityInstance\Middleware\InjectActivityInstance;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -47,11 +43,6 @@ class ActivityInstanceServiceProvider extends ServiceProvider
         $this->app['router']->pushMiddlewareToGroup('participant', CheckActivityInstanceForActivity::class);
         $this->app['router']->pushMiddlewareToGroup('participant', CheckActivityInstanceAccessible::class);
         $this->app['router']->pushMiddlewareToGroup('participant', InjectActivityInstance::class);
-        $this->app['router']->pushMiddlewareToGroup('nonmodule', ClearActivityInstance::class);
-
-        Auth::provider('activity-instance-provider', function (Container $app, array $config) {
-            return new ActivityInstanceProvider(app(ActivityInstanceRepositoryContract::class));
-        });
     }
 
     /**

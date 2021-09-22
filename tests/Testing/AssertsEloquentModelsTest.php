@@ -14,7 +14,7 @@ class AssertsEloquentModelsTest extends TestCase
     /** @test */
     public function it_asserts_identical_models_are_the_same()
     {
-        $model = factory(Activity::class)->create();
+        $model = Activity::factory()->create();
         
         $this->assertModelEquals($model, $model);
     }
@@ -24,8 +24,8 @@ class AssertsEloquentModelsTest extends TestCase
     {
         $this->expectException(ExpectationFailedException::class);
 
-        $model1 = factory(Activity::class)->create();
-        $model2 = factory(Activity::class)->create();
+        $model1 = Activity::factory()->create();
+        $model2 = Activity::factory()->create();
         
         $this->assertModelEquals($model1, $model2);
     }

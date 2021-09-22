@@ -6,6 +6,8 @@ use BristolSU\Support\Connection\AccessibleConnectionScope;
 use BristolSU\Support\Connection\Connection;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
+use Database\Factories\ModuleInstanceServiceFactory;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,8 +15,8 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ModuleInstanceService extends Model
 {
-    use HasRevisions;
-    
+    use HasRevisions, HasFactory;
+
     /**
      * Table to store data in.
      *
@@ -49,5 +51,15 @@ class ModuleInstanceService extends Model
     public function connection()
     {
         return $this->belongsTo(Connection::class)->withoutGlobalScope(AccessibleConnectionScope::class);
+    }
+
+    /**
+     * Create a new factory instance for the model.
+     *
+     * @return \Illuminate\Database\Eloquent\Factories\Factory
+     */
+    protected static function newFactory()
+    {
+        return new ModuleInstanceServiceFactory();
     }
 }

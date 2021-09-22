@@ -13,8 +13,8 @@ class ModelPermissionTest extends TestCase
     /** @test */
     public function user_returns_all_user_permissions()
     {
-        $userPermissions = factory(ModelPermission::class, 5)->state('user')->create();
-        $groupPermissions = factory(ModelPermission::class, 5)->state('group')->create();
+        $userPermissions = ModelPermission::factory()->count(5)->user()->create();
+        $groupPermissions = ModelPermission::factory()->count(5)->group()->create();
 
         $permissions = ModelPermission::user()->get();
 
@@ -32,10 +32,10 @@ class ModelPermissionTest extends TestCase
         $user1 = $this->newUser();
         $user2 = $this->newUser();
         $user4 = $this->newUser();
-        $userPermission1 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission1', 'model_id' => $user1->id]);
-        $userPermission2 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission2', 'model_id' => $user2->id]);
-        $userPermission3 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission3', 'model_id' => $user1->id]);
-        $userPermission4 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission1', 'model_id' => $user4->id]);
+        $userPermission1 = ModelPermission::factory()->user()->create(['ability' => 'permission1', 'model_id' => $user1->id]);
+        $userPermission2 = ModelPermission::factory()->user()->create(['ability' => 'permission2', 'model_id' => $user2->id]);
+        $userPermission3 = ModelPermission::factory()->user()->create(['ability' => 'permission3', 'model_id' => $user1->id]);
+        $userPermission4 = ModelPermission::factory()->user()->create(['ability' => 'permission1', 'model_id' => $user4->id]);
 
         $permission = ModelPermission::user($user1->id, 'permission1')->get();
 
@@ -49,10 +49,10 @@ class ModelPermissionTest extends TestCase
         $group1 = $this->newGroup();
         $group2 = $this->newGroup();
         $group4 = $this->newGroup();
-        $groupPermission1 = factory(ModelPermission::class)->state('group')->create(['ability' => 'permission1', 'model_id' => $group1->id]);
-        $groupPermission2 = factory(ModelPermission::class)->state('group')->create(['ability' => 'permission2', 'model_id' => $group2->id]);
-        $groupPermission3 = factory(ModelPermission::class)->state('group')->create(['ability' => 'permission3', 'model_id' => $group1->id]);
-        $groupPermission4 = factory(ModelPermission::class)->state('group')->create(['ability' => 'permission1', 'model_id' => $group4->id]);
+        $groupPermission1 = ModelPermission::factory()->group()->create(['ability' => 'permission1', 'model_id' => $group1->id]);
+        $groupPermission2 = ModelPermission::factory()->group()->create(['ability' => 'permission2', 'model_id' => $group2->id]);
+        $groupPermission3 = ModelPermission::factory()->group()->create(['ability' => 'permission3', 'model_id' => $group1->id]);
+        $groupPermission4 = ModelPermission::factory()->group()->create(['ability' => 'permission1', 'model_id' => $group4->id]);
 
         $permission = ModelPermission::group($group1->id, 'permission1')->get();
 
@@ -63,8 +63,8 @@ class ModelPermissionTest extends TestCase
     /** @test */
     public function group_returns_all_group_permissions()
     {
-        $userPermissions = factory(ModelPermission::class, 5)->state('user')->create();
-        $groupPermissions = factory(ModelPermission::class, 5)->state('group')->create();
+        $userPermissions = ModelPermission::factory()->count(5)->user()->create();
+        $groupPermissions = ModelPermission::factory()->count(5)->group()->create();
 
         $permissions = ModelPermission::group()->get();
 
@@ -82,10 +82,10 @@ class ModelPermissionTest extends TestCase
         $role1 = $this->newRole();
         $role2 = $this->newRole();
         $role4 = $this->newRole();
-        $rolePermission1 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission1', 'model_id' => $role1->id]);
-        $rolePermission2 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission2', 'model_id' => $role2->id]);
-        $rolePermission3 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission3', 'model_id' => $role1->id]);
-        $rolePermission4 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission1', 'model_id' => $role4->id]);
+        $rolePermission1 = ModelPermission::factory()->role()->create(['ability' => 'permission1', 'model_id' => $role1->id]);
+        $rolePermission2 = ModelPermission::factory()->role()->create(['ability' => 'permission2', 'model_id' => $role2->id]);
+        $rolePermission3 = ModelPermission::factory()->role()->create(['ability' => 'permission3', 'model_id' => $role1->id]);
+        $rolePermission4 = ModelPermission::factory()->role()->create(['ability' => 'permission1', 'model_id' => $role4->id]);
 
         $permission = ModelPermission::role($role1->id, 'permission1')->get();
 
@@ -96,8 +96,8 @@ class ModelPermissionTest extends TestCase
     /** @test */
     public function role_returns_all_role_permissions()
     {
-        $userPermissions = factory(ModelPermission::class, 5)->state('user')->create();
-        $rolePermissions = factory(ModelPermission::class, 5)->state('role')->create();
+        $userPermissions = ModelPermission::factory()->count(5)->user()->create();
+        $rolePermissions = ModelPermission::factory()->count(5)->role()->create();
 
         $permissions = ModelPermission::role()->get();
 
@@ -112,8 +112,8 @@ class ModelPermissionTest extends TestCase
     /** @test */
     public function logic_returns_all_logic_permissions()
     {
-        $logicPermissions = factory(ModelPermission::class, 5)->state('logic')->create();
-        $groupPermissions = factory(ModelPermission::class, 5)->state('group')->create();
+        $logicPermissions = ModelPermission::factory()->count(5)->logic()->create();
+        $groupPermissions = ModelPermission::factory()->count(5)->group()->create();
 
         $permissions = ModelPermission::logic()->get();
 
@@ -128,13 +128,13 @@ class ModelPermissionTest extends TestCase
     /** @test */
     public function logic_can_select_by_logic_id_and_ability()
     {
-        $logic1 = factory(Logic::class)->create();
-        $logic2 = factory(Logic::class)->create();
-        $logic4 = factory(Logic::class)->create();
-        $logicPermission1 = factory(ModelPermission::class)->state('logic')->create(['ability' => 'permission1', 'model_id' => $logic1->id]);
-        $logicPermission2 = factory(ModelPermission::class)->state('logic')->create(['ability' => 'permission2', 'model_id' => $logic2->id]);
-        $logicPermission3 = factory(ModelPermission::class)->state('logic')->create(['ability' => 'permission3', 'model_id' => $logic1->id]);
-        $logicPermission4 = factory(ModelPermission::class)->state('logic')->create(['ability' => 'permission1', 'model_id' => $logic4->id]);
+        $logic1 = Logic::factory()->create();
+        $logic2 = Logic::factory()->create();
+        $logic4 = Logic::factory()->create();
+        $logicPermission1 = ModelPermission::factory()->logic()->create(['ability' => 'permission1', 'model_id' => $logic1->id]);
+        $logicPermission2 = ModelPermission::factory()->logic()->create(['ability' => 'permission2', 'model_id' => $logic2->id]);
+        $logicPermission3 = ModelPermission::factory()->logic()->create(['ability' => 'permission3', 'model_id' => $logic1->id]);
+        $logicPermission4 = ModelPermission::factory()->logic()->create(['ability' => 'permission1', 'model_id' => $logic4->id]);
 
         $permission = ModelPermission::logic($logic1->id, 'permission1')->get();
 
@@ -145,13 +145,13 @@ class ModelPermissionTest extends TestCase
     /** @test */
     public function logic_can_select_by_logic_id_and_ability_and_module_instance()
     {
-        $logic1 = factory(Logic::class)->create();
-        $logic2 = factory(Logic::class)->create();
-        $logic4 = factory(Logic::class)->create();
-        $logicPermission1 = factory(ModelPermission::class)->state('logic')->create(['ability' => 'permission1', 'model_id' => $logic1->id, 'module_instance_id' => 1]);
-        $logicPermission2 = factory(ModelPermission::class)->state('logic')->create(['ability' => 'permission2', 'model_id' => $logic2->id]);
-        $logicPermission3 = factory(ModelPermission::class)->state('logic')->create(['ability' => 'permission1', 'model_id' => $logic1->id, 'module_instance_id' => 2]);
-        $logicPermission4 = factory(ModelPermission::class)->state('logic')->create(['ability' => 'permission1', 'model_id' => $logic4->id]);
+        $logic1 = Logic::factory()->create();
+        $logic2 = Logic::factory()->create();
+        $logic4 = Logic::factory()->create();
+        $logicPermission1 = ModelPermission::factory()->logic()->create(['ability' => 'permission1', 'model_id' => $logic1->id, 'module_instance_id' => 1]);
+        $logicPermission2 = ModelPermission::factory()->logic()->create(['ability' => 'permission2', 'model_id' => $logic2->id]);
+        $logicPermission3 = ModelPermission::factory()->logic()->create(['ability' => 'permission1', 'model_id' => $logic1->id, 'module_instance_id' => 2]);
+        $logicPermission4 = ModelPermission::factory()->logic()->create(['ability' => 'permission1', 'model_id' => $logic4->id]);
 
         $permission = ModelPermission::logic($logic1->id, 'permission1', 1)->get();
 
@@ -165,10 +165,10 @@ class ModelPermissionTest extends TestCase
         $user1 = $this->newUser();
         $user2 = $this->newUser();
         $user4 = $this->newUser();
-        $userPermission1 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission1', 'model_id' => $user1->id, 'module_instance_id' => 1]);
-        $userPermission2 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission2', 'model_id' => $user2->id]);
-        $userPermission3 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission1', 'model_id' => $user1->id, 'module_instance_id' => 2]);
-        $userPermission4 = factory(ModelPermission::class)->state('user')->create(['ability' => 'permission1', 'model_id' => $user4->id]);
+        $userPermission1 = ModelPermission::factory()->user()->create(['ability' => 'permission1', 'model_id' => $user1->id, 'module_instance_id' => 1]);
+        $userPermission2 = ModelPermission::factory()->user()->create(['ability' => 'permission2', 'model_id' => $user2->id]);
+        $userPermission3 = ModelPermission::factory()->user()->create(['ability' => 'permission1', 'model_id' => $user1->id, 'module_instance_id' => 2]);
+        $userPermission4 = ModelPermission::factory()->user()->create(['ability' => 'permission1', 'model_id' => $user4->id]);
 
         $permission = ModelPermission::user($user1->id, 'permission1', 1)->get();
 
@@ -182,10 +182,10 @@ class ModelPermissionTest extends TestCase
         $group1 = $this->newGroup();
         $group2 = $this->newGroup();
         $group4 = $this->newGroup();
-        $groupPermission1 = factory(ModelPermission::class)->state('group')->create(['ability' => 'permission1', 'model_id' => $group1->id, 'module_instance_id' => 1]);
-        $groupPermission2 = factory(ModelPermission::class)->state('group')->create(['ability' => 'permission2', 'model_id' => $group2->id]);
-        $groupPermission3 = factory(ModelPermission::class)->state('group')->create(['ability' => 'permission1', 'model_id' => $group1->id, 'module_instance_id' => 2]);
-        $groupPermission4 = factory(ModelPermission::class)->state('group')->create(['ability' => 'permission1', 'model_id' => $group4->id]);
+        $groupPermission1 = ModelPermission::factory()->group()->create(['ability' => 'permission1', 'model_id' => $group1->id, 'module_instance_id' => 1]);
+        $groupPermission2 = ModelPermission::factory()->group()->create(['ability' => 'permission2', 'model_id' => $group2->id]);
+        $groupPermission3 = ModelPermission::factory()->group()->create(['ability' => 'permission1', 'model_id' => $group1->id, 'module_instance_id' => 2]);
+        $groupPermission4 = ModelPermission::factory()->group()->create(['ability' => 'permission1', 'model_id' => $group4->id]);
 
         $permission = ModelPermission::group($group1->id, 'permission1', 1)->get();
 
@@ -199,10 +199,10 @@ class ModelPermissionTest extends TestCase
         $role1 = $this->newRole();
         $role2 = $this->newRole();
         $role4 = $this->newRole();
-        $rolePermission1 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission1', 'model_id' => $role1->id, 'module_instance_id' => 1]);
-        $rolePermission2 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission2', 'model_id' => $role2->id]);
-        $rolePermission3 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission1', 'model_id' => $role1->id, 'module_instance_id' => 2]);
-        $rolePermission4 = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission1', 'model_id' => $role4->id]);
+        $rolePermission1 = ModelPermission::factory()->role()->create(['ability' => 'permission1', 'model_id' => $role1->id, 'module_instance_id' => 1]);
+        $rolePermission2 = ModelPermission::factory()->role()->create(['ability' => 'permission2', 'model_id' => $role2->id]);
+        $rolePermission3 = ModelPermission::factory()->role()->create(['ability' => 'permission1', 'model_id' => $role1->id, 'module_instance_id' => 2]);
+        $rolePermission4 = ModelPermission::factory()->role()->create(['ability' => 'permission1', 'model_id' => $role4->id]);
 
         $permission = ModelPermission::role($role1->id, 'permission1', 1)->get();
 
@@ -214,9 +214,9 @@ class ModelPermissionTest extends TestCase
     public function module_instance_returns_the_module_instance()
     {
         $role1 = $this->newRole();
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $permission = factory(ModelPermission::class)->state('role')->create(['ability' => 'permission1', 'model_id' => $role1->id, 'module_instance_id' => $moduleInstance->id]);
-        
+        $moduleInstance = ModuleInstance::factory()->create();
+        $permission = ModelPermission::factory()->role()->create(['ability' => 'permission1', 'model_id' => $role1->id, 'module_instance_id' => $moduleInstance->id]);
+
         $this->assertModelEquals($moduleInstance, $permission->moduleInstance);
     }
 
@@ -226,7 +226,7 @@ class ModelPermissionTest extends TestCase
         $user = $this->newUser();
         $this->beUser($user);
 
-        $modelPermission = factory(ModelPermission::class)->create(['ability' => 'OldAbility']);
+        $modelPermission = ModelPermission::factory()->create(['ability' => 'OldAbility']);
 
         $modelPermission->ability = 'NewAbility';
         $modelPermission->save();

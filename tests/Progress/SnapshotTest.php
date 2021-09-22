@@ -19,19 +19,18 @@ class SnapshotTest extends TestCase
     /** @test */
     public function of_activity_instance_returns_no_modules_if_no_modules_created()
     {
-        $activity = factory(Activity::class)->create();
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
         $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofActivityInstance($activityInstance, 'called_id');
         $this->assertCount(0, $progress->getModules());
     }
-    
+
     /** @test */
     public function of_activity_instance_builds_a_module_instance_progress_for_each_module()
     {
-        $activity = factory(Activity::class)->create();
-        $modules = factory(ModuleInstance::class, 5)->create(['activity_id' => $activity->id]);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-        
+        $activity = Activity::factory()->create();
+        $modules = ModuleInstance::factory()->count(5)->create(['activity_id' => $activity->id]);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
         $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofActivityInstance($activityInstance);
         $this->assertCount(5, $progress->getModules());
         $this->assertContainsOnlyInstancesOf(ModuleInstanceProgress::class, $progress->getModules());
@@ -41,9 +40,9 @@ class SnapshotTest extends TestCase
     public function of_activity_instance_builds_the_progress_correctly_excluding_completion_and_percentage()
     {
         Carbon::setTestNow(Carbon::now());
-        $activity = factory(Activity::class)->create();
-        $modules = factory(ModuleInstance::class, 5)->create(['activity_id' => $activity->id]);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $modules = ModuleInstance::factory()->count(5)->create(['activity_id' => $activity->id]);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
 
         $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofActivityInstance($activityInstance);
         $this->assertEquals($activityInstance->id, $progress->getActivityInstanceId());
@@ -55,9 +54,9 @@ class SnapshotTest extends TestCase
     public function of_activity_instance_builds_the_module_instance_progresses_correctly()
     {
         Carbon::setTestNow(Carbon::now());
-        $activity = factory(Activity::class)->create();
-        $modules = factory(ModuleInstance::class, 2)->create(['activity_id' => $activity->id]);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $modules = ModuleInstance::factory()->count(2)->create(['activity_id' => $activity->id]);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
 
         $module1Evaluation = new Evaluation();
         $module2Evaluation = new Evaluation();
@@ -71,7 +70,7 @@ class SnapshotTest extends TestCase
         $module2Evaluation->setMandatory(true);
         $module1Evaluation->setPercentage(100);
         $module2Evaluation->setPercentage(10);
-        
+
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
         $moduleInstanceEvaluator->evaluateResource(Argument::that(function ($arg) use ($activityInstance) {
             return $arg instanceof ActivityInstance && $arg->is($activityInstance);
@@ -85,7 +84,6 @@ class SnapshotTest extends TestCase
         }))->shouldBeCalled()->willReturn($module2Evaluation);
 
         \BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator::swap($moduleInstanceEvaluator->reveal());
-        
         $progress = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofActivityInstance($activityInstance);
         $module1Progress = $progress->getModules()[0];
         $this->assertTrue($module1Progress->isActive());
@@ -105,9 +103,9 @@ class SnapshotTest extends TestCase
     public function of_activity_instance_sets_complete_to_true_if_all_modules_are_mandatory_and_complete()
     {
         Carbon::setTestNow(Carbon::now());
-        $activity = factory(Activity::class)->create();
-        $modules = factory(ModuleInstance::class, 3)->create(['activity_id' => $activity->id]);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $modules = ModuleInstance::factory()->count(3)->create(['activity_id' => $activity->id]);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
 
         $module1Evaluation = new Evaluation();
         $module2Evaluation = new Evaluation();
@@ -155,9 +153,9 @@ class SnapshotTest extends TestCase
     public function of_activity_instance_sets_complete_to_false_if_all_modules_are_mandatory_but_one_is_not_complete()
     {
         Carbon::setTestNow(Carbon::now());
-        $activity = factory(Activity::class)->create();
-        $modules = factory(ModuleInstance::class, 3)->create(['activity_id' => $activity->id]);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $modules = ModuleInstance::factory()->count(3)->create(['activity_id' => $activity->id]);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
 
         $module1Evaluation = new Evaluation();
         $module2Evaluation = new Evaluation();
@@ -205,9 +203,9 @@ class SnapshotTest extends TestCase
     public function of_activity_instance_sets_complete_to_true_if_all_mandatory_modules_are_complete()
     {
         Carbon::setTestNow(Carbon::now());
-        $activity = factory(Activity::class)->create();
-        $modules = factory(ModuleInstance::class, 3)->create(['activity_id' => $activity->id]);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $modules = ModuleInstance::factory()->count(3)->create(['activity_id' => $activity->id]);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
 
         $module1Evaluation = new Evaluation();
         $module2Evaluation = new Evaluation();
@@ -255,9 +253,9 @@ class SnapshotTest extends TestCase
     public function of_activity_instance_sets_the_percentage_to_the_completed_percentage_of_all_mandatory_modules()
     {
         Carbon::setTestNow(Carbon::now());
-        $activity = factory(Activity::class)->create();
-        $modules = factory(ModuleInstance::class, 3)->create(['activity_id' => $activity->id]);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $modules = ModuleInstance::factory()->count(3)->create(['activity_id' => $activity->id]);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
 
         $module1Evaluation = new Evaluation();
         $module2Evaluation = new Evaluation();
@@ -305,9 +303,9 @@ class SnapshotTest extends TestCase
     public function of_activity_instance_sets_the_percentage_to_the_completed_percentage_of_all_mandatory_modules_and_ignores_non_mandatory_modules()
     {
         Carbon::setTestNow(Carbon::now());
-        $activity = factory(Activity::class)->create();
-        $modules = factory(ModuleInstance::class, 3)->create(['activity_id' => $activity->id]);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $modules = ModuleInstance::factory()->count(3)->create(['activity_id' => $activity->id]);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
 
         $module1Evaluation = new Evaluation();
         $module2Evaluation = new Evaluation();
@@ -355,10 +353,10 @@ class SnapshotTest extends TestCase
     public function of_activity_runs_the_above_for_all_activity_instances()
     {
         Carbon::setTestNow(Carbon::now());
-        $activity = factory(Activity::class)->create();
-        $activityInstance1 = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-        $activityInstance2 = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
-        $activityInstance3 = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $activityInstance1 = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
+        $activityInstance2 = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
+        $activityInstance3 = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
 
         $progresses = (new Snapshot($this->prophesize(\BristolSU\Support\Progress\Contracts\ProgressUpdateContract::class)->reveal()))->ofActivity($activity);
         $this->assertEquals($activityInstance1->id, $progresses[0]->getActivityInstanceId());
@@ -399,9 +397,9 @@ class SnapshotTest extends TestCase
     public function of_updates_to_activity_instance_returns_null_if_the_progress_has_not_changed()
     {
         Carbon::setTestNow(Carbon::now());
-        $activity = factory(Activity::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create(['activity_id' => $activity->id]);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
 
         $module1Progress = $this->createModuleInstanceProgress($moduleInstance->id, true, true, true, true, 100);
         $module1Evaluation = $this->createModuleEvaluationInstance(true, true, true, true, 100);
@@ -431,9 +429,9 @@ class SnapshotTest extends TestCase
     public function of_updates_to_activity_instance_returns_progress_if_the_progress_has_changed()
     {
         Carbon::setTestNow(Carbon::now());
-        $activity = factory(Activity::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create(['activity_id' => $activity->id]);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
 
         $module1Progress = $this->createModuleInstanceProgress($moduleInstance->id, true, true, false, true, 50);
 
@@ -477,9 +475,9 @@ class SnapshotTest extends TestCase
     public function of_updates_to_activity_instance_saves_an_updated_progress_and_returns_it()
     {
         Carbon::setTestNow(Carbon::now());
-        $activity = factory(Activity::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create(['activity_id' => $activity->id]);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
 
         $module1Progress = $this->createModuleInstanceProgress($moduleInstance->id, true, true, false, true, 50);
 
@@ -518,9 +516,9 @@ class SnapshotTest extends TestCase
     public function of_updates_to_activity_returns_an_empty_array_if_no_progress_has_changed()
     {
         Carbon::setTestNow(Carbon::now());
-        $activity = factory(Activity::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create(['activity_id' => $activity->id]);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
 
         $module1Progress = $this->createModuleInstanceProgress($moduleInstance->id, true, true, true, true, 100);
 
@@ -555,9 +553,9 @@ class SnapshotTest extends TestCase
     public function of_updates_to_activity_returns_only_changed_progresses()
     {
         Carbon::setTestNow(Carbon::now());
-        $activity = factory(Activity::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create(['activity_id' => $activity->id]);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activity = Activity::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create(['activity_id' => $activity->id]);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
 
         $module1Progress = $this->createModuleInstanceProgress($moduleInstance->id, true, true, true, true, 50);
         $module2Progress = $this->createModuleInstanceProgress($moduleInstance->id, true, true, true, true, 50);

@@ -14,6 +14,7 @@ use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Generator\Form;
 use FormSchema\Generator\Group;
+use FormSchema\Transformers\Transformer;
 use FormSchema\Transformers\VFGTransformer;
 use Illuminate\Contracts\Config\Repository;
 
@@ -48,9 +49,9 @@ class ModuleBuilderTest extends TestCase
      * @var \Prophecy\Prophecy\ObjectProphecy
      */
     private $completionRepository;
-    
+
     private $moduleSettingsStore;
-    
+
     private $serviceRequest;
 
     public function setUp(): void
@@ -106,7 +107,7 @@ class ModuleBuilderTest extends TestCase
         $form = Form::make()->withGroup(Group::make('legend-one'))->getSchema();
         $this->builder->create('alias1');
         $this->moduleSettingsStore->get('alias1')->shouldBeCalled()->willReturn($form);
-        $this->module->setSettings((new VFGTransformer())->transformToArray($form))->shouldBeCalled();
+        $this->module->setSettings(app(Transformer::class)->transformToArray($form))->shouldBeCalled();
         $this->builder->setSettings();
     }
 
@@ -132,7 +133,7 @@ class ModuleBuilderTest extends TestCase
     public function set_completion_conditions_sets_the_completion_conditions_for_the_module()
     {
         $this->builder->create('alias1');
-        
+
         $completionCondition1 = $this->prophesize(CompletionCondition::class);
         $completionCondition1->toArray()->shouldBeCalled()->willReturn([
             'name' => 'name1', 'description' => 'desc1', 'options' => ['option1' => 'val1'], 'alias' => 'ccalias1'
@@ -141,7 +142,7 @@ class ModuleBuilderTest extends TestCase
         $completionCondition2->toArray()->shouldBeCalled()->willReturn([
             'name' => 'name2', 'description' => 'desc2', 'options' => ['option2' => 'val2'], 'alias' => 'ccalias2'
         ]);
-        
+
         $this->completionRepository->getAllForModule('alias1')->shouldBeCalled()->willReturn([$completionCondition1->reveal(), $completionCondition2->reveal()]);
         $this->module->setCompletionConditions([
             ['name' => 'name1', 'description' => 'desc1', 'options' => ['option1' => 'val1'], 'alias' => 'ccalias1'],
@@ -158,28 +159,28 @@ class ModuleBuilderTest extends TestCase
         $this->module->setTriggers([['event' => Trigger::class]])->shouldBeCalled();
         $this->builder->setTriggers();
     }
-    
+
     /** @test */
     public function set_service_request_sets_the_service_request()
     {
         $this->builder->create('alias1');
         $this->serviceRequest->getRequired('alias1')->shouldBeCalled()->willReturn(['required1', 'required2']);
         $this->serviceRequest->getOptional('alias1')->shouldBeCalled()->willReturn(['optional1', 'optional2']);
-     
+
         $this->module->setServices([
             'required' => ['required1', 'required2'],
             'optional' => ['optional1', 'optional2']
         ])->shouldBeCalled();
-        
+
         $this->builder->setServices();
     }
-    
+
     /** @test */
     public function get_module_returns_the_built_module()
     {
         $module = new \BristolSU\Support\Module\Module();
         $module->setAlias('alias1');
-        
+
         $builder = new ModuleBuilder(
             $module,
             $this->permissionRepository->reveal(),
@@ -191,7 +192,7 @@ class ModuleBuilderTest extends TestCase
         );
         $this->assertEquals('alias1', $builder->getModule()->getAlias());
     }
-    
+
     /** @test */
     public function get_alias_returns_the_alias()
     {

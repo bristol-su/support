@@ -10,28 +10,29 @@ use BristolSU\ControlDB\Models\Tags\UserTagCategory;
 use BristolSU\ControlDB\Models\User;
 use BristolSU\Support\Filters\Filters\User\UserTagged;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Fields\SelectField;
 
 class UserTaggedTest extends TestCase
 {
     /** @test */
     public function options_returns_a_list_of_possible_tags()
     {
-        $userTagCategory1 = factory(UserTagCategory::class)->create(['name' => 'category1Name', 'reference' => 'cat1']);
-        $userTagCategory2 = factory(UserTagCategory::class)->create(['name' => 'category2Name', 'reference' => 'cat2']);
+        $userTagCategory1 = UserTagCategory::factory()->create(['name' => 'category1Name', 'reference' => 'cat1']);
+        $userTagCategory2 = UserTagCategory::factory()->create(['name' => 'category2Name', 'reference' => 'cat2']);
 
-        $userTag1 = factory(UserTag::class)->create([
+        $userTag1 = UserTag::factory()->create([
             'tag_category_id' => $userTagCategory1->id(),
             'name' => 'Name1',
             'reference' => 'ref1'
         ]);
 
-        $userTag2 = factory(UserTag::class)->create([
+        $userTag2 = UserTag::factory()->create([
             'tag_category_id' => $userTagCategory2->id(),
             'name' => 'Name2',
             'reference' => 'ref2'
         ]);
 
-        $userTag3 = factory(UserTag::class)->create([
+        $userTag3 = UserTag::factory()->create([
             'tag_category_id' => $userTagCategory1->id(),
             'name' => 'Name3',
             'reference' => 'ref3'
@@ -43,17 +44,21 @@ class UserTaggedTest extends TestCase
         ]));
 
         $userTagFilter = new UserTagged($userTagRepository->reveal());
-        
-        $this->assertEquals(1, count($userTagFilter->options()->fields()));
-        $this->assertEquals('tag', $userTagFilter->options()->fields()[0]->model());
-        $this->assertEquals('select', $userTagFilter->options()->fields()[0]->type());
+        $users = $userTagFilter->options()->groups();
+        $this->assertCount(1, $users);
+        $fields = $users[0]->fields();
+        $this->assertCount(1, $fields);
+        $field = $fields[0];
+
+        $this->assertInstanceOf(SelectField::class, $field);
+        $this->assertEquals('tag', $field->getId());
         $this->assertEquals([
-            ['id' => 'cat1.ref1', 'name' => 'Name1 (cat1.ref1)', 'user' => 'category1Name'],
-            ['id' => 'cat2.ref2', 'name' => 'Name2 (cat2.ref2)', 'user' => 'category2Name'],
-            ['id' => 'cat1.ref3', 'name' => 'Name3 (cat1.ref3)', 'user' => 'category1Name'],
-        ], $userTagFilter->options()->fields()[0]->values());
+            ['id' => 'cat1.ref1', 'value' => 'Name1 (cat1.ref1)', 'group' => 'category1Name'],
+            ['id' => 'cat2.ref2', 'value' => 'Name2 (cat2.ref2)', 'group' => 'category2Name'],
+            ['id' => 'cat1.ref3', 'value' => 'Name3 (cat1.ref3)', 'group' => 'category1Name'],
+        ], $field->getSelectOptions());
     }
-    
+
     /** @test */
     public function it_evaluates_to_true_if_user_tagged()
     {

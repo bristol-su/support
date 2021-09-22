@@ -1,7 +1,7 @@
 <?php
 
 
-namespace BristolSU\Support\Tests\Module\ModuleInstance;
+namespace BristolSU\Support\Tests\ModuleInstance;
 
 use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Action\ActionInstance;
@@ -14,15 +14,14 @@ use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\Progress\Handlers\Database\Models\ModuleInstanceProgress;
 use BristolSU\Support\Tests\TestCase;
-use BristolSU\Support\User\Contracts\UserAuthentication;
 
 class ModuleInstanceTest extends TestCase
 {
     /** @test */
     public function it_has_module_instance_settings()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $settings = factory(ModuleInstanceSetting::class, 5)->create(['module_instance_id' => $moduleInstance->id]);
+        $moduleInstance = ModuleInstance::factory()->create();
+        $settings = ModuleInstanceSetting::factory()->count(5)->create(['module_instance_id' => $moduleInstance->id]);
 
         $moduleInstanceSettings = $moduleInstance->moduleInstanceSettings;
         foreach ($settings as $setting) {
@@ -33,8 +32,8 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function it_has_an_activity()
     {
-        $activity = factory(Activity::class)->create();
-        $moduleInstances = factory(ModuleInstance::class, 10)->make();
+        $activity = Activity::factory()->create();
+        $moduleInstances = ModuleInstance::factory()->count(10)->make();
         $activity->moduleInstances()->saveMany($moduleInstances);
 
         foreach ($moduleInstances as $moduleInstance) {
@@ -47,8 +46,8 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function it_has_a_module_instance_permission()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $permissions = factory(ModuleInstancePermission::class, 5)->create(['module_instance_id' => $moduleInstance->id]);
+        $moduleInstance = ModuleInstance::factory()->create();
+        $permissions = ModuleInstancePermission::factory()->count(5)->create(['module_instance_id' => $moduleInstance->id]);
 
         $moduleInstancePermissions = $moduleInstance->moduleInstancePermissions;
         foreach ($permissions as $permission) {
@@ -59,8 +58,8 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function it_has_active_logic()
     {
-        $logic = factory(Logic::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create([
+        $logic = Logic::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create([
             'active' => $logic->id
         ]);
 
@@ -70,8 +69,8 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function it_has_visible_logic()
     {
-        $logic = factory(Logic::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create([
+        $logic = Logic::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create([
             'visible' => $logic->id
         ]);
 
@@ -81,8 +80,8 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function it_has_mandatory_logic()
     {
-        $logic = factory(Logic::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create([
+        $logic = Logic::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create([
             'mandatory' => $logic->id
         ]);
 
@@ -92,21 +91,21 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function id_returns_the_id()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $this->assertEquals($moduleInstance->id, $moduleInstance->id());
     }
 
     /** @test */
     public function alias_returns_the_alias()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
         $this->assertEquals($moduleInstance->alias, $moduleInstance->alias());
     }
 
     /** @test */
     public function it_creates_a_slug_when_being_created()
     {
-        $moduleInstance = factory(ModuleInstance::class)->make(['name' => 'A Sluggable Name']);
+        $moduleInstance = ModuleInstance::factory()->make(['name' => 'A Sluggable Name']);
         $moduleInstance->slug = null;
         $moduleInstance->save();
         $this->assertEquals($moduleInstance->slug, 'a-sluggable-name');
@@ -115,7 +114,7 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function it_does_not_create_a_slug_if_the_slug_is_given()
     {
-        $moduleInstance = factory(ModuleInstance::class)->make(['name' => 'A Sluggable Name']);
+        $moduleInstance = ModuleInstance::factory()->make(['name' => 'A Sluggable Name']);
         $moduleInstance->slug = 'a-sluggable-name-two';
         $moduleInstance->save();
         $this->assertEquals($moduleInstance->slug, 'a-sluggable-name-two');
@@ -124,8 +123,8 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function it_has_actions_associated_with_it()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $actions = factory(ActionInstance::class, 5)->create(['module_instance_id' => $moduleInstance->id]);
+        $moduleInstance = ModuleInstance::factory()->create();
+        $actions = ActionInstance::factory()->count(5)->create(['module_instance_id' => $moduleInstance->id]);
 
         $moduleInstanceActions = $moduleInstance->actionInstances;
 
@@ -137,8 +136,8 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function it_has_many_module_instance_services()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        $moduleInstanceServices = factory(ModuleInstanceService::class, 7)->create(['module_instance_id' => $moduleInstance->id]);
+        $moduleInstance = ModuleInstance::factory()->create();
+        $moduleInstanceServices = ModuleInstanceService::factory()->count(7)->create(['module_instance_id' => $moduleInstance->id]);
 
         $foundModuleInstanceServices = $moduleInstance->moduleInstanceServices;
 
@@ -152,8 +151,8 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function setting_returns_a_setting_if_found()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        factory(ModuleInstanceSetting::class)->create(['key' => 'asetting', 'value' => 'thevalue', 'module_instance_id' => $moduleInstance->id]);
+        $moduleInstance = ModuleInstance::factory()->create();
+        ModuleInstanceSetting::factory()->create(['key' => 'asetting', 'value' => 'thevalue', 'module_instance_id' => $moduleInstance->id]);
 
         $this->assertEquals('thevalue', $moduleInstance->setting('asetting'));
     }
@@ -161,7 +160,7 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function setting_returns_the_given_default_if_not_found()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
 
         $this->assertEquals('thedefault', $moduleInstance->setting('setting1', 'thedefault'));
     }
@@ -169,8 +168,8 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function enabled_only_returns_enabled_module_instances()
     {
-        $enabledModuleInstances = factory(ModuleInstance::class, 6)->create(['enabled' => true]);
-        $disabledModuleInstances = factory(ModuleInstance::class, 5)->create(['enabled' => false]);
+        $enabledModuleInstances = ModuleInstance::factory()->count(6)->create(['enabled' => true]);
+        $disabledModuleInstances = ModuleInstance::factory()->count(5)->create(['enabled' => false]);
 
         $foundModuleInstances = ModuleInstance::enabled()->get();
 
@@ -188,7 +187,7 @@ class ModuleInstanceTest extends TestCase
         $userRepository->getById($user->id())->shouldBeCalled()->willReturn($user);
         $this->instance(User::class, $userRepository->reveal());
 
-        $moduleInstance = factory(ModuleInstance::class)->create(['user_id' => $user->id()]);
+        $moduleInstance = ModuleInstance::factory()->create(['user_id' => $user->id()]);
         $this->assertInstanceOf(\BristolSU\ControlDB\Models\User::class, $moduleInstance->user());
         $this->assertModelEquals($user, $moduleInstance->user());
     }
@@ -196,7 +195,7 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function user_throws_an_exception_if_user_id_is_null()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create(['user_id' => null, 'id' => 2000]);
+        $moduleInstance = ModuleInstance::factory()->create(['user_id' => null, 'id' => 2000]);
 
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Module Instance #2000 is not owned by a user');
@@ -208,13 +207,10 @@ class ModuleInstanceTest extends TestCase
     public function user_id_is_automatically_added_on_creation()
     {
         $user = $this->newUser();
-        $dbUser = factory(\BristolSU\Support\User\User::class)->create(['control_id' => $user->id()]);
-        $authentication = $this->prophesize(UserAuthentication::class);
-        $authentication->getUser()->shouldBeCalled()->willReturn($dbUser);
-        $this->instance(UserAuthentication::class, $authentication->reveal());
+        $this->beUser($user);
 
-        $logic = factory(Logic::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create(['user_id' => null]);
+        $logic = Logic::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create(['user_id' => null]);
 
         $this->assertNotNull($moduleInstance->user_id);
         $this->assertEquals($user->id(), $moduleInstance->user_id);
@@ -225,8 +221,8 @@ class ModuleInstanceTest extends TestCase
     {
         $user = $this->newUser();
 
-        $logic = factory(Logic::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create(['user_id' => $user->id()]);
+        $logic = Logic::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create(['user_id' => $user->id()]);
 
 
         $this->assertNotNull($moduleInstance->user_id);
@@ -239,7 +235,7 @@ class ModuleInstanceTest extends TestCase
         $user = $this->newUser();
         $this->beUser($user);
 
-        $moduleInstance = factory(ModuleInstance::class)->create(['name' => 'OldName']);
+        $moduleInstance = ModuleInstance::factory()->create(['name' => 'OldName']);
 
         $moduleInstance->name = 'NewName';
         $moduleInstance->save();
@@ -255,8 +251,8 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function grouping_returns_the_group()
     {
-        $moduleInstanceGrouping = factory(ModuleInstanceGrouping::class)->create();
-        $moduleInstance = factory(ModuleInstance::class)->create(['grouping_id' => $moduleInstanceGrouping]);
+        $moduleInstanceGrouping = ModuleInstanceGrouping::factory()->create();
+        $moduleInstance = ModuleInstance::factory()->create(['grouping_id' => $moduleInstanceGrouping]);
 
         $groupingFromModuleInstance = $moduleInstance->grouping;
 
@@ -267,31 +263,57 @@ class ModuleInstanceTest extends TestCase
     /** @test */
     public function grouping_returns_null_if_module_instance_has_no_grouping()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create(['grouping_id' => null]);
+        $moduleInstance = ModuleInstance::factory()->create(['grouping_id' => null]);
         $this->assertNull($moduleInstance->grouping);
     }
 
     /** @test */
     public function the_order_is_accessible_through_the_module_instance_array()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create(['order' => 5]);
+        $moduleInstance = ModuleInstance::factory()->create(['order' => 1]);
         $array = $moduleInstance->toArray();
 
         $this->assertArrayHasKey('order', $array);
-        $this->assertEquals(5, $array['order']);
+        $this->assertEquals(1, $array['order']);
+    }
+
+    /** @test */
+    public function module_instances_are_ordered_by_default()
+    {
+        $activity = Activity::factory()->create();
+        $moduleInstance1 = ModuleInstance::factory()->create(['activity_id' => $activity->id]);
+        $moduleInstance2 = ModuleInstance::factory()->create(['activity_id' => $activity->id]);
+        $moduleInstance3 = ModuleInstance::factory()->create(['activity_id' => $activity->id]);
+
+        ModuleInstance::setNewOrder([$moduleInstance2->id, $moduleInstance3->id, $moduleInstance1->id]);
+
+        $retrievedInstances = ModuleInstance::ordered()->get();
+        $this->assertModelEquals($moduleInstance2, $retrievedInstances->shift());
+        $this->assertModelEquals($moduleInstance3, $retrievedInstances->shift());
+        $this->assertModelEquals($moduleInstance1, $retrievedInstances->shift());
     }
 
     /** @test */
     public function it_has_many_progresses()
     {
-        $moduleInstance = factory(ModuleInstance::class)->create();
-        factory(ModuleInstanceProgress::class, 5)->create();
-        $progresses = factory(ModuleInstanceProgress::class, 2)->create(['module_instance_id' => $moduleInstance->id]);
-        factory(ModuleInstanceProgress::class, 5)->create();
+        $moduleInstance = ModuleInstance::factory()->create();
+        ModuleInstanceProgress::factory()->count(5)->create();
+        $progresses = ModuleInstanceProgress::factory()->count(2)->create(['module_instance_id' => $moduleInstance->id]);
+        ModuleInstanceProgress::factory()->count(5)->create();
 
         $retrievedProgresses = $moduleInstance->moduleInstanceProgress;
         $this->assertCount(2, $retrievedProgresses);
         $this->assertModelEquals($progresses[0], $retrievedProgresses[0]);
         $this->assertModelEquals($progresses[1], $retrievedProgresses[1]);
+    }
+
+    /** @test */
+    public function module_instances_have_a_module_url()
+    {
+        $moduleInstance = ModuleInstance::factory()->create([
+            'image_url' => 'https://testimage.com/image-1'
+        ]);
+
+        $this->assertEquals('https://testimage.com/image-1', $moduleInstance->image_url);
     }
 }

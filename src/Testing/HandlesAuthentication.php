@@ -20,7 +20,7 @@ trait HandlesAuthentication
      */
     public function newUser($attributes = [])
     {
-        return factory(\BristolSU\ControlDB\Models\User::class)->create($attributes);
+        return \BristolSU\ControlDB\Models\User::factory()->create($attributes);
     }
 
     /**
@@ -31,7 +31,7 @@ trait HandlesAuthentication
      */
     public function newGroup($attributes = [])
     {
-        return factory(\BristolSU\ControlDB\Models\Group::class)->create($attributes);
+        return \BristolSU\ControlDB\Models\Group::factory()->create($attributes);
     }
 
     /**
@@ -42,9 +42,9 @@ trait HandlesAuthentication
      */
     public function newRole($attributes = [])
     {
-        return factory(\BristolSU\ControlDB\Models\Role::class)->create($attributes);
+        return \BristolSU\ControlDB\Models\Role::factory()->create($attributes);
     }
-    
+
     /**
      * Set a group.
      *

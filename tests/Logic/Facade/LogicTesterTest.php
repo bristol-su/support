@@ -13,7 +13,7 @@ class LogicTesterTest extends TestCase
     /** @test */
     public function evaluate_can_be_called()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $logicTester = $this->prophesize(LogicTester::class);
         $logicTester->evaluate(Argument::that(function ($logicArg) use ($logic) {
             return $logicArg->id === $logic->id;

@@ -17,8 +17,8 @@ class CheckAdminActivityForTest extends TestCase
     {
         $this->expectException(ActivityRequiresAdmin::class);
 
-        $logic = factory(Logic::class)->create();
-        $activity = factory(Activity::class)->create(['admin_logic' => $logic->id]);
+        $logic = Logic::factory()->create();
+        $activity = Activity::factory()->create(['admin_logic' => $logic->id]);
         $request = $this->prophesize(Request::class);
         $request->route('activity_slug')->willReturn($activity);
         $authentication = $this->prophesize(Authentication::class);
@@ -41,8 +41,8 @@ class CheckAdminActivityForTest extends TestCase
     /** @test */
     public function it_calls_the_callback_if_the_logic_tester_returns_true()
     {
-        $logic = factory(Logic::class)->create();
-        $activity = factory(Activity::class)->create(['admin_logic' => $logic->id]);
+        $logic = Logic::factory()->create();
+        $activity = Activity::factory()->create(['admin_logic' => $logic->id]);
         $request = $this->prophesize(Request::class);
         $request->route('activity_slug')->willReturn($activity);
         $request->route('test_callback_is_called')->shouldBeCalled()->willReturn(true);

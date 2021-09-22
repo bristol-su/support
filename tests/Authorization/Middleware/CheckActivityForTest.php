@@ -25,13 +25,13 @@ class CheckActivityForTest extends TestCase
         $authentication->getGroup()->willReturn($group);
         $authentication->getRole()->willReturn($role);
         
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $this->logicTester()->forLogic($logic)->fail($user);
         $this->logicTester()->bind();
         
         $request = $this->prophesize(Request::class);
         $request->route('activity_slug')->willReturn(
-            factory(Activity::class)->create(['activity_for' => 'user', 'for_logic' => $logic->id])
+            Activity::factory()->create(['activity_for' => 'user', 'for_logic' => $logic->id])
         );
         $middleware = new CheckActivityFor($authentication->reveal());
         $middleware->handle($request->reveal(), function ($request) {
@@ -51,13 +51,13 @@ class CheckActivityForTest extends TestCase
         $authentication->getGroup()->willReturn($group);
         $authentication->getRole()->willReturn($role);
 
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $this->logicTester()->forLogic($logic)->fail($user, $group);
         $this->logicTester()->bind();
         
         $request = $this->prophesize(Request::class);
         $request->route('activity_slug')->willReturn(
-            factory(Activity::class)->create(['activity_for' => 'group', 'for_logic' => $logic->id])
+            Activity::factory()->create(['activity_for' => 'group', 'for_logic' => $logic->id])
         );
         $middleware = new CheckActivityFor($authentication->reveal());
         $middleware->handle($request->reveal(), function ($request) {
@@ -77,13 +77,13 @@ class CheckActivityForTest extends TestCase
         $authentication->getGroup()->willReturn($group);
         $authentication->getRole()->willReturn($role);
 
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $this->logicTester()->forLogic($logic)->fail($user, $group, $role);
         $this->logicTester()->bind();
         
         $request = $this->prophesize(Request::class);
         $request->route('activity_slug')->willReturn(
-            factory(Activity::class)->create(['activity_for' => 'role', 'for_logic' => $logic->id])
+            Activity::factory()->create(['activity_for' => 'role', 'for_logic' => $logic->id])
         );
         $middleware = new CheckActivityFor($authentication->reveal());
         $middleware->handle($request->reveal(), function ($request) {
@@ -93,7 +93,7 @@ class CheckActivityForTest extends TestCase
     /** @test */
     public function it_calls_the_callback()
     {
-        $activity = factory(Activity::class)->create([
+        $activity = Activity::factory()->create([
             'activity_for' => 'user'
         ]);
         

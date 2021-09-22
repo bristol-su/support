@@ -17,15 +17,15 @@ class ActivityInstanceEvaluatorTest extends TestCase
     /** @test */
     public function participant_evaluates_each_module_instance()
     {
-        $moduleInstances = factory(ModuleInstance::class, 3)->make();
-        $activity = factory(Activity::class)->create();
+        $moduleInstances = ModuleInstance::factory()->count(3)->make();
+        $activity = Activity::factory()->create();
         $activity->moduleInstances()->saveMany($moduleInstances);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
 
         $user = $this->newUser();
         $group = $this->newGroup();
         $role = $this->newRole();
-        
+
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
         $evaluation = $this->prophesize(Evaluation::class);
         foreach ($moduleInstances as $moduleInstance) {
@@ -49,10 +49,10 @@ class ActivityInstanceEvaluatorTest extends TestCase
     /** @test */
     public function resource_evaluates_each_module_instance()
     {
-        $moduleInstances = factory(ModuleInstance::class, 3)->make();
-        $activity = factory(Activity::class)->create();
+        $moduleInstances = ModuleInstance::factory()->count(3)->make();
+        $activity = Activity::factory()->create();
         $activity->moduleInstances()->saveMany($moduleInstances);
-        $activityInstance = factory(ActivityInstance::class)->create(['activity_id' => $activity->id]);
+        $activityInstance = ActivityInstance::factory()->create(['activity_id' => $activity->id]);
         $moduleInstanceEvaluator = $this->prophesize(ModuleInstanceEvaluator::class);
         $evaluation = $this->prophesize(Evaluation::class);
         foreach ($moduleInstances as $moduleInstance) {

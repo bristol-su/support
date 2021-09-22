@@ -6,6 +6,7 @@ use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Completion\CompletionConditions\EventFired\EventFired;
 use BristolSU\Support\Events\Contracts\EventRepository;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Fields\SelectField;
 
 class EventFiredTest extends TestCase
 {
@@ -17,7 +18,7 @@ class EventFiredTest extends TestCase
         $condition = new EventFired('module1', $this->prophesize(EventRepository::class)->reveal());
         $this->assertTrue($condition->isComplete([], $activityInstance, $moduleInstance));
     }
-    
+
     /** @test */
     public function options_returns_a_list_of_events()
     {
@@ -26,20 +27,25 @@ class EventFiredTest extends TestCase
             ['event' => 'event1', 'name' => 'name1'],
             ['event' => 'event2', 'name' => 'name2']
         ]);
-        
+
         $condition = new EventFired('module1', $eventRepository->reveal());
 
-        
-        
-        $this->assertEquals(1, count($condition->options()->fields()));
-        $this->assertEquals('event_type', $condition->options()->fields()[0]->model());
-        $this->assertEquals('select', $condition->options()->fields()[0]->type());
+        $groups = $condition->options()->groups();
+        $this->assertCount(1, $groups);
+
+        $fields = $groups[0]->fields();
+        $this->assertCount(1, $fields);
+
+        $field = $fields[0];
+
+        $this->assertInstanceOf(SelectField::class, $field);
+        $this->assertEquals('event_type', $field->getId());
         $this->assertEquals([
-            ['id' => 'event1', 'name' => 'name1'],
-            ['id' => 'event2', 'name' => 'name2'],
-        ], $condition->options()->fields()[0]->values());
+            ['id' => 'event1', 'value' => 'name1'],
+            ['id' => 'event2', 'value' => 'name2'],
+        ], $field->getSelectOptions());
     }
-    
+
     /** @test */
     public function name_returns_a_string()
     {

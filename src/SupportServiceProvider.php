@@ -9,6 +9,7 @@ use BristolSU\Support\Authentication\AuthenticationServiceProvider;
 use BristolSU\Support\Authorization\AuthorizationServiceProvider;
 use BristolSU\Support\Completion\CompletionConditionServiceProvider;
 use BristolSU\Support\Connection\ConnectionServiceProvider;
+use BristolSU\Support\Control\ControlServiceProvider;
 use BristolSU\Support\Events\EventsServiceProvider;
 use BristolSU\Support\Filters\FilterServiceProvider;
 use BristolSU\Support\Http\HttpServiceProvider;
@@ -18,7 +19,9 @@ use BristolSU\Support\ModuleInstance\ModuleInstanceServiceProvider;
 use BristolSU\Support\Permissions\PermissionServiceProvider;
 use BristolSU\Support\Progress\ProgressServiceProvider;
 use BristolSU\Support\Revision\RevisionServiceProvider;
-use BristolSU\Support\User\UserServiceProvider;
+use BristolSU\Support\Settings\SettingsServiceProvider;
+use FormSchema\Transformers\PortalUiKitTransformer;
+use FormSchema\Transformers\Transformer;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -35,6 +38,7 @@ class SupportServiceProvider extends ServiceProvider
         ActivityServiceProvider::class,
         EventsServiceProvider::class,
         ActivityInstanceServiceProvider::class,
+        AuthenticationServiceProvider::class,
         AuthorizationServiceProvider::class,
         CompletionConditionServiceProvider::class,
         ConnectionServiceProvider::class,
@@ -42,12 +46,13 @@ class SupportServiceProvider extends ServiceProvider
         LogicServiceProvider::class,
         ProgressServiceProvider::class,
         PermissionServiceProvider::class,
-        AuthenticationServiceProvider::class,
         ModuleFrameworkServiceProvider::class,
         ModuleInstanceServiceProvider::class,
-        UserServiceProvider::class,
         HttpServiceProvider::class,
-        RevisionServiceProvider::class
+        RevisionServiceProvider::class,
+        SettingsServiceProvider::class,
+        ControlServiceProvider::class,
+        ThirdPartyServiceProvider::class
     ];
 
     public function register()
@@ -57,8 +62,10 @@ class SupportServiceProvider extends ServiceProvider
         $this->registerMigrations();
         $this->registerViews();
         $this->registerRoutes();
+
+        $this->app->singleton(Transformer::class,  PortalUiKitTransformer::class);
     }
-    
+
     public function registerProviders()
     {
         foreach ($this->providers as $provider) {
@@ -88,8 +95,7 @@ class SupportServiceProvider extends ServiceProvider
 
     public function registerRoutes()
     {
-        Route::middleware(['web', 'module', 'activity'])
-            ->namespace('\BristolSU\Support\Http\Controllers')
+        Route::middleware(['web', 'portal-auth'])
             ->group(__DIR__ . '/../routes/web.php');
     }
 }

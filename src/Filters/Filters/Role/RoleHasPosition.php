@@ -3,6 +3,7 @@
 
 namespace BristolSU\Support\Filters\Filters\Role;
 
+use BristolSU\ControlDB\Contracts\Models\Position as PositionModel;
 use BristolSU\ControlDB\Contracts\Repositories\Position;
 use BristolSU\ControlDB\Contracts\Repositories\Position as PositionRepository;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
@@ -54,19 +55,9 @@ class RoleHasPosition extends RoleFilter
      */
     public function options(): Form
     {
-        $positions = $this->positionRepository->all();
-        $values = [];
-        foreach ($positions as $position) {
-            $values[] = [
-                'id' => $position->id(),
-                'name' => $position->data()->name(),
-            ];
-        }
-
-        return \FormSchema\Generator\Form::make()->withField(
-            \FormSchema\Generator\Field::select('position')->values($values)->label('Position')
-                ->required(true)
-        )->getSchema();
+        $field = \FormSchema\Generator\Field::select('position')->setLabel('Position')->setRequired(true);
+        $this->positionRepository->all()->each(fn(PositionModel $position) => $field->withOption($position->id(), $position->data()->name()));
+        return \FormSchema\Generator\Form::make()->withField($field)->getSchema();
     }
 
     /**

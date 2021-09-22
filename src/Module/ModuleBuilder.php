@@ -2,16 +2,16 @@
 
 namespace BristolSU\Support\Module;
 
-use \BristolSU\Support\Module\Contracts\Module as ModuleContract;
 use BristolSU\Support\Action\Contracts\TriggerableEvent;
 use BristolSU\Support\Completion\Contracts\CompletionConditionRepository;
 use BristolSU\Support\Connection\Contracts\ServiceRequest;
 use BristolSU\Support\Events\Contracts\EventRepository;
+use BristolSU\Support\Module\Contracts\Module as ModuleContract;
 use BristolSU\Support\Module\Contracts\ModuleBuilder as ModuleBuilderContract;
 use BristolSU\Support\ModuleInstance\Contracts\Settings\ModuleSettingsStore;
 use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use Exception;
-use FormSchema\Transformers\VFGTransformer;
+use FormSchema\Transformers\Transformer;
 use Illuminate\Contracts\Config\Repository;
 
 /**
@@ -25,14 +25,14 @@ class ModuleBuilder implements ModuleBuilderContract
      * @var ModuleContract
      */
     private $module;
-    
+
     /**
      * Repository for resolving permissions.
      *
      * @var PermissionRepository
      */
     private $permissionRepository;
-    
+
     /**
      * Configuration for resolving name/description.
      *
@@ -53,21 +53,21 @@ class ModuleBuilder implements ModuleBuilderContract
      * @var EventRepository
      */
     private $eventRepository;
-    
+
     /**
      * Repository for resolving completion conditions used by the module.
      *
      * @var CompletionConditionRepository
      */
     private $completionConditionRepository;
-    
+
     /**
      * Store for resolving module settings out of.
      *
      * @var ModuleSettingsStore
      */
     private $moduleSettingsStore;
-    
+
     /**
      * Service request for resolving services needed by the module.
      *
@@ -181,7 +181,7 @@ class ModuleBuilder implements ModuleBuilderContract
     public function setSettings()
     {
         $this->module->setSettings(
-            (new VFGTransformer())->transformToArray(
+            app(Transformer::class)->transformToArray(
                 $this->moduleSettingsStore->get($this->getAlias())
             )
         );
@@ -229,7 +229,7 @@ class ModuleBuilder implements ModuleBuilderContract
             $this->config->get($this->getAlias() . '.for', 'user')
         );
     }
-    
+
     /**
      * Get the built module.
      *

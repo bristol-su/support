@@ -13,7 +13,7 @@ class LogicTesterFakeTest extends TestCase
     /** @test */
     public function for_logic_returns_a_logic_tester_result()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $logicTester = new LogicTesterFake();
         $logicTesterResult = $logicTester->forLogic($logic);
         
@@ -23,7 +23,7 @@ class LogicTesterFakeTest extends TestCase
     /** @test */
     public function for_logic_returns_a_previous_logic_tester_result_class_if_the_same_logic_group_is_used()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $logicTester = new LogicTesterFake();
         $logicTesterResult1 = $logicTester->forLogic($logic);
         $logicTesterResult2 = $logicTester->forLogic($logic);
@@ -43,7 +43,7 @@ class LogicTesterFakeTest extends TestCase
     /** @test */
     public function evaluate_returns_false_if_for_logic_has_not_been_called()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         $this->assertFalse(
             $this->logicTester()->evaluate($logic)
         );
@@ -52,7 +52,7 @@ class LogicTesterFakeTest extends TestCase
     /** @test */
     public function evaluate_passes_the_evaluate_test_onto_the_logic_tester_result()
     {
-        $logic = factory(Logic::class)->create();
+        $logic = Logic::factory()->create();
         
         $logicTesterResult = $this->prophesize(LogicTesterResult::class);
         $logicTesterResult->evaluate(null, null, null)->shouldBeCalled()->willReturn(true);

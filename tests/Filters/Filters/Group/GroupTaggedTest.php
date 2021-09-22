@@ -10,28 +10,29 @@ use BristolSU\ControlDB\Models\Tags\GroupTag;
 use BristolSU\ControlDB\Models\Tags\GroupTagCategory;
 use BristolSU\Support\Filters\Filters\Group\GroupTagged;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Fields\SelectField;
 
 class GroupTaggedTest extends TestCase
 {
     /** @test */
     public function options_returns_a_list_of_possible_tags()
     {
-        $groupTagCategory1 = factory(GroupTagCategory::class)->create(['name' => 'category1Name', 'reference' => 'cat1']);
-        $groupTagCategory2 = factory(GroupTagCategory::class)->create(['name' => 'category2Name', 'reference' => 'cat2']);
+        $groupTagCategory1 = GroupTagCategory::factory()->create(['name' => 'category1Name', 'reference' => 'cat1']);
+        $groupTagCategory2 = GroupTagCategory::factory()->create(['name' => 'category2Name', 'reference' => 'cat2']);
 
-        $groupTag1 = factory(GroupTag::class)->create([
+        $groupTag1 = GroupTag::factory()->create([
             'tag_category_id' => $groupTagCategory1->id(),
             'name' => 'Name1',
             'reference' => 'ref1'
         ]);
 
-        $groupTag2 = factory(GroupTag::class)->create([
+        $groupTag2 = GroupTag::factory()->create([
             'tag_category_id' => $groupTagCategory2->id(),
             'name' => 'Name2',
             'reference' => 'ref2'
         ]);
 
-        $groupTag3 = factory(GroupTag::class)->create([
+        $groupTag3 = GroupTag::factory()->create([
             'tag_category_id' => $groupTagCategory1->id(),
             'name' => 'Name3',
             'reference' => 'ref3'
@@ -43,17 +44,22 @@ class GroupTaggedTest extends TestCase
         ]));
 
         $groupTagFilter = new GroupTagged($groupTagRepository->reveal());
-        
-        $this->assertEquals(1, count($groupTagFilter->options()->fields()));
-        $this->assertEquals('tag', $groupTagFilter->options()->fields()[0]->model());
-        $this->assertEquals('select', $groupTagFilter->options()->fields()[0]->type());
+
+        $groups = $groupTagFilter->options()->groups();
+        $this->assertCount(1, $groups);
+        $fields = $groups[0]->fields();
+        $this->assertCount(1, $fields);
+        $field = $fields[0];
+
+        $this->assertInstanceOf(SelectField::class, $field);
+        $this->assertEquals('tag', $field->getId());
         $this->assertEquals([
-            ['id' => 'cat1.ref1', 'name' => 'Name1 (cat1.ref1)', 'group' => 'category1Name'],
-            ['id' => 'cat2.ref2', 'name' => 'Name2 (cat2.ref2)', 'group' => 'category2Name'],
-            ['id' => 'cat1.ref3', 'name' => 'Name3 (cat1.ref3)', 'group' => 'category1Name'],
-        ], $groupTagFilter->options()->fields()[0]->values());
+            ['id' => 'cat1.ref1', 'value' => 'Name1 (cat1.ref1)', 'group' => 'category1Name'],
+            ['id' => 'cat2.ref2', 'value' => 'Name2 (cat2.ref2)', 'group' => 'category2Name'],
+            ['id' => 'cat1.ref3', 'value' => 'Name3 (cat1.ref3)', 'group' => 'category1Name'],
+        ], $field->getSelectOptions());
     }
-    
+
     /** @test */
     public function it_evaluates_to_true_if_group_tagged()
     {

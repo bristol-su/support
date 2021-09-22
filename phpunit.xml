@@ -1,70 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="false" backupStaticAttributes="false" bootstrap="vendor/autoload.php" colors="true" convertErrorsToExceptions="true" convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false" stopOnFailure="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
-  <coverage processUncoveredFiles="true">
-    <include>
-      <directory suffix=".php">./src</directory>
-    </include>
-    <exclude>
-      <directory suffix="ServiceProvider.php">./src</directory>
-    </exclude>
-  </coverage>
-  <testsuites>
-    <testsuite name="Action">
-      <directory suffix="Test.php">./tests/Action</directory>
-    </testsuite>
-    <testsuite name="Activity">
-      <directory suffix="Test.php">./tests/Activity</directory>
-    </testsuite>
-    <testsuite name="ActivityInstance">
-      <directory suffix="Test.php">./tests/ActivityInstance</directory>
-    </testsuite>
-    <testsuite name="Authentication">
-      <directory suffix="Test.php">./tests/Authentication</directory>
-    </testsuite>
-    <testsuite name="Authorization">
-      <directory suffix="Test.php">./tests/Authorization</directory>
-    </testsuite>
-    <testsuite name="Completion">
-      <directory suffix="Test.php">./tests/Completion</directory>
-    </testsuite>
-    <testsuite name="Connection">
-      <directory suffix="Test.php">./tests/Connection</directory>
-    </testsuite>
-    <testsuite name="Events">
-      <directory suffix="Test.php">./tests/Events</directory>
-    </testsuite>
-    <testsuite name="Filters">
-      <directory suffix="Test.php">./tests/Filters</directory>
-    </testsuite>
-    <testsuite name="helpers">
-      <directory suffix="Test.php">./tests/helpers</directory>
-    </testsuite>
-    <testsuite name="Http">
-      <directory suffix="Test.php">./tests/Http</directory>
-    </testsuite>
-    <testsuite name="Logic">
-      <directory suffix="Test.php">./tests/Logic</directory>
-    </testsuite>
-    <testsuite name="Module">
-      <directory suffix="Test.php">./tests/Module</directory>
-    </testsuite>
-    <testsuite name="ModuleInstance">
-      <directory suffix="Test.php">./tests/ModuleInstance</directory>
-    </testsuite>
-    <testsuite name="Permissions">
-      <directory suffix="Test.php">./tests/Permissions</directory>
-    </testsuite>
-    <testsuite name="Revision">
-      <directory suffix="Test.php">./tests/Revision</directory>
-    </testsuite>
-    <testsuite name="Testing">
-      <directory suffix="Test.php">./tests/Testing</directory>
-    </testsuite>
-    <testsuite name="User">
-      <directory suffix="Test.php">./tests/User</directory>
-    </testsuite>
-    <testsuite name="Progress">
-      <directory suffix="Test.php">./tests/Progress</directory>
-    </testsuite>
-  </testsuites>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="false" backupStaticAttributes="false"
+         bootstrap="vendor/autoload.php" colors="true" convertErrorsToExceptions="true"
+         convertNoticesToExceptions="true" convertWarningsToExceptions="true" processIsolation="false"
+         stopOnFailure="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">./src</directory>
+        </include>
+        <exclude>
+            <directory suffix="ServiceProvider.php">./src</directory>
+        </exclude>
+    </coverage>
+    <testsuites>
+        <testsuite name="Action">
+            <directory suffix="Test.php">./tests/Action</directory>
+        </testsuite>
+        <testsuite name="Activity">
+            <directory suffix="Test.php">./tests/Activity</directory>
+        </testsuite>
+        <testsuite name="ActivityInstance">
+            <directory suffix="Test.php">./tests/ActivityInstance</directory>
+        </testsuite>
+        <testsuite name="Authentication">
+            <directory suffix="Test.php">./tests/Authentication</directory>
+        </testsuite>
+        <testsuite name="Authorization">
+            <directory suffix="Test.php">./tests/Authorization</directory>
+        </testsuite>
+        <testsuite name="Completion">
+            <directory suffix="Test.php">./tests/Completion</directory>
+        </testsuite>
+        <testsuite name="Connection">
+            <directory suffix="Test.php">./tests/Connection</directory>
+        </testsuite>
+        <testsuite name="Events">
+            <directory suffix="Test.php">./tests/Events</directory>
+        </testsuite>
+        <testsuite name="Filters">
+            <directory suffix="Test.php">./tests/Filters</directory>
+        </testsuite>
+        <testsuite name="helpers">
+            <directory suffix="Test.php">./tests/helpers</directory>
+        </testsuite>
+        <testsuite name="Http">
+            <directory suffix="Test.php">./tests/Http</directory>
+        </testsuite>
+        <testsuite name="Logic">
+            <directory suffix="Test.php">./tests/Logic</directory>
+        </testsuite>
+        <testsuite name="Module">
+            <directory suffix="Test.php">./tests/Module</directory>
+        </testsuite>
+        <testsuite name="ModuleInstance">
+            <directory suffix="Test.php">./tests/ModuleInstance</directory>
+        </testsuite>
+        <testsuite name="Permissions">
+            <directory suffix="Test.php">./tests/Permissions</directory>
+        </testsuite>
+        <testsuite name="Revision">
+            <directory suffix="Test.php">./tests/Revision</directory>
+        </testsuite>
+        <testsuite name="Testing">
+            <directory suffix="Test.php">./tests/Testing</directory>
+        </testsuite>
+        <testsuite name="Progress">
+            <directory suffix="Test.php">./tests/Progress</directory>
+        </testsuite>
+        <testsuite name="Control">
+            <directory suffix="Test.php">./tests/Control</directory>
+        </testsuite>
+        <testsuite name="Settings">
+            <directory suffix="Test.php">./tests/Settings</directory>
+        </testsuite>
+    </testsuites>
 </phpunit>

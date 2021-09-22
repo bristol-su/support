@@ -1,28 +1,35 @@
 <?php
 
+namespace Database\Factories;
+
 use BristolSU\Support\Completion\CompletionConditionInstance;
-use Faker\Generator as Faker;
+use Illuminate\Database\Eloquent\Factories\Factory;
 
-/*
-|--------------------------------------------------------------------------
-| Model Factories
-|--------------------------------------------------------------------------
-|
-| This directory should contain each of the model factory definitions for
-| your application. Factories provide a convenient way to generate new
-| model instances for testing / seeding your application's database.
-|
- */
+class CompletionConditionInstanceFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = CompletionConditionInstance::class;
 
-$factory->define(CompletionConditionInstance::class, function (Faker $faker) {
-    return [
-        'name' => $faker->word,
-        'description' => $faker->text,
-        'alias' => $faker->word,
-        'settings' => [
-            'foo' => $faker->word,
-            'bar' => $faker->word,
-            'baz' => $faker->word,
-        ]
-    ];
-});
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition(): array
+    {
+        return [
+            'name' => $this->faker->word,
+            'description' => $this->faker->text,
+            'alias' => $this->faker->word,
+            'settings' => [
+                'foo' => $this->faker->word,
+                'bar' => $this->faker->word,
+                'baz' => $this->faker->word,
+            ]
+        ];
+    }
+}

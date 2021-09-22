@@ -22,7 +22,11 @@ class ModuleInstanceRedirectController
      */
     public function index(Request $request, Activity $activity, ModuleInstance $moduleInstance)
     {
-        return redirect()
-            ->to($request->path() . '/' . $moduleInstance->alias());
+        $url = $request->path() . '/' . $moduleInstance->alias();
+        if ($request->query->count() > 0) {
+            $url .= '?' . $request->getQueryString();
+        }
+
+        return redirect()->to($url);
     }
 }

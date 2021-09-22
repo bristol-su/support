@@ -8,7 +8,7 @@ use BristolSU\Support\Tests\TestCase;
 class ModuleInstanceRedirectControllerTest extends TestCase
 {
     use CreatesModuleEnvironment;
-    
+
     public function setUp(): void
     {
         parent::setUp();
@@ -27,5 +27,19 @@ class ModuleInstanceRedirectControllerTest extends TestCase
     {
         $response = $this->get('/p/' . $this->moduleInstance->activity->slug . '/' . $this->moduleInstance->slug);
         $response->assertRedirect('/p/' . $this->moduleInstance->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->moduleInstance->alias);
+    }
+
+    /** @test */
+    public function it_passes_any_query_headers_to_the_redirect()
+    {
+        $response = $this->get('/p/' . $this->moduleInstance->activity->slug . '/' . $this->moduleInstance->slug . '?another=four&test=two');
+        $response->assertRedirect('/p/' . $this->moduleInstance->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->moduleInstance->alias . '?another=four&test=two');
+    }
+
+    /** @test */
+    public function it_sorts_query_strings_alphabetically()
+    {
+        $response = $this->get('/p/' . $this->moduleInstance->activity->slug . '/' . $this->moduleInstance->slug . '?test=two&another=four');
+        $response->assertRedirect('/p/' . $this->moduleInstance->activity->slug . '/' . $this->moduleInstance->slug . '/' . $this->moduleInstance->alias . '?another=four&test=two');
     }
 }

@@ -20,7 +20,7 @@ class ModuleInstanceDisabled extends \Exception
      */
     public static function fromModuleInstance(ModuleInstance $moduleInstance)
     {
-        $exception = new self();
+        $exception = new self(sprintf('%s from %s has been disabled', $moduleInstance->name, $moduleInstance->activity->name), 403);
         $exception->setModuleInstance($moduleInstance);
 
         return $exception;

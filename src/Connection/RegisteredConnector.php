@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Connection;
 
-use FormSchema\Transformers\VFGTransformer;
+use FormSchema\Transformers\Transformer;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
@@ -158,7 +158,7 @@ class RegisteredConnector implements Arrayable, Jsonable
             'description' => $this->getDescription(),
             'service' => $this->getService(),
             'alias' => $this->getAlias(),
-            'settings' => (new VFGTransformer())->transformToArray($this->getConnector()::settingsSchema())
+            'settings' => app(Transformer::class)->transformToArray($this->getConnector()::settingsSchema())
         ];
     }
 

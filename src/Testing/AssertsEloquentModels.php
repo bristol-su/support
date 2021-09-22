@@ -3,7 +3,7 @@
 namespace BristolSU\Support\Testing;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Foundation\Testing\Assert;
+use Illuminate\Testing\Assert;
 
 /**
  * Trait to aid asserting features of Eloquent models.
