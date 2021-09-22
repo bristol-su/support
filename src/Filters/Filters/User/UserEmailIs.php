@@ -23,8 +23,8 @@ class UserEmailIs extends UserFilter
     public function options(): Form
     {
         return \FormSchema\Generator\Form::make()->withField(
-            Field::input('email')->inputType('email')->label('User Email')
-                ->required(true)->placeholder('Email of the user')
+            Field::email('email')->setLabel('User Email')
+                ->setRequired(true)->setValue('Email of the user')
         )->getSchema();
     }
 

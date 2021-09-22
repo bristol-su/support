@@ -14,6 +14,7 @@ use BristolSU\Support\Permissions\Contracts\PermissionRepository;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Generator\Form;
 use FormSchema\Generator\Group;
+use FormSchema\Transformers\Transformer;
 use FormSchema\Transformers\VFGTransformer;
 use Illuminate\Contracts\Config\Repository;
 
@@ -106,7 +107,7 @@ class ModuleBuilderTest extends TestCase
         $form = Form::make()->withGroup(Group::make('legend-one'))->getSchema();
         $this->builder->create('alias1');
         $this->moduleSettingsStore->get('alias1')->shouldBeCalled()->willReturn($form);
-        $this->module->setSettings((new VFGTransformer())->transformToArray($form))->shouldBeCalled();
+        $this->module->setSettings(app(Transformer::class)->transformToArray($form))->shouldBeCalled();
         $this->builder->setSettings();
     }
 

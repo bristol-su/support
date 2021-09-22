@@ -4,6 +4,7 @@
 namespace BristolSU\Support\Filters\Filters\Group;
 
 use BristolSU\ControlDB\Contracts\Repositories\Tags\GroupTag as GroupTagRepositoryContract;
+use BristolSU\ControlDB\Contracts\Models\Tags\GroupTag;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use FormSchema\Schema\Form;
 
@@ -61,20 +62,9 @@ class GroupTagged extends GroupFilter
      */
     public function options(): Form
     {
-        $tags = $this->groupTagRepository->all();
-        $values = [];
-        foreach ($tags as $tag) {
-            $values[] = [
-                'id' => $tag->fullReference(),
-                'name' => sprintf('%s (%s)', $tag->name(), $tag->fullReference()),
-                'group' => $tag->category()->name()
-            ];
-        }
-
-        return \FormSchema\Generator\Form::make()->withField(
-            \FormSchema\Generator\Field::select('tag')->values($values)->label('Group Name')
-                ->required(true)
-        )->getSchema();
+        $field = \FormSchema\Generator\Field::select('tag')->setLabel('Group Name')->setRequired(true);
+        $this->groupTagRepository->all()->each(fn(GroupTag $tag) => $field->withOption($tag->fullReference(), sprintf('%s (%s)', $tag->name(), $tag->fullReference()), $tag->category()->name()));
+        return \FormSchema\Generator\Form::make()->withField($field)->getSchema();
     }
 
     /**

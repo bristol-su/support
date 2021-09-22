@@ -3,6 +3,7 @@
 
 namespace BristolSU\Support\Filters\Filters\User;
 
+use BristolSU\ControlDB\Contracts\Models\Tags\UserTag;
 use BristolSU\ControlDB\Contracts\Repositories\Tags\UserTag as UserTagRepositoryContract;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use FormSchema\Schema\Form;
@@ -61,20 +62,9 @@ class UserTagged extends UserFilter
      */
     public function options(): Form
     {
-        $tags = $this->userTagRepository->all();
-        $values = [];
-        foreach ($tags as $tag) {
-            $values[] = [
-                'id' => $tag->fullReference(),
-                'name' => sprintf('%s (%s)', $tag->name(), $tag->fullReference()),
-                'user' => $tag->category()->name()
-            ];
-        }
-
-        return \FormSchema\Generator\Form::make()->withField(
-            \FormSchema\Generator\Field::select('tag')->values($values)->label('User Name')
-                ->required(true)
-        )->getSchema();
+        $field = \FormSchema\Generator\Field::select('tag')->setLabel('User Name')->setRequired(true);
+        $this->userTagRepository->all()->each(fn(UserTag $userTag) => $field->withOption($userTag->fullReference(), sprintf('%s (%s)', $userTag->name(), $userTag->fullReference()), $userTag->category()->name()));
+        return \FormSchema\Generator\Form::make()->withField($field)->getSchema();
     }
 
     /**

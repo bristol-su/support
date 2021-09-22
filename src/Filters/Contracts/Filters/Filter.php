@@ -7,7 +7,7 @@ use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
 use FormSchema\Schema\Form as FormSchema;
-use FormSchema\Transformers\VFGTransformer;
+use FormSchema\Transformers\Transformer;
 use Illuminate\Contracts\Support\Arrayable;
 
 /**
@@ -86,7 +86,7 @@ abstract class Filter implements Arrayable
             'alias' => $this->alias(),
             'name' => $this->name(),
             'description' => $this->description(),
-            'options' => (new VFGTransformer())->transformToArray($this->options())
+            'options' => app(Transformer::class)->transformToArray($this->options())
         ];
     }
 }

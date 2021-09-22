@@ -3,6 +3,7 @@
 namespace BristolSU\Support\Connection\Client;
 
 use BristolSU\Support\Connection\Contracts\Client\Client;
+use GuzzleHttp\Psr7\Response;
 use Illuminate\Contracts\Cache\Repository as Cache;
 use Psr\Http\Message\ResponseInterface;
 
@@ -16,7 +17,7 @@ class CachedClientDecorator implements Client
      * @var Client
      */
     private $client;
-    
+
     /**
      * Holds the cache store.
      *
@@ -46,9 +47,15 @@ class CachedClientDecorator implements Client
     public function request($method, $uri, array $options = [])
     {
         if ($this->isCacheable($method)) {
-            return $this->cache->remember($this->getKey($method, $uri, $options), 7200, function () use ($method, $uri, $options) {
-                return $this->forwardCall($method, $uri, $options);
-            });
+            return $this->fromCacheArray(
+                $this->cache->remember(
+                    $this->getKey($method, $uri, $options),
+                    7200,
+                    fn() => $this->toCacheArray(
+                        $this->forwardCall($method, $uri, $options)
+                    )
+                )
+            );
         }
 
         return $this->forwardCall($method, $uri, $options);
@@ -91,5 +98,27 @@ class CachedClientDecorator implements Client
     private function forwardCall($method, $uri, $options)
     {
         return $this->client->request($method, $uri, $options);
+    }
+
+    private function toCacheArray(ResponseInterface $response): array
+    {
+        return [
+            'status' => $response->getStatusCode(),
+            'headers' => $response->getHeaders(),
+            'body' => (string) $response->getBody(),
+            'version' => $response->getProtocolVersion(),
+            'reason' => $response->getReasonPhrase()
+        ];
+    }
+
+    private function fromCacheArray(array $response): ResponseInterface
+    {
+        return new Response(
+            $response['status'],
+            $response['headers'],
+            $response['body'],
+            $response['version'],
+            $response['reason']
+        );
     }
 }
