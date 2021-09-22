@@ -5,7 +5,7 @@ namespace BristolSU\Support\Completion\Contracts;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
 use FormSchema\Schema\Form;
-use FormSchema\Transformers\VFGTransformer;
+use FormSchema\Transformers\Transformer;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 
@@ -109,13 +109,13 @@ abstract class CompletionCondition implements Arrayable, Jsonable
     {
         return json_encode($this->toArray(), $options);
     }
-    
+
     public function toArray()
     {
         return [
             'name' => $this->name(),
             'description' => $this->description(),
-            'options' => (new VFGTransformer())->transformToArray($this->options()),
+            'options' => app(Transformer::class)->transformToArray($this->options()),
             'alias' => $this->alias()
         ];
     }

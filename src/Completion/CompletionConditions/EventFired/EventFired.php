@@ -40,11 +40,11 @@ class EventFired extends CompletionCondition
     public function options(): Form
     {
         return \FormSchema\Generator\Form::make()->withField(
-            Field::select('event_type')->label('Event')->required(true)->hint('What event should be fired to mark this as complete?')
-                ->help('Select an event which occurs within the module. When this event is fired, the module will be marked as complete. This cannot be undone.')
-                ->values(collect($this->eventRepository->allForModule($this->moduleAlias()))->map(function ($event) {
-                    return ['id' => $event['event'], 'name' => $event['name']];
-                })->toArray())->selectOptions(['noneSelectedText' => 'Please Select an Event', 'hideNoneSelectedText' => false])
+            Field::select('event_type')->setLabel('Event')->setRequired(true)->setHint('What event should be fired to mark this as complete?')
+                ->setTooltip('Select an event which occurs within the module. When this event is fired, the module will be marked as complete. This cannot be undone.')
+                ->setSelectOptions(collect($this->eventRepository->allForModule($this->moduleAlias()))->map(function ($event) {
+                    return ['id' => $event['event'], 'value' => $event['name']];
+                })->toArray())->withNullOption('Please Select an Event')
         )->getSchema();
     }
 

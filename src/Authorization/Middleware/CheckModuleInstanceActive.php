@@ -43,7 +43,7 @@ class CheckModuleInstanceActive
         if (!LogicTester::evaluate($moduleInstance->activeLogic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole())) {
             throw new ModuleInactive('The module instance is currently inactive', 403, null, $moduleInstance);
         }
-        
+
         return $next($request);
     }
 }

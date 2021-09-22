@@ -7,7 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Resolve Transformer contract rather than using VFGTransformer.
+- PR-344: Use new form schema
+- Fix client caching not properly caching response
+
+### Added
+
+- Add position to js variables
+- `participant-activity` and `participant-module` middleware groups
+- Migrations to update settings
+- Added a title prefix to resource
+- Name the main module route 'module.admin' and 'module.participant'
+
 ## [5.0.0] - (11/08/2021)
+
+### Removed
+- Cookies warning blade template is no longer included with the SDK
+
+## [5.0.0-rc1] - (11/08/2021)
 
 ### Fixed
 - When support redirects to a module page, the query string is added to the new redirection
@@ -60,7 +78,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - portal-85: Only update progress snapshots when changes have been made
->>>>>>> develop
 
 ## [4.7.4] - (09/09/2020)
 

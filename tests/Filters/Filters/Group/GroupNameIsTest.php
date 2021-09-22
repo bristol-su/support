@@ -5,6 +5,7 @@ namespace BristolSU\Support\Tests\Filters\Filters\Group;
 use BristolSU\ControlDB\Models\DataGroup;
 use BristolSU\Support\Filters\Filters\Group\GroupNameIs;
 use BristolSU\Support\Tests\TestCase;
+use FormSchema\Fields\TextInputField;
 
 class GroupNameIsTest extends TestCase
 {
@@ -12,19 +13,23 @@ class GroupNameIsTest extends TestCase
     public function options_returns_group_name_with_an_empty_string()
     {
         $filter = new GroupNameIs();
-        
-        $this->assertEquals(1, count($filter->options()->fields()));
-        $this->assertEquals('Group Name', $filter->options()->fields()[0]->model());
-        $this->assertEquals('text', $filter->options()->fields()[0]->inputType());
-        $this->assertEquals('Group Name', $filter->options()->fields()[0]->label());
+
+        $groups = $filter->options()->groups();
+        $this->assertCount(1, $groups);
+        $fields = $groups[0]->fields();
+        $this->assertCount(1, $fields);
+        $field = $fields[0];
+
+        $this->assertInstanceOf(TextInputField::class, $field);
+        $this->assertEquals('Group Name', $field->getId());
     }
-    
+
     /** @test */
     public function evaluate_returns_true_if_the_group_name_is_equal_to_the_settings()
     {
         $dataGroup = DataGroup::factory()->create(['name' => 'group name 1']);
         $group = $this->newGroup(['data_provider_id' => $dataGroup->id()]);
-        
+
         $filter = new GroupNameIs();
         $filter->setModel($group);
         $this->assertTrue($filter->evaluate(['Group Name' => 'group name 1']));
@@ -40,7 +45,7 @@ class GroupNameIsTest extends TestCase
         $filter->setModel($group);
         $this->assertFalse($filter->evaluate(['Group Name' => 'group name 2']));
     }
-    
+
     /** @test */
     public function evaluate_ignores_case()
     {

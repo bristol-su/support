@@ -51,6 +51,8 @@ class ControlServiceProvider extends ServiceProvider
             // Additional attributes couldn't be loaded as settings table hasn't yet been migrated.
         } catch (MissingAppKeyException $e) {
             // No app key set
+        } catch (\ErrorException $e) {
+            // Decoding failed
         }
     }
 }
