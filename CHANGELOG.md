@@ -22,6 +22,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.0.0] - (11/08/2021)
 
+### Removed
+- Cookies warning blade template is no longer included with the SDK
+
+## [5.0.0-rc1] - (11/08/2021)
+
 ### Fixed
 - When support redirects to a module page, the query string is added to the new redirection
 - Handle error thrown by the `ControlServiceProvider` when settings retrieved in the service provider due to no set app key
