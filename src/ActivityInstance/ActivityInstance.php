@@ -16,6 +16,10 @@ use Database\Factories\ActivityInstanceFactory;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use BristolSU\ControlDB\Models\Dummy\UserDummy;
+use BristolSU\ControlDB\Models\Dummy\GroupDummy;
+use BristolSU\ControlDB\Models\Dummy\RoleDummy;
 
 /**
  * An eloquent model representing an Activity Instance.
@@ -103,13 +107,25 @@ class ActivityInstance extends Model implements Authenticatable
     public function getParticipantAttribute()
     {
         if ($this->resource_type === 'user') {
-            return app(UserRepository::class)->getById($this->resource_id);
+            try {
+                return app(UserRepository::class)->getById($this->resource_id);
+            } catch (ModelNotFoundException $e) {
+                return new UserDummy($this->resource_id);
+            }
         }
         if ($this->resource_type === 'group') {
-            return app(GroupRepository::class)->getById($this->resource_id);
+            try {
+                return app(GroupRepository::class)->getById($this->resource_id);
+            } catch (ModelNotFoundException $e) {
+                return new GroupDummy($this->resource_id);
+            }
         }
         if ($this->resource_type === 'role') {
-            return app(RoleRepository::class)->getById($this->resource_id);
+            try {
+                return app(RoleRepository::class)->getById($this->resource_id);
+            } catch (ModelNotFoundException $e) {
+                return new RoleDummy($this->resource_id);
+            }
         }
 
         throw new \Exception('Resource type is not valid');

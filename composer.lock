@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "841f4b23113f2c4cad73bb68e1f7092a",
+    "content-hash": "820767a3133cee823996849f34f5a1ef",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -58,16 +58,16 @@
         },
         {
             "name": "aws/aws-sdk-php",
-            "version": "3.194.2",
+            "version": "3.194.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/aws/aws-sdk-php.git",
-                "reference": "1f0a0cec5721b6346c968533fba9b44e462fc728"
+                "reference": "3a5d4a7e050094701da6234fa0e15490964e8118"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/1f0a0cec5721b6346c968533fba9b44e462fc728",
-                "reference": "1f0a0cec5721b6346c968533fba9b44e462fc728",
+                "url": "https://api.github.com/repos/aws/aws-sdk-php/zipball/3a5d4a7e050094701da6234fa0e15490964e8118",
+                "reference": "3a5d4a7e050094701da6234fa0e15490964e8118",
                 "shasum": ""
             },
             "require": {
@@ -143,9 +143,9 @@
             "support": {
                 "forum": "https://forums.aws.amazon.com/forum.jspa?forumID=80",
                 "issues": "https://github.com/aws/aws-sdk-php/issues",
-                "source": "https://github.com/aws/aws-sdk-php/tree/3.194.2"
+                "source": "https://github.com/aws/aws-sdk-php/tree/3.194.3"
             },
-            "time": "2021-09-21T18:14:06+00:00"
+            "time": "2021-09-22T18:14:43+00:00"
         },
         {
             "name": "brick/math",
@@ -209,16 +209,16 @@
         },
         {
             "name": "bristol-su/control",
-            "version": "v3.0.1",
+            "version": "v3.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bristol-su/control.git",
-                "reference": "c01b10bbbd3ec21ad1ab87c8b119ceb382137405"
+                "reference": "378a041b36e9f288961551573fffc26a485620e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bristol-su/control/zipball/c01b10bbbd3ec21ad1ab87c8b119ceb382137405",
-                "reference": "c01b10bbbd3ec21ad1ab87c8b119ceb382137405",
+                "url": "https://api.github.com/repos/bristol-su/control/zipball/378a041b36e9f288961551573fffc26a485620e4",
+                "reference": "378a041b36e9f288961551573fffc26a485620e4",
                 "shasum": ""
             },
             "require": {
@@ -261,9 +261,9 @@
             "description": "An implementation of the control contracts",
             "support": {
                 "issues": "https://github.com/bristol-su/control/issues",
-                "source": "https://github.com/bristol-su/control/tree/v3.0.1"
+                "source": "https://github.com/bristol-su/control/tree/v3.0.2"
             },
-            "time": "2021-08-05T16:26:17+00:00"
+            "time": "2021-09-23T12:11:31+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
