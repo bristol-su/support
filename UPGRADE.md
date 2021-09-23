@@ -22,6 +22,8 @@ relevant blade partial.
 Middleware classes have been standardised. The SDK normally registers module routes, therefore this will normally have been taken care of, but
 if you use any portal middlewares manually make sure it's updated to the new documented groups.
 
+We now use version 2 of the form schema generator, which has a new API. You must update any settings to match this API.
+
 The rest of the changes are caused by the move to portal-auth - all database user authentication stuff is now abstracted, and the SDK,
 and therefore all modules, should only rely on control users/groups/roles. The `BristolSU\Support\User\Contracts\UserAuthentication` class has
 been removed, so if you need to make use of user authentication use `BristolSU\Support\Authentication\Contracts\Authentication` instead. You
