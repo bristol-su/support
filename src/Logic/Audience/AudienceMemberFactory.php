@@ -80,8 +80,12 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
 
         $audienceMembers = collect();
         $logicResults = LogicResult::forLogic($logic)->where($conditions)->get()->groupBy('user_id');
-
         foreach($logicResults as $userId => $userLogicResults) {
+            if($user === null) {
+                $user = app(\BristolSU\ControlDB\Contracts\Repositories\User::class)->getById($userId);
+            }
+            $audienceMember = new AudienceMember($user);
+            $audienceMember->setCanBeUser(false);
             $groups = collect();
             $roles = collect();
             foreach($userLogicResults as $userLogicResult) {
@@ -92,10 +96,11 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
                     $roles->push($role);
                 } elseif ($userLogicResult->hasGroup()) {
                     $groups->push(app(\BristolSU\ControlDB\Contracts\Repositories\Group::class)->getById($userLogicResult->getGroupId()));
+                } else {
+                    $audienceMember->setCanBeUser(true);
                 }
             }
             $user = app(\BristolSU\ControlDB\Contracts\Repositories\User::class)->getById($userId);
-            $audienceMember = new AudienceMember($user);
 
             $audienceMember->setGroups($groups);
             $audienceMember->setRoles($roles);

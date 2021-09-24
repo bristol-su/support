@@ -31,13 +31,15 @@ class CacheLogicJob implements ShouldQueue
      * @var User
      */
     private $user;
+    private ?int $logicId;
 
     /**
      * @param User $user The user to cache logic for
      */
-    public function __construct(User $user)
+    public function __construct(User $user, ?int $logicId = null)
     {
         $this->user = $user;
+        $this->logicId = $logicId;
     }
 
     /**
@@ -57,8 +59,13 @@ class CacheLogicJob implements ShouldQueue
 
     private function cacheLogic(?Group $group = null, ?Role $role = null)
     {
-        foreach(app(LogicRepository::class)->all() as $logic) {
-            app(LogicTester::class)->evaluate($logic, $this->user, $group, $role);
+        if($this->logicId !== null) {
+            app(LogicTester::class)->evaluate(app(LogicRepository::class)->getById($this->logicId), $this->user, $group, $role);
+        }
+        else {
+            foreach(app(LogicRepository::class)->all() as $logic) {
+                app(LogicTester::class)->evaluate($logic, $this->user, $group, $role);
+            }
         }
     }
 }

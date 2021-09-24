@@ -74,6 +74,11 @@ class AudienceMember implements Arrayable, Jsonable
         $this->roles = $roles;
     }
 
+    public function setCanBeUser(bool $canBeUser)
+    {
+        $this->canBeUser = $canBeUser;
+    }
+
     /**
      * Get all roles which the user is in.
      *

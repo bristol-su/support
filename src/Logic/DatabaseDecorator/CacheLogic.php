@@ -15,7 +15,7 @@ class CacheLogic extends Command
      *
      * @var string
      */
-    protected $signature = 'logic:cache';
+    protected $signature = 'logic:cache {logic? : The ID of the logic to cache}';
 
     /**
      * The console command description.
@@ -40,7 +40,7 @@ class CacheLogic extends Command
         $userProgress = $this->output->createProgressBar($users->count());
         $userProgress->start();
         foreach($users as $user) {
-            dispatch(new CacheLogicJob($user));
+            dispatch(new CacheLogicJob($user, $this->argument('logic')));
             $userProgress->advance();
         }
         $userProgress->finish();

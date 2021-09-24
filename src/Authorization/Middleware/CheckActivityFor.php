@@ -42,6 +42,7 @@ class CheckActivityFor
     {
         $activity = $request->route('activity_slug');
         $logic = $activity->forLogic;
+
         if (!LogicTester::evaluate($logic, $this->authentication->getUser(), $this->authentication->getGroup(), $this->authentication->getRole())) {
             throw ActivityRequiresParticipant::createWithActivity($activity, 'You do not have access to this activity,', 403);
         }
