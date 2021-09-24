@@ -18,18 +18,13 @@ trait CascadeRestoreDeletes {
 
     protected function validateRestoringRelationships()
     {
-        if (! $this->implementsSoftDeletes()) {
+        if (! method_exists($this, 'runSoftDelete')) {
             throw CascadeRestoreDeletesException::softDeleteNotImplemented(get_called_class());
         }
 
         if($invalidCascadingRelationships = $this->hasInvalidCascadingRestoreRelationships()) {
             throw CascadeRestoreDeletesException::invalidRelationships($invalidCascadingRelationships);
         }
-    }
-
-    protected function implementsSoftDeletes()
-    {
-        return method_exists($this, 'runSoftDelete');
     }
 
     protected function hasInvalidCascadingRestoreRelationships()
