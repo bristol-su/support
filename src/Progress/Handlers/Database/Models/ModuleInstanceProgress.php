@@ -6,10 +6,11 @@ use BristolSU\Support\ModuleInstance\ModuleInstance;
 use Database\Factories\ModuleInstanceProgressFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ModuleInstanceProgress extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'module_instance_progress';
 

@@ -7,13 +7,14 @@ use BristolSU\Support\Revision\HasRevisions;
 use Database\Factories\ModuleInstanceSettingFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Represents a setting value associated with a module instance.
  */
 class ModuleInstanceSetting extends Model
 {
-    use HasRevisions, HasFactory;
+    use HasRevisions, HasFactory, SoftDeletes;
 
     /**
      * Fillable attributes for mass assignment.

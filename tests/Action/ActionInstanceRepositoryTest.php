@@ -115,7 +115,7 @@ class ActionInstanceRepositoryTest extends TestCase
         $repository = new ActionInstanceRepository();
         $repository->delete($actionInstance->id);
 
-        $this->assertDatabaseMissing('action_instances', ['id' => $actionInstance->id]);
+        $this->assertSoftDeleted('action_instances', ['id' => $actionInstance->id]);
     }
 }
 

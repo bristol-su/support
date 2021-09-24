@@ -6,13 +6,14 @@ use BristolSU\Support\Revision\HasRevisions;
 use Database\Factories\ActionInstanceFieldFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Action Instance Field Model.
  */
 class ActionInstanceField extends Model
 {
-    use HasRevisions, HasFactory;
+    use HasRevisions, HasFactory, SoftDeletes;
 
     /**
      * Fillable Properties.

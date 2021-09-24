@@ -228,6 +228,6 @@ class ModuleInstanceRepositoryTest extends TestCase
         $this->assertDatabaseHas('module_instances', ['id' => $instance->id]);
 
         $repository->delete($instance->id);
-        $this->assertDatabaseMissing('module_instances', ['id' => $instance->id]);
+        $this->assertSoftDeleted('module_instances', ['id' => $instance->id]);
     }
 }
