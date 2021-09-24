@@ -260,4 +260,15 @@ class LogicTesterTest extends TestCase
             $this->evaluateLogic($logic)
         );
     }
+
+    /** @test */
+    public function withAccessToLogicGroupWithResource_returns_users_with_access_to_the_logic_group_through_a_resource(){
+
+        $user1 = $this->newUser();
+
+
+
+
+
+    }
 }

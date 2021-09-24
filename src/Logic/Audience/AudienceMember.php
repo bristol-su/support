@@ -28,7 +28,7 @@ class AudienceMember implements Arrayable, Jsonable
      *
      * @var bool
      */
-    private $canBeUser;
+    private $canBeUser = true;
 
     /**
      * Roles the user owns/that're in the logic group.
@@ -47,9 +47,11 @@ class AudienceMember implements Arrayable, Jsonable
     /**
      * @param User $user User to construct the audience member with
      */
-    public function __construct(User $user)
+    public function __construct(User $user, ?Collection $groups = null, ?Collection $roles = null)
     {
         $this->user = $user;
+        $this->groups = $groups ?? collect();
+        $this->roles = $roles ?? collect();
     }
 
     /**
@@ -59,11 +61,17 @@ class AudienceMember implements Arrayable, Jsonable
      */
     public function groups()
     {
-        if ($this->groups == null) {
-            $this->groups = $this->user()->groups();
-        }
-
         return $this->groups;
+    }
+
+    public function setGroups(Collection $groups)
+    {
+        $this->groups = $groups;
+    }
+
+    public function setRoles(Collection $roles)
+    {
+        $this->roles = $roles;
     }
 
     /**
@@ -73,16 +81,11 @@ class AudienceMember implements Arrayable, Jsonable
      */
     public function roles()
     {
-        if ($this->roles == null) {
-            $this->roles = $this->user()->roles()->map(function (Role $role) {
+        return $this->roles->map(function (Role $role) {
                 $role->group = $role->group();
                 $role->position = $role->position();
-
                 return $role;
-            });
-        }
-
-        return $this->roles;
+            }) ?? collect();
     }
 
     /**
@@ -100,32 +103,9 @@ class AudienceMember implements Arrayable, Jsonable
      *
      * @return bool
      */
-    public function canBeUser()
+    public function canBeUser(): bool
     {
-        return ($this->canBeUser??true);
-    }
-
-    /**
-     * Filter the audience member down to those in the logic group.
-     *
-     * If passed a logic group, the audience member will only then contain roles and groups which are in the given
-     * logic group with the user. It will also set canBeUser, as to whether just the user is in the logic group (without
-     * their roles or groups).
-     *
-     * @param Logic $logic Logic group to test
-     *
-     */
-    public function filterForLogic(Logic $logic)
-    {
-        $this->canBeUser = LogicTester::evaluate($logic, $this->user);
-
-        $this->groups = $this->groups()->filter(function (Group $group) use ($logic) {
-            return LogicTester::evaluate($logic, $this->user, $group);
-        })->values();
-
-        $this->roles = $this->roles()->filter(function (Role $role) use ($logic) {
-            return LogicTester::evaluate($logic, $this->user, $role->group(), $role);
-        })->values();
+        return $this->canBeUser;
     }
 
     /**
