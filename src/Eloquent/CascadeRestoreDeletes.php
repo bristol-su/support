@@ -2,7 +2,7 @@
 
 namespace BristolSU\Support\Eloquent;
 
-use Dyrynda\Database\Support\CascadeSoftDeleteException;
+use BristolSU\Support\Eloquent\Exceptions\CascadeRestoreDeletesException;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
 trait CascadeRestoreDeletes {
@@ -18,9 +18,18 @@ trait CascadeRestoreDeletes {
 
     protected function validateRestoringRelationships()
     {
-        if($invalidCascadingRelationships = $this->hasInvalidCascadingRestoreRelationships()) {
-            throw CascadeSoftDeleteException::invalidRelationships($invalidCascadingRelationships);
+        if (! $this->implementsSoftDeletes()) {
+            throw CascadeRestoreDeletesException::softDeleteNotImplemented(get_called_class());
         }
+
+        if($invalidCascadingRelationships = $this->hasInvalidCascadingRestoreRelationships()) {
+            throw CascadeRestoreDeletesException::invalidRelationships($invalidCascadingRelationships);
+        }
+    }
+
+    protected function implementsSoftDeletes()
+    {
+        return method_exists($this, 'runSoftDelete');
     }
 
     protected function hasInvalidCascadingRestoreRelationships()
