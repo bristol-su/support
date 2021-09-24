@@ -14,11 +14,14 @@ use BristolSU\Support\ModuleInstance\Settings\ModuleInstanceSetting;
 use BristolSU\Support\Permissions\Models\ModuleInstancePermission;
 use BristolSU\Support\Progress\Handlers\Database\Models\ModuleInstanceProgress;
 use BristolSU\Support\Revision\HasRevisions;
+use BristolSU\Support\Eloquent\CascadeRestoreDeletes;
 use Database\Factories\ModuleInstanceFactory;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
@@ -28,7 +31,20 @@ use Spatie\EloquentSortable\SortableTrait;
  */
 class ModuleInstance extends Model implements ModuleInstanceContract, Sortable
 {
-    use HasRevisions, HasFactory, SortableTrait;
+    use HasRevisions,
+        HasFactory,
+        SortableTrait,
+        SoftDeletes,
+        CascadeSoftDeletes,
+        CascadeRestoreDeletes;
+
+    protected $cascadeDeletes = [
+        'moduleInstanceSettings',
+        'moduleInstancePermissions',
+        'moduleInstanceProgress',
+        'moduleInstanceServices',
+        'actionInstances'
+    ];
 
     public $sortable = [
         'order_column_name' => 'order',

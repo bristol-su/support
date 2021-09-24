@@ -10,10 +10,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\EloquentSortable\Sortable;
 use Spatie\EloquentSortable\SortableTrait;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ModuleInstanceGrouping extends Model implements Sortable
 {
-    use HasFactory, SortableTrait, HasRevisions;
+    use HasFactory, SortableTrait, HasRevisions, SoftDeletes;
 
     protected $table = 'module_instance_grouping';
 

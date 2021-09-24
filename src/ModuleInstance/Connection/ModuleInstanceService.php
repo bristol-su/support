@@ -9,13 +9,14 @@ use BristolSU\Support\Revision\HasRevisions;
 use Database\Factories\ModuleInstanceServiceFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Represents the assignment of a service connection to a module instance.
  */
 class ModuleInstanceService extends Model
 {
-    use HasRevisions, HasFactory;
+    use HasRevisions, HasFactory, SoftDeletes;
 
     /**
      * Table to store data in.

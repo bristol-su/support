@@ -7,10 +7,13 @@ use BristolSU\Support\Action\History\ActionHistory;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Revision\HasRevisions;
+use BristolSU\Support\Eloquent\CascadeRestoreDeletes;
 use Database\Factories\ActionInstanceFactory;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use FormSchema\Transformers\Transformer;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * ActionInstance Model.
@@ -19,7 +22,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ActionInstance extends Model
 {
-    use HasRevisions, HasFactory;
+    use HasRevisions, HasFactory, SoftDeletes, CascadeSoftDeletes, CascadeRestoreDeletes;
+
+    protected $cascadeDeletes = ['actionInstanceFields', 'history'];
 
     /**
      * Fillable properties.
