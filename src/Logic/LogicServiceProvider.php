@@ -3,9 +3,7 @@
 namespace BristolSU\Support\Logic;
 
 use BristolSU\Support\Logic\Audience\AudienceMemberFactory;
-use BristolSU\Support\Logic\Audience\DatabaseLogicAudience;
 use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory as AudienceFactoryContract;
-use BristolSU\Support\Logic\Contracts\Audience\LogicAudience as LogicAudienceContract;
 use BristolSU\Support\Logic\Contracts\LogicRepository as LogicRepositoryContract;
 use BristolSU\Support\Logic\Contracts\LogicTester as LogicTesterContract;
 use BristolSU\Support\Logic\DatabaseDecorator\CacheLogic;

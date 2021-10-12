@@ -5,6 +5,9 @@ namespace BristolSU\Support\Logic\Audience;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
+use BristolSU\ControlDB\Models\Lazy\LazyGroup;
+use BristolSU\ControlDB\Models\Lazy\LazyRole;
+use BristolSU\ControlDB\Models\Lazy\LazyUser;
 use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory as AudienceMemberFactoryContract;
 use BristolSU\Support\Logic\DatabaseDecorator\LogicResult;
 use BristolSU\Support\Logic\Logic;
@@ -80,32 +83,28 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
 
         $audienceMembers = collect();
         $logicResults = LogicResult::forLogic($logic)->where($conditions)->get()->groupBy('user_id');
+
         foreach($logicResults as $userId => $userLogicResults) {
-            if($user === null) {
-                $user = app(\BristolSU\ControlDB\Contracts\Repositories\User::class)->getById($userId);
-            }
-            $audienceMember = new AudienceMember($user);
+            $audienceMember = new AudienceMember($user ?? LazyUser::load($userId));
             $audienceMember->setCanBeUser(false);
             $groups = collect();
             $roles = collect();
             foreach($userLogicResults as $userLogicResult) {
                 if($userLogicResult->hasRole()) {
-                    $role = app(\BristolSU\ControlDB\Contracts\Repositories\Role::class)->getById($userLogicResult->getRoleId());
-                    $role->group = $role->group();
-                    $role->position = $role->position();
-                    $roles->push($role);
+                    $roles->push(LazyRole::load($userLogicResult->getRoleId()));
                 } elseif ($userLogicResult->hasGroup()) {
-                    $groups->push(app(\BristolSU\ControlDB\Contracts\Repositories\Group::class)->getById($userLogicResult->getGroupId()));
+                    $groups->push(LazyGroup::load($userLogicResult->getGroupId()));
                 } else {
                     $audienceMember->setCanBeUser(true);
                 }
             }
-            $user = app(\BristolSU\ControlDB\Contracts\Repositories\User::class)->getById($userId);
 
             $audienceMember->setGroups($groups);
             $audienceMember->setRoles($roles);
 
-            $audienceMembers->push($audienceMember);
+            if($audienceMember->hasAudience()) {
+                $audienceMembers->push($audienceMember);
+            }
         }
 
         return $audienceMembers;
@@ -125,7 +124,7 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
             ->distinct()
             ->get();
 
-        return $userIds->map(fn(int $userId) => app(\BristolSU\ControlDB\Contracts\Repositories\User::class)->getById($userId));
+        return $userIds->map(fn(int $userId) => LazyUser::load($userId));
     }
 
     /**
@@ -142,7 +141,7 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
             ->distinct()
             ->get();
 
-        return $groupIds->map(fn(int $groupId) => app(\BristolSU\ControlDB\Contracts\Repositories\Group::class)->getById($groupId));
+        return $groupIds->map(fn(int $groupId) => LazyGroup::load($groupId));
     }
 
     /**
@@ -159,7 +158,7 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
             ->distinct()
             ->get();
 
-        return $roleIds->map(fn(int $roleId) => app(\BristolSU\ControlDB\Contracts\Repositories\Role::class)->getById($roleId));
+        return $roleIds->map(fn(int $roleId) => LazyRole::load($roleId));
     }
 
 }

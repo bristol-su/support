@@ -32,7 +32,7 @@ class CacheLogic extends Command
      * @param UserRepository $userRepository Repository to get all users from
      */
     public function handle(UserRepository $userRepository) {
-        LogicResult::whereNotNull('id')->delete(); // TODO Remoev this, it deletes all logic whilst testing
+//        LogicResult::whereNotNull('id')->delete(); // TODO Remoev this, it deletes all logic whilst testing
         $this->info('Caching logic');
 
         $users = collect($userRepository->all());

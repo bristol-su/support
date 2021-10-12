@@ -54,16 +54,6 @@ class AudienceMember implements Arrayable, Jsonable
         $this->roles = $roles ?? collect();
     }
 
-    /**
-     * Get all groups for which the user has a membership to.
-     *
-     * @return Collection
-     */
-    public function groups()
-    {
-        return $this->groups;
-    }
-
     public function setGroups(Collection $groups)
     {
         $this->groups = $groups;
@@ -74,43 +64,14 @@ class AudienceMember implements Arrayable, Jsonable
         $this->roles = $roles;
     }
 
+    public function setUser(User $user)
+    {
+        $this->user = $user;
+    }
+
     public function setCanBeUser(bool $canBeUser)
     {
         $this->canBeUser = $canBeUser;
-    }
-
-    /**
-     * Get all roles which the user is in.
-     *
-     * @return Collection
-     */
-    public function roles()
-    {
-        return $this->roles->map(function (Role $role) {
-                $role->group = $role->group();
-                $role->position = $role->position();
-                return $role;
-            }) ?? collect();
-    }
-
-    /**
-     * Get the user the audience member is about.
-     *
-     * @return User
-     */
-    public function user()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Can the user themselves be in the logic group?
-     *
-     * @return bool
-     */
-    public function canBeUser(): bool
-    {
-        return $this->canBeUser;
     }
 
     /**
@@ -124,6 +85,38 @@ class AudienceMember implements Arrayable, Jsonable
     public function hasAudience()
     {
         return $this->canBeUser() || count($this->groups) > 0 || count($this->roles) > 0;
+    }
+
+    /**
+     * Can the user themselves be in the logic group?
+     *
+     * @return bool
+     */
+    public function canBeUser(): bool
+    {
+        return $this->canBeUser;
+    }
+
+    /**
+     * Convert the object to a string, a JSON representation.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toJson();
+    }
+
+    /**
+     * Convert the object to its JSON representation.
+     *
+     * @param int $options
+     *
+     * @return string
+     */
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
     }
 
     /**
@@ -147,32 +140,48 @@ class AudienceMember implements Arrayable, Jsonable
     public function toArray()
     {
         return [
-            'user' => $this->user(),
+            'user' => $this->user()->toArray(),
             'can_be_user' => $this->canBeUser(),
-            'groups' => $this->groups(),
-            'roles' => $this->roles()
+            'groups' => $this->groups()->toArray(),
+            'roles' => $this->roles()->toArray()
         ];
     }
 
     /**
-     * Convert the object to its JSON representation.
+     * Get the user the audience member is about.
      *
-     * @param int $options
-     *
-     * @return string
+     * @return User
      */
-    public function toJson($options = 0)
+    public function user()
     {
-        return json_encode($this->toArray(), $options);
+        return $this->user;
     }
 
     /**
-     * Convert the object to a string, a JSON representation.
+     * Get all groups for which the user has a membership to.
      *
-     * @return string
+     * @return Collection
      */
-    public function __toString()
+    public function groups()
     {
-        return $this->toJson();
+        return $this->groups;
+    }
+
+    /**
+     * Get all roles which the user is in.
+     *
+     * @return Collection
+     */
+    public function roles()
+    {
+        return $this->roles->map(function (Role $role) {
+                if (!isset($role->group)) {
+                    $role->group = $role->group();
+                }
+                if (!isset($role->position)) {
+                    $role->position = $role->position();
+                }
+                return $role;
+            }) ?? collect();
     }
 }
