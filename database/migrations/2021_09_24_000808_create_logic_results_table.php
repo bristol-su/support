@@ -20,7 +20,11 @@ class CreateLogicResultsTable extends Migration
             $table->unsignedBigInteger('role_id')->nullable();
             $table->boolean('result');
             $table->timestamps();
+            $table->unique([
+                'logic_id', 'user_id', 'group_id', 'role_id'
+            ]);
         });
+
     }
 
     /**
