@@ -2,7 +2,6 @@
 
 namespace BristolSU\Support\Filters;
 
-use BristolSU\Support\Filters\Commands\CacheFilters;
 use BristolSU\Support\Filters\Contracts\FilterFactory as FilterFactoryContract;
 use BristolSU\Support\Filters\Contracts\FilterInstance as FilterInstanceContract;
 use BristolSU\Support\Filters\Contracts\FilterInstanceRepository as FilterInstanceRepositoryContract;
@@ -15,7 +14,6 @@ use BristolSU\Support\Filters\Filters\Role\RoleHasPosition;
 use BristolSU\Support\Filters\Filters\Role\RoleTagged;
 use BristolSU\Support\Filters\Filters\User\UserEmailIs;
 use BristolSU\Support\Filters\Filters\User\UserTagged;
-use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 
@@ -40,6 +38,7 @@ class FilterServiceProvider extends ServiceProvider
         $this->app->bind(FilterInstanceContract::class, FilterInstance::class);
         $this->app->bind(FilterInstanceRepositoryContract::class, FilterInstanceRepository::class);
         $this->app->singleton(FilterManagerContract::class, FilterManager::class);
+        $this->app->extend(FilterManagerContract::class, fn(FilterManagerContract $filterManager) => new FilterManagerEventRegistrationDecorator($filterManager));
     }
 
     /**
@@ -49,14 +48,7 @@ class FilterServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app['config']->get('support.caching.filters.enabled', true)) {
-            $this->app->extend(FilterTesterContract::class, function (FilterTesterContract $filterTester) {
-                return new CachedFilterTesterDecorator($filterTester, $this->app->make(Cache::class));
-            });
-        }
-        
         $this->app->call([$this, 'registerFilters']);
-        $this->commands([CacheFilters::class]);
     }
 
     /**
@@ -71,11 +63,11 @@ class FilterServiceProvider extends ServiceProvider
         // User Filters
         $filterManager->register('user_email_is', UserEmailIs::class);
         $filterManager->register('user_tagged', UserTagged::class);
-            
+
         // Group Filters
         $filterManager->register('group_name_is', GroupNameIs::class);
         $filterManager->register('group_tagged', GroupTagged::class);
-        
+
         // Role Filters
         $filterManager->register('role_has_position', RoleHasPosition::class);
         $filterManager->register('role_tagged', RoleTagged::class);
