@@ -1,27 +1,20 @@
 <?php
 
-namespace BristolSU\Support\Logic\DatabaseDecorator;
+namespace BristolSU\Support\Logic\Jobs;
 
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\User;
-use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
-use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\ControlDB\Contracts\Models\Role;
-use BristolSU\Support\Filters\Contracts\FilterInstance;
-use BristolSU\Support\Filters\Contracts\FilterTester;
 use BristolSU\Support\Logic\Audience\Audience;
 use BristolSU\Support\Logic\Contracts\LogicRepository;
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use Illuminate\Bus\Queueable;
-use Illuminate\Console\Command;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use Illuminate\Support\Collection;
 
 /**
  * Command to cache the result of all filters.
  */
-class CacheLogicJob implements ShouldQueue
+class CacheLogicForUser implements ShouldQueue
 {
     use Queueable;
 

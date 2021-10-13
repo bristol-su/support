@@ -1,8 +1,9 @@
 <?php
 
-namespace BristolSU\Support\Logic\DatabaseDecorator;
+namespace BristolSU\Support\Logic\Commands;
 
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
+use BristolSU\Support\Logic\Jobs\CacheLogicForUser;
 use Illuminate\Console\Command;
 
 /**
@@ -32,7 +33,6 @@ class CacheLogic extends Command
      * @param UserRepository $userRepository Repository to get all users from
      */
     public function handle(UserRepository $userRepository) {
-//        LogicResult::whereNotNull('id')->delete(); // TODO Remoev this, it deletes all logic whilst testing
         $this->info('Caching logic');
 
         $users = collect($userRepository->all());
@@ -40,7 +40,7 @@ class CacheLogic extends Command
         $userProgress = $this->output->createProgressBar($users->count());
         $userProgress->start();
         foreach($users as $user) {
-            dispatch(new CacheLogicJob($user, $this->argument('logic')));
+            dispatch(new CacheLogicForUser($user, $this->argument('logic')));
             $userProgress->advance();
         }
         $userProgress->finish();

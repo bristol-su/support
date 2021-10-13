@@ -174,14 +174,6 @@ class AudienceMember implements Arrayable, Jsonable
      */
     public function roles()
     {
-        return $this->roles->map(function (Role $role) {
-                if (!isset($role->group)) {
-                    $role->group = $role->group();
-                }
-                if (!isset($role->position)) {
-                    $role->position = $role->position();
-                }
-                return $role;
-            }) ?? collect();
+        return $this->roles ?? collect();
     }
 }

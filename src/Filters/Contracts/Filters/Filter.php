@@ -38,6 +38,16 @@ abstract class Filter implements Arrayable
      */
     abstract public function hasModel(): bool;
 
+    static public function clearOn(): array
+    {
+        return [];
+    }
+
+    public static function listensTo(): array
+    {
+        return array_keys(static::clearOn());
+    }
+
     /**
      * Set a model to use for the filter.
      *

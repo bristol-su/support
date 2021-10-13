@@ -8,19 +8,22 @@ use BristolSU\Support\Filters\Contracts\FilterRepository as FilterRepositoryCont
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
+use BristolSU\Support\Filters\Events\AudienceChanged;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Revision\HasRevisions;
 use Database\Factories\FilterInstanceFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use function Illuminate\Events\queueable;
 
 /**
  * Represents a filter instance.
  */
 class FilterInstance extends Model implements FilterInstanceContract
 {
-    use HasRevisions, HasFactory;
+    use HasRevisions, HasFactory, SoftDeletes;
 
     /**
      * Fillable attributes.
@@ -48,6 +51,23 @@ class FilterInstance extends Model implements FilterInstanceContract
     protected $appends = [
         'for'
     ];
+
+    protected static function booted()
+    {
+        static::deleting(function (FilterInstance $filterInstance) {
+            AudienceChanged::dispatch($filterInstance);
+        });
+        static::created(function (FilterInstance $filterInstance) {
+            if($filterInstance->logic_id) {
+                AudienceChanged::dispatch($filterInstance);
+            }
+        });
+        static::updating(function (FilterInstance $filterInstance) {
+            if($filterInstance->isDirty(['settings', 'logic_id', 'logic_type'])) {
+                AudienceChanged::dispatch($filterInstance);
+            }
+        });
+    }
 
     /**
      * Return the filter instance name.

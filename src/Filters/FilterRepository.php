@@ -19,7 +19,7 @@ class FilterRepository implements FilterRepositoryContract
      * @var FilterManagerContract
      */
     private $manager;
-    
+
     /**
      * Hold the filter factory to create a filter.
      *
