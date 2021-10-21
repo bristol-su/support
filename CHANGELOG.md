@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [5.1.1] - (21/10/2021)
+
+### Fixed
+- participant middleware was being loaded on the admin side of modules
+
 ## [5.1.0] - (18/10/2021)
 
 ### Added
