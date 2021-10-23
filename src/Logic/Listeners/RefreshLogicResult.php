@@ -5,30 +5,30 @@ namespace BristolSU\Support\Logic\Listeners;
 use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
-use BristolSU\Support\Action\Actions\Log;
 use BristolSU\Support\Filters\Events\AudienceChanged;
 use BristolSU\Support\Logic\Jobs\CacheLogicResult;
 use BristolSU\Support\Logic\Jobs\ClearLogicCache;
-use BristolSU\Support\Logic\Contracts\LogicRepository;
 use BristolSU\Support\Logic\DatabaseDecorator\LogicResult;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Support\Facades\Bus;
-use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
-use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
-use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 
-
+/**
+ * Handles an audience changed event, by clearing the logic cache
+ */
 class RefreshLogicResult implements ShouldQueue
 {
     use Queueable, Dispatchable;
 
     public function handle(AudienceChanged $audienceChanged)
     {
+        // Only continue if the filter instance is attached to a logic
         if($audienceChanged->filterInstance->logic === null) {
-            throw new \Exception($audienceChanged);
+            return;
         }
+
+        // Get all logic results that match the given model and logic
         $query = LogicResult::forLogic($audienceChanged->filterInstance->logic);
         if ($audienceChanged->model !== null) {
             $query = $query->where(
@@ -40,7 +40,8 @@ class RefreshLogicResult implements ShouldQueue
             );
         }
         $results = $query->get();
-
+logger()->info($results->toJson());
+        // Clear and cache the logic results
         foreach ($results as $result) {
             Bus::chain([
                 new ClearLogicCache($result),

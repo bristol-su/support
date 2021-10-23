@@ -38,7 +38,7 @@ abstract class Filter implements Arrayable
      */
     abstract public function hasModel(): bool;
 
-    static public function clearOn(): array
+    public static function clearOn(): array
     {
         return [];
     }

@@ -59,9 +59,6 @@ class Logic extends Model
                 $model->user_id = app(Authentication::class)->getUser()->id();
             }
         });
-        self::created(function(Logic $logic) {
-            dispatch(new CacheLogic($logic));
-        });
     }
 
     /**

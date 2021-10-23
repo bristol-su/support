@@ -20,12 +20,17 @@ class LogicDatabaseDecorator implements LogicTester
     {
         $logicResult = LogicResult::forLogic($logic)->withResources($userModel, $groupModel, $roleModel)->first();
 
-        if($logicResult !== null) {
+        if ($logicResult !== null) {
             return $logicResult->getResult();
         }
         $result = $this->baseTester->evaluate($logic, $userModel, $groupModel, $roleModel);
-
-        logger()->info(LogicResult::addResult($result, $logic, $userModel, $groupModel, $roleModel));
+        LogicResult::create([
+            'logic_id' => $logic->id,
+            'user_id' => $userModel?->id(),
+            'group_id' => $groupModel?->id(),
+            'role_id' => $roleModel?->id(),
+            'result' => $result
+        ]);
         return $result;
     }
 }
