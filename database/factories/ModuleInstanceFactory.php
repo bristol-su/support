@@ -41,4 +41,12 @@ class ModuleInstanceFactory extends Factory
             'image_url' => $this->faker->imageUrl()
         ];
     }
+
+    public function activityId($activity_id)
+    {
+        return $this->state([
+           'activity_id' => $activity_id,
+           'grouping_id' => ModuleInstanceGrouping::factory(['activity_id' => $activity_id])->create()->id
+        ]);
+    }
 }

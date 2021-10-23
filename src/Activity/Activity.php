@@ -7,12 +7,16 @@ use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
+use BristolSU\Support\ModuleInstance\ModuleInstanceGrouping;
 use BristolSU\Support\Revision\HasRevisions;
+use BristolSU\Support\Eloquent\CascadeRestoreDeletes;
 use Carbon\Carbon;
 use Database\Factories\ActivityFactory;
+use Dyrynda\Database\Support\CascadeSoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Support\Str;
 
 /**
@@ -20,7 +24,9 @@ use Illuminate\Support\Str;
  */
 class Activity extends Model
 {
-    use HasRevisions, HasFactory;
+    use HasRevisions, HasFactory, SoftDeletes, CascadeSoftDeletes, CascadeRestoreDeletes;
+
+    protected $cascadeDeletes = ['activityInstances', 'moduleInstances', 'moduleGrouping'];
 
     /**
      * Fillable attributes.
@@ -82,6 +88,11 @@ class Activity extends Model
     public function moduleInstances()
     {
         return $this->hasMany(ModuleInstance::class);
+    }
+
+    public function moduleGrouping()
+    {
+        return $this->hasMany(ModuleInstanceGrouping::class);
     }
 
     /**

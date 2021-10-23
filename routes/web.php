@@ -2,8 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::middleware(['module', 'activity', 'participant-activity', 'participant-module'])->group(function() {
-    Route::middleware('participant')->get(
+Route::middleware(['module', 'activity'])->group(function() {
+    Route::middleware(['participant', 'participant-activity', 'participant-module'])->get(
         '/p/{activity_slug}/{module_instance_slug}',
         [\BristolSU\Support\Http\Controllers\ModuleInstanceRedirectController::class, 'index']
     )->name('module.participant');

@@ -7,12 +7,27 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.0.2] - (23/10/2021)
+## [5.1.2] - (22/10/2021)
+
+### Changed
+- Updated forn schema version to 3
+
+## [5.1.1] - (21/10/2021)
+
+### Fixed
+- participant middleware was being loaded on the admin side of modules
+
+## [5.1.0] - (18/10/2021)
+
+### Added
+- Soft deletes on most models, and ability to restore the models and their children
+
+## [5.0.2] - (23/09/2021)
 
 ### Changed
 - Activity Instances return dummy models if the control model does not exist
 
-## [5.0.1] - (22/10/2021)
+## [5.0.1] - (22/09/2021)
 
 ### Changed
 - Resolve Transformer contract rather than using VFGTransformer.

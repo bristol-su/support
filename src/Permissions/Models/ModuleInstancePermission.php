@@ -9,13 +9,14 @@ use BristolSU\Support\Revision\HasRevisions;
 use Database\Factories\ModuleInstancePermissionFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Represents a module instance permission.
  */
 class ModuleInstancePermission extends Model
 {
-    use HasRevisions, HasFactory;
+    use HasRevisions, HasFactory, SoftDeletes;
 
     /**
      * Fillable attributes.

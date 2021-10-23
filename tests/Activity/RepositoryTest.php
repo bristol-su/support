@@ -300,7 +300,7 @@ class RepositoryTest extends TestCase
 
         $repository->delete($activity->id);
 
-        $this->assertDatabaseMissing('activities', [
+        $this->assertSoftDeleted('activities', [
             'id' => $activity->id,
         ]);
     }

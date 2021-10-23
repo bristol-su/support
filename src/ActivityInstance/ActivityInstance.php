@@ -20,13 +20,14 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use BristolSU\ControlDB\Models\Dummy\UserDummy;
 use BristolSU\ControlDB\Models\Dummy\GroupDummy;
 use BristolSU\ControlDB\Models\Dummy\RoleDummy;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * An eloquent model representing an Activity Instance.
  */
 class ActivityInstance extends Model implements Authenticatable
 {
-    use HasRevisions, HasFactory;
+    use HasRevisions, HasFactory, SoftDeletes;
 
     /**
      * Additional attributes to add to the model.

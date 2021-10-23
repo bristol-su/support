@@ -20,13 +20,14 @@
         "laravel/framework": "^8.0",
         "laracasts/utilities": "^3.0",
         "ext-json": "*",
-        "tobytwigger/form-schema-generator": "^2.0",
+        "tobytwigger/form-schema-generator": "^3.0.1",
         "bristol-su/control": "^3.0.2",
         "doctrine/dbal": "^2.10",
         "venturecraft/revisionable": "^1.33",
         "guzzlehttp/guzzle": "^7.0.0",
         "aws/aws-sdk-php": "^3.158",
-        "spatie/eloquent-sortable": "^3.11"
+        "spatie/eloquent-sortable": "^3.11",
+        "dyrynda/laravel-cascade-soft-deletes": "^4.1"
     },
     "require-dev": {
         "orchestra/testbench": "^6.0",
