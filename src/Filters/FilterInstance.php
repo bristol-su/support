@@ -55,17 +55,16 @@ class FilterInstance extends Model implements FilterInstanceContract
     protected static function booted()
     {
         static::deleted(function (FilterInstance $filterInstance) {
-            logger()->info('dispatched');
-            AudienceChanged::dispatch($filterInstance);
+            AudienceChanged::dispatch([$filterInstance]);
         });
         static::created(function (FilterInstance $filterInstance) {
             if($filterInstance->logic_id) {
-                AudienceChanged::dispatch($filterInstance);
+                AudienceChanged::dispatch([$filterInstance]);
             }
         });
         static::updated(function (FilterInstance $filterInstance) {
             if($filterInstance->isDirty(['settings', 'logic_id', 'logic_type'])) {
-                AudienceChanged::dispatch($filterInstance);
+                AudienceChanged::dispatch([$filterInstance]);
             }
         });
     }

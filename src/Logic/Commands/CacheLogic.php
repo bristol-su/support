@@ -39,9 +39,9 @@ class CacheLogic extends Command
 
         $userProgress = $this->output->createProgressBar($users->count());
         $userProgress->start();
-        foreach($users as $user) {
-            dispatch(new CacheLogicForUser($user, $this->argument('logic')));
-            $userProgress->advance();
+        foreach($users->chunk(10) as $userChunk) {
+            dispatch(new CacheLogicForUser($userChunk->all(), $this->argument('logic')));
+            $userProgress->advance($userChunk->count());
         }
         $userProgress->finish();
     }

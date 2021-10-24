@@ -6,26 +6,28 @@ use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\Support\Filters\FilterInstance;
-use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
 class AudienceChanged
 {
-    use Dispatchable, InteractsWithSockets, SerializesModels;
+    use Dispatchable, SerializesModels;
 
-    public FilterInstance $filterInstance;
-    public Group|Role|User|null $model;
+    /**
+     * @var array|FilterInstance[]
+     */
+    public array $filterInstances;
+    public User|Group|Role|null $model;
 
     /**
      * Create a new event instance.
      *
-     * @param FilterInstance $filterInstance
-     * @param array $conditions
+     * @param array $filterInstances Array of filter instances that have changed
+     * @param User|Group|Role|null $model
      */
-    public function __construct(FilterInstance $filterInstance, User|Group|Role|null $model = null)
+    public function __construct(array $filterInstances, User|Group|Role|null $model = null)
     {
-        $this->filterInstance = $filterInstance;
+        $this->filterInstances = $filterInstances;
         $this->model = $model;
     }
 

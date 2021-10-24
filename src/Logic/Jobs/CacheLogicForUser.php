@@ -8,6 +8,7 @@ use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\Support\Logic\Audience\Audience;
 use BristolSU\Support\Logic\Contracts\LogicRepository;
 use BristolSU\Support\Logic\Contracts\LogicTester;
+use BristolSU\Support\Logic\Traits\CachesLogic;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
@@ -16,22 +17,23 @@ use Illuminate\Contracts\Queue\ShouldQueue;
  */
 class CacheLogicForUser implements ShouldQueue
 {
-    use Queueable;
+    use Queueable, CachesLogic;
 
     /**
      * Holds the filter instance to get the result from.
      *
-     * @var User
+     * @var array|User[]
      */
-    private $user;
+    private array $users;
+
     private ?int $logicId;
 
     /**
-     * @param User $user The user to cache logic for
+     * @param array|User[] $users The user to cache logic for
      */
-    public function __construct(User $user, ?int $logicId = null)
+    public function __construct(array $users, ?int $logicId = null)
     {
-        $this->user = $user;
+        $this->users = $users;
         $this->logicId = $logicId;
     }
 
@@ -42,23 +44,18 @@ class CacheLogicForUser implements ShouldQueue
      */
     public function handle()
     {
-        $audience = Audience::fromUser($this->user);
-        $audience->roles()->each(fn(Role $role) => $this->cacheLogic($role->group(), $role));
-        $audience->groups()->each(fn(Group $group) => $this->cacheLogic($group));
-        if($audience->canBeUser()) {
-            $this->cacheLogic();
-        }
-    }
-
-    private function cacheLogic(?Group $group = null, ?Role $role = null)
-    {
-        if($this->logicId !== null) {
-            app(LogicTester::class)->evaluate(app(LogicRepository::class)->getById($this->logicId), $this->user, $group, $role);
-        }
-        else {
-            foreach(app(LogicRepository::class)->all() as $logic) {
-                app(LogicTester::class)->evaluate($logic, $this->user, $group, $role);
+        foreach($this->users as $user) {
+            $audience = Audience::fromUser($user);
+            $audience->roles()->each(
+                fn(Role $role) => $this->cacheLogic($this->logicId, $user, $role->group(), $role)
+            );
+            $audience->groups()->each(
+                fn(Group $group) => $this->cacheLogic($this->logicId, $user, $group)
+            );
+            if($audience->canBeUser()) {
+                $this->cacheLogic($this->logicId, $user);
             }
         }
     }
+
 }
