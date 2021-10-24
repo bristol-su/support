@@ -20,13 +20,13 @@ trait CachesLogic
                 'group_id' => $group?->id(),
                 'role_id' => $role?->id()
             ])->first()?->delete();
-
-            app(LogicTester::class)->evaluate(
+            $res = app(LogicTester::class)->evaluate(
                 app(LogicRepository::class)->getById($logicId),
                 $user, $group, $role
             );
+            logger()->info(sprintf('Result with position %u is %s', $role?->positionId(), $res ? 'In' : 'Out'));
         }
-        else {
+    else {
             foreach(app(LogicRepository::class)->all() as $logic) {
                 LogicResult::where([
                     'logic_id' => $logicId,

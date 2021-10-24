@@ -9,6 +9,7 @@ use BristolSU\Support\Logic\Audience\AudienceMember;
 use BristolSU\Support\Logic\Traits\CachesLogic;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Command to cache the result of all filters.

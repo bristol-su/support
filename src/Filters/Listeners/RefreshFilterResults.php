@@ -5,6 +5,7 @@ namespace BristolSU\Support\Filters\Listeners;
 use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
+use BristolSU\ControlDB\Models\Role;
 use BristolSU\Support\Filters\Contracts\FilterInstance;
 use BristolSU\Support\Filters\Contracts\FilterInstanceRepository;
 use BristolSU\Support\Filters\Contracts\FilterRepository;
@@ -57,6 +58,7 @@ class RefreshFilterResults implements ShouldQueue
             ->filter(fn(Filter $filter) => array_key_exists(get_class($event), $filter::clearOn()))
             ->map(function (Filter $filter) use ($event) {
                 // Get the control model affected by the event.
+
                 $callbackResult = $filter::clearOn()[get_class($event)]($event);
                 if ($callbackResult !== false) {
                     $model = match (true) {
@@ -65,7 +67,6 @@ class RefreshFilterResults implements ShouldQueue
                         $filter instanceof RoleFilter => app(RoleRepository::class)->getById($callbackResult),
                         default => throw new Exception('Filters must be one of user, group or role00')
                     };
-
                     // Return an AudienceChanged event for each filter instance affected
                     return new AudienceChanged(
                         $this->filterInstanceRepository->all()
