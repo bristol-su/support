@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "45afd1015b7d88b02620b5c2a0e63ca9",
+    "content-hash": "9184e9f88e36cc6fe1f3251ae8bb043f",
     "packages": [
         {
             "name": "aws/aws-crt-php",
@@ -209,16 +209,16 @@
         },
         {
             "name": "bristol-su/control",
-            "version": "v3.0.2",
+            "version": "v3.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bristol-su/control.git",
-                "reference": "378a041b36e9f288961551573fffc26a485620e4"
+                "reference": "8f5d6a0abf82eab74259c58618291736d4d4ebe1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bristol-su/control/zipball/378a041b36e9f288961551573fffc26a485620e4",
-                "reference": "378a041b36e9f288961551573fffc26a485620e4",
+                "url": "https://api.github.com/repos/bristol-su/control/zipball/8f5d6a0abf82eab74259c58618291736d4d4ebe1",
+                "reference": "8f5d6a0abf82eab74259c58618291736d4d4ebe1",
                 "shasum": ""
             },
             "require": {
@@ -261,9 +261,9 @@
             "description": "An implementation of the control contracts",
             "support": {
                 "issues": "https://github.com/bristol-su/control/issues",
-                "source": "https://github.com/bristol-su/control/tree/v3.0.2"
+                "source": "https://github.com/bristol-su/control/tree/v3.1.0"
             },
-            "time": "2021-09-23T12:11:31+00:00"
+            "time": "2021-10-24T17:45:36+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
