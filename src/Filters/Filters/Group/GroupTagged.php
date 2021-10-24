@@ -7,6 +7,8 @@ use BristolSU\ControlDB\Contracts\Repositories\Tags\GroupTag as GroupTagReposito
 use BristolSU\ControlDB\Contracts\Models\Tags\GroupTag;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use FormSchema\Schema\Form;
+use BristolSU\ControlDB\Events\Pivots\Tags\GroupGroupTag\GroupTagged as GroupTaggedEvent;
+use BristolSU\ControlDB\Events\Pivots\Tags\GroupGroupTag\GroupUntagged as GroupUntaggedEvent;
 
 /**
  * Is the group tagged with a tag?
@@ -31,11 +33,11 @@ class GroupTagged extends GroupFilter
     /**
      * See if the group is tagged.
      *
-     * @param string $settings [ 'tag' => 'full.reference' ]
+     * @param array $settings [ 'tag' => 'full.reference' ]
      *
      * @return bool
      */
-    public function evaluate($settings): bool
+    public function evaluate(array $settings): bool
     {
         try {
             $tags = $this->group()->tags();
@@ -95,5 +97,13 @@ class GroupTagged extends GroupFilter
     public function alias()
     {
         return 'group_tagged';
+    }
+
+    public static function clearOn(): array
+    {
+        return [
+            GroupTaggedEvent::class => fn(GroupTaggedEvent $event) => $event->group->id(),
+            GroupUntaggedEvent::class => fn(GroupUntaggedEvent $event) => $event->group->id(),
+        ];
     }
 }

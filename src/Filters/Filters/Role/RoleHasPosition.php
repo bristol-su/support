@@ -6,6 +6,7 @@ namespace BristolSU\Support\Filters\Filters\Role;
 use BristolSU\ControlDB\Contracts\Models\Position as PositionModel;
 use BristolSU\ControlDB\Contracts\Repositories\Position;
 use BristolSU\ControlDB\Contracts\Repositories\Position as PositionRepository;
+use BristolSU\ControlDB\Events\Role\RoleUpdated;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use FormSchema\Schema\Form;
 
@@ -32,10 +33,10 @@ class RoleHasPosition extends RoleFilter
     /**
      * Does the role have the given position ID?
      *
-     * @param string $settings Contain the position id as 'position'
+     * @param array $settings Contain the position id as 'position'
      * @return bool
      */
-    public function evaluate($settings): bool
+    public function evaluate(array $settings): bool
     {
         if ($this->role()->positionId() === (int) $settings['position']) {
             return true;
@@ -88,5 +89,12 @@ class RoleHasPosition extends RoleFilter
     public function alias()
     {
         return 'role_has_position';
+    }
+
+    public static function clearOn(): array
+    {
+        return [
+            RoleUpdated::class => fn(RoleUpdated $event) => array_key_exists('position_id', $event->updatedData) ? $event->role->id() : false
+        ];
     }
 }

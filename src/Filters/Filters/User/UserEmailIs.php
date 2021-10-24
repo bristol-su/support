@@ -34,15 +34,12 @@ class UserEmailIs extends UserFilter
     /**
      * The user email is the same as the settings.
      *
-     * @param string|array $settings ['email' => '' ]
+     * @param array $settings ['email' => '' ]
      *
      * @return bool Does the user have the given email?
      */
-    public function evaluate($settings): bool
+    public function evaluate(array $settings): bool
     {
-        if(is_string($settings)) {
-            $settings = json_decode($settings, true);
-        }
         try {
             return $this->user()->data()->email() === $settings['email'];
         } catch (\Exception $e) {

@@ -58,11 +58,11 @@ abstract class Filter implements Arrayable
     /**
      * Test if the filter passes.
      *
-     * @param string $settings Filled in values in the form of options()
+     * @param array $settings Filled in values in the form of options()
      *
      * @return bool Does the filter pass?
      */
-    abstract public function evaluate($settings): bool;
+    abstract public function evaluate(array $settings): bool;
 
     /**
      * Name of the filter.

@@ -5,6 +5,8 @@ namespace BristolSU\Support\Filters\Filters\User;
 
 use BristolSU\ControlDB\Contracts\Models\Tags\UserTag;
 use BristolSU\ControlDB\Contracts\Repositories\Tags\UserTag as UserTagRepositoryContract;
+use BristolSU\ControlDB\Events\Pivots\Tags\UserUserTag\UserTagged as UserTaggedEvent;
+use BristolSU\ControlDB\Events\Pivots\Tags\UserUserTag\UserUntagged as UserUntaggedEvent;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use FormSchema\Schema\Form;
 
@@ -31,11 +33,11 @@ class UserTagged extends UserFilter
     /**
      * See if the user is tagged.
      *
-     * @param string $settings [ 'tag' => 'full.reference' ]
+     * @param array $settings [ 'tag' => 'full.reference' ]
      *
      * @return bool
      */
-    public function evaluate($settings): bool
+    public function evaluate(array $settings): bool
     {
         try {
             $tags = $this->user()->tags();
@@ -95,5 +97,13 @@ class UserTagged extends UserFilter
     public function alias()
     {
         return 'user_tagged';
+    }
+
+    public static function clearOn(): array
+    {
+        return [
+            UserTaggedEvent::class => fn(UserTaggedEvent $event) => $event->user->id(),
+            UserUntaggedEvent::class => fn(UserUntaggedEvent $event) => $event->user->id(),
+        ];
     }
 }
