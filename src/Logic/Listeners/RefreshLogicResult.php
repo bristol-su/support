@@ -11,6 +11,7 @@ use BristolSU\Support\Logic\Jobs\CacheLogic;
 use BristolSU\Support\Logic\Jobs\CacheLogicForGroup;
 use BristolSU\Support\Logic\Jobs\CacheLogicForRole;
 use BristolSU\Support\Logic\Jobs\CacheLogicForUser;
+use BristolSU\Support\Logic\Logic;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -25,18 +26,17 @@ class RefreshLogicResult implements ShouldQueue
     public function handle(AudienceChanged $audienceChanged)
     {
         foreach($audienceChanged->filterInstances as $filterInstance) {
-            $this->refreshFilterResult($filterInstance, $audienceChanged->model);
+            $logic = $filterInstance->logic;
+            // Only continue if the filter instance is attached to a logic
+            if($logic === null) {
+                continue;
+            }
+            $this->refreshFilterResult($logic, $audienceChanged->model);
         }
     }
 
-    public function refreshFilterResult(FilterInstance $filterInstance, User|Group|Role|null $model)
+    public function refreshFilterResult(Logic $logic, User|Group|Role|null $model)
     {
-        // Only continue if the filter instance is attached to a logic
-        $logic = $filterInstance->logic;
-        if($logic === null) {
-            return;
-        }
-
         if($model === null) {
             // Cache the whole logic since we're not limited to a specific model
             dispatch(new CacheLogic($logic));
