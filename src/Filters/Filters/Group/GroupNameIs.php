@@ -2,11 +2,11 @@
 
 namespace BristolSU\Support\Filters\Filters\Group;
 
+use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\ControlDB\Events\DataGroup\DataGroupUpdated;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use FormSchema\Generator\Field;
 use FormSchema\Schema\Form;
-use Linkeys\UrlSigner\Support\GroupRepository\GroupRepository;
 
 /**
  * Test the group name matches.
