@@ -4,11 +4,8 @@ namespace BristolSU\Support\Logic\Jobs;
 
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
-use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Logic\Audience\Audience;
 use BristolSU\Support\Logic\Audience\AudienceMember;
-use BristolSU\Support\Logic\Contracts\LogicRepository;
-use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Traits\CachesLogic;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

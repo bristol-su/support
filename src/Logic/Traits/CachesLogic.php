@@ -13,23 +13,22 @@ trait CachesLogic
 {
     protected function cacheLogic(int|null $logicId, User $user, ?Group $group = null, ?Role $role = null)
     {
-        if($logicId !== null) {
+        if ($logicId !== null) {
             LogicResult::where([
                 'logic_id' => $logicId,
                 'user_id' => $user->id(),
                 'group_id' => $group?->id(),
                 'role_id' => $role?->id()
             ])->first()?->delete();
-            $res = app(LogicTester::class)->evaluate(
+
+            app(LogicTester::class)->evaluate(
                 app(LogicRepository::class)->getById($logicId),
                 $user, $group, $role
             );
-            logger()->info(sprintf('Result with position %u is %s', $role?->positionId(), $res ? 'In' : 'Out'));
-        }
-    else {
-            foreach(app(LogicRepository::class)->all() as $logic) {
+        } else {
+            foreach (app(LogicRepository::class)->all() as $logic) {
                 LogicResult::where([
-                    'logic_id' => $logicId,
+                    'logic_id' => $logic->id,
                     'user_id' => $user->id(),
                     'group_id' => $group?->id(),
                     'role_id' => $role?->id()

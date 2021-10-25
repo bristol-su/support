@@ -71,6 +71,7 @@ class CacheStatusCommand extends Command
                     : sprintf('%s', $cachedCount)
             ];
         }
+
         $this->table([
             'ID', 'Name', 'Cached'
         ], $results);

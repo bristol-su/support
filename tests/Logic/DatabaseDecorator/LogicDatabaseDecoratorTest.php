@@ -23,9 +23,9 @@ class LogicDatabaseDecoratorTest extends TestCase
         $role = $this->newRole();
         $baseTester = $this->prophesize(LogicTester::class);
 
-        LogicResult::factory()->forLogic($logic)->forUser($user)->forGroup($group)->forRole($role)->passing()->create();
+        LogicResult::factory()->forLogic($logic)->forUser($user)->forRole($role)->passing()->create();
         $decorator = new LogicDatabaseDecorator($baseTester->reveal());
-        $this->assertTrue($decorator->evaluate($logic, $user, $group, $role));
+        $this->assertTrue($decorator->evaluate($logic, $user, $role->group(), $role));
 
         LogicResult::factory()->forLogic($logic)->forUser($user)->forGroup($group)->rejecting()->create();
         $decorator = new LogicDatabaseDecorator($baseTester->reveal());

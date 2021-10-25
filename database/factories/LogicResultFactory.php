@@ -59,7 +59,8 @@ class LogicResultFactory extends Factory
     public function forRole(?Role $role = null)
     {
         return $this->state(fn(array $attributes) => [
-            'role_id' => ($role === null ? Role::factory()->create() : $role)->id()
+            'role_id' => ($role === null ? $role = Role::factory()->create() : $role)->id(),
+            'group_id' => $role->groupId()
         ]);
     }
 

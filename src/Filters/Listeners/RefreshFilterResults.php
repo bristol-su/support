@@ -37,13 +37,11 @@ class RefreshFilterResults implements ShouldQueue
      *
      * @param FilterRepository $filterRepository
      * @param FilterInstanceRepository $filterInstanceRepository
-     * @param FilterTester $filterTester
      */
-    public function __construct(FilterRepository $filterRepository, FilterInstanceRepository $filterInstanceRepository, FilterTester $filterTester)
+    public function __construct(FilterRepository $filterRepository, FilterInstanceRepository $filterInstanceRepository)
     {
         $this->filterRepository = $filterRepository;
         $this->filterInstanceRepository = $filterInstanceRepository;
-        $this->filterTester = $filterTester;
     }
 
     /**
@@ -65,7 +63,7 @@ class RefreshFilterResults implements ShouldQueue
                         $filter instanceof UserFilter => app(UserRepository::class)->getById($callbackResult),
                         $filter instanceof GroupFilter => app(GroupRepository::class)->getById($callbackResult),
                         $filter instanceof RoleFilter => app(RoleRepository::class)->getById($callbackResult),
-                        default => throw new Exception('Filters must be one of user, group or role00')
+                        default => throw new Exception('Filters must be one of user, group or role')
                     };
                     // Return an AudienceChanged event for each filter instance affected
                     return new AudienceChanged(

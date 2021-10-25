@@ -12,6 +12,7 @@ use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Schema\Form;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 
 class LogicTest extends TestCase
@@ -20,10 +21,10 @@ class LogicTest extends TestCase
     public function all_true_filters_returns_all_true_filters()
     {
         $logic = Logic::factory()->create();
-        $filterInstance = FilterInstance::factory()->create([
+        $filterInstance = Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'all_true'
-        ]);
+        ]));
 
         $this->assertCount(1, $logic->allTrueFilters);
         $this->assertModelEquals($filterInstance, $logic->allTrueFilters->first());
@@ -41,14 +42,14 @@ class LogicTest extends TestCase
     public function all_true_only_returns_all_true_filters()
     {
         $logic = Logic::factory()->create();
-        $filterInstance = FilterInstance::factory()->create([
+        $filterInstance = Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'all_true'
-        ]);
-        $filterInstance2 = FilterInstance::factory()->create([
+        ]));
+        $filterInstance2 = Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'all_false'
-        ]);
+        ]));
 
         $this->assertCount(1, $logic->allTrueFilters);
         $this->assertModelEquals($filterInstance, $logic->allTrueFilters->first());
@@ -58,10 +59,10 @@ class LogicTest extends TestCase
     public function it_has_all_false_filters()
     {
         $logic = Logic::factory()->create();
-        $filterInstance = FilterInstance::factory()->create([
+        $filterInstance = Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'all_false'
-        ]);
+        ]));
 
         $this->assertCount(1, $logic->allFalseFilters);
         $this->assertModelEquals($filterInstance, $logic->allFalseFilters->first());
@@ -79,14 +80,14 @@ class LogicTest extends TestCase
     public function all_false_filters_returns_only_all_false_filters()
     {
         $logic = Logic::factory()->create();
-        $filterInstance = FilterInstance::factory()->create([
+        $filterInstance = Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'all_false'
-        ]);
-        $filterInstance2 = FilterInstance::factory()->create([
+        ]));
+        $filterInstance2 = Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'all_true'
-        ]);
+        ]));
 
         $this->assertCount(1, $logic->allFalseFilters);
         $this->assertModelEquals($filterInstance, $logic->allFalseFilters->first());
@@ -96,10 +97,10 @@ class LogicTest extends TestCase
     public function it_has_any_true_filters()
     {
         $logic = Logic::factory()->create();
-        $filterInstance = FilterInstance::factory()->create([
+        $filterInstance = Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'any_true'
-        ]);
+        ]));
 
         $this->assertCount(1, $logic->anyTrueFilters);
         $this->assertModelEquals($filterInstance, $logic->anyTrueFilters->first());
@@ -117,14 +118,14 @@ class LogicTest extends TestCase
     public function any_true_filters_returns_only_any_true_filters()
     {
         $logic = Logic::factory()->create();
-        $filterInstance = FilterInstance::factory()->create([
+        $filterInstance = Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'any_true'
-        ]);
-        $filterInstance2 = FilterInstance::factory()->create([
+        ]));
+        $filterInstance2 = Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'all_true'
-        ]);
+        ]));
 
         $this->assertCount(1, $logic->anyTrueFilters);
         $this->assertModelEquals($filterInstance, $logic->anyTrueFilters->first());
@@ -134,10 +135,10 @@ class LogicTest extends TestCase
     public function it_has_any_false_filters()
     {
         $logic = Logic::factory()->create();
-        $filterInstance = FilterInstance::factory()->create([
+        $filterInstance = Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'any_false'
-        ]);
+        ]));
 
         $this->assertCount(1, $logic->anyFalseFilters);
         $this->assertModelEquals($filterInstance, $logic->anyFalseFilters->first());
@@ -155,14 +156,14 @@ class LogicTest extends TestCase
     public function any_false_filters_returns_only_any_false_filters()
     {
         $logic = Logic::factory()->create();
-        $filterInstance = FilterInstance::factory()->create([
+        $filterInstance = Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'any_false'
-        ]);
-        $filterInstance2 = FilterInstance::factory()->create([
+        ]));
+        $filterInstance2 = Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'all_true'
-        ]);
+        ]));
 
         $this->assertCount(1, $logic->anyFalseFilters);
         $this->assertModelEquals($filterInstance, $logic->anyFalseFilters->first());
@@ -173,22 +174,22 @@ class LogicTest extends TestCase
     {
         $logic = Logic::factory()->create();
         $filters = new Collection();
-        $filters->push(FilterInstance::factory()->create([
+        $filters->push(Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'any_false'
-        ]));
-        $filters->push(FilterInstance::factory()->create([
+        ])));
+        $filters->push(Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'all_true'
-        ]));
-        $filters->push(FilterInstance::factory()->create([
+        ])));
+        $filters->push(Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'all_false'
-        ]));
-        $filters->push(FilterInstance::factory()->create([
+        ])));
+        $filters->push(Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id,
             'logic_type' => 'any_true'
-        ]));
+        ])));
 
         $allFilters = $logic->filters;
         foreach ($filters as $filter) {
@@ -201,7 +202,7 @@ class LogicTest extends TestCase
     {
         app(FilterManager::class)->register('dummyrole_1', DummyRoleFilter::class);
         $logic = Logic::factory()->create();
-        $filter = FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummyrole_1']);
+        $filter = Model::withoutEvents(fn() => FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummyrole_1']));
 
         $this->assertEquals('role', $logic->lowestResource);
     }
@@ -211,7 +212,7 @@ class LogicTest extends TestCase
     {
         app(FilterManager::class)->register('dummygroup_1', DummyGroupFilter::class);
         $logic = Logic::factory()->create();
-        $filter = FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummygroup_1']);
+        $filter = Model::withoutEvents(fn() => FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummygroup_1']));
 
         $this->assertEquals('group', $logic->lowestResource);
     }
@@ -222,8 +223,8 @@ class LogicTest extends TestCase
         app(FilterManager::class)->register('dummyrole_1', DummyRoleFilter::class);
         app(FilterManager::class)->register('dummygroup_1', DummyGroupFilter::class);
         $logic = Logic::factory()->create();
-        $filter = FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummygroup_1']);
-        $filter = FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummyrole_1']);
+        $filter = Model::withoutEvents(fn() => FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummygroup_1']));
+        $filter = Model::withoutEvents(fn() => FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummyrole_1']));
 
         $this->assertEquals('role', $logic->lowestResource);
     }
@@ -233,7 +234,7 @@ class LogicTest extends TestCase
     {
         app(FilterManager::class)->register('dummyuser_1', DummyUserFilter::class);
         $logic = Logic::factory()->create();
-        $filter = FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummyuser_1']);
+        $filter = Model::withoutEvents(fn() => FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummyuser_1']));
 
         $this->assertEquals('user', $logic->lowestResource);
     }
@@ -244,8 +245,8 @@ class LogicTest extends TestCase
         app(FilterManager::class)->register('dummyuser_1', DummyUserFilter::class);
         app(FilterManager::class)->register('dummygroup_1', DummyGroupFilter::class);
         $logic = Logic::factory()->create();
-        $filter = FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummygroup_1']);
-        $filter = FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummyuser_1']);
+        $filter = Model::withoutEvents(fn() => FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummygroup_1']));
+        $filter = Model::withoutEvents(fn() => FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummyuser_1']));
 
         $this->assertEquals('group', $logic->lowestResource);
     }
@@ -256,8 +257,8 @@ class LogicTest extends TestCase
         app(FilterManager::class)->register('dummyrole_1', DummyRoleFilter::class);
         app(FilterManager::class)->register('dummyuser_1', DummyUserFilter::class);
         $logic = Logic::factory()->create();
-        $filter = FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummyuser_1']);
-        $filter = FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummyrole_1']);
+        $filter = Model::withoutEvents(fn() => FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummyuser_1']));
+        $filter = Model::withoutEvents(fn() => FilterInstance::factory()->create(['logic_id' => $logic->id, 'alias' => 'dummyrole_1']));
 
         $this->assertEquals('role', $logic->lowestResource);
     }

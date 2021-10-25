@@ -5,11 +5,12 @@ namespace BristolSU\Support\Logic\Commands;
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Logic\Jobs\CacheLogicForUser;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Bus\Dispatcher;
 
 /**
  * Command to cache the result of all filters.
  */
-class CacheLogic extends Command
+class CacheLogicCommand extends Command
 {
     /**
      * The name and signature of the console command.

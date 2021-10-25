@@ -64,11 +64,6 @@ class AudienceMember implements Arrayable, Jsonable
         $this->roles = $roles;
     }
 
-    public function setUser(User $user)
-    {
-        $this->user = $user;
-    }
-
     public function setCanBeUser(bool $canBeUser)
     {
         $this->canBeUser = $canBeUser;

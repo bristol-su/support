@@ -52,13 +52,9 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
                 return $this->fromUser($user);
             });
         }
-        if ($resource instanceof Role) {
-            return $resource->users()->map(function ($user) {
-                return $this->fromUser($user);
-            });
-        }
-
-        return collect();
+        return $resource->users()->map(function ($user) {
+            return $this->fromUser($user);
+        });
     }
 
     /**
@@ -124,7 +120,7 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
             ->distinct()
             ->get();
 
-        return $userIds->map(fn(int $userId) => LazyUser::load($userId));
+        return $userIds->map(fn(LogicResult $logicResult) => LazyUser::load($logicResult->user_id));
     }
 
     /**
@@ -141,7 +137,7 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
             ->distinct()
             ->get();
 
-        return $groupIds->map(fn(int $groupId) => LazyGroup::load($groupId));
+        return $groupIds->map(fn(LogicResult $logicResult) => LazyGroup::load($logicResult->getGroupId()));
     }
 
     /**
@@ -158,7 +154,7 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
             ->distinct()
             ->get();
 
-        return $roleIds->map(fn(int $roleId) => LazyRole::load($roleId));
+        return $roleIds->map(fn(LogicResult $logicResult) => LazyRole::load($logicResult->getRoleId()));
     }
 
 }

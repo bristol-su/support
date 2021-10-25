@@ -53,12 +53,12 @@ class LogicResult extends \Illuminate\Database\Eloquent\Model
         return $this->role_id !== null;
     }
 
-    public function getGroupId(): int
+    public function getGroupId(): ?int
     {
         return $this->group_id;
     }
 
-    public function getRoleId(): int
+    public function getRoleId(): ?int
     {
         return $this->role_id;
     }

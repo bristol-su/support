@@ -4,6 +4,7 @@
 namespace BristolSU\Support\Tests\Filters\Filters;
 
 use BristolSU\ControlDB\Contracts\Repositories\DataUser as DataUserRepository;
+use BristolSU\ControlDB\Events\DataUser\DataUserUpdated;
 use BristolSU\ControlDB\Models\DataUser;
 use BristolSU\Support\Filters\Filters\User\UserEmailIs;
 use BristolSU\Support\Tests\TestCase;
@@ -86,5 +87,18 @@ class UserEmailIsTest extends TestCase
     {
         $filter = new UserEmailIs();
         $this->assertIsString($filter->alias());
+    }
+
+    /** @test */
+    public function it_listens_to_data_user_updated_events_correctly(){
+        $this->assertContains(DataUserUpdated::class, UserEmailIs::listensTo());
+
+        $dataUser = DataUser::factory()->create(['id' => 1000]);
+        $this->newUser(['data_provider_id' => $dataUser->id(), 'id' => 1001]);
+        $event = new DataUserUpdated($dataUser, []);
+
+        $result = UserEmailIs::clearOn()[DataUserUpdated::class]($event);
+        $this->assertIsInt($result);
+        $this->assertEquals(1001, $result);
     }
 }

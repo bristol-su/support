@@ -18,7 +18,7 @@ use BristolSU\Support\Logic\Audience\AudienceMemberFactory;
 use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory as AudienceFactoryContract;
 use BristolSU\Support\Logic\Contracts\LogicRepository as LogicRepositoryContract;
 use BristolSU\Support\Logic\Contracts\LogicTester as LogicTesterContract;
-use BristolSU\Support\Logic\Commands\CacheLogic;
+use BristolSU\Support\Logic\Commands\CacheLogicCommand;
 use BristolSU\Support\Logic\DatabaseDecorator\LogicDatabaseDecorator;
 use BristolSU\Support\Logic\DatabaseDecorator\LogicResult;
 use BristolSU\Support\Logic\Jobs\CacheLogicForGroup;
@@ -51,7 +51,7 @@ class LogicServiceProvider extends ServiceProvider
 
     public function boot()
     {
-        $this->commands([CacheLogic::class, CacheStatusCommand::class]);
+        $this->commands([CacheLogicCommand::class, CacheStatusCommand::class]);
 
         Event::listen(AudienceChanged::class, RefreshLogicResult::class);
         Event::listen(UserDeleted::class, fn(UserDeleted $event) => LogicResult::where('user_id', $event->user->id())->delete());
