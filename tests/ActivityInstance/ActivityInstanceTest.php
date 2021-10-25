@@ -8,12 +8,16 @@ use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\ControlDB\Models\DataGroup;
 use BristolSU\ControlDB\Models\DataRole;
 use BristolSU\ControlDB\Models\DataUser;
+use BristolSU\ControlDB\Models\Dummy\GroupDummy;
+use BristolSU\ControlDB\Models\Dummy\RoleDummy;
+use BristolSU\ControlDB\Models\Dummy\UserDummy;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ModuleInstance\ModuleInstance;
 use BristolSU\Support\Progress\Handlers\Database\Models\Progress;
 use BristolSU\Support\Tests\TestCase;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ActivityInstanceTest extends TestCase
 {
@@ -127,6 +131,48 @@ class ActivityInstanceTest extends TestCase
         $this->assertEquals($role, $activityInstance->getParticipantAttribute());
         $this->assertEquals($role, $activityInstance->participant);
         $this->assertEquals($role, $activityInstance->participant());
+    }
+
+    /** @test */
+    public function get_participant_attribute_returns_a_dummy_user_if_resource_type_is_a_user_but_its_not_found()
+    {
+        $user = $this->newUser();
+        $userRepository = $this->prophesize(UserRepository::class);
+        $userRepository->getById($user->id() + 100)->shouldBeCalledTimes(3)->willThrow(new ModelNotFoundException());
+        $this->app->instance(UserRepository::class, $userRepository->reveal());
+
+        $activityInstance = ActivityInstance::factory()->create(['resource_type' => 'user', 'resource_id' => $user->id() + 100]);
+        $this->assertInstanceOf(UserDummy::class, $activityInstance->getParticipantAttribute());
+        $this->assertInstanceOf(UserDummy::class, $activityInstance->participant());
+        $this->assertInstanceOf(UserDummy::class, $activityInstance->participant);
+    }
+
+    /** @test */
+    public function get_participant_attribute_returns_a_dummy_group_if_resource_type_is_a_group_but_its_not_found()
+    {
+        $group = $this->newGroup();
+        $groupRepository = $this->prophesize(GroupRepository::class);
+        $groupRepository->getById($group->id() + 100)->shouldBeCalledTimes(3)->willThrow(new ModelNotFoundException());
+        $this->app->instance(GroupRepository::class, $groupRepository->reveal());
+
+        $activityInstance = ActivityInstance::factory()->create(['resource_type' => 'group', 'resource_id' => $group->id() + 100]);
+        $this->assertInstanceOf(GroupDummy::class, $activityInstance->getParticipantAttribute());
+        $this->assertInstanceOf(GroupDummy::class, $activityInstance->participant());
+        $this->assertInstanceOf(GroupDummy::class, $activityInstance->participant);
+    }
+
+    /** @test */
+    public function get_participant_attribute_returns_a_dummy_role_if_resource_type_is_a_role_but_its_not_found()
+    {
+        $role = $this->newRole();
+        $roleRepository = $this->prophesize(RoleRepository::class);
+        $roleRepository->getById($role->id() + 100)->shouldBeCalledTimes(3)->willThrow(new ModelNotFoundException());
+        $this->app->instance(RoleRepository::class, $roleRepository->reveal());
+
+        $activityInstance = ActivityInstance::factory()->create(['resource_type' => 'role', 'resource_id' => $role->id() + 100]);
+        $this->assertInstanceOf(RoleDummy::class, $activityInstance->getParticipantAttribute());
+        $this->assertInstanceOf(RoleDummy::class, $activityInstance->participant());
+        $this->assertInstanceOf(RoleDummy::class, $activityInstance->participant);
     }
 
     /** @test */
