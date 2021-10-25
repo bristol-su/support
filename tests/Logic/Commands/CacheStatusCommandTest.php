@@ -50,6 +50,38 @@ class CacheStatusCommandTest extends TestCase
     }
 
     /** @test */
+    public function if_a_logic_id_is_given_just_that_logic_is_shown()
+    {
+        $logic1 = Logic::factory()->create();
+        $logic2 = Logic::factory()->create();
+
+        $users = Model::withoutEvents(fn() => User::factory()->count(100)->create());
+
+        foreach ($users->take(50) as $user) {
+            LogicResult::insert([
+                'logic_id' => $logic1->id,
+                'user_id' => $user->id(),
+                'result' => true
+            ]);
+        }
+        foreach ($users->take(99) as $user) {
+            LogicResult::insert([
+                'logic_id' => $logic2->id,
+                'user_id' => $user->id(),
+                'result' => true
+            ]);
+        }
+
+        $this->artisan('logic:cache-status ' . $logic2->id)
+            ->expectsTable(['ID', 'Name', 'Cached'], [
+                [$logic2->id, $logic2->name, 99]
+            ])
+            ->assertExitCode(0)
+            ->run();
+    }
+
+
+    /** @test */
     public function it_shows_all_logics_and_the_cached_number_compared_with_the_total()
     {
         $users = Model::withoutEvents(fn() => User::factory()->count(98)->create());
