@@ -37,4 +37,16 @@ class ActionInstanceFieldTest extends TestCase
         $this->assertEquals(1, $actionInstanceField->revisionHistory->first()->old_value);
         $this->assertEquals(2, $actionInstanceField->revisionHistory->first()->new_value);
     }
+
+    /** @test */
+    public function action_instances_can_support_arrays(){
+        $value = ['some' => ['multi' => 'array']];
+        $actionInstanceField = ActionInstanceField::factory()->create([
+            'action_value' => $value
+        ]);
+        $this->assertEquals($value, $actionInstanceField->action_value);
+        $this->assertDatabaseHas('action_instance_fields', [
+            'action_value' => json_encode($value)
+        ]);
+    }
 }

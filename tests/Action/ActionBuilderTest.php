@@ -71,6 +71,28 @@ class ActionBuilderTest extends TestCase
     }
 
     /** @test */
+    public function build_replaces_array_element_event_fields_with_the_correct_value()
+    {
+        $app = $this->prophesize(Application::class);
+        $app->make(ActionBuilderDummyAction::class, ['data' => ['action1' => ['key' => 'field1value with an event field of field1valueFromEvent', 'key2' => ['{{event:name}}' => 'field2valueFromEvent testing']]]])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction([]));
+
+        $actionInstance = ActionInstance::factory()->create([
+            'action' => ActionBuilderDummyAction::class,
+            'event' => ActionBuilderDummyEvent::class
+        ]);
+
+        $actionInstanceField = ActionInstanceField::factory()->create([
+            'action_value' => ['key' => 'field1value with an event field of {{event:field1}}', 'key2' => ['{{event:name}}' => '{{event:field2}} testing']],
+            'action_field' => 'action1',
+            'action_instance_id' => $actionInstance->id
+        ]);
+
+        $builder = new ActionBuilder($app->reveal());
+        $builder->build($actionInstance, (new ActionBuilderDummyEvent())->getFields());
+    }
+
+
+    /** @test */
     public function build_replaces_all_event_fields_with_the_correct_value()
     {
         $app = $this->prophesize(Application::class);
