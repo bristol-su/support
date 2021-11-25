@@ -36,14 +36,14 @@ class CacheLogicCommand extends Command
     public function handle(UserRepository $userRepository) {
         $this->info('Caching logic');
 
-        $users = collect($userRepository->all());
+        $page = 1;
 
-        $userProgress = $this->output->createProgressBar($users->count());
-        $userProgress->start();
-        foreach($users->chunk(10) as $userChunk) {
-            dispatch(new CacheLogicForUser($userChunk->all(), $this->argument('logic')));
-            $userProgress->advance($userChunk->count());
-        }
-        $userProgress->finish();
+        do {
+            $users = $userRepository->paginate($page, 10);
+            if(count($users) > 0) {
+                dispatch(new CacheLogicForUser($users->all(), $this->argument('logic')));
+            }
+        } while (count($users) > 0);
+
     }
 }
