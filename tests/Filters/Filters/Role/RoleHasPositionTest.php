@@ -4,8 +4,10 @@
 namespace BristolSU\Support\Tests\Filters\Filters\Role;
 
 use BristolSU\ControlDB\Contracts\Repositories\Position as PositionRepository;
+use BristolSU\ControlDB\Events\Role\RoleUpdated;
 use BristolSU\ControlDB\Models\DataPosition;
 use BristolSU\ControlDB\Models\Position;
+use BristolSU\ControlDB\Models\Role;
 use BristolSU\Support\Filters\Filters\Role\RoleHasPosition;
 use BristolSU\Support\Tests\TestCase;
 use FormSchema\Fields\SelectField;
@@ -80,5 +82,20 @@ class RoleHasPositionTest extends TestCase
     {
         $filter = new RoleHasPosition($this->prophesize(PositionRepository::class)->reveal());
         $this->assertIsString($filter->alias());
+    }
+
+    /** @test */
+    public function it_listens_to_role_updated_events_correctly(){
+        $this->assertContains(RoleUpdated::class, RoleHasPosition::listensTo());
+
+        $role = Role::factory()->create(['position_id' => 5, 'id' => 50]);
+        $correctEvent = new RoleUpdated($role, ['position_id' => 5]);
+        $wrongEvent = new RoleUpdated($role, ['group_id' => 10]);
+
+        $correctResult = RoleHasPosition::clearOn()[RoleUpdated::class]($correctEvent);
+        $this->assertIsInt($correctResult);
+        $this->assertEquals(50, $correctResult);
+        $wrongResult = RoleHasPosition::clearOn()[RoleUpdated::class]($wrongEvent);
+        $this->assertFalse($wrongResult);
     }
 }

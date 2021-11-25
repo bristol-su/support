@@ -5,7 +5,11 @@ namespace BristolSU\Support\Logic\Audience;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
+use BristolSU\ControlDB\Models\Lazy\LazyGroup;
+use BristolSU\ControlDB\Models\Lazy\LazyRole;
+use BristolSU\ControlDB\Models\Lazy\LazyUser;
 use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory as AudienceMemberFactoryContract;
+use BristolSU\Support\Logic\DatabaseDecorator\LogicResult;
 use BristolSU\Support\Logic\Logic;
 use Illuminate\Support\Collection;
 
@@ -23,16 +27,16 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
      */
     public function fromUser(User $user): AudienceMember
     {
-        return new AudienceMember($user);
+        return new AudienceMember($user, $user->groups(), $user->roles());
     }
 
     /**
      * Audience members who have access to a given resource in some way.
      *
-     * @param User|Group|Role $resource Resource audience members must have access to
+     * @param Group|Role|User $resource Resource audience members must have access to
      * @return Collection
      */
-    public function withAccessToResource($resource)
+    public function withAccessToResource(User|Role|Group $resource): Collection
     {
         if ($resource instanceof User) {
             return collect([$this->fromUser($resource)]);
@@ -48,55 +52,109 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
                 return $this->fromUser($user);
             });
         }
-        if ($resource instanceof Role) {
-            return $resource->users()->map(function ($user) {
-                return $this->fromUser($user);
-            });
-        }
-
-        return collect();
+        return $resource->users()->map(function ($user) {
+            return $this->fromUser($user);
+        });
     }
 
     /**
-     * Audience members who have access to a logic group, with a certain resource.
+     * Get the audience of a logic group.
      *
-     * This function will return all audience members who have an audience in the logic group which uses a given resource.
-     * @param User|Group|Role $resource Resource that must be in the logic group
-     * @param Logic $logic Logic group the resource must be in for an audience member
+     * Will return an array of AudienceMember objects representing the audience of the given logic group.
      *
+     * @param Logic $logic Logic group to get the audience for
+     * @param User|null $user Filter to only get this users resources
+     * @param Group|null $group Filter to only get audience members who are part of the logic group when they have this group
+     * @param Role|null $role Filter to only get audience members who are part of the logic group when they have this role
      * @return Collection
      */
-    public function withAccessToLogicGroupWithResource($resource, Logic $logic)
+    public function audience(Logic $logic, ?User $user = null, ?Group $group = null, ?Role $role = null): Collection
     {
-        return $this->withAccessToResource($resource)->map(function (AudienceMember $audienceMember) use ($logic) {
-            $audienceMember->filterForLogic($logic);
+        $conditions = array_filter([
+            'user_id' => $user?->id(),
+            'group_id' => $group?->id(),
+            'role_id' => $role?->id(),
+            'result' => true
+        ]);
 
-            return $audienceMember;
-        })->filter(function (AudienceMember $audienceMember) use ($resource) {
-            // Make sure the audience member has an audience with the given resource
-            return ($audienceMember->hasAudience() && $resource instanceof User)
-                || ($audienceMember->hasAudience() && $resource instanceof Group && (
-                    in_array($resource->id(), $audienceMember->groups()->pluck('id')->toArray())
-                        || in_array($resource->id(), $audienceMember->roles()->pluck('group.id')->toArray())
-                ))
-                || ($audienceMember->hasAudience() && $resource instanceof Role &&
-                    in_array($resource->id(), $audienceMember->roles()->pluck('id')->toArray()));
-        })->values();
+        $audienceMembers = collect();
+        $logicResults = LogicResult::forLogic($logic)->where($conditions)->get()->groupBy('user_id');
+
+        foreach($logicResults as $userId => $userLogicResults) {
+            $audienceMember = new AudienceMember($user ?? LazyUser::load($userId));
+            $audienceMember->setCanBeUser(false);
+            $groups = collect();
+            $roles = collect();
+            foreach($userLogicResults as $userLogicResult) {
+                if($userLogicResult->hasRole()) {
+                    $roles->push(LazyRole::load($userLogicResult->getRoleId()));
+                } elseif ($userLogicResult->hasGroup()) {
+                    $groups->push(LazyGroup::load($userLogicResult->getGroupId()));
+                } else {
+                    $audienceMember->setCanBeUser(true);
+                }
+            }
+
+            $audienceMember->setGroups($groups);
+            $audienceMember->setRoles($roles);
+
+            if($audienceMember->hasAudience()) {
+                $audienceMembers->push($audienceMember);
+            }
+        }
+
+        return $audienceMembers;
     }
 
     /**
-     * Create an audience member from a user and filter it down to the given logic.
-     *
-     * @param User $user User to create the audience member from
-     *
+     * Return all users that have access to the logic group
      * @param Logic $logic
-     * @return AudienceMember
+     * @return Collection
      */
-    public function fromUserInLogic(User $user, Logic $logic)
+    public function getUsersInLogicGroup(Logic $logic): Collection
     {
-        $audienceMember = $this->fromUser($user);
-        $audienceMember->filterForLogic($logic);
+        $userIds = LogicResult::forLogic($logic)
+            ->where('result', true)
+            ->whereNotNull('user_id')
+            ->select('user_id')
+            ->distinct()
+            ->get();
 
-        return $audienceMember;
+        return $userIds->map(fn(LogicResult $logicResult) => LazyUser::load($logicResult->user_id));
     }
+
+    /**
+     * Return all groups that have access to the logic group
+     * @param Logic $logic
+     * @return Collection
+     */
+    public function getGroupsInLogicGroup(Logic $logic): Collection
+    {
+        $groupIds = LogicResult::forLogic($logic)
+            ->where('result', true)
+            ->whereNotNull('group_id')
+            ->select('group_id')
+            ->distinct()
+            ->get();
+
+        return $groupIds->map(fn(LogicResult $logicResult) => LazyGroup::load($logicResult->getGroupId()));
+    }
+
+    /**
+     * Return all roles that have access to the logic group
+     * @param Logic $logic
+     * @return Collection
+     */
+    public function getRolesInLogicGroup(Logic $logic): Collection
+    {
+        $roleIds = LogicResult::forLogic($logic)
+            ->where('result', true)
+            ->whereNotNull('role_id')
+            ->select('role_id')
+            ->distinct()
+            ->get();
+
+        return $roleIds->map(fn(LogicResult $logicResult) => LazyRole::load($logicResult->getRoleId()));
+    }
+
 }

@@ -5,6 +5,8 @@ namespace BristolSU\Support\Tests\Filters\Filters\User;
 
 use BristolSU\ControlDB\Contracts\Models\Tags\UserTag as UserTagModelContract;
 use BristolSU\ControlDB\Contracts\Repositories\Tags\UserTag as UserTagRepositoryContract;
+use BristolSU\ControlDB\Events\Pivots\Tags\UserUserTag\UserTagged as UserTaggedEvent;
+use BristolSU\ControlDB\Events\Pivots\Tags\UserUserTag\UserUntagged as UserUntaggedEvent;
 use BristolSU\ControlDB\Models\Tags\UserTag;
 use BristolSU\ControlDB\Models\Tags\UserTagCategory;
 use BristolSU\ControlDB\Models\User;
@@ -137,5 +139,27 @@ class UserTaggedTest extends TestCase
     {
         $filter = new UserTagged($this->prophesize(UserTagRepositoryContract::class)->reveal());
         $this->assertIsString($filter->alias());
+    }
+
+    /** @test */
+    public function it_listens_to_user_tagged_events_correctly(){
+        $this->assertContains(UserTaggedEvent::class, UserTagged::listensTo());
+
+        $event = new UserTaggedEvent($this->newUser(['id' => 5]), UserTag::factory()->create());
+
+        $result = UserTagged::clearOn()[UserTaggedEvent::class]($event);
+        $this->assertIsInt($result);
+        $this->assertEquals(5, $result);
+    }
+
+    /** @test */
+    public function it_listens_to_user_untagged_events_correctly(){
+        $this->assertContains(UserUntaggedEvent::class, UserTagged::listensTo());
+
+        $event = new UserUntaggedEvent($this->newUser(['id' => 5]), UserTag::factory()->create());
+
+        $result = UserTagged::clearOn()[UserUntaggedEvent::class]($event);
+        $this->assertIsInt($result);
+        $this->assertEquals(5, $result);
     }
 }

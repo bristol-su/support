@@ -22,7 +22,10 @@ class CachedClientDecoratorTest extends TestCase
         $clientResponse = $this->prophesize(Response::class);
         $clientResponse->getStatusCode()->shouldBeCalled()->willReturn(203);
         $clientResponse->getHeaders()->shouldBeCalled()->willReturn(['my' => 'header']);
-        $clientResponse->getBody()->shouldBeCalled()->willReturn('This is the response body');
+        $stream = fopen('php://memory','r+');
+        fwrite($stream, 'This is the response body');
+        rewind($stream);
+        $clientResponse->getBody()->shouldBeCalled()->willReturn(new Stream($stream));
         $clientResponse->getProtocolVersion()->shouldBeCalled()->willReturn('1.2');
         $clientResponse->getReasonPhrase()->shouldBeCalled()->willReturn('Testing');
 

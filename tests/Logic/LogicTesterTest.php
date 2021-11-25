@@ -14,6 +14,7 @@ use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Logic\LogicTester;
 use BristolSU\Support\Tests\TestCase;
+use Illuminate\Database\Eloquent\Model;
 use Prophecy\Argument;
 
 class LogicTesterTest extends TestCase
@@ -57,10 +58,10 @@ class LogicTesterTest extends TestCase
 
     public function createFilter($logicId, $type, $evaluated, $filterType = 'user')
     {
-        $filter = FilterInstance::factory()->create([
+        $filter = Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logicId,
             'logic_type' => $type,
-        ]);
+        ]));
 
         $this->filterRepository->getByAlias($filter->alias)->willReturn(([
             'user' => $this->prophesize(UserFilter::class),
@@ -260,4 +261,5 @@ class LogicTesterTest extends TestCase
             $this->evaluateLogic($logic)
         );
     }
+
 }

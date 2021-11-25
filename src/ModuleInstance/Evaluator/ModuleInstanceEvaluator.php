@@ -8,12 +8,14 @@ use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Completion\Contracts\CompletionConditionTester;
-use BristolSU\Support\Logic\Contracts\Audience\AudienceMemberFactory;
+use BristolSU\Support\Logic\Audience\Audience;
 use BristolSU\Support\Logic\Facade\LogicTester;
+use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\Evaluation as EvaluationContract;
 use BristolSU\Support\ModuleInstance\Contracts\Evaluator\ModuleInstanceEvaluator as ModuleInstanceEvaluatorContract;
 use BristolSU\Support\ModuleInstance\Contracts\ModuleInstance;
+use Illuminate\Support\Collection;
 
 /**
  * Evaluates a given module instance and module.
@@ -79,19 +81,27 @@ class ModuleInstanceEvaluator implements ModuleInstanceEvaluatorContract
         $evaluation = app(EvaluationContract::class);
         $resource = $activityInstance->participant();
 
-        $audienceMemberFactory = app(AudienceMemberFactory::class);
-        
-        $evaluation->setVisible($audienceMemberFactory->withAccessToLogicGroupWithResource($resource, $moduleInstance->visibleLogic)->count() > 0);
-        $evaluation->setActive($audienceMemberFactory->withAccessToLogicGroupWithResource($resource, $moduleInstance->activeLogic)->count() > 0);
+        $evaluation->setVisible($this->getAudienceForLogic($moduleInstance->visibleLogic, $resource)->count() > 0);
+        $evaluation->setActive($this->getAudienceForLogic($moduleInstance->activeLogic, $resource)->count() > 0);
         if ($activityInstance->activity->isCompletable()) {
-            $evaluation->setMandatory($audienceMemberFactory->withAccessToLogicGroupWithResource($resource, $moduleInstance->mandatoryLogic)->count() > 0);
+            $evaluation->setMandatory($this->getAudienceForLogic($moduleInstance->mandatoryLogic, $resource)->count() > 0);
         } else {
             $evaluation->setMandatory(false);
         }
         $evaluation->setComplete($this->isComplete($activityInstance, $moduleInstance));
         $evaluation->setPercentage($this->getPercentage($activityInstance, $moduleInstance));
-        
+
         return $evaluation;
+    }
+
+    private function getAudienceForLogic(Logic $logic, User|Group|Role $resource): Collection
+    {
+        return Audience::audience(
+            $logic,
+            ($resource instanceof User ? $resource : null),
+            ($resource instanceof Group ? $resource : null),
+            ($resource instanceof Role ? $resource : null),
+        );
     }
 
     /**

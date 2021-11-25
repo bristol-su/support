@@ -2,6 +2,8 @@
 
 namespace BristolSU\Support\Filters\Filters\Group;
 
+use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
+use BristolSU\ControlDB\Events\DataGroup\DataGroupUpdated;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use FormSchema\Generator\Field;
 use FormSchema\Schema\Form;
@@ -31,11 +33,11 @@ class GroupNameIs extends GroupFilter
     /**
      * Test if the group has the given name.
      *
-     * @param string $settings [ 'Group Name' => 'name' ]
+     * @param array $settings [ 'Group Name' => 'name' ]
      *
      * @return bool
      */
-    public function evaluate($settings): bool
+    public function evaluate(array $settings): bool
     {
         return strtoupper($this->group()->data()->name()) === strtoupper($settings['Group Name']);
     }
@@ -68,5 +70,12 @@ class GroupNameIs extends GroupFilter
     public function alias()
     {
         return 'group_name_is';
+    }
+
+    public static function clearOn(): array
+    {
+        return [
+            DataGroupUpdated::class => fn(DataGroupUpdated $event) => app(GroupRepository::class)->getByDataProviderId($event->dataGroup->id())->id()
+        ];
     }
 }

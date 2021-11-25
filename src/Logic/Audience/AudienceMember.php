@@ -28,7 +28,7 @@ class AudienceMember implements Arrayable, Jsonable
      *
      * @var bool
      */
-    private $canBeUser;
+    private $canBeUser = true;
 
     /**
      * Roles the user owns/that're in the logic group.
@@ -47,85 +47,26 @@ class AudienceMember implements Arrayable, Jsonable
     /**
      * @param User $user User to construct the audience member with
      */
-    public function __construct(User $user)
+    public function __construct(User $user, ?Collection $groups = null, ?Collection $roles = null)
     {
         $this->user = $user;
+        $this->groups = $groups ?? collect();
+        $this->roles = $roles ?? collect();
     }
 
-    /**
-     * Get all groups for which the user has a membership to.
-     *
-     * @return Collection
-     */
-    public function groups()
+    public function setGroups(Collection $groups)
     {
-        if ($this->groups == null) {
-            $this->groups = $this->user()->groups();
-        }
-
-        return $this->groups;
+        $this->groups = $groups;
     }
 
-    /**
-     * Get all roles which the user is in.
-     *
-     * @return Collection
-     */
-    public function roles()
+    public function setRoles(Collection $roles)
     {
-        if ($this->roles == null) {
-            $this->roles = $this->user()->roles()->map(function (Role $role) {
-                $role->group = $role->group();
-                $role->position = $role->position();
-
-                return $role;
-            });
-        }
-
-        return $this->roles;
+        $this->roles = $roles;
     }
 
-    /**
-     * Get the user the audience member is about.
-     *
-     * @return User
-     */
-    public function user()
+    public function setCanBeUser(bool $canBeUser)
     {
-        return $this->user;
-    }
-
-    /**
-     * Can the user themselves be in the logic group?
-     *
-     * @return bool
-     */
-    public function canBeUser()
-    {
-        return ($this->canBeUser??true);
-    }
-
-    /**
-     * Filter the audience member down to those in the logic group.
-     *
-     * If passed a logic group, the audience member will only then contain roles and groups which are in the given
-     * logic group with the user. It will also set canBeUser, as to whether just the user is in the logic group (without
-     * their roles or groups).
-     *
-     * @param Logic $logic Logic group to test
-     *
-     */
-    public function filterForLogic(Logic $logic)
-    {
-        $this->canBeUser = LogicTester::evaluate($logic, $this->user);
-
-        $this->groups = $this->groups()->filter(function (Group $group) use ($logic) {
-            return LogicTester::evaluate($logic, $this->user, $group);
-        })->values();
-
-        $this->roles = $this->roles()->filter(function (Role $role) use ($logic) {
-            return LogicTester::evaluate($logic, $this->user, $role->group(), $role);
-        })->values();
+        $this->canBeUser = $canBeUser;
     }
 
     /**
@@ -139,6 +80,38 @@ class AudienceMember implements Arrayable, Jsonable
     public function hasAudience()
     {
         return $this->canBeUser() || count($this->groups) > 0 || count($this->roles) > 0;
+    }
+
+    /**
+     * Can the user themselves be in the logic group?
+     *
+     * @return bool
+     */
+    public function canBeUser(): bool
+    {
+        return $this->canBeUser;
+    }
+
+    /**
+     * Convert the object to a string, a JSON representation.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->toJson();
+    }
+
+    /**
+     * Convert the object to its JSON representation.
+     *
+     * @param int $options
+     *
+     * @return string
+     */
+    public function toJson($options = 0)
+    {
+        return json_encode($this->toArray(), $options);
     }
 
     /**
@@ -162,32 +135,40 @@ class AudienceMember implements Arrayable, Jsonable
     public function toArray()
     {
         return [
-            'user' => $this->user(),
+            'user' => $this->user()->toArray(),
             'can_be_user' => $this->canBeUser(),
-            'groups' => $this->groups(),
-            'roles' => $this->roles()
+            'groups' => $this->groups()->toArray(),
+            'roles' => $this->roles()->toArray()
         ];
     }
 
     /**
-     * Convert the object to its JSON representation.
+     * Get the user the audience member is about.
      *
-     * @param int $options
-     *
-     * @return string
+     * @return User
      */
-    public function toJson($options = 0)
+    public function user()
     {
-        return json_encode($this->toArray(), $options);
+        return $this->user;
     }
 
     /**
-     * Convert the object to a string, a JSON representation.
+     * Get all groups for which the user has a membership to.
      *
-     * @return string
+     * @return Collection
      */
-    public function __toString()
+    public function groups()
     {
-        return $this->toJson();
+        return $this->groups;
+    }
+
+    /**
+     * Get all roles which the user is in.
+     *
+     * @return Collection
+     */
+    public function roles()
+    {
+        return $this->roles ?? collect();
     }
 }

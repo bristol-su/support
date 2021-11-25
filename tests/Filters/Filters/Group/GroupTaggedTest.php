@@ -5,6 +5,8 @@ namespace BristolSU\Support\Tests\Filters\Filters\Group;
 
 use BristolSU\ControlDB\Contracts\Models\Tags\GroupTag as GroupTagModelContract;
 use BristolSU\ControlDB\Contracts\Repositories\Tags\GroupTag as GroupTagRepositoryContract;
+use BristolSU\ControlDB\Events\Pivots\Tags\GroupGroupTag\GroupTagged as GroupTaggedEvent;
+use BristolSU\ControlDB\Events\Pivots\Tags\GroupGroupTag\GroupUntagged as GroupUntaggedEvent;
 use BristolSU\ControlDB\Models\Group;
 use BristolSU\ControlDB\Models\Tags\GroupTag;
 use BristolSU\ControlDB\Models\Tags\GroupTagCategory;
@@ -139,4 +141,27 @@ class GroupTaggedTest extends TestCase
         $filter = new GroupTagged($this->prophesize(GroupTagRepositoryContract::class)->reveal());
         $this->assertIsString($filter->alias());
     }
+
+    /** @test */
+    public function it_listens_to_group_tagged_events_correctly(){
+        $this->assertContains(GroupTaggedEvent::class, GroupTagged::listensTo());
+
+        $event = new GroupTaggedEvent($this->newGroup(['id' => 5]), GroupTag::factory()->create());
+
+        $result = GroupTagged::clearOn()[GroupTaggedEvent::class]($event);
+        $this->assertIsInt($result);
+        $this->assertEquals(5, $result);
+    }
+
+    /** @test */
+    public function it_listens_to_group_untagged_events_correctly(){
+        $this->assertContains(GroupUntaggedEvent::class, GroupTagged::listensTo());
+
+        $event = new GroupUntaggedEvent($this->newGroup(['id' => 5]), GroupTag::factory()->create());
+
+        $result = GroupTagged::clearOn()[GroupUntaggedEvent::class]($event);
+        $this->assertIsInt($result);
+        $this->assertEquals(5, $result);
+    }
+
 }

@@ -8,10 +8,14 @@ use BristolSU\Support\Filters\Contracts\Filters\Filter;
 use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
+use BristolSU\Support\Filters\Events\AudienceChanged;
 use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Logic;
 use BristolSU\Support\Tests\TestCase;
+use Carbon\Carbon;
 use FormSchema\Schema\Form;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Event;
 
 class FilterInstanceTest extends TestCase
 {
@@ -19,9 +23,9 @@ class FilterInstanceTest extends TestCase
     public function it_has_a_logic()
     {
         $logic = Logic::factory()->create();
-        $filterInstance = FilterInstance::factory()->create([
+        $filterInstance = Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'logic_id' => $logic->id
-        ]);
+        ]));
 
         $this->assertModelEquals($logic, $filterInstance->logic);
     }
@@ -29,21 +33,21 @@ class FilterInstanceTest extends TestCase
     /** @test */
     public function name_returns_the_filter_instance_name()
     {
-        $filterInstance = FilterInstance::factory()->create(['name' => 'A name']);
+        $filterInstance = Model::withoutEvents(fn() => FilterInstance::factory()->create(['name' => 'A name']));
         $this->assertEquals('A name', $filterInstance->name());
     }
 
     /** @test */
     public function alias_returns_the_filter_alias()
     {
-        $filterInstance = FilterInstance::factory()->create(['alias' => 'alias1']);
+        $filterInstance = \Illuminate\Database\Eloquent\Model::withoutEvents(fn() => FilterInstance::factory()->create(['alias' => 'alias1']));;
         $this->assertEquals('alias1', $filterInstance->alias());
     }
 
     /** @test */
     public function settings_returns_the_filter_instance_settings()
     {
-        $filterInstance = FilterInstance::factory()->create(['settings' => ['setting1' => 'A Value']]);
+        $filterInstance = Model::withoutEvents(fn() => FilterInstance::factory()->create(['settings' => ['setting1' => 'A Value']]));
         $this->assertEquals(['setting1' => 'A Value'], $filterInstance->settings());
     }
 
@@ -55,7 +59,7 @@ class FilterInstanceTest extends TestCase
             $this->prophesize(UserFilter::class)->reveal()
         );
         $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
-        $this->assertEquals('user', FilterInstance::factory()->create(['alias' => 'alias1'])->for());
+        $this->assertEquals('user', \Illuminate\Database\Eloquent\Model::withoutEvents(fn() => FilterInstance::factory()->create(['alias' => 'alias1']))->for());
     }
 
     /** @test */
@@ -66,7 +70,7 @@ class FilterInstanceTest extends TestCase
             $this->prophesize(GroupFilter::class)->reveal()
         );
         $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
-        $this->assertEquals('group', FilterInstance::factory()->create(['alias' => 'alias1'])->for());
+        $this->assertEquals('group', \Illuminate\Database\Eloquent\Model::withoutEvents(fn() => FilterInstance::factory()->create(['alias' => 'alias1']))->for());
     }
 
     /** @test */
@@ -77,7 +81,7 @@ class FilterInstanceTest extends TestCase
             $this->prophesize(RoleFilter::class)->reveal()
         );
         $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
-        $this->assertEquals('role', FilterInstance::factory()->create(['alias' => 'alias1'])->for());
+        $this->assertEquals('role', \Illuminate\Database\Eloquent\Model::withoutEvents(fn() => FilterInstance::factory()->create(['alias' => 'alias1']))->for());
     }
 
     /** @test */
@@ -88,7 +92,7 @@ class FilterInstanceTest extends TestCase
         $filterRepository = $this->prophesize(FilterRepositoryContract::class);
         $filterRepository->getByAlias('alias1')->shouldBeCalled()->willReturn(new DummyFilter());
         $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
-        $filterInstance = FilterInstance::factory()->create(['alias' => 'alias1']);
+        $filterInstance = \Illuminate\Database\Eloquent\Model::withoutEvents(fn() => FilterInstance::factory()->create(['alias' => 'alias1']));;
         $filterInstance->for();
     }
 
@@ -100,7 +104,7 @@ class FilterInstanceTest extends TestCase
             $this->prophesize(RoleFilter::class)->reveal()
         );
         $this->app->instance(FilterRepositoryContract::class, $filterRepository->reveal());
-        $this->assertEquals('role', FilterInstance::factory()->create(['alias' => 'alias1'])->for);
+        $this->assertEquals('role', \Illuminate\Database\Eloquent\Model::withoutEvents(fn() => FilterInstance::factory()->create(['alias' => 'alias1']))->for);
     }
 
     /** @test */
@@ -109,7 +113,7 @@ class FilterInstanceTest extends TestCase
         $user = $this->newUser();
         $this->beUser($user);
 
-        $filterInstance = FilterInstance::factory()->create(['name' => 'OldName']);
+        $filterInstance = Model::withoutEvents(fn() => FilterInstance::factory()->create(['name' => 'OldName']));
 
         $filterInstance->name = 'NewName';
         $filterInstance->save();
@@ -120,6 +124,85 @@ class FilterInstanceTest extends TestCase
         $this->assertEquals('name', $filterInstance->revisionHistory->first()->key);
         $this->assertEquals('OldName', $filterInstance->revisionHistory->first()->old_value);
         $this->assertEquals('NewName', $filterInstance->revisionHistory->first()->new_value);
+    }
+
+    /** @test */
+    public function it_dispatches_an_audience_changed_event_if_the_logic_id_is_given_on_creation()
+    {
+        Event::fake(AudienceChanged::class);
+
+        $filterInstance = FilterInstance::factory()->create(['logic_id' => Logic::factory()->create()->id]);
+
+        Event::assertDispatched(
+            AudienceChanged::class,
+            fn(AudienceChanged $event) => $event->filterInstances === [$filterInstance]
+        );
+    }
+
+    /** @test */
+    public function it_does_not_dispatch_an_audience_changed_event_if_the_logic_id_is_null_on_creation()
+    {
+        Event::fake(AudienceChanged::class);
+
+        FilterInstance::factory()->create(['logic_id' => null]);
+
+        Event::assertNotDispatched(AudienceChanged::class);
+    }
+
+    /** @test */
+    public function it_dispatches_an_audience_changed_event_if_logic_id_or_logic_type_or_settings_are_changed()
+    {
+        Event::fake(AudienceChanged::class);
+
+        $filterInstanceSetting = Model::withoutEvents(fn() => FilterInstance::factory()->create(['settings' => ['key' => 'value']]));
+        $filterInstanceLogicId = Model::withoutEvents(fn() => FilterInstance::factory()->create(['logic_id' => Logic::factory()->create()->id]));
+        $filterInstanceLogicType = Model::withoutEvents(fn() => FilterInstance::factory()->create(['logic_type' => 'all_true']));
+
+        $filterInstanceSetting->update(['settings' => ['newkey' => 'newvalue']]);
+        $filterInstanceLogicId->logic_id = Logic::factory()->create()->id;
+        $filterInstanceLogicId->save();
+        $filterInstanceLogicType->logic_type = 'all_false';
+        $filterInstanceLogicType->save();
+
+        Event::assertDispatched(
+            AudienceChanged::class,
+            fn(AudienceChanged $event) => $event->filterInstances === [$filterInstanceSetting]
+        );
+        Event::assertDispatched(
+            AudienceChanged::class,
+            fn(AudienceChanged $event) => $event->filterInstances === [$filterInstanceLogicId]
+        );
+        Event::assertDispatched(
+            AudienceChanged::class,
+            fn(AudienceChanged $event) => $event->filterInstances === [$filterInstanceLogicType]
+        );
+    }
+
+    /** @test */
+    public function it_does_not_dispatch_an_audience_changed_event_if_the_logic_id_logic_type_and_settings_stay_the_same()
+    {
+        Event::fake(AudienceChanged::class);
+
+        $filterInstance = Model::withoutEvents(fn() => FilterInstance::factory()->create(['created_at' => Carbon::now()->subDay()]));
+
+        $filterInstance->update(['created_at' => Carbon::now()]);
+
+        Event::assertNotDispatched(AudienceChanged::class);
+    }
+
+    /** @test */
+    public function it_dispatches_an_audience_changed_event_when_deleted()
+    {
+        Event::fake(AudienceChanged::class);
+
+        $filterInstance = Model::withoutEvents(fn() => FilterInstance::factory()->create());
+
+        $filterInstance->delete();
+
+        Event::assertDispatched(
+            AudienceChanged::class,
+            fn(AudienceChanged $event) => $event->filterInstances === [$filterInstance]
+        );
     }
 }
 

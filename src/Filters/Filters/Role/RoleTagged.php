@@ -7,6 +7,8 @@ use BristolSU\ControlDB\Contracts\Models\Tags\RoleTag;
 use BristolSU\ControlDB\Contracts\Repositories\Tags\RoleTag as RoleTagRepositoryContract;
 use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
 use FormSchema\Schema\Form;
+use BristolSU\ControlDB\Events\Pivots\Tags\RoleRoleTag\RoleTagged as RoleTaggedEvent;
+use BristolSU\ControlDB\Events\Pivots\Tags\RoleRoleTag\RoleUntagged as RoleUntaggedEvent;
 
 /**
  * Is the role tagged with a tag?
@@ -31,11 +33,11 @@ class RoleTagged extends RoleFilter
     /**
      * See if the role is tagged.
      *
-     * @param string $settings [ 'tag' => 'full.reference' ]
+     * @param array $settings [ 'tag' => 'full.reference' ]
      *
      * @return bool
      */
-    public function evaluate($settings): bool
+    public function evaluate(array $settings): bool
     {
         try {
             $tags = $this->role()->tags();
@@ -95,5 +97,13 @@ class RoleTagged extends RoleFilter
     public function alias()
     {
         return 'role_tagged';
+    }
+
+    public static function clearOn(): array
+    {
+        return [
+            RoleTaggedEvent::class => fn(RoleTaggedEvent $event) => $event->role->id(),
+            RoleUntaggedEvent::class => fn(RoleUntaggedEvent $event) => $event->role->id(),
+        ];
     }
 }

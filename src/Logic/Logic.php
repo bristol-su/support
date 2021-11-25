@@ -5,6 +5,7 @@ namespace BristolSU\Support\Logic;
 use BristolSU\ControlDB\Contracts\Repositories\User;
 use BristolSU\Support\Authentication\Contracts\Authentication;
 use BristolSU\Support\Filters\FilterInstance;
+use BristolSU\Support\Logic\Jobs\CacheLogic;
 use BristolSU\Support\Revision\HasRevisions;
 use Database\Factories\LogicFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
