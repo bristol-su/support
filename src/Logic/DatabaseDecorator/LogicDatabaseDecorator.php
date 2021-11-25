@@ -18,6 +18,10 @@ class LogicDatabaseDecorator implements LogicTester
 
     public function evaluate(Logic $logic, $userModel = null, $groupModel = null, $roleModel = null): bool
     {
+        if($userModel === null) {
+            return false;
+        }
+
         $logicResult = LogicResult::forLogic($logic)->withResources($userModel, $groupModel, $roleModel)->first();
 
         if ($logicResult !== null) {
