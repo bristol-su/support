@@ -23,10 +23,14 @@ class CacheLogic implements ShouldQueue
 
     public function handle(UserRepository $userRepository)
     {
-        $users = collect($userRepository->all());
+        $page = 1;
 
-        foreach($users->chunk(50) as $userChunk) {
-            dispatch(new CacheLogicForUser($userChunk->all(), $this->logic->id));
-        }
+        do {
+            $users = $userRepository->paginate($page, 50);
+            if(count($users) > 0) {
+                dispatch(new CacheLogicForUser($users->all(), $this->argument('logic')));
+            }
+            $page = $page + 1;
+        } while (count($users) > 0);
     }
 }

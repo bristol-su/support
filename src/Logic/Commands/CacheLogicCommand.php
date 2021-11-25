@@ -37,9 +37,8 @@ class CacheLogicCommand extends Command
         $this->info('Caching logic');
 
         $page = 1;
-
         do {
-            $users = $userRepository->paginate($page, 10);
+            $users = $userRepository->paginate($page, 50);
             if(count($users) > 0) {
                 dispatch(new CacheLogicForUser($users->all(), $this->argument('logic')));
             }
