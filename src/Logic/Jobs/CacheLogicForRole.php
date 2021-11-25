@@ -11,6 +11,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -25,16 +26,16 @@ class CacheLogicForRole implements ShouldQueue
      *
      * @var array|Role[]
      */
-    public array $roles;
+    public Collection $roles;
 
-    public ?int $logicId;
+    public ?int $logicId = null;
 
     /**
      * @param array|Role[] $roles The role to cache logic for
      */
     public function __construct(array $roles, ?int $logicId = null)
     {
-        $this->roles = $roles;
+        $this->roles = collect($roles);
         $this->logicId = $logicId;
     }
 

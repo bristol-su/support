@@ -11,6 +11,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
 
 /**
  * Command to cache the result of all filters.
@@ -24,16 +25,16 @@ class CacheLogicForGroup implements ShouldQueue
      *
      * @var Group[]|array
      */
-    public array $groups;
+    public Collection $groups;
 
-    public ?int $logicId;
+    public ?int $logicId = null;
 
     /**
      * @param Group[]|array $groups The group to cache logic for
      */
     public function __construct(array $groups, ?int $logicId = null)
     {
-        $this->groups = $groups;
+        $this->groups = collect($groups);
         $this->logicId = $logicId;
     }
 

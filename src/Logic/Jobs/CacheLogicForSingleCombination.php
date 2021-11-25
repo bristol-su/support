@@ -18,10 +18,10 @@ class CacheLogicForSingleCombination implements ShouldQueue
 {
     use Queueable, CachesLogic, Dispatchable, SerializesModels;
 
-    public ?int $logicId;
+    public ?int $logicId = null;
     public User $user;
-    public ?Group $group;
-    public ?Role $role;
+    public ?Group $group = null;
+    public ?Role $role = null;
 
     /**
      * @param int|null $logicId

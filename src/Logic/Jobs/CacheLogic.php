@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Artisan;
  */
 class CacheLogic implements ShouldQueue
 {
-    use Queueable, Dispatchable, SerializesModels;
+    use Queueable, Dispatchable;
 
     public Logic $logic;
 

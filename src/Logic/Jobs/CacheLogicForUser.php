@@ -13,6 +13,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
 
 /**
  * Command to cache the result of all filters.
@@ -26,16 +27,16 @@ class CacheLogicForUser implements ShouldQueue
      *
      * @var array|User[]
      */
-    public array $users;
+    public Collection $users;
 
-    public ?int $logicId;
+    public ?int $logicId = null;
 
     /**
      * @param array|User[] $users The user to cache logic for
      */
     public function __construct(array $users, ?int $logicId = null)
     {
-        $this->users = $users;
+        $this->users = collect($users);
         $this->logicId = $logicId;
     }
 
