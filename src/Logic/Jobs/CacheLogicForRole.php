@@ -9,6 +9,8 @@ use BristolSU\Support\Logic\Audience\AudienceMember;
 use BristolSU\Support\Logic\Traits\CachesLogic;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Cache;
 
 /**
@@ -16,16 +18,16 @@ use Illuminate\Support\Facades\Cache;
  */
 class CacheLogicForRole implements ShouldQueue
 {
-    use Queueable, CachesLogic;
+    use Queueable, CachesLogic, Dispatchable, SerializesModels;
 
     /**
      * Holds the filter instance to get the result from.
      *
      * @var array|Role[]
      */
-    private array $roles;
+    public array $roles;
 
-    private ?int $logicId;
+    public ?int $logicId;
 
     /**
      * @param array|Role[] $roles The role to cache logic for

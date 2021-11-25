@@ -14,31 +14,24 @@ use Illuminate\Support\Facades\Artisan;
 /**
  * Job to cache a filter result.
  */
-class CacheLogic implements ShouldQueue
+class CacheLogicsForUser implements ShouldQueue
 {
     use Queueable, Dispatchable, SerializesModels;
 
     public Logic $logic;
+    public int $page;
 
-    public function __construct(Logic $logic)
+    public function __construct(Logic $logic, $page = 1)
     {
         $this->logic = $logic;
+        $this->page = $page;
     }
 
-    public function handle()
+    public function handle(UserRepository $userRepository)
     {
-        foreach($this->pages() as $page) {
-            CacheLogicsForUser::dispatch($this->logic, $page);
+        $allUsers = $userRepository->paginate($this->page, 200);
+        foreach($allUsers->chunk(20) as $users) {
+            CacheLogicForUser::dispatch($users->all(), $this->logic->id);
         }
-    }
-
-    private function pages(): array
-    {
-        $count = app(User::class)->count();
-
-        if($count > 0) {
-            return range(1, ceil($count/200));
-        }
-        return [];
     }
 }

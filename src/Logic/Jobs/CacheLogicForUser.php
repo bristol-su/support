@@ -11,22 +11,24 @@ use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Traits\CachesLogic;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 /**
  * Command to cache the result of all filters.
  */
 class CacheLogicForUser implements ShouldQueue
 {
-    use Queueable, CachesLogic;
+    use Queueable, CachesLogic, Dispatchable, SerializesModels;
 
     /**
      * Holds the filter instance to get the result from.
      *
      * @var array|User[]
      */
-    private array $users;
+    public array $users;
 
-    private ?int $logicId;
+    public ?int $logicId;
 
     /**
      * @param array|User[] $users The user to cache logic for

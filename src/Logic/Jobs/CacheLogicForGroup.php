@@ -9,22 +9,24 @@ use BristolSU\Support\Logic\Audience\AudienceMember;
 use BristolSU\Support\Logic\Traits\CachesLogic;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 /**
  * Command to cache the result of all filters.
  */
 class CacheLogicForGroup implements ShouldQueue
 {
-    use Queueable, CachesLogic;
+    use Queueable, CachesLogic, Dispatchable, SerializesModels;
 
     /**
      * Holds the filter instance to get the result from.
      *
      * @var Group[]|array
      */
-    private array $groups;
+    public array $groups;
 
-    private ?int $logicId;
+    public ?int $logicId;
 
     /**
      * @param Group[]|array $groups The group to cache logic for

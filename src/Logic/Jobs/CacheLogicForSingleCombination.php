@@ -8,18 +8,20 @@ use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Logic\Traits\CachesLogic;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\SerializesModels;
 
 /**
  * Command to cache the result of all filters.
  */
 class CacheLogicForSingleCombination implements ShouldQueue
 {
-    use Queueable, CachesLogic;
+    use Queueable, CachesLogic, Dispatchable, SerializesModels;
 
-    private ?int $logicId;
-    private User $user;
-    private ?Group $group;
-    private ?Role $role;
+    public ?int $logicId;
+    public User $user;
+    public ?Group $group;
+    public ?Role $role;
 
     /**
      * @param int|null $logicId

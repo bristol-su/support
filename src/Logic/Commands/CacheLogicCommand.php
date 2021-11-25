@@ -3,9 +3,13 @@
 namespace BristolSU\Support\Logic\Commands;
 
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
+use BristolSU\ControlDB\Export\RunExport;
+use BristolSU\Support\Logic\Contracts\LogicRepository;
+use BristolSU\Support\Logic\Jobs\CacheLogic;
 use BristolSU\Support\Logic\Jobs\CacheLogicForUser;
 use Illuminate\Console\Command;
 use Illuminate\Contracts\Bus\Dispatcher;
+use Illuminate\Support\Arr;
 
 /**
  * Command to cache the result of all filters.
@@ -33,17 +37,12 @@ class CacheLogicCommand extends Command
      *
      * @param UserRepository $userRepository Repository to get all users from
      */
-    public function handle(UserRepository $userRepository) {
-        $this->info('Caching logic');
+    public function handle(LogicRepository $logicRepository) {
 
-        $page = 1;
-        do {
-            $users = $userRepository->paginate($page, 50);
-            if(count($users) > 0) {
-                dispatch(new CacheLogicForUser($users->all(), $this->argument('logic')));
-            }
-            $page = $page + 1;
-        } while (count($users) > 0);
+        $logics = $this->argument('logic') ? [$logicRepository->getById($this->argument('logic'))] : $logicRepository->all();
 
+        foreach($logics as $logic) {
+            CacheLogic::dispatch($logic);
+        }
     }
 }
