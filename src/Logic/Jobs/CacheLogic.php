@@ -25,7 +25,7 @@ class CacheLogic implements ShouldQueue
     {
         $users = collect($userRepository->all());
 
-        foreach($users->chunk(10) as $userChunk) {
+        foreach($users->chunk(50) as $userChunk) {
             dispatch(new CacheLogicForUser($userChunk->all(), $this->logic->id));
         }
     }
