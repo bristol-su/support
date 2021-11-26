@@ -18,8 +18,10 @@ class CacheLogicsForUser implements ShouldQueue
 {
     use Queueable, Dispatchable, SerializesModels;
 
+    public $queue = 'logic';
+
     public Logic $logic;
-    
+
     public int $page;
 
     public function __construct(Logic $logic, $page = 1)

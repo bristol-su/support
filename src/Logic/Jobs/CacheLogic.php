@@ -18,6 +18,8 @@ class CacheLogic implements ShouldQueue
 {
     use Queueable, Dispatchable;
 
+    public $queue = 'logic';
+
     public Logic $logic;
 
     public function __construct(Logic $logic)

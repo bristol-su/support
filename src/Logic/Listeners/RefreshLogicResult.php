@@ -23,6 +23,8 @@ class RefreshLogicResult implements ShouldQueue
 {
     use Queueable, Dispatchable;
 
+    public $queue = 'logic';
+
     public function handle(AudienceChanged $audienceChanged)
     {
         foreach($audienceChanged->filterInstances as $filterInstance) {

@@ -22,6 +22,8 @@ class CacheLogicForUser implements ShouldQueue
 {
     use Queueable, CachesLogic, Dispatchable, SerializesModels;
 
+    public $queue = 'logic';
+
     /**
      * Holds the filter instance to get the result from.
      *

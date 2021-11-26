@@ -28,6 +28,8 @@ class RefreshFilterResults implements ShouldQueue
 {
     use Queueable, Dispatchable;
 
+    public $queue = 'logic';
+
     private FilterRepository $filterRepository;
     private FilterInstanceRepository $filterInstanceRepository;
     private FilterTester $filterTester;

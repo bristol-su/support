@@ -30,6 +30,8 @@ class CacheLogicForRole implements ShouldQueue
 
     public ?int $logicId = null;
 
+    public $queue = 'logic';
+
     /**
      * @param array|Role[] $roles The role to cache logic for
      */
