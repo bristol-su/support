@@ -18,8 +18,6 @@ class CacheLogicsForUser implements ShouldQueue
 {
     use Queueable, Dispatchable, SerializesModels;
 
-    public $queue = 'logic';
-
     public Logic $logic;
 
     public int $page;
@@ -28,6 +26,7 @@ class CacheLogicsForUser implements ShouldQueue
     {
         $this->logic = $logic;
         $this->page = $page;
+        $this->onQueue('logic');
     }
 
     public function handle(UserRepository $userRepository)

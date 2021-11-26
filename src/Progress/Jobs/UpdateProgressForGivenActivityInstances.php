@@ -33,6 +33,7 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
     {
         $this->activityInstances = $activityInstances;
         $this->driver = $driver;
+        $this->onQueue('progress');
     }
 
     public function handle(Snapshot $snapshot)

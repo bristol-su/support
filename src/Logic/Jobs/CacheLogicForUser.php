@@ -22,8 +22,6 @@ class CacheLogicForUser implements ShouldQueue
 {
     use Queueable, CachesLogic, Dispatchable, SerializesModels;
 
-    public $queue = 'logic';
-
     /**
      * Holds the filter instance to get the result from.
      *
@@ -40,6 +38,7 @@ class CacheLogicForUser implements ShouldQueue
     {
         $this->users = collect($users);
         $this->logicId = $logicId;
+        $this->onQueue('logic');
     }
 
     /**

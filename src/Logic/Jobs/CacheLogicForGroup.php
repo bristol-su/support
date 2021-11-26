@@ -20,8 +20,6 @@ class CacheLogicForGroup implements ShouldQueue
 {
     use Queueable, CachesLogic, Dispatchable, SerializesModels;
 
-    public $queue = 'logic';
-
     /**
      * Holds the filter instance to get the result from.
      *
@@ -38,6 +36,7 @@ class CacheLogicForGroup implements ShouldQueue
     {
         $this->groups = collect($groups);
         $this->logicId = $logicId;
+        $this->onQueue('logic');
     }
 
     /**

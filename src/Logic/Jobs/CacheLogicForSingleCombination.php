@@ -18,8 +18,6 @@ class CacheLogicForSingleCombination implements ShouldQueue
 {
     use Queueable, CachesLogic, Dispatchable, SerializesModels;
 
-    public $queue = 'logic';
-
     public ?int $logicId = null;
     public User $user;
     public ?Group $group = null;
@@ -37,6 +35,7 @@ class CacheLogicForSingleCombination implements ShouldQueue
         $this->user = $user;
         $this->group = $group;
         $this->role = $role;
+        $this->onQueue('logic');
     }
 
     /**

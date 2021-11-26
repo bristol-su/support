@@ -23,7 +23,10 @@ class RefreshLogicResult implements ShouldQueue
 {
     use Queueable, Dispatchable;
 
-    public $queue = 'logic';
+    public function __construct()
+    {
+        $this->onQueue('logic');
+    }
 
     public function handle(AudienceChanged $audienceChanged)
     {

@@ -30,8 +30,6 @@ class CacheLogicForRole implements ShouldQueue
 
     public ?int $logicId = null;
 
-    public $queue = 'logic';
-
     /**
      * @param array|Role[] $roles The role to cache logic for
      */
@@ -39,6 +37,7 @@ class CacheLogicForRole implements ShouldQueue
     {
         $this->roles = collect($roles);
         $this->logicId = $logicId;
+        $this->onQueue('logic');
     }
 
     /**
