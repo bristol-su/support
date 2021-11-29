@@ -3,12 +3,14 @@
 
 namespace BristolSU\Support\Progress;
 
+use BristolSU\ControlDB\Export\RunExport;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator;
 use BristolSU\Support\Progress\Contracts\ProgressUpdateContract;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class Snapshot
 {
@@ -94,7 +96,11 @@ class Snapshot
         $progress = Progress::create($activity->id, $activityInstance->id, Carbon::now(), true, 0);
 
         foreach ($activity->moduleInstances as $moduleInstance) {
+            $time=-hrtime(true);
             $evaluation = ModuleInstanceEvaluator::evaluateResource($activityInstance, $moduleInstance);
+            $time+=hrtime(true);
+            Log::info(sprintf('Snapshot for activity instance %u module instance %u took %.2f s to run', $activityInstance->id, $moduleInstance->id, $time / 1e+9));
+
             $moduleInstanceProgress = ModuleInstanceProgress::create(
                 $moduleInstance->id,
                 $evaluation->mandatory(),
@@ -112,11 +118,11 @@ class Snapshot
             }
             $progress->pushModule($moduleInstanceProgress);
         }
-        
+
         if ($moduleCount > 0) {
             $progress->setPercentage($percentages / $moduleCount);
         }
-        
+
         return $progress;
     }
 }
