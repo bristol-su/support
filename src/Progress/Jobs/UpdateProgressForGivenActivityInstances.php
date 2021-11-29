@@ -10,6 +10,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class UpdateProgressForGivenActivityInstances implements ShouldQueue
 {
@@ -46,6 +47,7 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
         $progresses = array_values(array_filter($progresses));
 
         if ($progresses) {
+            Log::info(sprintf('Gathered progress and exporting for %u', count($progresses)));
             ProgressExport::driver($this->driver)->saveMany($progresses);
         }
     }

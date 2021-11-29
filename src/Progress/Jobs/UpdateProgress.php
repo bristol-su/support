@@ -9,6 +9,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Log;
 
 class UpdateProgress implements ShouldQueue
 {
@@ -37,16 +38,7 @@ class UpdateProgress implements ShouldQueue
 
     public function handle(ActivityInstanceRepository $activityInstanceRepository)
     {
-        $activityInstances = [];
-        foreach ($activityInstanceRepository->allForActivity($this->activity->id) as $activityInstance) {
-            $activityInstances[] = $activityInstance;
-            if (count($activityInstances) >= static::CHUNK_SIZE) {
-                UpdateProgressForGivenActivityInstances::dispatch($activityInstances, $this->driver);
-                $activityInstances = [];
-            }
-        }
-
-        if (count($activityInstances) > 0) {
+        foreach ($activityInstanceRepository->allForActivity($this->activity->id)->chunk(static::CHUNK_SIZE) as $activityInstances) {
             UpdateProgressForGivenActivityInstances::dispatch($activityInstances, $this->driver);
         }
     }
