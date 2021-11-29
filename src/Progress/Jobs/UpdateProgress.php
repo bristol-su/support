@@ -39,7 +39,7 @@ class UpdateProgress implements ShouldQueue
     public function handle(ActivityInstanceRepository $activityInstanceRepository)
     {
         foreach ($activityInstanceRepository->allForActivity($this->activity->id)->chunk(static::CHUNK_SIZE) as $activityInstances) {
-            UpdateProgressForGivenActivityInstances::dispatch($activityInstances, $this->driver);
+            UpdateProgressForGivenActivityInstances::dispatch($activityInstances->values()->all(), $this->driver);
         }
     }
 }
