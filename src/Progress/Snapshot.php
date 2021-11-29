@@ -96,11 +96,7 @@ class Snapshot
         $progress = Progress::create($activity->id, $activityInstance->id, Carbon::now(), true, 0);
 
         foreach ($activity->moduleInstances as $moduleInstance) {
-            $time=-hrtime(true);
             $evaluation = ModuleInstanceEvaluator::evaluateResource($activityInstance, $moduleInstance);
-            $time+=hrtime(true);
-            Log::info(sprintf('Snapshot for activity instance %u module instance %u took %.2f s to run', $activityInstance->id, $moduleInstance->id, $time / 1e+9));
-
             $moduleInstanceProgress = ModuleInstanceProgress::create(
                 $moduleInstance->id,
                 $evaluation->mandatory(),
