@@ -47,8 +47,6 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
 
         $filteredProgresses = array_values(array_filter($progresses));
 
-        Log::info(sprintf('Gathered progress and exporting %u/%u', count($filteredProgresses), count($progresses)));
-
         if ($filteredProgresses) {
             ProgressExport::driver($this->driver)->saveMany($filteredProgresses);
         }
