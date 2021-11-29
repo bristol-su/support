@@ -10,6 +10,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
 class UpdateProgressForGivenActivityInstances implements ShouldQueue
@@ -21,7 +22,7 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
     /**
      * @var ActivityInstance[]
      */
-    private array $activityInstances;
+    private array|Collection $activityInstances;
 
     private string $driver;
 
@@ -30,7 +31,7 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
      * @param ActivityInstance[] $activityInstances
      * @param string $driver
      */
-    public function __construct(array $activityInstances, string $driver = 'database')
+    public function __construct(array|Collection $activityInstances, string $driver = 'database')
     {
         $this->activityInstances = $activityInstances;
         $this->driver = $driver;
