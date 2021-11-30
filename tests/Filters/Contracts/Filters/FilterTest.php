@@ -26,6 +26,21 @@ class FilterTest extends TestCase
             'options' => ['test-form']
         ], $filter->toArray());
     }
+
+    /** @test */
+    public function listensTo_returns_the_events_that_are_listened_to(){
+        $filter = new DummyFilter();
+
+        $this->assertEquals(
+            ['SomeEvent', 'SomeEvent\Two', 'SomeEvent\Three'],
+            $filter::listensTo()
+        );
+    }
+
+    /** @test */
+    public function clearOn_is_empty_by_default(){
+        $this->assertEquals([], Filter::clearOn());
+    }
 }
 
 class DummyFilter extends Filter
@@ -88,5 +103,14 @@ class DummyFilter extends Filter
      */
     public function model()
     {
+    }
+
+    public static function clearOn(): array
+    {
+        return [
+            'SomeEvent' => fn() => false,
+            'SomeEvent\Two' => fn() => false,
+            'SomeEvent\Three' => fn() => false,
+        ];
     }
 }

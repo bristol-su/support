@@ -3,12 +3,14 @@
 
 namespace BristolSU\Support\Progress;
 
+use BristolSU\ControlDB\Export\RunExport;
 use BristolSU\Support\Activity\Activity;
 use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\ActivityInstance\Contracts\ActivityInstanceRepository;
 use BristolSU\Support\ModuleInstance\Facade\ModuleInstanceEvaluator;
 use BristolSU\Support\Progress\Contracts\ProgressUpdateContract;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
 class Snapshot
 {
@@ -112,11 +114,11 @@ class Snapshot
             }
             $progress->pushModule($moduleInstanceProgress);
         }
-        
+
         if ($moduleCount > 0) {
             $progress->setPercentage($percentages / $moduleCount);
         }
-        
+
         return $progress;
     }
 }

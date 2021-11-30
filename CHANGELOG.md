@@ -10,6 +10,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 - Add support for arrays in actions
 
+## [5.2.0] - (30/11/2021)
+
+### Changed
+- Logic Groups now use the database for quick audience lookup
+
 ## [5.1.2] - (22/10/2021)
 
 ### Changed

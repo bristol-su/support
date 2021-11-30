@@ -22,7 +22,7 @@ class FilterTesterTest extends TestCase
         $repository = $this->prophesize(FilterRepository::class);
         $repository->getByAlias('alias1')->shouldBeCalled()->willReturn($filter->reveal());
 
-        $filterInstance = FilterInstance::factory()->create(['alias' => 'alias1']);
+        $filterInstance = \Illuminate\Database\Eloquent\Model::withoutEvents(fn() => FilterInstance::factory()->create(['alias' => 'alias1']));;
 
         $filterTester = new FilterTester($repository->reveal());
         $filterTester->evaluate($filterInstance, new class() {
@@ -43,7 +43,7 @@ class FilterTesterTest extends TestCase
         $repository = $this->prophesize(FilterRepository::class);
         $repository->getByAlias('alias1')->shouldBeCalled()->willReturn($filter->reveal());
 
-        $filterInstance = FilterInstance::factory()->create(['alias' => 'alias1']);
+        $filterInstance = \Illuminate\Database\Eloquent\Model::withoutEvents(fn() => FilterInstance::factory()->create(['alias' => 'alias1']));;
 
         $filterTester = new FilterTester($repository->reveal());
         $filterTester->evaluate($filterInstance, $user);
@@ -63,10 +63,10 @@ class FilterTesterTest extends TestCase
         $repository = $this->prophesize(FilterRepository::class);
         $repository->getByAlias('alias1')->shouldBeCalled()->willReturn($filter->reveal());
 
-        $filterInstance = FilterInstance::factory()->create([
+        $filterInstance = \Illuminate\Database\Eloquent\Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'alias' => 'alias1',
             'settings' => ['key1' => 'val1', 'key2' => 'val2']
-        ]);
+        ]));
 
         $filterTester = new FilterTester($repository->reveal());
         $filterTester->evaluate($filterInstance, $user);
@@ -86,10 +86,10 @@ class FilterTesterTest extends TestCase
         $repository = $this->prophesize(FilterRepository::class);
         $repository->getByAlias('alias1')->shouldBeCalled()->willReturn($filter->reveal());
 
-        $filterInstance = FilterInstance::factory()->create([
+        $filterInstance = \Illuminate\Database\Eloquent\Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'alias' => 'alias1',
             'settings' => ['key1' => 'val1', 'key2' => 'val2']
-        ]);
+        ]));
 
         $filterTester = new FilterTester($repository->reveal());
         $this->assertTrue(
@@ -111,10 +111,10 @@ class FilterTesterTest extends TestCase
         $repository = $this->prophesize(FilterRepository::class);
         $repository->getByAlias('alias1')->shouldBeCalled()->willReturn($filter->reveal());
 
-        $filterInstance = FilterInstance::factory()->create([
+        $filterInstance = \Illuminate\Database\Eloquent\Model::withoutEvents(fn() => FilterInstance::factory()->create([
             'alias' => 'alias1',
             'settings' => ['key1' => 'val1', 'key2' => 'val2']
-        ]);
+        ]));
 
         $filterTester = new FilterTester($repository->reveal());
         $this->assertFalse(

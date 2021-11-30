@@ -10,6 +10,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class UpdateProgressForGivenActivityInstances implements ShouldQueue
 {
@@ -20,7 +22,7 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
     /**
      * @var ActivityInstance[]
      */
-    private array $activityInstances;
+    private array|Collection $activityInstances;
 
     private string $driver;
 
@@ -29,10 +31,11 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
      * @param ActivityInstance[] $activityInstances
      * @param string $driver
      */
-    public function __construct(array $activityInstances, string $driver = 'database')
+    public function __construct(array|Collection $activityInstances, string $driver = 'database')
     {
         $this->activityInstances = $activityInstances;
         $this->driver = $driver;
+        $this->onQueue('progress');
     }
 
     public function handle(Snapshot $snapshot)
@@ -42,10 +45,10 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
             $progresses[] = $snapshot->ofUpdateToActivityInstance($activityInstance, $this->driver);
         }
 
-        $progresses = array_values(array_filter($progresses));
+        $filteredProgresses = array_values(array_filter($progresses));
 
-        if ($progresses) {
-            ProgressExport::driver($this->driver)->saveMany($progresses);
+        if ($filteredProgresses) {
+            ProgressExport::driver($this->driver)->saveMany($filteredProgresses);
         }
     }
 }

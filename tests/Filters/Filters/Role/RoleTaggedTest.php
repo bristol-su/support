@@ -5,6 +5,8 @@ namespace BristolSU\Support\Tests\Filters\Filters\Role;
 
 use BristolSU\ControlDB\Contracts\Models\Tags\RoleTag as RoleTagModelContract;
 use BristolSU\ControlDB\Contracts\Repositories\Tags\RoleTag as RoleTagRepositoryContract;
+use BristolSU\ControlDB\Events\Pivots\Tags\RoleRoleTag\RoleTagged as RoleTaggedEvent;
+use BristolSU\ControlDB\Events\Pivots\Tags\RoleRoleTag\RoleUntagged as RoleUntaggedEvent;
 use BristolSU\ControlDB\Models\Role;
 use BristolSU\ControlDB\Models\Tags\RoleTag;
 use BristolSU\ControlDB\Models\Tags\RoleTagCategory;
@@ -138,5 +140,27 @@ class RoleTaggedTest extends TestCase
     {
         $filter = new RoleTagged($this->prophesize(RoleTagRepositoryContract::class)->reveal());
         $this->assertIsString($filter->alias());
+    }
+
+    /** @test */
+    public function it_listens_to_role_tagged_events_correctly(){
+        $this->assertContains(RoleTaggedEvent::class, RoleTagged::listensTo());
+
+        $event = new RoleTaggedEvent($this->newRole(['id' => 5]), RoleTag::factory()->create());
+
+        $result = RoleTagged::clearOn()[RoleTaggedEvent::class]($event);
+        $this->assertIsInt($result);
+        $this->assertEquals(5, $result);
+    }
+
+    /** @test */
+    public function it_listens_to_role_untagged_events_correctly(){
+        $this->assertContains(RoleUntaggedEvent::class, RoleTagged::listensTo());
+
+        $event = new RoleUntaggedEvent($this->newRole(['id' => 5]), RoleTag::factory()->create());
+
+        $result = RoleTagged::clearOn()[RoleUntaggedEvent::class]($event);
+        $this->assertIsInt($result);
+        $this->assertEquals(5, $result);
     }
 }

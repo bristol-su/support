@@ -2,6 +2,7 @@
 
 namespace BristolSU\Support\Tests\Filters\Filters\Group;
 
+use BristolSU\ControlDB\Events\DataGroup\DataGroupUpdated;
 use BristolSU\ControlDB\Models\DataGroup;
 use BristolSU\Support\Filters\Filters\Group\GroupNameIs;
 use BristolSU\Support\Tests\TestCase;
@@ -76,5 +77,18 @@ class GroupNameIsTest extends TestCase
     {
         $filter = new GroupNameIs();
         $this->assertIsString($filter->alias());
+    }
+
+    /** @test */
+    public function it_listens_to_data_group_updated_events_correctly(){
+        $this->assertContains(DataGroupUpdated::class, GroupNameIs::listensTo());
+
+        $dataGroup = DataGroup::factory()->create(['id' => 1000]);
+        $this->newGroup(['data_provider_id' => $dataGroup->id(), 'id' => 1001]);
+        $event = new DataGroupUpdated($dataGroup, []);
+
+        $result = GroupNameIs::clearOn()[DataGroupUpdated::class]($event);
+        $this->assertIsInt($result);
+        $this->assertEquals(1001, $result);
     }
 }

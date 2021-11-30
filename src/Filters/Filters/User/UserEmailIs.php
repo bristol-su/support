@@ -2,9 +2,12 @@
 
 namespace BristolSU\Support\Filters\Filters\User;
 
+use BristolSU\ControlDB\Events\DataUser\DataUserUpdated;
+use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use FormSchema\Generator\Field;
 use FormSchema\Schema\Form;
+use BristolSU\ControlDB\Events\User\UserUpdated;
 
 /**
  * Does the user have the given email?
@@ -31,11 +34,11 @@ class UserEmailIs extends UserFilter
     /**
      * The user email is the same as the settings.
      *
-     * @param string $settings ['email' => '' ]
+     * @param array $settings ['email' => '' ]
      *
      * @return bool Does the user have the given email?
      */
-    public function evaluate($settings): bool
+    public function evaluate(array $settings): bool
     {
         try {
             return $this->user()->data()->email() === $settings['email'];
@@ -72,5 +75,12 @@ class UserEmailIs extends UserFilter
     public function alias()
     {
         return 'user_email_is';
+    }
+
+    public static function clearOn(): array
+    {
+        return [
+            DataUserUpdated::class => fn(DataUserUpdated $event) => app(UserRepository::class)->getByDataProviderId($event->dataUser->id())->id()
+        ];
     }
 }
