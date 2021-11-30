@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [5.2.0]
+## [5.2.0] - (30/11/2021)
 
 ### Changed
 - Logic Groups now use the database for quick audience lookup
