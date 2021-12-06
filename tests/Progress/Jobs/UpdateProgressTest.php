@@ -26,6 +26,6 @@ class UpdateProgressTest extends TestCase
         $job = new UpdateProgress($activity, 'fake-setup');
         $job->handle($activityInstanceRepository->reveal());
 
-        Bus::assertDispatchedTimes(UpdateProgressForGivenActivityInstances::class, 5);
+        Bus::assertDispatchedTimes(UpdateProgressForGivenActivityInstances::class, 42);
     }
 }
