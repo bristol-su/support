@@ -28,13 +28,14 @@ class LogicDatabaseDecorator implements LogicTester
             return $logicResult->getResult();
         }
         $result = $this->baseTester->evaluate($logic, $userModel, $groupModel, $roleModel);
-        LogicResult::create([
+        LogicResult::updateOrCreate([
             'logic_id' => $logic->id,
             'user_id' => $userModel?->id(),
             'group_id' => $groupModel?->id(),
-            'role_id' => $roleModel?->id(),
-            'result' => $result
-        ]);
+            'role_id' => $roleModel?->id()
+            ], [
+                'result' => $result
+            ]);
         return $result;
     }
 }
