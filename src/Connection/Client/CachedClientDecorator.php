@@ -51,7 +51,7 @@ class CachedClientDecorator implements Client
                 $this->cache->remember(
                     $this->getKey($method, $uri, $options),
                     7200,
-                    fn() => $this->toCacheArray(
+                    fn () => $this->toCacheArray(
                         $this->forwardCall($method, $uri, $options)
                     )
                 )

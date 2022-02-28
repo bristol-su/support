@@ -27,15 +27,16 @@ class ActionInstanceField extends Model
     public function getActionValueAttribute($value)
     {
         $json = json_decode($value, true);
-        if(json_last_error() === JSON_ERROR_NONE) {
+        if (json_last_error() === JSON_ERROR_NONE) {
             return $json;
         }
+
         return $value;
     }
 
     public function setActionValueAttribute($value)
     {
-        if(is_array($value)) {
+        if (is_array($value)) {
             $value = json_encode($value);
         }
         $this->attributes['action_value'] = $value;

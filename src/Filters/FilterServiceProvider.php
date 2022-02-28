@@ -38,7 +38,7 @@ class FilterServiceProvider extends ServiceProvider
         $this->app->bind(FilterInstanceContract::class, FilterInstance::class);
         $this->app->bind(FilterInstanceRepositoryContract::class, FilterInstanceRepository::class);
         $this->app->singleton(FilterManagerContract::class, FilterManager::class);
-        $this->app->extend(FilterManagerContract::class, fn(FilterManagerContract $filterManager) => new FilterManagerEventRegistrationDecorator($filterManager));
+        $this->app->extend(FilterManagerContract::class, fn (FilterManagerContract $filterManager) => new FilterManagerEventRegistrationDecorator($filterManager));
     }
 
     /**

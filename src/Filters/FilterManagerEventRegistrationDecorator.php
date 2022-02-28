@@ -11,14 +11,12 @@ use Illuminate\Support\Facades\Event;
  */
 class FilterManagerEventRegistrationDecorator implements FilterManagerContract
 {
-
     private FilterManagerContract $baseFilterManager;
 
     public function __construct(FilterManagerContract $baseFilterManager)
     {
         $this->baseFilterManager = $baseFilterManager;
     }
-
 
     /**
      * Register a new filter.

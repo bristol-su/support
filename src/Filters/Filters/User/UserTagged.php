@@ -65,7 +65,8 @@ class UserTagged extends UserFilter
     public function options(): Form
     {
         $field = \FormSchema\Generator\Field::select('tag')->setLabel('User Name')->setRequired(true);
-        $this->userTagRepository->all()->each(fn(UserTag $userTag) => $field->withOption($userTag->fullReference(), sprintf('%s (%s)', $userTag->name(), $userTag->fullReference()), $userTag->category()->name()));
+        $this->userTagRepository->all()->each(fn (UserTag $userTag) => $field->withOption($userTag->fullReference(), sprintf('%s (%s)', $userTag->name(), $userTag->fullReference()), $userTag->category()->name()));
+
         return \FormSchema\Generator\Form::make()->withField($field)->getSchema();
     }
 
@@ -102,8 +103,8 @@ class UserTagged extends UserFilter
     public static function clearOn(): array
     {
         return [
-            UserTaggedEvent::class => fn(UserTaggedEvent $event) => $event->user->id(),
-            UserUntaggedEvent::class => fn(UserUntaggedEvent $event) => $event->user->id(),
+            UserTaggedEvent::class => fn (UserTaggedEvent $event) => $event->user->id(),
+            UserUntaggedEvent::class => fn (UserUntaggedEvent $event) => $event->user->id(),
         ];
     }
 }

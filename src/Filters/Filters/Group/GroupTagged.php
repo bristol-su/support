@@ -3,12 +3,12 @@
 
 namespace BristolSU\Support\Filters\Filters\Group;
 
-use BristolSU\ControlDB\Contracts\Repositories\Tags\GroupTag as GroupTagRepositoryContract;
 use BristolSU\ControlDB\Contracts\Models\Tags\GroupTag;
-use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
-use FormSchema\Schema\Form;
+use BristolSU\ControlDB\Contracts\Repositories\Tags\GroupTag as GroupTagRepositoryContract;
 use BristolSU\ControlDB\Events\Pivots\Tags\GroupGroupTag\GroupTagged as GroupTaggedEvent;
 use BristolSU\ControlDB\Events\Pivots\Tags\GroupGroupTag\GroupUntagged as GroupUntaggedEvent;
+use BristolSU\Support\Filters\Contracts\Filters\GroupFilter;
+use FormSchema\Schema\Form;
 
 /**
  * Is the group tagged with a tag?
@@ -65,7 +65,8 @@ class GroupTagged extends GroupFilter
     public function options(): Form
     {
         $field = \FormSchema\Generator\Field::select('tag')->setLabel('Group Name')->setRequired(true);
-        $this->groupTagRepository->all()->each(fn(GroupTag $tag) => $field->withOption($tag->fullReference(), sprintf('%s (%s)', $tag->name(), $tag->fullReference()), $tag->category()->name()));
+        $this->groupTagRepository->all()->each(fn (GroupTag $tag) => $field->withOption($tag->fullReference(), sprintf('%s (%s)', $tag->name(), $tag->fullReference()), $tag->category()->name()));
+
         return \FormSchema\Generator\Form::make()->withField($field)->getSchema();
     }
 
@@ -102,8 +103,8 @@ class GroupTagged extends GroupFilter
     public static function clearOn(): array
     {
         return [
-            GroupTaggedEvent::class => fn(GroupTaggedEvent $event) => $event->group->id(),
-            GroupUntaggedEvent::class => fn(GroupUntaggedEvent $event) => $event->group->id(),
+            GroupTaggedEvent::class => fn (GroupTaggedEvent $event) => $event->group->id(),
+            GroupUntaggedEvent::class => fn (GroupUntaggedEvent $event) => $event->group->id(),
         ];
     }
 }

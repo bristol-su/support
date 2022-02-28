@@ -46,17 +46,17 @@ class CacheLogicForGroup implements ShouldQueue
      */
     public function handle()
     {
-        foreach($this->groups as $group) {
+        foreach ($this->groups as $group) {
             /** @var AudienceMember[] $groupAudience */
             $groupAudience = Audience::withAccessToResource($group);
-            foreach($groupAudience as $audience) {
+            foreach ($groupAudience as $audience) {
                 $audience->roles()->each(
-                    fn(Role $role) => $this->cacheLogic($this->logicId, $audience->user(), $role->group(), $role)
+                    fn (Role $role) => $this->cacheLogic($this->logicId, $audience->user(), $role->group(), $role)
                 );
                 $audience->groups()->each(
-                    fn(Group $groupAudience) => $this->cacheLogic($this->logicId, $audience->user(), $groupAudience)
+                    fn (Group $groupAudience) => $this->cacheLogic($this->logicId, $audience->user(), $groupAudience)
                 );
-                if($audience->canBeUser()) {
+                if ($audience->canBeUser()) {
                     $this->cacheLogic($this->logicId, $audience->user());
                 }
             }

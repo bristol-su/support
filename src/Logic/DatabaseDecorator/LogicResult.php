@@ -2,9 +2,9 @@
 
 namespace BristolSU\Support\Logic\DatabaseDecorator;
 
-use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
+use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Logic\Logic;
 use Database\Factories\LogicResultFactory;
 use Illuminate\Database\Eloquent\Builder;

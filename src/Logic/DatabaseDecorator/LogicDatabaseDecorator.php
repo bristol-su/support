@@ -5,11 +5,9 @@ namespace BristolSU\Support\Logic\DatabaseDecorator;
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Log;
 
 class LogicDatabaseDecorator implements LogicTester
 {
-
     private LogicTester $baseTester;
 
     public function __construct(LogicTester $baseTester)
@@ -19,7 +17,7 @@ class LogicDatabaseDecorator implements LogicTester
 
     public function evaluate(Logic $logic, $userModel = null, $groupModel = null, $roleModel = null): bool
     {
-        if($userModel === null) {
+        if ($userModel === null) {
             return false;
         }
 

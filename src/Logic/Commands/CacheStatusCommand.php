@@ -2,16 +2,11 @@
 
 namespace BristolSU\Support\Logic\Commands;
 
-use BristolSU\ControlDB\Contracts\Models\Group;
-use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
-use BristolSU\Support\Filters\Contracts\FilterInstance;
-use BristolSU\Support\Filters\Jobs\CacheFilter;
 use BristolSU\Support\Logic\Audience\Audience;
 use BristolSU\Support\Logic\Contracts\LogicRepository;
 use BristolSU\Support\Logic\DatabaseDecorator\LogicResult;
 use Illuminate\Console\Command;
-use Illuminate\Support\Collection;
 
 /**
  * Command to cache the result of all filters.
@@ -43,8 +38,7 @@ class CacheStatusCommand extends Command
     public function handle(
         LogicRepository $logicRepository,
         UserRepository  $userRepository
-    )
-    {
+    ) {
         $users = collect($userRepository->all());
         $combinations = 0;
 
@@ -75,7 +69,6 @@ class CacheStatusCommand extends Command
         $this->table([
             'ID', 'Name', 'Cached'
         ], $results);
-
     }
 
     private function getLogics(LogicRepository $logicRepository): array
@@ -83,6 +76,7 @@ class CacheStatusCommand extends Command
         if ($this->argument('logic') !== null) {
             return [$logicRepository->getById($this->argument('logic'))];
         }
+
         return collect($logicRepository->all())->all();
     }
 }

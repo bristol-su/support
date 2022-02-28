@@ -3,8 +3,8 @@
 namespace BristolSU\Support\Logic\Jobs;
 
 use BristolSU\ControlDB\Contracts\Models\Group;
-use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\ControlDB\Contracts\Models\Role;
+use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Logic\Audience\Audience;
 use BristolSU\Support\Logic\Traits\CachesLogic;
 use Illuminate\Bus\Queueable;
@@ -46,18 +46,17 @@ class CacheLogicForUser implements ShouldQueue
      */
     public function handle()
     {
-        foreach($this->users as $user) {
+        foreach ($this->users as $user) {
             $audience = Audience::fromUser($user);
             $audience->roles()->each(
-                fn(Role $role) => $this->cacheLogic($this->logicId, $user, $role->group(), $role)
+                fn (Role $role) => $this->cacheLogic($this->logicId, $user, $role->group(), $role)
             );
             $audience->groups()->each(
-                fn(Group $group) => $this->cacheLogic($this->logicId, $user, $group)
+                fn (Group $group) => $this->cacheLogic($this->logicId, $user, $group)
             );
-            if($audience->canBeUser()) {
+            if ($audience->canBeUser()) {
                 $this->cacheLogic($this->logicId, $user);
             }
         }
     }
-
 }

@@ -52,6 +52,7 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
                 return $this->fromUser($user);
             });
         }
+
         return $resource->users()->map(function ($user) {
             return $this->fromUser($user);
         });
@@ -80,13 +81,13 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
         $audienceMembers = collect();
         $logicResults = LogicResult::forLogic($logic)->where($conditions)->get()->groupBy('user_id');
 
-        foreach($logicResults as $userId => $userLogicResults) {
+        foreach ($logicResults as $userId => $userLogicResults) {
             $audienceMember = new AudienceMember($user ?? LazyUser::load($userId));
             $audienceMember->setCanBeUser(false);
             $groups = collect();
             $roles = collect();
-            foreach($userLogicResults as $userLogicResult) {
-                if($userLogicResult->hasRole()) {
+            foreach ($userLogicResults as $userLogicResult) {
+                if ($userLogicResult->hasRole()) {
                     $roles->push(LazyRole::load($userLogicResult->getRoleId()));
                 } elseif ($userLogicResult->hasGroup()) {
                     $groups->push(LazyGroup::load($userLogicResult->getGroupId()));
@@ -98,7 +99,7 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
             $audienceMember->setGroups($groups);
             $audienceMember->setRoles($roles);
 
-            if($audienceMember->hasAudience()) {
+            if ($audienceMember->hasAudience()) {
                 $audienceMembers->push($audienceMember);
             }
         }
@@ -107,7 +108,7 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
     }
 
     /**
-     * Return all users that have access to the logic group
+     * Return all users that have access to the logic group.
      * @param Logic $logic
      * @return Collection
      */
@@ -120,11 +121,11 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
             ->distinct()
             ->get();
 
-        return $userIds->map(fn(LogicResult $logicResult) => LazyUser::load($logicResult->user_id));
+        return $userIds->map(fn (LogicResult $logicResult) => LazyUser::load($logicResult->user_id));
     }
 
     /**
-     * Return all groups that have access to the logic group
+     * Return all groups that have access to the logic group.
      * @param Logic $logic
      * @return Collection
      */
@@ -137,11 +138,11 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
             ->distinct()
             ->get();
 
-        return $groupIds->map(fn(LogicResult $logicResult) => LazyGroup::load($logicResult->getGroupId()));
+        return $groupIds->map(fn (LogicResult $logicResult) => LazyGroup::load($logicResult->getGroupId()));
     }
 
     /**
-     * Return all roles that have access to the logic group
+     * Return all roles that have access to the logic group.
      * @param Logic $logic
      * @return Collection
      */
@@ -154,7 +155,6 @@ class AudienceMemberFactory implements AudienceMemberFactoryContract
             ->distinct()
             ->get();
 
-        return $roleIds->map(fn(LogicResult $logicResult) => LazyRole::load($logicResult->getRoleId()));
+        return $roleIds->map(fn (LogicResult $logicResult) => LazyRole::load($logicResult->getRoleId()));
     }
-
 }

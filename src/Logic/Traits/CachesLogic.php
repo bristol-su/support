@@ -23,7 +23,9 @@ trait CachesLogic
 
             app(LogicTester::class)->evaluate(
                 app(LogicRepository::class)->getById($logicId),
-                $user, $group, $role
+                $user,
+                $group,
+                $role
             );
         } else {
             foreach (app(LogicRepository::class)->all() as $logic) {

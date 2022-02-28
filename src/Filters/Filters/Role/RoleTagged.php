@@ -5,10 +5,10 @@ namespace BristolSU\Support\Filters\Filters\Role;
 
 use BristolSU\ControlDB\Contracts\Models\Tags\RoleTag;
 use BristolSU\ControlDB\Contracts\Repositories\Tags\RoleTag as RoleTagRepositoryContract;
-use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
-use FormSchema\Schema\Form;
 use BristolSU\ControlDB\Events\Pivots\Tags\RoleRoleTag\RoleTagged as RoleTaggedEvent;
 use BristolSU\ControlDB\Events\Pivots\Tags\RoleRoleTag\RoleUntagged as RoleUntaggedEvent;
+use BristolSU\Support\Filters\Contracts\Filters\RoleFilter;
+use FormSchema\Schema\Form;
 
 /**
  * Is the role tagged with a tag?
@@ -65,7 +65,8 @@ class RoleTagged extends RoleFilter
     public function options(): Form
     {
         $field = \FormSchema\Generator\Field::select('tag')->setLabel('Role Name')->setRequired(true);
-        $this->roleTagRepository->all()->each(fn(RoleTag $roleTag) => $field->withOption($roleTag->fullReference(), sprintf('%s (%s)', $roleTag->name(), $roleTag->fullReference()), $roleTag->category()->name()));
+        $this->roleTagRepository->all()->each(fn (RoleTag $roleTag) => $field->withOption($roleTag->fullReference(), sprintf('%s (%s)', $roleTag->name(), $roleTag->fullReference()), $roleTag->category()->name()));
+
         return \FormSchema\Generator\Form::make()->withField($field)->getSchema();
     }
 
@@ -102,8 +103,8 @@ class RoleTagged extends RoleFilter
     public static function clearOn(): array
     {
         return [
-            RoleTaggedEvent::class => fn(RoleTaggedEvent $event) => $event->role->id(),
-            RoleUntaggedEvent::class => fn(RoleUntaggedEvent $event) => $event->role->id(),
+            RoleTaggedEvent::class => fn (RoleTaggedEvent $event) => $event->role->id(),
+            RoleUntaggedEvent::class => fn (RoleUntaggedEvent $event) => $event->role->id(),
         ];
     }
 }

@@ -2,9 +2,9 @@
 
 namespace BristolSU\Support\Filters\Events;
 
+use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
-use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\Support\Filters\FilterInstance;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
@@ -17,6 +17,7 @@ class AudienceChanged
      * @var array|FilterInstance[]
      */
     public array $filterInstances;
+
     public User|Group|Role|null $model;
 
     /**
@@ -30,5 +31,4 @@ class AudienceChanged
         $this->filterInstances = $filterInstances;
         $this->model = $model;
     }
-
 }

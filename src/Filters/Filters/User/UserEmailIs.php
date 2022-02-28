@@ -2,12 +2,11 @@
 
 namespace BristolSU\Support\Filters\Filters\User;
 
-use BristolSU\ControlDB\Events\DataUser\DataUserUpdated;
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
+use BristolSU\ControlDB\Events\DataUser\DataUserUpdated;
 use BristolSU\Support\Filters\Contracts\Filters\UserFilter;
 use FormSchema\Generator\Field;
 use FormSchema\Schema\Form;
-use BristolSU\ControlDB\Events\User\UserUpdated;
 
 /**
  * Does the user have the given email?
@@ -80,7 +79,7 @@ class UserEmailIs extends UserFilter
     public static function clearOn(): array
     {
         return [
-            DataUserUpdated::class => fn(DataUserUpdated $event) => app(UserRepository::class)->getByDataProviderId($event->dataUser->id())->id()
+            DataUserUpdated::class => fn (DataUserUpdated $event) => app(UserRepository::class)->getByDataProviderId($event->dataUser->id())->id()
         ];
     }
 }
