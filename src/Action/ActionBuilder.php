@@ -79,10 +79,10 @@ class ActionBuilder implements ActionBuilderContract
         return $actionFields;
     }
 
-    private function replaceField(string|array $data, string $key, string $value)
+    private function replaceField(string|array $data, string $key, ?string $value)
     {
         if(is_string($data)) {
-            return str_replace(sprintf('{{event:%s}}', $key), $value, $data);
+            return str_replace(sprintf('{{event:%s}}', $key), $value ?? '', $data);
         }
         return array_map(fn($dataElement) => $this->replaceField($dataElement, $key, $value), $data);
     }

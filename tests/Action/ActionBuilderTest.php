@@ -182,6 +182,46 @@ class ActionBuilderTest extends TestCase
         $builder = new ActionBuilder($app->reveal());
         $action = $builder->build($actionInstance, ['key' => 'val1']);
     }
+
+    /** @test */
+    public function it_allows_null_data_in_event_fields(){
+        $app = $this->prophesize(Application::class);
+        $app->make(ActionBuilderDummyAction::class, ['data' => ['action1' => 'field1value with field2valueFromEvent an event field of field1valueFromEvent field1valueFromEvent, not to mention a value  which is null.']])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction([]));
+
+        $actionInstance = ActionInstance::factory()->create([
+            'action' => ActionBuilderDummyAction::class,
+            'event' => ActionBuilderDummyEvent::class
+        ]);
+
+        $actionInstanceField = ActionInstanceField::factory()->create([
+            'action_value' => 'field1value with {{event:field2}} an event field of {{event:field1}} {{event:field1}}, not to mention a value {{event:field3}} which is null.',
+            'action_field' => 'action1',
+            'action_instance_id' => $actionInstance->id
+        ]);
+
+        $builder = new ActionBuilder($app->reveal());
+        $builder->build($actionInstance, array_merge((new ActionBuilderDummyEvent())->getFields(), ['field3' => null]));
+    }
+
+    /** @test */
+    public function it_allows_missing_array_keys_in_event_data(){
+        $app = $this->prophesize(Application::class);
+        $app->make(ActionBuilderDummyAction::class, ['data' => ['action1' => 'field1value with field2valueFromEvent an event field of field1valueFromEvent field1valueFromEvent, not to mention a value {{event:field4}} which should be empty.']])->shouldBeCalled()->willReturn(new ActionBuilderDummyAction([]));
+
+        $actionInstance = ActionInstance::factory()->create([
+            'action' => ActionBuilderDummyAction::class,
+            'event' => ActionBuilderDummyEvent::class
+        ]);
+
+        $actionInstanceField = ActionInstanceField::factory()->create([
+            'action_value' => 'field1value with {{event:field2}} an event field of {{event:field1}} {{event:field1}}, not to mention a value {{event:field4}} which should be empty.',
+            'action_field' => 'action1',
+            'action_instance_id' => $actionInstance->id
+        ]);
+
+        $builder = new ActionBuilder($app->reveal());
+        $builder->build($actionInstance, (new ActionBuilderDummyEvent())->getFields());
+    }
 }
 
 class ActionBuilderDummyAction extends Action
