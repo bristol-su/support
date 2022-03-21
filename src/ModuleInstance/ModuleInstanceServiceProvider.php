@@ -13,6 +13,7 @@ use BristolSU\Support\ModuleInstance\Contracts\Scheduler\CommandStore as Command
 use BristolSU\Support\ModuleInstance\Contracts\Settings\ModuleSettingsStore as ModuleSettingsStoreContract;
 use BristolSU\Support\ModuleInstance\Evaluator\ActivityInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\Evaluator\Evaluation;
+use BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceCacheEvaluator;
 use BristolSU\Support\ModuleInstance\Evaluator\ModuleInstanceEvaluator;
 use BristolSU\Support\ModuleInstance\Middleware\InjectModuleInstance;
 use BristolSU\Support\ModuleInstance\Scheduler\CommandStore;
@@ -38,6 +39,9 @@ class ModuleInstanceServiceProvider extends ServiceProvider
         $this->app->bind(ModuleInstanceRepositoryContract::class, ModuleInstanceRepository::class);
         $this->app->bind(ActivityEvaluatorContract::class, ActivityInstanceEvaluator::class);
         $this->app->bind(ModuleInstanceEvaluatorContract::class, ModuleInstanceEvaluator::class);
+        $this->app->extend(ModuleInstanceEvaluatorContract::class, function(ModuleInstanceEvaluatorContract $service) {
+            return new ModuleInstanceCacheEvaluator($service);
+        });
         $this->app->bind(EvaluationContract::class, Evaluation::class);
         $this->app->bind(ModuleInstanceServiceRepositoryContract::class, ModuleInstanceServiceRepository::class);
         $this->app->singleton(ModuleSettingsStoreContract::class, ModuleSettingsStore::class);
