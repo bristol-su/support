@@ -26,7 +26,8 @@ class ModuleInstanceRedirectController
         if ($request->query->count() > 0) {
             $url .= '?' . $request->getQueryString();
         }
-
+\Log::info($url);
         return redirect()->to($url);
     }
 }
+
