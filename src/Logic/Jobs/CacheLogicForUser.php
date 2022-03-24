@@ -29,11 +29,15 @@ class CacheLogicForUser implements ShouldQueue
 
     public ?int $logicId = null;
 
+    private array $params;
+
     /**
      * @param array|User[] $users The user to cache logic for
      */
     public function __construct(array $users, ?int $logicId = null)
     {
+        $this->params = func_get_args();
+
         $this->users = collect($users);
         $this->logicId = $logicId;
         $this->onQueue('logic');
@@ -58,5 +62,10 @@ class CacheLogicForUser implements ShouldQueue
                 $this->cacheLogic($this->logicId, $user);
             }
         }
+    }
+
+    public function redispatchJob(int $timeout)
+    {
+        $this->dispatch(...$this->params)->onConnection($this->connection)->onQueue($this->queue)->delay($timeout);
     }
 }

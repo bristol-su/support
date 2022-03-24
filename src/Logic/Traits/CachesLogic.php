@@ -15,43 +15,46 @@ trait CachesLogic
     {
         if ($logicId !== null) {
             $cacheKey = sprintf('is-processing-result-%s-%s-%s-%s', $logicId ?? 'none', $user->id(), $group?->id() ?? 'none', $role?->id() ?? 'none');
-            $this->waitUntilReady($cacheKey);
-            LogicResult::where([
-                'logic_id' => $logicId,
-                'user_id' => $user->id(),
-                'group_id' => $group?->id(),
-                'role_id' => $role?->id()
-            ])->first()?->delete();
-
-            app(LogicTester::class)->evaluate(
-                app(LogicRepository::class)->getById($logicId),
-                $user,
-                $group,
-                $role
-            );
-        } else {
-            foreach (app(LogicRepository::class)->all() as $logic) {
-                $cacheKey = sprintf('is-processing-result-%s-%s-%s-%s', $logic->id, $user->id(), $group?->id() ?? 'none', $role?->id() ?? 'none');
-                $this->waitUntilReady($cacheKey);
+            $this->waitUntilReady($cacheKey, function() use ($logicId, $user, $group, $role) {
                 LogicResult::where([
-                    'logic_id' => $logic->id,
+                    'logic_id' => $logicId,
                     'user_id' => $user->id(),
                     'group_id' => $group?->id(),
                     'role_id' => $role?->id()
                 ])->first()?->delete();
-                app(LogicTester::class)->evaluate($logic, $user, $group, $role);
+
+                app(LogicTester::class)->evaluate(
+                    app(LogicRepository::class)->getById($logicId),
+                    $user,
+                    $group,
+                    $role
+                );
+            });
+
+        } else {
+            foreach (app(LogicRepository::class)->all() as $logic) {
+                $cacheKey = sprintf('is-processing-result-%s-%s-%s-%s', $logic->id, $user->id(), $group?->id() ?? 'none', $role?->id() ?? 'none');
+                $this->waitUntilReady($cacheKey, function() use ($logic, $user, $group, $role) {
+                    LogicResult::where([
+                        'logic_id' => $logic->id,
+                        'user_id' => $user->id(),
+                        'group_id' => $group?->id(),
+                        'role_id' => $role?->id()
+                    ])->first()?->delete();
+                    app(LogicTester::class)->evaluate($logic, $user, $group, $role);
+                });
             }
         }
     }
 
-    private function waitUntilReady(string $key) {
-        $i = 0;
-        while(cache()->has($key) && $i <= 20) {
-            usleep(1000000);
-        }
-        if($i > 20) {
-            throw new \Exception('Timed out waiting for key ' . $key);
+    private function waitUntilReady(string $key, \Closure $callback) {
+        if(cache()->has($key)) {
+            $this->redispatchJob(20);
         }
         cache()->put($key, true, 35);
+        $callback();
+        cache()->forget($key);
     }
+
+    abstract public function redispatchJob(int $timeout);
 }

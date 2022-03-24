@@ -29,12 +29,14 @@ class CacheLogicForRole implements ShouldQueue
     public Collection $roles;
 
     public ?int $logicId = null;
+    private array $params;
 
     /**
      * @param array|Role[] $roles The role to cache logic for
      */
     public function __construct(array $roles, ?int $logicId = null)
     {
+        $this->params = func_get_args();
         $this->roles = collect($roles);
         $this->logicId = $logicId;
         $this->onQueue('logic');
@@ -62,5 +64,10 @@ class CacheLogicForRole implements ShouldQueue
                 }
             }
         }
+    }
+
+    public function redispatchJob(int $timeout)
+    {
+        $this->dispatch(...$this->params)->onConnection($this->connection)->onQueue($this->queue)->delay($timeout);
     }
 }

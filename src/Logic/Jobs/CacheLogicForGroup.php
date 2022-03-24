@@ -29,11 +29,15 @@ class CacheLogicForGroup implements ShouldQueue
 
     public ?int $logicId = null;
 
+    private array $params;
+
     /**
      * @param Group[]|array $groups The group to cache logic for
      */
     public function __construct(array $groups, ?int $logicId = null)
     {
+        $this->params = func_get_args();
+
         $this->groups = collect($groups);
         $this->logicId = $logicId;
         $this->onQueue('logic');
@@ -61,5 +65,10 @@ class CacheLogicForGroup implements ShouldQueue
                 }
             }
         }
+    }
+
+    public function redispatchJob(int $timeout)
+    {
+        $this->dispatch(...$this->params)->onConnection($this->connection)->onQueue($this->queue)->delay($timeout);
     }
 }

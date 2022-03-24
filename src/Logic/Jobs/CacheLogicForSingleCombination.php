@@ -25,6 +25,7 @@ class CacheLogicForSingleCombination implements ShouldQueue
     public ?Group $group = null;
 
     public ?Role $role = null;
+    private array $params;
 
     /**
      * @param int|null $logicId
@@ -34,6 +35,7 @@ class CacheLogicForSingleCombination implements ShouldQueue
      */
     public function __construct(int|null $logicId, User $user, ?Group $group = null, ?Role $role = null)
     {
+        $this->params = func_get_args();
         $this->logicId = $logicId;
         $this->user = $user;
         $this->group = $group;
@@ -49,5 +51,10 @@ class CacheLogicForSingleCombination implements ShouldQueue
     public function handle()
     {
         $this->cacheLogic($this->logicId, $this->user, $this->group, $this->role);
+    }
+
+    public function redispatchJob(int $timeout)
+    {
+        $this->dispatch(...$this->params)->onConnection($this->connection)->onQueue($this->queue)->delay($timeout);
     }
 }
