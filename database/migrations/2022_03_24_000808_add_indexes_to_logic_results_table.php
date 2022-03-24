@@ -23,7 +23,7 @@ class AddIndexesToLogicResultsTable extends Migration
             $table->index(['logic_id', 'result']);
             $table->index(['logic_id', 'user_id', 'result']);
             $table->index(['logic_id', 'user_id', 'group_id', 'result']);
-            $table->index(['logic_id', 'user_id', 'group_id', 'role_id', 'result']);
+            $table->index(['logic_id', 'user_id', 'group_id', 'role_id', 'result'], 'logic_results_lugr_results_index');
         });
 
     }
