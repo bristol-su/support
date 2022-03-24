@@ -12,7 +12,7 @@ class AddIndexesToLogicResultsTable extends Migration
      */
     public function up()
     {
-        Schema::table('logic_results_backup', function (Blueprint $table) {
+        Schema::table('logic_results', function (Blueprint $table) {
             $table->index(['logic_id']);
             $table->index(['user_id']);
             $table->index(['group_id']);
@@ -34,7 +34,7 @@ class AddIndexesToLogicResultsTable extends Migration
      */
     public function down()
     {
-        Schema::table('logic_results_backup', function(Blueprint $table) {
+        Schema::table('logic_results', function(Blueprint $table) {
             $table->dropIndex(['logic_id']);
             $table->dropIndex(['user_id']);
             $table->dropIndex(['group_id']);
