@@ -14,7 +14,7 @@ class LogicResult extends \Illuminate\Database\Eloquent\Model
 {
     use HasFactory;
 
-    protected $table = 'logic_results_backup';
+    protected $table = 'logic_results';
 
     protected $fillable = [
         'logic_id', 'user_id', 'group_id', 'role_id', 'result'
