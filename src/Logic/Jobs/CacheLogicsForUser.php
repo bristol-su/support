@@ -24,7 +24,7 @@ class CacheLogicsForUser implements ShouldQueue
     {
         $this->logic = $logic;
         $this->page = $page;
-        $this->onQueue('logic');
+        $this->onQueue(sprintf('logic_%s', config('app.env')));
     }
 
     public function handle(UserRepository $userRepository)

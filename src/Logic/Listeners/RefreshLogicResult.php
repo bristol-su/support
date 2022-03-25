@@ -24,7 +24,7 @@ class RefreshLogicResult implements ShouldQueue
 
     public function __construct()
     {
-        $this->onQueue('logic');
+        $this->onQueue(sprintf('logic_%s', config('app.env')));
     }
 
     public function handle(AudienceChanged $audienceChanged)

@@ -43,7 +43,7 @@ class RefreshFilterResults implements ShouldQueue
     {
         $this->filterRepository = $filterRepository;
         $this->filterInstanceRepository = $filterInstanceRepository;
-        $this->onQueue('logic');
+        $this->onQueue(sprintf('logic_%s', config('app.env')));
     }
 
     /**

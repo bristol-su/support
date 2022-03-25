@@ -41,7 +41,7 @@ class CacheLogicForSingleCombination implements ShouldQueue
         $this->user = $user;
         $this->group = $group;
         $this->role = $role;
-        $this->onQueue('logic');
+        $this->onQueue(sprintf('logic_%s', config('app.env')));
     }
 
     /**

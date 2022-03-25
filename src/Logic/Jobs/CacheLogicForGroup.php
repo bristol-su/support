@@ -40,7 +40,7 @@ class CacheLogicForGroup implements ShouldQueue
 
         $this->groups = collect($groups);
         $this->logicId = $logicId;
-        $this->onQueue('logic');
+        $this->onQueue(sprintf('logic_%s', config('app.env')));
     }
 
     /**

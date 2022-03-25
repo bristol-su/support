@@ -32,7 +32,7 @@ class UpdateProgress implements ShouldQueue
     {
         $this->activity = $activity;
         $this->driver = $driver;
-        $this->onQueue('progress');
+        $this->onQueue(sprintf('progress_%s', config('app.env')));
     }
 
     public function handle(ActivityInstanceRepository $activityInstanceRepository)

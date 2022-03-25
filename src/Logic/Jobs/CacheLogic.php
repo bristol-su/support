@@ -20,7 +20,7 @@ class CacheLogic implements ShouldQueue
     public function __construct(Logic $logic)
     {
         $this->logic = $logic;
-        $this->onQueue('logic');
+        $this->onQueue(sprintf('logic_%s', config('app.env')));
     }
 
     public function handle()

@@ -40,7 +40,7 @@ class CacheLogicForUser implements ShouldQueue
 
         $this->users = collect($users);
         $this->logicId = $logicId;
-        $this->onQueue('logic');
+        $this->onQueue(sprintf('logic_%s', config('app.env')));
     }
 
     /**

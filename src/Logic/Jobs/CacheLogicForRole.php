@@ -40,7 +40,7 @@ class CacheLogicForRole implements ShouldQueue
         $this->params = func_get_args();
         $this->roles = collect($roles);
         $this->logicId = $logicId;
-        $this->onQueue('logic');
+        $this->onQueue(sprintf('logic_%s', config('app.env')));
     }
 
     /**
