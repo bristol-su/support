@@ -46,7 +46,7 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
         $filteredProgresses = array_values(array_filter($progresses));
 
         if ($filteredProgresses) {
-            \Log::info(sprintf('Updating progress for instances, 1 progress to update.'));
+            \Log::info(sprintf('Updating progress for instances, 1 progress to update for driver %s.', $this->driver));
             ProgressExport::driver($this->driver)->saveMany($filteredProgresses);
         }
     }
