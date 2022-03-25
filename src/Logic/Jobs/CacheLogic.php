@@ -27,7 +27,6 @@ class CacheLogic implements ShouldQueue
     {
         $pages = $this->pages();
         foreach ($pages as $page) {
-            \Log::info(sprintf('There are %u pages of users', $pages));
             CacheLogicsForUser::dispatch($this->logic, $page);
         }
     }

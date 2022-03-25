@@ -29,7 +29,6 @@ class CacheLogicsForUser implements ShouldQueue
 
     public function handle(UserRepository $userRepository)
     {
-        \Log::info(sprintf('Handling page %u.', $this->page));
         $allUsers = $userRepository->paginate($this->page, 200);
         foreach ($allUsers->chunk(20) as $users) {
             CacheLogicForUser::dispatch($users->all(), $this->logic->id);
