@@ -29,7 +29,7 @@ class CacheLogicForGroup implements ShouldQueue
 
     public ?int $logicId = null;
 
-    private array $params;
+    private array $params = [];
 
     /**
      * @param Group[]|array $groups The group to cache logic for

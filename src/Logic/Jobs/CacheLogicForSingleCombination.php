@@ -25,7 +25,8 @@ class CacheLogicForSingleCombination implements ShouldQueue
     public ?Group $group = null;
 
     public ?Role $role = null;
-    private array $params;
+
+    private array $params = [];
 
     /**
      * @param int|null $logicId

@@ -29,7 +29,7 @@ class CacheLogicForUser implements ShouldQueue
 
     public ?int $logicId = null;
 
-    private array $params;
+    private array $params = [];
 
     /**
      * @param array|User[] $users The user to cache logic for
