@@ -34,7 +34,6 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
     {
         $this->activityInstances = $activityInstances;
         $this->driver = $driver;
-        $this->onQueue(sprintf('progress_%s', config('app.env')));
     }
 
     public function handle(Snapshot $snapshot)
@@ -47,6 +46,7 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
         $filteredProgresses = array_values(array_filter($progresses));
 
         if ($filteredProgresses) {
+            \Log::info(sprintf('Updating progress for instances, 1 progress to update.'));
             ProgressExport::driver($this->driver)->saveMany($filteredProgresses);
         }
     }
