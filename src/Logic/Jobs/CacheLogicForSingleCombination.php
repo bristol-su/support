@@ -56,6 +56,6 @@ class CacheLogicForSingleCombination implements ShouldQueue
 
     public function redispatchJob(int $timeout)
     {
-        $this->dispatch(...$this->params)->onConnection($this->connection)->onQueue($this->queue)->delay($timeout);
+//        $this->dispatch(...$this->params)->onConnection($this->connection)->onQueue($this->queue)->delay($timeout);
     }
 }
