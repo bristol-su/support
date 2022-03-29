@@ -9,6 +9,7 @@ use BristolSU\Support\Progress\Snapshot;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
 
@@ -48,5 +49,14 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
         if ($filteredProgresses) {
             ProgressExport::driver($this->driver)->saveMany($filteredProgresses);
         }
+    }
+
+    public function middleware()
+    {
+        $ids = [];
+        foreach($this->activityInstances as $activityInstance) {
+            $ids[] = $activityInstance->id;
+        }
+        return [new WithoutOverlapping(implode(':', $ids))];
     }
 }
