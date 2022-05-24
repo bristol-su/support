@@ -9,15 +9,14 @@ use BristolSU\Support\Progress\Snapshot;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
 
 class UpdateProgressForGivenActivityInstances implements ShouldQueue
 {
-    use Dispatchable;
-    use Queueable;
-    use SerializesModels;
+    use Dispatchable, Queueable, SerializesModels, InteractsWithQueue;
 
     /**
      * @var ActivityInstance[]
