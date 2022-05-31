@@ -13,6 +13,7 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Log;
 
 class UpdateProgressForGivenActivityInstances implements ShouldQueue
 {
@@ -58,5 +59,16 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
             $ids[] = $activityInstance->id;
         }
         return [new WithoutOverlapping(implode(':', $ids))];
+    }
+
+    /**
+     * The job failed to process.
+     *
+     * @param  \Exception  $exception
+     * @return void
+     */
+    public function failed(\Exception $exception)
+    {
+        Log::error($exception);
     }
 }
