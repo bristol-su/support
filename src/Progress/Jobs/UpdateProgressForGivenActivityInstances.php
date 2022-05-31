@@ -67,8 +67,7 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
             $middleware->getLockKey($this), 180
         );
         Log::info('Accquiring the cache lock: ' . $lock->get(fn() => Log::info('doing callback')) ? 'got it' : 'failed');
-        $lock->forceRelease();
-        Log::info('Caching with the key ' . $middleware->getLockKey($this) . '. The cache ' . (cache()->has($middleware->getLockKey($this)) ? 'has' : 'does not have') . ' the key');
+//        Log::info('Caching with the key ' . $middleware->getLockKey($this) . '. The cache ' . (cache()->has($middleware->getLockKey($this)) ? 'has' : 'does not have') . ' the key');
         return [$middleware];
     }
 }
