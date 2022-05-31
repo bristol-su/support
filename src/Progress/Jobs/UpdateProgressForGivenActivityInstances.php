@@ -7,6 +7,9 @@ use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Progress\ProgressExport;
 use BristolSU\Support\Progress\Snapshot;
 use Illuminate\Bus\Queueable;
+use Illuminate\Cache\Lock;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
@@ -58,7 +61,12 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
 
     public function middleware()
     {
-        $middleware = new WithoutOverlapping(releaseAfter: 60);
+        $middleware = new WithoutOverlapping(expiresAfter: 360);
+        /** @var Lock $lock */
+        $lock = Container::getInstance()->make(Cache::class)->lock(
+            $middleware->getLockKey($this), 180
+        );
+        $lock->forceRelease();
         Log::info('Caching with the key ' . $middleware->getLockKey($this) . '. The cache ' . (cache()->has($middleware->getLockKey($this)) ? 'has' : 'does not have') . ' the key');
         return [$middleware];
     }
