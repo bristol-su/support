@@ -40,13 +40,17 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
 
     public function handle(Snapshot $snapshot)
     {
+        Log::info('Starting to process activity instances');
         $progresses = [];
         foreach ($this->activityInstances as $activityInstance) {
+            Log::info('Processing activity instance for #' . $activityInstance->id);
             $progresses[] = $snapshot->ofUpdateToActivityInstance($activityInstance, $this->driver);
         }
 
         $filteredProgresses = array_values(array_filter($progresses));
 
+        Log::info('Ready to export progress!');
+        
         if ($filteredProgresses) {
             ProgressExport::driver($this->driver)->saveMany($filteredProgresses);
         }
