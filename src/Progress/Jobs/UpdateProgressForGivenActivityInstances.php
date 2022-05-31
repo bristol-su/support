@@ -54,21 +54,16 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
 
     public function middleware()
     {
-        $ids = [];
-        foreach($this->activityInstances as $activityInstance) {
-            $ids[] = $activityInstance->id;
-        }
-        return [new WithoutOverlapping(implode(':', $ids))];
+        return [new WithoutOverlapping()];
     }
 
     /**
-     * The job failed to process.
+     * Determine the time at which the job should timeout.
      *
-     * @param  \Exception  $exception
-     * @return void
+     * @return \DateTime
      */
-    public function failed(\Exception $exception)
+    public function retryUntil()
     {
-        Log::error($exception);
+        return now()->addMinutes(10);
     }
 }
