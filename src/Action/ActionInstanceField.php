@@ -24,6 +24,24 @@ class ActionInstanceField extends Model
         'action_value', 'action_field', 'action_instance_id'
     ];
 
+    public function getActionValueAttribute($value)
+    {
+        $json = json_decode($value, true);
+        if (json_last_error() === JSON_ERROR_NONE) {
+            return $json;
+        }
+
+        return $value;
+    }
+
+    public function setActionValueAttribute($value)
+    {
+        if (is_array($value)) {
+            $value = json_encode($value);
+        }
+        $this->attributes['action_value'] = $value;
+    }
+
     /**
      * The action instance relationship.
      *

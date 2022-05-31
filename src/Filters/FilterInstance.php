@@ -16,7 +16,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use function Illuminate\Events\queueable;
 
 /**
  * Represents a filter instance.
@@ -58,12 +57,12 @@ class FilterInstance extends Model implements FilterInstanceContract
             AudienceChanged::dispatch([$filterInstance]);
         });
         static::created(function (FilterInstance $filterInstance) {
-            if($filterInstance->logic_id) {
+            if ($filterInstance->logic_id) {
                 AudienceChanged::dispatch([$filterInstance]);
             }
         });
         static::updated(function (FilterInstance $filterInstance) {
-            if($filterInstance->isDirty(['settings', 'logic_id', 'logic_type'])) {
+            if ($filterInstance->isDirty(['settings', 'logic_id', 'logic_type'])) {
                 AudienceChanged::dispatch([$filterInstance]);
             }
         });

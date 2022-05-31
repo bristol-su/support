@@ -29,14 +29,18 @@ class CacheLogicForGroup implements ShouldQueue
 
     public ?int $logicId = null;
 
+    private array $params = [];
+
     /**
      * @param Group[]|array $groups The group to cache logic for
      */
     public function __construct(array $groups, ?int $logicId = null)
     {
+        $this->params = func_get_args();
+
         $this->groups = collect($groups);
         $this->logicId = $logicId;
-        $this->onQueue('logic');
+        $this->onQueue(sprintf('logic_%s', config('app.env')));
     }
 
     /**
@@ -46,20 +50,25 @@ class CacheLogicForGroup implements ShouldQueue
      */
     public function handle()
     {
-        foreach($this->groups as $group) {
+        foreach ($this->groups as $group) {
             /** @var AudienceMember[] $groupAudience */
             $groupAudience = Audience::withAccessToResource($group);
-            foreach($groupAudience as $audience) {
+            foreach ($groupAudience as $audience) {
                 $audience->roles()->each(
-                    fn(Role $role) => $this->cacheLogic($this->logicId, $audience->user(), $role->group(), $role)
+                    fn (Role $role) => $this->cacheLogic($this->logicId, $audience->user(), $role->group(), $role)
                 );
                 $audience->groups()->each(
-                    fn(Group $groupAudience) => $this->cacheLogic($this->logicId, $audience->user(), $groupAudience)
+                    fn (Group $groupAudience) => $this->cacheLogic($this->logicId, $audience->user(), $groupAudience)
                 );
-                if($audience->canBeUser()) {
+                if ($audience->canBeUser()) {
                     $this->cacheLogic($this->logicId, $audience->user());
                 }
             }
         }
+    }
+
+    public function redispatchJob(int $timeout)
+    {
+//        $this->dispatch(...$this->params)->onConnection($this->connection)->onQueue($this->queue)->delay($timeout);
     }
 }

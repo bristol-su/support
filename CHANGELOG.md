@@ -7,6 +7,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Added
+- Add support for arrays in actions
+
 ## [5.2.0] - (30/11/2021)
 
 ### Changed

@@ -2,8 +2,8 @@
 
 namespace BristolSU\Support\Logic\Jobs;
 
-use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\Group;
+use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\Support\Logic\Audience\Audience;
 use BristolSU\Support\Logic\Audience\AudienceMember;
 use BristolSU\Support\Logic\Traits\CachesLogic;
@@ -30,14 +30,17 @@ class CacheLogicForRole implements ShouldQueue
 
     public ?int $logicId = null;
 
+    private array $params = [];
+
     /**
      * @param array|Role[] $roles The role to cache logic for
      */
     public function __construct(array $roles, ?int $logicId = null)
     {
+        $this->params = func_get_args();
         $this->roles = collect($roles);
         $this->logicId = $logicId;
-        $this->onQueue('logic');
+        $this->onQueue(sprintf('logic_%s', config('app.env')));
     }
 
     /**
@@ -47,20 +50,25 @@ class CacheLogicForRole implements ShouldQueue
      */
     public function handle()
     {
-        foreach($this->roles as $role) {
+        foreach ($this->roles as $role) {
             /** @var AudienceMember[] $roleAudience */
             $roleAudience = Audience::withAccessToResource($role);
-            foreach($roleAudience as $audience) {
+            foreach ($roleAudience as $audience) {
                 $audience->roles()->each(
-                    fn(Role $audienceRole) => $this->cacheLogic($this->logicId, $audience->user(), $audienceRole->group(), $audienceRole)
+                    fn (Role $audienceRole) => $this->cacheLogic($this->logicId, $audience->user(), $audienceRole->group(), $audienceRole)
                 );
                 $audience->groups()->each(
-                    fn(Group $group) => $this->cacheLogic($this->logicId, $audience->user(), $group)
+                    fn (Group $group) => $this->cacheLogic($this->logicId, $audience->user(), $group)
                 );
-                if($audience->canBeUser()) {
+                if ($audience->canBeUser()) {
                     $this->cacheLogic($this->logicId, $audience->user());
                 }
             }
         }
+    }
+
+    public function redispatchJob(int $timeout)
+    {
+//        $this->dispatch(...$this->params)->onConnection($this->connection)->onQueue($this->queue)->delay($timeout);
     }
 }

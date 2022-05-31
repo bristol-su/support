@@ -3,9 +3,7 @@
 namespace BristolSU\Support\Logic\Audience;
 
 use BristolSU\ControlDB\Contracts\Models\Group;
-use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
-use BristolSU\Support\Logic\Facade\LogicTester;
 use BristolSU\Support\Logic\Logic;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;

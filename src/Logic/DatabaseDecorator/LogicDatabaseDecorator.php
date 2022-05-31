@@ -4,11 +4,10 @@ namespace BristolSU\Support\Logic\DatabaseDecorator;
 
 use BristolSU\Support\Logic\Contracts\LogicTester;
 use BristolSU\Support\Logic\Logic;
-use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\DB;
 
 class LogicDatabaseDecorator implements LogicTester
 {
-
     private LogicTester $baseTester;
 
     public function __construct(LogicTester $baseTester)
@@ -18,7 +17,7 @@ class LogicDatabaseDecorator implements LogicTester
 
     public function evaluate(Logic $logic, $userModel = null, $groupModel = null, $roleModel = null): bool
     {
-        if($userModel === null) {
+        if ($userModel === null) {
             return false;
         }
 
@@ -28,13 +27,16 @@ class LogicDatabaseDecorator implements LogicTester
             return $logicResult->getResult();
         }
         $result = $this->baseTester->evaluate($logic, $userModel, $groupModel, $roleModel);
-        LogicResult::create([
+        DB::transaction(fn () => LogicResult::updateOrCreate([
             'logic_id' => $logic->id,
             'user_id' => $userModel?->id(),
             'group_id' => $groupModel?->id(),
-            'role_id' => $roleModel?->id(),
+            'role_id' => $roleModel?->id()
+        ], [
             'result' => $result
-        ]);
+        ]), 5);
+
+
         return $result;
     }
 }

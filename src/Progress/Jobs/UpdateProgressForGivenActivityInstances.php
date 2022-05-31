@@ -7,17 +7,20 @@ use BristolSU\Support\ActivityInstance\ActivityInstance;
 use BristolSU\Support\Progress\ProgressExport;
 use BristolSU\Support\Progress\Snapshot;
 use Illuminate\Bus\Queueable;
+use Illuminate\Cache\Lock;
+use Illuminate\Container\Container;
+use Illuminate\Contracts\Cache\Repository as Cache;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Queue\Middleware\WithoutOverlapping;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Log;
 
 class UpdateProgressForGivenActivityInstances implements ShouldQueue
 {
-    use Dispatchable;
-    use Queueable;
-    use SerializesModels;
+    use Dispatchable, Queueable, SerializesModels, InteractsWithQueue;
 
     /**
      * @var ActivityInstance[]
@@ -35,7 +38,7 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
     {
         $this->activityInstances = $activityInstances;
         $this->driver = $driver;
-        $this->onQueue('progress');
+        $this->onQueue(sprintf('progress_%s', config('app.env')));
     }
 
     public function handle(Snapshot $snapshot)
@@ -47,8 +50,24 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
 
         $filteredProgresses = array_values(array_filter($progresses));
 
+
         if ($filteredProgresses) {
+            Log::info('Ready to export progress with ' . count($filteredProgresses) . ' progresses.');
             ProgressExport::driver($this->driver)->saveMany($filteredProgresses);
         }
     }
+
+//    public function middleware()
+//    {
+//        $middleware = new WithoutOverlapping(expiresAfter: 360);
+//        /** @var Lock $lock */
+//        $lock = Container::getInstance()->make(Cache::class)->lock(
+//            $middleware->getLockKey($this), 180
+//        );
+//        Log::info('Accquiring the cache lock: ' . $lock->get(function() {
+//            Log::info('doing callback');
+//        }) ? 'got it' : 'failed');
+//
+//        return [$middleware];
+//    }
 }

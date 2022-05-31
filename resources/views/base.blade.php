@@ -14,6 +14,7 @@
     @componentFirst(['partials.components.head', 'bristolsu::partials.components.head'])
         @stack('meta-tags')
         @includeFirst(['partials.javascript', 'bristolsu::partials.javascript'])
+        @includeFirst(['partials.analytics', 'bristolsu::partials.analytics'])
         <title>@yield('title-prefix', '')@yield('title', 'Portal')</title>
         @stack('fonts')
         @stack('styles')

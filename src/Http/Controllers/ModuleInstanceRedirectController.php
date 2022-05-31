@@ -30,3 +30,4 @@ class ModuleInstanceRedirectController
         return redirect()->to($url);
     }
 }
+

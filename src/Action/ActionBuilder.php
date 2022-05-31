@@ -71,11 +71,20 @@ class ActionBuilder implements ActionBuilderContract
         foreach ($fields as $field) {
             $actionValue = $field->action_value;
             foreach ($data as $key => $value) {
-                $actionValue = str_replace(sprintf('{{event:%s}}', $key), $value, $actionValue);
+                $actionValue = $this->replaceField($actionValue, $key, $value);
             }
             $actionFields[$field->action_field] = $actionValue;
         }
 
         return $actionFields;
+    }
+
+    private function replaceField(string|array $data, string $key, ?string $value)
+    {
+        if (is_string($data)) {
+            return str_replace(sprintf('{{event:%s}}', $key), $value ?? '', $data);
+        }
+
+        return array_map(fn ($dataElement) => $this->replaceField($dataElement, $key, $value), $data);
     }
 }

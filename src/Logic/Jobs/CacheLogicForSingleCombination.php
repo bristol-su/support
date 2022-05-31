@@ -19,9 +19,14 @@ class CacheLogicForSingleCombination implements ShouldQueue
     use Queueable, CachesLogic, Dispatchable, SerializesModels;
 
     public ?int $logicId = null;
+
     public User $user;
+
     public ?Group $group = null;
+
     public ?Role $role = null;
+
+    private array $params = [];
 
     /**
      * @param int|null $logicId
@@ -31,11 +36,12 @@ class CacheLogicForSingleCombination implements ShouldQueue
      */
     public function __construct(int|null $logicId, User $user, ?Group $group = null, ?Role $role = null)
     {
+        $this->params = func_get_args();
         $this->logicId = $logicId;
         $this->user = $user;
         $this->group = $group;
         $this->role = $role;
-        $this->onQueue('logic');
+        $this->onQueue(sprintf('logic_%s', config('app.env')));
     }
 
     /**
@@ -46,5 +52,10 @@ class CacheLogicForSingleCombination implements ShouldQueue
     public function handle()
     {
         $this->cacheLogic($this->logicId, $this->user, $this->group, $this->role);
+    }
+
+    public function redispatchJob(int $timeout)
+    {
+//        $this->dispatch(...$this->params)->onConnection($this->connection)->onQueue($this->queue)->delay($timeout);
     }
 }

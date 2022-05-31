@@ -75,7 +75,7 @@ class GroupNameIs extends GroupFilter
     public static function clearOn(): array
     {
         return [
-            DataGroupUpdated::class => fn(DataGroupUpdated $event) => app(GroupRepository::class)->getByDataProviderId($event->dataGroup->id())->id()
+            DataGroupUpdated::class => fn (DataGroupUpdated $event) => app(GroupRepository::class)->getByDataProviderId($event->dataGroup->id())->id()
         ];
     }
 }

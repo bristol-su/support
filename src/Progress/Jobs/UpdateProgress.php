@@ -27,19 +27,21 @@ class UpdateProgress implements ShouldQueue
     /**
      * @var int
      */
-    const CHUNK_SIZE = 2;
+    const CHUNK_SIZE = 1;
 
     public function __construct(Activity $activity, string $driver = 'database')
     {
         $this->activity = $activity;
         $this->driver = $driver;
-        $this->onQueue('progress');
+        $this->onQueue(sprintf('progress_%s', config('app.env')));
     }
 
     public function handle(ActivityInstanceRepository $activityInstanceRepository)
     {
-        foreach ($activityInstanceRepository->allForActivity($this->activity->id)->chunk(static::CHUNK_SIZE) as $activityInstances) {
+        $activityInstanceArray = $activityInstanceRepository->allForActivity($this->activity->id)->chunk(static::CHUNK_SIZE);
+        foreach ($activityInstanceArray as $activityInstances) {
             UpdateProgressForGivenActivityInstances::dispatch($activityInstances->values()->all(), $this->driver);
         }
     }
+
 }

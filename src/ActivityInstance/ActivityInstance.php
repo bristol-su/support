@@ -5,6 +5,9 @@ namespace BristolSU\Support\ActivityInstance;
 use BristolSU\ControlDB\Contracts\Repositories\Group as GroupRepository;
 use BristolSU\ControlDB\Contracts\Repositories\Role as RoleRepository;
 use BristolSU\ControlDB\Contracts\Repositories\User as UserRepository;
+use BristolSU\ControlDB\Models\Dummy\GroupDummy;
+use BristolSU\ControlDB\Models\Dummy\RoleDummy;
+use BristolSU\ControlDB\Models\Dummy\UserDummy;
 use BristolSU\ControlDB\Models\Group;
 use BristolSU\ControlDB\Models\Role;
 use BristolSU\ControlDB\Models\User;
@@ -17,9 +20,6 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use BristolSU\ControlDB\Models\Dummy\UserDummy;
-use BristolSU\ControlDB\Models\Dummy\GroupDummy;
-use BristolSU\ControlDB\Models\Dummy\RoleDummy;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**

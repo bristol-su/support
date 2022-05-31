@@ -63,7 +63,7 @@ class SupportServiceProvider extends ServiceProvider
         $this->registerViews();
         $this->registerRoutes();
 
-        $this->app->singleton(Transformer::class,  PortalUiKitTransformer::class);
+        $this->app->singleton(Transformer::class, PortalUiKitTransformer::class);
     }
 
     public function registerProviders()

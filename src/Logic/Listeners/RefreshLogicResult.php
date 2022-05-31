@@ -2,11 +2,10 @@
 
 namespace BristolSU\Support\Logic\Listeners;
 
-use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
+use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Filters\Events\AudienceChanged;
-use BristolSU\Support\Filters\FilterInstance;
 use BristolSU\Support\Logic\Jobs\CacheLogic;
 use BristolSU\Support\Logic\Jobs\CacheLogicForGroup;
 use BristolSU\Support\Logic\Jobs\CacheLogicForRole;
@@ -17,7 +16,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
 
 /**
- * Handles an audience changed event, by clearing the logic cache
+ * Handles an audience changed event, by clearing the logic cache.
  */
 class RefreshLogicResult implements ShouldQueue
 {
@@ -25,15 +24,15 @@ class RefreshLogicResult implements ShouldQueue
 
     public function __construct()
     {
-        $this->onQueue('logic');
+        $this->onQueue(sprintf('logic_%s', config('app.env')));
     }
 
     public function handle(AudienceChanged $audienceChanged)
     {
-        foreach($audienceChanged->filterInstances as $filterInstance) {
+        foreach ($audienceChanged->filterInstances as $filterInstance) {
             $logic = $filterInstance->logic;
             // Only continue if the filter instance is attached to a logic
-            if($logic === null) {
+            if ($logic === null) {
                 continue;
             }
             $this->refreshFilterResult($logic, $audienceChanged->model);
@@ -42,22 +41,21 @@ class RefreshLogicResult implements ShouldQueue
 
     public function refreshFilterResult(Logic $logic, User|Group|Role|null $model)
     {
-        if($model === null) {
+        if ($model === null) {
             // Cache the whole logic since we're not limited to a specific model
             dispatch(new CacheLogic($logic));
         }
 
-        if($model instanceof User) {
+        if ($model instanceof User) {
             dispatch(new CacheLogicForUser([$model], $logic->id));
         }
 
-        if($model instanceof Group) {
+        if ($model instanceof Group) {
             dispatch(new CacheLogicForGroup([$model], $logic->id));
         }
 
-        if($model instanceof Role) {
+        if ($model instanceof Role) {
             dispatch(new CacheLogicForRole([$model], $logic->id));
         }
-
     }
 }

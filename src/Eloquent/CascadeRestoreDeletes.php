@@ -5,11 +5,11 @@ namespace BristolSU\Support\Eloquent;
 use BristolSU\Support\Eloquent\Exceptions\CascadeRestoreDeletesException;
 use Illuminate\Database\Eloquent\Relations\Relation;
 
-trait CascadeRestoreDeletes {
-
+trait CascadeRestoreDeletes
+{
     protected static function bootCascadeRestoreDeletes()
     {
-        static::restoring(function($model) {
+        static::restoring(function ($model) {
             $model->validateRestoringRelationships();
 
             $model->runCascadingRestores();
@@ -22,7 +22,7 @@ trait CascadeRestoreDeletes {
             throw CascadeRestoreDeletesException::softDeleteNotImplemented(get_called_class());
         }
 
-        if($invalidCascadingRelationships = $this->hasInvalidCascadingRestoreRelationships()) {
+        if ($invalidCascadingRelationships = $this->hasInvalidCascadingRestoreRelationships()) {
             throw CascadeRestoreDeletesException::invalidRelationships($invalidCascadingRelationships);
         }
     }
@@ -55,7 +55,7 @@ trait CascadeRestoreDeletes {
 
     protected function cascadeRestore($relationship)
     {
-        foreach($this->{$relationship}()->withTrashed()->where('deleted_at', '>=', $this->deleted_at)->get() as $model) {
+        foreach ($this->{$relationship}()->withTrashed()->where('deleted_at', '>=', $this->deleted_at)->get() as $model) {
             $model->restore();
         }
     }

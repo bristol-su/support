@@ -12,7 +12,6 @@ class CascadeRestoreDeletesException extends Exception
         return new static(sprintf('%s does not implement Illuminate\Database\Eloquent\SoftDeletes', $class));
     }
 
-
     public static function invalidRelationships($relationships)
     {
         return new static(sprintf(

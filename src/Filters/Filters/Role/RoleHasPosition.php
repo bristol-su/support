@@ -57,7 +57,8 @@ class RoleHasPosition extends RoleFilter
     public function options(): Form
     {
         $field = \FormSchema\Generator\Field::select('position')->setLabel('Position')->setRequired(true);
-        $this->positionRepository->all()->each(fn(PositionModel $position) => $field->withOption($position->id(), $position->data()->name()));
+        $this->positionRepository->all()->each(fn (PositionModel $position) => $field->withOption($position->id(), $position->data()->name()));
+
         return \FormSchema\Generator\Form::make()->withField($field)->getSchema();
     }
 
@@ -94,7 +95,7 @@ class RoleHasPosition extends RoleFilter
     public static function clearOn(): array
     {
         return [
-            RoleUpdated::class => fn(RoleUpdated $event) => array_key_exists('position_id', $event->updatedData) ? $event->role->id() : false
+            RoleUpdated::class => fn (RoleUpdated $event) => array_key_exists('position_id', $event->updatedData) ? $event->role->id() : false
         ];
     }
 }

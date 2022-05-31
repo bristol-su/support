@@ -6,10 +6,8 @@ use BristolSU\ControlDB\Contracts\Models\Group;
 use BristolSU\ControlDB\Contracts\Models\Role;
 use BristolSU\ControlDB\Contracts\Models\User;
 use BristolSU\Support\Logic\Audience\AudienceMember;
-use BristolSU\Support\Logic\DatabaseDecorator\LogicResult;
 use BristolSU\Support\Logic\Logic;
 use Illuminate\Support\Collection;
-use JetBrains\PhpStorm\Pure;
 
 /**
  * Create an audience member.
@@ -47,21 +45,21 @@ interface AudienceMemberFactory
     public function audience(Logic $logic, ?User $user = null, ?Group $group = null, ?Role $role = null): Collection;
 
     /**
-     * Return all users that have access to the logic group
+     * Return all users that have access to the logic group.
      * @param Logic $logic
      * @return Collection
      */
     public function getUsersInLogicGroup(Logic $logic): Collection;
 
     /**
-     * Return all groups that have access to the logic group
+     * Return all groups that have access to the logic group.
      * @param Logic $logic
      * @return Collection
      */
     public function getGroupsInLogicGroup(Logic $logic): Collection;
 
     /**
-     * Return all roles that have access to the logic group
+     * Return all roles that have access to the logic group.
      * @param Logic $logic
      * @return Collection
      */
