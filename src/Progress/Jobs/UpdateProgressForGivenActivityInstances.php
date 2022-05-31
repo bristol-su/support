@@ -59,7 +59,7 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
     public function middleware()
     {
         $middleware = new WithoutOverlapping(releaseAfter: 60);
-        Log::info('Caching with the key ' . $middleware->getLockKey($this));
+        Log::info('Caching with the key ' . $middleware->getLockKey($this) . '. The cache ' . (cache()->has($middleware->getLockKey($this)) ? 'has' : 'does not have') . ' the key');
         return [$middleware];
     }
 }
