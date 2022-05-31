@@ -4,6 +4,7 @@
 namespace BristolSU\Support\Progress;
 
 use BristolSU\Support\Progress\Commands\UpdateProgress;
+use BristolSU\Support\Progress\Commands\UpdateProgressForSingleGroupAndActivity;
 use BristolSU\Support\Progress\Contracts\ProgressUpdateContract;
 use Illuminate\Support\ServiceProvider;
 
@@ -21,7 +22,8 @@ class ProgressServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->commands([
-            UpdateProgress::class
+            UpdateProgress::class,
+            UpdateProgressForSingleGroupAndActivity::class
         ]);
     }
 }

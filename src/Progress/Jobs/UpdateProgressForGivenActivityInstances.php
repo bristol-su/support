@@ -69,7 +69,7 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
         Log::info('Accquiring the cache lock: ' . $lock->get(function() {
             Log::info('doing callback');
         }) ? 'got it' : 'failed');
-        
+
         return [$middleware];
     }
 }
