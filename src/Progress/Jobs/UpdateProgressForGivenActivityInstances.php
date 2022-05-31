@@ -50,7 +50,7 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
         $filteredProgresses = array_values(array_filter($progresses));
 
         Log::info('Ready to export progress!');
-        
+
         if ($filteredProgresses) {
             ProgressExport::driver($this->driver)->saveMany($filteredProgresses);
         }
@@ -59,15 +59,5 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
     public function middleware()
     {
         return [new WithoutOverlapping()];
-    }
-
-    /**
-     * Determine the time at which the job should timeout.
-     *
-     * @return \DateTime
-     */
-    public function retryUntil()
-    {
-        return now()->addMinutes(10);
     }
 }
