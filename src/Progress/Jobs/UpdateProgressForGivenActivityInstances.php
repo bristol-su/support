@@ -56,8 +56,8 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
         }
     }
 
-    public function middleware()
-    {
-        return [new WithoutOverlapping()];
-    }
+//    public function middleware()
+//    {
+//        return [new WithoutOverlapping()];
+//    }
 }
