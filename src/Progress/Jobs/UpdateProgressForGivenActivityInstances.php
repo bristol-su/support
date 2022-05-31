@@ -59,17 +59,17 @@ class UpdateProgressForGivenActivityInstances implements ShouldQueue
         }
     }
 
-    public function middleware()
-    {
-        $middleware = new WithoutOverlapping(expiresAfter: 360);
-        /** @var Lock $lock */
-        $lock = Container::getInstance()->make(Cache::class)->lock(
-            $middleware->getLockKey($this), 180
-        );
-        Log::info('Accquiring the cache lock: ' . $lock->get(function() {
-            Log::info('doing callback');
-        }) ? 'got it' : 'failed');
-
-        return [$middleware];
-    }
+//    public function middleware()
+//    {
+//        $middleware = new WithoutOverlapping(expiresAfter: 360);
+//        /** @var Lock $lock */
+//        $lock = Container::getInstance()->make(Cache::class)->lock(
+//            $middleware->getLockKey($this), 180
+//        );
+//        Log::info('Accquiring the cache lock: ' . $lock->get(function() {
+//            Log::info('doing callback');
+//        }) ? 'got it' : 'failed');
+//
+//        return [$middleware];
+//    }
 }
